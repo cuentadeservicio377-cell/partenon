@@ -16,3 +16,4 @@ Thumbs.db
 *.swp
 *.log
 logs/
+.kimi/research/
