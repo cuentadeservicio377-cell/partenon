@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Partenon — Documentación Técnica</title>
+  <meta name="description" content="Arquitectura técnica de Partenon: agentes especializados, MCPs, integraciones con Google Workspace, Stripe y G-Brain, e instalación." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            partenon: {
+              bg: '#0a0a0a',
+              surface: '#111111',
+              surface2: '#1a1a1a',
+              text: '#f5f5f5',
+              muted: '#9a9a9a',
+              accent: '#c9a227',
+              accent2: '#d4af37',
+              line: '#2a2a2a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { background-color: #0a0a0a; color: #f5f5f5; }
+    .grain {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 50;
+    }
+    .reveal {
+      opacity: 1;
+      transform: translateY(12px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .hero-gradient {
+      background: radial-gradient(circle at 50% 0%, rgba(201,162,39,0.10) 0%, transparent 55%);
+    }
+    .mermaid {
+      background: transparent !important;
+    }
+    .mermaid svg {
+      max-width: 100%;
+      width: 100%;
+      height: auto;
+      font-size: 14px;
+    }
+    .mermaid .node rect, .mermaid .node circle, .mermaid .node polygon {
+      stroke-width: 2px;
+    }
+    code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    pre {
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased">
+  <div class="grain"></div>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-40 border-b border-partenon-line bg-partenon-bg/80 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="font-serif text-xl tracking-wide text-partenon-text">Partenon</a>
+      <div class="hidden md:flex items-center gap-8 text-sm">
+        <a href="#architecture" class="text-partenon-muted hover:text-partenon-text transition">Arquitectura</a>
+        <a href="#heroes" class="text-partenon-muted hover:text-partenon-text transition">Agentes</a>
+        <a href="#integrations" class="text-partenon-muted hover:text-partenon-text transition">Integraciones</a>
+        <a href="#workshop" class="text-partenon-muted hover:text-partenon-text transition">Workshop</a>
+        <a href="index.html" class="text-partenon-accent hover:text-partenon-accent2 transition">← Marketing</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="relative min-h-[70vh] flex items-center justify-center hero-gradient pt-20">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <p class="reveal text-partenon-accent text-xs tracking-[0.3em] uppercase mb-6">Documentación técnica</p>
+      <h1 class="reveal font-serif text-5xl md:text-7xl lg:text-8xl leading-[1.05] mb-8">
+        Arquitectura de un<br />
+        <span class="text-partenon-accent">panteón operativo.</span>
+      </h1>
+      <p class="reveal text-lg md:text-xl text-partenon-muted max-w-2xl mx-auto mb-12 leading-relaxed">
+        Partenon extiende Hermes Business OS con perfiles de agentes especializados, conectados por MCP 
+        y unificados bajo G-Brain. Aquí explicamos cómo se construye.
+      </p>
+      <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#install" class="px-8 py-4 bg-partenon-accent text-partenon-bg font-medium rounded-full hover:bg-partenon-accent2 transition">
+          Comando de instalación
+        </a>
+        <a href="https://github.com/cuentadeservicio377-cell/hermes-business-os" target="_blank" class="px-8 py-4 border border-partenon-line text-partenon-text rounded-full hover:border-partenon-accent transition">
+          Repositorio base
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture -->
+  <section id="architecture" class="py-32 bg-partenon-surface">
+    <div class="max-w-6xl mx-auto px-6">
+      <p class="reveal text-partenon-accent text-xs tracking-[0.3em] uppercase mb-6">Arquitectura</p>
+      <h2 class="reveal font-serif text-4xl md:text-6xl mb-12">
+        Capas del Partenón.
+      </h2>
+      <div class="reveal bg-partenon-bg border border-partenon-line rounded-2xl p-8 mb-12">
+        <pre class="mermaid">
+flowchart LR
+    subgraph UI["Interfaz"]
+        Telegram["Telegram Bot"]
+        WhatsApp["WhatsApp Business"]
+        Dashboard["Next.js Dashboard"]
+    end
+
+    subgraph Core["Hermes Agent Core"]
+        Router["Context Router"]
+        Memory["Memory System"]
+        SkillEngine["Skill Engine"]
+    end
+
+    subgraph Partenon["Partenon Profiles"]
+        Finance["Tesorero<br/>hermes-finanzas"]
+        Sales["Mensajero<br/>hermes-ventas"]
+        Docs["Escriba<br/>hermes-documentos"]
+        Ops["Estratega<br/>hermes-operaciones"]
+        HR["Capitán<br/>hermes-rrhh"]
+        Stripe["Cobrador<br/>stripe-skill"]
+        Security["Guardián<br/>security-skill"]
+        Relations["Diplomático<br/>relations-skill"]
+    end
+
+    subgraph Brain["Cerebro"]
+        GBrain["G-Brain de Garitán"]
+    end
+
+    subgraph Data["Datos"]
+        Sheets["Google Sheets"]
+        Drive["Google Drive"]
+        FinanceFile[".finance"]
+        DesignFile[".design"]
+    end
+
+    UI --> Core
+    Core --> Partenon
+    Partenon --> Brain
+    Partenon --> Data
+    Brain --> Partenon
+        </pre>
+      </div>
+      <div class="reveal grid md:grid-cols-2 gap-8 text-partenon-muted leading-relaxed">
+        <div>
+          <h3 class="text-partenon-text text-xl mb-3">1. Interfaz conversacional</h3>
+          <p>El dueño interactúa por Telegram, WhatsApp o dashboard web. No hay menús: habla como con un socio. Hermes Agent enruta la intención al skill correcto.</p>
+        </div>
+        <div>
+          <h3 class="text-partenon-text text-xl mb-3">2. Perfiles de Partenon</h3>
+          <p>Cada héroe es un skill (o conjunto de skills) con un perfil, herramientas y MCPs. Toman misiones del Partenón y entregan resultados en el workspace de la empresa.</p>
+        </div>
+        <div>
+          <h3 class="text-partenon-text text-xl mb-3">3. G-Brain como cerebro</h3>
+          <p>Todos los agentes se conectan a G-Brain vía MCP. Ahí vive la memoria compartida, el conocimiento de la empresa y las instrucciones que cada perfil necesita.</p>
+        </div>
+        <div>
+          <h3 class="text-partenon-text text-xl mb-3">4. Google Workspace como superficie</h3>
+          <p>Los datos se escriben en Google Sheets. Los documentos en Docs/Slides. La empresa conserva el control y trabaja en herramientas que ya conoce.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stack -->
+  <section class="py-32 bg-partenon-bg border-y border-partenon-line">
+    <div class="max-w-6xl mx-auto px-6">
+      <p class="reveal text-partenon-accent text-xs tracking-[0.3em] uppercase mb-6 text-center">Stack</p>
+      <h2 class="reveal font-serif text-4xl md:text-6xl text-center mb-16">
+        Tecnologías.
+      </h2>
+      <div class="reveal grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-partenon-surface border border-partenon-line rounded-xl p-6">
+          <h3 class="text-partenon-text font-medium mb-2">Agent Core</h3>
+          <p class="text-partenon-muted text-sm">Hermes Agent (Nous Research) — Python</p>
+        </div>
+        <div class="bg-partenon-surface border border-partenon-line rounded-xl p-6">
+          <h3 class="text-partenon-text font-medium mb-2">Dashboard</h3>
+          <p class="text-partenon-muted text-sm">Next.js 15 + React 19 + TypeScript + Tailwind</p>
+        </div>
+        <div class="bg-partenon-surface border border-partenon-line rounded-xl p-6">
+          <h3 class="text-partenon-text font-medium mb-2">Documentos</h3>
+          <p class="text-partenon-muted text-sm">Python + WeasyPrint (Kami v3)</p>
+        </div>
+        <div class="bg-partenon-surface border border-partenon-line rounded-xl p-6">
+          <h3 class="text-partenon-text font-medium mb-2">Datos</h3>
+          <p class="text-partenon-muted text-sm">Google Sheets + JSON local</p>
+        </div>
+        <div class="bg-partenon-surface border border-partenon-line rounded-xl p-6">
+          <h3 class="text-partenon-text font-medium mb-2">Mensajería</h3>
+          <p class="text-partenon-muted text-sm">Telegram (primario) + WhatsApp</p>
+        </div>
+        <div class="bg-partenon-surface border border-partenon-line rounded-xl p-6">
+          <h3 class="text-partenon-text font-medium mb-2">Pagos</h3>
+          <p class="text-partenon-muted text-sm">Stripe API</p>
+        </div>
+        <div class="bg-partenon-surface border border-partenon-line rounded-xl p-6">
+          <h3 class="text-partenon-text font-medium mb-2">Memoria</h3>
+          <p class="text-partenon-muted text-sm">G-Brain de Garitán vía MCP</p>
+        </div>
+        <div class="bg-partenon-surface border border-partenon-line rounded-xl p-6">
+          <h3 class="text-partenon-text font-medium mb-2">Deploy</h3>
+          <p class="text-partenon-muted text-sm">Docker / Docker Compose</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Heroes Technical -->
+  <section id="heroes" class="py-32 bg-partenon-surface">
+    <div class="max-w-6xl mx-auto px-6">
+      <p class="reveal text-partenon-accent text-xs tracking-[0.3em] uppercase mb-6">Agentes</p>
+      <h2 class="reveal font-serif text-4xl md:text-6xl mb-16">
+        Fichas técnicas de los héroes.
+      </h2>
+
+      <div class="space-y-8">
+        <!-- Tesorero -->
+        <div class="reveal bg-partenon-bg border border-partenon-line rounded-2xl p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div>
+              <h3 class="font-serif text-2xl text-partenon-text">Tesorero — <code class="text-partenon-accent">hermes-finanzas</code></h3>
+              <p class="text-partenon-muted mt-1">Orden financiero y dashboards en Google Sheets.</p>
+            </div>
+            <span class="px-3 py-1 rounded-full border border-partenon-accent text-partenon-accent text-xs">Existente HBOS</span>
+          </div>
+          <div class="grid md:grid-cols-3 gap-6 text-sm">
+            <div>
+              <h4 class="text-partenon-text font-medium mb-2">Entradas</h4>
+              <ul class="text-partenon-muted space-y-1 list-disc list-inside">
+                <li>Mensajes del dueño</li>
+                <li>Archivos Excel/CSV</li>
+                <li>Facturas y recibos</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-partenon-text font-medium mb-2">Salidas</h4>
+              <ul class="text-partenon-muted space-y-1 list-disc list-inside">
+                <li>Google Sheet maestro</li>
+                <li>Archivo <code>.finance</code></li>
+                <li>Dashboards y alertas</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-partenon-text font-medium mb-2">MCPs / Tools</h4>
+              <ul class="text-partenon-muted space-y-1 list-disc list-inside">
+                <li>Google Sheets API</li>
+                <li>Google Drive API</li>
+                <li>Parser de costos</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mensajero -->
+        <div class="reveal bg-partenon-bg border border-partenon-line rounded-2xl p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div>
+              <h3 class="font-serif text-2xl text-partenon-text">Mensajero — <code class="text-partenon-accent">hermes-ventas + marketing</code></h3>
+              <p class="text-partenon-muted mt-1">CRM, cotizaciones, campañas y comunicación.</p>
+            </div>
+            <span class="px-3 py-1 rounded-full border border-partenon-accent text-partenon-accent text-xs">Existente + extensión</span>
+          </div>
+          <div class="grid md:grid-cols-3 gap-6 text-sm">
+            <div>
+              <h4 class="text-partenon-text font-medium mb-2">Entradas</h4>
+              <ul class="text-partenon-muted space-y-1 list-disc list-inside">
+                <li>Brief de campaña</li>
+                <li>Datos de cliente</li>
+                <li>Presupuesto del Tesorero</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-partenon-text font-medium mb-2">Salidas</h4>
+              <ul class="text-partenon-muted space-y-1 list-disc list-inside">
+                <li>Calendario de contenido</li>
+                <li>Copys y posts</li>
+                <li>Presentaciones</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-partenon-text font-medium mb-2">MCPs / Tools</h4>
+              <ul class="text-partenon-muted space-y-1 list-disc list-inside">
+                <li>Google Docs / Slides</li>
+                <li>Redes sociales (APIs)</li>
+                <li>Archivo <code>.design</code></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Escriba -->
+        <div class="reveal bg-partenon-bg border border-partenon-line rounded-2xl p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div>
+              <h3 class="font-serif text-2xl text-partenon-text">Escriba — <code class="text-partenon-accent">hermes-documentos</code></h3>
+              <p class="text-partenon-muted mt-1">Generación de documentos profesionales.</p>
+            </div>
+            <span class="px-3 py-1 rounded-full border border-partenon-accent text-partenon-accent text-xs">Existente HBOS</span>
+          </div>
+          <div class="grid md:grid-cols-3 gap-6 text-sm">
+            <div>
+              <h4 class="text-partenon-text font-medium mb-2">Entradas</h4>
+              <ul class="text-partenon-muted space-y-1 list-disc list-inside">
+                <li>Templates</li>
+                <li>Datos de operaciones/ventas</li>
+                <li>Marca (archivo .design)</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-partenon-text font-medium mb-2">Salidas</h4>
+              <ul class="text-partenon-muted space-y-1 list-disc list-inside">
+                <li>PDFs (Kami v3)</li>
+                <li>Google Docs / Slides</li>
+                <li>Contratos y cotizaciones</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-partenon-text font-medium mb-2">MCPs / Tools</h4>
+              <ul class="text-partenon-muted space-y-1 list-disc list-inside">
+                <li>WeasyPrint</li>
+                <li>Google Docs API</li>
+                <li>Templates HTML/CSS</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Estratega -->
+        <div class="reveal bg-partenon-bg border border-partenon-line rounded-2xl p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div>
+              <h3 class="font-serif text-2xl text-partenon-text">Estratega — <code class="text-partenon-accent">hermes-operaciones</code></h3>
+              <p class="text-partenon-muted mt-1">Proyectos, tareas, calendarios y recordatorios.</p>
+            </div>
+            <span class="px-3 py-1 rounded-full border border-partenon-accent text-partenon-accent text-xs">Existente HBOS</span>
+          </div>
+          <div class="grid md:grid-cols-3 gap-6 text-sm">
+            <div>
+              <h4 class="text-partenon-text font-medium mb-2">Entradas</h4>
+              <ul class="text-partenon-muted space-y-1 list-disc list-inside">
+                <li>Misiones de seguimiento</li>
+                <li>Eventos de Calendar</li>
+                <li>Correos y notas</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-partenon-text font-medium mb-2">Salidas</h4>
+              <ul class="text-partenon-muted space-y-1 list-disc list-inside">
+                <li>Proyectos y tareas</li>
+                <li>Recordatorios</li>
+                <li>Reportes de avance</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-partenon-text font-medium mb-2">MCPs / Tools</h4>
+              <ul class="text-partenon-muted space-y-1 list-disc list-inside">
+                <li>Google Calendar API</li>
+                <li>Gmail API</li>
+                <li>Task manager</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cobrador -->
+        <div class="reveal bg-partenon-bg border border-partenon-line rounded-2xl p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div>
+              <h3 class="font-serif text-2xl text-partenon-text">Cobrador — <code class="text-partenon-accent">stripe-skill</code></h3>
+              <p class="text-partenon-muted mt-1">Pagos, suscripciones y recordatorios de cobranza.</p>
+            </div>
+            <span class="px-3 py-1 rounded-full border border-partenon-line text-partenon-muted text-xs">Nuevo</span>
+          </div>
+          <div class="grid md:grid-cols-3 gap-6 text-sm">
+            <div>
+              <h4 class="text-partenon-text font-medium mb-2">Entradas</h4>
+              <ul class="text-partenon-muted space-y-1 list-disc list-inside">
+                <li>Clientes y facturas</li>
+                <li>Productos/servicios</li>
+                <li>Políticas de cobro</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-partenon-text font-medium mb-2">Salidas</h4>
+              <ul class="text-partenon-muted space-y-1 list-disc list-inside">
+                <li>Links de pago</li>
+                <li>Recordatorios</li>
+                <li>Reporte de ingresos</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-partenon-text font-medium mb-2">MCPs / Tools</h4>
+              <ul class="text-partenon-muted space-y-1 list-disc list-inside">
+                <li>Stripe API</li>
+                <li>Google Sheets</li>
+                <li>Notificaciones</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Guardián -->
+        <div class="reveal bg-partenon-bg border border-partenon-line rounded-2xl p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div>
+              <h3 class="font-serif text-2xl text-partenon-text">Guardián — <code class="text-partenon-accent">security-skill</code></h3>
+              <p class="text-partenon-muted mt-1">Gestión de API keys, modelos y permisos.</p>
+            </div>
+            <span class="px-3 py-1 rounded-full border border-partenon-line text-partenon-muted text-xs">Nuevo</span>
+          </div>
+          <div class="grid md:grid-cols-3 gap-6 text-sm">
+            <div>
+              <h4 class="text-partenon-text font-medium mb-2">Entradas</h4>
+              <ul class="text-partenon-muted space-y-1 list-disc list-inside">
+                <li>Cuentas y servicios</li>
+                <li>Modelos disponibles</li>
+                <li>Políticas de acceso</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-partenon-text font-medium mb-2">Salidas</h4>
+              <ul class="text-partenon-muted space-y-1 list-disc list-inside">
+                <li>Configuración de keys</li>
+                <li>Rotación segura</li>
+                <li>Auditoría</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-partenon-text font-medium mb-2">MCPs / Tools</h4>
+              <ul class="text-partenon-muted space-y-1 list-disc list-inside">
+                <li>Nvidia / OpenAI / Kimi APIs</li>
+                <li>Vault local</li>
+                <li>Permisos por perfil</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Data Flow -->
+  <section class="py-32 bg-partenon-bg border-y border-partenon-line">
+    <div class="max-w-6xl mx-auto px-6">
+      <p class="reveal text-partenon-accent text-xs tracking-[0.3em] uppercase mb-6">Flujo</p>
+      <h2 class="reveal font-serif text-4xl md:text-6xl mb-12">
+        De una idea a un spreadsheet.
+      </h2>
+      <div class="reveal bg-partenon-surface border border-partenon-line rounded-2xl p-8">
+        <pre class="mermaid">
+sequenceDiagram
+    actor Owner as Dueño
+    participant Hermes as Hermes Agent
+    participant Router as Context Router
+    participant GBrain as G-Brain
+    participant Hero as Héroe (skill)
+    participant Sheets as Google Sheets
+
+    Owner->>Hermes: "Quiero saber cuánto gané este mes"
+    Hermes->>Router: route(intent)
+    Router->>GBrain: consultar contexto empresa
+    GBrain-->>Router: perfil + archivos .finance
+    Router->>Hero: hermes-finanzas
+    Hero->>Sheets: leer/escribir datos
+    Sheets-->>Hero: movimientos actualizados
+    Hero->>GBrain: guardar análisis
+    Hero-->>Hermes: resumen + gráfico
+    Hermes-->>Owner: "Ganaste $X. Aquí está tu dashboard."
+        </pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Integrations -->
+  <section id="integrations" class="py-32 bg-partenon-surface">
+    <div class="max-w-6xl mx-auto px-6">
+      <p class="reveal text-partenon-accent text-xs tracking-[0.3em] uppercase mb-6 text-center">Integraciones</p>
+      <h2 class="reveal font-serif text-4xl md:text-6xl text-center mb-16">
+        Conectado a lo que ya usas.
+      </h2>
+      <div class="reveal grid md:grid-cols-3 gap-8">
+        <div class="bg-partenon-bg border border-partenon-line rounded-2xl p-8">
+          <h3 class="font-serif text-2xl text-partenon-text mb-4">Google Workspace</h3>
+          <p class="text-partenon-muted mb-6 leading-relaxed">Sheets como fuente de verdad. Docs y Slides como entregables. Drive como repositorio compartido.</p>
+          <ul class="text-sm text-partenon-muted space-y-2">
+            <li>• Sheets API (datos maestros)</li>
+            <li>• Docs API (documentos)</li>
+            <li>• Slides API (presentaciones)</li>
+            <li>• Drive API (archivos)</li>
+            <li>• Calendar + Gmail</li>
+          </ul>
+        </div>
+        <div class="bg-partenon-bg border border-partenon-line rounded-2xl p-8">
+          <h3 class="font-serif text-2xl text-partenon-text mb-4">Stripe</h3>
+          <p class="text-partenon-muted mb-6 leading-relaxed">Pagos, suscripciones, recordatorios y reportes de ingresos integrados con el flujo de ventas.</p>
+          <ul class="text-sm text-partenon-muted space-y-2">
+            <li>• Payment Links</li>
+            <li>• Subscriptions</li>
+            <li>• Invoices</li>
+            <li>• Webhooks</li>
+            <li>• Reporting</li>
+          </ul>
+        </div>
+        <div class="bg-partenon-bg border border-partenon-line rounded-2xl p-8">
+          <h3 class="font-serif text-2xl text-partenon-text mb-4">G-Brain</h3>
+          <p class="text-partenon-muted mb-6 leading-relaxed">Cerebro central del Partenón. Memoria persistente, contexto compartido y orquestación entre agentes.</p>
+          <ul class="text-sm text-partenon-muted space-y-2">
+            <li>• MCP server</li>
+            <li>• Memoria por empresa</li>
+            <li>• Instrucciones de perfiles</li>
+            <li>• Audit log</li>
+            <li>• Conocimiento compartido</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Workshop -->
+  <section id="workshop" class="py-32 bg-partenon-bg">
+    <div class="max-w-5xl mx-auto px-6">
+      <p class="reveal text-partenon-accent text-xs tracking-[0.3em] uppercase mb-6">Workshop técnico</p>
+      <h2 class="reveal font-serif text-4xl md:text-6xl mb-12">
+        Instalamos Hermes en 90 minutos.
+      </h2>
+      <div class="reveal grid md:grid-cols-2 gap-8 mb-12">
+        <div class="space-y-6">
+          <div class="flex gap-4">
+            <div class="w-8 h-8 rounded-full border border-partenon-accent text-partenon-accent flex items-center justify-center font-serif text-sm shrink-0">1</div>
+            <div>
+              <h3 class="text-partenon-text font-medium mb-1">Pre-instalación</h3>
+              <p class="text-partenon-muted text-sm">Los participantes corren el comando de instalación y configuran Google Workspace antes del evento.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="w-8 h-8 rounded-full border border-partenon-accent text-partenon-accent flex items-center justify-center font-serif text-sm shrink-0">2</div>
+            <div>
+              <h3 class="text-partenon-text font-medium mb-1">Onboarding en vivo</h3>
+              <p class="text-partenon-muted text-sm">Configuramos el <code>client.yaml</code>, conectamos Telegram/WhatsApp y validamos el health check.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="w-8 h-8 rounded-full border border-partenon-accent text-partenon-accent flex items-center justify-center font-serif text-sm shrink-0">3</div>
+            <div>
+              <h3 class="text-partenon-text font-medium mb-1">Primera misión</h3>
+              <p class="text-partenon-muted text-sm">Cada participante publica una misión real y ve cómo un héroe la toma y entrega en Google Sheets.</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-partenon-surface border border-partenon-line rounded-2xl p-6">
+          <h3 class="text-partenon-text font-medium mb-4">Requisitos previos</h3>
+          <ul class="text-partenon-muted text-sm space-y-2">
+            <li>• Cuenta de Google Workspace (gratuita funciona)</li>
+            <li>• Bot de Telegram o cuenta de WhatsApp Business</li>
+            <li>• Docker instalado</li>
+            <li>• API key de modelo (OpenRouter recomendado)</li>
+            <li>• Stripe account (opcional, para cobranza)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Install -->
+  <section id="install" class="py-32 bg-partenon-surface">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <p class="reveal text-partenon-accent text-xs tracking-[0.3em] uppercase mb-6">Instalación</p>
+      <h2 class="reveal font-serif text-4xl md:text-6xl mb-8">
+        Empieza en 5 minutos.
+      </h2>
+      <div class="reveal text-left bg-partenon-bg border border-partenon-line rounded-2xl p-8 mb-8">
+        <p class="text-partenon-muted text-sm mb-4">Paso 1 — Instalar Hermes Agent</p>
+        <pre class="font-mono text-sm text-partenon-text bg-partenon-surface2 rounded-lg p-4 mb-6"><span class="text-partenon-muted">$</span> curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash</pre>
+        
+        <p class="text-partenon-muted text-sm mb-4">Paso 2 — Instalar Partenon skills</p>
+        <pre class="font-mono text-sm text-partenon-text bg-partenon-surface2 rounded-lg p-4 mb-6"><span class="text-partenon-muted">$</span> git clone https://github.com/cuentadeservicio377-cell/hermes-business-os.git
+<span class="text-partenon-muted">$</span> cd hermes-business-os
+<span class="text-partenon-muted">$</span> bash scripts/install.sh</pre>
+        
+        <p class="text-partenon-muted text-sm mb-4">Paso 3 — Configurar empresa</p>
+        <pre class="font-mono text-sm text-partenon-text bg-partenon-surface2 rounded-lg p-4"><span class="text-partenon-muted">$</span> cp config/client.yaml.example config/client.yaml
+<span class="text-partenon-muted">$</span> cp .env.example .env
+<span class="text-partenon-muted">$</span> docker-compose up -d</pre>
+      </div>
+      <div class="reveal">
+        <a href="https://github.com/cuentadeservicio377-cell/hermes-business-os" target="_blank" class="px-8 py-4 bg-partenon-accent text-partenon-bg font-medium rounded-full hover:bg-partenon-accent2 transition inline-block">
+          Ver repositorio completo
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-partenon-bg border-t border-partenon-line">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="font-serif text-xl text-partenon-text">Partenon</div>
+      <div class="text-partenon-muted text-sm">
+        Basado en <a href="https://github.com/cuentadeservicio377-cell/hermes-business-os" class="text-partenon-accent hover:underline">Hermes Business OS</a> · Open source
+      </div>
+      <div class="flex gap-6 text-sm">
+        <a href="index.html" class="text-partenon-muted hover:text-partenon-text">Marketing</a>
+        <a href="#architecture" class="text-partenon-muted hover:text-partenon-text">Arquitectura</a>
+        <a href="#heroes" class="text-partenon-muted hover:text-partenon-text">Agentes</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      themeVariables: {
+        primaryColor: '#1a1a1a',
+        primaryTextColor: '#f5f5f5',
+        primaryBorderColor: '#c9a227',
+        lineColor: '#6b6b6b',
+        secondaryColor: '#111111',
+        tertiaryColor: '#0a0a0a',
+        fontFamily: 'Inter, system-ui, sans-serif'
+      },
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true,
+        curve: 'basis'
+      },
+      sequence: {
+        useMaxWidth: true
+      }
+    });
+
+    // Reveal on scroll
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    revealElements.forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>
