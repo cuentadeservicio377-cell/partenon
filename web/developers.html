@@ -125,49 +125,22 @@
       <h2 class="reveal font-serif text-4xl md:text-6xl mb-12">
         Capas del Partenón.
       </h2>
-      <div class="reveal bg-partenon-bg border border-partenon-line rounded-2xl p-8 mb-12">
-        <pre class="mermaid">
+      <div class="reveal bg-partenon-bg border border-partenon-line rounded-2xl p-4 md:p-8 mb-12 overflow-x-auto">
+        <div class="min-w-[900px]">
+          <pre class="mermaid">
 flowchart LR
-    subgraph UI["Interfaz"]
-        Telegram["Telegram Bot"]
-        WhatsApp["WhatsApp Business"]
-        Dashboard["Next.js Dashboard"]
-    end
-
-    subgraph Core["Hermes Agent Core"]
-        Router["Context Router"]
-        Memory["Memory System"]
-        SkillEngine["Skill Engine"]
-    end
-
-    subgraph Partenon["Partenon Profiles"]
-        Finance["Tesorero<br/>hermes-finanzas"]
-        Sales["Mensajero<br/>hermes-ventas"]
-        Docs["Escriba<br/>hermes-documentos"]
-        Ops["Estratega<br/>hermes-operaciones"]
-        HR["Capitán<br/>hermes-rrhh"]
-        Stripe["Cobrador<br/>stripe-skill"]
-        Security["Guardián<br/>security-skill"]
-        Relations["Diplomático<br/>relations-skill"]
-    end
-
-    subgraph Brain["Cerebro"]
-        GBrain["G-Brain de Garitán"]
-    end
-
-    subgraph Data["Datos"]
-        Sheets["Google Sheets"]
-        Drive["Google Drive"]
-        FinanceFile[".finance"]
-        DesignFile[".design"]
-    end
-
-    UI --> Core
-    Core --> Partenon
-    Partenon --> Brain
-    Partenon --> Data
-    Brain --> Partenon
-        </pre>
+    A["👤 Usuario"] --> B["💬 Interfaz<br/>Telegram / WhatsApp / Dashboard"]
+    B --> C["🧠 Hermes Agent Core"]
+    C --> D["⚡ Context Router"]
+    D --> E["📚 G-Brain<br/>memoria + conocimiento"]
+    D --> F["🛡️ Perfiles Partenon"]
+    F --> G["📊 Google Workspace<br/>Sheets / Docs / Drive"]
+    F --> H["💳 Stripe<br/>pagos + suscripciones"]
+    E --> F
+    G --> E
+    H --> E
+          </pre>
+        </div>
       </div>
       <div class="reveal grid md:grid-cols-2 gap-8 text-partenon-muted leading-relaxed">
         <div>
@@ -475,8 +448,9 @@ flowchart LR
       <h2 class="reveal font-serif text-4xl md:text-6xl mb-12">
         De una idea a un spreadsheet.
       </h2>
-      <div class="reveal bg-partenon-surface border border-partenon-line rounded-2xl p-8">
-        <pre class="mermaid">
+      <div class="reveal bg-partenon-surface border border-partenon-line rounded-2xl p-4 md:p-8 overflow-x-auto">
+        <div class="min-w-[800px]">
+          <pre class="mermaid">
 sequenceDiagram
     actor Owner as Dueño
     participant Hermes as Hermes Agent
@@ -495,7 +469,8 @@ sequenceDiagram
     Hero->>GBrain: guardar análisis
     Hero-->>Hermes: resumen + gráfico
     Hermes-->>Owner: "Ganaste $X. Aquí está tu dashboard."
-        </pre>
+          </pre>
+        </div>
       </div>
     </div>
   </section>
