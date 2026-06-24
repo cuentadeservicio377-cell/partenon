@@ -38,6 +38,6 @@
 - [x] Páginas se ven bien en desktop (1440px) y mobile (390px)
 - [x] No hay fuentes ni iconos baneados
 - [x] Mermaid renderiza sin errores
-- [ ] Commit realizado
-- [ ] TODOS.md actualizado
+- [x] Commit realizado
+- [x] TODOS.md actualizado
 - [x] README.md actualizado si cambia el scope
