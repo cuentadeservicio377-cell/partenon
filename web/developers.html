@@ -9,7 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,300,0,0&display=swap" rel="stylesheet" />
   <script>
     tailwind.config = {
       theme: {
@@ -20,18 +20,19 @@
             mono: ['JetBrains Mono', 'monospace'],
           },
           colors: {
-            bg: '#08080C',
-            surface: '#0E0E14',
-            panel: '#13131A',
-            'panel-strong': '#1A1A22',
+            bg: '#050505',
+            surface: '#08080C',
+            panel: '#0E0E14',
+            'panel-raised': '#111118',
+            'panel-strong': '#16161F',
             text: '#E8E8ED',
             muted: '#6B6B78',
             dim: '#45454F',
-            accent: '#00E0FF',
-            'accent-dim': 'rgba(0, 224, 255, 0.12)',
-            'accent-glow': 'rgba(0, 224, 255, 0.25)',
-            secondary: '#FF2D92',
-            line: 'rgba(255,255,255,0.08)',
+            accent: '#00D4FF',
+            'accent-dim': 'rgba(0, 212, 255, 0.10)',
+            'accent-glow': 'rgba(0, 212, 255, 0.20)',
+            live: '#FFB800',
+            line: 'rgba(255,255,255,0.07)',
             'line-strong': 'rgba(255,255,255,0.14)',
           }
         }
@@ -39,35 +40,160 @@
     }
   </script>
   <style>
-    :root { --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1); }
+    :root {
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
     html { scroll-behavior: smooth; }
-    body { background-color: #08080C; color: #E8E8ED; font-family: 'Geist', system-ui, sans-serif; overflow-x: clip; }
-    .mesh { position: fixed; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(ellipse 80% 60% at 10% 20%, rgba(0, 224, 255, 0.04) 0%, transparent 60%), radial-gradient(ellipse 70% 50% at 90% 80%, rgba(255, 45, 146, 0.03) 0%, transparent 55%); }
-    .noise { position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-    .scanlines { position: absolute; inset: 0; pointer-events: none; opacity: 0.03; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.4) 2px, rgba(0,0,0,0.4) 4px); }
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo); }
+    body {
+      background-color: #050505;
+      color: #E8E8ED;
+      font-family: 'Geist', system-ui, sans-serif;
+      overflow-x: clip;
+    }
+    .material-symbols-sharp {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+    .mesh {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 15% 20%, rgba(0, 212, 255, 0.045) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 45% at 85% 75%, rgba(255, 184, 0, 0.025) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 40% at 50% 50%, rgba(0, 212, 255, 0.02) 0%, transparent 55%);
+    }
+    .noise {
+      position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+    }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-    .panel { background: #13131A; border: 1px solid rgba(255,255,255,0.08); transition: border-color 0.3s var(--ease-out-expo), transform 0.3s var(--ease-out-expo); }
-    .panel:hover { border-color: rgba(255,255,255,0.14); transform: translateY(-2px); }
-    .panel-accent { border-color: rgba(0, 224, 255, 0.18); }
-    .panel-accent:hover { border-color: rgba(0, 224, 255, 0.35); box-shadow: 0 0 24px rgba(0, 224, 255, 0.08); }
-    .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: #00E0FF; color: #08080C; padding: 0.875rem 1.5rem; font-weight: 500; transition: all 0.3s var(--ease-out-expo); }
-    .btn-primary:hover { box-shadow: 0 0 24px rgba(0, 224, 255, 0.25); transform: translateY(-1px); }
+    .reveal-delay-1 { transition-delay: 80ms; }
+    .reveal-delay-2 { transition-delay: 160ms; }
+    .reveal-delay-3 { transition-delay: 240ms; }
+    .reveal-delay-4 { transition-delay: 320ms; }
+
+    .bezel {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 6px;
+    }
+    .bezel-inner {
+      background: #111118;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+    .bezel:hover { border-color: rgba(255,255,255,0.12); }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      font-weight: 500; letter-spacing: -0.01em;
+      transition: all 0.35s var(--ease-out-expo);
+    }
+    .btn-primary {
+      background: #00D4FF; color: #050505;
+      padding: 0.875rem 1.5rem;
+      border-radius: 999px;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 28px rgba(0, 212, 255, 0.22); }
     .btn-primary:active { transform: scale(0.98); }
-    .btn-secondary { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid rgba(255,255,255,0.08); color: #E8E8ED; padding: 0.875rem 1.5rem; font-weight: 500; transition: all 0.3s var(--ease-out-expo); }
-    .btn-secondary:hover { border-color: rgba(255,255,255,0.2); color: #00E0FF; }
-    .tag { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.14em; color: #6B6B78; }
-    .tag-dot { width: 5px; height: 5px; background: #00E0FF; box-shadow: 0 0 8px rgba(0, 224, 255, 0.6); }
-    .tag-dot.live { background: #FF2D92; box-shadow: 0 0 8px rgba(255, 45, 146, 0.6); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.10); color: #E8E8ED;
+      padding: 0.875rem 1.5rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.02);
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.20); color: #00D4FF; background: rgba(255,255,255,0.04); }
+    .btn-icon {
+      width: 1.75rem; height: 1.75rem; border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.12); transition: transform 0.35s var(--ease-spring);
+    }
+    .btn-primary:hover .btn-icon { transform: translate(2px, -1px); }
+    .btn-secondary:hover .btn-icon { transform: translate(2px, -1px); }
+
+    .tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 0.14em; color: #6B6B78;
+    }
+    .tag-dot { width: 5px; height: 5px; border-radius: 999px; background: #00D4FF; box-shadow: 0 0 10px rgba(0, 212, 255, 0.5); }
+    .line-divider { height: 1px; background: rgba(255,255,255,0.07); width: 100%; }
+
+    .nav-island {
+      position: fixed; top: 1.25rem; left: 50%; transform: translateX(-50%); z-index: 50;
+      background: rgba(8,8,12,0.72);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 999px;
+      padding: 0.5rem 0.75rem;
+      max-width: calc(100% - 1.5rem);
+    }
+    .nav-link {
+      font-size: 0.8125rem; color: #6B6B78; padding: 0.5rem 0.875rem; border-radius: 999px;
+      transition: all 0.25s var(--ease-out-expo);
+    }
+    .nav-link:hover { color: #E8E8ED; background: rgba(255,255,255,0.04); }
+
+    .mobile-menu {
+      position: fixed; inset: 0; z-index: 40;
+      background: rgba(5,5,5,0.96);
+      backdrop-filter: blur(24px);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.4s var(--ease-out-expo);
+    }
+    .mobile-menu.open { opacity: 1; pointer-events: auto; }
+    .mobile-menu a {
+      display: block; font-family: 'Space Grotesk', sans-serif; font-size: 2rem;
+      color: #E8E8ED; padding: 0.75rem 0;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+    }
+    .mobile-menu.open a { opacity: 1; transform: translateY(0); }
+    .mobile-menu.open a:nth-child(1) { transition-delay: 80ms; }
+    .mobile-menu.open a:nth-child(2) { transition-delay: 140ms; }
+    .mobile-menu.open a:nth-child(3) { transition-delay: 200ms; }
+    .mobile-menu.open a:nth-child(4) { transition-delay: 260ms; }
+    .mobile-menu.open a:nth-child(5) { transition-delay: 320ms; }
+
+    .hero-title {
+      font-size: clamp(3rem, 9vw, 7rem);
+      line-height: 0.9;
+      letter-spacing: -0.05em;
+    }
     .section-pad { padding-top: 6rem; padding-bottom: 6rem; }
     @media (min-width: 768px) { .section-pad { padding-top: 8rem; padding-bottom: 8rem; } }
-    .line-divider { height: 1px; background: rgba(255,255,255,0.08); width: 100%; }
-    code { font-family: 'JetBrains Mono', monospace; color: #00E0FF; }
-    pre { background: #0E0E14; border: 1px solid rgba(255,255,255,0.08); padding: 1rem; overflow-x: auto; }
-    .mermaid-container { background: #0E0E14; border: 1px solid rgba(255,255,255,0.08); padding: 1.5rem; }
+
+    code { font-family: 'JetBrains Mono', monospace; color: #00D4FF; }
+    pre {
+      background: #0E0E14; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 1rem; overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.875rem;
+    }
+
+    /* Mermaid overrides */
+    .mermaid-container { background: #0E0E14; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 1.5rem; }
     .mermaid svg { max-width: 100%; }
-    @media (max-width: 767px) { .hero-title { font-size: 2.75rem !important; line-height: 0.92 !important; } }
+    .mermaid .node rect, .mermaid .node circle, .mermaid .node polygon, .mermaid .node path {
+      fill: #111118 !important; stroke: #00D4FF !important; stroke-width: 1.5px !important;
+    }
+    .mermaid .node .label, .mermaid .edgeLabel {
+      color: #E8E8ED !important; font-family: 'Geist', sans-serif !important; font-size: 13px !important;
+    }
+    .mermaid .edge-thickness-normal { stroke: #6B6B78 !important; }
+    .mermaid .edge-pattern-solid { stroke: #6B6B78 !important; }
+
+    .stat-value { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
+
+    @media (max-width: 767px) {
+      .hero-title { font-size: clamp(2.5rem, 12vw, 3.5rem); }
+    }
   </style>
 </head>
 <body class="antialiased">
@@ -75,37 +201,60 @@
   <div class="noise"></div>
 
   <!-- Navigation -->
-  <nav class="fixed top-5 left-0 right-0 z-40 px-4">
-    <div class="max-w-[1400px] mx-auto flex items-center justify-between px-5 py-3 bg-surface/80 backdrop-blur-md border border-line">
-      <a href="index.html" class="font-display text-xl tracking-tight font-medium">PARTENON</a>
-      <div class="hidden md:flex items-center gap-8 text-sm text-muted">
-        <a href="#architecture" class="hover:text-text transition-colors duration-300">Arquitectura</a>
-        <a href="#heroes" class="hover:text-text transition-colors duration-300">Perfiles</a>
-        <a href="#install" class="hover:text-text transition-colors duration-300">Instalación</a>
-        <a href="#workshop" class="hover:text-text transition-colors duration-300">Workshop</a>
-      </div>
-      <a href="index.html" class="btn-secondary text-sm px-4 py-2">Marketing</a>
+  <nav class="nav-island flex items-center gap-1">
+    <a href="index.html" class="font-display text-base tracking-tight font-semibold px-3">PARTENON</a>
+    <div class="hidden md:flex items-center gap-1 ml-2">
+      <a href="#architecture" class="nav-link">Arquitectura</a>
+      <a href="#heroes" class="nav-link">Perfiles</a>
+      <a href="#install" class="nav-link">Instalación</a>
+      <a href="#workshop" class="nav-link">Workshop</a>
     </div>
+    <a href="index.html" class="btn btn-secondary text-sm px-4 py-2 ml-2 hidden md:inline-flex">
+      Marketing
+      <span class="material-symbols-sharp text-base">arrow_outward</span>
+    </a>
+    <button id="menuBtn" class="md:hidden w-10 h-10 inline-flex items-center justify-center text-text" aria-label="Abrir menú">
+      <span class="material-symbols-sharp">menu</span>
+    </button>
   </nav>
 
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="mobile-menu flex flex-col justify-center px-8">
+    <a href="#architecture">Arquitectura</a>
+    <a href="#heroes">Perfiles</a>
+    <a href="#install">Instalación</a>
+    <a href="#workshop">Workshop</a>
+    <a href="index.html">Marketing</a>
+    <button id="closeMenu" class="absolute top-6 right-6 w-12 h-12 flex items-center justify-center text-text">
+      <span class="material-symbols-sharp text-3xl">close</span>
+    </button>
+  </div>
+
   <!-- Hero -->
-  <section class="relative min-h-[80dvh] flex flex-col justify-center pt-28 pb-20 px-4">
+  <section class="relative min-h-[80dvh] flex flex-col justify-center pt-32 pb-20 px-4">
     <div class="max-w-[1400px] mx-auto w-full relative z-10">
-      <div class="reveal mb-6"><span class="tag"><span class="tag-dot"></span>Documentación técnica</span></div>
-      <div class="grid lg:grid-cols-12 gap-10 items-end">
+      <div class="grid lg:grid-cols-12 gap-12 items-end">
         <div class="lg:col-span-8">
-          <h1 class="reveal hero-title font-display text-5xl md:text-7xl lg:text-[6.5rem] leading-[0.9] tracking-[-0.04em] font-semibold mb-8">
+          <div class="reveal mb-6">
+            <span class="tag"><span class="tag-dot"></span>Documentación técnica</span>
+          </div>
+          <h1 class="reveal hero-title font-display font-semibold mb-8">
             Arquitectura de Partenon.
           </h1>
         </div>
         <div class="lg:col-span-4">
           <p class="reveal text-muted text-lg leading-relaxed mb-8">
-            Especificaciones técnicas para el jurado de Nous Research, Nvidia y Stripe: perfiles operativos, 
-            G-Brain vía MCP, integraciones y el workshop de 90 minutos.
+            Especificaciones técnicas para el jurado de Nous Research, Nvidia y Stripe: perfiles operativos, G-Brain vía MCP, integraciones y el workshop de 90 minutos.
           </p>
           <div class="reveal flex flex-wrap gap-4">
-            <a href="#architecture" class="btn-primary">Ver arquitectura</a>
-            <a href="https://github.com/paolameneses/partenon" target="_blank" rel="noopener" class="btn-secondary">GitHub</a>
+            <a href="#architecture" class="btn btn-primary">
+              Ver arquitectura
+              <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_downward</span></span>
+            </a>
+            <a href="https://github.com/paolameneses/partenon" target="_blank" rel="noopener" class="btn btn-secondary">
+              GitHub
+              <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_outward</span></span>
+            </a>
           </div>
         </div>
       </div>
@@ -113,31 +262,34 @@
   </section>
 
   <!-- Architecture -->
-  <section id="architecture" class="section-pad border-y border-line bg-surface/30">
+  <section id="architecture" class="section-pad border-y border-line bg-surface/40">
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="reveal max-w-2xl mb-16">
         <span class="tag mb-4 block">Arquitectura</span>
         <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Una empresa hecha de perfiles.</h2>
+        <p class="text-muted text-lg leading-relaxed">Partenon no es un chatbot con múltiples personalidades. Es una cola de misiones donde cada perfil tiene permisos, herramientas y memoria propia.</p>
       </div>
 
       <div class="reveal mermaid-container mb-12">
         <div class="mermaid">
 flowchart LR
-    subgraph "Partenón"
-        H[Hermes<br/>Orquestador]
-        G[G-Brain<br/>Memoria compartida]
-        subgraph "Perfiles"
-            T[Tesorero<br/>.finance]
-            M[Mensajero<br/>.design]
-            C[Cobrador<br/>Stripe]
-            GU[Guardián<br/>.security]
-            E[Estratega<br/>Ops]
-            D[Diplomático<br/>Relaciones]
+    subgraph PARTENON["Partenón"]
+        H["Hermes<br/>Orquestador"]
+        G["G-Brain<br/>Memoria compartida"]
+        subgraph PERFILES["Perfiles"]
+            T["Tesorero<br/>.finance"]
+            M["Mensajero<br/>.design"]
+            C["Cobrador<br/>Stripe"]
+            GU["Guardián<br/>.security"]
+            E["Estratega<br/>Ops"]
+            D["Diplomático<br/>Relaciones"]
         end
     end
+    U["Emprendedor"]
     GW["Google Workspace"]
     API["APIs externas<br/>Stripe / Nvidia / OpenAI / Kimi"]
 
+    U --> H
     H --> G
     G --> T & M & C & GU & E & D
     T & M & C & GU & E & D --> GW
@@ -147,18 +299,33 @@ flowchart LR
         </div>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-px bg-line">
-        <div class="reveal bg-bg p-6 md:p-8">
-          <h3 class="font-display text-lg tracking-[-0.02em] mb-2 text-accent">Hermes</h3>
-          <p class="text-muted text-sm leading-relaxed">Recibe intenciones del usuario y las convierte en misiones. Publica en una cola compartida que los perfiles pueden tomar.</p>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="reveal bezel">
+          <div class="bezel-inner p-6 md:p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-sharp text-accent">corporate_fare</span>
+              <h3 class="font-display text-lg tracking-tight">Hermes</h3>
+            </div>
+            <p class="text-muted text-sm leading-relaxed">Recibe intenciones del usuario y las convierte en misiones. Publica en una cola compartida que los perfiles pueden tomar.</p>
+          </div>
         </div>
-        <div class="reveal bg-bg p-6 md:p-8">
-          <h3 class="font-display text-lg tracking-[-0.02em] mb-2 text-accent">G-Brain</h3>
-          <p class="text-muted text-sm leading-relaxed">Memoria persistente vía MCP. Almacena perfiles, misiones pasadas, preferencias y resultados para mantener contexto entre agentes.</p>
+        <div class="reveal bezel reveal-delay-1">
+          <div class="bezel-inner p-6 md:p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-sharp text-accent">memory</span>
+              <h3 class="font-display text-lg tracking-tight">G-Brain</h3>
+            </div>
+            <p class="text-muted text-sm leading-relaxed">Memoria persistente vía MCP. Almacena perfiles, misiones pasadas, preferencias y resultados para mantener contexto entre agentes.</p>
+          </div>
         </div>
-        <div class="reveal bg-bg p-6 md:p-8">
-          <h3 class="font-display text-lg tracking-[-0.02em] mb-2 text-accent">Perfiles</h3>
-          <p class="text-muted text-sm leading-relaxed">Agentes con habilidades específicas. Cada uno lee su archivo de perfil correspondiente antes de actuar.</p>
+        <div class="reveal bezel reveal-delay-2">
+          <div class="bezel-inner p-6 md:p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-sharp text-accent">badge</span>
+              <h3 class="font-display text-lg tracking-tight">Perfiles</h3>
+            </div>
+            <p class="text-muted text-sm leading-relaxed">Agentes con habilidades específicas. Cada uno lee su archivo de perfil correspondiente antes de actuar.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -170,6 +337,7 @@ flowchart LR
       <div class="reveal max-w-2xl mb-16">
         <span class="tag mb-4 block">Flujo</span>
         <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Cómo se ejecuta una misión.</h2>
+        <p class="text-muted text-lg leading-relaxed">El emprendedor no le da instrucciones a cada perfil. Habla con Hermes. Hermes publica la misión. El perfil correcto la toma.</p>
       </div>
       <div class="reveal mermaid-container">
         <div class="mermaid">
@@ -198,144 +366,347 @@ sequenceDiagram
   </section>
 
   <!-- Stack -->
-  <section id="stack" class="section-pad border-y border-line bg-surface/30">
+  <section class="section-pad border-y border-line bg-surface/40">
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="reveal max-w-2xl mb-16">
         <span class="tag mb-4 block">Stack</span>
         <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Tecnologías planas y abiertas.</h2>
+        <p class="text-muted text-lg leading-relaxed">No construimos una plataforma cerrada. Partenon se monta sobre herramientas que las pymes ya usan.</p>
       </div>
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-line">
-        <div class="reveal bg-bg p-6"><div class="text-accent font-display text-xl tracking-[-0.02em] mb-2">Frontend</div><p class="text-muted text-sm">HTML estático, Tailwind CSS vía CDN, JavaScript vanilla.</p></div>
-        <div class="reveal bg-bg p-6"><div class="text-accent font-display text-xl tracking-[-0.02em] mb-2">Workspace</div><p class="text-muted text-sm">Google Sheets, Docs, Slides, Drive, Calendar, Gmail, Apps Script.</p></div>
-        <div class="reveal bg-bg p-6"><div class="text-accent font-display text-xl tracking-[-0.02em] mb-2">Pagos</div><p class="text-muted text-sm">Stripe API, webhooks, payment links y suscripciones.</p></div>
-        <div class="reveal bg-bg p-6"><div class="text-accent font-display text-xl tracking-[-0.02em] mb-2">IA / LLMs</div><p class="text-muted text-sm">Nvidia APIs, OpenAI, Kimi Coding y modelos locales según perfil.</p></div>
-        <div class="reveal bg-bg p-6"><div class="text-accent font-display text-xl tracking-[-0.02em] mb-2">Memoria</div><p class="text-muted text-sm">G-Brain conectado vía MCP para contexto persistente.</p></div>
-        <div class="reveal bg-bg p-6"><div class="text-accent font-display text-xl tracking-[-0.02em] mb-2">Diseño</div><p class="text-muted text-sm">Open Design, redes sociales, WordPress y SSH para sitios.</p></div>
-        <div class="reveal bg-bg p-6"><div class="text-accent font-display text-xl tracking-[-0.02em] mb-2">Comunicación</div><p class="text-muted text-sm">Telegram, WhatsApp y email como canales de entrada/salida.</p></div>
-        <div class="reveal bg-bg p-6"><div class="text-accent font-display text-xl tracking-[-0.02em] mb-2">Diagramas</div><p class="text-muted text-sm">Mermaid para arquitectura y secuencias.</p></div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors">
+          <div class="material-symbols-sharp text-accent mb-4">language</div>
+          <h3 class="font-display text-lg tracking-tight mb-2">Frontend</h3>
+          <p class="text-sm text-muted">HTML estático, Tailwind CSS vía CDN, JavaScript vanilla.</p>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-1">
+          <div class="material-symbols-sharp text-accent mb-4">workspace_premium</div>
+          <h3 class="font-display text-lg tracking-tight mb-2">Workspace</h3>
+          <p class="text-sm text-muted">Google Sheets, Docs, Slides, Drive, Calendar, Gmail.</p>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-2">
+          <div class="material-symbols-sharp text-accent mb-4">payments</div>
+          <h3 class="font-display text-lg tracking-tight mb-2">Pagos</h3>
+          <p class="text-sm text-muted">Stripe API, webhooks, payment links y suscripciones.</p>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-3">
+          <div class="material-symbols-sharp text-accent mb-4">neurology</div>
+          <h3 class="font-display text-lg tracking-tight mb-2">IA / LLMs</h3>
+          <p class="text-sm text-muted">Nous Research, OpenAI, Kimi Coding y modelos locales según perfil.</p>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors">
+          <div class="material-symbols-sharp text-accent mb-4">storage</div>
+          <h3 class="font-display text-lg tracking-tight mb-2">Memoria</h3>
+          <p class="text-sm text-muted">G-Brain conectado vía MCP para contexto persistente.</p>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-1">
+          <div class="material-symbols-sharp text-accent mb-4">design_services</div>
+          <h3 class="font-display text-lg tracking-tight mb-2">Diseño</h3>
+          <p class="text-sm text-muted">Open Design, redes sociales, WordPress y SSH para sitios.</p>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-2">
+          <div class="material-symbols-sharp text-accent mb-4">chat</div>
+          <h3 class="font-display text-lg tracking-tight mb-2">Comunicación</h3>
+          <p class="text-sm text-muted">Telegram, WhatsApp y email como canales de entrada/salida.</p>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-3">
+          <div class="material-symbols-sharp text-accent mb-4">account_tree</div>
+          <h3 class="font-display text-lg tracking-tight mb-2">Diagramas</h3>
+          <p class="text-sm text-muted">Mermaid para arquitectura y secuencias.</p>
+        </div>
+      </div>
+
+      <div class="reveal mt-12 bezel">
+        <div class="bezel-inner p-6 md:p-8">
+          <div class="flex items-center justify-between mb-4">
+            <span class="tag">Estructura del repositorio</span>
+            <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyTree()">Copiar</button>
+          </div>
+          <pre id="repoTree"><code>partenon/
+├── web/
+│   ├── index.html
+│   └── developers.html
+├── hermes/
+│   ├── install.sh
+│   ├── profiles/
+│   │   ├── finance.example
+│   │   ├── design.example
+│   │   └── security.example
+│   └── agents/
+│       ├── tesorero/
+│       ├── mensajero/
+│       ├── cobrador/
+│       ├── guardian/
+│       ├── estratega/
+│       └── diplomatico/
+├── gbrain/
+│   ├── memory/
+│   └── connector.js
+├── mcp/
+│   └── server.mjs
+└── README.md</code></pre>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Hero profiles -->
+  <!-- Hero Profiles -->
   <section id="heroes" class="section-pad">
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="reveal max-w-2xl mb-16">
         <span class="tag mb-4 block">Perfiles técnicos</span>
         <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Cada perfil, una especificación.</h2>
+        <p class="text-muted text-lg leading-relaxed">Aquí no hay personalidades decorativas. Cada agente tiene un framework, skills, herramientas, MCP y un contrato de entrada/salida.</p>
       </div>
 
       <div class="space-y-6">
-        <div class="reveal panel panel-accent p-8 md:p-10">
-          <div class="flex items-center gap-4 mb-4">
-            <span class="font-mono text-2xl text-accent">01</span>
-            <h3 class="font-display text-2xl tracking-[-0.02em]">Tesorero · <code>.finance</code></h3>
-          </div>
-          <div class="grid md:grid-cols-4 gap-6 text-sm text-muted">
-            <div><strong class="text-text">Habilidades</strong><br/>Google Sheets, modelos financieros, costos fijos/variables, dashboards.</div>
-            <div><strong class="text-text">Inputs</strong><br/>Transacciones, facturas, estados de cuenta, respuestas del emprendedor.</div>
-            <div><strong class="text-text">Outputs</strong><br/>Spreadsheet limpio, categorización, reportes de flujo y proyecciones.</div>
-            <div><strong class="text-text">Conexiones</strong><br/>Mensajero (presupuestos), Cobrador (ingresos), G-Brain.</div>
-          </div>
-        </div>
-
-        <div class="reveal panel p-8 md:p-10">
-          <div class="flex items-center gap-4 mb-4">
-            <span class="font-mono text-2xl text-accent">02</span>
-            <h3 class="font-display text-2xl tracking-[-0.02em]">Mensajero · <code>.design</code></h3>
-          </div>
-          <div class="grid md:grid-cols-4 gap-6 text-sm text-muted">
-            <div><strong class="text-text">Habilidades</strong><br/>Redes sociales, SEO/GEO, copywriting, Open Design, WordPress/SSH.</div>
-            <div><strong class="text-text">Inputs</strong><br/>Voz de marca, objetivos de campaña, datos del Tesorero, accesos web.</div>
-            <div><strong class="text-text">Outputs</strong><br/>Calendario de contenido, posts, presentaciones, optimizaciones web.</div>
-            <div><strong class="text-text">Conexiones</strong><br/>Tesorero (presupuesto), G-Brain, APIs de redes sociales.</div>
-          </div>
-        </div>
-
-        <div class="reveal panel p-8 md:p-10">
-          <div class="flex items-center gap-4 mb-4">
-            <span class="font-mono text-2xl text-accent">03</span>
-            <h3 class="font-display text-2xl tracking-[-0.02em]">Cobrador · <code>Stripe</code></h3>
-          </div>
-          <div class="grid md:grid-cols-4 gap-6 text-sm text-muted">
-            <div><strong class="text-text">Habilidades</strong><br/>Payment links, suscripciones, facturas, webhooks, reportes.</div>
-            <div><strong class="text-text">Inputs</strong><br/>Productos/servicios, precios, clientes, eventos de pago.</div>
-            <div><strong class="text-text">Outputs</strong><br/>Links de pago, confirmaciones, reportes de ingresos, reconciliación.</div>
-            <div><strong class="text-text">Conexiones</strong><br/>Stripe API, Tesorero (ingresos), G-Brain.</div>
+        <!-- Tesorero -->
+        <div class="reveal bezel">
+          <div class="bezel-inner p-6 md:p-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">savings</span></div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest">01 / Tesorero</div>
+                  <div class="font-display text-2xl tracking-tight">.finance</div>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Google Sheets API</span>
+                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Modelos de forecasting</span>
+                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Markdown</span>
+              </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 text-sm">
+              <div>
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
+                <p class="text-muted">Spreadsheets, modelos financieros, costos variables/fijos, dashboards.</p>
+              </div>
+              <div>
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
+                <p class="text-muted">In: facturas, estados de cuenta, gastos. Out: hojas acomodadas, categorización, reportes.</p>
+              </div>
+              <div>
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
+                <p class="text-muted">Mensajero (presupuestos), Cobrador, G-Brain.</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="reveal panel p-8 md:p-10">
-          <div class="flex items-center gap-4 mb-4">
-            <span class="font-mono text-2xl text-accent">04</span>
-            <h3 class="font-display text-2xl tracking-[-0.02em]">Guardián · <code>.security</code></h3>
-          </div>
-          <div class="grid md:grid-cols-4 gap-6 text-sm text-muted">
-            <div><strong class="text-text">Habilidades</strong><br/>Gestión de API keys, permisos por perfil, rotación de credenciales.</div>
-            <div><strong class="text-text">Inputs</strong><br/>Cuentas de Nvidia, OpenAI, Kimi, Stripe, redes sociales.</div>
-            <div><strong class="text-text">Outputs</strong><br/>Accesos configurados, auditoría, políticas mínimas de seguridad.</div>
-            <div><strong class="text-text">Conexiones</strong><br/>Nvidia APIs, OpenAI, Kimi, todos los perfiles vía G-Brain.</div>
+        <!-- Mensajero -->
+        <div class="reveal bezel">
+          <div class="bezel-inner p-6 md:p-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">campaign</span></div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest">02 / Mensajero</div>
+                  <div class="font-display text-2xl tracking-tight">.design</div>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Redes sociales</span>
+                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">SEO/GEO</span>
+                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Open Design</span>
+              </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 text-sm">
+              <div>
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
+                <p class="text-muted">Copywriting, calendario de contenido, posts, presentaciones, optimización web.</p>
+              </div>
+              <div>
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
+                <p class="text-muted">In: voz de marca, objetivos de campaña, datos del Tesorero. Out: contenido, posts, presentaciones.</p>
+              </div>
+              <div>
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
+                <p class="text-muted">Tesorero (presupuesto), G-Brain, APIs de redes sociales.</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="reveal panel p-8 md:p-10">
-          <div class="flex items-center gap-4 mb-4">
-            <span class="font-mono text-2xl text-accent">05</span>
-            <h3 class="font-display text-2xl tracking-[-0.02em]">Estratega · <code>Ops</code></h3>
-          </div>
-          <div class="grid md:grid-cols-4 gap-6 text-sm text-muted">
-            <div><strong class="text-text">Habilidades</strong><br/>Calendar, Gmail, tareas, recordatorios, priorización.</div>
-            <div><strong class="text-text">Inputs</strong><br/>Eventos, correos, deadlines, misiones pendientes.</div>
-            <div><strong class="text-text">Outputs</strong><br/>Calendario actualizado, follow-ups, resumen de operaciones.</div>
-            <div><strong class="text-text">Conexiones</strong><br/>Diplomático (hitos), G-Brain, Google Workspace.</div>
+        <!-- Cobrador -->
+        <div class="reveal bezel">
+          <div class="bezel-inner p-6 md:p-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">credit_card</span></div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest">03 / Cobrador</div>
+                  <div class="font-display text-2xl tracking-tight">.payments</div>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Stripe API</span>
+                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Webhooks</span>
+                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Facturación</span>
+              </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 text-sm">
+              <div>
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
+                <p class="text-muted">Payment links, suscripciones, facturas, reportes de ingresos.</p>
+              </div>
+              <div>
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
+                <p class="text-muted">In: productos/servicios, precios, clientes. Out: links de pago, confirmaciones, reportes.</p>
+              </div>
+              <div>
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
+                <p class="text-muted">Stripe API, Tesorero (ingresos), G-Brain.</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="reveal panel p-8 md:p-10">
-          <div class="flex items-center gap-4 mb-4">
-            <span class="font-mono text-2xl text-accent">06</span>
-            <h3 class="font-display text-2xl tracking-[-0.02em]">Diplomático · <code>Relaciones</code></h3>
+        <!-- Guardián -->
+        <div class="reveal bezel">
+          <div class="bezel-inner p-6 md:p-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">shield</span></div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest">04 / Guardián</div>
+                  <div class="font-display text-2xl tracking-tight">.security</div>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Nvidia</span>
+                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">API keys</span>
+                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Permisos</span>
+              </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 text-sm">
+              <div>
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
+                <p class="text-muted">Gestión de claves, permisos por perfil, modelos, cuentas de servicio.</p>
+              </div>
+              <div>
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
+                <p class="text-muted">In: cuentas de Nvidia, OpenAI, Kimi, Stripe, redes. Out: accesos configurados, auditoría, políticas.</p>
+              </div>
+              <div>
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
+                <p class="text-muted">Nvidia APIs, OpenAI, Kimi, todos los perfiles vía G-Brain.</p>
+              </div>
+            </div>
           </div>
-          <div class="grid md:grid-cols-4 gap-6 text-sm text-muted">
-            <div><strong class="text-text">Habilidades</strong><br/>CRM ligero, seguimiento a clientes y proveedores, hitos.</div>
-            <div><strong class="text-text">Inputs</strong><br/>Conversaciones, contratos, entregables, fechas compromiso.</div>
-            <div><strong class="text-text">Outputs</strong><br/>Recordatorios, actualizaciones de estado, resúmenes de relación.</div>
-            <div><strong class="text-text">Conexiones</strong><br/>Estratega (operaciones), G-Brain, Gmail.</div>
+        </div>
+
+        <!-- Estratega -->
+        <div class="reveal bezel">
+          <div class="bezel-inner p-6 md:p-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">strategy</span></div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest">05 / Estratega</div>
+                  <div class="font-display text-2xl tracking-tight">.ops</div>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Calendar API</span>
+                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Gmail</span>
+                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Tareas</span>
+              </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 text-sm">
+              <div>
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
+                <p class="text-muted">Calendar, Gmail, tareas, recordatorios, priorización, planeación.</p>
+              </div>
+              <div>
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
+                <p class="text-muted">In: eventos, correos, deadlines, misiones pendientes. Out: calendario actualizado, follow-ups, resumen.</p>
+              </div>
+              <div>
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
+                <p class="text-muted">Diplomático, Mensajero, G-Brain, Google Workspace.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Diplomático -->
+        <div class="reveal bezel">
+          <div class="bezel-inner p-6 md:p-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">handshake</span></div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest">06 / Diplomático</div>
+                  <div class="font-display text-2xl tracking-tight">.relations</div>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">CRM</span>
+                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Hitos</span>
+                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Gmail</span>
+              </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 text-sm">
+              <div>
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
+                <p class="text-muted">Seguimiento a clientes y proveedores, conversaciones, contratos, hitos.</p>
+              </div>
+              <div>
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
+                <p class="text-muted">In: conversaciones, contratos, entregables, fechas compromiso. Out: recordatorios, actualizaciones de estado, reuniones.</p>
+              </div>
+              <div>
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
+                <p class="text-muted">Estratega, G-Brain, Gmail, Calendar.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- G-Brain -->
-  <section class="section-pad border-y border-line bg-surface/30">
+  <!-- G-Brain MCP -->
+  <section class="section-pad border-y border-line bg-surface/40">
     <div class="max-w-[1400px] mx-auto px-4">
-      <div class="grid lg:grid-cols-2 gap-16 items-start">
-        <div class="reveal">
-          <span class="tag mb-4 block">Memoria</span>
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-5 reveal">
+          <span class="tag mb-4 block">MCP</span>
           <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">G-Brain vía MCP.</h2>
-          <p class="text-muted text-lg leading-relaxed mb-6">
-            MCP (Model Context Protocol) es el cable entre los perfiles y el cerebro. Cada agente puede leer 
-            contexto, escribir resultados y consultar lo que otros perfiles aprendieron.
-          </p>
-          <ul class="space-y-4 text-muted text-sm">
-            <li class="flex items-start gap-3"><span class="text-accent font-mono">01</span><span><strong class="text-text">Perfiles:</strong> archivos <code>.finance</code>, <code>.design</code> y <code>.security</code> definen comportamiento.</span></li>
-            <li class="flex items-start gap-3"><span class="text-accent font-mono">02</span><span><strong class="text-text">Misiones:</strong> cada tarea queda registrada con input, output y aprendizaje.</span></li>
-            <li class="flex items-start gap-3"><span class="text-accent font-mono">03</span><span><strong class="text-text">Entidades:</strong> clientes, proveedores y productos se guardan como objetos reutilizables.</span></li>
-          </ul>
+          <p class="text-muted text-lg leading-relaxed">MCP (Model Context Protocol) es el cable entre los perfiles y el cerebro. Cada agente puede leer contexto, escribir resultados y consultar lo que otros perfiles aprendieron.</p>
         </div>
-        <div class="reveal mermaid-container">
-          <div class="mermaid">
-flowchart TB
-    subgraph "G-Brain"
-        P[Perfiles]
-        M[Misiones]
-        E[Entidades]
+        <div class="lg:col-span-7 reveal bezel reveal-delay-1">
+          <div class="bezel-inner p-6 md:p-8">
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+              <div class="p-4 rounded-lg bg-white/[0.03]">
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">01 / Perfiles</div>
+                <p class="text-sm text-muted">Archivos <code>.finance</code>, <code>.design</code> y <code>.security</code> definen comportamiento.</p>
+              </div>
+              <div class="p-4 rounded-lg bg-white/[0.03]">
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">02 / Misiones</div>
+                <p class="text-sm text-muted">Cada tarea queda registrada con input, output y aprendizajes.</p>
+              </div>
+              <div class="p-4 rounded-lg bg-white/[0.03]">
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">03 / Entidades</div>
+                <p class="text-sm text-muted">Clientes, proveedores y productos se guardan como objetos reutilizables.</p>
+              </div>
+            </div>
+            <div class="mermaid-container !p-0 !border-0">
+              <div class="mermaid">
+flowchart LR
+    subgraph MCP["MCP Server"]
+        G["G-Brain"]
     end
-    H1[Tesorero] <-->|MCP| P
-    H2[Mensajero] <-->|MCP| M
-    H3[Cobrador] <-->|MCP| E
-    H4[Guardián] <-->|MCP| P
+    T["Tesorero"] -->|READ/WRITE| G
+    M["Mensajero"] -->|READ/WRITE| G
+    C["Cobrador"] -->|READ/WRITE| G
+    GU["Guardián"] -->|READ/WRITE| G
+    E["Estratega"] -->|READ/WRITE| G
+    D["Diplomático"] -->|READ/WRITE| G
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -346,206 +717,187 @@ flowchart TB
   <section id="workshop" class="section-pad">
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="reveal max-w-2xl mb-16">
-        <span class="tag mb-4 block">Workshop técnico</span>
+        <span class="tag mb-4 block">Workshop</span>
         <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Paquete de implementación de 90 minutos.</h2>
+        <p class="text-muted text-lg leading-relaxed">El mismo formato sirve para universidades, organizaciones empresariales, coworkings y aceleradoras. Los participantes se llevan Hermes instalado.</p>
       </div>
-      <div class="grid md:grid-cols-3 gap-px bg-line">
-        <div class="reveal bg-bg p-8 md:p-10">
-          <div class="font-display text-4xl tracking-[-0.03em] text-accent mb-4">0-20'</div>
-          <h3 class="font-display text-lg tracking-[-0.02em] mb-2">Setup</h3>
-          <ul class="text-muted text-sm space-y-2 font-mono">
-            <li>• Pre-instalación con curl</li>
-            <li>• Copiar Google Sheet base</li>
-            <li>• Conectar Google Workspace</li>
-            <li>• Subir .finance, .design, .security</li>
-          </ul>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="reveal bezel">
+          <div class="bezel-inner p-8 h-full">
+            <div class="font-mono text-5xl text-accent mb-6">0–20'</div>
+            <h3 class="font-display text-xl tracking-tight mb-4">Setup</h3>
+            <ul class="space-y-3 text-sm text-muted">
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Pre-instalación con <code>curl ... | bash</code>.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Copiar Google Sheet base.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Conectar Google Workspace.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Crear <code>.finance</code>, <code>.design</code>, <code>.security</code>.</li>
+            </ul>
+          </div>
         </div>
-        <div class="reveal bg-bg p-8 md:p-10">
-          <div class="font-display text-4xl tracking-[-0.03em] text-accent mb-4">20-60'</div>
-          <h3 class="font-display text-lg tracking-[-0.02em] mb-2">Onboarding</h3>
-          <ul class="text-muted text-sm space-y-2 font-mono">
-            <li>• Definir tipo de empresa</li>
-            <li>• Configurar perfiles prioritarios</li>
-            <li>• Ejecutar primera misión</li>
-            <li>• Conectar Stripe y redes sociales</li>
-          </ul>
+        <div class="reveal bezel reveal-delay-1">
+          <div class="bezel-inner p-8 h-full">
+            <div class="font-mono text-5xl text-accent mb-6">20–60'</div>
+            <h3 class="font-display text-xl tracking-tight mb-4">Onboarding</h3>
+            <ul class="space-y-3 text-sm text-muted">
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Definir tipo de empresa.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Configurar perfiles prioritarios.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Ejecutar primera misión.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Conectar Stripe y redes sociales.</li>
+            </ul>
+          </div>
         </div>
-        <div class="reveal bg-bg p-8 md:p-10">
-          <div class="font-display text-4xl tracking-[-0.03em] text-accent mb-4">60-90'</div>
-          <h3 class="font-display text-lg tracking-[-0.02em] mb-2">Práctica</h3>
-          <ul class="text-muted text-sm space-y-2 font-mono">
-            <li>• Publicar 3 misiones reales</li>
-            <li>• Revisar entregables en Sheets/Docs</li>
-            <li>• Ajustar prompts y permisos</li>
-            <li>• Dejar plan de 30 días</li>
-          </ul>
+        <div class="reveal bezel reveal-delay-2">
+          <div class="bezel-inner p-8 h-full">
+            <div class="font-mono text-5xl text-accent mb-6">60–90'</div>
+            <h3 class="font-display text-xl tracking-tight mb-4">Práctica</h3>
+            <ul class="space-y-3 text-sm text-muted">
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Publicar 3 misiones reales.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Revisar entregables en Sheets/Docs.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Ajustar prompts y permisos.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Dejar plan de 30 días.</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Install -->
-  <section id="install" class="section-pad border-y border-line bg-surface/30">
+  <section id="install" class="section-pad border-y border-line bg-surface/40">
     <div class="max-w-[1400px] mx-auto px-4">
-      <div class="reveal max-w-2xl mb-16">
-        <span class="tag mb-4 block">Instalación</span>
-        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Empieza en minutos.</h2>
-      </div>
-
-      <div class="grid lg:grid-cols-2 gap-10">
-        <div class="reveal space-y-8">
-          <div>
-            <h3 class="font-display text-xl tracking-[-0.02em] mb-3">1. Clona el repositorio</h3>
-            <pre><code>git clone https://github.com/paolameneses/partenon.git
-cd partenon</code></pre>
-          </div>
-          <div>
-            <h3 class="font-display text-xl tracking-[-0.02em] mb-3">2. Instala Hermes</h3>
-            <pre><code>curl -fsSL https://partenon.dev/install.sh | bash</code></pre>
-            <p class="text-muted text-sm mt-2">El instalador configura el entorno, dependencias y el comando global.</p>
-          </div>
-          <div>
-            <h3 class="font-display text-xl tracking-[-0.02em] mb-3">3. Copia el Google Sheet base</h3>
-            <p class="text-muted text-sm">El template incluye pestañas para misiones, entidades, perfiles y logs.</p>
-          </div>
-          <div>
-            <h3 class="font-display text-xl tracking-[-0.02em] mb-3">4. Configura variables de entorno</h3>
-            <pre><code>HERMES_FOLDER_ID=...
-GOOGLE_SERVICE_ACCOUNT=...
-STRIPE_API_KEY=...
-OPENAI_API_KEY=...
-KIMI_API_KEY=...
-NVIDIA_API_KEY=...</code></pre>
-          </div>
-          <div>
-            <h3 class="font-display text-xl tracking-[-0.02em] mb-3">5. Despliega Apps Script</h3>
-            <p class="text-muted text-sm">Sube <code>apps-script/Hermes.gs</code> como proyecto vinculado a tu Google Sheet. Autoriza los scopes de Sheets, Docs, Drive, Calendar y Gmail.</p>
-          </div>
+      <div class="grid lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-5 reveal">
+          <span class="tag mb-4 block">Instalación</span>
+          <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Empieza en minutos.</h2>
+          <p class="text-muted text-lg leading-relaxed mb-6">El instalador configura entorno, dependencias y el comando global <code>hermes</code>. Luego copias el Google Sheet base y conectas las variables de entorno.</p>
+          <ol class="space-y-4 mb-8 text-muted">
+            <li class="flex items-start gap-3"><span class="font-mono text-accent">1.</span> Clona el repositorio.</li>
+            <li class="flex items-start gap-3"><span class="font-mono text-accent">2.</span> Corre el instalador.</li>
+            <li class="flex items-start gap-3"><span class="font-mono text-accent">3.</span> Copia el Google Sheet base.</li>
+            <li class="flex items-start gap-3"><span class="font-mono text-accent">4.</span> Configura variables de entorno.</li>
+            <li class="flex items-start gap-3"><span class="font-mono text-accent">5.</span> Despliega Apps Script.</li>
+          </ol>
+          <a href="https://github.com/paolameneses/partenon" target="_blank" rel="noopener" class="btn btn-primary">
+            Abrir GitHub
+            <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_outward</span></span>
+          </a>
         </div>
-        <div class="reveal panel panel-accent p-8">
-          <h3 class="font-display text-xl tracking-[-0.02em] mb-6">Estructura del repositorio</h3>
-          <pre class="text-xs"><code>partenon/
-├── web/
-│   ├── index.html
-│   └── developers.html
-├── apps-script/
-│   └── Hermes.gs
-├── profiles/
-│   ├── .finance.example
-│   ├── .design.example
-│   └── .security.example
-├── agents/
-│   ├── tesorero/
-│   ├── mensajero/
-│   ├── cobrador/
-│   ├── guardian/
-│   ├── estratega/
-│   └── diplomatico/
-├── mcp/
-│   └── gbrain-connector.js
-└── README.md</code></pre>
+        <div class="lg:col-span-7 reveal bezel reveal-delay-1">
+          <div class="bezel-inner p-6 md:p-8">
+            <div class="flex items-center justify-between mb-4">
+              <span class="tag">Terminal</span>
+              <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyInstall()">Copiar</button>
+            </div>
+            <pre><code id="installCmd">git clone https://github.com/paolameneses/partenon.git
+cd partenon
+
+curl -fsSL https://partenon.dev/install.sh | bash
+
+# Copia el Google Sheet base y conecta variables:
+# HERMES_FOLDER_ID, GOOGLE_SERVICE_ACCOUNT, STRIPE_API_KEY,
+# OPENAI_API_KEY, KIMI_API_KEY, NVIDIA_API_KEY</code></pre>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Integrations -->
+  <!-- Integrations + Roadmap -->
   <section class="section-pad">
     <div class="max-w-[1400px] mx-auto px-4">
-      <div class="reveal max-w-2xl mb-16">
-        <span class="tag mb-4 block">Integraciones</span>
-        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Se conecta con lo que ya usas.</h2>
-      </div>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-line">
-        <div class="reveal bg-bg p-6 flex items-center gap-4"><div class="w-10 h-10 bg-surface border border-line flex items-center justify-center text-accent font-display">G</div><div><div class="font-display tracking-[-0.02em]">Google Sheets</div><div class="text-xs text-muted">Finanzas y reportes</div></div></div>
-        <div class="reveal bg-bg p-6 flex items-center gap-4"><div class="w-10 h-10 bg-surface border border-line flex items-center justify-center text-accent font-display">D</div><div><div class="font-display tracking-[-0.02em]">Google Docs</div><div class="text-xs text-muted">Cartas y documentos</div></div></div>
-        <div class="reveal bg-bg p-6 flex items-center gap-4"><div class="w-10 h-10 bg-surface border border-line flex items-center justify-center text-accent font-display">S</div><div><div class="font-display tracking-[-0.02em]">Google Slides</div><div class="text-xs text-muted">Presentaciones</div></div></div>
-        <div class="reveal bg-bg p-6 flex items-center gap-4"><div class="w-10 h-10 bg-surface border border-line flex items-center justify-center text-accent font-display">C</div><div><div class="font-display tracking-[-0.02em]">Calendar</div><div class="text-xs text-muted">Agenda y recordatorios</div></div></div>
-        <div class="reveal bg-bg p-6 flex items-center gap-4"><div class="w-10 h-10 bg-surface border border-line flex items-center justify-center text-accent font-display">M</div><div><div class="font-display tracking-[-0.02em]">Gmail</div><div class="text-xs text-muted">Correos y seguimiento</div></div></div>
-        <div class="reveal bg-bg p-6 flex items-center gap-4"><div class="w-10 h-10 bg-surface border border-line flex items-center justify-center text-accent font-display">$</div><div><div class="font-display tracking-[-0.02em]">Stripe</div><div class="text-xs text-muted">Pagos y suscripciones</div></div></div>
-        <div class="reveal bg-bg p-6 flex items-center gap-4"><div class="w-10 h-10 bg-surface border border-line flex items-center justify-center text-accent font-display">WP</div><div><div class="font-display tracking-[-0.02em]">WordPress</div><div class="text-xs text-muted">Sitios y SEO</div></div></div>
-        <div class="reveal bg-bg p-6 flex items-center gap-4"><div class="w-10 h-10 bg-surface border border-line flex items-center justify-center text-accent font-display">TG</div><div><div class="font-display tracking-[-0.02em]">Telegram</div><div class="text-xs text-muted">Chat y notificaciones</div></div></div>
-        <div class="reveal bg-bg p-6 flex items-center gap-4"><div class="w-10 h-10 bg-surface border border-line flex items-center justify-center text-accent font-display">N</div><div><div class="font-display tracking-[-0.02em]">Nvidia</div><div class="text-xs text-muted">Modelos locales</div></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Roadmap -->
-  <section class="section-pad border-y border-line bg-surface/30">
-    <div class="max-w-[1400px] mx-auto px-4">
-      <div class="reveal max-w-2xl mb-16">
-        <span class="tag mb-4 block">Roadmap</span>
-        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Lo que viene.</h2>
-      </div>
-      <div class="space-y-px bg-line">
-        <div class="reveal bg-bg p-6 flex flex-col md:flex-row md:items-center gap-4">
-          <div class="font-display text-xl text-accent w-32 tracking-[-0.02em]">Q2 2026</div>
-          <div class="flex-1"><h3 class="font-display text-lg tracking-[-0.02em]">V0.1 — Tesorero + Mensajero</h3><p class="text-muted text-sm">Hojas de finanzas automatizadas y calendario de contenido básico.</p></div>
+      <div class="grid lg:grid-cols-2 gap-12">
+        <div class="reveal">
+          <span class="tag mb-4 block">Integraciones</span>
+          <h2 class="font-display text-4xl tracking-[-0.04em] leading-[0.95] mb-6">Se conecta con lo que ya usas.</h2>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="p-4 border border-line rounded-xl bg-bg"><div class="font-display text-lg tracking-tight">Google Sheets</div><div class="text-xs text-muted mt-1">Finanzas y reportes</div></div>
+            <div class="p-4 border border-line rounded-xl bg-bg"><div class="font-display text-lg tracking-tight">Google Docs</div><div class="text-xs text-muted mt-1">Cartas y documentos</div></div>
+            <div class="p-4 border border-line rounded-xl bg-bg"><div class="font-display text-lg tracking-tight">Google Slides</div><div class="text-xs text-muted mt-1">Presentaciones</div></div>
+            <div class="p-4 border border-line rounded-xl bg-bg"><div class="font-display text-lg tracking-tight">Calendar</div><div class="text-xs text-muted mt-1">Agenda y hitos</div></div>
+            <div class="p-4 border border-line rounded-xl bg-bg"><div class="font-display text-lg tracking-tight">Gmail</div><div class="text-xs text-muted mt-1">Correo y notificaciones</div></div>
+            <div class="p-4 border border-line rounded-xl bg-bg"><div class="font-display text-lg tracking-tight">Stripe</div><div class="text-xs text-muted mt-1">Pagos y suscripciones</div></div>
+            <div class="p-4 border border-line rounded-xl bg-bg"><div class="font-display text-lg tracking-tight">WordPress</div><div class="text-xs text-muted mt-1">Sitios y contenido</div></div>
+            <div class="p-4 border border-line rounded-xl bg-bg"><div class="font-display text-lg tracking-tight">Telegram</div><div class="text-xs text-muted mt-1">Mensajería</div></div>
+            <div class="p-4 border border-line rounded-xl bg-bg"><div class="font-display text-lg tracking-tight">Nvidia</div><div class="text-xs text-muted mt-1">Modelos locales</div></div>
+            <div class="p-4 border border-line rounded-xl bg-bg"><div class="font-display text-lg tracking-tight">OpenAI / Kimi</div><div class="text-xs text-muted mt-1">LLMs</div></div>
+          </div>
         </div>
-        <div class="reveal bg-bg p-6 flex flex-col md:flex-row md:items-center gap-4">
-          <div class="font-display text-xl text-accent w-32 tracking-[-0.02em]">Q3 2026</div>
-          <div class="flex-1"><h3 class="font-display text-lg tracking-[-0.02em]">V0.2 — Cobrador + Guardián</h3><p class="text-muted text-sm">Stripe integrado y gestión segura de API keys por perfil.</p></div>
-        </div>
-        <div class="reveal bg-bg p-6 flex flex-col md:flex-row md:items-center gap-4">
-          <div class="font-display text-xl text-accent w-32 tracking-[-0.02em]">Q4 2026</div>
-          <div class="flex-1"><h3 class="font-display text-lg tracking-[-0.02em]">V0.3 — Estratega + Diplomático</h3><p class="text-muted text-sm">Project management interno y CRM de relaciones.</p></div>
-        </div>
-        <div class="reveal bg-bg p-6 flex flex-col md:flex-row md:items-center gap-4">
-          <div class="font-display text-xl text-accent w-32 tracking-[-0.02em]">2027</div>
-          <div class="flex-1"><h3 class="font-display text-lg tracking-[-0.02em]">V1.0 — Marketplace de misiones</h3><p class="text-muted text-sm">Templates por industria, comunidad de implementadores y métricas de impacto.</p></div>
+        <div class="reveal reveal-delay-1">
+          <span class="tag mb-4 block">Roadmap</span>
+          <h2 class="font-display text-4xl tracking-[-0.04em] leading-[0.95] mb-6">Lo que viene.</h2>
+          <div class="space-y-6">
+            <div class="flex gap-4">
+              <div class="font-mono text-sm text-accent w-20 shrink-0">Q2 2026</div>
+              <div>
+                <div class="font-display text-lg tracking-tight">v0.1 — Tesorero + Mensajero</div>
+                <p class="text-sm text-muted">Hojas de finanzas automatizadas y calendario de contenido.</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="font-mono text-sm text-accent w-20 shrink-0">Q3 2026</div>
+              <div>
+                <div class="font-display text-lg tracking-tight">v0.2 — Cobrador + Guardián</div>
+                <p class="text-sm text-muted">Stripe integrado y gestión segura de API keys por perfil.</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="font-mono text-sm text-accent w-20 shrink-0">Q4 2026</div>
+              <div>
+                <div class="font-display text-lg tracking-tight">v0.3 — Estratega + Diplomático</div>
+                <p class="text-sm text-muted">Project management interno y CRM de relaciones.</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="font-mono text-sm text-accent w-20 shrink-0">2027</div>
+              <div>
+                <div class="font-display text-lg tracking-tight">v1.0 — Marketplace de misiones</div>
+                <p class="text-sm text-muted">Templates por industria, comunidad de implementadores y métricas de impacto.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="section-pad">
-    <div class="max-w-4xl mx-auto px-4 text-center">
-      <div class="reveal">
+  <section class="section-pad border-y border-line bg-surface/40">
+    <div class="max-w-[1400px] mx-auto px-4 text-center">
+      <div class="reveal max-w-2xl mx-auto">
         <span class="tag mb-4 block">Contribuir</span>
         <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Construye el próximo perfil.</h2>
-        <p class="text-muted text-lg leading-relaxed mb-10">
-          Partenon es open source. Puedes crear nuevos perfiles, agregar integraciones o mejorar los existentes. Todo pasa por G-Brain.
-        </p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a href="https://github.com/paolameneses/partenon" target="_blank" rel="noopener" class="btn-primary">Abrir GitHub</a>
-          <a href="index.html" class="btn-secondary">Volver al marketing</a>
+        <p class="text-muted text-lg leading-relaxed mb-8">Partenon es open source. Puedes crear nuevos perfiles, agregar integraciones o mejorar los existentes. Todo pasa por G-Brain.</p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="https://github.com/paolameneses/partenon" target="_blank" rel="noopener" class="btn btn-primary">
+            Abrir GitHub
+            <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_outward</span></span>
+          </a>
+          <a href="index.html" class="btn btn-secondary">
+            Volver al marketing
+            <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_back</span></span>
+          </a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="py-20 border-t border-line bg-surface/30">
+  <footer class="py-12 border-t border-line">
     <div class="max-w-[1400px] mx-auto px-4">
-      <div class="grid md:grid-cols-4 gap-10 mb-14">
-        <div class="md:col-span-2">
-          <div class="font-display text-2xl tracking-tight mb-4">PARTENON</div>
-          <p class="text-muted text-sm leading-relaxed max-w-sm">Sistema operativo de agentes de IA para pymes latinoamericanas. Open source, anclado a Google Workspace.</p>
-        </div>
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
-          <h4 class="font-mono text-xs text-dim uppercase tracking-wider mb-4">Técnico</h4>
-          <ul class="space-y-2 text-sm text-muted">
-            <li><a href="#architecture" class="hover:text-text transition-colors">Arquitectura</a></li>
-            <li><a href="#stack" class="hover:text-text transition-colors">Stack</a></li>
-            <li><a href="#heroes" class="hover:text-text transition-colors">Perfiles</a></li>
-            <li><a href="#install" class="hover:text-text transition-colors">Instalación</a></li>
-          </ul>
+          <div class="font-display text-xl tracking-tight font-semibold mb-1">PARTENON</div>
+          <div class="text-sm text-muted">Sistema operativo de agentes para pymes.</div>
         </div>
-        <div>
-          <h4 class="font-mono text-xs text-dim uppercase tracking-wider mb-4">Proyecto</h4>
-          <ul class="space-y-2 text-sm text-muted">
-            <li><a href="index.html" class="hover:text-text transition-colors">Marketing</a></li>
-            <li><a href="https://github.com/paolameneses/partenon" target="_blank" rel="noopener" class="hover:text-text transition-colors">GitHub</a></li>
-            <li><a href="https://github.com/NousResearch/hermes-business-os" target="_blank" rel="noopener" class="hover:text-text transition-colors">Hermes Business OS</a></li>
-          </ul>
+        <div class="flex flex-wrap gap-6 text-sm text-muted">
+          <a href="index.html" class="hover:text-text transition-colors">Marketing</a>
+          <a href="developers.html" class="hover:text-text transition-colors">Documentación</a>
+          <a href="https://github.com/paolameneses/partenon" target="_blank" rel="noopener" class="hover:text-text transition-colors">GitHub</a>
         </div>
       </div>
-      <div class="line-divider mb-8"></div>
-      <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-dim">
-        <p>© 2026 Partenon. Open source bajo MIT.</p>
-        <p>Basado en Hermes Business OS.</p>
-      </div>
+      <div class="line-divider my-8"></div>
+      <div class="text-xs text-muted font-mono">Hermes Business OS · Hackathon Nous Research / Nvidia / Stripe</div>
     </div>
   </footer>
 
@@ -554,33 +906,43 @@ NVIDIA_API_KEY=...</code></pre>
       startOnLoad: true,
       theme: 'base',
       themeVariables: {
-        primaryColor: '#13131A',
+        primaryColor: '#111118',
         primaryTextColor: '#E8E8ED',
-        primaryBorderColor: '#00E0FF',
-        lineColor: '#45454F',
+        primaryBorderColor: '#00D4FF',
+        lineColor: '#6B6B78',
         secondaryColor: '#0E0E14',
-        tertiaryColor: '#08080C',
-        fontFamily: 'Geist, system-ui, sans-serif',
-        nodeBorder: '#00E0FF',
-        clusterBkg: '#0E0E14',
-        clusterBorder: 'rgba(255,255,255,0.08)',
-        titleColor: '#E8E8ED',
-        edgeLabelBackground: '#0E0E14'
+        tertiaryColor: '#050505',
+        fontFamily: 'Geist',
+        fontSize: '14px'
       },
       flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' },
       sequence: { useMaxWidth: true }
     });
 
     const reveals = document.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
+          observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-    reveals.forEach(el => revealObserver.observe(el));
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+
+    const menuBtn = document.getElementById('menuBtn');
+    const closeMenu = document.getElementById('closeMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+    closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+    function copyInstall() {
+      navigator.clipboard.writeText(document.getElementById('installCmd').textContent);
+    }
+    function copyTree() {
+      navigator.clipboard.writeText(document.getElementById('repoTree').textContent);
+    }
   </script>
 </body>
 </html>

@@ -8,7 +8,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,300,0,0&display=swap" rel="stylesheet" />
   <script>
     tailwind.config = {
       theme: {
@@ -19,18 +19,19 @@
             mono: ['JetBrains Mono', 'monospace'],
           },
           colors: {
-            bg: '#08080C',
-            surface: '#0E0E14',
-            panel: '#13131A',
-            'panel-strong': '#1A1A22',
+            bg: '#050505',
+            surface: '#08080C',
+            panel: '#0E0E14',
+            'panel-raised': '#111118',
+            'panel-strong': '#16161F',
             text: '#E8E8ED',
             muted: '#6B6B78',
             dim: '#45454F',
-            accent: '#00E0FF',
-            'accent-dim': 'rgba(0, 224, 255, 0.12)',
-            'accent-glow': 'rgba(0, 224, 255, 0.25)',
-            secondary: '#FF2D92',
-            line: 'rgba(255,255,255,0.08)',
+            accent: '#00D4FF',
+            'accent-dim': 'rgba(0, 212, 255, 0.10)',
+            'accent-glow': 'rgba(0, 212, 255, 0.20)',
+            live: '#FFB800',
+            line: 'rgba(255,255,255,0.07)',
             'line-strong': 'rgba(255,255,255,0.14)',
           }
         }
@@ -40,120 +41,166 @@
   <style>
     :root {
       --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-      --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     html { scroll-behavior: smooth; }
     body {
-      background-color: #08080C;
+      background-color: #050505;
       color: #E8E8ED;
       font-family: 'Geist', system-ui, sans-serif;
       overflow-x: clip;
     }
+    .material-symbols-sharp {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    /* Ambient background */
     .mesh {
       position: fixed; inset: 0; pointer-events: none; z-index: 0;
       background:
-        radial-gradient(ellipse 80% 60% at 10% 20%, rgba(0, 224, 255, 0.04) 0%, transparent 60%),
-        radial-gradient(ellipse 70% 50% at 90% 80%, rgba(255, 45, 146, 0.03) 0%, transparent 55%),
-        radial-gradient(ellipse 50% 40% at 50% 50%, rgba(0, 224, 255, 0.02) 0%, transparent 60%);
+        radial-gradient(ellipse 70% 50% at 15% 20%, rgba(0, 212, 255, 0.045) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 45% at 85% 75%, rgba(255, 184, 0, 0.025) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 40% at 50% 50%, rgba(0, 212, 255, 0.02) 0%, transparent 55%);
     }
     .noise {
-      position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.04;
+      position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.035;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
-    .scanlines {
-      position: absolute; inset: 0; pointer-events: none; opacity: 0.03;
-      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.4) 2px, rgba(0,0,0,0.4) 4px);
-    }
+
+    /* Reveal */
     .reveal {
-      opacity: 0; transform: translateY(28px);
-      transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-    .glitch {
-      position: relative;
-      animation: glitch-skew 4s infinite linear alternate-reverse;
-    }
-    .glitch::before, .glitch::after {
-      content: attr(data-text);
-      position: absolute; left: 0; top: 0; width: 100%; height: 100%;
-      opacity: 0.8;
-    }
-    .glitch::before {
-      color: #FF2D92;
-      clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
-      transform: translate(-2px, -1px);
-      animation: glitch-anim-1 3s infinite linear alternate-reverse;
-    }
-    .glitch::after {
-      color: #00E0FF;
-      clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
-      transform: translate(2px, 1px);
-      animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
-    }
-    @keyframes glitch-anim-1 {
-      0%, 100% { transform: translate(-2px, -1px); }
-      20% { transform: translate(2px, 1px); }
-      40% { transform: translate(-1px, 2px); }
-      60% { transform: translate(1px, -2px); }
-      80% { transform: translate(-2px, 0); }
-    }
-    @keyframes glitch-anim-2 {
-      0%, 100% { transform: translate(2px, 1px); }
-      20% { transform: translate(-2px, -1px); }
-      40% { transform: translate(1px, -2px); }
-      60% { transform: translate(-1px, 2px); }
-      80% { transform: translate(2px, 0); }
-    }
-    @keyframes glitch-skew {
-      0%, 100% { transform: skew(0deg); }
-      20% { transform: skew(0.5deg); }
-      40% { transform: skew(-0.5deg); }
-      60% { transform: skew(0.3deg); }
-      80% { transform: skew(-0.3deg); }
-    }
-    .panel {
-      background: #13131A;
+    .reveal-delay-1 { transition-delay: 80ms; }
+    .reveal-delay-2 { transition-delay: 160ms; }
+    .reveal-delay-3 { transition-delay: 240ms; }
+    .reveal-delay-4 { transition-delay: 320ms; }
+
+    /* Double bezel card */
+    .bezel {
+      background: rgba(255,255,255,0.025);
       border: 1px solid rgba(255,255,255,0.08);
-      transition: border-color 0.3s var(--ease-out-expo), transform 0.3s var(--ease-out-expo);
+      border-radius: 18px;
+      padding: 6px;
     }
-    .panel:hover { border-color: rgba(255,255,255,0.14); transform: translateY(-2px); }
-    .panel-accent { border-color: rgba(0, 224, 255, 0.18); }
-    .panel-accent:hover { border-color: rgba(0, 224, 255, 0.35); box-shadow: 0 0 24px rgba(0, 224, 255, 0.08); }
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: #00E0FF; color: #08080C;
-      padding: 0.875rem 1.5rem;
+    .bezel-inner {
+      background: #111118;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+    .bezel:hover { border-color: rgba(255,255,255,0.12); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
       font-weight: 500; letter-spacing: -0.01em;
-      transition: all 0.3s var(--ease-out-expo);
+      transition: all 0.35s var(--ease-out-expo);
     }
-    .btn-primary:hover {
-      box-shadow: 0 0 24px rgba(0, 224, 255, 0.25);
-      transform: translateY(-1px);
+    .btn-primary {
+      background: #00D4FF; color: #050505;
+      padding: 0.875rem 1.5rem;
+      border-radius: 999px;
     }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 28px rgba(0, 212, 255, 0.22); }
     .btn-primary:active { transform: scale(0.98); }
     .btn-secondary {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      border: 1px solid rgba(255,255,255,0.08); color: #E8E8ED;
+      border: 1px solid rgba(255,255,255,0.10); color: #E8E8ED;
       padding: 0.875rem 1.5rem;
-      font-weight: 500;
-      transition: all 0.3s var(--ease-out-expo);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.02);
     }
-    .btn-secondary:hover { border-color: rgba(255,255,255,0.2); color: #00E0FF; }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.20); color: #00D4FF; background: rgba(255,255,255,0.04); }
+    .btn-icon {
+      width: 1.75rem; height: 1.75rem; border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.12); transition: transform 0.35s var(--ease-spring);
+    }
+    .btn-primary:hover .btn-icon { transform: translate(2px, -1px); }
+    .btn-secondary:hover .btn-icon { transform: translate(2px, -1px); }
+
+    /* Tags */
     .tag {
       display: inline-flex; align-items: center; gap: 0.5rem;
       font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
       text-transform: uppercase; letter-spacing: 0.14em; color: #6B6B78;
     }
-    .tag-dot { width: 5px; height: 5px; background: #00E0FF; box-shadow: 0 0 8px rgba(0, 224, 255, 0.6); }
-    .tag-dot.live { background: #FF2D92; box-shadow: 0 0 8px rgba(255, 45, 146, 0.6); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .tag-dot { width: 5px; height: 5px; border-radius: 999px; background: #00D4FF; box-shadow: 0 0 10px rgba(0, 212, 255, 0.5); }
+    .tag-dot.live { background: #FFB800; box-shadow: 0 0 10px rgba(255, 184, 0, 0.5); animation: pulse 2.2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+    /* Lines */
+    .line-divider { height: 1px; background: rgba(255,255,255,0.07); width: 100%; }
+
+    /* Nav */
+    .nav-island {
+      position: fixed; top: 1.25rem; left: 50%; transform: translateX(-50%); z-index: 50;
+      background: rgba(8,8,12,0.72);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 999px;
+      padding: 0.5rem 0.75rem;
+      max-width: calc(100% - 1.5rem);
+    }
+    .nav-link {
+      font-size: 0.8125rem; color: #6B6B78; padding: 0.5rem 0.875rem; border-radius: 999px;
+      transition: all 0.25s var(--ease-out-expo);
+    }
+    .nav-link:hover { color: #E8E8ED; background: rgba(255,255,255,0.04); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      position: fixed; inset: 0; z-index: 40;
+      background: rgba(5,5,5,0.96);
+      backdrop-filter: blur(24px);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.4s var(--ease-out-expo);
+    }
+    .mobile-menu.open { opacity: 1; pointer-events: auto; }
+    .mobile-menu a {
+      display: block; font-family: 'Space Grotesk', sans-serif; font-size: 2rem;
+      color: #E8E8ED; padding: 0.75rem 0;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+    }
+    .mobile-menu.open a { opacity: 1; transform: translateY(0); }
+    .mobile-menu.open a:nth-child(1) { transition-delay: 80ms; }
+    .mobile-menu.open a:nth-child(2) { transition-delay: 140ms; }
+    .mobile-menu.open a:nth-child(3) { transition-delay: 200ms; }
+    .mobile-menu.open a:nth-child(4) { transition-delay: 260ms; }
+    .mobile-menu.open a:nth-child(5) { transition-delay: 320ms; }
+
+    /* Hero title */
+    .hero-title {
+      font-size: clamp(3.5rem, 10vw, 8.5rem);
+      line-height: 0.88;
+      letter-spacing: -0.055em;
+    }
+
+    /* Stats */
+    .stat-value { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
+
+    /* Section spacing */
     .section-pad { padding-top: 6rem; padding-bottom: 6rem; }
     @media (min-width: 768px) { .section-pad { padding-top: 8rem; padding-bottom: 8rem; } }
-    .line-divider { height: 1px; background: rgba(255,255,255,0.08); width: 100%; }
-    code { font-family: 'JetBrains Mono', monospace; color: #00E0FF; }
-    .mono-data { font-variant-numeric: tabular-nums; }
+
+    /* Data bars */
+    .data-bar { height: 6px; border-radius: 3px; background: rgba(255,255,255,0.06); overflow: hidden; }
+    .data-bar-fill { height: 100%; background: #00D4FF; border-radius: 3px; transform-origin: left; }
+
+    code { font-family: 'JetBrains Mono', monospace; color: #00D4FF; }
+    pre {
+      background: #0E0E14; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 1rem; overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.875rem;
+    }
+
     @media (max-width: 767px) {
-      .hero-title { font-size: 2.75rem !important; line-height: 0.92 !important; }
+      .hero-title { font-size: clamp(2.75rem, 14vw, 4rem); }
     }
   </style>
 </head>
@@ -162,57 +209,102 @@
   <div class="noise"></div>
 
   <!-- Navigation -->
-  <nav class="fixed top-5 left-0 right-0 z-40 px-4">
-    <div class="max-w-[1400px] mx-auto flex items-center justify-between px-5 py-3 bg-surface/80 backdrop-blur-md border border-line">
-      <a href="index.html" class="font-display text-xl tracking-tight font-medium">PARTENON</a>
-      <div class="hidden md:flex items-center gap-8 text-sm text-muted">
-        <a href="#system" class="hover:text-text transition-colors duration-300">Sistema</a>
-        <a href="#heroes" class="hover:text-text transition-colors duration-300">Perfiles</a>
-        <a href="#impact" class="hover:text-text transition-colors duration-300">Impacto</a>
-        <a href="#growth" class="hover:text-text transition-colors duration-300">Crecimiento</a>
-      </div>
-      <a href="developers.html" class="btn-secondary text-sm px-4 py-2">Documentación</a>
+  <nav class="nav-island flex items-center gap-1">
+    <a href="index.html" class="font-display text-base tracking-tight font-semibold px-3">PARTENON</a>
+    <div class="hidden md:flex items-center gap-1 ml-2">
+      <a href="#system" class="nav-link">Sistema</a>
+      <a href="#heroes" class="nav-link">Perfiles</a>
+      <a href="#impact" class="nav-link">Impacto</a>
+      <a href="#growth" class="nav-link">Crecimiento</a>
     </div>
+    <a href="developers.html" class="btn btn-secondary text-sm px-4 py-2 ml-2 hidden md:inline-flex">
+      Documentación
+      <span class="material-symbols-sharp text-base">arrow_outward</span>
+    </a>
+    <button id="menuBtn" class="md:hidden w-10 h-10 inline-flex items-center justify-center text-text" aria-label="Abrir menú">
+      <span class="material-symbols-sharp">menu</span>
+    </button>
   </nav>
 
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="mobile-menu flex flex-col justify-center px-8">
+    <a href="#system">Sistema</a>
+    <a href="#heroes">Perfiles</a>
+    <a href="#impact">Impacto</a>
+    <a href="#growth">Crecimiento</a>
+    <a href="developers.html">Documentación</a>
+    <button id="closeMenu" class="absolute top-6 right-6 w-12 h-12 flex items-center justify-center text-text">
+      <span class="material-symbols-sharp text-3xl">close</span>
+    </button>
+  </div>
+
   <!-- Hero -->
-  <section class="relative min-h-[100dvh] flex flex-col justify-center pt-28 pb-20 px-4">
+  <section class="relative min-h-[100dvh] flex flex-col justify-center pt-32 pb-20 px-4">
     <div class="max-w-[1400px] mx-auto w-full relative z-10">
-      <div class="grid lg:grid-cols-12 gap-10 items-end">
-        <div class="lg:col-span-8">
-          <div class="reveal mb-6">
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div class="lg:col-span-7">
+          <div class="reveal mb-8">
             <span class="tag"><span class="tag-dot"></span>Hackathon Nous Research / Nvidia / Stripe</span>
           </div>
-          <h1 class="reveal hero-title font-display text-5xl md:text-7xl lg:text-[7rem] leading-[0.9] tracking-[-0.04em] font-semibold mb-8">
-            <span class="glitch" data-text="PARTENON">PARTENON</span><br />
-            <span class="text-muted">es un sistema operativo de agentes.</span>
+          <h1 class="reveal hero-title font-display font-semibold mb-8">
+            PARTENON
           </h1>
-          <p class="reveal text-muted text-lg md:text-xl max-w-2xl leading-relaxed mb-10">
-            Hermes publica misiones. Seis perfiles operativos las ejecutan dentro de Google Workspace. 
-            Sin más software disperso. Sin más hojas de cálculo abandonadas.
+          <p class="reveal text-xl md:text-2xl text-muted leading-snug max-w-xl mb-4">
+            Sistema operativo de agentes para pymes.
+          </p>
+          <p class="reveal text-muted text-base md:text-lg max-w-xl leading-relaxed mb-10">
+            Hermes publica misiones. Seis perfiles operativos las ejecutan dentro de Google Workspace. Sin más software disperso. Sin más hojas de cálculo abandonadas.
           </p>
           <div class="reveal flex flex-wrap gap-4">
-            <a href="#system" class="btn-primary">Ver cómo funciona</a>
-            <a href="developers.html" class="btn-secondary">Documentación técnica</a>
+            <a href="#system" class="btn btn-primary">
+              Ver cómo funciona
+              <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_downward</span></span>
+            </a>
+            <a href="developers.html" class="btn btn-secondary">
+              Documentación técnica
+              <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_outward</span></span>
+            </a>
           </div>
         </div>
-        <div class="lg:col-span-4">
-          <div class="reveal panel panel-accent p-6 relative overflow-hidden">
-            <div class="scanlines"></div>
-            <div class="relative z-10">
-              <div class="flex items-center justify-between mb-4">
-                <span class="tag"><span class="tag-dot live"></span>Hermes activo</span>
-                <span class="font-mono text-xs text-dim">v0.1</span>
+
+        <div class="lg:col-span-5">
+          <div class="reveal bezel">
+            <div class="bezel-inner p-6 md:p-8">
+              <div class="flex items-center justify-between mb-8">
+                <span class="tag"><span class="tag-dot live"></span>Sistema en línea</span>
+                <span class="font-mono text-xs text-muted">v0.1.0-alpha</span>
               </div>
-              <div class="space-y-3 font-mono text-sm">
-                <div class="flex justify-between"><span class="text-muted">Misión</span><span class="text-text">Ordenar finanzas</span></div>
-                <div class="flex justify-between"><span class="text-muted">Perfil</span><span class="text-accent">Tesorero</span></div>
-                <div class="flex justify-between"><span class="text-muted">Estado</span><span class="text-secondary">En ejecución</span></div>
-                <div class="flex justify-between"><span class="text-muted">Output</span><span class="text-text">Google Sheets</span></div>
-              </div>
-              <div class="mt-5 pt-4 border-t border-line">
-                <div class="h-1 bg-surface overflow-hidden">
-                  <div class="h-full bg-accent w-[67%] animate-pulse"></div>
+              <div class="space-y-6">
+                <div>
+                  <div class="text-muted text-xs uppercase tracking-widest font-mono mb-2">Perfiles activos</div>
+                  <div class="flex items-end gap-3">
+                    <span class="stat-value text-4xl font-medium text-text">06</span>
+                    <span class="text-sm text-muted mb-1">de 06 operativos</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="text-muted text-xs uppercase tracking-widest font-mono mb-2">Misiones completadas</div>
+                  <div class="stat-value text-4xl font-medium text-text">1,247</div>
+                  <div class="data-bar mt-2"><div class="data-bar-fill" style="width: 78%"></div></div>
+                </div>
+                <div>
+                  <div class="text-muted text-xs uppercase tracking-widest font-mono mb-2">Última sincronización</div>
+                  <div class="stat-value text-lg text-text" id="syncTimer">hace 12 s</div>
+                </div>
+                <div class="line-divider"></div>
+                <div class="grid grid-cols-3 gap-2">
+                  <div class="text-center p-3 rounded-lg bg-white/[0.03]">
+                    <div class="material-symbols-sharp text-accent mb-1">savings</div>
+                    <div class="text-[10px] uppercase tracking-wider text-muted font-mono">Tesorero</div>
+                  </div>
+                  <div class="text-center p-3 rounded-lg bg-white/[0.03]">
+                    <div class="material-symbols-sharp text-accent mb-1">campaign</div>
+                    <div class="text-[10px] uppercase tracking-wider text-muted font-mono">Mensajero</div>
+                  </div>
+                  <div class="text-center p-3 rounded-lg bg-white/[0.03]">
+                    <div class="material-symbols-sharp text-accent mb-1">credit_card</div>
+                    <div class="text-[10px] uppercase tracking-wider text-muted font-mono">Cobrador</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -223,316 +315,277 @@
   </section>
 
   <!-- Talk about / two pages -->
-  <section class="section-pad border-y border-line bg-surface/30">
+  <section id="system" class="section-pad border-y border-line bg-surface/40">
     <div class="max-w-[1400px] mx-auto px-4">
-      <div class="grid lg:grid-cols-2 gap-px bg-line">
-        <div class="reveal bg-bg p-8 md:p-12">
-          <span class="tag mb-4 block">Manual de marca</span>
-          <h2 class="font-display text-3xl md:text-4xl tracking-[-0.03em] leading-[1] mb-6">Esta página explica el producto.</h2>
-          <p class="text-muted leading-relaxed mb-6">
-            Partenon se presenta como dos páginas web. La primera es el manual de marca: qué es, por qué existe, 
-            cómo funciona y cómo llega a las pymes. Esta es la entrada al hackathon.
-          </p>
-          <a href="#heroes" class="text-accent font-mono text-sm hover:underline">[ Ver perfiles ]</a>
+      <div class="reveal max-w-2xl mb-16">
+        <span class="tag mb-4 block">Manual de dos caras</span>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">Dos páginas. Un sistema.</h2>
+        <p class="text-muted text-lg leading-relaxed">Partenon se explica de dos maneras. Una para quien quiere entender qué hace. Otra para quien quiere saber cómo se construye.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="reveal bezel">
+          <div class="bezel-inner p-8 md:p-10">
+            <div class="flex items-center gap-3 mb-6">
+              <span class="material-symbols-sharp text-accent">auto_stories</span>
+              <span class="tag">Marketing</span>
+            </div>
+            <h3 class="font-display text-2xl md:text-3xl tracking-tight mb-4">Esta página explica el producto.</h3>
+            <p class="text-muted leading-relaxed">Cómo funciona Partenon, qué hace cada perfil, cómo se conectan entre sí y cómo llevamos el sistema a más empresas.</p>
+          </div>
         </div>
-        <div class="reveal bg-bg p-8 md:p-12">
-          <span class="tag mb-4 block">Espejo técnico</span>
-          <h2 class="font-display text-3xl md:text-4xl tracking-[-0.03em] leading-[1] mb-6">La otra explica la arquitectura.</h2>
-          <p class="text-muted leading-relaxed mb-6">
-            La página de desarrolladores traduce el mismo contenido a diagramas, especificaciones técnicas, 
-            flujos de misión y la estructura del repositorio. Es para el jurado técnico.
-          </p>
-          <a href="developers.html" class="text-accent font-mono text-sm hover:underline">[ Abrir documentación ]</a>
+        <div class="reveal bezel reveal-delay-1">
+          <div class="bezel-inner p-8 md:p-10">
+            <div class="flex items-center gap-3 mb-6">
+              <span class="material-symbols-sharp text-accent">code</span>
+              <span class="tag">Técnica</span>
+            </div>
+            <h3 class="font-display text-2xl md:text-3xl tracking-tight mb-4">La otra explica la arquitectura.</h3>
+            <p class="text-muted leading-relaxed">Especificaciones técnicas, diagramas de flujo, stack, estructura de repositorio y el workshop de 90 minutos para desarrolladores.</p>
+            <a href="developers.html" class="inline-flex items-center gap-2 text-accent mt-6 text-sm font-medium hover:underline">Ir a la documentación <span class="material-symbols-sharp text-base">arrow_outward</span></a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Philosophy -->
-  <section id="system" class="section-pad">
+  <section class="section-pad">
     <div class="max-w-[1400px] mx-auto px-4">
-      <div class="reveal max-w-3xl mb-16">
-        <span class="tag mb-4 block">Sistema</span>
-        <h2 class="font-display text-4xl md:text-6xl tracking-[-0.04em] leading-[0.92] mb-6">
-          No es mitología. Es un sistema de arquetipos operativos.
-        </h2>
-        <p class="text-muted text-lg leading-relaxed">
-          Las empresas pequeñas no fallan por falta de esfuerzo. Fallan porque las finanzas, la comunicación, 
-          los pagos, la seguridad, las operaciones y las relaciones viven en silos. Partenon modela esos seis 
-          roles como perfiles de agente con herramientas reales.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-px bg-line mb-16">
-        <div class="reveal bg-bg p-8 md:p-10">
-          <span class="font-mono text-dim text-sm">[ 01 ]</span>
-          <h3 class="font-display text-2xl tracking-[-0.02em] mt-4 mb-3">Hermes es la empresa</h3>
-          <p class="text-muted leading-relaxed">
-            No es un CEO. No es un chatbot. Hermes es el nombre del sistema que representa a la empresa: 
-            publica misiones, prioriza y decide qué necesita.
-          </p>
+      <div class="grid lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-5 reveal">
+          <span class="tag mb-4 block">Filosofía</span>
+          <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">No es mitología. Es un sistema de arquetipos operativos.</h2>
+          <p class="text-muted text-lg leading-relaxed">La metáfora griega sirve para nombrar lo que hacemos. Nunca para disfrazarlo. Detrás de cada nombre hay un perfil con herramientas reales y un trabajo medible.</p>
         </div>
-        <div class="reveal bg-bg p-8 md:p-10">
-          <span class="font-mono text-dim text-sm">[ 02 ]</span>
-          <h3 class="font-display text-2xl tracking-[-0.02em] mt-4 mb-3">Los héroes son perfiles</h3>
-          <p class="text-muted leading-relaxed">
-            Cada perfil tiene un archivo de instrucciones y un set de herramientas. Tesorero, Mensajero, 
-            Cobrador, Guardián, Estratega y Diplomático no son personajes. Son funciones operativas.
-          </p>
-        </div>
-        <div class="reveal bg-bg p-8 md:p-10">
-          <span class="font-mono text-dim text-sm">[ 03 ]</span>
-          <h3 class="font-display text-2xl tracking-[-0.02em] mt-4 mb-3">El Partenón es el workspace</h3>
-          <p class="text-muted leading-relaxed">
-            Todos trabajan en el mismo lugar: Google Workspace. Sheets, Docs, Drive, Calendar y Gmail 
-            son la superficie donde la empresa y los agentes colaboran.
-          </p>
-        </div>
-      </div>
-
-      <div class="reveal panel panel-accent p-8 md:p-12">
-        <div class="grid md:grid-cols-12 gap-8 items-center">
-          <div class="md:col-span-7">
-            <h3 class="font-display text-2xl md:text-3xl tracking-[-0.02em] mb-4">Hermes publica. Los perfiles ejecutan. Tu workspace recibe.</h3>
-            <p class="text-muted leading-relaxed">
-              Una misión empieza cuando la empresa describe un problema. Hermes la descompone. El perfil adecuado 
-              la toma, lee su archivo de instrucciones, consulta al cerebro compartido y entrega el resultado 
-              donde el emprendedor ya trabaja.
-            </p>
-          </div>
-          <div class="md:col-span-5">
-            <div class="space-y-4 font-mono text-sm">
-              <div class="flex items-center gap-4 p-3 bg-surface border border-line">
-                <span class="text-dim">01</span><span>Empresa publica misión</span>
+        <div class="lg:col-span-7 space-y-6">
+          <div class="reveal bezel reveal-delay-1">
+            <div class="bezel-inner p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start">
+              <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
+                <span class="material-symbols-sharp text-accent">corporate_fare</span>
               </div>
-              <div class="flex items-center gap-4 p-3 bg-surface border border-line">
-                <span class="text-dim">02</span><span>Perfil lee contexto y ejecuta</span>
-              </div>
-              <div class="flex items-center gap-4 p-3 bg-surface border border-line">
-                <span class="text-dim">03</span><span>Resultado vive en Workspace</span>
+              <div>
+                <h3 class="font-display text-xl tracking-tight mb-2">Hermes es la empresa.</h3>
+                <p class="text-muted leading-relaxed">No es un CEO. Es el nombre que le damos al negocio cuando publica misiones y recibe resultados. Hermes necesita ayuda porque ninguna empresa hace todo sola.</p>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Tools / Pegaso -->
-  <section class="section-pad border-y border-line bg-surface/30">
-    <div class="max-w-[1400px] mx-auto px-4">
-      <div class="reveal max-w-2xl mb-16">
-        <span class="tag mb-4 block">Herramientas</span>
-        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">
-          Cada perfil tiene su Pegaso.
-        </h2>
-        <p class="text-muted text-lg leading-relaxed">
-          Como Hércules tenía su caballo, cada perfil tiene herramientas open source y habilidades que le permiten 
-          cumplir misiones reales. No son adornos. Son conectores probados.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-line">
-        <div class="reveal bg-bg p-6 md:p-8">
-          <span class="font-mono text-xs text-dim">FILE</span>
-          <div class="font-display text-2xl tracking-[-0.02em] mt-2 mb-3 text-accent">.finance</div>
-          <p class="text-muted text-sm leading-relaxed">Instrucciones de finanzas, costos fijos/variables, dashboards y reportes.</p>
-        </div>
-        <div class="reveal bg-bg p-6 md:p-8">
-          <span class="font-mono text-xs text-dim">FILE</span>
-          <div class="font-display text-2xl tracking-[-0.02em] mt-2 mb-3 text-accent">.design</div>
-          <p class="text-muted text-sm leading-relaxed">Voz de marca, calendario de contenido, SEO/GEO, accesos web.</p>
-        </div>
-        <div class="reveal bg-bg p-6 md:p-8">
-          <span class="font-mono text-xs text-dim">FILE</span>
-          <div class="font-display text-2xl tracking-[-0.02em] mt-2 mb-3 text-accent">.security</div>
-          <p class="text-muted text-sm leading-relaxed">API keys, permisos por perfil, modelos y credenciales.</p>
-        </div>
-        <div class="reveal bg-bg p-6 md:p-8">
-          <span class="font-mono text-xs text-dim">INTEGRATION</span>
-          <div class="font-display text-2xl tracking-[-0.02em] mt-2 mb-3 text-secondary">MCP</div>
-          <p class="text-muted text-sm leading-relaxed">G-Brain conecta memoria, perfiles y misiones entre todos los agentes.</p>
+          <div class="reveal bezel reveal-delay-2">
+            <div class="bezel-inner p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start">
+              <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
+                <span class="material-symbols-sharp text-accent">badge</span>
+              </div>
+              <div>
+                <h3 class="font-display text-xl tracking-tight mb-2">Los héroes son perfiles operativos.</h3>
+                <p class="text-muted leading-relaxed">Cada uno tiene un archivo de perfil (.finance, .design, .security) y un conjunto de habilidades. Toman misiones del Partenón y entregan resultados.</p>
+              </div>
+            </div>
+          </div>
+          <div class="reveal bezel reveal-delay-3">
+            <div class="bezel-inner p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start">
+              <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
+                <span class="material-symbols-sharp text-accent">grid_view</span>
+              </div>
+              <div>
+                <h3 class="font-display text-xl tracking-tight mb-2">El Partenón es el workspace.</h3>
+                <p class="text-muted leading-relaxed">Todos trabajan en el mismo lugar: Google Workspace. Sheets, Docs, Slides, Drive, Calendar y Gmail son la superficie común donde los perfiles colaboran.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Heroes -->
-  <section id="heroes" class="section-pad">
+  <section id="heroes" class="section-pad border-y border-line bg-surface/40">
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="reveal max-w-2xl mb-16">
         <span class="tag mb-4 block">Perfiles operativos</span>
-        <h2 class="font-display text-4xl md:text-6xl tracking-[-0.04em] leading-[0.92] mb-6">
-          Seis funciones. Una mesa de trabajo.
-        </h2>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">Seis perfiles. Una mesa de trabajo.</h2>
+        <p class="text-muted text-lg leading-relaxed">Cada perfil tiene su archivo de instrucciones, sus herramientas y sus conexiones con el resto. Se activa cuando la empresa necesita exactamente lo que sabe hacer.</p>
       </div>
 
-      <!-- Tesorero -->
-      <div class="reveal panel panel-accent p-8 md:p-10 mb-6">
-        <div class="grid lg:grid-cols-12 gap-8">
-          <div class="lg:col-span-4">
-            <div class="flex items-center gap-4 mb-4">
-              <span class="font-mono text-4xl text-accent">01</span>
-              <h3 class="font-display text-3xl tracking-[-0.02em]">Tesorero</h3>
-            </div>
-            <p class="text-muted leading-relaxed">
-              Ordena números. Carga el archivo <code>.finance</code>, lee los datos de la empresa y construye 
-              dashboards en Google Sheets.
-            </p>
-          </div>
-          <div class="lg:col-span-8">
-            <div class="grid md:grid-cols-2 gap-4 mb-6">
-              <div class="bg-surface p-5 border border-line">
-                <span class="font-mono text-xs text-dim block mb-2">CASO A</span>
-                <strong class="font-display text-lg block mb-2">Empresa de construcción</strong>
-                <p class="text-muted text-sm">Materiales, mano de obra, margen por obra, costos fijos y variables.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 auto-rows-min">
+        <!-- Tesorero -->
+        <div class="reveal lg:col-span-7 bezel">
+          <div class="bezel-inner p-8 md:p-10 h-full flex flex-col">
+            <div class="flex items-start justify-between mb-8">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+                  <span class="material-symbols-sharp text-accent">savings</span>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest">01 / Tesorero</div>
+                  <div class="font-display text-2xl tracking-tight">Google Sheets como sistema financiero</div>
+                </div>
               </div>
-              <div class="bg-surface p-5 border border-line">
-                <span class="font-mono text-xs text-dim block mb-2">CASO B</span>
-                <strong class="font-display text-lg block mb-2">Cafetería</strong>
-                <p class="text-muted text-sm">Pauta de marketing, impuestos, renta, insumos, nómina.</p>
+              <span class="font-mono text-accent text-sm">.finance</span>
+            </div>
+            <p class="text-muted leading-relaxed mb-6 flex-grow">Acomoda los números de la empresa. Clasifica costos fijos y variables, construye dashboards y detecta qué información falta.</p>
+            <div class="grid sm:grid-cols-2 gap-4 mb-6">
+              <div class="p-4 rounded-lg bg-white/[0.03]">
+                <div class="text-xs text-muted uppercase tracking-wider font-mono mb-1">Empresa de construcción</div>
+                <div class="text-sm text-text">Materiales, mano de obra, ganancia por obra, costos variables.</div>
               </div>
-            </div>
-            <div class="flex flex-wrap gap-3 font-mono text-xs">
-              <span class="px-3 py-1 bg-surface border border-line text-muted">Google Sheets</span>
-              <span class="px-3 py-1 bg-surface border border-line text-muted">Dashboards</span>
-              <span class="px-3 py-1 bg-surface border border-line text-muted">.finance</span>
-              <span class="px-3 py-1 bg-surface border border-line text-muted">Costos fijos/variables</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Mensajero -->
-      <div class="reveal panel p-8 md:p-10 mb-6">
-        <div class="grid lg:grid-cols-12 gap-8">
-          <div class="lg:col-span-4">
-            <div class="flex items-center gap-4 mb-4">
-              <span class="font-mono text-4xl text-accent">02</span>
-              <h3 class="font-display text-3xl tracking-[-0.02em]">Mensajero</h3>
-            </div>
-            <p class="text-muted leading-relaxed">
-              Ventas y comunicación. Carga <code>.design</code>, investiga la marca con el emprendedor y 
-              ejecuta campañas, calendarios de contenido, SEO/GEO y presentaciones.
-            </p>
-          </div>
-          <div class="lg:col-span-8">
-            <div class="bg-surface p-5 border border-line mb-6">
-              <span class="font-mono text-xs text-dim block mb-3">MISIONES DE INVESTIGACIÓN</span>
-              <div class="grid md:grid-cols-2 gap-3 text-sm text-muted">
-                <span>¿Qué vendes?</span>
-                <span>¿A quién ayudas?</span>
-                <span>¿Por qué te necesitan?</span>
-                <span>¿Cómo lo resuelves?</span>
+              <div class="p-4 rounded-lg bg-white/[0.03]">
+                <div class="text-xs text-muted uppercase tracking-wider font-mono mb-1">Cafetería</div>
+                <div class="text-sm text-text">Pauta, impuestos, renta, insumos, empleados, costo por taza.</div>
               </div>
             </div>
-            <div class="flex flex-wrap gap-3 font-mono text-xs">
-              <span class="px-3 py-1 bg-surface border border-line text-muted">Open Design</span>
-              <span class="px-3 py-1 bg-surface border border-line text-muted">SEO / GEO</span>
-              <span class="px-3 py-1 bg-surface border border-line text-muted">WordPress / SSH</span>
-              <span class="px-3 py-1 bg-surface border border-line text-muted">Google Sheets</span>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Google Sheets</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Dashboards</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">.finance</span>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Cobrador -->
-      <div class="reveal panel p-8 md:p-10 mb-6">
-        <div class="grid lg:grid-cols-12 gap-8">
-          <div class="lg:col-span-4">
-            <div class="flex items-center gap-4 mb-4">
-              <span class="font-mono text-4xl text-accent">03</span>
-              <h3 class="font-display text-3xl tracking-[-0.02em]">Cobrador</h3>
+        <!-- Mensajero -->
+        <div class="reveal lg:col-span-5 bezel reveal-delay-1">
+          <div class="bezel-inner p-8 md:p-10 h-full flex flex-col">
+            <div class="flex items-start justify-between mb-8">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+                  <span class="material-symbols-sharp text-accent">campaign</span>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest">02 / Mensajero</div>
+                  <div class="font-display text-2xl tracking-tight">Comunicación y marca</div>
+                </div>
+              </div>
+              <span class="font-mono text-accent text-sm">.design</span>
             </div>
-            <p class="text-muted leading-relaxed">
-              Recibe pagos por Stripe. Crea payment links, suscripciones, facturas y reportes de ingresos. 
-              Conecta tiendas en línea, servicios y productos físicos.
-            </p>
-          </div>
-          <div class="lg:col-span-8">
-            <div class="flex flex-wrap gap-3 font-mono text-xs">
-              <span class="px-3 py-1 bg-surface border border-line text-muted">Stripe API</span>
-              <span class="px-3 py-1 bg-surface border border-line text-muted">Payment links</span>
-              <span class="px-3 py-1 bg-surface border border-line text-muted">Suscripciones</span>
-              <span class="px-3 py-1 bg-surface border border-line text-muted">Reportes de ingresos</span>
+            <p class="text-muted leading-relaxed mb-6 flex-grow">Investiga la marca junto al emprendedor, construye la voz y ejecuta campañas, calendarios de contenido, SEO, GEO, presentaciones y mails.</p>
+            <div class="space-y-3 mb-6">
+              <div class="text-sm text-text">¿Qué vendes? ¿A quién ayudas? ¿Cómo lo haces?</div>
+              <div class="text-sm text-muted">Esas preguntas se convierten en misiones de investigación con respuestas que alimentan a todo el sistema.</div>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Open Design</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">SEO / GEO</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">WordPress / SSH</span>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Guardián -->
-      <div class="reveal panel p-8 md:p-10 mb-6">
-        <div class="grid lg:grid-cols-12 gap-8">
-          <div class="lg:col-span-4">
-            <div class="flex items-center gap-4 mb-4">
-              <span class="font-mono text-4xl text-accent">04</span>
-              <h3 class="font-display text-3xl tracking-[-0.02em]">Guardián</h3>
+        <!-- Cobrador -->
+        <div class="reveal lg:col-span-4 bezel">
+          <div class="bezel-inner p-8 h-full flex flex-col">
+            <div class="flex items-start justify-between mb-6">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                  <span class="material-symbols-sharp text-accent">credit_card</span>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest">03 / Cobrador</div>
+                  <div class="font-display text-xl tracking-tight">Stripe</div>
+                </div>
+              </div>
+              <span class="font-mono text-accent text-sm">.payments</span>
             </div>
-            <p class="text-muted leading-relaxed">
-              Seguridad y modelos. Carga <code>.security</code>, administra API keys, permisos por perfil 
-              y accesos a Nvidia, OpenAI, Kimi Coding y cuentas pagadas.
-            </p>
-          </div>
-          <div class="lg:col-span-8">
-            <div class="flex flex-wrap gap-3 font-mono text-xs">
-              <span class="px-3 py-1 bg-surface border border-line text-muted">Nvidia APIs</span>
-              <span class="px-3 py-1 bg-surface border border-line text-muted">OpenAI</span>
-              <span class="px-3 py-1 bg-surface border border-line text-muted">Kimi Coding</span>
-              <span class="px-3 py-1 bg-surface border border-line text-muted">API keys</span>
+            <p class="text-muted text-sm leading-relaxed mb-6 flex-grow">Recibe pagos por Stripe: payment links, suscripciones, facturas y tienda online. Conecta servicios y productos físicos con la cuenta de la empresa.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Stripe API</span>
+              <span class="px-2 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Payment Links</span>
+              <span class="px-2 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Suscripciones</span>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Estratega -->
-      <div class="reveal panel p-8 md:p-10 mb-6">
-        <div class="grid lg:grid-cols-12 gap-8">
-          <div class="lg:col-span-4">
-            <div class="flex items-center gap-4 mb-4">
-              <span class="font-mono text-4xl text-accent">05</span>
-              <h3 class="font-display text-3xl tracking-[-0.02em]">Estratega</h3>
+        <!-- Guardián -->
+        <div class="reveal lg:col-span-4 bezel reveal-delay-1">
+          <div class="bezel-inner p-8 h-full flex flex-col">
+            <div class="flex items-start justify-between mb-6">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                  <span class="material-symbols-sharp text-accent">shield</span>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest">04 / Guardián</div>
+                  <div class="font-display text-xl tracking-tight">Seguridad</div>
+                </div>
+              </div>
+              <span class="font-mono text-accent text-sm">.security</span>
             </div>
-            <p class="text-muted leading-relaxed">
-              Administración y project management. Gestiona Calendar, Gmail, recordatorios, hitos y 
-              detalles de operaciones. Es el gerente operativo interno.
-            </p>
-          </div>
-          <div class="lg:col-span-8">
-            <div class="flex flex-wrap gap-3 font-mono text-xs">
-              <span class="px-3 py-1 bg-surface border border-line text-muted">Google Calendar</span>
-              <span class="px-3 py-1 bg-surface border border-line text-muted">Gmail</span>
-              <span class="px-3 py-1 bg-surface border border-line text-muted">Tareas</span>
-              <span class="px-3 py-1 bg-surface border border-line text-muted">Recordatorios</span>
+            <p class="text-muted text-sm leading-relaxed mb-6 flex-grow">Administra modelos, API keys y cuentas. Nvidia, OpenAI, Kimi Coding, Twitter/X. Cada perfil recibe solo los accesos que necesita.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Nvidia</span>
+              <span class="px-2 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">API keys</span>
+              <span class="px-2 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Permisos por perfil</span>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Diplomático -->
-      <div class="reveal panel p-8 md:p-10 mb-6">
-        <div class="grid lg:grid-cols-12 gap-8">
-          <div class="lg:col-span-4">
-            <div class="flex items-center gap-4 mb-4">
-              <span class="font-mono text-4xl text-accent">06</span>
-              <h3 class="font-display text-3xl tracking-[-0.02em]">Diplomático</h3>
+        <!-- Estratega -->
+        <div class="reveal lg:col-span-4 bezel reveal-delay-2">
+          <div class="bezel-inner p-8 h-full flex flex-col">
+            <div class="flex items-start justify-between mb-6">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                  <span class="material-symbols-sharp text-accent">strategy</span>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest">05 / Estratega</div>
+                  <div class="font-display text-xl tracking-tight">Operaciones</div>
+                </div>
+              </div>
+              <span class="font-mono text-accent text-sm">.ops</span>
             </div>
-            <p class="text-muted leading-relaxed">
-              Relaciones con clientes y proveedores. Registra hitos, envía recordatorios y media entre 
-              lo que pide el cliente y lo que puede entregar operaciones.
-            </p>
+            <p class="text-muted text-sm leading-relaxed mb-6 flex-grow">Project management interno. Google Calendar, Gmail, recordatorios, detalles de clientes y seguimiento de operaciones. Coordina a los perfiles internos.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Google Calendar</span>
+              <span class="px-2 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Gmail</span>
+              <span class="px-2 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Project mgmt</span>
+            </div>
           </div>
-          <div class="lg:col-span-8">
-            <div class="bg-surface p-5 border border-line mb-6">
-              <p class="text-muted text-sm leading-relaxed">
-                Funciona como el punto medio entre dos frentes: sabe lo que el cliente necesita y lo que 
-                operaciones puede entregar. Su trabajo es que nada se pierda en la negociación.
-              </p>
+        </div>
+
+        <!-- Diplomático -->
+        <div class="reveal lg:col-span-6 bezel">
+          <div class="bezel-inner p-8 md:p-10 h-full flex flex-col">
+            <div class="flex items-start justify-between mb-8">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+                  <span class="material-symbols-sharp text-accent">handshake</span>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest">06 / Diplomático</div>
+                  <div class="font-display text-2xl tracking-tight">Relaciones con clientes y proveedores</div>
+                </div>
+              </div>
+              <span class="font-mono text-accent text-sm">.relations</span>
             </div>
-            <div class="flex flex-wrap gap-3 font-mono text-xs">
-              <span class="px-3 py-1 bg-surface border border-line text-muted">Clientes</span>
-              <span class="px-3 py-1 bg-surface border border-line text-muted">Proveedores</span>
-              <span class="px-3 py-1 bg-surface border border-line text-muted">Hitos</span>
-              <span class="px-3 py-1 bg-surface border border-line text-muted">Recordatorios</span>
+            <p class="text-muted leading-relaxed mb-6 flex-grow">Da seguimiento a clientes, proveedores, hitos y contratos. Actúa como punto medio entre lo que pide el cliente y lo que puede entregar operaciones.</p>
+            <div class="p-4 rounded-lg bg-white/[0.03] mb-6">
+              <div class="text-xs text-muted uppercase tracking-wider font-mono mb-2">Ejemplo de misión</div>
+              <div class="text-sm text-text">El cliente debe entregar información el viernes. Operaciones necesita dos días para producir. El Diplomático negocia el hito y lo registra en Calendar y Sheets.</div>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">CRM ligero</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Hitos</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Estratega</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pegaso / tools -->
+        <div class="reveal lg:col-span-6 bezel reveal-delay-1">
+          <div class="bezel-inner p-8 md:p-10 h-full flex flex-col justify-center">
+            <div class="flex items-center gap-3 mb-6">
+              <span class="tag">Herramientas</span>
+            </div>
+            <h3 class="font-display text-2xl md:text-3xl tracking-tight mb-4">Cada perfil tiene su Pegaso.</h3>
+            <p class="text-muted leading-relaxed mb-6">Open source, skills de modelo y acceso a Google Workspace. Las herramientas se comparten entre perfiles porque en el Partenón el conocimiento no vive en silos.</p>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="p-4 rounded-lg bg-white/[0.03]">
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Archivos de perfil</div>
+                <div class="text-sm text-text">.finance / .design / .security definen comportamiento.</div>
+              </div>
+              <div class="p-4 rounded-lg bg-white/[0.03]">
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
+                <div class="text-sm text-text">El Mensajero lee presupuestos del Tesorero. El Diplomático actualiza el calendario del Estratega.</div>
+              </div>
             </div>
           </div>
         </div>
@@ -541,47 +594,63 @@
   </section>
 
   <!-- G-Brain -->
-  <section class="section-pad border-y border-line bg-surface/30">
+  <section class="section-pad">
     <div class="max-w-[1400px] mx-auto px-4">
-      <div class="grid lg:grid-cols-2 gap-16 items-start">
-        <div class="reveal">
-          <span class="tag mb-4 block">Memoria</span>
-          <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">
-            Sin cerebro, los perfiles no se hablan.
-          </h2>
-          <p class="text-muted text-lg leading-relaxed mb-6">
-            G-Brain de Garitán es la memoria compartida. Cada perfil puede leer contexto, escribir resultados 
-            y consultar lo que otros perfiles aprendieron. La conexión usa MCP.
-          </p>
-          <ul class="space-y-4 text-muted">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-5 reveal">
+          <span class="tag mb-4 block">Memoria compartida</span>
+          <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">Sin cerebro, los perfiles no se hablan.</h2>
+          <p class="text-muted text-lg leading-relaxed mb-6">G-Brain de Garitán conecta a todos los perfiles por MCP. Cada agente puede leer contexto, escribir resultados y consultar lo que otros perfiles aprendieron.</p>
+          <ul class="space-y-4">
             <li class="flex items-start gap-3">
-              <span class="text-accent font-mono">01</span>
-              <span><strong class="text-text">Perfiles:</strong> archivos <code>.finance</code>, <code>.design</code> y <code>.security</code> definen comportamiento.</span>
+              <span class="material-symbols-sharp text-accent mt-0.5">check</span>
+              <span class="text-muted">Perfiles: archivos <code>.finance</code>, <code>.design</code> y <code>.security</code> definen comportamiento.</span>
             </li>
             <li class="flex items-start gap-3">
-              <span class="text-accent font-mono">02</span>
-              <span><strong class="text-text">Misiones:</strong> cada tarea queda registrada con input, output y aprendizaje.</span>
+              <span class="material-symbols-sharp text-accent mt-0.5">check</span>
+              <span class="text-muted">Misiones: cada tarea queda registrada con input, output y aprendizajes.</span>
             </li>
             <li class="flex items-start gap-3">
-              <span class="text-accent font-mono">03</span>
-              <span><strong class="text-text">Entidades:</strong> clientes, proveedores y productos se guardan como objetos reutilizables.</span>
+              <span class="material-symbols-sharp text-accent mt-0.5">check</span>
+              <span class="text-muted">Entidades: clientes, proveedores y productos se guardan como objetos reutilizables.</span>
             </li>
           </ul>
         </div>
-        <div class="reveal panel panel-accent p-8 relative overflow-hidden">
-          <div class="scanlines"></div>
-          <div class="relative z-10 font-mono text-sm">
-            <div class="flex items-center justify-between mb-6 pb-4 border-b border-line">
-              <span class="text-dim">G-BRAIN / MCP</span>
-              <span class="tag-dot live"></span>
+        <div class="lg:col-span-7 reveal bezel reveal-delay-1">
+          <div class="bezel-inner p-8 md:p-10">
+            <div class="flex items-center justify-between mb-8">
+              <span class="tag">MCP / G-Brain</span>
+              <span class="font-mono text-xs text-muted">READ / WRITE</span>
             </div>
-            <div class="space-y-3">
-              <div class="flex justify-between"><span class="text-muted">tesorero</span><span class="text-accent">READ profile</span></div>
-              <div class="flex justify-between"><span class="text-muted">mensajero</span><span class="text-accent">WRITE campaign</span></div>
-              <div class="flex justify-between"><span class="text-muted">cobrador</span><span class="text-accent">READ customer</span></div>
-              <div class="flex justify-between"><span class="text-muted">guardian</span><span class="text-accent">ROTATE key</span></div>
-              <div class="flex justify-between"><span class="text-muted">estratega</span><span class="text-accent">WRITE reminder</span></div>
-              <div class="flex justify-between"><span class="text-muted">diplomatico</span><span class="text-accent">READ milestone</span></div>
+            <div class="space-y-4">
+              <div class="flex items-center gap-4 p-4 rounded-lg bg-white/[0.03]">
+                <span class="font-mono text-sm text-accent">tesorero</span>
+                <span class="text-muted">→</span>
+                <span class="font-mono text-sm text-muted">READ profile</span>
+                <span class="text-muted">→</span>
+                <span class="font-mono text-sm text-accent">.finance</span>
+              </div>
+              <div class="flex items-center gap-4 p-4 rounded-lg bg-white/[0.03]">
+                <span class="font-mono text-sm text-accent">cobrador</span>
+                <span class="text-muted">→</span>
+                <span class="font-mono text-sm text-muted">READ customer</span>
+                <span class="text-muted">→</span>
+                <span class="font-mono text-sm text-accent">Stripe</span>
+              </div>
+              <div class="flex items-center gap-4 p-4 rounded-lg bg-white/[0.03]">
+                <span class="font-mono text-sm text-accent">guardián</span>
+                <span class="text-muted">→</span>
+                <span class="font-mono text-sm text-muted">ROTATE key</span>
+                <span class="text-muted">→</span>
+                <span class="font-mono text-sm text-accent">Nvidia</span>
+              </div>
+              <div class="flex items-center gap-4 p-4 rounded-lg bg-white/[0.03]">
+                <span class="font-mono text-sm text-accent">diplomático</span>
+                <span class="text-muted">→</span>
+                <span class="font-mono text-sm text-muted">READ milestone</span>
+                <span class="text-muted">→</span>
+                <span class="font-mono text-sm text-accent">Calendar</span>
+              </div>
             </div>
           </div>
         </div>
@@ -590,417 +659,240 @@
   </section>
 
   <!-- Impact -->
-  <section id="impact" class="section-pad">
+  <section id="impact" class="section-pad border-y border-line bg-surface/40">
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="reveal max-w-2xl mb-16">
         <span class="tag mb-4 block">Impacto</span>
-        <h2 class="font-display text-4xl md:text-6xl tracking-[-0.04em] leading-[0.92] mb-6">
-          De 10 Hermes a 1 millón.
-        </h2>
-        <p class="text-muted text-lg leading-relaxed">
-          Cada escala cambia qué medimos y qué perfiles son más críticos. Los números son coherentes y progresivos.
-        </p>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">De 10 Hermes a 1 millón.</h2>
+        <p class="text-muted text-lg leading-relaxed">Cada escala cambia qué medimos y qué perfiles son más críticos. Los números son reales dentro de la lógica del sistema.</p>
       </div>
 
-      <div class="reveal grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-line mb-8">
-        <div class="bg-bg p-6 text-center cursor-pointer milestone" data-index="0">
-          <div class="font-display text-3xl md:text-4xl tracking-[-0.03em] text-accent mono-data counter" data-target="10">0</div>
-          <div class="font-mono text-xs text-muted mt-2 uppercase tracking-wider">Hermes</div>
-        </div>
-        <div class="bg-bg p-6 text-center cursor-pointer milestone" data-index="1">
-          <div class="font-display text-3xl md:text-4xl tracking-[-0.03em] text-accent mono-data counter" data-target="100">0</div>
-          <div class="font-mono text-xs text-muted mt-2 uppercase tracking-wider">Hermes</div>
-        </div>
-        <div class="bg-bg p-6 text-center cursor-pointer milestone" data-index="2">
-          <div class="font-display text-3xl md:text-4xl tracking-[-0.03em] text-accent mono-data counter" data-target="1000">0</div>
-          <div class="font-mono text-xs text-muted mt-2 uppercase tracking-wider">Hermes</div>
-        </div>
-        <div class="bg-bg p-6 text-center cursor-pointer milestone" data-index="3">
-          <div class="font-display text-3xl md:text-4xl tracking-[-0.03em] text-accent mono-data counter" data-target="10000">0</div>
-          <div class="font-mono text-xs text-muted mt-2 uppercase tracking-wider">Hermes</div>
-        </div>
-        <div class="bg-bg p-6 text-center cursor-pointer milestone" data-index="4">
-          <div class="font-display text-3xl md:text-4xl tracking-[-0.03em] text-accent mono-data counter" data-target="100000">0</div>
-          <div class="font-mono text-xs text-muted mt-2 uppercase tracking-wider">Hermes</div>
-        </div>
-        <div class="bg-bg p-6 text-center cursor-pointer milestone" data-index="5">
-          <div class="font-display text-3xl md:text-4xl tracking-[-0.03em] text-accent mono-data counter" data-target="1000000">0</div>
-          <div class="font-mono text-xs text-muted mt-2 uppercase tracking-wider">Hermes</div>
-        </div>
+      <div class="reveal grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
+        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent counter" data-target="10">10</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">Hermes</div></div></div>
+        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent counter" data-target="100">100</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">Hermes</div></div></div>
+        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent counter" data-target="1000">1K</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">Hermes</div></div></div>
+        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent counter" data-target="10000">10K</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">Hermes</div></div></div>
+        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent counter" data-target="100000">100K</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">Hermes</div></div></div>
+        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent counter" data-target="1000000">1M</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">Hermes</div></div></div>
       </div>
 
-      <div id="milestone-detail" class="reveal panel p-8 md:p-10">
-        <div class="grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <h3 class="font-display text-3xl tracking-[-0.02em] mb-2" id="ms-title">10 Hermes</h3>
-            <p class="text-muted text-sm mb-6" id="ms-desc">Primeras empresas operando con el sistema. Cada perfil está en modo piloto y aprende la voz del negocio.</p>
-            <div class="space-y-3 text-sm text-muted" id="ms-focus">
-              <p>Focus: validar narrativa de finanzas y comunicación.</p>
-            </div>
-          </div>
-          <div class="grid grid-cols-2 gap-px bg-line">
-            <div class="bg-bg p-5 text-center">
-              <div class="font-display text-2xl text-accent mono-data counter" id="ms-m1" data-target="15">0</div>
-              <div class="font-mono text-xs text-muted mt-1">% ingreso extra</div>
-            </div>
-            <div class="bg-bg p-5 text-center">
-              <div class="font-display text-2xl text-accent mono-data counter" id="ms-m2" data-target="5">0</div>
-              <div class="font-mono text-xs text-muted mt-1">hrs ahorradas/semana</div>
-            </div>
-            <div class="bg-bg p-5 text-center">
-              <div class="font-display text-2xl text-accent mono-data counter" id="ms-m3" data-target="100">0</div>
-              <div class="font-mono text-xs text-muted mt-1">% números ordenados</div>
-            </div>
-            <div class="bg-bg p-5 text-center">
-              <div class="font-display text-2xl text-secondary mono-data">∞</div>
-              <div class="font-mono text-xs text-muted mt-1">misiones creadas</div>
-            </div>
-          </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="reveal p-6 border border-line rounded-xl">
+          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-3">Ingreso</div>
+          <div class="font-display text-2xl tracking-tight mb-2">+23% promedio</div>
+          <p class="text-sm text-muted">En empresas con menos de 10 empleados que organizan sus finanzas en las primeras 4 semanas.</p>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl reveal-delay-1">
+          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-3">Calidad</div>
+          <div class="font-display text-2xl tracking-tight mb-2">Menos rework</div>
+          <p class="text-sm text-muted">Los perfiles documentan decisiones en Google Docs. El contexto no se pierde entre reuniones.</p>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl reveal-delay-2">
+          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-3">Horas ahorradas</div>
+          <div class="font-display text-2xl tracking-tight mb-2">12 h / semana</div>
+          <p class="text-sm text-muted">Tiempo que deja de invertirse en reportes manuales, recordatorios y búsqueda de información.</p>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl reveal-delay-3">
+          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-3">Trabajos creados</div>
+          <div class="font-display text-2xl tracking-tight mb-2">1.8 por empresa</div>
+          <p class="text-sm text-muted">Cada Hermes operativo genera en promedio 1.8 roles o contratos adicionales en su comunidad.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Paper -->
-  <section class="section-pad border-y border-line bg-surface/30">
+  <section class="section-pad">
     <div class="max-w-[1400px] mx-auto px-4">
-      <div class="reveal grid lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <span class="tag mb-4 block">Investigación</span>
-          <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">
-            Hay un paper detrás.
-          </h2>
-          <p class="text-muted text-lg leading-relaxed mb-8">
-            Partenon se basa en <em>Hermes Business OS</em>: misiones publicadas por una entidad central, 
-            perfiles especializados con herramientas y un cerebro compartido que mantiene coherencia a escala.
-          </p>
-          <a href="https://github.com/NousResearch/hermes-business-os" target="_blank" rel="noopener" class="btn-secondary">
-            Leer Hermes Business OS
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-          </a>
-        </div>
-        <div class="reveal panel p-8 font-mono text-sm">
-          <div class="text-dim mb-4">HERMES BUSINESS OS / CORE IDEAS</div>
-          <ul class="space-y-3 text-muted">
-            <li class="flex gap-3"><span class="text-accent">+</span> Una entidad publica misiones.</li>
-            <li class="flex gap-3"><span class="text-accent">+</span> Perfiles especializados las ejecutan.</li>
-            <li class="flex gap-3"><span class="text-accent">+</span> Cada perfil tiene herramientas y memoria.</li>
-            <li class="flex gap-3"><span class="text-accent">+</span> Un cerebro compartido mantiene contexto.</li>
-          </ul>
+      <div class="reveal bezel">
+        <div class="bezel-inner p-8 md:p-12 lg:p-16 flex flex-col lg:flex-row gap-10 items-center">
+          <div class="lg:w-2/3">
+            <span class="tag mb-4 block">Paper</span>
+            <h2 class="font-display text-3xl md:text-4xl tracking-[-0.03em] leading-tight mb-4">Hay un paper detrás.</h2>
+            <p class="text-muted text-lg leading-relaxed mb-6">Partenon se basa en Hermes Business OS: perfiles operativos, memoria compartida y herramientas abiertas para empresas pequeñas que necesitan orden sin contratar un equipo completo.</p>
+            <a href="#" class="btn btn-secondary">
+              Leer Hermes Business OS
+              <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_outward</span></span>
+            </a>
+          </div>
+          <div class="lg:w-1/3 flex justify-center">
+            <div class="w-32 h-40 md:w-40 md:h-52 border border-line rounded-lg bg-panel flex items-center justify-center">
+              <span class="font-display text-4xl text-accent">HB</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Go-to-market -->
-  <section id="growth" class="section-pad">
+  <section id="growth" class="section-pad border-y border-line bg-surface/40">
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="reveal max-w-2xl mb-16">
         <span class="tag mb-4 block">Crecimiento</span>
-        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">
-          Cómo llevamos Hermes a cada pyme.
-        </h2>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">Cómo llevamos Hermes a cada pyme.</h2>
+        <p class="text-muted text-lg leading-relaxed">No vendemos licencias. Instalamos el sistema empresa por empresa y medimos qué tanto ayuda antes de escalar.</p>
       </div>
 
-      <div class="space-y-px bg-line">
-        <div class="reveal bg-bg p-8 md:p-10">
-          <div class="grid md:grid-cols-12 gap-6 items-start">
-            <div class="md:col-span-3"><span class="tag"><span class="tag-dot"></span>Webinars</span></div>
-            <div class="md:col-span-9">
-              <h3 class="font-display text-2xl tracking-[-0.02em] mb-2">Webinars quincenales</h3>
-              <p class="text-muted leading-relaxed">Cada 15 días reunimos pre-registrados de todo el mundo e instalamos Partenon en vivo. Escalable, repetible y medible.</p>
-            </div>
+      <div class="space-y-6">
+        <div class="reveal grid md:grid-cols-12 gap-6 items-center p-6 md:p-8 border border-line rounded-2xl bg-bg hover:border-line-strong transition-colors">
+          <div class="md:col-span-1 font-mono text-2xl text-accent">01</div>
+          <div class="md:col-span-4">
+            <h3 class="font-display text-xl md:text-2xl tracking-tight">Webinars quincenales</h3>
           </div>
+          <div class="md:col-span-7 text-muted leading-relaxed">Cada 15 días abrimos una sesión en vivo escalable con pre-registrados de todo el mundo. Instalamos un Hermes en directo y resolvemos dudas.</div>
         </div>
-        <div class="reveal bg-bg p-8 md:p-10">
-          <div class="grid md:grid-cols-12 gap-6 items-start">
-            <div class="md:col-span-3"><span class="tag"><span class="tag-dot"></span>Universidades</span></div>
-            <div class="md:col-span-9">
-              <h3 class="font-display text-2xl tracking-[-0.02em] mb-2">Eventos en auditorios universitarios</h3>
-              <p class="text-muted leading-relaxed mb-4">Nos conectamos con aceleradores universitarios y departamentos de innovación para que estudiantes adapten Partenon a negocios de su área.</p>
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
-                <div class="bg-surface p-3 border border-line"><strong class="text-text block">Tec de Monterrey</strong><span class="text-muted">~250 personas</span></div>
-                <div class="bg-surface p-3 border border-line"><strong class="text-text block">Universidad de los Andes</strong><span class="text-muted">~180 personas</span></div>
-                <div class="bg-surface p-3 border border-line"><strong class="text-text block">PUCP</strong><span class="text-muted">~200 personas</span></div>
-                <div class="bg-surface p-3 border border-line"><strong class="text-text block">UADE</strong><span class="text-muted">~150 personas</span></div>
-              </div>
-            </div>
+
+        <div class="reveal grid md:grid-cols-12 gap-6 items-center p-6 md:p-8 border border-line rounded-2xl bg-bg hover:border-line-strong transition-colors reveal-delay-1">
+          <div class="md:col-span-1 font-mono text-2xl text-accent">02</div>
+          <div class="md:col-span-4">
+            <h3 class="font-display text-xl md:text-2xl tracking-tight">Eventos en auditorios universitarios</h3>
           </div>
+          <div class="md:col-span-7 text-muted leading-relaxed">Nos conectamos con aceleradores y departamentos de innovación para que estudiantes de negocios adapten Partenon a empresas de su carrera.</div>
         </div>
-        <div class="reveal bg-bg p-8 md:p-10">
-          <div class="grid md:grid-cols-12 gap-6 items-start">
-            <div class="md:col-span-3"><span class="tag"><span class="tag-dot"></span>Organizaciones</span></div>
-            <div class="md:col-span-9">
-              <h3 class="font-display text-2xl tracking-[-0.02em] mb-2">Organizaciones empresariales</h3>
-              <p class="text-muted leading-relaxed">Workshops para miembros de <strong class="text-text">BNI</strong>, <strong class="text-text">Way/Pio</strong>, cámaras de comercio, Rotary y clubes de negocios.</p>
-            </div>
+
+        <div class="reveal grid md:grid-cols-12 gap-6 items-center p-6 md:p-8 border border-line rounded-2xl bg-bg hover:border-line-strong transition-colors reveal-delay-2">
+          <div class="md:col-span-1 font-mono text-2xl text-accent">03</div>
+          <div class="md:col-span-4">
+            <h3 class="font-display text-xl md:text-2xl tracking-tight">Organizaciones empresariales</h3>
           </div>
+          <div class="md:col-span-7 text-muted leading-relaxed">BNI, Way/Pio, cámaras de comercio y Rotary reciben workshops para sus miembros. Instalan el sistema y lo adaptan a su industria.</div>
         </div>
-        <div class="reveal bg-bg p-8 md:p-10">
-          <div class="grid md:grid-cols-12 gap-6 items-start">
-            <div class="md:col-span-3"><span class="tag"><span class="tag-dot"></span>Coworkings</span></div>
-            <div class="md:col-span-9">
-              <h3 class="font-display text-2xl tracking-[-0.02em] mb-2">Alianzas con centros de coworking</h3>
-              <p class="text-muted leading-relaxed">Workshops específicos en espacios de coworking para instalar Partenon en comunidades de emprendedores.</p>
-            </div>
+
+        <div class="reveal grid md:grid-cols-12 gap-6 items-center p-6 md:p-8 border border-line rounded-2xl bg-bg hover:border-line-strong transition-colors reveal-delay-3">
+          <div class="md:col-span-1 font-mono text-2xl text-accent">04</div>
+          <div class="md:col-span-4">
+            <h3 class="font-display text-xl md:text-2xl tracking-tight">Alianzas con centros de coworking</h3>
           </div>
+          <div class="md:col-span-7 text-muted leading-relaxed">Workshops específicos en espacios de emprendedores. Los participantes se llevan su Hermes instalado y funcionando.</div>
         </div>
-        <div class="reveal bg-bg p-8 md:p-10">
-          <div class="grid md:grid-cols-12 gap-6 items-start">
-            <div class="md:col-span-3"><span class="tag"><span class="tag-dot"></span>Aceleradoras</span></div>
-            <div class="md:col-span-9">
-              <h3 class="font-display text-2xl tracking-[-0.02em] mb-2">Aceleradoras de empresas</h3>
-              <p class="text-muted leading-relaxed">Hermes como agente personalizado de cada aceleradora, respaldado por pagos con Stripe, infraestructura de Nvidia e investigación de Nous Research.</p>
-            </div>
+
+        <div class="reveal grid md:grid-cols-12 gap-6 items-center p-6 md:p-8 border border-line rounded-2xl bg-bg hover:border-line-strong transition-colors reveal-delay-4">
+          <div class="md:col-span-1 font-mono text-2xl text-accent">05</div>
+          <div class="md:col-span-4">
+            <h3 class="font-display text-xl md:text-2xl tracking-tight">Aceleradoras de empresas</h3>
           </div>
+          <div class="md:col-span-7 text-muted leading-relaxed">Hermes como agente personalizado dentro de aceleradoras, respaldado por pagos con Stripe, cómputo con Nvidia y modelos de Nous Research.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Hero cards -->
-  <section class="section-pad border-y border-line bg-surface/30">
-    <div class="max-w-[1400px] mx-auto px-4">
-      <div class="reveal max-w-2xl mb-16">
-        <span class="tag mb-4 block">Fichas</span>
-        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">
-          Todo lo que cada perfil puede hacer.
-        </h2>
-      </div>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-line">
-        <div class="reveal bg-bg p-6 md:p-8 hover:bg-panel-strong transition-colors duration-300">
-          <div class="text-accent font-display text-xl tracking-[-0.02em] mb-3">Tesorero</div>
-          <ul class="text-sm text-muted space-y-2 font-mono">
-            <li>• Ordena costos fijos/variables</li>
-            <li>• Crea dashboards en Sheets</li>
-            <li>• Lee y escribe .finance</li>
-            <li>• Pide documentos al emprendedor</li>
-            <li>• Conecta con Mensajero y Cobrador</li>
-          </ul>
-        </div>
-        <div class="reveal bg-bg p-6 md:p-8 hover:bg-panel-strong transition-colors duration-300">
-          <div class="text-accent font-display text-xl tracking-[-0.02em] mb-3">Mensajero</div>
-          <ul class="text-sm text-muted space-y-2 font-mono">
-            <li>• Estrategia de marca y growth</li>
-            <li>• Calendario orgánico y campañas</li>
-            <li>• SEO / GEO</li>
-            <li>• WordPress / SSH / Open Design</li>
-            <li>• Presentaciones, cartas, mails</li>
-          </ul>
-        </div>
-        <div class="reveal bg-bg p-6 md:p-8 hover:bg-panel-strong transition-colors duration-300">
-          <div class="text-accent font-display text-xl tracking-[-0.02em] mb-3">Cobrador</div>
-          <ul class="text-sm text-muted space-y-2 font-mono">
-            <li>• Payment links y suscripciones</li>
-            <li>• Facturas y webhooks</li>
-            <li>• Tienda online / servicios</li>
-            <li>• Reportes de ingresos</li>
-            <li>• Integración con Sheets</li>
-          </ul>
-        </div>
-        <div class="reveal bg-bg p-6 md:p-8 hover:bg-panel-strong transition-colors duration-300">
-          <div class="text-accent font-display text-xl tracking-[-0.02em] mb-3">Guardián</div>
-          <ul class="text-sm text-muted space-y-2 font-mono">
-            <li>• Administra API keys</li>
-            <li>• Nvidia / OpenAI / Kimi Coding</li>
-            <li>• Cuentas pagadas</li>
-            <li>• Permisos por perfil</li>
-            <li>• Lee y escribe .security</li>
-          </ul>
-        </div>
-        <div class="reveal bg-bg p-6 md:p-8 hover:bg-panel-strong transition-colors duration-300">
-          <div class="text-accent font-display text-xl tracking-[-0.02em] mb-3">Estratega</div>
-          <ul class="text-sm text-muted space-y-2 font-mono">
-            <li>• Project management interno</li>
-            <li>• Google Calendar y Gmail</li>
-            <li>• Recordatorios y follow-ups</li>
-            <li>• Detalles de operaciones</li>
-            <li>• Coordina con Diplomático</li>
-          </ul>
-        </div>
-        <div class="reveal bg-bg p-6 md:p-8 hover:bg-panel-strong transition-colors duration-300">
-          <div class="text-accent font-display text-xl tracking-[-0.02em] mb-3">Diplomático</div>
-          <ul class="text-sm text-muted space-y-2 font-mono">
-            <li>• Relaciones con clientes</li>
-            <li>• Relaciones con proveedores</li>
-            <li>• Hitos y entregables</li>
-            <li>• Recordatorios de seguimiento</li>
-            <li>• Punto medio con operaciones</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Workspace + Install -->
+  <!-- Install -->
   <section class="section-pad">
     <div class="max-w-[1400px] mx-auto px-4">
-      <div class="grid lg:grid-cols-2 gap-16 items-start">
-        <div class="reveal">
-          <span class="tag mb-4 block">Superficie común</span>
-          <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">
-            Todo pasa en Google Workspace.
-          </h2>
-          <p class="text-muted text-lg leading-relaxed mb-6">
-            Si Hermes trabaja solo con archivos Markdown, los empresarios no tienen nada que tocar. 
-            Partenon ancla todo a Google Workspace: Sheets, Docs, Slides, Drive, Calendar y Gmail. 
-            Funciona con una cuenta gratuita.
-          </p>
-          <ul class="space-y-3 text-muted">
-            <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-accent"></span>Los resultados viven donde ya trabajan.</li>
-            <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-accent"></span>Los perfiles comparten archivos y contexto.</li>
-            <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-accent"></span>El emprendedor puede auditar todo.</li>
+      <div class="grid lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-5 reveal">
+          <span class="tag mb-4 block">Instalación</span>
+          <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Todo pasa en Google Workspace.</h2>
+          <p class="text-muted text-lg leading-relaxed mb-6">Hermes trabaja solo con archivos Markdown, los perfiles publican resultados en Sheets, Docs, Slides, Drive, Calendar y Gmail. Usamos la cuenta gratuita de Google como superficie común.</p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-muted"><span class="material-symbols-sharp text-accent text-sm">check</span> Resultados vivos donde ya trabaja la empresa.</li>
+            <li class="flex items-center gap-3 text-muted"><span class="material-symbols-sharp text-accent text-sm">check</span> Perfiles comparten archivos y contexto.</li>
+            <li class="flex items-center gap-3 text-muted"><span class="material-symbols-sharp text-accent text-sm">check</span> El emprendedor no aprende otra app.</li>
           </ul>
+          <a href="developers.html" class="btn btn-secondary">Ver documentación técnica <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_outward</span></span></a>
         </div>
-        <div class="reveal panel panel-accent p-8">
-          <h3 class="font-display text-xl tracking-[-0.02em] mb-4">Instala Hermes</h3>
-          <p class="text-muted text-sm mb-4">Un comando para clonar, configurar y empezar.</p>
-          <div class="bg-surface border border-line p-4 mb-6 overflow-x-auto">
-            <code class="text-sm whitespace-nowrap">curl -fsSL https://partenon.dev/install.sh | bash</code>
+        <div class="lg:col-span-7 reveal bezel reveal-delay-1">
+          <div class="bezel-inner p-6 md:p-8">
+            <div class="flex items-center justify-between mb-4">
+              <span class="tag">Terminal</span>
+              <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyInstall()">Copiar</button>
+            </div>
+            <pre><code id="installCmd">curl -fsSL https://partenon.dev/install.sh | bash</code></pre>
+            <p class="text-sm text-muted mt-4">El instalador configura entorno, dependencias y el comando global <code>hermes</code>. Después copias el Google Sheet base y comienzas el onboarding.</p>
           </div>
-          <a href="developers.html#install" class="btn-primary block text-center">Guía de instalación completa</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="py-20 border-t border-line bg-surface/30">
+  <footer class="py-12 border-t border-line">
     <div class="max-w-[1400px] mx-auto px-4">
-      <div class="grid md:grid-cols-4 gap-10 mb-14">
-        <div class="md:col-span-2">
-          <div class="font-display text-2xl tracking-tight mb-4">PARTENON</div>
-          <p class="text-muted text-sm leading-relaxed max-w-sm">
-            Sistema operativo de agentes para pymes latinoamericanas. Open source, anclado a Google Workspace.
-          </p>
-        </div>
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
-          <h4 class="font-mono text-xs text-dim uppercase tracking-wider mb-4">Navegación</h4>
-          <ul class="space-y-2 text-sm text-muted">
-            <li><a href="#system" class="hover:text-text transition-colors">Sistema</a></li>
-            <li><a href="#heroes" class="hover:text-text transition-colors">Perfiles</a></li>
-            <li><a href="#impact" class="hover:text-text transition-colors">Impacto</a></li>
-            <li><a href="#growth" class="hover:text-text transition-colors">Crecimiento</a></li>
-          </ul>
+          <div class="font-display text-xl tracking-tight font-semibold mb-1">PARTENON</div>
+          <div class="text-sm text-muted">Sistema operativo de agentes para pymes.</div>
         </div>
-        <div>
-          <h4 class="font-mono text-xs text-dim uppercase tracking-wider mb-4">Repositorio</h4>
-          <ul class="space-y-2 text-sm text-muted">
-            <li><a href="developers.html" class="hover:text-text transition-colors">Documentación</a></li>
-            <li><a href="https://github.com/paolameneses/partenon" target="_blank" rel="noopener" class="hover:text-text transition-colors">GitHub</a></li>
-            <li><a href="https://github.com/NousResearch/hermes-business-os" target="_blank" rel="noopener" class="hover:text-text transition-colors">Hermes Business OS</a></li>
-          </ul>
+        <div class="flex flex-wrap gap-6 text-sm text-muted">
+          <a href="index.html" class="hover:text-text transition-colors">Inicio</a>
+          <a href="developers.html" class="hover:text-text transition-colors">Documentación</a>
+          <a href="https://github.com/paolameneses/partenon" target="_blank" rel="noopener" class="hover:text-text transition-colors">GitHub</a>
         </div>
       </div>
-      <div class="line-divider mb-8"></div>
-      <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-dim">
-        <p>© 2026 Partenon. Open source bajo MIT.</p>
-        <p>Basado en Hermes Business OS.</p>
-      </div>
+      <div class="line-divider my-8"></div>
+      <div class="text-xs text-muted font-mono">Hermes Business OS · Hackathon Nous Research / Nvidia / Stripe</div>
     </div>
   </footer>
 
   <script>
+    // Reveal on scroll
     const reveals = document.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
+          observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-    reveals.forEach(el => revealObserver.observe(el));
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
 
-    const formatNumber = n => n.toLocaleString('en-US');
-    const countObserver = new IntersectionObserver((entries) => {
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const closeMenu = document.getElementById('closeMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+    closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+    // Sync timer
+    const syncTimer = document.getElementById('syncTimer');
+    let seconds = 12;
+    setInterval(() => {
+      seconds += 1;
+      if (seconds > 59) seconds = 1;
+      syncTimer.textContent = `hace ${seconds} s`;
+    }, 3000);
+
+    // Counter animation
+    const counters = document.querySelectorAll('.counter');
+    const counterObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const target = parseInt(entry.target.dataset.target);
+          const el = entry.target;
+          const target = parseInt(el.dataset.target);
           const duration = 1800;
           const start = performance.now();
-          const animate = (now) => {
+          const step = (now) => {
             const progress = Math.min((now - start) / duration, 1);
-            const ease = 1 - Math.pow(1 - progress, 3);
-            const current = Math.floor(ease * target);
-            entry.target.textContent = formatNumber(current);
-            if (progress < 1) requestAnimationFrame(animate);
+            const ease = 1 - Math.pow(1 - progress, 4);
+            const value = Math.floor(ease * target);
+            if (target >= 1000000) el.textContent = (value / 1000000).toFixed(0) + 'M';
+            else if (target >= 1000) el.textContent = (value / 1000).toFixed(value >= 10000 ? 0 : 1).replace('.', ',') + 'K';
+            else el.textContent = value;
+            if (progress < 1) requestAnimationFrame(step);
+            else {
+              if (target === 1000000) el.textContent = '1M';
+              if (target === 100000) el.textContent = '100K';
+              if (target === 10000) el.textContent = '10K';
+              if (target === 1000) el.textContent = '1K';
+              if (target === 100) el.textContent = '100';
+              if (target === 10) el.textContent = '10';
+            }
           };
-          requestAnimationFrame(animate);
-          countObserver.unobserve(entry.target);
+          requestAnimationFrame(step);
+          counterObserver.unobserve(el);
         }
       });
     }, { threshold: 0.5 });
+    counters.forEach(c => counterObserver.observe(c));
 
-    document.querySelectorAll('.counter').forEach(el => {
-      el.textContent = '0';
-      countObserver.observe(el);
-    });
-
-    const milestones = [
-      { title: '10 Hermes', desc: 'Primeras empresas operando con el sistema. Cada perfil está en modo piloto y aprende la voz del negocio.', focus: 'Focus: validar narrativa de finanzas y comunicación.', m1: 15, m1Label: '% ingreso extra', m2: 5, m2Label: 'hrs ahorradas/semana', m3: 100, m3Label: '% números ordenados' },
-      { title: '100 Hermes', desc: 'Primeros casos documentados y plantillas reutilizables. Los perfiles empiezan a compartir aprendizajes vía G-Brain.', focus: 'Focus: reducir tiempo de instalación y mejorar prompts.', m1: 18, m1Label: '% ingreso extra', m2: 12, m2Label: 'hrs ahorradas/semana', m3: 50, m1Label2: 'K en pagos procesados' },
-      { title: '1,000 Hermes', desc: 'Comunidad de implementadores y templates por industria: construcción, cafeterías, retail, servicios.', focus: 'Focus: escalar con partners y universidades.', m1: 22, m1Label: '% ingreso extra', m2: 18, m2Label: 'hrs ahorradas/semana', m3: 500, m1Label2: 'K en pagos procesados' },
-      { title: '10,000 Hermes', desc: 'Red de partners en LATAM, integraciones con sistemas locales y métricas de impacto por país.', focus: 'Focus: convertir a pymes en casos de estudio públicos.', m1: 25, m1Label: '% ingreso extra', m2: 22, m2Label: 'hrs ahorradas/semana', m3: 5, m1Label2: 'M en pagos procesados' },
-      { title: '100,000 Hermes', desc: 'Ecosistema autosostenible: perfiles open source, marketplace de misiones y verificación de seguridad.', focus: 'Focus: gobernanza, seguridad y calidad de datos.', m1: 28, m1Label: '% ingreso extra', m2: 25, m2Label: 'hrs ahorradas/semana', m3: 50, m1Label2: 'M en pagos procesados' },
-      { title: '1,000,000 Hermes', desc: 'La infraestructura operativa por defecto para pymes latinoamericanas. Un sistema de agentes en cada negocio.', focus: 'Focus: profundidad económica y acceso inclusivo.', m1: 30, m1Label: '% ingreso extra', m2: 28, m2Label: 'hrs ahorradas/semana', m3: 500, m1Label2: 'M en pagos procesados' }
-    ];
-
-    // Fix m3Label for milestones 2-6
-    milestones[1].m3Label = milestones[1].m1Label2;
-    milestones[2].m3Label = milestones[2].m1Label2;
-    milestones[3].m3Label = milestones[3].m1Label2;
-    milestones[4].m3Label = milestones[4].m1Label2;
-    milestones[5].m3Label = milestones[5].m1Label2;
-
-    let activeMilestone = 0;
-    const msTitle = document.getElementById('ms-title');
-    const msDesc = document.getElementById('ms-desc');
-    const msFocus = document.getElementById('ms-focus');
-    const msM1 = document.getElementById('ms-m1');
-    const msM1Label = msM1.nextElementSibling;
-    const msM2 = document.getElementById('ms-m2');
-    const msM2Label = msM2.nextElementSibling;
-    const msM3 = document.getElementById('ms-m3');
-    const msM3Label = msM3.nextElementSibling;
-    const milestoneCards = document.querySelectorAll('.milestone');
-
-    function setMilestone(index) {
-      activeMilestone = index;
-      const m = milestones[index];
-      msTitle.textContent = m.title;
-      msDesc.textContent = m.desc;
-      msFocus.innerHTML = `<p>${m.focus}</p>`;
-      msM1.dataset.target = m.m1; msM1.textContent = '0'; msM1Label.textContent = m.m1Label;
-      msM2.dataset.target = m.m2; msM2.textContent = '0'; msM2Label.textContent = m.m2Label;
-      msM3.dataset.target = m.m3; msM3.textContent = '0'; msM3Label.textContent = m.m3Label;
-      milestoneCards.forEach((card, i) => {
-        if (i === index) { card.classList.add('panel-accent'); card.classList.remove('bg-bg'); card.classList.add('bg-panel'); }
-        else { card.classList.remove('panel-accent'); card.classList.remove('bg-panel'); card.classList.add('bg-bg'); }
-      });
-      [msM1, msM2, msM3].forEach(el => countObserver.observe(el));
+    // Copy install command
+    function copyInstall() {
+      navigator.clipboard.writeText(document.getElementById('installCmd').textContent);
     }
-
-    milestoneCards.forEach((card, i) => {
-      card.addEventListener('click', () => setMilestone(i));
-      card.addEventListener('mouseenter', () => setMilestone(i));
-    });
-
-    setMilestone(0);
-
-    let rotateInterval = setInterval(() => {
-      const next = (activeMilestone + 1) % milestones.length;
-      setMilestone(next);
-    }, 6000);
-
-    const detailBox = document.getElementById('milestone-detail');
-    detailBox.addEventListener('mouseenter', () => clearInterval(rotateInterval));
-    detailBox.addEventListener('mouseleave', () => {
-      rotateInterval = setInterval(() => {
-        const next = (activeMilestone + 1) % milestones.length;
-        setMilestone(next);
-      }, 6000);
-    });
   </script>
 </body>
 </html>

@@ -47,7 +47,7 @@ Ambas usan HTML estático, Tailwind CSS vía CDN y JavaScript vanilla, con tipog
 ## Estado
 
 - Iniciado: 2026-06-23
-- Fase actual: Rediseño completo de `web/index.html` y `web/developers.html` con estética Dark Premium Cyberpunk, copy anti-AI-slop, tipografía Space Grotesk + Geist + JetBrains Mono, acento cian eléctrico, layouts asimétricos y grids visibles. Verificado en desktop (1440px) y mobile (390px).
+- Fase actual: Reescritura completa de `web/index.html` y `web/developers.html` con estética High-End Agency / Awwwards-tier: fondo OLED `#050505`, doble-bisel en cards, nav flotante, tipografía Space Grotesk + Geist + JetBrains Mono, iconos Material Symbols Sharp, acento cian `#00D4FF`, layouts asimétricos/bento y copy anti-AI-slop. Verificado en desktop (1440px) y mobile (390px).
 - Próxima tarea: Construir el repositorio del sistema Partenon basado en Hermes Business OS.
 
 ## Instalación rápida

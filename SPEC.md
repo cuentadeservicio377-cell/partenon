@@ -81,18 +81,20 @@
 
 ### Diseño
 
-- [x] Rediseño aprobado: Dark Premium Cyberpunk.
-- [x] Fondo oscuro no puro: `#0A0A0A` y `#0C0C0F`, con texturas de mesh/grain sutiles.
-- [x] Acento único quirúrgico cian `#00E0FF` / magenta `#FF2A6D` / ámbar `#FFB800`, sin gradientes masivos ni glows genéricos.
-- [x] Tipografía display: Space Grotesk / Syne; body: Geist / Satoshi; mono/data: JetBrains Mono.
-- [x] Esquinas 90° o radio mínimo; grids asimétricos y bento visibles.
-- [x] Bordes finos 1px en slate/800, paneles con fondo `#0C0C0F` o `#111114`.
-- [x] Copy anti-AI-slop: sin em-dashes tipográficos, intensificadores ni frases de relleno.
-- [x] No emojis, no Inter/Roboto/Arial, no clichés de copywriting.
+- [x] Rediseño aprobado: High-End Agency / Awwwards-tier con lectura cyberpunk sutil.
+- [x] Fondo OLED `#050505` / `#08080C`, con mesh radial sutil, noise SVG y scanlines opcionales.
+- [x] Acento único cian `#00D4FF` (saturación <80%); ámbar `#FFB800` en no más de 2 elementos por página.
+- [x] Tipografía display: Space Grotesk; body: Geist; mono/data: JetBrains Mono; icons: Material Symbols Sharp.
+- [x] Cards con doble-bisel (outer shell 18px + inner core 12px); botones `rounded-full`.
+- [x] Nav flotante tipo "fluid island" con backdrop blur y menú móvil staggered.
+- [x] Layouts asimétricos y bento; colapso agresivo a una columna bajo 768px.
+- [x] Copy anti-AI-slop: sin em-dashes, intensificadores, filler phrases ni clichés de IA.
+- [x] No emojis, no Inter/Roboto/Arial/Open Sans/Helvetica, no Lucide grueso.
 
 ## Notas de validación
 
 - Revisado en Chrome/Chromium vía Playwright a 1440px y 390px.
-- Mermaid renderiza con tema `base` y colores planos Partenon (cian/magenta/ámbar sobre fondo oscuro).
-- Contadores de milestones se animan al entrar en viewport; screenshots forzaron estado final para captura estática.
-- Hero glitch y marquee animados con `transform`/`opacity`; no animaciones de layout.
+- Mermaid renderiza con tema `base` y `themeVariables` custom (fondos `#111118`, bordes `#00D4FF`, texto `#E8E8ED`).
+- Contadores de milestones se animan al entrar en viewport.
+- Reveals con `IntersectionObserver` + CSS `transform`/`opacity`; sin animaciones de layout.
+- Pre-flight anti-slop: sin emdashes, intensificadores ni headings dramáticos.

@@ -10,8 +10,8 @@
 
 ## Stack
 - **Páginas web**: HTML estático + Tailwind CSS CDN + JavaScript vanilla
-- **Tipografía**: Space Grotesk / Syne (display), Geist / Satoshi (body), JetBrains Mono (mono/data)
-- **Estética**: Dark Premium Cyberpunk. Fondo `#0A0A0A` / `#0C0C0F`, acento cian `#00E0FF` con magenta `#FF2A6D` y ámbar `#FFB800` usados con precisión, bordes finos 1px, grids asimétricos/bento visibles, esquinas 90° o radio mínimo. Sin gradientes masivos ni glows genéricos.
+- **Tipografía**: Space Grotesk (display), Geist (body), JetBrains Mono (mono/data)
+- **Estética**: High-End Agency / Awwwards-tier con lectura cyberpunk sutil. Fondo `#050505` / `#08080C`, acento cian `#00D4FF` (saturación <80%), ámbar `#FFB800` quirúrgico, cards con doble-bisel, nav flotante fluid island, bordes hairline 1px, layouts asimétricos/bento. Sin gradientes masivos ni glows genéricos.
 - **Agentes**: Hermes Agent (Nous Research) + Python skills
 - **Dashboard futuro**: Next.js 15 + React 19 + TypeScript + Tailwind
 - **Datos / workspace**: Google Workspace (Sheets, Docs, Slides, Drive, Calendar, Gmail)
@@ -31,7 +31,7 @@
 ## Qué NO tocar sin consultar
 - La estructura de los 6 héroes (Tesorero, Mensajero, Cobrador, Guardián, Estratega, Diplomático).
 - La relación "Hermes = empresa" (no CEO).
-- La dirección estética Dark Premium Cyberpunk y la paleta cian/magenta/ámbar.
+- La dirección estética High-End Agency y la paleta cian `#00D4FF` / ámbar `#FFB800`.
 - El contador 10 → 1M y sus métricas de impacto.
 
 ## Checklist de Cierre

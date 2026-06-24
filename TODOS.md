@@ -14,15 +14,16 @@
 - [x] Estructura de memoria y plan inicial creada
 - [x] Repositorios analizados (Hermes Business OS, Open Design)
 - [x] Stack visual y técnico confirmado
-- [x] `DESIGN.md` creado con estética Dark Premium Cyberpunk
+- [x] `DESIGN.md` creado con estética High-End Agency / Awwwards-tier
 - [x] `SPEC.md` creado desglosando el transcrip sección por sección
-- [x] Rebuild completo de `web/index.html` (marketing) con narrativa completa del transcrip
-- [x] Rebuild completo de `web/developers.html` (técnica) como espejo técnico detallado
-- [x] Rediseño visual aprobado: Dark Premium Cyberpunk aplicado a ambas páginas
+- [x] Reescritura completa de `web/index.html` (marketing) con narrativa completa del transcrip
+- [x] Reescritura completa de `web/developers.html` (técnica) como espejo técnico detallado
+- [x] Rediseño visual aprobado: High-End Agency aplicado a ambas páginas
+- [x] Sistema visual compartido: tokens, doble-bisel, nav flotante, Material Symbols Sharp
 - [x] Seis héroes definidos y documentados en ambas páginas con ejemplos concretos
 - [x] Contador 10 → 1M con múltiples métricas por milestone
 - [x] Go-to-market detallado (webinars, universidades, organizaciones, coworkings, aceleradoras)
-- [x] Arquitectura en capas con diagramas Mermaid flat
+- [x] Arquitectura en capas con diagramas Mermaid custom
 - [x] Estructura de repositorio documentada
 - [x] Responsive móvil verificado en 1440px y 390px
 - [x] Screenshots desktop y mobile actualizados
