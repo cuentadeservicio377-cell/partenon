@@ -1,12 +1,12 @@
 # Memoria del Proyecto: Partenon
 
-> Última sesión: 2026-06-23
+> Última sesión: 2026-06-24
 
 ## Contexto Actual
 
 - **Proyecto**: Partenon
 - **Iniciado**: 2026-06-23
-- **Estado**: Análisis de repositorios completado → Diseño de páginas web
+- **Estado**: Páginas web rediseñadas y commiteadas → Próximo: construir repositorio del sistema
 - **Propósito**: Sistema de agentes IA para empresas, presentado como un panteón de héroes griegos al servicio de Hermes. Destinado a hackathon.
 
 ## Braindump
@@ -139,6 +139,10 @@ Los perfiles mapean directamente a skills existentes o propuestas de HBOS:
 
 - `.finance` → datos financieros y dashboards
 - `.design` → identidad, marca y estrategia de comunicación
+- `.payments` → configuración de Stripe y pagos
+- `.security` → API keys, modelos y permisos
+- `.ops` → operaciones, calendario, tareas
+- `.relations` → clientes, proveedores, hitos
 - `client.yaml` → configuración de la empresa
 - Posibles archivos adicionales según necesidad de cada héroe
 
@@ -169,6 +173,8 @@ Los perfiles mapean directamente a skills existentes o propuestas de HBOS:
 - El sistema se construirá basado en las páginas.
 - Google Workspace como superficie de trabajo compartida con el empresario.
 - HBOS como base técnica existente; Partenon es la capa de presentación y extensión de perfiles.
+- Estética Nous Research / manual técnico: fondo `#050505`, acento cian `#00D4FF`, tipografía monospaced en hero, sin emojis ni emdashes.
+- Copy anti-AI-slop: verbos concretos, claim + proof, sin intensificadores ni frases de transición dramáticas.
 
 ## APIs / Integraciones
 
