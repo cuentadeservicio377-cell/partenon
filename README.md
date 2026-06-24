@@ -1,40 +1,66 @@
 # Partenon
 
-> Proyecto de Kimi Code — Sistema de agentes IA para empresas, presentado como un panteón de héroes al servicio de Hermes.
+> Sistema de agentes IA para empresas, presentado como un panteón de héroes al servicio de Hermes. Proyecto para hackathon.
 
-## Descripción
+## Qué es
 
-Partenon es un ecosistema de agentes IA especializados (los "héroes") que trabajan para una empresa representada como Hermes. Cada héroe tiene una personalidad, herramientas y skills definidas, y toma "misiones" del Partenón para organizar finanzas, comunicación, ventas, cobranza, seguridad, administración y relaciones.
+Partenon organiza agentes de IA como un panteón operativo:
 
-El proyecto se está construyendo para un hackathon. La primera entrega son dos páginas web:
+- **Hermes** = la empresa.
+- **Los héroes** = seis agentes especializados que toman misiones.
+- **El Partenón** = el sistema donde comparten herramientas, memoria y conocimiento.
+- **G-Brain de Garitán** = el cerebro que conecta todo por MCP.
+- **Google Workspace** = la superficie donde trabajan empresa y agentes.
 
-1. **Página de marketing** — storytelling, arquetipos, beneficios, perfiles y plan de crecimiento.
-2. **Página técnica** — arquitectura, diagramas, MCPs, integraciones y proceso de workshop.
+## Las dos páginas
 
-Después de las páginas se construirá el repositorio del sistema, basado en [Hermes Business OS](https://github.com/cuentadeservicio377-cell/hermes-business-os).
+La entrega actual son dos páginas web estáticas que funcionan como manual de marca + espejo técnico:
 
-## Stack Técnico
+1. **`web/index.html`** — Página de marketing. Storytelling, arquetipos, los 6 héroes, contador de impacto 10 → 1M, go-to-market e instalación.
+2. **`web/developers.html`** — Página técnica. Arquitectura en capas, diagramas, fichas técnicas de agentes, flujos, integraciones, estructura de repositorio y workshop de 90 min.
 
-- **Frontend (páginas web)**: HTML estático + Tailwind CSS (CDN) + JavaScript vanilla
-- **Agentes / backend**: Hermes Agent (Nous Research) + Hermes Business OS skills
-- **Dashboard**: Next.js 15 + React 19 + TypeScript + Tailwind CSS
+Ambas usan HTML estático, Tailwind CSS vía CDN y JavaScript vanilla, con tipografía premium (Clash Display, Geist, Instrument Serif) y estética oscura tipo Nous Research.
+
+## Los 6 héroes
+
+| Héroe | Perfil | Archivo | Stack clave |
+|-------|--------|---------|---------------|
+| Tesorero | Finanzas y Google Sheets | `.finance` | Google Sheets API, dashboards |
+| Mensajero | Ventas y comunicación | `.design` | Redes sociales, Open Design, SEO |
+| Cobrador | Pagos y suscripciones | Stripe | Stripe API |
+| Guardián | Seguridad y modelos | `.security` | Nvidia / OpenAI / Kimi APIs, vault |
+| Estratega | Operaciones y PM | Ops | Calendar, Gmail, tasks |
+| Diplomático | Clientes y proveedores | CRM | Gmail, Sheets, hitos |
+
+## Stack
+
+- **Frontend páginas**: HTML estático + Tailwind CSS CDN + JS vanilla
+- **Agent core**: Hermes Agent (Nous Research) + Python skills
+- **Dashboard**: Next.js 15 + React 19 + TypeScript + Tailwind
 - **Documentos**: Python + WeasyPrint (Kami v3)
-- **Integraciones**: Google Workspace, Stripe, G-Brain, Telegram, WhatsApp, MCPs
+- **Datos**: Google Workspace (Sheets, Docs, Slides, Drive, Calendar, Gmail)
+- **Pagos**: Stripe API
+- **Memoria / orquestación**: G-Brain de Garitán vía MCP
+- **Mensajería**: Telegram (primario) + WhatsApp Business
 - **Infraestructura**: Docker / Docker Compose
 
 ## Estado
 
 - Iniciado: 2026-06-23
-- Fase actual: Diseño e implementación de las dos páginas web
-- Próxima tarea: Crear página de marketing (`web/index.html`)
+- Fase actual: Páginas web de marketing y documentación técnica completadas y verificadas visualmente.
+- Próxima tarea: Construir el repositorio del sistema Partenon basado en Hermes Business OS.
 
-## Memoria
+## Instalación rápida
 
-Ver [.kimi/memory/](.kimi/memory/)
+```bash
+curl -fsSL https://partenon.dev/install.sh | bash
+```
 
-## Repositorios Relacionados
+## Repositorios relacionados
 
 - [Hermes Business OS](https://github.com/cuentadeservicio377-cell/hermes-business-os)
-- [OpenWork Paola Meneses](https://github.com/cuentadeservicio377-cell/paola-meneses-openwork)
-- [Agente Marketing Kimi](https://github.com/cuentadeservicio377-cell/agente-marketing-kimi)
 - [Open Design](https://github.com/cuentadeservicio377-cell/open-design)
+
+## Memoria del proyecto
+
+Ver [.kimi/memory/](.kimi/memory/)
