@@ -1,7 +1,7 @@
 # TODOS
 
 ## En Progreso
-- [ ] Verificación visual final de ambas páginas
+_No hay tareas en progreso_
 
 ## Pendientes
 - [ ] Crear repositorio del sistema Partenon
@@ -24,6 +24,8 @@
 - [x] Estructura de repositorio documentada
 - [x] README.md y AGENTS.md actualizados
 - [x] Responsive móvil verificado
+- [x] Screenshots desktop y mobile actualizados
+- [x] Chrome preview realizado
 
 ## Parking Lot (NO tocar ahora)
 _Cosas descubiertas durante el desarrollo que NO están en el plan actual_
