@@ -47,7 +47,7 @@ Ambas usan HTML estático, Tailwind CSS vía CDN y JavaScript vanilla, con tipog
 ## Estado
 
 - Iniciado: 2026-06-23
-- Fase actual: Páginas web de marketing y documentación técnica reescritas con narrativa completa del transcrip y estética Nous Research/Hermes Agent. Verificadas visualmente en desktop (1440px) y mobile (390px).
+- Fase actual: Rebuild de las páginas web completado. `web/index.html` (marketing) y `web/developers.html` (técnica) reescritas con narrativa completa del transcrip, estética Nous Research/Hermes Agent, diagramas Mermaid flat y verificación visual en desktop (1440px) y mobile (390px).
 - Próxima tarea: Construir el repositorio del sistema Partenon basado en Hermes Business OS.
 
 ## Instalación rápida

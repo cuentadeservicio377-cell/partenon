@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Partenon — Documentación técnica</title>
-  <meta name="description" content="Arquitectura técnica de Partenon: héroes como agentes de IA, G-Brain como cerebro compartido, MCP, Google Workspace y diagramas de secuencia." />
+  <meta name="description" content="Arquitectura técnica de Partenon: héroes como agentes de IA, G-Brain como cerebro compartido, MCP, Google Workspace, diagramas de flujo y workshop de 90 minutos." />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <link rel="preconnect" href="https://api.fontshare.com" />
@@ -21,22 +21,16 @@
             mono: ['JetBrains Mono', 'monospace'],
           },
           colors: {
-            nous: {
-              bg: '#050505',
-              surface: '#0a0a0a',
-              surface2: '#111111',
-              surface3: '#1a1a1a',
-              text: '#f5f5f5',
-              muted: '#9a9a9a',
-              line: 'rgba(255,255,255,0.08)',
-              purple: '#7F77DD',
-              purple2: '#534AB7',
-              teal: '#1D9E75',
-              coral: '#D85A30',
-              pink: '#D4537E',
-              blue: '#378ADD',
-              gray: '#888780',
-            }
+            void: '#050505',
+            surface: '#0a0a0a',
+            panel: '#111111',
+            line: 'rgba(255,255,255,0.08)',
+            text: '#f5f5f5',
+            muted: '#9a9a9a',
+            purple: '#7F77DD',
+            teal: '#1D9E75',
+            coral: '#D85A30',
+            cream: '#C9A227',
           }
         }
       }
@@ -46,21 +40,21 @@
     html { scroll-behavior: smooth; }
     body { background-color: #050505; color: #f5f5f5; font-family: 'Geist', system-ui, sans-serif; }
     .grain {
-      position: fixed; inset: 0; pointer-events: none; opacity: 0.025;
+      position: fixed; inset: 0; pointer-events: none; opacity: 0.02;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       z-index: 40;
     }
     .reveal {
-      opacity: 0; transform: translateY(20px);
-      transition: opacity 0.7s cubic-bezier(0.32, 0.72, 0, 1), transform 0.7s cubic-bezier(0.32, 0.72, 0, 1);
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.8s cubic-bezier(0.32, 0.72, 0, 1), transform 0.8s cubic-bezier(0.32, 0.72, 0, 1);
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .card {
       background: #0a0a0a;
       border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
+      border-radius: 14px;
     }
-    .card-hover:hover { border-color: rgba(127,119,221,0.4); transition: border-color 0.25s ease; }
+    .card-hover:hover { border-color: rgba(127,119,221,0.35); transition: border-color 0.25s ease; }
     .nav-pill {
       background: rgba(10,10,10,0.85);
       backdrop-filter: blur(12px);
@@ -70,37 +64,51 @@
       background: #7F77DD;
       color: #050505;
       border-radius: 9999px;
-      padding: 0.75rem 1.5rem;
+      padding: 0.875rem 1.75rem;
       font-weight: 500;
-      transition: transform 0.2s ease, background 0.2s ease;
+      transition: transform 0.2s cubic-bezier(0.32, 0.72, 0, 1), background 0.2s ease;
     }
     .btn-primary:hover { background: #9a93e6; transform: translateY(-1px); }
+    .btn-primary:active { transform: scale(0.98); }
     .btn-secondary {
-      border: 1px solid rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.12);
       color: #f5f5f5;
       border-radius: 9999px;
-      padding: 0.75rem 1.5rem;
+      padding: 0.875rem 1.75rem;
       font-weight: 500;
-      transition: border-color 0.2s ease, color 0.2s ease;
+      transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
     }
-    .btn-secondary:hover { border-color: #7F77DD; color: #7F77DD; }
+    .btn-secondary:hover { border-color: #7F77DD; color: #7F77DD; transform: translateY(-1px); }
+    .btn-secondary:active { transform: scale(0.98); }
     .pill {
       display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
       border: 1px solid rgba(255,255,255,0.12);
       border-radius: 9999px;
-      padding: 0.25rem 0.75rem;
-      font-size: 0.7rem;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.65rem;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.16em;
       color: #9a9a9a;
     }
+    .pill-dot { width: 5px; height: 5px; border-radius: 9999px; }
     code { font-family: 'JetBrains Mono', monospace; color: #7F77DD; }
     pre { background: #0a0a0a; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 1rem; overflow-x: auto; }
-    .mermaid-container { background: #0a0a0a; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.5rem; }
+    .mermaid-container { background: #0a0a0a; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 1.5rem; }
     .mermaid svg { max-width: 100%; }
-    .mermaid .node rect, .mermaid .node circle, .mermaid .node polygon { stroke-width: 1px !important; }
+    .section-pad { padding-top: 6rem; padding-bottom: 6rem; }
+    @media (min-width: 768px) { .section-pad { padding-top: 8rem; padding-bottom: 8rem; } }
+    .link-underline {
+      background-image: linear-gradient(#7F77DD, #7F77DD);
+      background-size: 0% 1px;
+      background-position: 0% 100%;
+      background-repeat: no-repeat;
+      transition: background-size 0.3s ease;
+    }
+    .link-underline:hover { background-size: 100% 1px; }
     @media (max-width: 767px) {
-      .hero-title { font-size: 2.5rem !important; line-height: 1 !important; }
+      .hero-title { font-size: 2.75rem !important; line-height: 0.95 !important; }
     }
   </style>
 </head>
@@ -109,44 +117,52 @@
 
   <!-- Navigation -->
   <nav class="fixed top-5 left-0 right-0 z-30 flex justify-center px-4">
-    <div class="nav-pill rounded-full px-2 py-2 flex items-center justify-between w-full max-w-4xl">
+    <div class="nav-pill rounded-full px-2 py-2 flex items-center justify-between w-full max-w-5xl">
       <a href="index.html" class="font-display text-lg tracking-wide px-4">Partenon</a>
-      <div class="hidden md:flex items-center gap-6 text-sm text-nous-muted">
-        <a href="#architecture" class="hover:text-nous-text transition-colors">Arquitectura</a>
-        <a href="#stack" class="hover:text-nous-text transition-colors">Stack</a>
-        <a href="#heroes" class="hover:text-nous-text transition-colors">Héroes</a>
-        <a href="#install" class="hover:text-nous-text transition-colors">Instalación</a>
+      <div class="hidden md:flex items-center gap-8 text-sm text-muted">
+        <a href="#architecture" class="hover:text-text transition-colors">Arquitectura</a>
+        <a href="#heroes" class="hover:text-text transition-colors">Héroes</a>
+        <a href="#install" class="hover:text-text transition-colors">Instalación</a>
+        <a href="#workshop" class="hover:text-text transition-colors">Workshop</a>
       </div>
-      <a href="index.html" class="btn-primary text-sm px-4 py-2">Marketing →</a>
+      <a href="index.html" class="btn-primary text-sm px-5 py-2.5">Marketing</a>
     </div>
   </nav>
 
   <!-- Hero -->
-  <section class="relative min-h-[80dvh] flex items-center justify-center pt-24 pb-16">
-    <div class="max-w-5xl mx-auto px-6 text-center">
+  <section class="relative min-h-[80dvh] flex flex-col justify-center pt-28 pb-20 px-6">
+    <div class="max-w-6xl mx-auto w-full">
       <div class="reveal mb-6">
-        <span class="pill"><span class="w-1.5 h-1.5 rounded-full bg-nous-purple inline-block mr-2"></span>Documentación técnica</span>
+        <span class="pill"><span class="pill-dot bg-purple"></span>Documentación técnica</span>
       </div>
-      <h1 class="reveal hero-title font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight mb-8">
-        Partenon por dentro.
-      </h1>
-      <p class="reveal text-lg md:text-xl text-nous-muted max-w-3xl mx-auto mb-10 leading-relaxed">
-        Arquitectura de agentes, perfiles técnicos, integraciones con Google Workspace y el protocolo MCP 
-        que conecta cada héroe con G-Brain.
-      </p>
-      <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="#architecture" class="btn-primary">Ver arquitectura</a>
-        <a href="https://github.com/paolameneses/partenon" target="_blank" rel="noopener" class="btn-secondary">Repositorio en GitHub</a>
+      <div class="grid lg:grid-cols-12 gap-10 items-end">
+        <div class="lg:col-span-8">
+          <h1 class="reveal hero-title font-display text-5xl md:text-7xl lg:text-8xl leading-[0.92] tracking-tight mb-8">
+            Partenon por dentro.
+          </h1>
+        </div>
+        <div class="lg:col-span-4">
+          <p class="reveal text-muted text-lg leading-relaxed mb-8">
+            Arquitectura completa de agentes, perfiles técnicos, integraciones con Google Workspace y el protocolo MCP 
+            que conecta cada héroe con G-Brain. Para el jurado de Nous Research, Nvidia y Stripe.
+          </p>
+          <div class="reveal flex flex-wrap gap-4">
+            <a href="#architecture" class="btn-primary">Ver arquitectura</a>
+            <a href="https://github.com/paolameneses/partenon" target="_blank" rel="noopener" class="btn-secondary">GitHub</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Architecture -->
-  <section id="architecture" class="py-24 md:py-32 bg-nous-surface border-y border-nous-line">
+  <section id="architecture" class="section-pad bg-surface border-y border-line">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="reveal text-center max-w-3xl mx-auto mb-16">
-        <span class="pill">Arquitectura</span>
-        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl leading-[0.95] mt-4">Una empresa hecha de agentes.</h2>
+      <div class="reveal max-w-2xl mb-16">
+        <span class="pill mb-4">Arquitectura</span>
+        <h2 class="font-display text-4xl md:text-5xl leading-[0.95] mt-4">
+          Una empresa hecha de agentes.
+        </h2>
       </div>
 
       <div class="reveal mermaid-container mb-12">
@@ -159,7 +175,7 @@ flowchart LR
             T[Tesorero<br/>.finance]
             M[Mensajero<br/>.design]
             C[Cobrador<br/>Stripe]
-            GU[Guardián<br/>Seguridad]
+            GU[Guardián<br/>.security]
             E[Estratega<br/>Ops]
             D[Diplomático<br/>Relaciones]
         end
@@ -178,22 +194,22 @@ flowchart LR
 
       <div class="grid md:grid-cols-3 gap-6">
         <div class="reveal card p-6">
-          <h3 class="font-display text-lg mb-2 text-nous-purple">Hermes</h3>
-          <p class="text-nous-muted text-sm leading-relaxed">
+          <h3 class="font-display text-lg mb-2 text-purple">Hermes</h3>
+          <p class="text-muted text-sm leading-relaxed">
             Recibe intenciones del usuario y las convierte en misiones. Publica en una cola compartida 
             que los héroes pueden tomar.
           </p>
         </div>
         <div class="reveal card p-6">
-          <h3 class="font-display text-lg mb-2 text-nous-teal">G-Brain</h3>
-          <p class="text-nous-muted text-sm leading-relaxed">
+          <h3 class="font-display text-lg mb-2 text-teal">G-Brain</h3>
+          <p class="text-muted text-sm leading-relaxed">
             Memoria persistente vía MCP. Almacena perfiles, misiones pasadas, preferencias y resultados 
             para mantener contexto entre agentes.
           </p>
         </div>
         <div class="reveal card p-6">
-          <h3 class="font-display text-lg mb-2 text-nous-coral">Héroes</h3>
-          <p class="text-nous-muted text-sm leading-relaxed">
+          <h3 class="font-display text-lg mb-2 text-coral">Héroes</h3>
+          <p class="text-muted text-sm leading-relaxed">
             Agentes con habilidades específicas. Cada uno lee el archivo de perfil correspondiente 
             (.finance, .design, .security) antes de actuar.
           </p>
@@ -203,10 +219,10 @@ flowchart LR
   </section>
 
   <!-- Sequence diagram -->
-  <section class="py-24 md:py-32">
+  <section class="section-pad">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="reveal text-center max-w-3xl mx-auto mb-16">
-        <span class="pill">Flujo</span>
+      <div class="reveal max-w-2xl mb-16">
+        <span class="pill mb-4">Flujo</span>
         <h2 class="font-display text-4xl md:text-5xl leading-[0.95] mt-4">Cómo se ejecuta una misión.</h2>
       </div>
       <div class="reveal mermaid-container">
@@ -236,103 +252,109 @@ sequenceDiagram
   </section>
 
   <!-- Stack -->
-  <section id="stack" class="py-24 md:py-32 bg-nous-surface border-y border-nous-line">
+  <section id="stack" class="section-pad bg-surface border-y border-line">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="reveal text-center max-w-3xl mx-auto mb-16">
-        <span class="pill">Stack</span>
+      <div class="reveal max-w-2xl mb-16">
+        <span class="pill mb-4">Stack</span>
         <h2 class="font-display text-4xl md:text-5xl leading-[0.95] mt-4">Tecnologías planas y abiertas.</h2>
       </div>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="reveal card p-6"><div class="text-nous-purple font-display text-xl mb-2">Frontend</div><p class="text-nous-muted text-sm">HTML estático, Tailwind CSS vía CDN, JavaScript vanilla.</p></div>
-        <div class="reveal card p-6"><div class="text-nous-teal font-display text-xl mb-2">Workspace</div><p class="text-nous-muted text-sm">Google Sheets, Docs, Slides, Drive, Calendar, Gmail, Apps Script.</p></div>
-        <div class="reveal card p-6"><div class="text-nous-coral font-display text-xl mb-2">Pagos</div><p class="text-nous-muted text-sm">Stripe API, webhooks, payment links y suscripciones.</p></div>
-        <div class="reveal card p-6"><div class="text-nous-purple font-display text-xl mb-2">IA / LLMs</div><p class="text-nous-muted text-sm">Nvidia APIs, OpenAI, Kimi Code y modelos locales según perfil.</p></div>
-        <div class="reveal card p-6"><div class="text-nous-teal font-display text-xl mb-2">Memoria</div><p class="text-nous-muted text-sm">G-Brain conectado vía MCP para contexto persistente.</p></div>
-        <div class="reveal card p-6"><div class="text-nous-coral font-display text-xl mb-2">Diseño</div><p class="text-nous-muted text-sm">Open Design, redes sociales, WordPress y SSH para sitios.</p></div>
-        <div class="reveal card p-6"><div class="text-nous-purple font-display text-xl mb-2">Comunicación</div><p class="text-nous-muted text-sm">Telegram, WhatsApp y email como canales de entrada/salida.</p></div>
-        <div class="reveal card p-6"><div class="text-nous-teal font-display text-xl mb-2">Diagramas</div><p class="text-nous-muted text-sm">Mermaid para arquitectura y secuencias.</p></div>
+        <div class="reveal card p-6"><div class="text-purple font-display text-xl mb-2">Frontend</div><p class="text-muted text-sm">HTML estático, Tailwind CSS vía CDN, JavaScript vanilla.</p></div>
+        <div class="reveal card p-6"><div class="text-teal font-display text-xl mb-2">Workspace</div><p class="text-muted text-sm">Google Sheets, Docs, Slides, Drive, Calendar, Gmail, Apps Script.</p></div>
+        <div class="reveal card p-6"><div class="text-coral font-display text-xl mb-2">Pagos</div><p class="text-muted text-sm">Stripe API, webhooks, payment links y suscripciones.</p></div>
+        <div class="reveal card p-6"><div class="text-purple font-display text-xl mb-2">IA / LLMs</div><p class="text-muted text-sm">Nvidia APIs, OpenAI, Kimi Coding y modelos locales según perfil.</p></div>
+        <div class="reveal card p-6"><div class="text-teal font-display text-xl mb-2">Memoria</div><p class="text-muted text-sm">G-Brain conectado vía MCP para contexto persistente.</p></div>
+        <div class="reveal card p-6"><div class="text-coral font-display text-xl mb-2">Diseño</div><p class="text-muted text-sm">Open Design, redes sociales, WordPress y SSH para sitios.</p></div>
+        <div class="reveal card p-6"><div class="text-purple font-display text-xl mb-2">Comunicación</div><p class="text-muted text-sm">Telegram, WhatsApp y email como canales de entrada/salida.</p></div>
+        <div class="reveal card p-6"><div class="text-teal font-display text-xl mb-2">Diagramas</div><p class="text-muted text-sm">Mermaid para arquitectura y secuencias.</p></div>
       </div>
     </div>
   </section>
 
   <!-- Hero profiles -->
-  <section id="heroes" class="py-24 md:py-32">
+  <section id="heroes" class="section-pad">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="reveal text-center max-w-3xl mx-auto mb-16">
-        <span class="pill">Perfiles técnicos</span>
-        <h2 class="font-display text-4xl md:text-5xl leading-[0.95] mt-4">Cada héroe, un archivo.</h2>
+      <div class="reveal max-w-2xl mb-16">
+        <span class="pill mb-4">Perfiles técnicos</span>
+        <h2 class="font-display text-4xl md:text-5xl leading-[0.95] mt-4">Cada héroe, un perfil.</h2>
       </div>
 
       <div class="space-y-6">
         <div class="reveal card card-hover p-8 md:p-10">
           <div class="flex items-center gap-4 mb-4">
-            <div class="w-3 h-3 rounded-full bg-nous-purple"></div>
+            <div class="w-3 h-3 rounded-full bg-purple"></div>
             <h3 class="font-display text-2xl">Tesorero · <code>.finance</code></h3>
           </div>
-          <div class="grid md:grid-cols-3 gap-6 text-sm text-nous-muted">
-            <div><strong class="text-nous-text">Habilidades</strong><br/>Google Sheets, modelos financieros, costos fijos/variables, dashboards.</div>
-            <div><strong class="text-nous-text">Inputs</strong><br/>Transacciones, facturas, estados de cuenta, respuestas del emprendedor.</div>
-            <div><strong class="text-nous-text">Outputs</strong><br/>Spreadsheet limpio, categorización, reportes de flujo y proyecciones.</div>
+          <div class="grid md:grid-cols-4 gap-6 text-sm text-muted">
+            <div><strong class="text-text">Habilidades</strong><br/>Google Sheets, modelos financieros, costos fijos/variables, dashboards.</div>
+            <div><strong class="text-text">Inputs</strong><br/>Transacciones, facturas, estados de cuenta, respuestas del emprendedor.</div>
+            <div><strong class="text-text">Outputs</strong><br/>Spreadsheet limpio, categorización, reportes de flujo y proyecciones.</div>
+            <div><strong class="text-text">Conexiones</strong><br/>Mensajero (presupuestos), Cobrador (ingresos), G-Brain.</div>
           </div>
         </div>
 
         <div class="reveal card card-hover p-8 md:p-10">
           <div class="flex items-center gap-4 mb-4">
-            <div class="w-3 h-3 rounded-full bg-nous-teal"></div>
+            <div class="w-3 h-3 rounded-full bg-teal"></div>
             <h3 class="font-display text-2xl">Mensajero · <code>.design</code></h3>
           </div>
-          <div class="grid md:grid-cols-3 gap-6 text-sm text-nous-muted">
-            <div><strong class="text-nous-text">Habilidades</strong><br/>Redes sociales, SEO/GEO, copywriting, Open Design, WordPress/SSH.</div>
-            <div><strong class="text-nous-text">Inputs</strong><br/>Voz de marca, objetivos de campaña, datos del Tesorero, accesos web.</div>
-            <div><strong class="text-nous-text">Outputs</strong><br/>Calendario de contenido, posts, presentaciones, optimizaciones web.</div>
+          <div class="grid md:grid-cols-4 gap-6 text-sm text-muted">
+            <div><strong class="text-text">Habilidades</strong><br/>Redes sociales, SEO/GEO, copywriting, Open Design, WordPress/SSH.</div>
+            <div><strong class="text-text">Inputs</strong><br/>Voz de marca, objetivos de campaña, datos del Tesorero, accesos web.</div>
+            <div><strong class="text-text">Outputs</strong><br/>Calendario de contenido, posts, presentaciones, optimizaciones web.</div>
+            <div><strong class="text-text">Conexiones</strong><br/>Tesorero (presupuesto), G-Brain, APIs de redes sociales.</div>
           </div>
         </div>
 
         <div class="reveal card card-hover p-8 md:p-10">
           <div class="flex items-center gap-4 mb-4">
-            <div class="w-3 h-3 rounded-full bg-nous-coral"></div>
+            <div class="w-3 h-3 rounded-full bg-coral"></div>
             <h3 class="font-display text-2xl">Cobrador · <code>Stripe</code></h3>
           </div>
-          <div class="grid md:grid-cols-3 gap-6 text-sm text-nous-muted">
-            <div><strong class="text-nous-text">Habilidades</strong><br/>Payment links, suscripciones, facturas, webhooks, reportes.</div>
-            <div><strong class="text-nous-text">Inputs</strong><br/>Productos/servicios, precios, clientes, eventos de pago.</div>
-            <div><strong class="text-nous-text">Outputs</strong><br/>Links de pago, confirmaciones, reportes de ingresos, reconciliación.</div>
+          <div class="grid md:grid-cols-4 gap-6 text-sm text-muted">
+            <div><strong class="text-text">Habilidades</strong><br/>Payment links, suscripciones, facturas, webhooks, reportes.</div>
+            <div><strong class="text-text">Inputs</strong><br/>Productos/servicios, precios, clientes, eventos de pago.</div>
+            <div><strong class="text-text">Outputs</strong><br/>Links de pago, confirmaciones, reportes de ingresos, reconciliación.</div>
+            <div><strong class="text-text">Conexiones</strong><br/>Stripe API, Tesorero (ingresos), G-Brain.</div>
           </div>
         </div>
 
         <div class="reveal card card-hover p-8 md:p-10">
           <div class="flex items-center gap-4 mb-4">
-            <div class="w-3 h-3 rounded-full bg-nous-purple"></div>
+            <div class="w-3 h-3 rounded-full bg-purple"></div>
             <h3 class="font-display text-2xl">Guardián · <code>.security</code></h3>
           </div>
-          <div class="grid md:grid-cols-3 gap-6 text-sm text-nous-muted">
-            <div><strong class="text-nous-text">Habilidades</strong><br/>Gestión de API keys, permisos por héroe, rotación de credenciales.</div>
-            <div><strong class="text-nous-text">Inputs</strong><br/>Cuentas de Nvidia, OpenAI, Kimi, Stripe, redes sociales.</div>
-            <div><strong class="text-nous-text">Outputs</strong><br/>Accesos configurados, auditoría, políticas mínimas de seguridad.</div>
+          <div class="grid md:grid-cols-4 gap-6 text-sm text-muted">
+            <div><strong class="text-text">Habilidades</strong><br/>Gestión de API keys, permisos por héroe, rotación de credenciales.</div>
+            <div><strong class="text-text">Inputs</strong><br/>Cuentas de Nvidia, OpenAI, Kimi, Stripe, redes sociales.</div>
+            <div><strong class="text-text">Outputs</strong><br/>Accesos configurados, auditoría, políticas mínimas de seguridad.</div>
+            <div><strong class="text-text">Conexiones</strong><br/>Nvidia APIs, OpenAI, Kimi, todos los héroes vía G-Brain.</div>
           </div>
         </div>
 
         <div class="reveal card card-hover p-8 md:p-10">
           <div class="flex items-center gap-4 mb-4">
-            <div class="w-3 h-3 rounded-full bg-nous-teal"></div>
+            <div class="w-3 h-3 rounded-full bg-teal"></div>
             <h3 class="font-display text-2xl">Estratega · <code>Ops</code></h3>
           </div>
-          <div class="grid md:grid-cols-3 gap-6 text-sm text-nous-muted">
-            <div><strong class="text-nous-text">Habilidades</strong><br/>Calendar, Gmail, tareas, recordatorios, priorización.</div>
-            <div><strong class="text-nous-text">Inputs</strong><br/>Eventos, correos, deadlines, misiones pendientes.</div>
-            <div><strong class="text-nous-text">Outputs</strong><br/>Calendario actualizado, follow-ups, resumen de operaciones.</div>
+          <div class="grid md:grid-cols-4 gap-6 text-sm text-muted">
+            <div><strong class="text-text">Habilidades</strong><br/>Calendar, Gmail, tareas, recordatorios, priorización.</div>
+            <div><strong class="text-text">Inputs</strong><br/>Eventos, correos, deadlines, misiones pendientes.</div>
+            <div><strong class="text-text">Outputs</strong><br/>Calendario actualizado, follow-ups, resumen de operaciones.</div>
+            <div><strong class="text-text">Conexiones</strong><br/>Diplomático (hitos), G-Brain, Google Workspace.</div>
           </div>
         </div>
 
         <div class="reveal card card-hover p-8 md:p-10">
           <div class="flex items-center gap-4 mb-4">
-            <div class="w-3 h-3 rounded-full bg-nous-coral"></div>
+            <div class="w-3 h-3 rounded-full bg-coral"></div>
             <h3 class="font-display text-2xl">Diplomático · <code>Relaciones</code></h3>
           </div>
-          <div class="grid md:grid-cols-3 gap-6 text-sm text-nous-muted">
-            <div><strong class="text-nous-text">Habilidades</strong><br/>CRM ligero, seguimiento a clientes y proveedores, hitos.</div>
-            <div><strong class="text-nous-text">Inputs</strong><br/>Conversaciones, contratos, entregables, fechas compromiso.</div>
-            <div><strong class="text-nous-text">Outputs</strong><br/>Recordatorios, actualizaciones de estado, resúmenes de relación.</div>
+          <div class="grid md:grid-cols-4 gap-6 text-sm text-muted">
+            <div><strong class="text-text">Habilidades</strong><br/>CRM ligero, seguimiento a clientes y proveedores, hitos.</div>
+            <div><strong class="text-text">Inputs</strong><br/>Conversaciones, contratos, entregables, fechas compromiso.</div>
+            <div><strong class="text-text">Outputs</strong><br/>Recordatorios, actualizaciones de estado, resúmenes de relación.</div>
+            <div><strong class="text-text">Conexiones</strong><br/>Estratega (operaciones), G-Brain, Gmail.</div>
           </div>
         </div>
       </div>
@@ -340,22 +362,22 @@ sequenceDiagram
   </section>
 
   <!-- G-Brain / MCP -->
-  <section class="py-24 md:py-32 bg-nous-surface border-y border-nous-line">
+  <section class="section-pad bg-surface border-y border-line">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="reveal grid lg:grid-cols-2 gap-16 items-start">
-        <div>
-          <span class="pill">Memoria</span>
+      <div class="grid lg:grid-cols-2 gap-16 items-start">
+        <div class="reveal">
+          <span class="pill mb-4">Memoria</span>
           <h2 class="font-display text-4xl md:text-5xl leading-[0.95] mt-4 mb-6">
             G-Brain vía MCP.
           </h2>
-          <p class="text-nous-muted text-lg leading-relaxed mb-6">
+          <p class="text-muted text-lg leading-relaxed mb-6">
             MCP (Model Context Protocol) es el cable coaxial entre los héroes y el cerebro. Cada agente puede 
             leer contexto, escribir resultados y consultar lo que otros héroes aprendieron.
           </p>
-          <ul class="space-y-4 text-nous-muted text-sm">
-            <li class="flex items-start gap-3"><span class="text-nous-purple">01</span><span><strong class="text-nous-text">Perfiles:</strong> archivos <code>.finance</code>, <code>.design</code> y <code>.security</code> definen comportamiento.</span></li>
-            <li class="flex items-start gap-3"><span class="text-nous-teal">02</span><span><strong class="text-nous-text">Misiones:</strong> cada tarea queda registrada con input, output y aprendizaje.</span></li>
-            <li class="flex items-start gap-3"><span class="text-nous-coral">03</span><span><strong class="text-nous-text">Entidades:</strong> clientes, proveedores y productos se guardan como objetos reutilizables.</span></li>
+          <ul class="space-y-4 text-muted text-sm">
+            <li class="flex items-start gap-3"><span class="text-purple">01</span><span><strong class="text-text">Perfiles:</strong> archivos <code>.finance</code>, <code>.design</code> y <code>.security</code> definen comportamiento.</span></li>
+            <li class="flex items-start gap-3"><span class="text-teal">02</span><span><strong class="text-text">Misiones:</strong> cada tarea queda registrada con input, output y aprendizaje.</span></li>
+            <li class="flex items-start gap-3"><span class="text-coral">03</span><span><strong class="text-text">Entidades:</strong> clientes, proveedores y productos se guardan como objetos reutilizables.</span></li>
           </ul>
         </div>
         <div class="reveal mermaid-container">
@@ -377,27 +399,27 @@ flowchart TB
   </section>
 
   <!-- Workshop -->
-  <section class="py-24 md:py-32">
+  <section id="workshop" class="section-pad">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="reveal text-center max-w-3xl mx-auto mb-16">
-        <span class="pill">Workshop</span>
+      <div class="reveal max-w-2xl mb-16">
+        <span class="pill mb-4">Workshop técnico</span>
         <h2 class="font-display text-4xl md:text-5xl leading-[0.95] mt-4">Paquete de implementación de 90 minutos.</h2>
       </div>
       <div class="grid md:grid-cols-3 gap-6">
         <div class="reveal card p-8">
-          <div class="font-display text-4xl text-nous-purple mb-4">0-20'</div>
+          <div class="font-display text-4xl text-purple mb-4">0-20'</div>
           <h3 class="font-display text-lg mb-2">Setup</h3>
-          <ul class="text-nous-muted text-sm space-y-2">
+          <ul class="text-muted text-sm space-y-2">
+            <li>• Pre-instalación con <code>curl ... | bash</code></li>
             <li>• Copiar Google Sheet base</li>
             <li>• Conectar cuenta de Google Workspace</li>
-            <li>• Crear carpeta compartida Partenon</li>
             <li>• Subir perfiles <code>.finance</code>, <code>.design</code>, <code>.security</code></li>
           </ul>
         </div>
         <div class="reveal card p-8">
-          <div class="font-display text-4xl text-nous-teal mb-4">20-60'</div>
+          <div class="font-display text-4xl text-teal mb-4">20-60'</div>
           <h3 class="font-display text-lg mb-2">Onboarding</h3>
-          <ul class="text-nous-muted text-sm space-y-2">
+          <ul class="text-muted text-sm space-y-2">
             <li>• Definir tipo de empresa</li>
             <li>• Configurar héroes prioritarios</li>
             <li>• Ejecutar primera misión con el Tesorero</li>
@@ -405,9 +427,9 @@ flowchart TB
           </ul>
         </div>
         <div class="reveal card p-8">
-          <div class="font-display text-4xl text-nous-coral mb-4">60-90'</div>
+          <div class="font-display text-4xl text-coral mb-4">60-90'</div>
           <h3 class="font-display text-lg mb-2">Práctica</h3>
-          <ul class="text-nous-muted text-sm space-y-2">
+          <ul class="text-muted text-sm space-y-2">
             <li>• Publicar 3 misiones reales</li>
             <li>• Revisar entregables en Sheets/Docs</li>
             <li>• Ajustar prompts y permisos</li>
@@ -419,10 +441,10 @@ flowchart TB
   </section>
 
   <!-- Install -->
-  <section id="install" class="py-24 md:py-32 bg-nous-surface border-y border-nous-line">
+  <section id="install" class="section-pad bg-surface border-y border-line">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="reveal text-center max-w-3xl mx-auto mb-16">
-        <span class="pill">Instalación</span>
+      <div class="reveal max-w-2xl mb-16">
+        <span class="pill mb-4">Instalación</span>
         <h2 class="font-display text-4xl md:text-5xl leading-[0.95] mt-4">Empieza en minutos.</h2>
       </div>
 
@@ -434,15 +456,17 @@ flowchart TB
 cd partenon</code></pre>
           </div>
           <div>
-            <h3 class="font-display text-xl mb-3">2. Copia el Google Sheet base</h3>
-            <p class="text-nous-muted text-sm mb-3">
-              El template incluye pestañas para misiones, entidades, perfiles y logs de héroes.
-            </p>
-            <a href="#" class="btn-secondary text-sm">Abrir template (próximamente)</a>
+            <h3 class="font-display text-xl mb-3">2. Instala Hermes</h3>
+            <pre><code>curl -fsSL https://partenon.dev/install.sh | bash</code></pre>
+            <p class="text-muted text-sm mt-2">El instalador configura el entorno, dependencias y el comando global.</p>
           </div>
           <div>
-            <h3 class="font-display text-xl mb-3">3. Configura variables de entorno</h3>
-            <pre><code>Hermes_FOLDER_ID=...
+            <h3 class="font-display text-xl mb-3">3. Copia el Google Sheet base</h3>
+            <p class="text-muted text-sm">El template incluye pestañas para misiones, entidades, perfiles y logs de héroes.</p>
+          </div>
+          <div>
+            <h3 class="font-display text-xl mb-3">4. Configura variables de entorno</h3>
+            <pre><code>HERMES_FOLDER_ID=...
 GOOGLE_SERVICE_ACCOUNT=...
 STRIPE_API_KEY=...
 OPENAI_API_KEY=...
@@ -450,8 +474,8 @@ KIMI_API_KEY=...
 NVIDIA_API_KEY=...</code></pre>
           </div>
           <div>
-            <h3 class="font-display text-xl mb-3">4. Despliega Apps Script</h3>
-            <p class="text-nous-muted text-sm">
+            <h3 class="font-display text-xl mb-3">5. Despliega Apps Script</h3>
+            <p class="text-muted text-sm">
               Sube <code>apps-script/Hermes.gs</code> como proyecto vinculado a tu Google Sheet. 
               Autoriza los scopes de Sheets, Docs, Drive, Calendar y Gmail.
             </p>
@@ -485,60 +509,60 @@ NVIDIA_API_KEY=...</code></pre>
   </section>
 
   <!-- Integrations -->
-  <section class="py-24 md:py-32">
+  <section class="section-pad">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="reveal text-center max-w-3xl mx-auto mb-16">
-        <span class="pill">Integraciones</span>
+      <div class="reveal max-w-2xl mb-16">
+        <span class="pill mb-4">Integraciones</span>
         <h2 class="font-display text-4xl md:text-5xl leading-[0.95] mt-4">Se conecta con lo que ya usas.</h2>
       </div>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div class="reveal card p-6 flex items-center gap-4"><div class="w-10 h-10 rounded bg-nous-purple/10 flex items-center justify-center text-nous-purple font-display">G</div><div><div class="font-display">Google Sheets</div><div class="text-xs text-nous-muted">Finanzas y reportes</div></div></div>
-        <div class="reveal card p-6 flex items-center gap-4"><div class="w-10 h-10 rounded bg-nous-teal/10 flex items-center justify-center text-nous-teal font-display">D</div><div><div class="font-display">Google Docs</div><div class="text-xs text-nous-muted">Cartas y documentos</div></div></div>
-        <div class="reveal card p-6 flex items-center gap-4"><div class="w-10 h-10 rounded bg-nous-coral/10 flex items-center justify-center text-nous-coral font-display">S</div><div><div class="font-display">Google Slides</div><div class="text-xs text-nous-muted">Presentaciones</div></div></div>
-        <div class="reveal card p-6 flex items-center gap-4"><div class="w-10 h-10 rounded bg-nous-purple/10 flex items-center justify-center text-nous-purple font-display">C</div><div><div class="font-display">Calendar</div><div class="text-xs text-nous-muted">Agenda y recordatorios</div></div></div>
-        <div class="reveal card p-6 flex items-center gap-4"><div class="w-10 h-10 rounded bg-nous-teal/10 flex items-center justify-center text-nous-teal font-display">M</div><div><div class="font-display">Gmail</div><div class="text-xs text-nous-muted">Correos y seguimiento</div></div></div>
-        <div class="reveal card p-6 flex items-center gap-4"><div class="w-10 h-10 rounded bg-nous-coral/10 flex items-center justify-center text-nous-coral font-display">$</div><div><div class="font-display">Stripe</div><div class="text-xs text-nous-muted">Pagos y suscripciones</div></div></div>
-        <div class="reveal card p-6 flex items-center gap-4"><div class="w-10 h-10 rounded bg-nous-purple/10 flex items-center justify-center text-nous-purple font-display">WP</div><div><div class="font-display">WordPress</div><div class="text-xs text-nous-muted">Sitios y SEO</div></div></div>
-        <div class="reveal card p-6 flex items-center gap-4"><div class="w-10 h-10 rounded bg-nous-teal/10 flex items-center justify-center text-nous-teal font-display">TG</div><div><div class="font-display">Telegram</div><div class="text-xs text-nous-muted">Chat y notificaciones</div></div></div>
-        <div class="reveal card p-6 flex items-center gap-4"><div class="w-10 h-10 rounded bg-nous-coral/10 flex items-center justify-center text-nous-coral font-display">N</div><div><div class="font-display">Nvidia</div><div class="text-xs text-nous-muted">Modelos locales</div></div></div>
+        <div class="reveal card p-6 flex items-center gap-4"><div class="w-10 h-10 rounded bg-purple/10 flex items-center justify-center text-purple font-display">G</div><div><div class="font-display">Google Sheets</div><div class="text-xs text-muted">Finanzas y reportes</div></div></div>
+        <div class="reveal card p-6 flex items-center gap-4"><div class="w-10 h-10 rounded bg-teal/10 flex items-center justify-center text-teal font-display">D</div><div><div class="font-display">Google Docs</div><div class="text-xs text-muted">Cartas y documentos</div></div></div>
+        <div class="reveal card p-6 flex items-center gap-4"><div class="w-10 h-10 rounded bg-coral/10 flex items-center justify-center text-coral font-display">S</div><div><div class="font-display">Google Slides</div><div class="text-xs text-muted">Presentaciones</div></div></div>
+        <div class="reveal card p-6 flex items-center gap-4"><div class="w-10 h-10 rounded bg-purple/10 flex items-center justify-center text-purple font-display">C</div><div><div class="font-display">Calendar</div><div class="text-xs text-muted">Agenda y recordatorios</div></div></div>
+        <div class="reveal card p-6 flex items-center gap-4"><div class="w-10 h-10 rounded bg-teal/10 flex items-center justify-center text-teal font-display">M</div><div><div class="font-display">Gmail</div><div class="text-xs text-muted">Correos y seguimiento</div></div></div>
+        <div class="reveal card p-6 flex items-center gap-4"><div class="w-10 h-10 rounded bg-coral/10 flex items-center justify-center text-coral font-display">$</div><div><div class="font-display">Stripe</div><div class="text-xs text-muted">Pagos y suscripciones</div></div></div>
+        <div class="reveal card p-6 flex items-center gap-4"><div class="w-10 h-10 rounded bg-purple/10 flex items-center justify-center text-purple font-display">WP</div><div><div class="font-display">WordPress</div><div class="text-xs text-muted">Sitios y SEO</div></div></div>
+        <div class="reveal card p-6 flex items-center gap-4"><div class="w-10 h-10 rounded bg-teal/10 flex items-center justify-center text-teal font-display">TG</div><div><div class="font-display">Telegram</div><div class="text-xs text-muted">Chat y notificaciones</div></div></div>
+        <div class="reveal card p-6 flex items-center gap-4"><div class="w-10 h-10 rounded bg-coral/10 flex items-center justify-center text-coral font-display">N</div><div><div class="font-display">Nvidia</div><div class="text-xs text-muted">Modelos locales</div></div></div>
       </div>
     </div>
   </section>
 
   <!-- Roadmap -->
-  <section class="py-24 md:py-32 bg-nous-surface border-y border-nous-line">
+  <section class="section-pad bg-surface border-y border-line">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="reveal text-center max-w-3xl mx-auto mb-16">
-        <span class="pill">Roadmap</span>
+      <div class="reveal max-w-2xl mb-16">
+        <span class="pill mb-4">Roadmap</span>
         <h2 class="font-display text-4xl md:text-5xl leading-[0.95] mt-4">Lo que viene.</h2>
       </div>
       <div class="space-y-4">
         <div class="reveal card p-6 flex flex-col md:flex-row md:items-center gap-4">
-          <div class="font-display text-xl text-nous-purple w-32">Q2 2026</div>
+          <div class="font-display text-xl text-purple w-32">Q2 2026</div>
           <div class="flex-1">
             <h3 class="font-display text-lg">V0.1 — Tesorero + Mensajero</h3>
-            <p class="text-nous-muted text-sm">Hojas de finanzas automatizadas y calendario de contenido básico.</p>
+            <p class="text-muted text-sm">Hojas de finanzas automatizadas y calendario de contenido básico.</p>
           </div>
         </div>
         <div class="reveal card p-6 flex flex-col md:flex-row md:items-center gap-4">
-          <div class="font-display text-xl text-nous-teal w-32">Q3 2026</div>
+          <div class="font-display text-xl text-teal w-32">Q3 2026</div>
           <div class="flex-1">
             <h3 class="font-display text-lg">V0.2 — Cobrador + Guardián</h3>
-            <p class="text-nous-muted text-sm">Stripe integrado y gestión segura de API keys por héroe.</p>
+            <p class="text-muted text-sm">Stripe integrado y gestión segura de API keys por héroe.</p>
           </div>
         </div>
         <div class="reveal card p-6 flex flex-col md:flex-row md:items-center gap-4">
-          <div class="font-display text-xl text-nous-coral w-32">Q4 2026</div>
+          <div class="font-display text-xl text-coral w-32">Q4 2026</div>
           <div class="flex-1">
             <h3 class="font-display text-lg">V0.3 — Estratega + Diplomático</h3>
-            <p class="text-nous-muted text-sm">Project management interno y CRM de relaciones con clientes/proveedores.</p>
+            <p class="text-muted text-sm">Project management interno y CRM de relaciones con clientes/proveedores.</p>
           </div>
         </div>
         <div class="reveal card p-6 flex flex-col md:flex-row md:items-center gap-4">
-          <div class="font-display text-xl text-nous-purple w-32">2027</div>
+          <div class="font-display text-xl text-purple w-32">2027</div>
           <div class="flex-1">
             <h3 class="font-display text-lg">V1.0 — Marketplace de misiones</h3>
-            <p class="text-nous-muted text-sm">Templates por industria, comunidad de implementadores y métricas de impacto.</p>
+            <p class="text-muted text-sm">Templates por industria, comunidad de implementadores y métricas de impacto.</p>
           </div>
         </div>
       </div>
@@ -546,14 +570,14 @@ NVIDIA_API_KEY=...</code></pre>
   </section>
 
   <!-- CTA -->
-  <section class="py-24 md:py-32">
+  <section class="section-pad">
     <div class="max-w-4xl mx-auto px-6 text-center">
       <div class="reveal">
-        <span class="pill">Contribuir</span>
+        <span class="pill mb-4">Contribuir</span>
         <h2 class="font-display text-4xl md:text-5xl leading-[0.95] mt-4 mb-6">
           Construye el próximo héroe.
         </h2>
-        <p class="text-nous-muted text-lg leading-relaxed mb-10">
+        <p class="text-muted text-lg leading-relaxed mb-10">
           Partenon es open source. Puedes crear nuevos héroes, agregar integraciones o mejorar los perfiles 
           existentes. Todo pasa por G-Brain.
         </p>
@@ -566,34 +590,34 @@ NVIDIA_API_KEY=...</code></pre>
   </section>
 
   <!-- Footer -->
-  <footer class="py-16 border-t border-nous-line">
+  <footer class="py-20 border-t border-line">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="grid md:grid-cols-4 gap-10 mb-12">
+      <div class="grid md:grid-cols-4 gap-10 mb-14">
         <div class="md:col-span-2">
           <div class="font-display text-2xl mb-4">Partenon</div>
-          <p class="text-nous-muted text-sm leading-relaxed max-w-sm">
+          <p class="text-muted text-sm leading-relaxed max-w-sm">
             Panteón operativo de agentes de IA para pymes latinoamericanas. Open source, anclado a Google Workspace.
           </p>
         </div>
         <div>
-          <h4 class="font-display text-sm mb-4 text-nous-muted uppercase tracking-wider">Técnico</h4>
-          <ul class="space-y-2 text-sm text-nous-muted">
-            <li><a href="#architecture" class="hover:text-nous-text transition-colors">Arquitectura</a></li>
-            <li><a href="#stack" class="hover:text-nous-text transition-colors">Stack</a></li>
-            <li><a href="#heroes" class="hover:text-nous-text transition-colors">Perfiles</a></li>
-            <li><a href="#install" class="hover:text-nous-text transition-colors">Instalación</a></li>
+          <h4 class="font-display text-sm mb-4 text-muted uppercase tracking-wider">Técnico</h4>
+          <ul class="space-y-2 text-sm text-muted">
+            <li><a href="#architecture" class="hover:text-text transition-colors">Arquitectura</a></li>
+            <li><a href="#stack" class="hover:text-text transition-colors">Stack</a></li>
+            <li><a href="#heroes" class="hover:text-text transition-colors">Perfiles</a></li>
+            <li><a href="#install" class="hover:text-text transition-colors">Instalación</a></li>
           </ul>
         </div>
         <div>
-          <h4 class="font-display text-sm mb-4 text-nous-muted uppercase tracking-wider">Proyecto</h4>
-          <ul class="space-y-2 text-sm text-nous-muted">
-            <li><a href="index.html" class="hover:text-nous-text transition-colors">Marketing</a></li>
-            <li><a href="https://github.com/paolameneses/partenon" target="_blank" rel="noopener" class="hover:text-nous-text transition-colors">GitHub</a></li>
-            <li><a href="https://github.com/NousResearch/hermes-business-os" target="_blank" rel="noopener" class="hover:text-nous-text transition-colors">Hermes Business OS</a></li>
+          <h4 class="font-display text-sm mb-4 text-muted uppercase tracking-wider">Proyecto</h4>
+          <ul class="space-y-2 text-sm text-muted">
+            <li><a href="index.html" class="hover:text-text transition-colors">Marketing</a></li>
+            <li><a href="https://github.com/paolameneses/partenon" target="_blank" rel="noopener" class="hover:text-text transition-colors">GitHub</a></li>
+            <li><a href="https://github.com/NousResearch/hermes-business-os" target="_blank" rel="noopener" class="hover:text-text transition-colors">Hermes Business OS</a></li>
           </ul>
         </div>
       </div>
-      <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-nous-muted border-t border-nous-line pt-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-muted border-t border-line pt-8">
         <p>© 2026 Partenon. Open source bajo MIT.</p>
         <p>Basado en Hermes Business OS.</p>
       </div>
@@ -630,7 +654,7 @@ NVIDIA_API_KEY=...</code></pre>
           revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
     reveals.forEach(el => revealObserver.observe(el));
   </script>
 </body>

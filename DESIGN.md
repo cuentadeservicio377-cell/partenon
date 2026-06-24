@@ -1,106 +1,79 @@
-# Design System — Partenon
+# Design System: Partenon
 
-## Product Context
+## 1. Visual Theme & Atmosphere
 
-Partenon es un sistema de agentes IA para empresas, presentado como un panteón de héroes al servicio de Hermes. El proyecto se construye para un hackathon con jurado de Nous Research, Nvidia y Stripe. La primera entrega son dos páginas web:
+A restrained, dark-interface system for a hackathon landing + technical documentation. The atmosphere is technical but warm — like a Nous Research sub-product: flat, confident, and readable. Marketing page uses asymmetric editorial layouts; technical page uses dense, diagram-driven architecture.
 
-1. **Página de marketing (`web/index.html`)** — manual de marca con storytelling, arquetipos, héroes, impacto y go-to-market.
-2. **Página técnica (`web/developers.html`)** — espejo técnico con arquitectura, diagramas, fichas de agentes, integraciones y workshop.
+- **Density:** Daily App Mode (4–7) for marketing; Cockpit Dense (7–9) for technical specs.
+- **Variance:** Offset Asymmetric (6–8) on desktop, collapsing to strict single-column on mobile.
+- **Motion:** Fluid CSS (4–7). Soft scroll reveals, spring-like hover physics, animated counters. No continuous scroll listeners.
 
-## Aesthetic Direction
+## 2. Color Palette & Roles
 
-- **Direction:** Técnico-diagramático, inspirado en Nous Research / Hermes Agent.
-- **Decoration level:** minimal.
-- **Mood:** Oscuro, plano, preciso, de documentación viva. Sin cursilería, sin gradientes, sin glows, sin sombras difusas.
-- **Reference:** https://hermes-agent.nousresearch.com
+| Token | Hex | Role |
+|-------|-----|------|
+| **Void Black** | `#050505` | Primary background (near-OLED, not pure black) |
+| **Deep Surface** | `#0a0a0a` | Cards, elevated surfaces |
+| **Panel Surface** | `#111111` | Inner card surfaces, code blocks |
+| **Primary Text** | `#f5f5f5` | Headings and body |
+| **Muted Text** | `#9a9a9a` | Descriptions, labels, metadata |
+| **Hairline** | `rgba(255,255,255,0.08)` | Borders, dividers, card outlines |
+| **Nous Purple** | `#7F77DD` | Primary accent: hero highlights, Hermes, CTAs |
+| **Tool Teal** | `#1D9E75` | Secondary accent: Mensajero, Estratega, success |
+| **Stripe Coral** | `#D85A30` | Tertiary accent: Cobrador, Guardián, Diplomático |
+| **Nous Cream** | `#C9A227` | Quaternary accent: Stripe/Nous touch, milestones |
 
-## Typography
+**Rules:**
+- Max 3 visible accents at once; never glow/gradient.
+- No pure `#000000`.
+- No warm/cool gray mixing: all neutrals are neutral-leaning-warm `#050505` → `#f5f5f5`.
 
-- **Display/Hero:** Clash Display — grande, directo, peso 500-600.
-- **Body:** Geist — legible, peso 400-500.
-- **UI/Labels:** Geist — mismo que body, tamaños pequeños, tracking amplio en etiquetas.
-- **Data/Tables:** JetBrains Mono — tabular-nums para contadores y métricas.
-- **Code:** JetBrains Mono.
-- **Loading:** Fontshare (Clash Display) + Bunny Fonts (Geist, JetBrains Mono) + Google Fonts (Instrument Serif para acentos serifos ocasionales).
-- **Scale:**
-  - Hero: 4rem - 8rem (responsive)
-  - H2: 2.5rem - 4rem
-  - H3: 1.5rem - 2rem
-  - Body: 1rem - 1.125rem
-  - Small/labels: 0.75rem - 0.875rem
+## 3. Typography
 
-## Color
+- **Display:** `Clash Display` — tight tracking (`tracking-tight`), weight-driven hierarchy.
+- **Body:** `Geist` — relaxed leading (`leading-relaxed`), max 65ch paragraphs.
+- **Mono:** `JetBrains Mono` — code, file names, numbers, metrics.
+- **Banned:** Inter, Roboto, Arial, Open Sans, Helvetica, generic serif fonts.
 
-- **Approach:** restrained / semantic por categoría.
-- **Background:** `#050505`
-- **Surface:** `#0a0a0a`
-- **Surface 2:** `#111111`
-- **Text:** `#f5f5f5`
-- **Muted:** `#9a9a9a`
-- **Acento primario (purple):** `#7F77DD` / `#534AB7`
-- **Acento secundario (teal):** `#1D9E75`
-- **Acento terciario (coral):** `#D85A30`
-- **Bordes:** `rgba(255,255,255,0.08)` o colores de rampa atenuados.
-- **Semantic:**
-  - success: `#1D9E75`
-  - warning: `#D85A30`
-  - error: `#E24B4A`
-  - info: `#378ADD`
-- **Diagram colors (Nous style):**
-  - UI / user: `c-gray` #888780
-  - Core / router: `c-purple` #7F77DD
-  - Profiles / skills: `c-teal` #1D9E75
-  - Brain / memory: `c-coral` #D85A30
-  - Data / payments: `c-blue` #378ADD
+## 4. Component Stylings
 
-## Spacing
+- **Buttons:**
+  - Primary: filled Nous Purple `#7F77DD`, near-black text, `rounded-full`, `px-6 py-3`.
+  - Secondary: transparent with Hairline border, white text, `rounded-full`.
+  - Active: `scale-[0.98]` / `-translate-y-[1px]` tactile feedback.
+  - Hover: border or background shift; no outer glow.
+- **Cards:**
+  - Background `#0a0a0a`, border `1px solid rgba(255,255,255,0.08)`, radius `12px`–`16px`.
+  - Used only when grouping complex information; otherwise use negative space and dividers.
+- **Tags / Pills:** `rounded-full`, `text-[10px] uppercase tracking-[0.2em]`, Hairline border, Muted Text.
+- **Code:** JetBrains Mono, Nous Purple color.
+- **Diagrams (Mermaid):** flat dark theme, hairline borders, no shadows/glows.
 
-- **Base unit:** 4px
-- **Density:** comfortable
-- **Scale:** 2xs(2) xs(4) sm(8) md(16) lg(24) xl(32) 2xl(48) 3xl(64) 4xl(96)
-- **Section padding:** py-24 to py-32 desktop, py-16 mobile.
-- **Max content width:** 1280px (max-w-7xl) para contenido denso; 1024px (max-w-5xl) para lectura.
+## 5. Layout Principles
 
-## Layout
+- Contain page layouts with `max-w-6xl` / `max-w-7xl` centered.
+- Desktop: asymmetric grids, left-aligned headlines, split screens.
+- Mobile (< 768px): aggressive single-column collapse, `w-full`, `px-4`/`px-6`, no horizontal overflow.
+- Full-height sections use `min-h-[100dvh]`, never `h-screen`.
+- Use CSS Grid for multi-column structures; avoid flexbox percentage math.
 
-- **Approach:** grid-disciplined con momentos editoriales.
-- **Grid:** 12 columns en desktop, 1 en mobile.
-- **Border radius:** sm 8px, md 12px, lg 16px, xl 24px.
-- **Cards:** planas, borde fino (1px), fondo surface, sin sombra.
+## 6. Motion & Interaction
 
-## Motion
+- Scroll reveals via `IntersectionObserver`: `translate-y-[20px] opacity-0` → `translate-y-0 opacity-1`, duration ~700ms, easing `cubic-bezier(0.32, 0.72, 0, 1)`.
+- Counters animate with `requestAnimationFrame`, ease-out-cubic, tabular nums.
+- Hover transitions: `transition-all duration-300 cubic-bezier(0.16, 1, 0.3, 1)`.
+- No layout-property animations (`width`, `height`, `top`, `left`).
+- `backdrop-blur` only on fixed navbar.
 
-- **Approach:** minimal-functional.
-- **Easing:** `cubic-bezier(0.32, 0.72, 0, 1)` para entradas.
-- **Duration:** micro 100ms, short 200ms, medium 400ms, long 700ms.
-- **Scroll reveals:** fade-up sutil con IntersectionObserver.
-- **No blur, no glow, no gradient animations.**
+## 7. Anti-Patterns (Banned)
 
-## Components
-
-### Cards
-- Fondo `#0a0a0a` o `#111111`.
-- Borde 1px `rgba(255,255,255,0.08)`.
-- Esquinas 12px-16px.
-- Padding 24px-32px.
-- Sin sombra, sin glow.
-
-### Buttons
-- Primary: fondo `c-purple` #7F77DD, texto blanco/negro, esquinas redondeadas.
-- Secondary: borde fino, fondo transparente.
-- Ghost: texto con underline animado.
-
-### Diagrams
-- Estilo Nous: nodos con bordes 0.5px-1px, esquinas 8px, colores por categoría.
-- Mermaid theme `base` con colores personalizados.
-- Conectores finos, flechas pequeñas.
-
-### Labels / Tags
-- Pill shape, borde fino, texto small uppercase tracking amplio.
-
-## Decisions Log
-
-| Date | Decision | Rationale |
-|------|----------|-----------|
-| 2026-06-23 | Initial design system created | Basado en transcrip y estética Nous Research / Hermes Agent. |
-| 2026-06-23 | Paleta cambiada de dorado a púrpura/teal/coral | Para alinearse con la estética real de Nous Research. |
+- No emojis.
+- No Inter / generic fonts.
+- No pure black `#000000`.
+- No neon/outer glow shadows.
+- No gradients (background or text).
+- No 3-column equal-card feature rows.
+- No AI copywriting clichés: “Elevate”, “Seamless”, “Unleash”, “Next-Gen”.
+- No fake round numbers (`99.99%`, `50%`).
+- No centered hero sections when variance > 4.
+- No `h-screen`.

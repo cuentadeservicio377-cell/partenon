@@ -35,9 +35,9 @@
 - El contador 10 → 1M y sus métricas de impacto.
 
 ## Checklist de Cierre
-- [ ] Páginas se ven bien en desktop (1440px) y mobile (390px)
-- [ ] No hay fuentes ni iconos baneados
-- [ ] Mermaid renderiza sin errores
-- [ ] Commit realizado
-- [ ] TODOS.md actualizado
-- [ ] README.md actualizado si cambia el scope
+- [x] Páginas se ven bien en desktop (1440px) y mobile (390px)
+- [x] No hay fuentes ni iconos baneados
+- [x] Mermaid renderiza sin errores
+- [x] Commit realizado
+- [x] TODOS.md actualizado
+- [x] README.md actualizado si cambia el scope
