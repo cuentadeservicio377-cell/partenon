@@ -56,7 +56,6 @@
       line-height: 1;
     }
 
-    /* Ambient background */
     .mesh {
       position: fixed; inset: 0; pointer-events: none; z-index: 0;
       background:
@@ -69,7 +68,6 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
-    /* Reveal */
     .reveal {
       opacity: 0; transform: translateY(32px);
       transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
@@ -80,7 +78,6 @@
     .reveal-delay-3 { transition-delay: 240ms; }
     .reveal-delay-4 { transition-delay: 320ms; }
 
-    /* Double bezel card */
     .bezel {
       background: rgba(255,255,255,0.025);
       border: 1px solid rgba(255,255,255,0.08);
@@ -95,7 +92,6 @@
     }
     .bezel:hover { border-color: rgba(255,255,255,0.12); }
 
-    /* Buttons */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
       font-weight: 500; letter-spacing: -0.01em;
@@ -123,7 +119,6 @@
     .btn-primary:hover .btn-icon { transform: translate(2px, -1px); }
     .btn-secondary:hover .btn-icon { transform: translate(2px, -1px); }
 
-    /* Tags */
     .tag {
       display: inline-flex; align-items: center; gap: 0.5rem;
       font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
@@ -133,10 +128,8 @@
     .tag-dot.live { background: #FFB800; box-shadow: 0 0 10px rgba(255, 184, 0, 0.5); animation: pulse 2.2s infinite; }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
 
-    /* Lines */
     .line-divider { height: 1px; background: rgba(255,255,255,0.07); width: 100%; }
 
-    /* Nav */
     .nav-island {
       position: fixed; top: 1.25rem; left: 50%; transform: translateX(-50%); z-index: 50;
       background: rgba(8,8,12,0.72);
@@ -152,7 +145,6 @@
     }
     .nav-link:hover { color: #E8E8ED; background: rgba(255,255,255,0.04); }
 
-    /* Mobile menu */
     .mobile-menu {
       position: fixed; inset: 0; z-index: 40;
       background: rgba(5,5,5,0.96);
@@ -174,21 +166,19 @@
     .mobile-menu.open a:nth-child(4) { transition-delay: 260ms; }
     .mobile-menu.open a:nth-child(5) { transition-delay: 320ms; }
 
-    /* Hero title */
     .hero-title {
-      font-size: clamp(3.5rem, 10vw, 8.5rem);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(3.25rem, 10vw, 8.5rem);
       line-height: 0.88;
-      letter-spacing: -0.055em;
+      letter-spacing: -0.06em;
+      font-weight: 500;
     }
 
-    /* Stats */
     .stat-value { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
 
-    /* Section spacing */
     .section-pad { padding-top: 6rem; padding-bottom: 6rem; }
     @media (min-width: 768px) { .section-pad { padding-top: 8rem; padding-bottom: 8rem; } }
 
-    /* Data bars */
     .data-bar { height: 6px; border-radius: 3px; background: rgba(255,255,255,0.06); overflow: hidden; }
     .data-bar-fill { height: 100%; background: #00D4FF; border-radius: 3px; transform-origin: left; }
 
@@ -197,6 +187,10 @@
       background: #0E0E14; border: 1px solid rgba(255,255,255,0.08);
       border-radius: 12px; padding: 1rem; overflow-x: auto;
       font-family: 'JetBrains Mono', monospace; font-size: 0.875rem;
+    }
+
+    .scanlines {
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 4px);
     }
 
     @media (max-width: 767px) {
@@ -210,7 +204,7 @@
 
   <!-- Navigation -->
   <nav class="nav-island flex items-center gap-1">
-    <a href="index.html" class="font-display text-base tracking-tight font-semibold px-3">PARTENON</a>
+    <a href="index.html" class="font-mono text-sm tracking-tight font-medium px-3">PARTENON</a>
     <div class="hidden md:flex items-center gap-1 ml-2">
       <a href="#system" class="nav-link">Sistema</a>
       <a href="#heroes" class="nav-link">Perfiles</a>
@@ -246,7 +240,7 @@
           <div class="reveal mb-8">
             <span class="tag"><span class="tag-dot"></span>Hackathon Nous Research / Nvidia / Stripe</span>
           </div>
-          <h1 class="reveal hero-title font-display font-semibold mb-8">
+          <h1 class="reveal hero-title mb-8">
             PARTENON
           </h1>
           <p class="reveal text-xl md:text-2xl text-muted leading-snug max-w-xl mb-4">
@@ -659,12 +653,12 @@
   </section>
 
   <!-- Impact -->
-  <section id="impact" class="section-pad border-y border-line bg-surface/40">
+  <section id="impact" class="section-pad border-y border-line bg-surface/40 scanlines">
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="reveal max-w-2xl mb-16">
         <span class="tag mb-4 block">Impacto</span>
         <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">De 10 Hermes a 1 millón.</h2>
-        <p class="text-muted text-lg leading-relaxed">Cada escala cambia qué medimos y qué perfiles son más críticos. Los números son reales dentro de la lógica del sistema.</p>
+        <p class="text-muted text-lg leading-relaxed">Cada escala cambia qué medimos y qué perfiles son más críticos. Los números son proyecciones basadas en el paper Hermes Business OS.</p>
       </div>
 
       <div class="reveal grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
@@ -679,7 +673,7 @@
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div class="reveal p-6 border border-line rounded-xl">
           <div class="font-mono text-xs text-muted uppercase tracking-widest mb-3">Ingreso</div>
-          <div class="font-display text-2xl tracking-tight mb-2">+23% promedio</div>
+          <div class="font-display text-2xl tracking-tight mb-2">+12 a 23%</div>
           <p class="text-sm text-muted">En empresas con menos de 10 empleados que organizan sus finanzas en las primeras 4 semanas.</p>
         </div>
         <div class="reveal p-6 border border-line rounded-xl reveal-delay-1">
@@ -689,13 +683,13 @@
         </div>
         <div class="reveal p-6 border border-line rounded-xl reveal-delay-2">
           <div class="font-mono text-xs text-muted uppercase tracking-widest mb-3">Horas ahorradas</div>
-          <div class="font-display text-2xl tracking-tight mb-2">12 h / semana</div>
+          <div class="font-display text-2xl tracking-tight mb-2">8 a 12 h / semana</div>
           <p class="text-sm text-muted">Tiempo que deja de invertirse en reportes manuales, recordatorios y búsqueda de información.</p>
         </div>
         <div class="reveal p-6 border border-line rounded-xl reveal-delay-3">
           <div class="font-mono text-xs text-muted uppercase tracking-widest mb-3">Trabajos creados</div>
-          <div class="font-display text-2xl tracking-tight mb-2">1.8 por empresa</div>
-          <p class="text-sm text-muted">Cada Hermes operativo genera en promedio 1.8 roles o contratos adicionales en su comunidad.</p>
+          <div class="font-display text-2xl tracking-tight mb-2">1.2 a 1.8 por empresa</div>
+          <p class="text-sm text-muted">Cada Hermes operativo genera en promedio roles o contratos adicionales en su comunidad.</p>
         </div>
       </div>
     </div>
@@ -717,7 +711,7 @@
           </div>
           <div class="lg:w-1/3 flex justify-center">
             <div class="w-32 h-40 md:w-40 md:h-52 border border-line rounded-lg bg-panel flex items-center justify-center">
-              <span class="font-display text-4xl text-accent">HB</span>
+              <span class="font-mono text-4xl text-accent">HB</span>
             </div>
           </div>
         </div>
@@ -785,7 +779,7 @@
         <div class="lg:col-span-5 reveal">
           <span class="tag mb-4 block">Instalación</span>
           <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Todo pasa en Google Workspace.</h2>
-          <p class="text-muted text-lg leading-relaxed mb-6">Hermes trabaja solo con archivos Markdown, los perfiles publican resultados en Sheets, Docs, Slides, Drive, Calendar y Gmail. Usamos la cuenta gratuita de Google como superficie común.</p>
+          <p class="text-muted text-lg leading-relaxed mb-6">Hermes trabaja con archivos de perfil. Los perfiles publican resultados en Sheets, Docs, Slides, Drive, Calendar y Gmail. Usamos la cuenta gratuita de Google como superficie común.</p>
           <ul class="space-y-3 mb-8">
             <li class="flex items-center gap-3 text-muted"><span class="material-symbols-sharp text-accent text-sm">check</span> Resultados vivos donde ya trabaja la empresa.</li>
             <li class="flex items-center gap-3 text-muted"><span class="material-symbols-sharp text-accent text-sm">check</span> Perfiles comparten archivos y contexto.</li>
@@ -812,7 +806,7 @@
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
-          <div class="font-display text-xl tracking-tight font-semibold mb-1">PARTENON</div>
+          <div class="font-mono text-xl tracking-tight font-medium mb-1">PARTENON</div>
           <div class="text-sm text-muted">Sistema operativo de agentes para pymes.</div>
         </div>
         <div class="flex flex-wrap gap-6 text-sm text-muted">
@@ -827,7 +821,6 @@
   </footer>
 
   <script>
-    // Reveal on scroll
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -839,7 +832,6 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     reveals.forEach(el => observer.observe(el));
 
-    // Mobile menu
     const menuBtn = document.getElementById('menuBtn');
     const closeMenu = document.getElementById('closeMenu');
     const mobileMenu = document.getElementById('mobileMenu');
@@ -847,7 +839,6 @@
     closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
     mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('open')));
 
-    // Sync timer
     const syncTimer = document.getElementById('syncTimer');
     let seconds = 12;
     setInterval(() => {
@@ -856,7 +847,6 @@
       syncTimer.textContent = `hace ${seconds} s`;
     }, 3000);
 
-    // Counter animation
     const counters = document.querySelectorAll('.counter');
     const counterObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -889,7 +879,6 @@
     }, { threshold: 0.5 });
     counters.forEach(c => counterObserver.observe(c));
 
-    // Copy install command
     function copyInstall() {
       navigator.clipboard.writeText(document.getElementById('installCmd').textContent);
     }

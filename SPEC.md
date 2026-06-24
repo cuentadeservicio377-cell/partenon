@@ -68,27 +68,27 @@
 - [x] Espejo exacto de marketing pero técnico.
 - [x] Arquitectura completa con diagramas de flujo (Mermaid).
 - [x] Especificaciones técnicas por héroe:
-  - [x] Framework, skills, herramientas, MSP, personalidad, profile.
+  - [x] Framework, skills, herramientas, MCP, personalidad, profile.
   - [x] Cómo se conecta, según documentación, interconexiones.
-- [x] Diagramas punto a punto por héroe.
-- [x] G-Brain/MCP técnico.
-- [x] Stack y estructura de repositorio.
+- [x] Diagramas punto a punto por héroe (Tesorero/Sheets, Cobrador/Stripe, Guardián/modelos, Mensajero/canales).
+- [x] G-Brain/MCP técnico con diagrama de perfiles read/write.
+- [x] Stack y estructura de repositorio con archivos `.finance`, `.design`, `.payments`, `.security`, `.ops`, `.relations`.
 - [x] Workshop técnico paquetizado de 90 min:
   - [x] Pre-instalación con comando.
   - [x] Revisión inicial.
   - [x] Onboarding técnico.
-  - [x] Explicación gráfica del proceso.
+  - [x] Explicación gráfica del proceso con diagrama de secuencia.
 
 ### Diseño
 
-- [x] Rediseño aprobado: High-End Agency / Awwwards-tier con lectura cyberpunk sutil.
+- [x] Rediseño aprobado: estilo Nous Research / manual técnico open source con anti-slop.
 - [x] Fondo OLED `#050505` / `#08080C`, con mesh radial sutil, noise SVG y scanlines opcionales.
 - [x] Acento único cian `#00D4FF` (saturación <80%); ámbar `#FFB800` en no más de 2 elementos por página.
-- [x] Tipografía display: Space Grotesk; body: Geist; mono/data: JetBrains Mono; icons: Material Symbols Sharp.
+- [x] Tipografía display: Space Grotesk; body: Geist; mono/data: JetBrains Mono (usado también en hero para efecto técnico); icons: Material Symbols Sharp.
 - [x] Cards con doble-bisel (outer shell 18px + inner core 12px); botones `rounded-full`.
 - [x] Nav flotante tipo "fluid island" con backdrop blur y menú móvil staggered.
 - [x] Layouts asimétricos y bento; colapso agresivo a una columna bajo 768px.
-- [x] Copy anti-AI-slop: sin em-dashes, intensificadores, filler phrases ni clichés de IA.
+- [x] Copy anti-AI-slop: sin em-dashes, intensificadores, filler phrases, transiciones dramáticas ni clichés de IA.
 - [x] No emojis, no Inter/Roboto/Arial/Open Sans/Helvetica, no Lucide grueso.
 
 ## Notas de validación

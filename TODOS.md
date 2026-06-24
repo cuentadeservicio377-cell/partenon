@@ -6,19 +6,19 @@
 ## Pendientes
 - [ ] Implementar core y héroes (Tesorero, Mensajero, Cobrador, Guardián, Estratega, Diplomático)
 - [ ] Integrar Google Workspace, Stripe y G-Brain
-- [ ] Crear archivos de perfil `.finance`, `.design`, `.security`
+- [ ] Crear archivos de perfil `.finance`, `.design`, `.payments`, `.security`, `.ops`, `.relations`
 - [ ] Workshop técnico de 90 min (formato reusable)
 
 ## Hecho
 - [x] Braindump inicial completado
 - [x] Estructura de memoria y plan inicial creada
-- [x] Repositorios analizados (Hermes Business OS, Open Design)
+- [x] Repositorios analizados (Hermes Agent, Open Design, taste-skill, no_ai_slop_writing_rules, hallmark)
 - [x] Stack visual y técnico confirmado
-- [x] `DESIGN.md` creado con estética High-End Agency / Awwwards-tier
-- [x] `SPEC.md` creado desglosando el transcrip sección por sección
-- [x] Reescritura completa de `web/index.html` (marketing) con narrativa completa del transcrip
-- [x] Reescritura completa de `web/developers.html` (técnica) como espejo técnico detallado
-- [x] Rediseño visual aprobado: High-End Agency aplicado a ambas páginas
+- [x] `DESIGN.md` actualizado a estética Nous-style / anti-slop
+- [x] `SPEC.md` actualizado con nuevos diagramas y fichas técnicas
+- [x] `AGENTS.md` actualizado con reglas de estilo y cierre
+- [x] Reescritura completa de `web/index.html` (marketing) con narrativa completa del transcrip y hero monospaced
+- [x] Reescritura completa de `web/developers.html` (técnica) con más diagramas Mermaid, diagramas de conexión por perfil y workshop
 - [x] Sistema visual compartido: tokens, doble-bisel, nav flotante, Material Symbols Sharp
 - [x] Seis héroes definidos y documentados en ambas páginas con ejemplos concretos
 - [x] Contador 10 → 1M con múltiples métricas por milestone

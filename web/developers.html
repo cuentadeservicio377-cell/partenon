@@ -163,9 +163,11 @@
     .mobile-menu.open a:nth-child(5) { transition-delay: 320ms; }
 
     .hero-title {
-      font-size: clamp(3rem, 9vw, 7rem);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(2.75rem, 9vw, 7rem);
       line-height: 0.9;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.06em;
+      font-weight: 500;
     }
     .section-pad { padding-top: 6rem; padding-bottom: 6rem; }
     @media (min-width: 768px) { .section-pad { padding-top: 8rem; padding-bottom: 8rem; } }
@@ -177,8 +179,7 @@
       font-family: 'JetBrains Mono', monospace; font-size: 0.875rem;
     }
 
-    /* Mermaid overrides */
-    .mermaid-container { background: #0E0E14; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 1.5rem; }
+    .mermaid-container { background: #0E0E14; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 1.5rem; overflow-x: auto; }
     .mermaid svg { max-width: 100%; }
     .mermaid .node rect, .mermaid .node circle, .mermaid .node polygon, .mermaid .node path {
       fill: #111118 !important; stroke: #00D4FF !important; stroke-width: 1.5px !important;
@@ -192,7 +193,7 @@
     .stat-value { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
 
     @media (max-width: 767px) {
-      .hero-title { font-size: clamp(2.5rem, 12vw, 3.5rem); }
+      .hero-title { font-size: clamp(2.25rem, 12vw, 3.5rem); }
     }
   </style>
 </head>
@@ -202,7 +203,7 @@
 
   <!-- Navigation -->
   <nav class="nav-island flex items-center gap-1">
-    <a href="index.html" class="font-display text-base tracking-tight font-semibold px-3">PARTENON</a>
+    <a href="index.html" class="font-mono text-sm tracking-tight font-medium px-3">PARTENON</a>
     <div class="hidden md:flex items-center gap-1 ml-2">
       <a href="#architecture" class="nav-link">Arquitectura</a>
       <a href="#heroes" class="nav-link">Perfiles</a>
@@ -238,7 +239,7 @@
           <div class="reveal mb-6">
             <span class="tag"><span class="tag-dot"></span>Documentación técnica</span>
           </div>
-          <h1 class="reveal hero-title font-display font-semibold mb-8">
+          <h1 class="reveal hero-title font-semibold mb-8">
             Arquitectura de Partenon.
           </h1>
         </div>
@@ -279,10 +280,10 @@ flowchart LR
         subgraph PERFILES["Perfiles"]
             T["Tesorero<br/>.finance"]
             M["Mensajero<br/>.design"]
-            C["Cobrador<br/>Stripe"]
+            C["Cobrador<br/>.payments"]
             GU["Guardián<br/>.security"]
-            E["Estratega<br/>Ops"]
-            D["Diplomático<br/>Relaciones"]
+            E["Estratega<br/>.ops"]
+            D["Diplomático<br/>.relations"]
         end
     end
     U["Emprendedor"]
@@ -432,7 +433,10 @@ sequenceDiagram
 │   ├── profiles/
 │   │   ├── finance.example
 │   │   ├── design.example
-│   │   └── security.example
+│   │   ├── payments.example
+│   │   ├── security.example
+│   │   ├── ops.example
+│   │   └── relations.example
 │   └── agents/
 │       ├── tesorero/
 │       ├── mensajero/
@@ -668,8 +672,63 @@ sequenceDiagram
     </div>
   </section>
 
-  <!-- G-Brain MCP -->
+  <!-- Connection diagrams -->
   <section class="section-pad border-y border-line bg-surface/40">
+    <div class="max-w-[1400px] mx-auto px-4">
+      <div class="reveal max-w-2xl mb-16">
+        <span class="tag mb-4 block">Conexiones</span>
+        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Cómo se conecta cada perfil.</h2>
+        <p class="text-muted text-lg leading-relaxed">Cada diagrama muestra el flujo de datos entre un perfil, G-Brain, Google Workspace y las APIs externas.</p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6">
+        <div class="reveal mermaid-container">
+          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Tesorero / Google Sheets</div>
+          <div class="mermaid">
+flowchart LR
+    T["Tesorero"] -->|READ| G["G-Brain .finance"]
+    G -->|contexto| T
+    T -->|WRITE| S["Google Sheets"]
+    S -->|dashboard| H["Hermes"]
+          </div>
+        </div>
+        <div class="reveal mermaid-container reveal-delay-1">
+          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Cobrador / Stripe</div>
+          <div class="mermaid">
+flowchart LR
+    C["Cobrador"] -->|READ| G["G-Brain .payments"]
+    C -->|CREATE| STR["Stripe API"]
+    STR -->|webhook| C
+    C -->|WRITE| SH["Google Sheets"]
+          </div>
+        </div>
+        <div class="reveal mermaid-container">
+          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Guardián / Modelos</div>
+          <div class="mermaid">
+flowchart LR
+    GU["Guardián"] -->|READ/WRITE| G["G-Brain .security"]
+    GU -->|rotate keys| N["Nvidia"]
+    GU -->|rotate keys| O["OpenAI"]
+    GU -->|rotate keys| K["Kimi"]
+    GU -->|permisos| P["Perfiles"]
+          </div>
+        </div>
+        <div class="reveal mermaid-container reveal-delay-1">
+          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Mensajero / Canales</div>
+          <div class="mermaid">
+flowchart LR
+    M["Mensajero"] -->|READ| G["G-Brain .design"]
+    M -->|READ| S["Sheets presupuesto"]
+    M -->|POST| RS["Redes / WordPress"]
+    M -->|WRITE| D["Google Docs / Slides"]
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- G-Brain MCP -->
+  <section class="section-pad">
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="grid lg:grid-cols-12 gap-12 items-center">
         <div class="lg:col-span-5 reveal">
@@ -714,12 +773,34 @@ flowchart LR
   </section>
 
   <!-- Workshop -->
-  <section id="workshop" class="section-pad">
+  <section id="workshop" class="section-pad border-y border-line bg-surface/40">
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="reveal max-w-2xl mb-16">
         <span class="tag mb-4 block">Workshop</span>
         <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Paquete de implementación de 90 minutos.</h2>
         <p class="text-muted text-lg leading-relaxed">El mismo formato sirve para universidades, organizaciones empresariales, coworkings y aceleradoras. Los participantes se llevan Hermes instalado.</p>
+      </div>
+
+      <div class="reveal mermaid-container mb-12">
+        <div class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Flujo del workshop</div>
+        <div class="mermaid">
+sequenceDiagram
+    participant P as Participante
+    participant I as Instalador
+    participant H as Hermes
+    participant GW as Google Workspace
+
+    P->>I: curl ... | bash
+    I->>H: Configura entorno y perfiles
+    H->>GW: Clona Google Sheet base
+    Note over P,GW: Pre-instalación (antes del evento)
+    P->>H: Define tipo de empresa
+    H->>GW: Crea .finance, .design, .security
+    Note over P,GW: Onboarding (20-60 min)
+    H->>GW: Publica 3 misiones reales
+    GW-->>P: Revisa entregables
+    Note over P,GW: Práctica (60-90 min)
+        </div>
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
@@ -764,7 +845,7 @@ flowchart LR
   </section>
 
   <!-- Install -->
-  <section id="install" class="section-pad border-y border-line bg-surface/40">
+  <section id="install" class="section-pad">
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="grid lg:grid-cols-12 gap-12 items-start">
         <div class="lg:col-span-5 reveal">
@@ -804,7 +885,7 @@ curl -fsSL https://partenon.dev/install.sh | bash
   </section>
 
   <!-- Integrations + Roadmap -->
-  <section class="section-pad">
+  <section class="section-pad border-y border-line bg-surface/40">
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="grid lg:grid-cols-2 gap-12">
         <div class="reveal">
@@ -862,7 +943,7 @@ curl -fsSL https://partenon.dev/install.sh | bash
   </section>
 
   <!-- CTA -->
-  <section class="section-pad border-y border-line bg-surface/40">
+  <section class="section-pad">
     <div class="max-w-[1400px] mx-auto px-4 text-center">
       <div class="reveal max-w-2xl mx-auto">
         <span class="tag mb-4 block">Contribuir</span>
@@ -887,7 +968,7 @@ curl -fsSL https://partenon.dev/install.sh | bash
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
-          <div class="font-display text-xl tracking-tight font-semibold mb-1">PARTENON</div>
+          <div class="font-mono text-xl tracking-tight font-medium mb-1">PARTENON</div>
           <div class="text-sm text-muted">Sistema operativo de agentes para pymes.</div>
         </div>
         <div class="flex flex-wrap gap-6 text-sm text-muted">

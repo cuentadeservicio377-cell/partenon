@@ -1,8 +1,8 @@
-# DESIGN — Partenon High-End Agency
+# DESIGN — Partenon (Nous-style / anti-slop)
 
 ## Identidad
 
-Partenon es un sistema operativo de agentes para pymes latinoamericanas. La interfaz debe sentirse como un producto de elite: oscura, precisa, con aire entre los elementos y sin bullshit. No es un manual de mitología griega; es un dashboard de agentes vivos contado como manual de marketing y espejo técnico.
+Partenon es un sistema operativo de agentes para pymes. La interfaz debe leerse como un manual técnico open source salido de Nous Research: oscura, monospaced, con datos en vivo y sin adornos. No es mitología. Es un sistema de arquetipos operativos que corre dentro de Google Workspace.
 
 ## Paleta
 
@@ -16,7 +16,7 @@ Partenon es un sistema operativo de agentes para pymes latinoamericanas. La inte
 | `text` | `#E8E8ED` | Texto principal |
 | `muted` | `#6B6B78` | Texto secundario |
 | `dim` | `#45454F` | Metadatos, bordes suaves |
-| `accent` | `#00D4FF` | Acento único (cian desaturado) |
+| `accent` | `#00D4FF` | Acento único (cian quirúrgico) |
 | `accent-dim` | `rgba(0, 212, 255, 0.10)` | Fondos de acento |
 | `accent-glow` | `rgba(0, 212, 255, 0.20)` | Sombra de acento sutil |
 | `live` | `#FFB800` | Estados vivos, pings (uso quirúrgico) |
@@ -33,13 +33,13 @@ Partenon es un sistema operativo de agentes para pymes latinoamericanas. La inte
 
 | Rol | Fuente | Pesos |
 |-----|--------|-------|
-| Display | Space Grotesk | 500, 600, 700 |
+| Display / data | JetBrains Mono | 400, 500 |
+| Headlines | Space Grotesk | 500, 600, 700 |
 | Body | Geist | 400, 500 |
-| Mono / data | JetBrains Mono | 400, 500 |
 | Icons | Material Symbols Sharp | 300 |
 
 ### Escala
-- Hero: `clamp(3rem, 10vw, 8.5rem)` / leading `0.88` / tracking `-0.055em`
+- Hero monospaced: `clamp(3.5rem, 10vw, 8.5rem)` / leading `0.88` / tracking `-0.055em`
 - H2: `clamp(2.5rem, 5vw, 4rem)` / leading `0.95` / tracking `-0.04em`
 - H3: `1.75rem` / leading `1.1` / tracking `-0.02em`
 - Body: `1rem` / leading `1.6`
@@ -51,6 +51,7 @@ Partenon es un sistema operativo de agentes para pymes latinoamericanas. La inte
 - Números en `font-variant-numeric: tabular-nums`.
 - Headlines con presencia: grandes, tracking ajustado, line-height apretado.
 - Body limitado a ~65 caracteres por línea.
+- Efecto manual técnico: usar mono para títulos grandes, números seed y estados.
 
 ## Layout
 
@@ -116,11 +117,12 @@ Partenon es un sistema operativo de agentes para pymes latinoamericanas. La inte
 - No cards redondeadas uniformes sin doble-bisel.
 - No layouts simétricos de 3 cards iguales.
 - No copy con "eleva", "impulsa", "revoluciona", "sin fisuras".
-- No emdashes.
+- No emdashes. Usar punto y seguido o dos puntos.
 - No afirmaciones huecas sin dato concreto.
+- No transiciones dramáticas: "dive in", "here's the thing", "but here's the kicker".
 - No `h-screen` para hero; usar `min-h-[100dvh]`.
 - No `z-50` o `z-[9999]` arbitrarios.
 
 ## Voz
 
-Directa, técnica, sin adornos. Cada oración termina en un hecho verificable. Los héroes son perfiles operativos, no dioses. Hermes es la empresa. El Partenón es el lugar de trabajo compartido.
+Directa, técnica, sin adornos. Cada oración termina en un hecho verificable. Los héroes son perfiles operativos, no dioses. Hermes es la empresa. El Partenón es el lugar de trabajo compartido. Se prohíben adjetivos vacíos e intensificadores.
