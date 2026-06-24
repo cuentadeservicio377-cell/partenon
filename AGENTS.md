@@ -10,8 +10,8 @@
 
 ## Stack
 - **Páginas web**: HTML estático + Tailwind CSS CDN + JavaScript vanilla
-- **Tipografía**: Clash Display (display), Geist (body), JetBrains Mono (mono)
-- **Estética**: fondo oscuro plano #050505, acentos púrpura #7F77DD / teal #1D9E75 / coral #D85A30, bordes finos de 0.5-1px, sin gradientes, glows, blur ni neón. Estilo Nous Research / Hermes Agent.
+- **Tipografía**: Space Grotesk / Syne (display), Geist / Satoshi (body), JetBrains Mono (mono/data)
+- **Estética**: Dark Premium Cyberpunk. Fondo `#0A0A0A` / `#0C0C0F`, acento cian `#00E0FF` con magenta `#FF2A6D` y ámbar `#FFB800` usados con precisión, bordes finos 1px, grids asimétricos/bento visibles, esquinas 90° o radio mínimo. Sin gradientes masivos ni glows genéricos.
 - **Agentes**: Hermes Agent (Nous Research) + Python skills
 - **Dashboard futuro**: Next.js 15 + React 19 + TypeScript + Tailwind
 - **Datos / workspace**: Google Workspace (Sheets, Docs, Slides, Drive, Calendar, Gmail)
@@ -31,13 +31,13 @@
 ## Qué NO tocar sin consultar
 - La estructura de los 6 héroes (Tesorero, Mensajero, Cobrador, Guardián, Estratega, Diplomático).
 - La relación "Hermes = empresa" (no CEO).
-- La estética oscura plana de Nous Research y la paleta púrpura/teal/coral.
+- La dirección estética Dark Premium Cyberpunk y la paleta cian/magenta/ámbar.
 - El contador 10 → 1M y sus métricas de impacto.
 
 ## Checklist de Cierre
 - [x] Páginas se ven bien en desktop (1440px) y mobile (390px)
 - [x] No hay fuentes ni iconos baneados
 - [x] Mermaid renderiza sin errores
-- [x] Commit realizado
-- [x] TODOS.md actualizado
+- [ ] Commit realizado
+- [ ] TODOS.md actualizado
 - [x] README.md actualizado si cambia el scope

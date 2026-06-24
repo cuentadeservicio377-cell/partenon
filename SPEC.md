@@ -81,16 +81,18 @@
 
 ### Diseño
 
-- [x] Estética Nous Research / Hermes Agent.
-- [x] Fondo oscuro plano `#050505`.
-- [x] Acentos planos púrpura/teal/coral/crema, sin glow/gradientes.
-- [x] Tipografía Clash Display + Geist + JetBrains Mono.
-- [x] Layout asimétrico desktop, colapso mobile.
-- [x] Bordes finos, sin sombras fuertes.
-- [x] No emojis, no Inter, no clichés de copywriting.
+- [x] Rediseño aprobado: Dark Premium Cyberpunk.
+- [x] Fondo oscuro no puro: `#0A0A0A` y `#0C0C0F`, con texturas de mesh/grain sutiles.
+- [x] Acento único quirúrgico cian `#00E0FF` / magenta `#FF2A6D` / ámbar `#FFB800`, sin gradientes masivos ni glows genéricos.
+- [x] Tipografía display: Space Grotesk / Syne; body: Geist / Satoshi; mono/data: JetBrains Mono.
+- [x] Esquinas 90° o radio mínimo; grids asimétricos y bento visibles.
+- [x] Bordes finos 1px en slate/800, paneles con fondo `#0C0C0F` o `#111114`.
+- [x] Copy anti-AI-slop: sin em-dashes tipográficos, intensificadores ni frases de relleno.
+- [x] No emojis, no Inter/Roboto/Arial, no clichés de copywriting.
 
 ## Notas de validación
 
 - Revisado en Chrome/Chromium vía Playwright a 1440px y 390px.
-- Mermaid renderiza con tema `base` y colores planos Partenon.
+- Mermaid renderiza con tema `base` y colores planos Partenon (cian/magenta/ámbar sobre fondo oscuro).
 - Contadores de milestones se animan al entrar en viewport; screenshots forzaron estado final para captura estática.
+- Hero glitch y marquee animados con `transform`/`opacity`; no animaciones de layout.

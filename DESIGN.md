@@ -1,79 +1,95 @@
-# Design System: Partenon
+# DESIGN — Partenon Dark Premium Cyberpunk
 
-## 1. Visual Theme & Atmosphere
+## Identidad
 
-A restrained, dark-interface system for a hackathon landing + technical documentation. The atmosphere is technical but warm — like a Nous Research sub-product: flat, confident, and readable. Marketing page uses asymmetric editorial layouts; technical page uses dense, diagram-driven architecture.
+Partenon es un sistema operativo de agentes para pymes latinoamericanas. La interfaz debe sentirse como una herramienta de elite: oscura, densa de información donde cuenta, y sin bullshit. No es un manual de mitología griega; es un dashboard de agentes vivos.
 
-- **Density:** Daily App Mode (4–7) for marketing; Cockpit Dense (7–9) for technical specs.
-- **Variance:** Offset Asymmetric (6–8) on desktop, collapsing to strict single-column on mobile.
-- **Motion:** Fluid CSS (4–7). Soft scroll reveals, spring-like hover physics, animated counters. No continuous scroll listeners.
+## Paleta
 
-## 2. Color Palette & Roles
+| Token | Valor | Uso |
+|-------|-------|-----|
+| `bg` | `#08080C` | Fondo base |
+| `bg-elevated` | `#0E0E14` | Superficies elevadas |
+| `panel` | `#13131A` | Paneles y cards |
+| `panel-strong` | `#1A1A22` | Hover/focus states |
+| `text` | `#E8E8ED` | Texto principal |
+| `text-muted` | `#6B6B78` | Texto secundario |
+| `text-dim` | `#45454F` | Metadatos, bordes suaves |
+| `accent` | `#00E0FF` | Acento principal (cian eléctrico) |
+| `accent-dim` | `rgba(0, 224, 255, 0.12)` | Fondos de acento |
+| `accent-glow` | `rgba(0, 224, 255, 0.25)` | Sombra de acento sutil |
+| `secondary` | `#FF2D92` | Estados vivos, alertas, pings (uso quirúrgico) |
+| `line` | `rgba(255, 255, 255, 0.08)` | Bordes y divisores |
+| `line-strong` | `rgba(255, 255, 255, 0.14)` | Bordes hover |
 
-| Token | Hex | Role |
-|-------|-----|------|
-| **Void Black** | `#050505` | Primary background (near-OLED, not pure black) |
-| **Deep Surface** | `#0a0a0a` | Cards, elevated surfaces |
-| **Panel Surface** | `#111111` | Inner card surfaces, code blocks |
-| **Primary Text** | `#f5f5f5` | Headings and body |
-| **Muted Text** | `#9a9a9a` | Descriptions, labels, metadata |
-| **Hairline** | `rgba(255,255,255,0.08)` | Borders, dividers, card outlines |
-| **Nous Purple** | `#7F77DD` | Primary accent: hero highlights, Hermes, CTAs |
-| **Tool Teal** | `#1D9E75` | Secondary accent: Mensajero, Estratega, success |
-| **Stripe Coral** | `#D85A30` | Tertiary accent: Cobrador, Guardián, Diplomático |
-| **Nous Cream** | `#C9A227` | Quaternary accent: Stripe/Nous touch, milestones |
+## Tipografía
 
-**Rules:**
-- Max 3 visible accents at once; never glow/gradient.
-- No pure `#000000`.
-- No warm/cool gray mixing: all neutrals are neutral-leaning-warm `#050505` → `#f5f5f5`.
+| Rol | Fuente | Pesos |
+|-----|--------|-------|
+| Display | Space Grotesk | 500, 600, 700 |
+| Body | Geist | 400, 500 |
+| Mono | JetBrains Mono | 400, 500 |
 
-## 3. Typography
+### Escala
 
-- **Display:** `Clash Display` — tight tracking (`tracking-tight`), weight-driven hierarchy.
-- **Body:** `Geist` — relaxed leading (`leading-relaxed`), max 65ch paragraphs.
-- **Mono:** `JetBrains Mono` — code, file names, numbers, metrics.
-- **Banned:** Inter, Roboto, Arial, Open Sans, Helvetica, generic serif fonts.
+- Hero: `clamp(3.5rem, 8vw, 7rem)` / leading `0.9` / tracking `-0.04em`
+- H2: `clamp(2.5rem, 5vw, 4rem)` / leading `0.95` / tracking `-0.03em`
+- H3: `1.75rem` / leading `1.1` / tracking `-0.02em`
+- Body: `1rem` / leading `1.6`
+- Small/label: `0.75rem` / uppercase / tracking `0.12em`
+- Mono/data: `0.875rem` / leading `1.4`
 
-## 4. Component Stylings
+## Layout
 
-- **Buttons:**
-  - Primary: filled Nous Purple `#7F77DD`, near-black text, `rounded-full`, `px-6 py-3`.
-  - Secondary: transparent with Hairline border, white text, `rounded-full`.
-  - Active: `scale-[0.98]` / `-translate-y-[1px]` tactile feedback.
-  - Hover: border or background shift; no outer glow.
-- **Cards:**
-  - Background `#0a0a0a`, border `1px solid rgba(255,255,255,0.08)`, radius `12px`–`16px`.
-  - Used only when grouping complex information; otherwise use negative space and dividers.
-- **Tags / Pills:** `rounded-full`, `text-[10px] uppercase tracking-[0.2em]`, Hairline border, Muted Text.
-- **Code:** JetBrains Mono, Nous Purple color.
-- **Diagrams (Mermaid):** flat dark theme, hairline borders, no shadows/glows.
+- Contenedor: `max-w-[1400px] mx-auto px-6 md:px-10`
+- Grid asimétrico por defecto. Bann 3-column cards iguales.
+- Espaciado: secciones `py-24 md:py-32`. Aire generoso.
+- Esquinas: `rounded-sm` (4px) para paneles. Botones: `rounded-none` o `rounded-full` deliberado.
+- Bordes: 1px `line`, con transición a `line-strong` en hover.
 
-## 5. Layout Principles
+## Background
 
-- Contain page layouts with `max-w-6xl` / `max-w-7xl` centered.
-- Desktop: asymmetric grids, left-aligned headlines, split screens.
-- Mobile (< 768px): aggressive single-column collapse, `w-full`, `px-4`/`px-6`, no horizontal overflow.
-- Full-height sections use `min-h-[100dvh]`, never `h-screen`.
-- Use CSS Grid for multi-column structures; avoid flexbox percentage math.
+- Base `#08080C`.
+- Mesh gradient sutil fijo: dos blobs grandes de acento a ~3% opacity, uno arriba-izquierda, otro abajo-derecha.
+- Ruido SVG fijo a `opacity-5`.
+- Scanlines opcionales en secciones de datos: `repeating-linear-gradient` a 2% opacity.
 
-## 6. Motion & Interaction
+## Componentes
 
-- Scroll reveals via `IntersectionObserver`: `translate-y-[20px] opacity-0` → `translate-y-0 opacity-1`, duration ~700ms, easing `cubic-bezier(0.32, 0.72, 0, 1)`.
-- Counters animate with `requestAnimationFrame`, ease-out-cubic, tabular nums.
-- Hover transitions: `transition-all duration-300 cubic-bezier(0.16, 1, 0.3, 1)`.
-- No layout-property animations (`width`, `height`, `top`, `left`).
-- `backdrop-blur` only on fixed navbar.
+### Botones
+- Primary: fondo `accent`, texto `bg`, peso 500, padding `px-6 py-3`, esquina 0 o full. Hover: brillo sutil con `box-shadow: 0 0 20px accent-glow`.
+- Secondary: borde 1px `line`, texto `text`, hover `line-strong` + texto `accent`.
+- Ghost: texto `text-muted`, hover `text`.
 
-## 7. Anti-Patterns (Banned)
+### Paneles
+- Fondo `panel`, borde 1px `line`, padding `p-6 md:p-8`.
+- Hover: borde `line-strong`, transform `translateY(-2px)`.
+- No sombras genéricas. Sí reflejo de borde sutil en hover.
 
+### Labels / Tags
+- Mono uppercase, tracking `0.14em`, tamaño `0.7rem`.
+- Formato: `[ TAG ]` o `UNIT / 01`.
+
+## Animaciones
+
+- Transiciones: `cubic-bezier(0.16, 1, 0.3, 1)` duración 400ms.
+- Scroll reveal: `opacity` + `translateY(24px)`, easing personalizado.
+- Glitch text: solo en hero principal, implementado con CSS clip-path / text-shadow, no en todo el sitio.
+- Contadores: animación numérica con `requestAnimationFrame`.
+- Nada de `linear` o `ease-in-out` por defecto.
+
+## Anti-patterns prohibidas
+
+- No Inter, no Roboto, no Arial.
 - No emojis.
-- No Inter / generic fonts.
-- No pure black `#000000`.
-- No neon/outer glow shadows.
-- No gradients (background or text).
-- No 3-column equal-card feature rows.
-- No AI copywriting clichés: “Elevate”, “Seamless”, “Unleash”, “Next-Gen”.
-- No fake round numbers (`99.99%`, `50%`).
-- No centered hero sections when variance > 4.
-- No `h-screen`.
+- No gradientes masivos en texto.
+- No glows de neón por todos lados.
+- No cards redondeadas uniformes.
+- No layouts simétricos de 3 cards.
+- No copy con "eleva", "impulsa", "revoluciona", "sin fisuras".
+- No afirmaciones huecas sin dato concreto.
+- No emdashes.
+
+## Voz
+
+Directa, técnica, sin adornos. Cada oración termina en un hecho verificable. Los héroes son perfiles operativos, no dioses. Hermes es la empresa. El Partenón es el lugar de trabajo compartido.
