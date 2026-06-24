@@ -8,30 +8,33 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://api.fontshare.com" />
   <link rel="preconnect" href="https://fonts.bunny.net" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.bunny.net/css?family=geist:300,400,500,600,700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.bunny.net/css?family=geist:300,400,500,600,700&family=jetbrains-mono:400,500&display=swap" rel="stylesheet" />
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            display: ['Clash Display', 'Satoshi', 'sans-serif'],
+            display: ['Clash Display', 'sans-serif'],
             sans: ['Geist', 'system-ui', 'sans-serif'],
-            serif: ['Instrument Serif', 'Georgia', 'serif'],
+            mono: ['JetBrains Mono', 'monospace'],
           },
           colors: {
-            partenon: {
+            nous: {
               bg: '#050505',
               surface: '#0a0a0a',
               surface2: '#111111',
+              surface3: '#1a1a1a',
               text: '#f5f5f5',
               muted: '#9a9a9a',
-              accent: '#c9a227',
-              accent2: '#d4af37',
               line: 'rgba(255,255,255,0.08)',
+              purple: '#7F77DD',
+              purple2: '#534AB7',
+              teal: '#1D9E75',
+              coral: '#D85A30',
+              pink: '#D4537E',
+              blue: '#378ADD',
+              gray: '#888780',
             }
           }
         }
@@ -40,84 +43,68 @@
   </script>
   <style>
     html { scroll-behavior: smooth; }
-    body {
-      background-color: #050505;
-      color: #f5f5f5;
-      font-family: 'Geist', system-ui, sans-serif;
-    }
+    body { background-color: #050505; color: #f5f5f5; font-family: 'Geist', system-ui, sans-serif; }
     .grain {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.035;
+      position: fixed; inset: 0; pointer-events: none; opacity: 0.025;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       z-index: 40;
     }
-    .glow-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(120px);
-      pointer-events: none;
-      opacity: 0.18;
-    }
     .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      filter: blur(8px);
-      transition: opacity 0.9s cubic-bezier(0.32, 0.72, 0, 1),
-                  transform 0.9s cubic-bezier(0.32, 0.72, 0, 1),
-                  filter 0.9s cubic-bezier(0.32, 0.72, 0, 1);
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.7s cubic-bezier(0.32, 0.72, 0, 1), transform 0.7s cubic-bezier(0.32, 0.72, 0, 1);
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-      filter: blur(0);
-    }
-    .bezel-outer {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 2rem;
-      padding: 6px;
-    }
-    .bezel-inner {
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .card {
       background: #0a0a0a;
-      border-radius: calc(2rem - 6px);
-      box-shadow: inset 0 1px 1px rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
     }
+    .card-hover:hover { border-color: rgba(127,119,221,0.4); transition: border-color 0.25s ease; }
     .nav-pill {
-      background: rgba(10,10,10,0.7);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
       border: 1px solid rgba(255,255,255,0.08);
     }
-    .magnetic-btn {
-      transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1), background 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+    .btn-primary {
+      background: #7F77DD;
+      color: #050505;
+      border-radius: 9999px;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      transition: transform 0.2s ease, background 0.2s ease;
     }
-    .magnetic-btn:hover { transform: scale(1.02); }
-    .magnetic-btn:active { transform: scale(0.98); }
-    .icon-circle {
-      transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+    .btn-primary:hover { background: #9a93e6; transform: translateY(-1px); }
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #f5f5f5;
+      border-radius: 9999px;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      transition: border-color 0.2s ease, color 0.2s ease;
     }
-    .group:hover .icon-circle {
-      transform: translate(3px, -2px) scale(1.05);
-    }
-    .counter-number {
-      font-variant-numeric: tabular-nums;
-    }
-    .hero-radial {
-      background: radial-gradient(circle at 50% 0%, rgba(201,162,39,0.14) 0%, transparent 55%);
-    }
+    .btn-secondary:hover { border-color: #7F77DD; color: #7F77DD; }
     .link-underline {
-      background-image: linear-gradient(#c9a227, #c9a227);
+      background-image: linear-gradient(#7F77DD, #7F77DD);
       background-size: 0% 1px;
       background-position: 0% 100%;
       background-repeat: no-repeat;
-      transition: background-size 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+      transition: background-size 0.3s ease;
     }
     .link-underline:hover { background-size: 100% 1px; }
+    .counter { font-variant-numeric: tabular-nums; }
+    .pill {
+      display: inline-flex;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 9999px;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9a9a9a;
+    }
+    code { font-family: 'JetBrains Mono', monospace; color: #7F77DD; }
     @media (max-width: 767px) {
-      .bezel-outer { border-radius: 1.25rem; padding: 4px; }
-      .bezel-inner { border-radius: calc(1.25rem - 4px); }
+      .hero-title { font-size: 2.5rem !important; line-height: 1 !important; }
     }
   </style>
 </head>
@@ -125,73 +112,59 @@
   <div class="grain"></div>
 
   <!-- Navigation -->
-  <nav class="fixed top-6 left-0 right-0 z-30 flex justify-center px-4">
-    <div class="nav-pill rounded-full px-2 py-2 flex items-center gap-1 md:gap-6 max-w-3xl w-full md:w-auto">
-      <a href="#" class="font-display text-lg tracking-wide text-partenon-text px-4">Partenon</a>
-      <div class="hidden md:flex items-center gap-6 text-sm text-partenon-muted">
-        <a href="#story" class="hover:text-partenon-text transition-colors duration-300">Historia</a>
-        <a href="#how" class="hover:text-partenon-text transition-colors duration-300">Cómo funciona</a>
-        <a href="#heroes" class="hover:text-partenon-text transition-colors duration-300">Héroes</a>
-        <a href="#impact" class="hover:text-partenon-text transition-colors duration-300">Impacto</a>
-        <a href="#growth" class="hover:text-partenon-text transition-colors duration-300">Crecimiento</a>
+  <nav class="fixed top-5 left-0 right-0 z-30 flex justify-center px-4">
+    <div class="nav-pill rounded-full px-2 py-2 flex items-center justify-between w-full max-w-4xl">
+      <a href="#" class="font-display text-lg tracking-wide px-4">Partenon</a>
+      <div class="hidden md:flex items-center gap-6 text-sm text-nous-muted">
+        <a href="#story" class="hover:text-nous-text transition-colors">Historia</a>
+        <a href="#how" class="hover:text-nous-text transition-colors">Cómo funciona</a>
+        <a href="#heroes" class="hover:text-nous-text transition-colors">Héroes</a>
+        <a href="#impact" class="hover:text-nous-text transition-colors">Impacto</a>
+        <a href="#growth" class="hover:text-nous-text transition-colors">Crecimiento</a>
       </div>
-      <a href="developers.html" class="magnetic-btn ml-auto md:ml-0 flex items-center gap-2 bg-partenon-accent text-partenon-bg text-sm font-medium rounded-full px-5 py-2.5 group">
-        <span>Técnico</span>
-        <span class="icon-circle w-6 h-6 rounded-full bg-partenon-bg/10 flex items-center justify-center">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
-        </span>
-      </a>
+      <a href="developers.html" class="btn-primary text-sm px-4 py-2">Técnico →</a>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="relative min-h-[100dvh] flex items-center justify-center hero-radial pt-28 pb-20">
-    <div class="glow-orb w-[600px] h-[600px] bg-partenon-accent/30 top-[-200px] left-1/2 -translate-x-1/2"></div>
-    <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
-      <div class="reveal inline-flex items-center gap-2 border border-partenon-line rounded-full px-4 py-1.5 mb-8">
-        <span class="w-1.5 h-1.5 rounded-full bg-partenon-accent animate-pulse"></span>
-        <span class="text-[11px] uppercase tracking-[0.2em] text-partenon-muted">Hermes Business OS · Partenon</span>
+  <!-- Hero / Talk about -->
+  <section class="relative min-h-[100dvh] flex items-center justify-center pt-24 pb-16">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <div class="reveal mb-6">
+        <span class="pill"><span class="w-1.5 h-1.5 rounded-full bg-nous-purple inline-block mr-2"></span>Hermes Business OS · Partenon</span>
       </div>
-      <h1 class="reveal font-display text-5xl md:text-7xl lg:text-[7rem] leading-[0.95] tracking-tight mb-8">
+      <h1 class="reveal hero-title font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight mb-8">
         Hermes es tu empresa.<br />
-        <span class="text-partenon-accent">Sus héroes,</span> tu ventaja.
+        <span class="text-nous-purple">Sus héroes,</span> tu ventaja.
       </h1>
-      <p class="reveal text-lg md:text-2xl text-partenon-muted max-w-3xl mx-auto mb-14 leading-relaxed font-light">
+      <p class="reveal text-lg md:text-xl text-nous-muted max-w-3xl mx-auto mb-10 leading-relaxed">
         Partenon organiza agentes de IA como un panteón operativo. Cada héroe tiene una personalidad, 
-        un set de herramientas y una misión: ordenar tus finanzas, comunicar tu marca, cobrar, proteger 
-        y administrar — todo dentro de Google Workspace.
+        un set de herramientas open source y una misión: ordenar tus finanzas, comunicar tu marca, cobrar, 
+        proteger, administrar y relacionarte — todo dentro de Google Workspace.
       </p>
-      <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="#heroes" class="magnetic-btn flex items-center gap-3 bg-partenon-accent text-partenon-bg font-medium rounded-full px-8 py-4 group">
-          <span>Conoce a los héroes</span>
-          <span class="icon-circle w-8 h-8 rounded-full bg-partenon-bg/10 flex items-center justify-center">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"/></svg>
-          </span>
-        </a>
-        <a href="developers.html" class="magnetic-btn flex items-center gap-3 border border-partenon-line text-partenon-text rounded-full px-8 py-4 hover:border-partenon-accent/50 transition-colors duration-500 group">
-          <span>Ver arquitectura</span>
-          <span class="icon-circle w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/></svg>
-          </span>
-        </a>
+      <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+        <a href="#heroes" class="btn-primary">Conoce a los héroes</a>
+        <a href="developers.html" class="btn-secondary">Ver arquitectura técnica</a>
       </div>
-    </div>
-    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 text-partenon-muted/60 text-[10px] tracking-[0.3em] uppercase animate-pulse">
-      Scroll
+      <div class="reveal max-w-2xl mx-auto border-t border-nous-line pt-8">
+        <p class="text-nous-muted text-sm md:text-base leading-relaxed italic">
+          “Esta es la historia de cómo una empresa latinoamericana deja de pelear con el software 
+          y empieza a operar con un panteón de agentes.”
+        </p>
+      </div>
     </div>
   </section>
 
-  <!-- Story / The Problem -->
-  <section id="story" class="relative py-32 md:py-40 bg-partenon-surface">
-    <div class="max-w-5xl mx-auto px-6">
-      <div class="reveal mb-16">
-        <span class="inline-block text-[11px] uppercase tracking-[0.2em] text-partenon-accent mb-4">El problema</span>
-        <h2 class="font-display text-4xl md:text-6xl lg:text-7xl leading-[1.05]">
-          En América Latina, las pymes no necesitan más software.
-        </h2>
-      </div>
-      <div class="grid md:grid-cols-2 gap-12 md:gap-20">
-        <div class="reveal space-y-6 text-partenon-muted text-lg md:text-xl leading-relaxed">
+  <!-- Problem -->
+  <section id="story" class="py-24 md:py-32 bg-nous-surface border-y border-nous-line">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-16 items-start">
+        <div class="reveal">
+          <span class="pill mb-4">El problema</span>
+          <h2 class="font-display text-4xl md:text-5xl lg:text-6xl leading-[0.95] mt-4">
+            En América Latina, las pymes no necesitan más software.
+          </h2>
+        </div>
+        <div class="reveal space-y-6 text-nous-muted text-lg leading-relaxed pt-2">
           <p>
             Necesitan un socio. Alguien que hable su idioma, use sus herramientas y entienda que el dueño 
             atiende el teléfono, revisa el inventario y hace la facturación al mismo tiempo.
@@ -200,546 +173,647 @@
             Los CRM cuestan demasiado. Los ERP son demasiado complejos. Y la mayoría de la IA fue diseñada 
             para empresas con departamentos de IT, no para la tienda de la esquina.
           </p>
-        </div>
-        <div class="reveal space-y-6 text-partenon-muted text-lg md:text-xl leading-relaxed">
-          <p>
+          <p class="text-nous-text">
             La brecha no es de tecnología. Es de diseño. Necesitamos herramientas construidas en el idioma, 
             el canal y el precio de las pymes latinoamericanas.
           </p>
-          <p class="text-partenon-text">
-            Partenon nace para cerrar esa brecha. No como otro dashboard. Como un panteón operativo donde 
-            cada agente sabe exactamente qué hacer.
-          </p>
+          <div class="grid grid-cols-3 gap-4 pt-4">
+            <div class="card p-4 text-center">
+              <div class="font-display text-2xl text-nous-purple">99.5%</div>
+              <div class="text-xs text-nous-muted mt-1">son pymes</div>
+            </div>
+            <div class="card p-4 text-center">
+              <div class="font-display text-2xl text-nous-teal">60%</div>
+              <div class="text-xs text-nous-muted mt-1">del empleo</div>
+            </div>
+            <div class="card p-4 text-center">
+              <div class="font-display text-2xl text-nous-coral">25%</div>
+              <div class="text-xs text-nous-muted mt-1">del PIB</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Archetype / The Myth -->
-  <section class="relative py-32 md:py-40 border-y border-partenon-line overflow-hidden">
-    <div class="glow-orb w-[500px] h-[500px] bg-partenon-accent/20 top-1/2 right-[-150px] -translate-y-1/2"></div>
-    <div class="max-w-6xl mx-auto px-6 relative z-10">
-      <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-        <div class="reveal">
-          <span class="inline-block text-[11px] uppercase tracking-[0.2em] text-partenon-accent mb-4">El arquetipo</span>
-          <h2 class="font-display text-4xl md:text-6xl leading-[1.05] mb-8">
-            No es mitología de salón.<br />Son arquetipos de empresa.
-          </h2>
-          <div class="space-y-6 text-partenon-muted text-lg leading-relaxed">
-            <p>
-              En el Partenón, los héroes no servían a un dios por devoción. Servían porque cada uno tenía 
-              una habilidad irreemplazable. Así funciona Partenon.
-            </p>
-            <p>
-              <strong class="text-partenon-text">Hermes es tu empresa.</strong> No un CEO, no un chatbot. 
-              Es la entidad que publica tareas, prioriza y decide.
-            </p>
-            <p>
-              Cada héroe es un agente con una personalidad, un perfil y un set de herramientas. Toman 
-              misiones del Partenón y entregan resultados reales en Google Sheets, Docs, Slides y Drive.
-            </p>
-          </div>
+  <!-- Myth / Archetype -->
+  <section class="py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="reveal text-center max-w-3xl mx-auto mb-16">
+        <span class="pill">El arquetipo</span>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl leading-[0.95] mt-4">
+          No es mitología de salón.<br />Son arquetipos de empresa.
+        </h2>
+      </div>
+
+      <div class="reveal grid md:grid-cols-3 gap-6 mb-16">
+        <div class="card card-hover p-8">
+          <div class="w-10 h-10 rounded-lg bg-nous-purple/10 flex items-center justify-center text-nous-purple mb-6 font-display text-xl">H</div>
+          <h3 class="font-display text-xl mb-2">Hermes</h3>
+          <p class="text-nous-muted text-sm leading-relaxed">
+            Es tu empresa. No un CEO, no un chatbot. Es la entidad que publica tareas, prioriza y decide 
+            qué necesita. Pero no puede hacerlo solo.
+          </p>
         </div>
-        <div class="reveal space-y-6">
-          <div class="bezel-outer">
-            <div class="bezel-inner p-6 md:p-8">
-              <div class="flex items-start gap-5">
-                <div class="w-12 h-12 rounded-full bg-partenon-accent/10 flex items-center justify-center text-partenon-accent shrink-0">
-                  <span class="font-serif text-2xl">H</span>
-                </div>
-                <div>
-                  <h3 class="font-display text-xl text-partenon-text mb-1">Hermes</h3>
-                  <p class="text-partenon-muted">La empresa. Publica misiones, prioriza y decide qué necesita.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="bezel-outer">
-            <div class="bezel-inner p-6 md:p-8">
-              <div class="flex items-start gap-5">
-                <div class="w-12 h-12 rounded-full bg-partenon-accent/10 flex items-center justify-center text-partenon-accent shrink-0">
-                  <span class="font-serif text-2xl">P</span>
-                </div>
-                <div>
-                  <h3 class="font-display text-xl text-partenon-text mb-1">El Partenón</h3>
-                  <p class="text-partenon-muted">El sistema donde los héroes comparten herramientas, memoria y conocimiento.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="bezel-outer">
-            <div class="bezel-inner p-6 md:p-8">
-              <div class="flex items-start gap-5">
-                <div class="w-12 h-12 rounded-full bg-partenon-accent/10 flex items-center justify-center text-partenon-accent shrink-0">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
-                </div>
-                <div>
-                  <h3 class="font-display text-xl text-partenon-text mb-1">Los Héroes</h3>
-                  <p class="text-partenon-muted">Seis agentes especializados. Cada uno con herramientas, skills y una misión.</p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="card card-hover p-8">
+          <div class="w-10 h-10 rounded-lg bg-nous-teal/10 flex items-center justify-center text-nous-teal mb-6 font-display text-xl">P</div>
+          <h3 class="font-display text-xl mb-2">El Partenón</h3>
+          <p class="text-nous-muted text-sm leading-relaxed">
+            Es el sistema donde los héroes viven, comparten herramientas, memoria y conocimiento. 
+            Es la unión de Hermes con sus héroes.
+          </p>
         </div>
+        <div class="card card-hover p-8">
+          <div class="w-10 h-10 rounded-lg bg-nous-coral/10 flex items-center justify-center text-nous-coral mb-6 font-display text-xl">+</div>
+          <h3 class="font-display text-xl mb-2">Los Héroes</h3>
+          <p class="text-nous-muted text-sm leading-relaxed">
+            Son agentes especializados. Cada uno tiene una personalidad, un perfil y un set de herramientas. 
+            Toman misiones del Partenón y entregan resultados.
+          </p>
+        </div>
+      </div>
+
+      <div class="reveal max-w-4xl mx-auto text-center">
+        <p class="text-lg md:text-xl text-nous-muted leading-relaxed mb-6">
+          En el Partenón, los héroes no servían a un dios por devoción. Servían porque cada uno tenía 
+          una habilidad irreemplazable. Así funciona Partenon: usamos arquetipos de marketing, no decoración griega.
+        </p>
+        <p class="text-nous-text text-lg leading-relaxed">
+          Hermes es la empresa. Sus héroes son los perfiles que toman las misiones: finanzas, comunicación, 
+          cobranza, seguridad, operaciones y relaciones.
+        </p>
       </div>
     </div>
   </section>
 
   <!-- How it works -->
-  <section id="how" class="relative py-32 md:py-40 bg-partenon-surface">
+  <section id="how" class="py-24 md:py-32 bg-nous-surface border-y border-nous-line">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="reveal text-center max-w-3xl mx-auto mb-20">
-        <span class="inline-block text-[11px] uppercase tracking-[0.2em] text-partenon-accent mb-4">Cómo funciona</span>
-        <h2 class="font-display text-4xl md:text-6xl leading-[1.05]">
-          Misiones, no menús.
-        </h2>
+      <div class="reveal text-center max-w-3xl mx-auto mb-16">
+        <span class="pill">Cómo funciona</span>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl leading-[0.95] mt-4">Misiones, no menús.</h2>
       </div>
-      <div class="grid md:grid-cols-3 gap-8 md:gap-6">
-        <div class="reveal bezel-outer">
-          <div class="bezel-inner p-8 md:p-10 text-center h-full">
-            <div class="w-16 h-16 mx-auto rounded-full border border-partenon-accent/30 text-partenon-accent flex items-center justify-center font-serif text-3xl mb-8">1</div>
-            <h3 class="font-display text-2xl text-partenon-text mb-4">Hermes publica</h3>
-            <p class="text-partenon-muted leading-relaxed">
-              Le dices a Hermes qué necesita tu empresa. Él convierte la necesidad en una misión clara con contexto, prioridad y entregable.
-            </p>
-          </div>
-        </div>
-        <div class="reveal bezel-outer">
-          <div class="bezel-inner p-8 md:p-10 text-center h-full">
-            <div class="w-16 h-16 mx-auto rounded-full border border-partenon-accent/30 text-partenon-accent flex items-center justify-center font-serif text-3xl mb-8">2</div>
-            <h3 class="font-display text-2xl text-partenon-text mb-4">Un héroe la toma</h3>
-            <p class="text-partenon-muted leading-relaxed">
-              El héroe con las herramientas adecuadas toma la misión, investiga, pide lo que le falta y actúa en tu workspace.
-            </p>
-          </div>
-        </div>
-        <div class="reveal bezel-outer">
-          <div class="bezel-inner p-8 md:p-10 text-center h-full">
-            <div class="w-16 h-16 mx-auto rounded-full border border-partenon-accent/30 text-partenon-accent flex items-center justify-center font-serif text-3xl mb-8">3</div>
-            <h3 class="font-display text-2xl text-partenon-text mb-4">Entrega en tu workspace</h3>
-            <p class="text-partenon-muted leading-relaxed">
-              El resultado llega donde trabajas: Google Sheets, Docs, Slides, Drive, Calendar o Telegram. Sin cambiar de herramienta.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Heroes Bento -->
-  <section id="heroes" class="relative py-32 md:py-40 border-y border-partenon-line">
-    <div class="glow-orb w-[600px] h-[600px] bg-partenon-accent/10 top-1/2 left-[-200px] -translate-y-1/2"></div>
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
-      <div class="reveal text-center max-w-3xl mx-auto mb-20">
-        <span class="inline-block text-[11px] uppercase tracking-[0.2em] text-partenon-accent mb-4">Los héroes del Partenón</span>
-        <h2 class="font-display text-4xl md:text-6xl lg:text-7xl leading-[1.05] mb-6">
-          Cada misión tiene su héroe.
-        </h2>
-        <p class="text-partenon-muted text-lg">
-          Seis perfiles, seis personalidades, seis sets de herramientas. Todos conectados por G-Brain y anclados a Google Workspace.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-min">
-        <!-- Tesorero -->
-        <div class="reveal md:col-span-7 bezel-outer group">
-          <div class="bezel-inner p-8 md:p-10 h-full flex flex-col">
-            <div class="flex items-start justify-between mb-8">
-              <div class="w-14 h-14 rounded-full bg-partenon-accent/10 flex items-center justify-center text-partenon-accent">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.25" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              </div>
-              <span class="text-[10px] uppercase tracking-[0.2em] text-partenon-muted border border-partenon-line rounded-full px-3 py-1">.finance</span>
-            </div>
-            <h3 class="font-display text-3xl md:text-4xl text-partenon-text mb-4">El Tesorero</h3>
-            <p class="text-partenon-muted text-lg leading-relaxed mb-8 flex-grow">
-              Ordena los números de la empresa en Google Sheets. Separa costos fijos y variables, construye dashboards 
-              y crea el archivo <code class="text-partenon-accent">.finance</code> con las instrucciones financieras de tu empresa.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="text-xs text-partenon-muted border border-partenon-line rounded-full px-3 py-1">Google Sheets</span>
-              <span class="text-xs text-partenon-muted border border-partenon-line rounded-full px-3 py-1">Dashboards</span>
-              <span class="text-xs text-partenon-muted border border-partenon-line rounded-full px-3 py-1">Costos</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Mensajero -->
-        <div class="reveal md:col-span-5 bezel-outer group">
-          <div class="bezel-inner p-8 md:p-10 h-full flex flex-col">
-            <div class="flex items-start justify-between mb-8">
-              <div class="w-14 h-14 rounded-full bg-partenon-accent/10 flex items-center justify-center text-partenon-accent">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.25" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 110-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 01-1.44-4.282m3.102.069a18.03 18.03 0 01-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 018.835 2.535M10.34 6.66a23.847 23.847 0 008.835-2.535m0 0A23.74 23.74 0 0018.795 3m.38 1.125a23.91 23.91 0 011.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 001.014-5.395m0-3.46c.495.43.816 1.035.795 1.75a20.723 20.723 0 01-.795 3.46m0 0a23.736 23.736 0 01-3.78 6.483"/></svg>
-              </div>
-              <span class="text-[10px] uppercase tracking-[0.2em] text-partenon-muted border border-partenon-line rounded-full px-3 py-1">.design</span>
-            </div>
-            <h3 class="font-display text-3xl md:text-4xl text-partenon-text mb-4">El Mensajero</h3>
-            <p class="text-partenon-muted text-lg leading-relaxed mb-8 flex-grow">
-              Ventas y comunicación en un solo perfil. Construye la marca en <code class="text-partenon-accent">.design</code>, 
-              crea campañas, calendarios de contenido, SEO, presentaciones y cartas para clientes.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="text-xs text-partenon-muted border border-partenon-line rounded-full px-3 py-1">Redes sociales</span>
-              <span class="text-xs text-partenon-muted border border-partenon-line rounded-full px-3 py-1">SEO</span>
-              <span class="text-xs text-partenon-muted border border-partenon-line rounded-full px-3 py-1">Open Design</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Cobrador -->
-        <div class="reveal md:col-span-4 bezel-outer group">
-          <div class="bezel-inner p-8 md:p-10 h-full flex flex-col">
-            <div class="flex items-start justify-between mb-8">
-              <div class="w-14 h-14 rounded-full bg-partenon-accent/10 flex items-center justify-center text-partenon-accent">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.25" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/></svg>
-              </div>
-              <span class="text-[10px] uppercase tracking-[0.2em] text-partenon-muted border border-partenon-line rounded-full px-3 py-1">Stripe</span>
-            </div>
-            <h3 class="font-display text-3xl text-partenon-text mb-4">El Cobrador</h3>
-            <p class="text-partenon-muted leading-relaxed mb-8 flex-grow">
-              Administra pagos, suscripciones y recordatorios por Stripe. Se conecta a tu tienda en línea, servicios o productos físicos.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="text-xs text-partenon-muted border border-partenon-line rounded-full px-3 py-1">Pagos</span>
-              <span class="text-xs text-partenon-muted border border-partenon-line rounded-full px-3 py-1">Suscripciones</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Guardián -->
-        <div class="reveal md:col-span-4 bezel-outer group">
-          <div class="bezel-inner p-8 md:p-10 h-full flex flex-col">
-            <div class="flex items-start justify-between mb-8">
-              <div class="w-14 h-14 rounded-full bg-partenon-accent/10 flex items-center justify-center text-partenon-accent">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.25" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-              </div>
-              <span class="text-[10px] uppercase tracking-[0.2em] text-partenon-muted border border-partenon-line rounded-full px-3 py-1">Nvidia</span>
-            </div>
-            <h3 class="font-display text-3xl text-partenon-text mb-4">El Guardián</h3>
-            <p class="text-partenon-muted leading-relaxed mb-8 flex-grow">
-              Administra API keys, modelos de IA, cuentas y permisos. Decide qué héroe accede a qué recurso y cuándo.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="text-xs text-partenon-muted border border-partenon-line rounded-full px-3 py-1">API keys</span>
-              <span class="text-xs text-partenon-muted border border-partenon-line rounded-full px-3 py-1">Permisos</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Estratega -->
-        <div class="reveal md:col-span-4 bezel-outer group">
-          <div class="bezel-inner p-8 md:p-10 h-full flex flex-col">
-            <div class="flex items-start justify-between mb-8">
-              <div class="w-14 h-14 rounded-full bg-partenon-accent/10 flex items-center justify-center text-partenon-accent">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.25" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/></svg>
-              </div>
-              <span class="text-[10px] uppercase tracking-[0.2em] text-partenon-muted border border-partenon-line rounded-full px-3 py-1">Ops</span>
-            </div>
-            <h3 class="font-display text-3xl text-partenon-text mb-4">El Estratega</h3>
-            <p class="text-partenon-muted leading-relaxed mb-8 flex-grow">
-              Project manager operativo. Coordina tareas, recordatorios, calendarios y correos para que todos los héroes trabajen alineados.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="text-xs text-partenon-muted border border-partenon-line rounded-full px-3 py-1">Calendar</span>
-              <span class="text-xs text-partenon-muted border border-partenon-line rounded-full px-3 py-1">Gmail</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Diplomático -->
-        <div class="reveal md:col-span-12 bezel-outer group">
-          <div class="bezel-inner p-8 md:p-10 h-full flex flex-col md:flex-row md:items-center gap-8">
-            <div class="w-14 h-14 rounded-full bg-partenon-accent/10 flex items-center justify-center text-partenon-accent shrink-0">
-              <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.25" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
-            </div>
-            <div class="flex-grow">
-              <h3 class="font-display text-3xl md:text-4xl text-partenon-text mb-4">El Diplomático</h3>
-              <p class="text-partenon-muted text-lg leading-relaxed max-w-3xl">
-                Gestiona relaciones con clientes y proveedores. Coordina expectativas, recordatorios e hitos para que cliente y operaciones 
-                lleguen al mismo punto. Como el caballero de Géminis, tiene dos caras y una sola misión: el acuerdo.
-              </p>
-            </div>
-            <div class="flex flex-wrap gap-2 shrink-0">
-              <span class="text-xs text-partenon-muted border border-partenon-line rounded-full px-3 py-1">Clientes</span>
-              <span class="text-xs text-partenon-muted border border-partenon-line rounded-full px-3 py-1">Proveedores</span>
-              <span class="text-xs text-partenon-muted border border-partenon-line rounded-full px-3 py-1">Hitos</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Impact Counter -->
-  <section id="impact" class="relative py-32 md:py-40 bg-partenon-surface overflow-hidden">
-    <div class="glow-orb w-[700px] h-[700px] bg-partenon-accent/10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
-      <div class="reveal text-center max-w-3xl mx-auto mb-20">
-        <span class="inline-block text-[11px] uppercase tracking-[0.2em] text-partenon-accent mb-4">Impacto proyectado</span>
-        <h2 class="font-display text-4xl md:text-6xl lg:text-7xl leading-[1.05]">
-          De 10 empresas a 1 millón.
-        </h2>
-      </div>
-
-      <div class="reveal grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-20">
-        <div class="bezel-outer text-center">
-          <div class="bezel-inner p-6">
-            <div class="counter-number font-display text-4xl text-partenon-accent" data-target="10">0</div>
-            <div class="text-[10px] text-partenon-muted mt-3 uppercase tracking-[0.15em]">Hermes</div>
-            <div class="text-xs text-partenon-muted mt-2 leading-tight">10 empresas con sus números ordenados por primera vez.</div>
-          </div>
-        </div>
-        <div class="bezel-outer text-center">
-          <div class="bezel-inner p-6">
-            <div class="counter-number font-display text-4xl text-partenon-accent" data-target="100">0</div>
-            <div class="text-[10px] text-partenon-muted mt-3 uppercase tracking-[0.15em]">Hermes</div>
-            <div class="text-xs text-partenon-muted mt-2 leading-tight">100 empresas ahorrando 20 horas administrativas a la semana.</div>
-          </div>
-        </div>
-        <div class="bezel-outer text-center">
-          <div class="bezel-inner p-6">
-            <div class="counter-number font-display text-4xl text-partenon-accent" data-target="1000">0</div>
-            <div class="text-[10px] text-partenon-muted mt-3 uppercase tracking-[0.15em]">Hermes</div>
-            <div class="text-xs text-partenon-muted mt-2 leading-tight">1,000 campañas de comunicación activas y calendariadas.</div>
-          </div>
-        </div>
-        <div class="bezel-outer text-center">
-          <div class="bezel-inner p-6">
-            <div class="counter-number font-display text-4xl text-partenon-accent" data-target="10000">0</div>
-            <div class="text-[10px] text-partenon-muted mt-3 uppercase tracking-[0.15em]">Hermes</div>
-            <div class="text-xs text-partenon-muted mt-2 leading-tight">$10M USD procesados en pagos a través de Stripe.</div>
-          </div>
-        </div>
-        <div class="bezel-outer text-center">
-          <div class="bezel-inner p-6">
-            <div class="counter-number font-display text-4xl text-partenon-accent" data-target="100000">0</div>
-            <div class="text-[10px] text-partenon-muted mt-3 uppercase tracking-[0.15em]">Hermes</div>
-            <div class="text-xs text-partenon-muted mt-2 leading-tight">100 mil empresas tocadas por workshops en universidades y coworkings.</div>
-          </div>
-        </div>
-        <div class="bezel-outer text-center">
-          <div class="bezel-inner p-6">
-            <div class="counter-number font-display text-4xl text-partenon-accent" data-target="1000000">0</div>
-            <div class="text-[10px] text-partenon-muted mt-3 uppercase tracking-[0.15em]">Hermes</div>
-            <div class="text-xs text-partenon-muted mt-2 leading-tight">1 millón de pymes latinoamericanas con acceso real a IA.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="reveal grid md:grid-cols-3 gap-8">
-        <div class="text-center md:text-left">
-          <div class="font-display text-5xl text-partenon-text mb-3">+30%</div>
-          <p class="text-partenon-muted">de productividad laboral al cerrar la brecha digital en pymes.</p>
-        </div>
-        <div class="text-center md:text-left">
-          <div class="font-display text-5xl text-partenon-text mb-3">+7.7%</div>
-          <p class="text-partenon-muted">de impacto potencial en el PIB regional con adopción amplia.</p>
-        </div>
-        <div class="text-center md:text-left">
-          <div class="font-display text-5xl text-partenon-text mb-3">+15M</div>
-          <p class="text-partenon-muted">de empleos potencialmente mejorados por empresas más eficientes.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- G-Brain Connector -->
-  <section class="relative py-32 md:py-40 border-y border-partenon-line">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
-        <div class="reveal">
-          <span class="inline-block text-[11px] uppercase tracking-[0.2em] text-partenon-accent mb-4">El cerebro</span>
-          <h2 class="font-display text-4xl md:text-6xl leading-[1.05] mb-8">
-            Todo conectado por<br />G-Brain de Garitán.
-          </h2>
-          <p class="text-partenon-muted text-lg leading-relaxed mb-8">
-            Cada héroe tiene memoria propia, pero comparten un cerebro. G-Brain sincroniza contexto, instrucciones 
-            y conocimiento entre todos los agentes a través de MCP.
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="reveal card p-8 text-center">
+          <div class="w-12 h-12 mx-auto rounded-lg border border-nous-purple text-nous-purple flex items-center justify-center font-display text-2xl mb-6">1</div>
+          <h3 class="font-display text-xl mb-3">Hermes publica</h3>
+          <p class="text-nous-muted text-sm leading-relaxed">
+            Le dices a Hermes qué necesita tu empresa. Él convierte la necesidad en una misión clara 
+            con contexto, prioridad y entregable.
           </p>
-          <ul class="space-y-4 text-partenon-muted">
-            <li class="flex items-center gap-3">
-              <span class="w-1.5 h-1.5 rounded-full bg-partenon-accent"></span>
-              Memoria persistente por empresa.
-            </li>
-            <li class="flex items-center gap-3">
-              <span class="w-1.5 h-1.5 rounded-full bg-partenon-accent"></span>
-              Instrucciones de perfil sincronizadas.
-            </li>
-            <li class="flex items-center gap-3">
-              <span class="w-1.5 h-1.5 rounded-full bg-partenon-accent"></span>
-              Audit log de cada misión y decisión.
-            </li>
-            <li class="flex items-center gap-3">
-              <span class="w-1.5 h-1.5 rounded-full bg-partenon-accent"></span>
-              Conocimiento compartido entre héroes.
-            </li>
+        </div>
+        <div class="reveal card p-8 text-center">
+          <div class="w-12 h-12 mx-auto rounded-lg border border-nous-teal text-nous-teal flex items-center justify-center font-display text-2xl mb-6">2</div>
+          <h3 class="font-display text-xl mb-3">Un héroe la toma</h3>
+          <p class="text-nous-muted text-sm leading-relaxed">
+            El héroe con las herramientas adecuadas toma la misión, investiga, pide lo que le falta 
+            y actúa en tu workspace.
+          </p>
+        </div>
+        <div class="reveal card p-8 text-center">
+          <div class="w-12 h-12 mx-auto rounded-lg border border-nous-coral text-nous-coral flex items-center justify-center font-display text-2xl mb-6">3</div>
+          <h3 class="font-display text-xl mb-3">Entrega en tu workspace</h3>
+          <p class="text-nous-muted text-sm leading-relaxed">
+            El resultado llega donde trabajas: Google Sheets, Docs, Slides, Drive, Calendar o Telegram. 
+            Sin cambiar de herramienta.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools = Pegasus -->
+  <section class="py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="reveal grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <span class="pill">Herramientas</span>
+          <h2 class="font-display text-4xl md:text-5xl leading-[0.95] mt-4 mb-6">
+            Como Hércules tenía su Pegaso.
+          </h2>
+          <p class="text-nous-muted text-lg leading-relaxed mb-6">
+            Cada héroe tiene un set de herramientas open source y habilidades. No son adornos: son 
+            lo que le permite cumplir la misión.
+          </p>
+          <ul class="space-y-3 text-nous-muted">
+            <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-nous-purple"></span>Google Sheets, Docs, Slides, Drive</li>
+            <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-nous-teal"></span>Open Design y redes sociales</li>
+            <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-nous-coral"></span>Stripe API y webhooks</li>
+            <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-nous-purple"></span>Nvidia, OpenAI, Kimi Code APIs</li>
+            <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-nous-teal"></span>Calendar, Gmail, Telegram, WhatsApp</li>
           </ul>
         </div>
-        <div class="reveal">
-          <div class="bezel-outer">
-            <div class="bezel-inner p-8 md:p-10">
-              <div class="flex items-center justify-center mb-10">
-                <div class="w-24 h-24 rounded-full bg-partenon-accent/10 flex items-center justify-center text-partenon-accent">
-                  <svg class="w-12 h-12" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
-                </div>
-              </div>
-              <div class="space-y-4">
-                <div class="flex items-center justify-between text-sm py-3 border-b border-partenon-line">
-                  <span class="text-partenon-muted">Héroes conectados</span>
-                  <span class="text-partenon-text font-medium">6 perfiles</span>
-                </div>
-                <div class="flex items-center justify-between text-sm py-3 border-b border-partenon-line">
-                  <span class="text-partenon-muted">Protocolo</span>
-                  <span class="text-partenon-text font-medium">MCP</span>
-                </div>
-                <div class="flex items-center justify-between text-sm py-3 border-b border-partenon-line">
-                  <span class="text-partenon-muted">Workspace anclado</span>
-                  <span class="text-partenon-text font-medium">Google Workspace</span>
-                </div>
-                <div class="flex items-center justify-between text-sm py-3">
-                  <span class="text-partenon-muted">Memoria</span>
-                  <span class="text-partenon-text font-medium">G-Brain</span>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="reveal grid grid-cols-2 gap-4">
+          <div class="card p-6 text-center"><div class="text-nous-purple font-display text-3xl mb-2">.finance</div><div class="text-xs text-nous-muted">Instrucciones financieras</div></div>
+          <div class="card p-6 text-center"><div class="text-nous-teal font-display text-3xl mb-2">.design</div><div class="text-xs text-nous-muted">Voz y marca</div></div>
+          <div class="card p-6 text-center"><div class="text-nous-coral font-display text-3xl mb-2">.security</div><div class="text-xs text-nous-muted">API keys y permisos</div></div>
+          <div class="card p-6 text-center"><div class="text-nous-purple font-display text-3xl mb-2">MCP</div><div class="text-xs text-nous-muted">Conexión con G-Brain</div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Go-to-market -->
-  <section id="growth" class="relative py-32 md:py-40 bg-partenon-surface">
+  <!-- Heroes -->
+  <section id="heroes" class="py-24 md:py-32 bg-nous-surface border-y border-nous-line">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="reveal text-center max-w-3xl mx-auto mb-20">
-        <span class="inline-block text-[11px] uppercase tracking-[0.2em] text-partenon-accent mb-4">Cómo llegamos a 1 millón</span>
-        <h2 class="font-display text-4xl md:text-6xl lg:text-7xl leading-[1.05] mb-6">
-          No vendemos software.<br />Instalamos Hermes.
+      <div class="reveal text-center max-w-3xl mx-auto mb-16">
+        <span class="pill">Los héroes del Partenón</span>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl leading-[0.95] mt-4">
+          Cada misión tiene su héroe.
         </h2>
-        <p class="text-partenon-muted text-lg">
-          Cada canal está diseñado para llevar a un grupo de empresarios a tener su Hermes operativo en una sola sesión.
-        </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-min">
-        <div class="reveal md:col-span-6 bezel-outer">
-          <div class="bezel-inner p-8 md:p-10 h-full">
-            <div class="w-12 h-12 rounded-full bg-partenon-accent/10 flex items-center justify-center text-partenon-accent mb-6">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.25" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+      <!-- Tesorero -->
+      <div class="reveal card card-hover p-8 md:p-10 mb-8">
+        <div class="grid lg:grid-cols-12 gap-8">
+          <div class="lg:col-span-4">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-lg bg-nous-purple/10 flex items-center justify-center text-nous-purple">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <h3 class="font-display text-2xl">El Tesorero</h3>
+                <span class="text-xs text-nous-purple uppercase tracking-wider">.finance</span>
+              </div>
             </div>
-            <h3 class="font-display text-2xl text-partenon-text mb-3">Universidades</h3>
-            <p class="text-partenon-muted leading-relaxed">
-              Workshops en auditorios con aceleradoras universitarias y departamentos de innovación. 
-              Estudiantes de negocios adaptan Hermes a empresas reales de su carrera como actividad extracurricular.
+            <p class="text-nous-muted text-sm leading-relaxed">
+              Experto en Google Sheets. Acomoda la información financiera de la empresa, crea dashboards 
+              y separa costos fijos de variables.
             </p>
           </div>
-        </div>
-        <div class="reveal md:col-span-6 bezel-outer">
-          <div class="bezel-inner p-8 md:p-10 h-full">
-            <div class="w-12 h-12 rounded-full bg-partenon-accent/10 flex items-center justify-center text-partenon-accent mb-6">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.25" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"/></svg>
+          <div class="lg:col-span-8 space-y-6">
+            <div class="bg-nous-bg rounded-lg p-6 border border-nous-line">
+              <p class="text-nous-text mb-4">
+                Hermes le pregunta: <em>"¿Qué empresa es? ¿Qué temas usas?"</em>
+              </p>
+              <div class="grid md:grid-cols-2 gap-6 text-sm text-nous-muted">
+                <div>
+                  <strong class="text-nous-text block mb-2">Empresa de construcción</strong>
+                  Materiales, ganancia, costo, costos variables, costos fijos.
+                </div>
+                <div>
+                  <strong class="text-nous-text block mb-2">Cafetería</strong>
+                  Pauta de marketing, impuestos, renta, insumos, empleados.
+                </div>
+              </div>
             </div>
-            <h3 class="font-display text-2xl text-partenon-text mb-3">Webinars quincenales</h3>
-            <p class="text-partenon-muted leading-relaxed">
-              Cada 15 días instalamos Hermes en vivo para un grupo pre-registrado de emprendedores de todo el mundo. 
-              Onboarding guiado y primera misión en la misma sesión.
+            <p class="text-nous-muted text-sm leading-relaxed">
+              El Tesorero divide a Hermes en subtareas, toma la misión y empieza a acomodar toda la empresa. 
+              Dice: <em>"Esto está mal acomodado por esto, lo podríamos acomodar mejor por acá. Necesito esta información extra."</em> 
+              Está en misión conjunta con el emprendedor y Hermes hasta que todos los números de la empresa estén en orden.
             </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="pill">Google Sheets</span>
+              <span class="pill">Dashboards</span>
+              <span class="pill">.finance</span>
+              <span class="pill">Costos fijos/variables</span>
+            </div>
           </div>
         </div>
-        <div class="reveal md:col-span-4 bezel-outer">
-          <div class="bezel-inner p-8 md:p-10 h-full">
-            <div class="w-12 h-12 rounded-full bg-partenon-accent/10 flex items-center justify-center text-partenon-accent mb-6">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.25" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 7.188V3.16c0-1.081-.768-2.015-1.837-2.175A48.111 48.111 0 0012 1c-2.045 0-4.083.132-6.084.385C4.837 1.545 4.069 2.479 4.069 3.56v9.81a2.18 2.18 0 00.75 1.661m16.5 0a2.18 2.18 0 01.75 1.661v4.25"/></svg>
+      </div>
+
+      <!-- Mensajero -->
+      <div class="reveal card card-hover p-8 md:p-10 mb-8">
+        <div class="grid lg:grid-cols-12 gap-8">
+          <div class="lg:col-span-4">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-lg bg-nous-teal/10 flex items-center justify-center text-nous-teal">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 110-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 01-1.44-4.282m3.102.069a18.03 18.03 0 01-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 018.835 2.535M10.34 6.66a23.847 23.847 0 008.835-2.535m0 0A23.74 23.74 0 0018.795 3m.38 1.125a23.91 23.91 0 011.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 001.014-5.395m0-3.46c.495.43.816 1.035.795 1.75a20.723 20.723 0 01-.795 3.46m0 0a23.736 23.736 0 01-3.78 6.483"/></svg>
+              </div>
+              <div>
+                <h3 class="font-display text-2xl">El Mensajero</h3>
+                <span class="text-xs text-nous-teal uppercase tracking-wider">.design</span>
+              </div>
             </div>
-            <h3 class="font-display text-2xl text-partenon-text mb-3">Coworkings</h3>
-            <p class="text-partenon-muted leading-relaxed">
-              Eventos en centros de coworking para instalar y personalizar agentes con comunidades locales.
+            <p class="text-nous-muted text-sm leading-relaxed">
+              Ventas y comunicación en un solo perfil. Experto en comunicar, con acceso a redes sociales, 
+              memoria de marca y Open Design.
             </p>
           </div>
-        </div>
-        <div class="reveal md:col-span-4 bezel-outer">
-          <div class="bezel-inner p-8 md:p-10 h-full">
-            <div class="w-12 h-12 rounded-full bg-partenon-accent/10 flex items-center justify-center text-partenon-accent mb-6">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.25" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+          <div class="lg:col-span-8 space-y-6">
+            <div class="bg-nous-bg rounded-lg p-6 border border-nous-line">
+              <p class="text-nous-text mb-4">
+                El Mensajero hace misiones de investigación con el emprendedor:
+              </p>
+              <ul class="grid md:grid-cols-2 gap-3 text-sm text-nous-muted">
+                <li>¿Cuál es tu empresa?</li>
+                <li>¿Qué es lo que vendes?</li>
+                <li>¿Qué es lo que ayudas?</li>
+                <li>¿Por qué quieres ayudarlos?</li>
+                <li>¿Cómo solucionas algo de verdad?</li>
+                <li>¿Cómo es que tu proyecto ayuda?</li>
+              </ul>
             </div>
-            <h3 class="font-display text-2xl text-partenon-text mb-3">Organizaciones empresariales</h3>
-            <p class="text-partenon-muted leading-relaxed">
-              Alianzas con BNI, Wayra, cámaras de comercio, Rotarios y gremios para dar acceso a sus miembros.
+            <p class="text-nous-muted text-sm leading-relaxed">
+              Construye la identidad y estrategia de comunicación en el archivo <code>.design</code>. Desarrolla campañas, 
+              calendarios de contenido orgánico, SEO y GEO. Pide accesos al sitio web (WordPress, SSH) y se conecta 
+              con los Google Sheets del Tesorero. También hace presentaciones, cartas y mails para clientes.
             </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="pill">Redes sociales</span>
+              <span class="pill">Open Design</span>
+              <span class="pill">SEO / GEO</span>
+              <span class="pill">WordPress / SSH</span>
+              <span class="pill">.design</span>
+            </div>
           </div>
         </div>
-        <div class="reveal md:col-span-4 bezel-outer">
-          <div class="bezel-inner p-8 md:p-10 h-full">
-            <div class="w-12 h-12 rounded-full bg-partenon-accent/10 flex items-center justify-center text-partenon-accent mb-6">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.25" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"/></svg>
+      </div>
+
+      <!-- Cobrador -->
+      <div class="reveal card card-hover p-8 md:p-10 mb-8">
+        <div class="grid lg:grid-cols-12 gap-8">
+          <div class="lg:col-span-4">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-lg bg-nous-coral/10 flex items-center justify-center text-nous-coral">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/></svg>
+              </div>
+              <div>
+                <h3 class="font-display text-2xl">El Cobrador</h3>
+                <span class="text-xs text-nous-coral uppercase tracking-wider">Stripe</span>
+              </div>
             </div>
-            <h3 class="font-display text-2xl text-partenon-text mb-3">Aceleradoras</h3>
-            <p class="text-partenon-muted leading-relaxed">
-              Hermes como agente empresarial personalizado para aceleradoras, respaldado por Stripe, Nvidia y Nous Research.
+            <p class="text-nous-muted text-sm leading-relaxed">
+              Lleva las cuentas y recibe pagos por Stripe. Se conecta a tiendas en línea, servicios y productos físicos.
             </p>
+          </div>
+          <div class="lg:col-span-8 space-y-6">
+            <p class="text-nous-muted text-sm leading-relaxed">
+              Tiene todos los skills de Stripe disponibles: payment links, suscripciones, facturas, webhooks y reportes. 
+              Se integra con lo que sea que la empresa esté usando para vender.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="pill">Stripe API</span>
+              <span class="pill">Payment Links</span>
+              <span class="pill">Suscripciones</span>
+              <span class="pill">Webhooks</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Guardian -->
+      <div class="reveal card card-hover p-8 md:p-10 mb-8">
+        <div class="grid lg:grid-cols-12 gap-8">
+          <div class="lg:col-span-4">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-lg bg-nous-purple/10 flex items-center justify-center text-nous-purple">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              </div>
+              <div>
+                <h3 class="font-display text-2xl">El Guardián</h3>
+                <span class="text-xs text-nous-purple uppercase tracking-wider">.security · Nvidia</span>
+              </div>
+            </div>
+            <p class="text-nous-muted text-sm leading-relaxed">
+              Administra API keys, modelos de IA, cuentas y permisos. Decide qué héroe accede a qué recurso.
+            </p>
+          </div>
+          <div class="lg:col-span-8 space-y-6">
+            <p class="text-nous-muted text-sm leading-relaxed">
+              El Guardián le pregunta a Hermes qué modelos y cuentas tiene: API key de Nvidia, cuenta pagada de Twitter/X, 
+              OpenAI, Kimi Code y cualquier otro servicio. Con eso da las funcionalidades de seguridad que Hermes necesita 
+              para crear y desarrollar sin problemas.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="pill">Nvidia APIs</span>
+              <span class="pill">OpenAI</span>
+              <span class="pill">Kimi Code</span>
+              <span class="pill">API keys</span>
+              <span class="pill">Permisos</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estratega -->
+      <div class="reveal card card-hover p-8 md:p-10 mb-8">
+        <div class="grid lg:grid-cols-12 gap-8">
+          <div class="lg:col-span-4">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-lg bg-nous-teal/10 flex items-center justify-center text-nous-teal">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/></svg>
+              </div>
+              <div>
+                <h3 class="font-display text-2xl">El Estratega</h3>
+                <span class="text-xs text-nous-teal uppercase tracking-wider">Ops</span>
+              </div>
+            </div>
+            <p class="text-nous-muted text-sm leading-relaxed">
+              Administración y project management. Es el gerente operativo que acomoda recursos y ayuda a los demás héroes.
+            </p>
+          </div>
+          <div class="lg:col-span-8 space-y-6">
+            <p class="text-nous-muted text-sm leading-relaxed">
+              Tiene acceso a Google Calendar y Gmail. Recuerda detalles, hace seguimiento de tareas y le pregunta 
+              al emprendedor: <em>"¿Qué detalle en esto?"</em> para no olvidar nada de clientes ni operaciones.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="pill">Calendar</span>
+              <span class="pill">Gmail</span>
+              <span class="pill">Tareas</span>
+              <span class="pill">Recordatorios</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Diplomatico -->
+      <div class="reveal card card-hover p-8 md:p-10">
+        <div class="grid lg:grid-cols-12 gap-8">
+          <div class="lg:col-span-4">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-lg bg-nous-coral/10 flex items-center justify-center text-nous-coral">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+              </div>
+              <div>
+                <h3 class="font-display text-2xl">El Diplomático</h3>
+                <span class="text-xs text-nous-coral uppercase tracking-wider">Relaciones</span>
+              </div>
+            </div>
+            <p class="text-nous-muted text-sm leading-relaxed">
+              Relaciones con clientes y proveedores. Coordina expectativas, recordatorios e hitos para que todos lleguen al mismo punto.
+            </p>
+          </div>
+          <div class="lg:col-span-8 space-y-6">
+            <p class="text-nous-muted text-sm leading-relaxed">
+              Es el lado externo del Estratega. Mientras el Estratega cuida las operaciones internas, el Diplomático 
+              cuida que cliente y producción se entiendan. Como el caballero de Géminis, tiene dos caras y una sola misión: el acuerdo.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="pill">Clientes</span>
+              <span class="pill">Proveedores</span>
+              <span class="pill">Hitos</span>
+              <span class="pill">Recordatorios</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Install CTA -->
-  <section class="relative py-32 md:py-40 border-y border-partenon-line overflow-hidden">
-    <div class="glow-orb w-[600px] h-[600px] bg-partenon-accent/15 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
-    <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
-      <div class="reveal">
-        <span class="inline-block text-[11px] uppercase tracking-[0.2em] text-partenon-accent mb-4">Instalación</span>
-        <h2 class="font-display text-4xl md:text-6xl lg:text-7xl leading-[1.05] mb-8">
-          Un comando. Tu empresa.
+  <!-- G-Brain -->
+  <section class="py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="reveal grid lg:grid-cols-2 gap-16 items-center">
+        <div class="order-2 lg:order-1">
+          <div class="card p-8 md:p-10 border-nous-line bg-nous-surface">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-3 h-3 rounded-full bg-nous-purple"></div>
+              <div class="w-3 h-3 rounded-full bg-nous-teal"></div>
+              <div class="w-3 h-3 rounded-full bg-nous-coral"></div>
+            </div>
+            <h3 class="font-display text-2xl mb-4">G-Brain de Garitán</h3>
+            <p class="text-nous-muted text-sm leading-relaxed mb-4">
+              G-Brain es la memoria central. Permite a los héroes hablar entre sí, guardar contexto y aprender 
+              de cada misión. Se conecta mediante MCP.
+            </p>
+            <ul class="space-y-3 text-sm text-nous-muted">
+              <li class="flex items-start gap-3">
+                <span class="text-nous-purple mt-1">→</span>
+                <span>Permite agregarle cosas al cerebro de Hermes.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-nous-teal mt-1">→</span>
+                <span>Los héroes consultan y actualizan la memoria entre misiones.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-nous-coral mt-1">→</span>
+                <span>Es el pegamento entre Google Workspace y el Partenón.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="order-1 lg:order-2">
+          <span class="pill">Memoria</span>
+          <h2 class="font-display text-4xl md:text-5xl leading-[0.95] mt-4 mb-6">
+            Sin cerebro, los héroes no se hablan.
+          </h2>
+          <p class="text-nous-muted text-lg leading-relaxed mb-6">
+            Hermes funciona porque todos los héroes comparten un cerebro. G-Brain es ese espacio: un sistema 
+            de memoria persistente donde cada interacción, cada archivo y cada decisión queda registrada.
+          </p>
+          <p class="text-nous-muted text-lg leading-relaxed">
+            Así, cuando el Mensajero necesita datos del Tesorero o el Cobrador necesita saber quién es un cliente, 
+            no envían correos: consultan G-Brain.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact -->
+  <section id="impact" class="py-24 md:py-32 bg-nous-surface border-y border-nous-line">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="reveal text-center max-w-3xl mx-auto mb-16">
+        <span class="pill">Impacto</span>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl leading-[0.95] mt-4">
+          De 10 Hermes a 1 millón.
         </h2>
-        <p class="text-partenon-muted text-lg md:text-xl mb-12 max-w-2xl mx-auto">
-          Partenon se instala sobre Hermes Agent. En menos de 5 minutos tienes un panteón operativo trabajando 
-          dentro de tu Google Workspace gratuito.
+        <p class="text-nous-muted mt-6 text-lg">
+          Cada escala no solo crece en cantidad. Cambia qué mide, qué automatiza y qué héroes son más críticos.
         </p>
       </div>
-      <div class="reveal max-w-2xl mx-auto mb-12">
-        <div class="bezel-outer">
-          <div class="bezel-inner p-6 text-left overflow-x-auto">
-            <code class="font-mono text-sm text-partenon-text whitespace-nowrap">
-              <span class="text-partenon-muted">$</span> curl -fsSL https://partenon.dev/install.sh | bash
-            </code>
+
+      <div class="reveal grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
+        <div class="card p-6 text-center cursor-pointer milestone" data-index="0">
+          <div class="font-display text-4xl text-nous-purple counter" data-target="10">0</div>
+          <div class="text-xs text-nous-muted mt-2 uppercase tracking-wider">Hermes</div>
+        </div>
+        <div class="card p-6 text-center cursor-pointer milestone" data-index="1">
+          <div class="font-display text-4xl text-nous-teal counter" data-target="100">0</div>
+          <div class="text-xs text-nous-muted mt-2 uppercase tracking-wider">Hermes</div>
+        </div>
+        <div class="card p-6 text-center cursor-pointer milestone" data-index="2">
+          <div class="font-display text-4xl text-nous-coral counter" data-target="1000">0</div>
+          <div class="text-xs text-nous-muted mt-2 uppercase tracking-wider">Hermes</div>
+        </div>
+        <div class="card p-6 text-center cursor-pointer milestone" data-index="3">
+          <div class="font-display text-4xl text-nous-purple counter" data-target="10000">0</div>
+          <div class="text-xs text-nous-muted mt-2 uppercase tracking-wider">Hermes</div>
+        </div>
+        <div class="card p-6 text-center cursor-pointer milestone" data-index="4">
+          <div class="font-display text-4xl text-nous-teal counter" data-target="100000">0</div>
+          <div class="text-xs text-nous-muted mt-2 uppercase tracking-wider">Hermes</div>
+        </div>
+        <div class="card p-6 text-center cursor-pointer milestone" data-index="5">
+          <div class="font-display text-4xl text-nous-coral counter" data-target="1000000">0</div>
+          <div class="text-xs text-nous-muted mt-2 uppercase tracking-wider">Hermes</div>
+        </div>
+      </div>
+
+      <div id="milestone-detail" class="reveal card p-8 md:p-10 bg-nous-bg">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h3 class="font-display text-3xl mb-2" id="ms-title">10 Hermes</h3>
+            <p class="text-nous-muted text-sm mb-6" id="ms-desc">Primeras empresas operando con el panteón. Cada héroe está en modo piloto y aprende la voz del negocio.</p>
+            <div class="space-y-3 text-sm text-nous-muted" id="ms-focus">
+              <p>Focus: validar narrativa de finanzas y comunicación.</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="card p-5 text-center bg-nous-surface">
+              <div class="font-display text-2xl text-nous-purple counter" id="ms-m1" data-target="15">0</div>
+              <div class="text-xs text-nous-muted mt-1">% ingreso extra</div>
+            </div>
+            <div class="card p-5 text-center bg-nous-surface">
+              <div class="font-display text-2xl text-nous-teal counter" id="ms-m2" data-target="5">0</div>
+              <div class="text-xs text-nous-muted mt-1">hrs ahorradas/semana</div>
+            </div>
+            <div class="card p-5 text-center bg-nous-surface">
+              <div class="font-display text-2xl text-nous-coral counter" id="ms-m3" data-target="100">0</div>
+              <div class="text-xs text-nous-muted mt-1">% números ordenados</div>
+            </div>
+            <div class="card p-5 text-center bg-nous-surface">
+              <div class="font-display text-2xl text-nous-purple">∞</div>
+              <div class="text-xs text-nous-muted mt-1">misiones creadas</div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="https://github.com/cuentadeservicio377-cell/hermes-business-os" target="_blank" class="magnetic-btn flex items-center gap-3 bg-partenon-accent text-partenon-bg font-medium rounded-full px-8 py-4 group">
-          <span>Ver repositorio</span>
-          <span class="icon-circle w-8 h-8 rounded-full bg-partenon-bg/10 flex items-center justify-center">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
-          </span>
+    </div>
+  </section>
+
+  <!-- Paper -->
+  <section class="py-24 md:py-32">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <div class="reveal">
+        <span class="pill">Investigación</span>
+        <h2 class="font-display text-4xl md:text-5xl leading-[0.95] mt-4 mb-6">
+          Más allá del branding.<br />Hay un paper detrás.
+        </h2>
+        <p class="text-nous-muted text-lg leading-relaxed mb-8">
+          Partenon se basa en la arquitectura de agentes y el sistema operativo de negocios propuesto en 
+          <em>Hermes Business OS</em>: misiones publicadas por una entidad central, héroes especializados con 
+          herramientas y un cerebro compartido que mantiene coherencia a escala.
+        </p>
+        <a href="https://github.com/NousResearch/hermes-business-os" target="_blank" rel="noopener" class="btn-secondary inline-flex items-center gap-2">
+          Leer Hermes Business OS
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
         </a>
-        <a href="developers.html" class="magnetic-btn flex items-center gap-3 border border-partenon-line text-partenon-text rounded-full px-8 py-4 hover:border-partenon-accent/50 transition-colors duration-500 group">
-          <span>Documentación técnica</span>
-          <span class="icon-circle w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/></svg>
-          </span>
-        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Go to market -->
+  <section id="growth" class="py-24 md:py-32 bg-nous-surface border-y border-nous-line">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="reveal text-center max-w-3xl mx-auto mb-16">
+        <span class="pill">Go-to-market</span>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl leading-[0.95] mt-4">
+          Entre creadores, universidades y pymes.
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div class="reveal card p-6">
+          <div class="font-display text-4xl text-nous-purple mb-3">01</div>
+          <h3 class="font-display text-lg mb-2">Lanzamiento con creadores</h3>
+          <p class="text-nous-muted text-sm leading-relaxed">
+            Empezamos con comunidades de desarrolladores, freelancers y emprendedores digitales que ya usan Google Workspace.
+          </p>
+        </div>
+        <div class="reveal card p-6">
+          <div class="font-display text-4xl text-nous-teal mb-3">02</div>
+          <h3 class="font-display text-lg mb-2">Programa universitario</h3>
+          <p class="text-nous-muted text-sm leading-relaxed">
+            Pilotos en universidades LATAM para que equipos de estudiantes instalen Partenon en pymes reales y validen casos.
+          </p>
+        </div>
+        <div class="reveal card p-6">
+          <div class="font-display text-4xl text-nous-coral mb-3">03</div>
+          <h3 class="font-display text-lg mb-2">Casos de estudio</h3>
+          <p class="text-nous-muted text-sm leading-relaxed">
+            Publicar métricas reales de construcción, cafeterías, consultorías y tiendas online para reducir fricción de venta.
+          </p>
+        </div>
+        <div class="reveal card p-6">
+          <div class="font-display text-4xl text-nous-purple mb-3">04</div>
+          <h3 class="font-display text-lg mb-2">Partners de implementación</h3>
+          <p class="text-nous-muted text-sm leading-relaxed">
+            Red de implementadores certificados que venden, instalan y entrenan a pymes con el workshop paquetizado.
+          </p>
+        </div>
+      </div>
+
+      <div class="reveal card p-8 md:p-10">
+        <div class="grid md:grid-cols-3 gap-8 text-center">
+          <div>
+            <div class="font-display text-4xl text-nous-purple">25</div>
+            <div class="text-sm text-nous-muted mt-2">universidades LATAM en piloto</div>
+          </div>
+          <div>
+            <div class="font-display text-4xl text-nous-teal">500</div>
+            <div class="text-sm text-nous-muted mt-2">estudiantes formados/año</div>
+          </div>
+          <div>
+            <div class="font-display text-4xl text-nous-coral">50</div>
+            <div class="text-sm text-nous-muted mt-2">pymes validadas en el primer año</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Install / CTA -->
+  <section class="py-24 md:py-32">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <div class="reveal">
+        <span class="pill">Instalación</span>
+        <h2 class="font-display text-4xl md:text-5xl leading-[0.95] mt-4 mb-6">
+          Un Google Sheet de distancia.
+        </h2>
+        <p class="text-nous-muted text-lg leading-relaxed mb-10">
+          Partenon se instala en tu Google Workspace. Agregas un script, conectas los héroes que necesitas 
+          y empiezas a publicar misiones. No reemplaza tus herramientas: las organiza.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="developers.html#install" class="btn-primary">Guía de instalación</a>
+          <a href="developers.html" class="btn-secondary">Documentación técnica</a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="py-16 bg-partenon-bg">
-    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="font-display text-2xl text-partenon-text">Partenon</div>
-      <div class="text-partenon-muted text-sm text-center md:text-left">
-        Una extensión de <a href="https://github.com/cuentadeservicio377-cell/hermes-business-os" target="_blank" class="text-partenon-accent link-underline">Hermes Business OS</a> · Open source
+  <footer class="py-16 border-t border-nous-line">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-10 mb-12">
+        <div class="md:col-span-2">
+          <div class="font-display text-2xl mb-4">Partenon</div>
+          <p class="text-nous-muted text-sm leading-relaxed max-w-sm">
+            El panteón operativo de tu empresa. Agentes de IA con personalidad, herramientas y memoria, 
+            trabajando dentro de Google Workspace.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-display text-sm mb-4 text-nous-muted uppercase tracking-wider">Navegación</h4>
+          <ul class="space-y-2 text-sm text-nous-muted">
+            <li><a href="#story" class="hover:text-nous-text transition-colors link-underline">Historia</a></li>
+            <li><a href="#how" class="hover:text-nous-text transition-colors link-underline">Cómo funciona</a></li>
+            <li><a href="#heroes" class="hover:text-nous-text transition-colors link-underline">Héroes</a></li>
+            <li><a href="#impact" class="hover:text-nous-text transition-colors link-underline">Impacto</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-display text-sm mb-4 text-nous-muted uppercase tracking-wider">Repositorio</h4>
+          <ul class="space-y-2 text-sm text-nous-muted">
+            <li><a href="developers.html" class="hover:text-nous-text transition-colors link-underline">Página técnica</a></li>
+            <li><a href="https://github.com/paolameneses/partenon" target="_blank" rel="noopener" class="hover:text-nous-text transition-colors link-underline">GitHub</a></li>
+            <li><a href="https://github.com/NousResearch/hermes-business-os" target="_blank" rel="noopener" class="hover:text-nous-text transition-colors link-underline">Hermes Business OS</a></li>
+          </ul>
+        </div>
       </div>
-      <div class="flex gap-8 text-sm text-partenon-muted">
-        <a href="#story" class="hover:text-partenon-text transition-colors duration-300">Historia</a>
-        <a href="#heroes" class="hover:text-partenon-text transition-colors duration-300">Héroes</a>
-        <a href="developers.html" class="hover:text-partenon-text transition-colors duration-300">Técnico</a>
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-nous-muted border-t border-nous-line pt-8">
+        <p>© 2026 Partenon. Diseñado como parte de Hermes Business OS.</p>
+        <p>Licencia MIT · Open source</p>
       </div>
     </div>
   </footer>
 
   <script>
     // Reveal on scroll
-    const revealElements = document.querySelectorAll('.reveal');
+    const reveals = document.querySelectorAll('.reveal');
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -747,37 +821,96 @@
           revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
-    revealElements.forEach(el => revealObserver.observe(el));
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    reveals.forEach(el => revealObserver.observe(el));
 
     // Counter animation
-    const counters = document.querySelectorAll('.counter-number');
+    const formatNumber = n => n.toLocaleString('en-US');
     const countObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const target = parseInt(entry.target.dataset.target);
-          const duration = 2200;
+          const duration = 1800;
           const start = performance.now();
-          const format = (n) => {
-            if (n >= 1000000) return '1M';
-            if (n >= 100000) return '100K';
-            if (n >= 10000) return '10K';
-            if (n >= 1000) return '1K';
-            return n.toLocaleString();
-          };
           const animate = (now) => {
             const progress = Math.min((now - start) / duration, 1);
-            const ease = 1 - Math.pow(1 - progress, 4);
+            const ease = 1 - Math.pow(1 - progress, 3);
             const current = Math.floor(ease * target);
-            entry.target.textContent = format(current);
+            entry.target.textContent = formatNumber(current);
             if (progress < 1) requestAnimationFrame(animate);
           };
           requestAnimationFrame(animate);
           countObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.4 });
-    counters.forEach(counter => countObserver.observe(counter));
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.counter').forEach(el => {
+      el.textContent = '0';
+      countObserver.observe(el);
+    });
+
+    // Milestone data
+    const milestones = [
+      { title: '10 Hermes', desc: 'Primeras empresas operando con el panteón. Cada héroe está en modo piloto y aprende la voz del negocio.', focus: 'Focus: validar narrativa de finanzas y comunicación.', m1: 15, m1Label: '% ingreso extra', m2: 5, m2Label: 'hrs ahorradas/semana', m3: 100, m3Label: '% números ordenados' },
+      { title: '100 Hermes', desc: 'Primeros casos documentados y plantillas reutilizables. Los héroes empiezan a compartir aprendizajes vía G-Brain.', focus: 'Focus: reducir tiempo de instalación y mejorar prompts.', m1: 18, m1Label: '% ingreso extra', m2: 12, m2Label: 'hrs ahorradas/semana', m3: 50, m3Label: 'K en pagos procesados' },
+      { title: '1,000 Hermes', desc: 'Comunidad de implementadores y templates por industria: construcción, cafeterías, retail, servicios.', focus: 'Focus: escalar con partners y universidades.', m1: 22, m1Label: '% ingreso extra', m2: 18, m2Label: 'hrs ahorradas/semana', m3: 500, m3Label: 'K en pagos procesados' },
+      { title: '10,000 Hermes', desc: 'Red de partners en LATAM, integraciones con sistemas locales y métricas de impacto por país.', focus: 'Focus: convertir a pymes en casos de estudio públicos.', m1: 25, m1Label: '% ingreso extra', m2: 22, m2Label: 'hrs ahorradas/semana', m3: 5, m3Label: 'M en pagos procesados' },
+      { title: '100,000 Hermes', desc: 'Ecosistema autosostenible: héroes open source, marketplace de misiones y verificación de seguridad.', focus: 'Focus: gobernanza, seguridad y calidad de datos.', m1: 28, m1Label: '% ingreso extra', m2: 25, m2Label: 'hrs ahorradas/semana', m3: 50, m3Label: 'M en pagos procesados' },
+      { title: '1,000,000 Hermes', desc: 'La infraestructura operativa por defecto para pymes latinoamericanas. Un panteón de agentes en cada negocio.', focus: 'Focus: profundidad económica y acceso inclusivo.', m1: 30, m1Label: '% ingreso extra', m2: 28, m2Label: 'hrs ahorradas/semana', m3: 500, m3Label: 'M en pagos procesados' }
+    ];
+
+    let activeMilestone = 0;
+    const msTitle = document.getElementById('ms-title');
+    const msDesc = document.getElementById('ms-desc');
+    const msFocus = document.getElementById('ms-focus');
+    const msM1 = document.getElementById('ms-m1');
+    const msM1Label = msM1.nextElementSibling;
+    const msM2 = document.getElementById('ms-m2');
+    const msM2Label = msM2.nextElementSibling;
+    const msM3 = document.getElementById('ms-m3');
+    const msM3Label = msM3.nextElementSibling;
+    const milestoneCards = document.querySelectorAll('.milestone');
+
+    function setMilestone(index) {
+      activeMilestone = index;
+      const m = milestones[index];
+      msTitle.textContent = m.title;
+      msDesc.textContent = m.desc;
+      msFocus.innerHTML = `<p>${m.focus}</p>`;
+      msM1.dataset.target = m.m1; msM1.textContent = '0'; msM1Label.textContent = m.m1Label;
+      msM2.dataset.target = m.m2; msM2.textContent = '0'; msM2Label.textContent = m.m2Label;
+      msM3.dataset.target = m.m3; msM3.textContent = '0'; msM3Label.textContent = m.m3Label;
+      milestoneCards.forEach((card, i) => {
+        if (i === index) card.classList.add('border-nous-purple');
+        else card.classList.remove('border-nous-purple');
+      });
+      [msM1, msM2, msM3].forEach(el => {
+        countObserver.observe(el);
+      });
+    }
+
+    milestoneCards.forEach((card, i) => {
+      card.addEventListener('click', () => setMilestone(i));
+      card.addEventListener('mouseenter', () => setMilestone(i));
+    });
+
+    setMilestone(0);
+
+    // Auto-rotate milestones every 5s unless hovered
+    let rotateInterval = setInterval(() => {
+      const next = (activeMilestone + 1) % milestones.length;
+      setMilestone(next);
+    }, 5000);
+
+    const detailBox = document.getElementById('milestone-detail');
+    detailBox.addEventListener('mouseenter', () => clearInterval(rotateInterval));
+    detailBox.addEventListener('mouseleave', () => {
+      rotateInterval = setInterval(() => {
+        const next = (activeMilestone + 1) % milestones.length;
+        setMilestone(next);
+      }, 5000);
+    });
   </script>
 </body>
 </html>

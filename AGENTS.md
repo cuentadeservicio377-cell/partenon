@@ -10,8 +10,8 @@
 
 ## Stack
 - **Páginas web**: HTML estático + Tailwind CSS CDN + JavaScript vanilla
-- **Tipografía**: Clash Display (display), Geist (body), Instrument Serif (serif accents), JetBrains Mono (mono)
-- **Estética**: fondo oscuro #050505, acento dorado metálico #c9a227, cards con double-bezel, animaciones con cubic-bezier
+- **Tipografía**: Clash Display (display), Geist (body), JetBrains Mono (mono)
+- **Estética**: fondo oscuro plano #050505, acentos púrpura #7F77DD / teal #1D9E75 / coral #D85A30, bordes finos de 0.5-1px, sin gradientes, glows, blur ni neón. Estilo Nous Research / Hermes Agent.
 - **Agentes**: Hermes Agent (Nous Research) + Python skills
 - **Dashboard futuro**: Next.js 15 + React 19 + TypeScript + Tailwind
 - **Datos / workspace**: Google Workspace (Sheets, Docs, Slides, Drive, Calendar, Gmail)
@@ -26,12 +26,12 @@
 - Animaciones solo con `transform` y `opacity`; nunca animar `width`, `height`, `top`, `left`.
 - `backdrop-blur` solo en navbar fijo u overlays, nunca en contenedores con scroll.
 - Mobile-first: todo layout asimétrico debe colapsar a `w-full` + `px-4` bajo 768px.
-- Diagramas Mermaid con tema `dark` y colores Partenon.
+- Diagramas Mermaid con tema `base` y colores Partenon planos (fondos oscuros, bordes finos).
 
 ## Qué NO tocar sin consultar
 - La estructura de los 6 héroes (Tesorero, Mensajero, Cobrador, Guardián, Estratega, Diplomático).
 - La relación "Hermes = empresa" (no CEO).
-- La estética premium oscura/dorada y las fuentes principales.
+- La estética oscura plana de Nous Research y la paleta púrpura/teal/coral.
 - El contador 10 → 1M y sus métricas de impacto.
 
 ## Checklist de Cierre
