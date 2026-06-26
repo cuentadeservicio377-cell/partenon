@@ -12,6 +12,7 @@
 - [ ] Configure NVIDIA NemoClaw/OpenShell onboarding with Hermes profile
 
 ## Completed
+- [x] Final review: verified `python scripts/demo_tesorero.py` PASS, `cd dashboard && npm run build` PASS, internal doc links OK, English consistency OK
 - [x] Rewrite `README.md` with ASCII banner, badges, use cases, feature matrix, architecture, roadmap, and links to all new docs
 - [x] Create `docs/ENTREPRENEUR_PLAYBOOK.md` with hero selection guide, copy-paste prompts, 30-60-90 checklist, and example profile configs
 - [x] Create `docs/HERO_GUIDE.md` with real tools, MCP/env vars, cron jobs, example commands, and integration points for all 7 heroes
