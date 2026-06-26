@@ -1,0 +1,24 @@
+# Profile: partenon-guardian
+# Role: Security, models, API keys, profile permissions, and audit.
+
+model:
+  provider: kimi-coding
+  model: kimi-k2-6
+
+agent:
+  max_iterations: 40
+  enabled_toolsets:
+    - terminal
+    - file
+    - gbrain
+
+mcp:
+  servers:
+    - gbrain
+
+memory:
+  memory_enabled: true
+
+skills:
+  auto_load:
+    - security

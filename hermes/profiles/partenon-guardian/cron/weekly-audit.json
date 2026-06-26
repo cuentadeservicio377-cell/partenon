@@ -1,0 +1,42 @@
+{
+  "name": "weekly-security-audit",
+  "description": "Run a weekly security audit for all Partenon profiles and API keys.",
+  "schedule": "0 9 * * 1",
+  "timezone": "America/Mexico_City",
+  "enabled": true,
+  "profile": "partenon-guardian",
+  "skill": "security",
+  "steps": [
+    {
+      "name": "list_keys",
+      "tool": "key_manager.list_keys",
+      "output": "security/weekly/keys"
+    },
+    {
+      "name": "audit_profiles",
+      "tool": "key_manager.audit_access",
+      "args": {
+        "profiles": [
+          "partenon-guardian",
+          "partenon-treasurer",
+          "partenon-messenger",
+          "partenon-collector",
+          "partenon-strategist",
+          "partenon-diplomat"
+        ]
+      },
+      "output": "security/weekly/profiles"
+    },
+    {
+      "name": "flag_pending_rotations",
+      "tool": "key_manager.list_keys",
+      "condition": "status == 'pending_rotation'",
+      "output": "security/weekly/rotations_needed"
+    }
+  ],
+  "notifications": {
+    "on_violation": true,
+    "on_rotation_needed": true,
+    "destination": "security/events/weekly-audit"
+  }
+}

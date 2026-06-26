@@ -1,0 +1,8 @@
+# Guardian profile marker
+# This file identifies the directory as a Partenon security profile.
+# It contains no secrets. Operational security data lives in the brain,
+# encrypted key references, or an approved secrets manager.
+
+profile: partenon-guardian
+role: security
+marker: active

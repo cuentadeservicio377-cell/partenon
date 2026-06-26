@@ -1,0 +1,124 @@
+# Archivo de configuracion del Tesorero
+# Copiar como .finance en la raiz del workspace de la empresa
+
+[empresa]
+nombre = "Hermes Ejemplo S.A. de C.V."
+rfc = "XAXX010101000"
+moneda = "MXN"
+ejercicio_fiscal = 2026
+responsable = "Tesorero"
+spreadsheet_maestro = ""
+
+[costos_fijos]
+# Gastos recurrentes con monto predecible
+[[costos_fijos.item]]
+nombre = "Renta oficina"
+monto = 15000.00
+frecuencia = "mensual"
+categoria = "oficina"
+dia_vencimiento = 5
+
+[[costos_fijos.item]]
+nombre = "Salarios base"
+monto = 45000.00
+frecuencia = "quincenal"
+categoria = "nomina"
+dia_vencimiento = 15
+
+[[costos_fijos.item]]
+nombre = "Servicios cloud"
+monto = 2500.00
+frecuencia = "mensual"
+categoria = "tecnologia"
+dia_vencimiento = 20
+
+[costos_variables]
+# Gastos que cambian segun volumen de operacion
+[[costos_variables.item]]
+nombre = "Materiales de produccion"
+categoria = "materiales"
+presupuesto_mensual = 30000.00
+
+[[costos_variables.item]]
+nombre = "Publicidad digital"
+categoria = "marketing"
+presupuesto_mensual = 12000.00
+proveedor_default = "Google Ads"
+
+[[costos_variables.item]]
+nombre = "Flete y envios"
+categoria = "logistica"
+presupuesto_mensual = 5000.00
+
+[presupuestos]
+# Presupuestos activos por area
+[[presupuestos.area]]
+nombre = "Operacion"
+monto = 100000.00
+periodo = "2026-Q3"
+responsable = "Estratega"
+
+[[presupuestos.area]]
+nombre = "Marketing"
+monto = 50000.00
+periodo = "2026-Q3"
+responsable = "Mensajero"
+
+[[presupuestos.area]]
+nombre = "Tecnologia"
+monto = 25000.00
+periodo = "2026-Q3"
+responsable = "Guardian"
+
+[proveedores]
+# Directorio de proveedores habituales
+[[proveedores.item]]
+id = "P001"
+nombre = "Papeleria Central"
+contacto = "Ana Garcia"
+telefono = "555-0104"
+email = "ana@papeleriacentral.com"
+condiciones_pago = "contado"
+tiempo_entrega = "1-2 dias habiles"
+calificacion = 5
+
+[[proveedores.item]]
+id = "P002"
+nombre = "Servicios Cloud MX"
+contacto = "Carlos Ruiz"
+telefono = "555-0201"
+email = "carlos@cloudmx.com"
+condiciones_pago = "30 dias"
+tiempo_entrega = "inmediato"
+calificacion = 4
+
+[dashboards]
+# Hojas del dashboard financiero
+[[dashboards.hoja]]
+nombre = "Resumen Mensual"
+tipo = "kpi"
+actualizar = "diario"
+
+[[dashboards.hoja]]
+nombre = "Flujo de Caja"
+tipo = "proyeccion"
+actualizar = "semanal"
+
+[[dashboards.hoja]]
+nombre = "Proveedores"
+tipo = "directorio"
+actualizar = "mensual"
+
+[[dashboards.hoja]]
+nombre = "Presupuestos vs Real"
+tipo = "comparativo"
+actualizar = "semanal"
+
+[reglas]
+# Reglas de negocio del Tesorero
+iva = 0.16
+margen_minimo_esperado = 30.0
+alerta_dias_vencimiento = 3
+redondeo_decimales = 2
+permite_gasto_sin_presupuesto = false
+conecta_con_mensajero = true

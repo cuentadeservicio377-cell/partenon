@@ -1,0 +1,93 @@
+# Archivo .relations de Partenon — Diplomático
+# Copia este archivo como .relations en la raíz del workspace de la empresa.
+
+empresa: Mi Empresa
+archivo: .relations
+actualizado: 2026-06-26T00:00:00
+
+clientes:
+  - id: CLI-001
+    nombre: Cliente Ejemplo
+    contacto_principal:
+      nombre: Ana López
+      email: ana@cliente-ejemplo.com
+      telefono: "+52 55 1234 5678"
+    categoria: servicios
+    origen: referido
+    estado: activa
+    calificacion: A
+    calificacion_motivo: Puntual, comunicación clara, proyectos recurrentes.
+    fecha_registro: 2026-01-15T10:00:00
+    ultima_actividad: 2026-06-20T14:30:00
+    notas: Cliente clave. Prefiere reuniones por la mañana.
+    proyectos:
+      - PROJ-001
+    hitos:
+      - id: HIT-CLI-001-01
+        descripcion: Entrega de propuesta de servicios
+        fecha: 2026-06-30
+        estado: propuesto
+        confirmado_escrito: false
+        responsable: Diplomatico
+        siguiente_paso: Enviar borrador y confirmar recepción
+
+proveedores:
+  - id: PROV-001
+    nombre: Proveedor Ejemplo
+    contacto_principal:
+      nombre: Carlos Ruiz
+      email: carlos@proveedor-ejemplo.com
+      telefono: "+52 55 8765 4321"
+    categoria: mobiliario
+    servicio: Renta de sillas y mesas
+    estado: activa
+    calificacion: B
+    calificacion_motivo: Buenos precios, entregas ocasionalmente retrasadas.
+    fecha_registro: 2026-02-10T09:00:00
+    ultima_actividad: 2026-06-22T11:00:00
+    notas: Confirmar disponibilidad con al menos 7 días de anticipación.
+    contratos:
+      - id: CONT-PROV-001-01
+        tipo: acuerdo_marco
+        vigencia_inicio: 2026-01-01
+        vigencia_fin: 2026-12-31
+        terminos: Tarifa preferencial por volumen mayor a 50 piezas.
+    hitos:
+      - id: HIT-PROV-001-01
+        descripcion: Confirmar disponibilidad para evento del 15 de julio
+        fecha: 2026-06-28
+        estado: propuesto
+        confirmado_escrito: false
+        responsable: Diplomatico
+        siguiente_paso: Llamar y enviar confirmación por email
+
+contratos:
+  - id: CONT-CLI-001-01
+    entidad_id: CLI-001
+    tipo: servicio
+    objeto: Consultoría de operaciones
+    monto: 50000
+    moneda: MXN
+    vigencia_inicio: 2026-06-01
+    vigencia_fin: 2026-08-31
+    estado: vigente
+    documento_url: ""
+
+comunicaciones:
+  - id: COM-001
+    entidad_id: CLI-001
+    canal: email
+    fecha: 2026-06-20T14:30:00
+    asunto: Seguimiento a propuesta
+    resumen: Ana solicitó ajustar alcance. Se enviará nueva versión el 28 de junio.
+    siguiente_paso: Enviar borrador ajustado
+    hito_relacionado: HIT-CLI-001-01
+
+recordatorios:
+  - id: REC-001
+    entidad_id: PROV-001
+    tipo: hito
+    fecha: 2026-06-27T09:00:00
+    mensaje: Recordar a Proveedor Ejemplo confirmar disponibilidad para el 15 de julio.
+    canal: email
+    estado: pendiente

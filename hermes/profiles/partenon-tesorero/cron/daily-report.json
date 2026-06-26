@@ -1,0 +1,33 @@
+{
+  "name": "daily-report",
+  "description": "Reporte diario de finanzas: ingresos, gastos, vencimientos y alertas.",
+  "schedule": "0 8 * * *",
+  "timezone": "America/Mexico_City",
+  "profile": "partenon-tesorero",
+  "skill": "finance",
+  "enabled": true,
+  "actions": [
+    {
+      "tool": "finance.tools.google_sheets",
+      "method": "read_sheet",
+      "args": {
+        "spreadsheet_id": "${PARTENON_TESORERO_SHEET_ID}",
+        "range_name": "Alertas!A:G"
+      }
+    },
+    {
+      "tool": "finance.tools.google_sheets",
+      "method": "read_sheet",
+      "args": {
+        "spreadsheet_id": "${PARTENON_TESORERO_SHEET_ID}",
+        "range_name": "Resumen Mensual!A:G"
+      }
+    }
+  ],
+  "output": {
+    "channel": "gbrain",
+    "summary_template": "Reporte diario del Tesorero: {fecha}",
+    "include_alerts": true,
+    "include_pending_payments": true
+  }
+}

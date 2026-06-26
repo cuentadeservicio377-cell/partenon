@@ -4,9 +4,9 @@
 - [ ] Construir el repositorio del sistema Partenon basado en Hermes Business OS
 
 ## Pendientes
-- [ ] Implementar core y héroes (Tesorero, Mensajero, Cobrador, Guardián, Estratega, Diplomático)
+- [ ] Implementar core y héroes (Tesorero, Mensajero, Cobrador, Estratega, Diplomático)
 - [ ] Integrar Google Workspace, Stripe y G-Brain
-- [ ] Crear archivos de perfil `.finance`, `.design`, `.payments`, `.security`, `.ops`, `.relations`
+- [ ] Crear archivos de perfil `.finance`, `.design`, `.payments`, `.ops`, `.relations`
 - [ ] Workshop técnico de 90 min (formato reusable)
 
 ## Hecho
@@ -28,6 +28,7 @@
 - [x] Responsive móvil verificado en 1440px y 390px
 - [x] Screenshots desktop y mobile actualizados
 - [x] README.md, AGENTS.md, SPEC.md y TODOS.md actualizados
+- [x] Perfil `partenon-guardian` creado con SOUL.md, config.yaml, .env.example, .security, skill de seguridad, plantilla y cron
 
 ## Parking Lot (NO tocar ahora)
 _Cosas descubiertas durante el desarrollo que NO están en el plan actual_

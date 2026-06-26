@@ -1,0 +1,84 @@
+{
+  "name": "daily-collection",
+  "description": "Revisión diaria de cobranza: vencimientos, pagos fallidos y recordatorios pendientes.",
+  "profile": "partenon-cobrador",
+  "schedule": {
+    "timezone": "America/Mexico_City",
+    "cron": "0 8 * * *",
+    "human": "Todos los días a las 08:00 hora de Ciudad de México"
+  },
+  "tasks": [
+    {
+      "id": "list-overdue",
+      "name": "Listar pagos vencidos",
+      "tool": "payments.get_overdue_payments",
+      "params": {},
+      "output": "overdue_payments"
+    },
+    {
+      "id": "list-upcoming",
+      "name": "Listar pagos por vencer en 3 días",
+      "tool": "payments.get_upcoming_payments",
+      "params": {
+        "days": 3
+      },
+      "output": "upcoming_payments"
+    },
+    {
+      "id": "list-failed-subscriptions",
+      "name": "Listar suscripciones con pago fallido",
+      "tool": "payments.get_failed_subscriptions",
+      "params": {},
+      "output": "failed_subscriptions"
+    },
+    {
+      "id": "send-reminders",
+      "name": "Enviar recordatorios según política",
+      "tool": "payments.send_due_reminders",
+      "params": {
+        "max_reminders": 3
+      },
+      "depends_on": [
+        "list-overdue",
+        "list-upcoming"
+      ],
+      "output": "reminders_sent"
+    },
+    {
+      "id": "generate-brief",
+      "name": "Generar resumen de cobranza",
+      "tool": "payments.generate_income_report",
+      "params": {
+        "start_date": "{{today_start}}",
+        "end_date": "{{today_end}}"
+      },
+      "output": "daily_collection_brief"
+    },
+    {
+      "id": "notify-treasurer",
+      "name": "Notificar al Tesorero",
+      "tool": "gbrain.create_mission",
+      "params": {
+        "target_profile": "partenon-tesorero",
+        "title": "Resumen diario de cobranza",
+        "payload": "{{daily_collection_brief}}"
+      },
+      "depends_on": [
+        "generate-brief"
+      ],
+      "output": "treasurer_notification"
+    }
+  ],
+  "outputs": [
+    "overdue_payments",
+    "upcoming_payments",
+    "failed_subscriptions",
+    "reminders_sent",
+    "daily_collection_brief",
+    "treasurer_notification"
+  ],
+  "on_error": {
+    "action": "notify_owner",
+    "message": "El Cobrador no pudo completar la revisión diaria de cobranza."
+  }
+}

@@ -1,0 +1,87 @@
+# Partenon Security Template
+# Copy to the active profile as .security and fill with real references.
+# Never store raw secret values in this file.
+
+metadata:
+  profile: partenon-guardian
+  version: "1.0.0"
+  updated_at: "2026-06-26T00:00:00Z"
+
+providers:
+  nvidia:
+    env_var: NVIDIA_API_KEY
+    pattern: "^nvapi-[A-Za-z0-9_-]+$"
+    required: true
+    key_reference: "env://NVIDIA_API_KEY"
+    rotation_days: 90
+
+  openai:
+    env_var: OPENAI_API_KEY
+    pattern: "^sk-[A-Za-z0-9]+$"
+    required: true
+    key_reference: "env://OPENAI_API_KEY"
+    rotation_days: 90
+
+  kimi:
+    env_var: KIMI_API_KEY
+    pattern: "^[A-Za-z0-9_-]{16,}$"
+    required: true
+    key_reference: "env://KIMI_API_KEY"
+    rotation_days: 90
+
+  stripe:
+    env_var: STRIPE_SECRET_KEY
+    pattern: "^sk_(test|live)_[A-Za-z0-9]+$"
+    required: true
+    key_reference: "env://STRIPE_SECRET_KEY"
+    rotation_days: 90
+
+permissions_by_profile:
+  partenon-guardian:
+    tools:
+      - terminal
+      - file
+      - gbrain
+    mcp_servers:
+      - gbrain
+    skills:
+      - security
+    files:
+      - hermes/profiles/partenon-guardian/**
+    actions:
+      - list_keys
+      - rotate_key
+      - audit_access
+      - validate_access
+
+  partenon-treasurer:
+    tools:
+      - terminal
+      - file
+    mcp_servers: []
+    skills:
+      - finance
+    files:
+      - hermes/profiles/partenon-treasurer/**
+    actions:
+      - read_financial_data
+
+  partenon-messenger:
+    tools:
+      - terminal
+      - file
+    mcp_servers: []
+    skills:
+      - messaging
+    files:
+      - hermes/profiles/partenon-messenger/**
+    actions:
+      - send_message
+
+policies:
+  least_privilege: true
+  default_deny: true
+  log_all_access: true
+  mask_secrets_in_logs: true
+  rotation_reminder_days: 90
+  audit_retention_days: 365

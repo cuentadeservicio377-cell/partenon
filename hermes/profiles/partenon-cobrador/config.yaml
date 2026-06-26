@@ -1,0 +1,73 @@
+---
+profile:
+  name: partenon-cobrador
+  display_name: Cobrador
+  role: pagos, cobranza, Stripe, payment links, suscripciones, facturas
+  archivo: .payments
+  version: 0.1.0
+  hermes_agent: true
+
+model:
+  default: openrouter/deepseek/deepseek-chat
+  fallback: openrouter/anthropic/claude-3.5-sonnet
+  temperature: 0.2
+  max_tokens: 2048
+
+tools:
+  - stripe
+  - google_workspace
+  - gbrain
+
+mcp_servers:
+  - stripe
+  - google_workspace
+  - gbrain
+
+permissions:
+  - create_payment_link
+  - create_subscription
+  - send_payment_reminder
+  - record_payment
+  - generate_income_report
+  - read_payments_file
+  - write_payments_file
+
+workflows:
+  - name: cobro_por_link
+    steps:
+      - validar_pago_en_sistema
+      - crear_payment_link
+      - enviar_link_al_cliente
+      - registrar_mision_en_gbrain
+  - name: suscripcion
+    steps:
+      - validar_cliente
+      - crear_subscription
+      - guardar_en_payments_file
+      - notificar_a_tesorero
+  - name: recordatorio
+    steps:
+      - identificar_pagos_vencidos
+      - personalizar_mensaje
+      - enviar_recordatorio
+      - actualizar_estado_de_cobranza
+  - name: pago_confirmado
+    steps:
+      - confirmar_pago_en_stripe
+      - registrar_pago
+      - sincronizar_con_tesorero
+      - actualizar_estado_de_cliente
+
+handoffs:
+  to:
+    - partenon-tesorero: cuando el pago requiere registro contable o conciliación.
+    - partenon-diplomatico: cuando el cliente no responde o hay una disputa.
+    - partenon-guardian: cuando se detecta fraude o intento de pago inválido.
+  from:
+    - partenon-tesorero: cuando se identifica una cuenta por cobrar.
+    - partenon-diplomatico: cuando se acuerda un plan de pago.
+
+logging:
+  level: INFO
+  destination: console
+  include_mission_id: true
