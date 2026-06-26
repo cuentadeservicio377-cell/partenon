@@ -152,8 +152,8 @@ python scripts/demo_tesorero.py
 
 This generates:
 
-- `data/sample_gastos.xlsx`
-- `data/sample_gastos_report.json`
+- `data/sample_expenses.xlsx`
+- `data/sample_expenses_report.json`
 
 ## Dashboard
 
