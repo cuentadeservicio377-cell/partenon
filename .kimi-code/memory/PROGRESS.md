@@ -172,6 +172,37 @@
 - Cleaned generated test artifacts (`.payments`, `output/`, cache files, temporary goals JSON).
 - Updated `TODOS.md` with completed translation and verification tasks.
 
+### 2026-06-26 — Brain profile i18n audit and gap-fix
+- Audited `web/heroes.html` and `web/developers.html` promises for The Brain (MCP orchestration, context sharing, pattern analysis, insight generation).
+- Verified all `partenon-brain` profile files are in English (`SOUL.md`, `config.yaml`, `.env.example`, `SKILL.md`, cron JSON, templates).
+- Added missing MCP tools in `hermes/profiles/partenon-brain/skills/memory/tools/`:
+  - `mcp_hub.py` — `share_context`, `find_patterns`, `orchestrate_agents`, `register_agent`, `generate_insight`
+  - `sync.py` — `collect_learnings`, `collect_decisions`, `index_in_gbrain`, `notify`
+  - `__init__.py` — exports all tool functions
+- Fixed `gbrain_client.py` `put_page` to send content via `stdin` instead of a broken shell-redirection argument.
+- Updated `SKILL.md` to document the new tools and bumped `config.yaml` version to `0.2.0`.
+- Verified all Brain Python tools compile with `python3 -m py_compile`.
+- Fixed Python 3.9 compatibility by replacing `str | None` union syntax with `Optional[str]`.
+- Committed changes: `aa910c5`, `54ef785`.
+
+### 2026-06-26 — Diplomat profile i18n audit and gap-fix
+- Audited `web/heroes.html` and `web/developers.html` promises for The Diplomat (client/vendor relationships, CRM operations, meeting scheduler, follow-ups, proposals).
+- Verified all `partenon-diplomatico` profile files are in English (`SOUL.md`, `config.yaml`, `.env.example`, `SKILL.md`, cron JSON, templates).
+- Translated Spanish placeholder names in `templates/.relations.example` to English.
+- Restructured `config.yaml` with explicit MCP server definitions, model fallback, and Diplomat role.
+- Expanded `.env.example` with CRM provider and meeting scheduler variables.
+- Added profile-level `SKILL.md`.
+- Added `tools/__init__.py` to the relations skill package.
+- Added missing MCP-aligned tools in `hermes/profiles/partenon-diplomatico/skills/relations/tools/`:
+  - `sync_contacts.py` — export/import `.relations` contacts to HubSpot/Salesforce/custom CRM payloads.
+  - `schedule_meeting.py` — create meeting records and calendar event payloads.
+  - `log_interaction.py` — wrapper for logging communications/calls/emails.
+  - `auto_followup.py` — daily follow-up report entry point.
+  - `generate_proposal.py` — draft client proposals from `.relations` context.
+- Updated `skills/relations/SKILL.md` to document all tools and commands.
+- Verified all Diplomat Python tools compile with `python3 -m py_compile` and run basic smoke tests.
+- Committed changes: `9faf8a1`.
+
 ## Completed Features
 - Master web pages rebuilt and committed.
 - Six Hermes profiles with updated SOUL.md (including Pegasus).

@@ -184,6 +184,9 @@ Profiles map directly to existing or proposed HBOS skills:
 - HBOS as existing technical base; Partenon is the presentation and profile-extension layer.
 - Public GitHub repository: `https://github.com/cuentadeservicio377-cell/partenon`.
 - `partenon-brain` profile added as seventh hero for collective memory via G-Brain.
+- `partenon-brain` exposes MCP tools (`share_context`, `find_patterns`, `orchestrate_agents`, `register_agent`, `generate_insight`) and daily sync tools (`collect_learnings`, `collect_decisions`, `index_in_gbrain`, `notify`) to match `web/heroes.html` and `web/developers.html`.
+- `partenon-diplomatico` profile translated to English, restructured `config.yaml`, expanded `.env.example`, and aligned with `web/heroes.html` / `web/developers.html` promises.
+- `partenon-diplomatico` exposes MCP-aligned tools: `sync_contacts`, `schedule_meeting`, `log_interaction`, `auto_followup`, `generate_proposal`.
 - Global `.env.example` with safe placeholders to avoid GitHub secret scanning.
 - `install.sh` and `scripts/setup_hermes.py` for local environment setup; they do not download unverified binaries and provide clear instructions when Hermes CLI is missing.
 - `partenon-core/tools/eval_loop.py` added as a lightweight QA stub for hero mission outputs.

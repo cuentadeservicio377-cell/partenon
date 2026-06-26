@@ -80,6 +80,9 @@
 - [x] Syntax-check all profile Python tools
 - [x] Run demo_tesorero.py successfully
 - [x] Build dashboard (Next.js) successfully
+- [x] Audit and gap-fix `partenon-diplomatico` profile (template translation, config.yaml, SKILL.md, .env.example)
+- [x] Add Diplomat MCP-aligned tools: `sync_contacts`, `schedule_meeting`, `log_interaction`, `auto_followup`, `generate_proposal`
+- [x] Verify all Diplomat Python tools compile with `python3 -m py_compile`
 
 ## Pending
 - [ ] Standardize `GBRAIN_DATABASE_URL` naming across .env and gbrain server
