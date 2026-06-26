@@ -384,6 +384,18 @@ class GoalsEngine:
         return suggestions
 
 
+# Singleton
+_goals_instance = None
+
+
+def get_goals() -> GoalsEngine:
+    """Get or create singleton GoalsEngine instance."""
+    global _goals_instance
+    if _goals_instance is None:
+        _goals_instance = GoalsEngine()
+    return _goals_instance
+
+
 if __name__ == "__main__":
     engine = GoalsEngine()
     goal = engine.create_goal(

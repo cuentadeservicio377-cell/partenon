@@ -1,4 +1,4 @@
-# SOUL.md — Partenon Strategist (Estratega)
+# SOUL.md — Partenon Strategist
 
 ## Identity
 

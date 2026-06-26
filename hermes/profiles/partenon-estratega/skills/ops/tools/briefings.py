@@ -399,6 +399,18 @@ class Briefings:
         return "\n".join(lines)
 
 
+# Singleton
+_briefings_instance = None
+
+
+def get_briefings() -> Briefings:
+    """Get or create singleton Briefings instance."""
+    global _briefings_instance
+    if _briefings_instance is None:
+        _briefings_instance = Briefings()
+    return _briefings_instance
+
+
 if __name__ == "__main__":
     mb = Briefings()
     print("=== MORNING BRIEFING ===")

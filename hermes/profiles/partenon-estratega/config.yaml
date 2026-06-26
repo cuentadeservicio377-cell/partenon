@@ -37,6 +37,6 @@ cron:
 metadata:
   partenon:
     hero: strategist
-    color: "#00D4FF"
-    tags: [operations, projects, tasks, goals, calendar, briefings]
+    color: "#FFB800"
+    tags: [operations, projects, tasks, goals, calendar, briefings, email, notes, reminders]
     related_profiles: [partenon-tesorero, partenon-mensajero, partenon-cobrador, partenon-guardian, partenon-diplomatico]

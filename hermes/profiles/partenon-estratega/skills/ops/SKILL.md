@@ -74,11 +74,47 @@ Commands:
 - "Reminder for [task]"
 - "What do I have today"
 
+Tools:
+- `calendar.create_event`
+- `calendar.list_events`
+- `calendar.schedule_meeting`
+- `calendar.send_reminder`
+
 Integration:
 - Google Calendar MCP to create events.
 - Gmail MCP to send formal reminders.
 
-### 5. Morning Briefing
+### 5. Email Processing
+
+Commands:
+- "Draft email to [recipient] about [subject]"
+- "Summarize unread threads"
+- "Send follow-up to [client]"
+
+Tools:
+- `email.send_email`
+- `email.parse_threads`
+
+Integration:
+- Gmail MCP to send and read messages.
+- All external sends require explicit confirmation.
+
+### 6. Notes and Detail Tracking
+
+Commands:
+- "Note about [project]: [detail]"
+- "What do we know about [client/project]?"
+- "Add context to [project]"
+
+Tools:
+- `notes.add_note`
+- `notes.get_notes`
+- `notes.get_project_context`
+
+Integration:
+- Local JSON storage and G-Brain for cross-agent context.
+
+### 7. Morning Briefing
 
 Time: 8:00 Monday to Friday.
 
@@ -89,7 +125,7 @@ Content:
 - Follow-up reminders.
 - Opening question: "Where do we start?"
 
-### 6. Goals (OKRs)
+### 8. Goals (OKRs)
 
 Commands:
 - "Weekly goal: [title]"
@@ -102,7 +138,7 @@ Automatic tracking by KPI sources:
 - tasks.completed
 - payments.received
 
-### 7. Weekly Retro
+### 9. Weekly Retro
 
 Time: Sunday 20:00.
 
