@@ -6,7 +6,7 @@
 
 - **Project**: Partenon
 - **Started**: 2026-06-23
-- **Status**: Public GitHub repository translated to English for international audience. All seven Hermes profiles, core tools, docs, data files, templates, cron jobs, and install scripts are now in English. Remaining gaps are tracked in `MISSING_IMPLEMENTATION.md`.
+- **Status**: Public GitHub repository translated to English for international audience. All seven Hermes profiles, core tools, docs, data files, templates, cron jobs, and install scripts are now in English. Collector (partenon-cobrador) profile audit and gap-fix completed. Remaining gaps are tracked in `MISSING_IMPLEMENTATION.md`.
 - **Live site**: `https://hermespartenon.online/`
 - **Repo**: `https://github.com/cuentadeservicio377-cell/partenon`
 - **Profiles**: Scribe/Treasurer, Herald/Messenger, Collector, Guardian, Strategist, Diplomat, Brain.
@@ -187,6 +187,7 @@ Profiles map directly to existing or proposed HBOS skills:
 - `partenon-brain` exposes MCP tools (`share_context`, `find_patterns`, `orchestrate_agents`, `register_agent`, `generate_insight`) and daily sync tools (`collect_learnings`, `collect_decisions`, `index_in_gbrain`, `notify`) to match `web/heroes.html` and `web/developers.html`.
 - `partenon-diplomatico` profile translated to English, restructured `config.yaml`, expanded `.env.example`, and aligned with `web/heroes.html` / `web/developers.html` promises.
 - `partenon-diplomatico` exposes MCP-aligned tools: `sync_contacts`, `schedule_meeting`, `log_interaction`, `auto_followup`, `generate_proposal`.
+- `partenon-cobrador` exposes MCP-aligned tools: `create_payment_link`, `create_subscription`, `create_invoice`, `list_charges`, `monitor_fraud`, `send_payment_reminder`, `record_payment`, `generate_income_report`, `read_pending_payments`, `read_overdue_payments`, `classify_risk`, `schedule_followup`, `notify`, `get_upcoming_payments`, `get_failed_subscriptions`.
 - Global `.env.example` with safe placeholders to avoid GitHub secret scanning.
 - `install.sh` and `scripts/setup_hermes.py` for local environment setup; they do not download unverified binaries and provide clear instructions when Hermes CLI is missing.
 - `partenon-core/tools/eval_loop.py` added as a lightweight QA stub for hero mission outputs.

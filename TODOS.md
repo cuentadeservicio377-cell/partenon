@@ -83,6 +83,9 @@
 - [x] Audit and gap-fix `partenon-diplomatico` profile (template translation, config.yaml, SKILL.md, .env.example)
 - [x] Add Diplomat MCP-aligned tools: `sync_contacts`, `schedule_meeting`, `log_interaction`, `auto_followup`, `generate_proposal`
 - [x] Verify all Diplomat Python tools compile with `python3 -m py_compile`
+- [x] Audit and gap-fix `partenon-cobrador` profile (template schema alignment, config.yaml, SKILL.md, .env.example)
+- [x] Add Collector MCP-aligned tools: `create_invoice`, `list_charges`, `monitor_fraud`, `read_pending_payments`, `read_overdue_payments`, `classify_risk`, `schedule_followup`, `notify`
+- [x] Verify all Collector Python tools compile with `python3 -m py_compile`
 
 ## Pending
 - [ ] Standardize `GBRAIN_DATABASE_URL` naming across .env and gbrain server

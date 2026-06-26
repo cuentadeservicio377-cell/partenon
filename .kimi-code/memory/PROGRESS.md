@@ -2,6 +2,30 @@
 
 ## Session History
 
+### 2026-06-26 — Collector (partenon-cobrador) i18n audit and gap-fix
+- Audited `hermes/profiles/partenon-cobrador` against `web/heroes.html`, `web/developers.html`, and `web/index.html`.
+- Verified all profile files are in English; no Spanish prose remains.
+- Added missing capabilities and MCP-aligned tools:
+  - `create_invoice` for the Invoicing capability.
+  - `list_charges` for Revenue Tracking.
+  - `monitor_fraud` for Fraud Monitoring.
+  - `read_pending_payments`, `read_overdue_payments`, `classify_risk`, `schedule_followup`, and `notify` for collection workflows.
+  - `get_upcoming_payments` and `get_failed_subscriptions` for daily cron jobs.
+- Fixed broken/inconsistent logic:
+  - `record_payment` now stores `synced_with_treasurer` (aligned with `.payments.example`) and reports sync to Treasurer.
+  - `generate_income_report` now populates `by_product` using the price-product lookup.
+  - Cron JSON files now reference tools that actually exist.
+- Updated `config.yaml` with new permissions, an invoice workflow, and a fraud-review workflow.
+- Updated `SOUL.md` and `SKILL.md` to document the full capability set.
+- Aligned `.payments.example` field names with the tool implementation (`customer_email`, `stripe_commission`, `synced_with_treasurer`, invoices section).
+- Added `skills/payments/tools/__init__.py` for package consistency.
+- Verification:
+  - `python3 -m py_compile hermes/profiles/partenon-cobrador/skills/payments/tools/*.py` PASS.
+  - `stripe_tools.py` smoke test PASS.
+  - JSON cron files validated PASS.
+  - YAML config validated PASS.
+- Committed: `8a888d9 i18n(audit): complete Collector (partenon-cobrador) i18n gap-fix`.
+
 ### 2026-06-26 — Final i18n pass: AGENTS/DESIGN/SPEC, dashboard UI, profile tooling
 - Translated remaining Spanish source files to English:
   - `AGENTS.md`, `DESIGN.md`, `SPEC.md`, and remaining Spanish snippets in `docs/superpowers/plans/2026-06-26-partenon-system-build.md`.
