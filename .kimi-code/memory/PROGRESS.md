@@ -1,129 +1,140 @@
-# Progreso
+# Progress
 
-## Historial de Sesiones
+## Session History
 
-### 2026-06-26 — Creación del repositorio público en GitHub con loop-engineering
-- Activado loop-engineering para construir el repositorio de Partenon en GitHub de punta a punta.
-- Creado repo público `cuentadeservicio377-cell/partenon` y subida la rama `main`.
-- Resuelto bloqueo de GitHub Push Protection: placeholder `sk_test_[REDACTED]` en `.env.example` fue detectado como secreto; se reescribió el historial con `git filter-repo` para eliminar el patrón del repo.
-- Completada estructura del repo:
-  - `.env.example` global con placeholders seguros.
-  - Perfil `partenon-brain` completo: `SOUL.md`, `config.yaml`, `.env.example`, `.brain`, skill `memory` con `gbrain_client.py`, cron diario y template.
-  - `install.sh` actualizado para instalar los 7 perfiles.
-  - `scripts/setup_hermes.py` como helper de instalación alternativo.
-  - Limpieza de `__pycache__`.
-- Documentación completa añadida:
-  - `docs/for-founders.md` basado en `web/index.html`.
-  - `docs/for-developers.md` basado en `web/developers.html`.
-  - `docs/architecture.md` con visión general del sistema.
-  - `README.md` actualizado con URL del repo, badge live, links a docs y estado actual.
-- Verificación:
+### 2026-06-26 — docs-and-readme audit and English translation
+- Audited `README.md` and `docs/` against `web/index.html`, `web/heroes.html` and `web/developers.html`.
+- Translated `README.md`, `docs/for-founders.md`, `docs/for-developers.md` and `docs/architecture.md` to English.
+- Translated `partenon-core/README.md`, `partenon-core/SKILL.md`, `gbrain/README.md`, `CHANGELOG.md` and `TODOS.md` to English.
+- Updated `README.md` to accurately reflect repository contents: live site, GitHub URL, installation options, hero profiles, stack, demo, dashboard and known gaps.
+- Removed the non-working `curl https://www.nvidia.com/nemoclaw.sh` command from installation instructions and pointed users to official NVIDIA instructions.
+- Documented known gaps: eval-loop stub not implemented; live Google Workspace/Stripe/G-Brain integrations require real credentials; `GBRAIN_DATABASE_URL` vs `GBrain_DATABASE_URL` naming inconsistency.
+- Verified that no Spanish remains in the modified files.
+- Committed changes locally.
+
+### 2026-06-26 — Public GitHub repository created with loop-engineering
+- Activated loop-engineering to build the Partenon GitHub repository end-to-end.
+- Created public repo `cuentadeservicio377-cell/partenon` and pushed the `main` branch.
+- Resolved GitHub Push Protection block: placeholder `sk_test_[REDACTED]` in `.env.example` was detected as a secret; history was rewritten with `git filter-repo` to remove the pattern.
+- Completed repository structure:
+  - Global `.env.example` with safe placeholders.
+  - Complete `partenon-brain` profile: `SOUL.md`, `config.yaml`, `.env.example`, `.brain`, `memory` skill with `gbrain_client.py`, daily cron and template.
+  - Updated `install.sh` to install the 7 profiles.
+  - `scripts/setup_hermes.py` as an alternative install helper.
+  - Cleaned up `__pycache__`.
+- Added complete documentation:
+  - `docs/for-founders.md` based on `web/index.html`.
+  - `docs/for-developers.md` based on `web/developers.html`.
+  - `docs/architecture.md` with system overview.
+  - Updated `README.md` with repo URL, live badge, doc links and current status.
+- Verification:
   - `python scripts/demo_tesorero.py` PASS.
   - `cd dashboard && npm run build` PASS.
-  - `python3 -m py_compile` en scripts y perfil Brain PASS.
-  - `web-deploy.zip` regenerado (27 MB).
-  - Sitio live `https://hermespartenon.online/` responde HTTP 200 en `/`, `/heroes.html` y `/developers.html`.
-- Loop completado en 4 iteraciones. Todos los gates ≥ 7/10.
-- Actualizados `TODOS.md`, `PROGRESS.md`, `MEMORY.md`, brain central y gbrain.
+  - `python3 -m py_compile` on scripts and Brain profile PASS.
+  - Regenerated `web-deploy.zip` (27 MB).
+  - Live site `https://hermespartenon.online/` responds HTTP 200 on `/`, `/heroes.html` and `/developers.html`.
+- Loop completed in 4 iterations. All gates ≥ 7/10.
+- Updated `TODOS.md`, `PROGRESS.md`, `MEMORY.md`, brain central and gbrain.
 
-### 2026-06-26 — Migración de `Developers.tsx` a `web/developers.html` + despliegue en hermespartenon.online
-- Reemplazada la página `web/developers.html` anterior por una versión estática basada EXACTAMENTE en `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Developers.tsx`.
-- Stack: HTML5 estático + Tailwind CSS CDN + CSS personalizado; fuentes Cinzel, Inter, JetBrains Mono; iconos Material Symbols Sharp y SVG inline.
-- Secciones migradas: hero técnico "THE ARCHITECTURE OF HEROES", diagrama de arquitectura SVG interactivo, especificaciones técnicas de los 7 héroes (Scribe, Herald, Collector, Guardian, Strategist, Diplomat, Brain) con tablas de capabilities/MCP tools y ejemplos CLI, Model Context Protocol con diagrama SVG y tabla de métodos, Integration Patterns con 3 sequence diagrams, Google Workspace file structure, Workshop Protocol con timeline visual, materiales y formatos, Install con tabs (Quick Start / Manual / Docker), repository structure, environment variables, API Reference con CLI commands y REST endpoints.
-- Interactividad preservada: reveal on scroll con IntersectionObserver, navbar flotante con tema claro/oscuro según sección, mobile nav hamburguesa, copy-to-clipboard con toast, install tabs, acordeones de configuración por héroe, hover sobre nodos del diagrama de arquitectura, smooth scroll.
-- Correcciones aplicadas en TODO el contenido:
+### 2026-06-26 — Migrated `Developers.tsx` to `web/developers.html` + deployed to hermespartenon.online
+- Replaced the previous `web/developers.html` with a static version based EXACTLY on `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Developers.tsx`.
+- Stack: static HTML5 + Tailwind CSS CDN + custom CSS; Cinzel, Inter, JetBrains Mono fonts; Material Symbols Sharp and inline SVG icons.
+- Migrated sections: technical hero "THE ARCHITECTURE OF HEROES", interactive SVG architecture diagram, technical specifications for the 7 heroes (Scribe, Herald, Collector, Guardian, Strategist, Diplomat, Brain) with capabilities/MCP tools tables and CLI examples, Model Context Protocol section with SVG diagram and methods table, Integration Patterns with 3 sequence diagrams, Google Workspace file structure, Workshop Protocol with visual timeline, materials and formats, Install tabs (Quick Start / Manual / Docker), repository structure, environment variables, API Reference with CLI commands and REST endpoints.
+- Preserved interactivity: scroll reveal via IntersectionObserver, floating navbar with light/dark theme per section, mobile hamburger nav, copy-to-clipboard with toast, install tabs, per-hero configuration accordions, hover on architecture diagram nodes, smooth scroll.
+- Applied corrections across ALL content:
   - "Nose Research" → "Nous Research".
   - "Envidia" → "NVIDIA".
-  - MCP tools inventados reemplazados por nombres/descripciones genéricas o herramientas reales (create_spreadsheet, append_rows, create_payment_link, etc.).
-  - "Kimi Coding" → "Kimi / Moonshot" en variables de entorno.
-  - Footer con créditos correctos: Nous Research, NVIDIA, Stripe.
-- Validación HTML básica: OK.
-- Despliegue en Hostinger: subido `web-deploy.zip` (27 MB) a `public_html` vía File Manager y extraído.
-- Verificación en dominio real: `http://hermespartenon.online/`, `/heroes.html` y `/developers.html` responden HTTP 200; assets cargan; sin términos prohibidos.
-- Actualizados `TODOS.md`, `PROGRESS.md`, `MEMORY.md`, README.md y brain central.
+  - Invented MCP tools replaced with generic names/descriptions or real tools (`create_spreadsheet`, `append_rows`, `create_payment_link`, etc.).
+  - "Kimi Coding" → "Kimi / Moonshot" in environment variables.
+  - Footer with correct credits: Nous Research, NVIDIA, Stripe.
+- Basic HTML validation: OK.
+- Deployed to Hostinger: uploaded `web-deploy.zip` (27 MB) to `public_html` via File Manager and extracted.
+- Verified on real domain: `http://hermespartenon.online/`, `/heroes.html` and `/developers.html` respond HTTP 200; assets load; no forbidden terms.
+- Updated `TODOS.md`, `PROGRESS.md`, `MEMORY.md`, `README.md` and brain central.
 
-### 2026-06-26 — Migración de `Heroes.tsx` a `web/heroes.html`
-- Creada la página `web/heroes.html` como versión estática basada EXACTAMENTE en `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Heroes.tsx`.
-- Stack: HTML5 estático + Tailwind CSS CDN + CSS personalizado; fuentes Cinzel, Inter, JetBrains Mono; iconos Material Symbols Sharp y SVG inline.
-- Secciones migradas: Hero "Meet Your Heroes" con navegación rápida de 7 iconos, 7 perfiles detallados de héroes (Scribe, Herald, Collector, Guardian, Strategist, Diplomat, Brain), Comparison Matrix, Workflow Timeline de product launch de 7 pasos, CTA con copy-to-clipboard.
-- Interactividad preservada: reveal on scroll con IntersectionObserver, hover cards/badges, copy-to-clipboard con toast, smooth scroll, mobile nav hamburguesa, navbar flotante que cambia entre tema claro/oscuro según sección.
-- Correcciones aplicadas en TODO el contenido:
+### 2026-06-26 — Migrated `Heroes.tsx` to `web/heroes.html`
+- Created `web/heroes.html` as a static version based EXACTLY on `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Heroes.tsx`.
+- Stack: static HTML5 + Tailwind CSS CDN + custom CSS; Cinzel, Inter, JetBrains Mono fonts; Material Symbols Sharp and inline SVG icons.
+- Migrated sections: Hero "Meet Your Heroes" with quick nav of 7 icons, 7 detailed hero profiles (Scribe, Herald, Collector, Guardian, Strategist, Diplomat, Brain), Comparison Matrix, 7-step product-launch Workflow Timeline, CTA with copy-to-clipboard.
+- Preserved interactivity: scroll reveal via IntersectionObserver, card/badge hover, copy-to-clipboard with toast, smooth scroll, mobile hamburger nav, floating navbar switching light/dark theme per section.
+- Applied corrections across ALL content:
   - "Nose Research" → "Nous Research".
   - "Envidia" → "NVIDIA".
-  - MCP connections presentados como integraciones/descripciones genéricas (Google Workspace, Stripe, NVIDIA, CRM, Email, Calendar, Social media APIs) en lugar de nombres de tools inventados.
-  - Footer con créditos correctos: Nous Research, NVIDIA, Stripe.
-- Validación HTML básica: OK.
-- Actualizados `TODOS.md` y `PROGRESS.md`.
+  - MCP connections presented as generic integrations/descriptions (Google Workspace, Stripe, NVIDIA, CRM, Email, Calendar, Social media APIs) instead of invented tool names.
+  - Footer with correct credits: Nous Research, NVIDIA, Stripe.
+- Basic HTML validation: OK.
+- Updated `TODOS.md` and `PROGRESS.md`.
 
-### 2026-06-26 — Migración de `Home.tsx` a `web/index.html`
-- Reemplazada la página `web/index.html` anterior por una versión estática basada EXACTAMENTE en `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Home.tsx`.
-- Stack: HTML5 estático + Tailwind CSS CDN + CSS personalizado; fuentes Cinzel, Inter, JetBrains Mono; iconos Material Symbols Sharp y SVG inline.
-- Secciones migradas: Hero Gateway (dos paneles), The Myth, The Heroes (7 tarjetas: Scribe, Herald, Collector, Guardian, Strategist, Diplomat, Brain), How It Works (4 pasos), Impact Counter con milestone bar, Growth Plan (4 canales), Partners, CTA con typing effect.
-- Interactividad preservada: reveal on scroll, hover de paneles/tarjetas, contadores animados con IntersectionObserver, efecto typewriter, copy-to-clipboard con toast, smooth scroll, mobile nav.
-- Correcciones aplicadas en TODO el contenido:
+### 2026-06-26 — Migrated `Home.tsx` to `web/index.html`
+- Replaced the previous `web/index.html` with a static version based EXACTLY on `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Home.tsx`.
+- Stack: static HTML5 + Tailwind CSS CDN + custom CSS; Cinzel, Inter, JetBrains Mono fonts; Material Symbols Sharp and inline SVG icons.
+- Migrated sections: Hero Gateway (two panels), The Myth, The Heroes (7 cards: Scribe, Herald, Collector, Guardian, Strategist, Diplomat, Brain), How It Works (4 steps), Impact Counter with milestone bar, Growth Plan (4 channels), Partners, CTA with typing effect.
+- Preserved interactivity: scroll reveal, panel/card hover, animated counters via IntersectionObserver, typewriter effect, copy-to-clipboard with toast, smooth scroll, mobile nav.
+- Applied corrections across ALL content:
   - "Nose Research" → "Nous Research".
   - "Envidia" → "NVIDIA".
-  - Métricas inventadas etiquetadas como objetivos de diseño, hipótesis o proyecciones de adopción.
-  - No se presentan MCP tools inventados; se usan descripciones genéricas o herramientas reales de Stripe / Google Workspace.
-  - Matiz de alpha / early preview para NemoClaw / OpenShell.
-  - "Kimi Coding" → "Kimi / Moonshot" en contenido heredado.
-  - NVIDIA agent skills descritos correctamente.
-  - Stripe Skills presentados como skills opcionales de Hermes, no productos Stripe.
-  - Footer con créditos correctos y disclaimer de no afiliación oficial.
-- Validación HTML básica: OK.
-- Actualizados `TODOS.md` y `PROGRESS.md`.
+  - Invented metrics labeled as design objectives, hypotheses or adoption projections.
+  - No invented MCP tools; generic descriptions or real Stripe / Google Workspace tools used.
+  - Alpha / early preview qualifier for NemoClaw / OpenShell.
+  - "Kimi Coding" → "Kimi / Moonshot" in inherited content.
+  - NVIDIA agent skills described correctly.
+  - Stripe Skills presented as optional Hermes skills, not Stripe products.
+  - Footer with correct credits and no-official-affiliation disclaimer.
+- Basic HTML validation: OK.
+- Updated `TODOS.md` and `PROGRESS.md`.
 
-### 2026-06-26 — Recuperación de storytelling desde `Kimi_Agent_10 Storytelling Web Sites/`
-- Auditoría completa de `Kimi_Agent_10 Storytelling Web Sites/` con AgentSwarm. Se recuperaron patrones narrativos y de información técnica; se descartaron estética clásica (Cinzel, mármol, iconos figurativos), errores de marca ("Nose Research" → Nous Research) y el séptimo héroe "The Brain".
-- Enriquecida `web/index.html`: sección de proceso de 4 pasos (intención → héroes → misiones → entrega), contadores animados con milestone bar 10 → 1M, métricas de impacto secundarias, growth plan de 4 canales (workshops, empresas piloto, partners técnicos, marketplace de perfiles), CTA tipeado con efecto de escritura y toast de copiado.
-- Enriquecida `web/developers.html`: badges técnicos y tablas de especificación por héroe (rol, I/O, permisos, conexiones, Pegaso/toolkit, eval, MCP), API reference de G-Brain con tabla de métodos y ejemplos de código, workshop timeline visual de 4 fases, install tabs (Local / NemoClaw / Stripe / Variables) con feedback de copiado, badge "Hermes harness" en NVIDIA NemoClaw.
-- Actualizado `scripts/capture.py` para forzar contadores `.stat-value` y regenerar screenshots.
-- Actualizados `README.md` y `TODOS.md`.
-- Regenerados screenshots desktop/mobile en `screenshots/`.
-- Validados HTML de ambas páginas.
-- Commit realizado.
+### 2026-06-26 — Recovered storytelling from `Kimi_Agent_10 Storytelling Web Sites/`
+- Full audit of `Kimi_Agent_10 Storytelling Web Sites/` with AgentSwarm. Recovered narrative and information patterns; discarded classic aesthetic (Cinzel, marble, figurative icons), brand errors ("Nose Research" → Nous Research) and the seventh hero "The Brain".
+- Enriched `web/index.html`: 4-step process section (intent → heroes → missions → delivery), animated counters with 10 → 1M milestone bar, secondary impact metrics, 4-channel growth plan (workshops, pilot companies, technical partners, profile marketplace), typing CTA with writing effect and copy toast.
+- Enriched `web/developers.html`: technical badges and per-hero spec tables (role, I/O, permissions, connections, Pegaso/toolkit, eval, MCP), G-Brain API reference with methods table and code examples, visual 4-phase workshop timeline, install tabs (Local / NemoClaw / Stripe / Variables) with copy feedback, "Hermes harness" badge on NVIDIA NemoClaw.
+- Updated `scripts/capture.py` to force `.stat-value` and regenerate screenshots.
+- Updated `README.md` and `TODOS.md`.
+- Regenerated desktop/mobile screenshots in `screenshots/`.
+- Validated HTML of both pages.
+- Commit performed.
 
-### 2026-06-26 — Loop de reparación completo (3 fases)
-- Reescrita `web/index.html` como especificación maestra de marketing con narrativa de arquetipos, Hermes=empresa, 6 héroes con Pegasos, ejemplos de construcción/cafetería, contador 10→1M, carta de intención de Pablo (PlayStation/LATAM/wsc.lat) y go-to-market detallado.
-- Reescrita `web/developers.html` como espejo técnico con arquitectura Mermaid, secuencia de misión, fichas técnicas por héroe, diagramas de conexión por perfil, workshop de 90 min, estructura de repo y roadmap.
-- Actualizados screenshots desktop/mobile en `screenshots/`.
-- Actualizado `README.md` con narrativa nueva, Pegasos, flujo y estado.
-- Actualizado `TODOS.md`.
-- Actualizados 6 SOUL.md de perfiles con sección "Pegaso".
-- Verificado `python scripts/demo_tesorero.py` PASS.
-- Verificado `cd dashboard && npm run build` PASS.
-- Commit final del loop realizado.
+### 2026-06-26 — Full repair loop (3 phases)
+- Rewrote `web/index.html` as master marketing spec with archetype narrative, Hermes=company, 6 heroes with Pegasus, construction/cafe examples, 10→1M counter, intent letter from Pablo (PlayStation/LATAM/wsc.lat) and detailed go-to-market.
+- Rewrote `web/developers.html` as technical mirror with Mermaid architecture, mission sequence, per-hero technical cards, connection diagrams per profile, 90-min workshop, repo structure and roadmap.
+- Updated desktop/mobile screenshots in `screenshots/`.
+- Updated `README.md` with new narrative, Pegasus, flow and status.
+- Updated `TODOS.md`.
+- Updated 6 SOUL.md files with "Pegaso" section.
+- Verified `python scripts/demo_tesorero.py` PASS.
+- Verified `cd dashboard && npm run build` PASS.
+- Final loop commit performed.
 
-### 2026-06-26 — Perfil `partenon-estratega` completado
-- Creado `hermes/profiles/partenon-estratega/` como distribucion de Hermes Agent.
-- Archivos: `SOUL.md`, `config.yaml`, `.env.example`, `.ops`, `templates/.ops.example`, `cron/morning-briefing.json`, `cron/midday-pulse.json`, `cron/weekly-planning.json`, `cron/weekly-retro.json`.
-- Skill `ops` con `SKILL.md` y cinco tools Python.
-- Tools verificados con `python3 -m py_compile` y ejecucion de prueba.
-- Actualizados `TODOS.md`, `CHANGELOG.md` y `README.md`.
+### 2026-06-26 — Completed `partenon-estratega` profile
+- Created `hermes/profiles/partenon-estratega/` as a Hermes Agent distribution.
+- Files: `SOUL.md`, `config.yaml`, `.env.example`, `.ops`, `templates/.ops.example`, `cron/morning-briefing.json`, `cron/midday-pulse.json`, `cron/weekly-planning.json`, `cron/weekly-retro.json`.
+- `ops` skill with `SKILL.md` and five Python tools.
+- Tools verified with `python3 -m py_compile` and test run.
+- Updated `TODOS.md`, `CHANGELOG.md` and `README.md`.
 
-### 2026-06-26 — Perfil `partenon-diplomatico` completado
-- Completado `hermes/profiles/partenon-diplomatico/` como distribucion de Hermes Agent.
-- Archivos nuevos: `skills/relations/tools/crm.py`, `skills/relations/tools/followups.py`.
-- Tools verificados.
-- Actualizados `TODOS.md` y `CHANGELOG.md`.
+### 2026-06-26 — Completed `partenon-diplomatico` profile
+- Completed `hermes/profiles/partenon-diplomatico/` as a Hermes Agent distribution.
+- New files: `skills/relations/tools/crm.py`, `skills/relations/tools/followups.py`.
+- Tools verified.
+- Updated `TODOS.md` and `CHANGELOG.md`.
 
-### 2026-06-26 — Perfiles `partenon-tesorero`, `partenon-mensajero`, `partenon-cobrador`, `partenon-guardian` creados
-- Cada uno con SOUL.md, config.yaml, .env.example, templates y cron.
-- Skills finance, comms, payments, security con tools Python.
-- Tools verificados con `python3 -m py_compile`.
+### 2026-06-26 — Created `partenon-tesorero`, `partenon-mensajero`, `partenon-cobrador`, `partenon-guardian` profiles
+- Each with SOUL.md, config.yaml, .env.example, templates and cron.
+- Skills finance, comms, payments, security with Python tools.
+- Tools verified with `python3 -m py_compile`.
 
-### 2026-06-24 — Rediseño Nous-style de las páginas web
-- Plan aprobado para reestructurar `web/index.html` y `web/developers.html`.
-- Actualizado `DESIGN.md` con tokens visuales y reglas de copy anti-slop.
+### 2026-06-24 — Nous-style redesign of web pages
+- Approved plan to restructure `web/index.html` and `web/developers.html`.
+- Updated `DESIGN.md` with visual tokens and anti-slop copy rules.
 - Commit `e786b18`.
 
-## Features Completadas
-- Páginas web maestras reconstruidas y commiteadas.
-- Seis perfiles de Hermes con SOUL.md actualizados (incluyendo Pegaso).
-- Demo Tesorero funcional.
-- Dashboard Next.js con kanban y cron.
-- Sistema visual Nous-style aplicado.
-- Documentación del proyecto sincronizada.
+## Completed Features
+- Master web pages rebuilt and committed.
+- Six Hermes profiles with updated SOUL.md (including Pegasus).
+- Functional Scribe demo.
+- Next.js dashboard with kanban and cron.
+- Nous-style visual system applied.
+- Project documentation synchronized.
+- English translation of README and docs completed.
 
-## Bloqueadores Resueltos
-- Ninguno.
+## Resolved Blockers
+- None.

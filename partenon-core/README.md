@@ -1,15 +1,17 @@
 # partenon-core
 
-Nucleo de Partenon. Adapta `hermes-business-core` de HBOS para enrutar conversaciones a los 6 perfiles, coordinar handoffs y ejecutar el onboarding general.
+Core of Partenon. Adapts `hermes-business-core` from HBOS to route conversations to the 6 hero profiles, coordinate handoffs, and run the general onboarding.
 
-## Responsabilidades
+## Responsibilities
 
-- `router.py`: Enruta intenciones del usuario a `partenon-tesorero`, `partenon-mensajero`, `partenon-cobrador`, `partenon-guardian`, `partenon-estratega` o `partenon-diplomatico`.
-- `onboarding_engine.py`: Wizard de instalacion que crea archivos de perfil y genera misiones iniciales.
-- `workflow_engine.py`: Handoffs entre perfiles y registro de misiones en G-Brain.
-- `config/mcp/servers.yaml`: Configuracion de MCP servers (Google Workspace, Stripe, Gmail, G-Brain, etc.).
+- `router.py`: Routes user intents to `partenon-tesorero`, `partenon-mensajero`, `partenon-cobrador`, `partenon-guardian`, `partenon-estratega`, or `partenon-diplomatico`.
+- `onboarding_engine.py`: Installation wizard that creates profile files and generates initial missions.
+- `onboarding_flow.py`: Lightweight onboarding flow that creates `.finance`, `.design`, `.payments`, `.security`, `.ops`, `.relations` files and initial tasks.
+- `workflow_engine.py`: Handoffs between profiles and mission logging in G-Brain.
+- `eval_loop.py`: Stub for a judge-based evaluation loop that scores hero outputs against rubrics.
+- `config/mcp/servers.yaml`: MCP server configuration (Google Workspace, Stripe, Gmail, G-Brain, etc.).
 
-## Uso
+## Usage
 
 ```bash
 python -m py_compile partenon-core/tools/*.py

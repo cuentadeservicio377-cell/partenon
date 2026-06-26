@@ -1,18 +1,19 @@
 # Changelog — Partenon
 
-> Formato: tipo(scope): descripción
+> Format: type(scope): description
 
 ## [Unreleased]
 
 ### Added
-- feat(profiles): crear perfil partenon-diplomatico con skill relations, CRM y follow-ups
-- feat(profiles): crear perfil partenon-estratega con skill ops (proyectos, tareas, checklists, metas, briefings), plantilla `.ops` y cron matutino/midday/planning/retro
+- feat(profiles): create `partenon-diplomatico` profile with relations skill, CRM and follow-ups.
+- feat(profiles): create `partenon-estratega` profile with ops skill (projects, tasks, checklists, goals, briefings), `.ops` template and morning/midday/planning/retro cron jobs.
 
 ### Changed
-- _Empty — se actualiza durante la sesión_
+- docs(readme): translate README and docs to English; align repository description with live site and GitHub URL.
+- docs(architecture): document current `partenon-core` components and mark eval-loop stub as not yet implemented.
 
 ### Fixed
-- _Empty — se actualiza durante la sesión_
+- docs(readme): remove non-working NVIDIA NemoClaw curl command; point to official NVIDIA instructions.
 
 ## 2026-06-25
-- chore: braindump + estructura inicial del proyecto.
+- chore: braindump + initial project structure.

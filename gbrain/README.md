@@ -1,8 +1,8 @@
 # partenon-gbrain
 
-MCP server de memoria compartida para Partenon.
+Shared memory MCP server for Partenon.
 
-## Tools expuestos
+## Exposed tools
 
 - `gbrain_read_profile(profile, scope="default")`
 - `gbrain_write_profile(profile, scope, content)`
@@ -11,14 +11,14 @@ MCP server de memoria compartida para Partenon.
 - `gbrain_search_entities(query, kind=None)`
 - `gbrain_store_learning(profile, insight)`
 
-## Uso
+## Usage
 
 ```bash
 pip install mcp
 python -m gbrain.server
 ```
 
-Configura en `~/.hermes/config.yaml`:
+Configure in `~/.hermes/config.yaml`:
 
 ```yaml
 mcp_servers:

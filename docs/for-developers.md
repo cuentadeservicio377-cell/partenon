@@ -1,39 +1,39 @@
-# Partenon para Developers
+# Partenon for Developers
 
-> Documentación técnica para instalar, extender y contribuir a Partenon.
+> Technical documentation to install, extend and contribute to Partenon.
 
-## Repositorio
+## Repository
 
-- **Web**: [https://hermespartenon.online/](https://hermespartenon.online/)
-- **Código**: [https://github.com/cuentadeservicio377-cell/partenon](https://github.com/cuentadeservicio377-cell/partenon)
+- **Website**: [https://hermespartenon.online/](https://hermespartenon.online/)
+- **Code**: [https://github.com/cuentadeservicio377-cell/partenon](https://github.com/cuentadeservicio377-cell/partenon)
 
 ## Stack
 
-- **Frontend páginas**: HTML estático + Tailwind CSS CDN + JS vanilla (`web/`)
+- **Frontend pages**: static HTML + Tailwind CSS CDN + vanilla JS (`web/`)
 - **Dashboard**: Next.js 15 + React 19 + TypeScript + Tailwind CSS (`dashboard/`)
 - **Agent core**: Hermes Agent (Nous Research) + Python skills + `partenon-core` (`partenon-core/`)
-- **Perfiles**: 7 distribuciones de Hermes Agent (`hermes/profiles/`)
-- **Sandbox / orquestación**: NVIDIA NemoClaw + OpenShell (alpha / early preview)
-- **Modelos**: NVIDIA Nemotron 3 Ultra / Super, OpenAI, Kimi / Moonshot
-- **Documentos**: Python + WeasyPrint (Kami v3)
-- **Datos**: Google Workspace (Sheets, Docs, Slides, Drive, Calendar, Gmail)
-- **Pagos**: Stripe API + Stripe Skills de Hermes (`stripe-link-cli`, `mpp-agent`, `stripe-projects`)
-- **Memoria**: G-Brain de Garry Tan vía MCP
-- **Infraestructura**: Docker / Docker Compose
+- **Profiles**: seven Hermes Agent distributions (`hermes/profiles/`)
+- **Sandbox / orchestration**: NVIDIA NemoClaw + OpenShell (alpha / early preview)
+- **Models**: NVIDIA Nemotron 3 Ultra / Super, OpenAI, Kimi / Moonshot
+- **Documents**: Python + WeasyPrint (Kami v3)
+- **Data**: Google Workspace (Sheets, Docs, Slides, Drive, Calendar, Gmail)
+- **Payments**: Stripe API + Hermes Stripe Skills (`stripe-link-cli`, `mpp-agent`, `stripe-projects`)
+- **Memory**: G-Brain of Garry Tan via MCP
+- **Infrastructure**: Docker / Docker Compose
 
-## Arquitectura
+## Architecture
 
 ```text
 ┌─────────────────────────────────────────────────────────────┐
-│                         Hermes (empresa)                    │
+│                         Hermes (company)                    │
 └──────────────────────┬──────────────────────────────────────┘
-                       │ publica misiones
+                       │ publishes missions
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                      partenon-core                            │
-│  onboarding → router → workflow → eval loop → G-Brain         │
+│  onboarding → router → workflow → eval loop (stub) → G-Brain │
 └──────────────────────┬──────────────────────────────────────┘
-                       │ asigna misiones
+                       │ assigns missions
                        ▼
 ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
 │ Scribe  │ Herald  │Collector│ Guardian│Strategist│Diplomat│ Brain   │
@@ -46,16 +46,18 @@ Sheets    Docs/     API       NemoClaw  Calendar  Contacts  (MCP)
           Slides                      /Gmail
 ```
 
-## Estructura del repositorio
+The eval-loop component is currently a stub. It is planned to measure output quality with a judge skill and a configurable threshold.
+
+## Repository structure
 
 ```text
 partenon/
-├── web/                    # Páginas web estáticas
+├── web/                    # Static web pages
 │   ├── index.html          # Marketing
-│   ├── heroes.html         # Perfiles de héroes
-│   └── developers.html     # Documentación técnica
-├── dashboard/              # Dashboard de operaciones (Next.js)
-├── hermes/profiles/        # Perfiles de Hermes Agent
+│   ├── heroes.html         # Hero profiles
+│   └── developers.html     # Technical documentation
+├── dashboard/              # Operations dashboard (Next.js)
+├── hermes/profiles/        # Hermes Agent profiles
 │   ├── partenon-tesorero/
 │   ├── partenon-mensajero/
 │   ├── partenon-cobrador/
@@ -64,20 +66,21 @@ partenon/
 │   ├── partenon-diplomatico/
 │   └── partenon-brain/
 ├── partenon-core/          # Core skill: onboarding, router, workflow
-├── scripts/                # Utilidades y demos
+├── gbrain/                 # Local MCP memory server
+├── scripts/                # Utilities and demos
 │   ├── demo_tesorero.py
 │   └── setup_hermes.py
-├── templates/              # Plantillas de Google Sheets
-├── docs/                   # Documentación
-├── install.sh              # Instalador bash
-├── .env.example            # Variables de entorno
+├── templates/              # Google Sheets templates
+├── docs/                   # Documentation
+├── install.sh              # Bash installer
+├── .env.example            # Environment variables
 ├── requirements.txt
 └── docker-compose.yml
 ```
 
-## Instalación rápida
+## Quick install
 
-### Opción A: Bash
+### Option A: Bash
 
 ```bash
 git clone https://github.com/cuentadeservicio377-cell/partenon.git
@@ -85,7 +88,7 @@ cd partenon
 ./install.sh
 ```
 
-### Opción B: Python
+### Option B: Python
 
 ```bash
 git clone https://github.com/cuentadeservicio377-cell/partenon.git
@@ -93,49 +96,50 @@ cd partenon
 python scripts/setup_hermes.py
 ```
 
-### Variables de entorno
+### Environment variables
 
-Copia `.env.example` a `.env` y completa:
+Copy `.env.example` to `.env` and fill it in:
 
 ```bash
 cp .env.example .env
 ```
 
-Campos obligatorios para empezar:
+Required fields to start:
+
 - `OPENROUTER_API_KEY`
 - `GOOGLE_SERVICE_ACCOUNT_JSON`
-- `STRIPE_SECRET_KEY` (solo si usas Cobrador)
-- `GBRAIN_DATABASE_URL` (solo si usas Brain)
+- `STRIPE_SECRET_KEY` (only if you use the Collector)
+- `GBRAIN_DATABASE_URL` (only if you use the Brain)
 
-## Perfiles técnicos
+## Technical profiles
 
-Cada perfil es una distribución de Hermes Agent con:
+Each profile is a Hermes Agent distribution with:
 
-- `SOUL.md` — personalidad, rol, reglas y límites.
-- `config.yaml` — modelo default, tools habilitadas, MCP servers.
-- `.env.example` — variables de entorno del perfil.
-- `skills/<skill>/SKILL.md` — documentación de la skill.
-- `skills/<skill>/tools/*.py` — herramientas Python.
-- `cron/*.json` — tareas programadas.
-- `templates/` — plantillas de configuración.
+- `SOUL.md` — personality, role, rules and limits.
+- `config.yaml` — default model, enabled tools, MCP servers.
+- `.env.example` — profile-specific environment variables.
+- `skills/<skill>/SKILL.md` — skill documentation.
+- `skills/<skill>/tools/*.py` — Python tools.
+- `cron/*.json` — scheduled tasks.
+- `templates/` — configuration templates.
 
-### Modelos
+### Models
 
-| Perfil | Default | Fallback |
-|--------|---------|----------|
-| Tesorero | `openrouter/anthropic/claude-opus-4` | `openrouter/anthropic/claude-sonnet-4` |
-| Mensajero | `openrouter/anthropic/claude-opus-4` | `openrouter/anthropic/claude-sonnet-4` |
-| Cobrador | `openrouter/anthropic/claude-opus-4` | `openrouter/anthropic/claude-sonnet-4` |
+| Profile | Default | Fallback |
+|---------|---------|----------|
+| Scribe | `openrouter/anthropic/claude-opus-4` | `openrouter/anthropic/claude-sonnet-4` |
+| Herald | `openrouter/anthropic/claude-opus-4` | `openrouter/anthropic/claude-sonnet-4` |
+| Collector | `openrouter/anthropic/claude-opus-4` | `openrouter/anthropic/claude-sonnet-4` |
 | Guardian | `openrouter/anthropic/claude-opus-4` | `openrouter/anthropic/claude-sonnet-4` |
-| Estratega | `openrouter/anthropic/claude-opus-4` | `openrouter/anthropic/claude-sonnet-4` |
-| Diplomático | `openrouter/anthropic/claude-opus-4` | `openrouter/anthropic/claude-sonnet-4` |
+| Strategist | `openrouter/anthropic/claude-opus-4` | `openrouter/anthropic/claude-sonnet-4` |
+| Diplomat | `openrouter/anthropic/claude-opus-4` | `openrouter/anthropic/claude-sonnet-4` |
 | Brain | `openrouter/anthropic/claude-opus-4` | `openrouter/anthropic/claude-sonnet-4` |
 
 ### MCP servers
 
-- `google_workspace`: acceso a Sheets, Docs, Slides, Calendar, Gmail.
-- `gbrain`: servidor MCP de memoria persistente.
-- `stripe`: operaciones de pagos (vía Stripe Skills de Hermes).
+- `google_workspace`: access to Sheets, Docs, Slides, Calendar, Gmail.
+- `gbrain`: persistent memory MCP server.
+- `stripe`: payment operations (via Hermes Stripe Skills).
 
 ## Demo
 
@@ -146,7 +150,8 @@ pip install -r requirements.txt
 python scripts/demo_tesorero.py
 ```
 
-Esto genera:
+This generates:
+
 - `data/sample_gastos.xlsx`
 - `data/sample_gastos_report.json`
 
@@ -158,9 +163,9 @@ npm install
 npm run dev
 ```
 
-Abre http://localhost:3000. Credenciales default: `admin` / `partenon`.
+Open http://localhost:3000. Default credentials: `admin` / `partenon`.
 
-## Build de producción
+## Production build
 
 ```bash
 cd dashboard
@@ -173,45 +178,53 @@ npm run build
 docker-compose up --build
 ```
 
-## API Reference
+## API reference
 
-### CLI de Hermes
+### Hermes CLI
 
 ```bash
 hermes profile use partenon-tesorero
 hermes profile use partenon-mensajero
-hermes run "Registra un gasto de $500 en publicidad"
+hermes run "Record a $500 advertising expense"
 ```
 
 ### G-Brain MCP
 
-Métodos expuestos por el servidor MCP `gbrain`:
+Methods exposed by the `gbrain` MCP server:
 
-| Método | Descripción |
+| Method | Description |
 |--------|-------------|
-| `put_page` | Guarda o actualiza una página de memoria. |
-| `get_page` | Recupera una página por slug. |
-| `search_pages` | Búsqueda híbrida por texto. |
-| `query_pages` | Query semántico. |
-| `graph_query` | Búsqueda en grafo de relaciones. |
+| `gbrain_read_profile` | Read a profile memory scope. |
+| `gbrain_write_profile` | Write a profile memory scope. |
+| `gbrain_write_mission` | Register or update a mission. |
+| `gbrain_search_missions` | Search missions by profile and/or status. |
+| `gbrain_search_entities` | Search entities by name and optional kind. |
+| `gbrain_store_learning` | Store a learning insight for a profile. |
 
-## Workshop de 90 minutos
+## 90-minute workshop
 
-1. **Pre-instalación** (15 min): Python, Node.js, cuentas de Google Workspace y Stripe.
-2. **Setup** (20 min): `git clone`, `./install.sh`, configurar `.env`.
-3. **Práctica** (40 min): demo del Tesorero, Mensajero y Cobrador.
-4. **Q&A y roadmap** (15 min).
+1. **Pre-installation** (15 min): Python, Node.js, Google Workspace and Stripe accounts.
+2. **Setup** (20 min): `git clone`, `./install.sh`, configure `.env`.
+3. **Practice** (40 min): Scribe, Herald and Collector demos.
+4. **Q&A and roadmap** (15 min).
 
-## Contribuir
+## Contributing
 
-1. Fork el repositorio.
-2. Crea una rama: `git checkout -b feat/nombre-feature`.
-3. Haz commit con mensaje descriptivo.
-4. Abre un PR con evidencia de tests/build.
+1. Fork the repository.
+2. Create a branch: `git checkout -b feat/feature-name`.
+3. Commit with a descriptive message.
+4. Open a PR with evidence of tests/build.
 
 ## Roadmap
 
-- [ ] Eval loop funcional en todos los perfiles.
-- [ ] Integraciones live de Google Workspace, Stripe y G-Brain.
-- [ ] Validación end-to-end con 10 empresas piloto.
-- [ ] Marketplace de perfiles especializados.
+- [ ] Functional eval loop in all profiles.
+- [ ] Live integrations for Google Workspace, Stripe and G-Brain.
+- [ ] End-to-end validation with 10 pilot companies.
+- [ ] Marketplace of specialized profiles.
+
+## Known gaps
+
+- The eval-loop stub in `partenon-core` is not yet implemented.
+- The `GBRAIN_DATABASE_URL` variable name in `.env.example` does not match the `GBrain_DATABASE_URL` default used by `gbrain/server.py` and `partenon-core/config/mcp/servers.yaml`. Use the exact name required by the component you run.
+- NVIDIA NemoClaw / OpenShell onboarding is alpha; follow NVIDIA's current instructions.
+- Live Google Workspace, Stripe and G-Brain flows require real credentials and are not enabled by default.

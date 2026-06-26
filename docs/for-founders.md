@@ -1,72 +1,72 @@
-# Partenon para Emprendedores
+# Partenon for Entrepreneurs
 
-> Sistema operativo de agentes IA para pymes. Organiza tu empresa como un panteón de héroes al servicio de Hermes.
+> An AI agent operating system for small businesses. Organize your company as a pantheon of heroes serving Hermes.
 
-## Qué es Partenon
+## What is Partenon
 
-Partenon es un sistema de agentes de IA que trabajan dentro de las herramientas que ya usas: Google Sheets, Docs, Slides, Calendar, Gmail, Stripe y más.
+Partenon is an AI agent system that works inside the tools you already use: Google Sheets, Docs, Slides, Calendar, Gmail, Stripe, and more.
 
-- **Hermes** = tu empresa. No un chatbot, no solo el CEO. Es el "dios" que publica misiones porque necesita ayuda.
-- **Los héroes** = siete agentes especializados que toman misiones del Partenón.
-- **El Partenón** = Hermes + sus héroes trabajando juntos.
-- **Pegaso** = las herramientas de cada héroe: skills, MCPs, APIs y plataformas open source.
-- **G-Brain de Garry Tan** = el cerebro que conecta todo por MCP y recuerda lo que aprende tu empresa.
+- **Hermes** = your company. Not a chatbot, not just the CEO. The "god" that publishes missions because it needs help.
+- **The heroes** = seven specialized agents that take missions from The Partenon.
+- **The Partenon** = Hermes + his heroes working together.
+- **Pegasus** = each hero's toolkit: skills, MCPs, APIs, and open-source platforms.
+- **G-Brain of Garry Tan** = the brain that connects everything through MCP and remembers what your company learns.
 
-## Los 7 héroes
+## The 7 heroes
 
-| Héroe | Rol | Qué hace por tu empresa |
-|-------|-----|------------------------|
-| **The Scribe** (Tesorero) | Finanzas | Hojas de cálculo, modelos financieros, dashboards, costos fijos/variables, proveedores. |
-| **The Herald** (Mensajero) | Comunicación / Marketing | Voz de marca, contenido, redes, SEO/GEO, calendario de publicación. |
-| **The Collector** (Cobrador) | Pagos / Stripe | Cobros, suscripciones, facturas, control de gastos, pagos recurrentes. |
-| **The Guardian** | Seguridad / NVIDIA | API keys, políticas, sandbox, routing de modelos, auditoría de seguridad. |
-| **The Strategist** (Estratega) | Operaciones / PM | Calendario, tareas, recordatorios, briefings, cron jobs. |
-| **The Diplomat** | Relaciones | Clientes, proveedores, contratos, seguimiento, CRM. |
-| **The Brain** | Inteligencia | G-Brain, memoria colectiva, orquestación del conocimiento. |
+| Hero | Role | What it does for your company |
+|------|------|------------------------------|
+| **The Scribe** (Tesorero) | Finance | Spreadsheets, financial models, dashboards, fixed/variable costs, vendors. |
+| **The Herald** (Mensajero) | Communication / Marketing | Brand voice, content, social media, SEO/GEO, editorial calendar. |
+| **The Collector** (Cobrador) | Payments / Stripe | Collections, subscriptions, invoices, expense tracking, recurring payments. |
+| **The Guardian** | Security / NVIDIA | API keys, policies, sandbox, model routing, security audit. |
+| **The Strategist** (Estratega) | Operations / PM | Calendar, tasks, reminders, briefings, cron jobs. |
+| **The Diplomat** | Relations | Clients, vendors, contracts, follow-ups, CRM. |
+| **The Brain** | Intelligence | G-Brain, collective memory, knowledge orchestration. |
 
-## Cómo funciona
+## How it works
 
-1. **Hermes pregunta**: ¿qué empresa eres? ¿qué necesitas ordenar?
-2. **Hermes divide en misiones**: convierte tu intención en tareas publicadas en el Partenón.
-3. **El héroe toma**: lee su perfil, consulta G-Brain y empieza a trabajar contigo.
-4. **Entrega en Google Workspace**: el resultado vive en Sheets, Docs, Slides o Calendar para que todos lo vean.
+1. **Hermes asks**: what company are you? What needs to be organized?
+2. **Hermes breaks it into missions**: converts your intent into tasks posted in The Partenon.
+3. **The hero takes the mission**: reads their profile, consults G-Brain, and starts working with you.
+4. **Delivery in Google Workspace**: the result lives in Sheets, Docs, Slides, or Calendar where everyone can see it.
 
-## Ejemplos de uso
+## Usage examples
 
-### Cafetería
-- El Tesorero clasifica costos fijos (renta, salarios) y variables (café, leche, publicidad).
-- El Mensajero planifica campañas en redes y presupuestos de marketing.
-- El Cobrador configura pagos con Stripe para pedidos online y suscripciones.
-- El Estratega organiza horarios de staff y recordatorios de inventario.
+### Coffee shop
+- The Scribe classifies fixed costs (rent, salaries) and variable costs (coffee, milk, advertising).
+- The Herald plans social media campaigns and marketing budgets.
+- The Collector sets up Stripe payments for online orders and subscriptions.
+- The Strategist organizes staff schedules and inventory reminders.
 
-### Constructora
-- El Tesorero rastrea gastos por proyecto y proveedor.
-- El Diplomat mantiene relaciones con clientes y proveedores.
-- El Guardian protege API keys y modelos de IA usados en estimaciones.
-- El Brain recuerda aprendizajes de cada proyecto para no repetir errores.
+### Construction company
+- The Scribe tracks expenses by project and vendor.
+- The Diplomat maintains relationships with clients and vendors.
+- The Guardian protects API keys and AI models used in estimates.
+- The Brain remembers learnings from each project so mistakes are not repeated.
 
-## Plan de crecimiento
+## Growth plan
 
-Partenon nace con una meta clara: ayudar a 1 millón de empresas.
+Partenon is born with a clear goal: help 1 million businesses.
 
-- **10** empresas piloto para validar ahorro de tiempo y orden financiero.
-- **100** empresas mediante webinars quincenales de instalación.
-- **1,000** empresas con universidades, aceleradoras y cámaras de comercio.
-- **10,000** empresas a través de partners técnicos y coworkings.
-- **100,000** empresas con alianzas de aceleradoras.
-- **1,000,000** empresas con un marketplace de perfiles especializados.
+- **10** pilot companies to validate time savings and financial order.
+- **100** companies through biweekly installation webinars.
+- **1,000** companies with universities, accelerators, and chambers of commerce.
+- **10,000** companies through technical partners and coworking spaces.
+- **100,000** companies through accelerator alliances.
+- **1,000,000** companies through a marketplace of specialized profiles.
 
-## Stack de respaldo
+## Backing stack
 
-- **Agente base**: Hermes Agent de Nous Research.
+- **Base agent**: Hermes Agent from Nous Research.
 - **Sandbox**: NVIDIA NemoClaw + OpenShell (alpha / early preview).
-- **Modelos**: NVIDIA Nemotron 3 Ultra / Super, OpenAI, Kimi / Moonshot.
-- **Pagos**: Stripe API + Stripe Skills de Hermes.
-- **Memoria**: G-Brain de Garry Tan vía MCP.
-- **Datos**: Google Workspace (Sheets, Docs, Slides, Drive, Calendar, Gmail).
+- **Models**: NVIDIA Nemotron 3 Ultra / Super, OpenAI, Kimi / Moonshot.
+- **Payments**: Stripe API + Hermes Stripe Skills.
+- **Memory**: G-Brain of Garry Tan via MCP.
+- **Data**: Google Workspace (Sheets, Docs, Slides, Drive, Calendar, Gmail).
 
-## Próximos pasos
+## Next steps
 
-1. Lee [`docs/for-developers.md`](for-developers.md) si quieres instalarlo.
-2. Visita el sitio: [https://hermespartenon.online/](https://hermespartenon.online/)
-3. Clona el repositorio y corre `./install.sh`.
+1. Read [`docs/for-developers.md`](for-developers.md) if you want to install it.
+2. Visit the site: [https://hermespartenon.online/](https://hermespartenon.online/)
+3. Clone the repository and run `./install.sh`.
