@@ -15,10 +15,10 @@ This directory contains placeholder implementations that demonstrate the interfa
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python examples/hermes-cli-stub.py init --name "Cafe Central"
-python examples/hermes-cli-stub.py activate scribe
-python examples/hermes-cli-stub.py mission scribe --type financial-model
-python examples/hermes-cli-stub.py status --verbose
+python3 examples/hermes-cli-stub.py init --name "Cafe Central"
+python3 examples/hermes-cli-stub.py activate scribe
+python3 examples/hermes-cli-stub.py mission scribe --type financial-model
+python3 examples/hermes-cli-stub.py status --verbose
 ```
 
 ### API server stub
@@ -42,7 +42,7 @@ curl -X POST http://localhost:8000/api/v1/missions \
 
 ```bash
 pip install mcp
-python examples/mcp-client-example.py
+python3 examples/mcp-client-example.py
 ```
 
 ## Important note

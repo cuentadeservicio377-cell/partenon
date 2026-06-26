@@ -19,9 +19,9 @@ Supported commands (stubs):
   hermes backup --to google-drive
 
 Usage:
-  python examples/hermes-cli-stub.py init --name "Cafe Central"
-  python examples/hermes-cli-stub.py activate scribe
-  python examples/hermes-cli-stub.py mission scribe --type financial-model
+  python3 examples/hermes-cli-stub.py init --name "Cafe Central"
+  python3 examples/hermes-cli-stub.py activate scribe
+  python3 examples/hermes-cli-stub.py mission scribe --type financial-model
 """
 
 import argparse

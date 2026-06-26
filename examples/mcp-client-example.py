@@ -12,7 +12,7 @@ Prerequisites:
   pip install mcp
 
 Usage:
-  python examples/mcp-client-example.py
+  python3 examples/mcp-client-example.py
 """
 
 import asyncio
