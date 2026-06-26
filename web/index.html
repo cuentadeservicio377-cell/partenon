@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Partenon — Hermes ejecuta tu empresa</title>
-  <meta name="description" content="Partenon es el sistema de agentes donde Hermes publica misiones y seis héroes especializados las ejecutan dentro de Google Workspace." />
+  <meta name="description" content="Partenon: sistema de agentes para pymes construido con Hermes Agent, NVIDIA NemoClaw, Nemotron 3 Ultra y Stripe Skills. Seis héroes ejecutan finanzas, pagos, marketing y operaciones dentro de Google Workspace." />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -340,10 +340,10 @@
             PARTENON
           </h1>
           <p class="reveal text-xl md:text-2xl text-muted leading-snug max-w-xl mb-6">
-            Tu empresa, ejecutada por un equipo de agentes.
+            Tu empresa, ejecutada por un equipo de agentes que cobra, paga y aprende sola.
           </p>
           <p class="reveal text-muted text-base md:text-lg max-w-xl leading-relaxed mb-10">
-            Hermes publica misiones. Seis héroes especializados las cumplen. Todo pasa dentro de Google Workspace: Sheets, Docs, Calendar y Gmail. Tú revisas entregables, no aprendes otra app.
+            Construido para el hackathon de Nous Research, NVIDIA y Stripe. Hermes corre dentro de NVIDIA NemoClaw y OpenShell, razona con Nemotron 3 Ultra, y ejecuta pagos reales con Stripe Skills. Seis héroes especializados publican misiones en Google Workspace y mejoran entre sí con cada ejecución.
           </p>
           <div class="reveal flex flex-wrap gap-4">
             <a href="#dia" class="btn btn-primary">
@@ -491,8 +491,8 @@
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="font-mono text-xs text-accent mb-1">12:00</div>
-          <h3 class="font-display text-xl tracking-tight mb-2">El Cobrador cobra un evento privado.</h3>
-          <p class="text-muted text-sm leading-relaxed">Genera un payment link por $4,500 MXN, registra el ingreso en Sheets y notifica al Tesorero.</p>
+          <h3 class="font-display text-xl tracking-tight mb-2">El Cobrador cobra y provisiona.</h3>
+          <p class="text-muted text-sm leading-relaxed">Genera un payment link por $4,500 MXN. También renueva el dominio anual con Stripe Link y provisiona una base de datos Neon para la app de pedidos. Cada gasto pide aprobación en la app de Link.</p>
         </div>
         <div class="timeline-item">
           <div class="timeline-dot live"></div>
@@ -510,6 +510,60 @@
 
       <div class="reveal mt-12 p-6 border border-line rounded-xl bg-bg">
         <p class="text-sm text-muted">Esto no es un chatbot respondiendo preguntas. Es un sistema que publica misiones, las ejecuta y deja evidencia en archivos reales.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hackathon stack -->
+  <section class="section-pad border-y border-line bg-surface/40">
+    <div class="max-w-[1400px] mx-auto px-4">
+      <div class="reveal max-w-2xl mb-12">
+        <span class="tag mb-4 block">Stack del hackathon</span>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">Agentes que cobran, pagan y operan seguros.</h2>
+        <p class="text-muted text-lg leading-relaxed">Partenon une tres capas: Hermes como runtime de agentes, NVIDIA como sandbox y modelo acelerado, y Stripe como infraestructura de pagos programáticos.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="reveal bezel">
+          <div class="bezel-inner p-6 h-full">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-sharp text-accent">terminal</span>
+              <h3 class="font-display text-lg tracking-tight">Hermes Agent</h3>
+            </div>
+            <p class="text-sm text-muted leading-relaxed">Runtime open source de Nous Research. Skills auto-generados, memoria persistente, MCP, cron, subagentes y un gateway a 22 plataformas de mensajería.</p>
+          </div>
+        </div>
+        <div class="reveal bezel reveal-delay-1">
+          <div class="bezel-inner p-6 h-full">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-sharp text-accent">security</span>
+              <h3 class="font-display text-lg tracking-tight">NVIDIA NemoClaw</h3>
+            </div>
+            <p class="text-sm text-muted leading-relaxed">Orquestación de agentes autónomos de larga duración. OpenShell sandboxa cada héroe con políticas de filesystem, red y privacidad.</p>
+          </div>
+        </div>
+        <div class="reveal bezel reveal-delay-2">
+          <div class="bezel-inner p-6 h-full">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-sharp text-accent">memory</span>
+              <h3 class="font-display text-lg tracking-tight">Nemotron 3 Ultra</h3>
+            </div>
+            <p class="text-sm text-muted leading-relaxed">550B parámetros MoE, 55B activos por token, contexto de 1M tokens. Hasta 5× más rápido y 30% más barato en tareas de agentes.</p>
+          </div>
+        </div>
+        <div class="reveal bezel reveal-delay-3">
+          <div class="bezel-inner p-6 h-full">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-sharp text-accent">payments</span>
+              <h3 class="font-display text-lg tracking-tight">Stripe Skills</h3>
+            </div>
+            <p class="text-sm text-muted leading-relaxed"><code>stripe-link-cli</code> para compras, <code>mpp-agent</code> para pagos por API, y <code>stripe-projects</code> para provisionar SaaS bajo presupuestos controlados.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal mt-10 p-4 border border-line rounded-xl bg-bg">
+        <p class="text-sm text-muted">Partenon se inspira en proyectos ganadores de hackathons anteriores de Hermes: la competencia multi-agente de <strong>Gladiator</strong>, el flujo creativo coordinado de <strong>JumpFoundry</strong> y la memoria de personalidad de <strong>Hermes Nordic</strong>. Aquí esas lecciones se aplican a operaciones de negocio.</p>
       </div>
     </div>
   </section>
@@ -546,10 +600,10 @@
               </div>
               <div class="grid md:grid-cols-2 gap-8">
                 <div>
-                  <p class="text-muted leading-relaxed mb-4">Personalidad paciente, meticulosa y directa. Cuando Hermes dice "no entiendo mis finanzas", el Tesorero toma la misión y devuelve un Google Sheet con costos fijos, variables, margen por obra y alertas.</p>
+                  <p class="text-muted leading-relaxed mb-4">Personalidad paciente, meticulosa y directa. Cuando Hermes dice "no entiendo mis finanzas", el Tesorero toma la misión y devuelve un Google Sheet con costos fijos, variables, margen por obra y alertas. Puede acelerar análisis grandes con cuDF sobre GPU.</p>
                   <div class="p-4 rounded-lg bg-white/[0.03]">
                     <div class="text-xs text-muted uppercase tracking-wider font-mono mb-2">Pegaso</div>
-                    <div class="text-sm text-text">Google Sheets, dashboards, plantillas Excel, parsers de gastos.</div>
+                    <div class="text-sm text-text">Google Sheets, dashboards, plantillas Excel, parsers de gastos, NVIDIA cuDF, cuOpt.</div>
                   </div>
                 </div>
                 <div class="space-y-3">
@@ -607,25 +661,25 @@
                 <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">credit_card</span></div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest">03 / Cobrador</div>
-                  <div class="font-display text-2xl tracking-tight">El que cobra</div>
+                  <div class="font-display text-2xl tracking-tight">El que cobra y paga</div>
                 </div>
               </div>
               <div class="grid md:grid-cols-2 gap-8">
                 <div>
-                  <p class="text-muted leading-relaxed mb-4">Firme, claro y sin vergüenza. Recibe pagos por Stripe: payment links, suscripciones, facturas y tienda online. Conecta servicios y productos físicos con la cuenta de la empresa.</p>
+                  <p class="text-muted leading-relaxed mb-4">Firme, claro y sin vergüenza. Recibe pagos por Stripe y también ejecuta gastos autorizados: renueva dominios, compra créditos de API y provisiona SaaS. Ningún gasto sale sin aprobación explícita en la app de Link.</p>
                   <div class="p-4 rounded-lg bg-white/[0.03]">
                     <div class="text-xs text-muted uppercase tracking-wider font-mono mb-2">Pegaso</div>
-                    <div class="text-sm text-text">Stripe API, payment links, suscripciones, webhooks.</div>
+                    <div class="text-sm text-text">Stripe API, payment links, suscripciones, <code>stripe-link-cli</code>, <code>mpp-agent</code>, <code>stripe-projects</code>, webhooks.</div>
                   </div>
                 </div>
                 <div class="space-y-3">
                   <div class="p-4 rounded-lg bg-white/[0.03]">
-                    <div class="text-xs text-muted uppercase tracking-wider font-mono mb-1">Entregables</div>
-                    <div class="text-sm text-text">Links de pago, confirmaciones, reportes de ingresos en Sheets.</div>
+                    <div class="text-xs text-muted uppercase tracking-wider font-mono mb-1">Misiones de pago</div>
+                    <div class="text-sm text-text">Compras con Link, pagos por API 402, provisión de Neon/Twilio/Vercel, reportes de ingresos en Sheets.</div>
                   </div>
                   <div class="p-4 rounded-lg bg-white/[0.03]">
                     <div class="text-xs text-muted uppercase tracking-wider font-mono mb-1">Conexión</div>
-                    <div class="text-sm text-text">Notifica ingresos al Tesorero.</div>
+                    <div class="text-sm text-text">Notifica ingresos y gastos al Tesorero; pide aprobación al dueño.</div>
                   </div>
                 </div>
               </div>
@@ -640,21 +694,21 @@
                 <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">shield</span></div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest">04 / Guardián</div>
-                  <div class="font-display text-2xl tracking-tight">Seguridad y modelos</div>
+                  <div class="font-display text-2xl tracking-tight">Seguridad, sandbox y modelos</div>
                 </div>
               </div>
               <div class="grid md:grid-cols-2 gap-8">
                 <div>
-                  <p class="text-muted leading-relaxed mb-4">Reservado, vigilante y preciso. Administra modelos, API keys y cuentas. Nvidia, OpenAI, Kimi Coding. Cada héroe recibe solo los accesos que necesita.</p>
+                  <p class="text-muted leading-relaxed mb-4">Reservado, vigilante y preciso. Administra modelos, API keys y políticas de acceso. Rutea inferencias sensibles a modelos locales vía NVIDIA OpenShell y audita cada skill antes de que entre a producción.</p>
                   <div class="p-4 rounded-lg bg-white/[0.03]">
                     <div class="text-xs text-muted uppercase tracking-wider font-mono mb-2">Pegaso</div>
-                    <div class="text-sm text-text">Nvidia APIs, OpenAI, Kimi Coding, rotación de keys, permisos por perfil.</div>
+                    <div class="text-sm text-text">NVIDIA NemoClaw, OpenShell policies, Nemotron 3 Ultra/Super, OpenAI, Kimi Coding, rotación de keys, permisos por perfil.</div>
                   </div>
                 </div>
                 <div class="space-y-3">
                   <div class="p-4 rounded-lg bg-white/[0.03]">
                     <div class="text-xs text-muted uppercase tracking-wider font-mono mb-1">Responsabilidad</div>
-                    <div class="text-sm text-text">Auditar accesos, rotar keys, asignar permisos mínimos.</div>
+                    <div class="text-sm text-text">Aislar héroes en sandboxes, auditar accesos, rotar keys, asignar permisos mínimos y decidir dónde corre cada inferencia.</div>
                   </div>
                 </div>
               </div>
@@ -674,16 +728,16 @@
               </div>
               <div class="grid md:grid-cols-2 gap-8">
                 <div>
-                  <p class="text-muted leading-relaxed mb-4">Ordenado, exigente y protector del tiempo. Project management interno. Calendar, Gmail, recordatorios, checklists y seguimiento de operaciones.</p>
+                  <p class="text-muted leading-relaxed mb-4">Ordenado, exigente y protector del tiempo. Project management interno. Calendar, Gmail, recordatorios, checklists y seguimiento de operaciones. Cuando una misión cruza varios héroes, el Estratega la descompone y coordina subagentes en paralelo.</p>
                   <div class="p-4 rounded-lg bg-white/[0.03]">
                     <div class="text-xs text-muted uppercase tracking-wider font-mono mb-2">Pegaso</div>
-                    <div class="text-sm text-text">Google Calendar, Gmail, tareas, recordatorios, checklists, briefings.</div>
+                    <div class="text-sm text-text">Google Calendar, Gmail, tareas, recordatorios, checklists, briefings, cron de Hermes, <code>delegate_task</code>.</div>
                   </div>
                 </div>
                 <div class="space-y-3">
                   <div class="p-4 rounded-lg bg-white/[0.03]">
                     <div class="text-xs text-muted uppercase tracking-wider font-mono mb-1">Ritmo</div>
-                    <div class="text-sm text-text">Cierre diario, recordatorios, coordinación con Diplomático.</div>
+                    <div class="text-sm text-text">Cierre diario, recordatorios, coordinación con Diplomático, tareas programadas con cron.</div>
                   </div>
                 </div>
               </div>
@@ -763,8 +817,8 @@
           </button>
           <div class="accordion-body">
             <div class="px-4 pb-4 text-sm text-muted">
-              <p class="mb-3">Cobra por Stripe: links, suscripciones, facturas y tienda online.</p>
-              <p class="font-mono text-xs text-accent">Pegaso: Stripe API, payment links, webhooks.</p>
+              <p class="mb-3">Cobra por Stripe y ejecuta gastos autorizados: Link, pagos por API 402, provisionamiento SaaS.</p>
+              <p class="font-mono text-xs text-accent">Pegaso: Stripe API, stripe-link-cli, mpp-agent, stripe-projects, webhooks.</p>
             </div>
           </div>
         </div>
@@ -778,8 +832,8 @@
           </button>
           <div class="accordion-body">
             <div class="px-4 pb-4 text-sm text-muted">
-              <p class="mb-3">Seguridad y modelos. Administra API keys y permisos por perfil.</p>
-              <p class="font-mono text-xs text-accent">Pegaso: Nvidia, OpenAI, Kimi Coding, rotación de keys.</p>
+              <p class="mb-3">Seguridad, sandbox y modelos. Administra API keys, permisos por perfil y ruteo de inferencias.</p>
+              <p class="font-mono text-xs text-accent">Pegaso: NemoClaw, OpenShell, Nemotron, OpenAI, Kimi Coding, rotación de keys.</p>
             </div>
           </div>
         </div>
@@ -793,8 +847,8 @@
           </button>
           <div class="accordion-body">
             <div class="px-4 pb-4 text-sm text-muted">
-              <p class="mb-3">Administración y operaciones. Calendar, Gmail, tareas y cierres diarios.</p>
-              <p class="font-mono text-xs text-accent">Pegaso: Google Calendar, Gmail, tareas, checklists.</p>
+              <p class="mb-3">Administración y operaciones. Calendar, Gmail, tareas, cron y coordinación de subagentes.</p>
+              <p class="font-mono text-xs text-accent">Pegaso: Google Calendar, Gmail, tareas, checklists, cron, delegate_task.</p>
             </div>
           </div>
         </div>
@@ -824,7 +878,7 @@
         <div class="lg:col-span-5 reveal">
           <span class="tag mb-4 block">Memoria compartida</span>
           <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">Sin cerebro, los héroes no se hablan.</h2>
-          <p class="text-muted text-lg leading-relaxed mb-6">G-Brain conecta a todos los héroes por MCP. Cada agente puede leer contexto, escribir resultados y consultar lo que otros aprendieron.</p>
+          <p class="text-muted text-lg leading-relaxed mb-6">Hermes trae memoria nativa con <code>MEMORY.md</code> y <code>USER.md</code>. G-Brain la extiende por MCP para que cada héroe lea contexto, escriba resultados y consulte lo que otros aprendieron.</p>
           <ul class="space-y-4">
             <li class="flex items-start gap-3">
               <span class="material-symbols-sharp text-accent mt-0.5">check</span>
@@ -837,6 +891,10 @@
             <li class="flex items-start gap-3">
               <span class="material-symbols-sharp text-accent mt-0.5">check</span>
               <span class="text-muted">Entidades: clientes, proveedores y productos se guardan como objetos reutilizables.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="material-symbols-sharp text-accent mt-0.5">check</span>
+              <span class="text-muted">Skills auto-generados: tras misiones complejas Hermes crea o parchea <code>SKILL.md</code> para la empresa.</span>
             </li>
           </ul>
         </div>
@@ -882,6 +940,59 @@
     </div>
   </section>
 
+  <!-- Self-improvement + Gateway -->
+  <section class="section-pad border-y border-line bg-surface/40">
+    <div class="max-w-[1400px] mx-auto px-4">
+      <div class="grid lg:grid-cols-2 gap-12">
+        <div class="reveal">
+          <span class="tag mb-4 block">Auto-mejora</span>
+          <h2 class="font-display text-3xl md:text-4xl tracking-[-0.04em] leading-[0.95] mb-6">Hermes aprende de cada misión.</h2>
+          <p class="text-muted leading-relaxed mb-6">Partenon no empieza de cero cada mañana. Después de cada interacción, Hermes evalúa el resultado y propone actualizaciones de memoria y skills. El Curator consolida la biblioteca cada 7 días. Todo pasa bajo aprobación humana.</p>
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <span class="material-symbols-sharp text-accent mt-0.5">sync</span>
+              <span class="text-muted text-sm"><strong>Closed learning loop:</strong> interacción → registro → evaluación → optimización → skill consolidada.</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="material-symbols-sharp text-accent mt-0.5">schedule</span>
+              <span class="text-muted text-sm"><strong>Cron:</strong> tareas programadas en lenguaje natural o expresión cron; entrega a Telegram, WhatsApp, email o Sheets.</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="material-symbols-sharp text-accent mt-0.5">forum</span>
+              <span class="text-muted text-sm"><strong>Messaging gateway:</strong> una sola sesión persiste en Telegram, WhatsApp, Slack, Discord, email y 17 plataformas más.</span>
+            </div>
+          </div>
+        </div>
+        <div class="reveal bezel reveal-delay-1">
+          <div class="bezel-inner p-6 md:p-8">
+            <div class="flex items-center justify-between mb-6">
+              <span class="tag">Learning loop</span>
+              <span class="font-mono text-xs text-muted">v0.1.0-alpha</span>
+            </div>
+            <div class="space-y-4">
+              <div class="flex items-center gap-4 p-3 rounded-lg bg-white/[0.03]">
+                <span class="font-mono text-sm text-accent">1</span>
+                <span class="text-sm text-muted">Tesorero categoriza gasto inusual.</span>
+              </div>
+              <div class="flex items-center gap-4 p-3 rounded-lg bg-white/[0.03]">
+                <span class="font-mono text-sm text-accent">2</span>
+                <span class="text-sm text-muted">Dueño corrige categoría.</span>
+              </div>
+              <div class="flex items-center gap-4 p-3 rounded-lg bg-white/[0.03]">
+                <span class="font-mono text-sm text-accent">3</span>
+                <span class="text-sm text-muted">Hermes propone parche a <code>SKILL.md</code>.</span>
+              </div>
+              <div class="flex items-center gap-4 p-3 rounded-lg bg-white/[0.03]">
+                <span class="font-mono text-sm text-accent">4</span>
+                <span class="text-sm text-muted">Siguiente gasto similar se clasifica solo.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Impact -->
   <section id="impacto" class="section-pad border-y border-line bg-surface/40 scanlines">
     <div class="max-w-[1400px] mx-auto px-4">
@@ -892,12 +1003,12 @@
       </div>
 
       <div class="reveal grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
-        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent">10</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">Hermes</div></div></div>
-        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent">100</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">Hermes</div></div></div>
-        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent">1K</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">Hermes</div></div></div>
-        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent">10K</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">Hermes</div></div></div>
-        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent">100K</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">Hermes</div></div></div>
-        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent">1M</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">Hermes</div></div></div>
+        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent">10</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
+        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent">100</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
+        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent">1K</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
+        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent">10K</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
+        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent">100K</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
+        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent">1M</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
@@ -987,12 +1098,12 @@
         <div class="lg:col-span-5 reveal">
           <span class="tag mb-4 block">Instalación</span>
           <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Empieza en minutos.</h2>
-          <p class="text-muted text-lg leading-relaxed mb-6">Hermes trabaja con archivos de perfil. Los héroes publican resultados en Sheets, Docs, Slides, Drive, Calendar y Gmail. Usamos la cuenta gratuita de Google como superficie común.</p>
+          <p class="text-muted text-lg leading-relaxed mb-6">Hermes trabaja con archivos de perfil. Los héroes publican resultados en Sheets, Docs, Slides, Drive, Calendar y Gmail. Puedes correrlo localmente o dentro de NVIDIA NemoClaw con OpenShell.</p>
           <ol class="space-y-4 mb-8 text-muted">
             <li class="flex items-start gap-3"><span class="font-mono text-accent">1.</span> Clona el repositorio.</li>
-            <li class="flex items-start gap-3"><span class="font-mono text-accent">2.</span> Corre el instalador.</li>
-            <li class="flex items-start gap-3"><span class="font-mono text-accent">3.</span> Copia el Google Sheet base.</li>
-            <li class="flex items-start gap-3"><span class="font-mono text-accent">4.</span> Define el tipo de empresa.</li>
+            <li class="flex items-start gap-3"><span class="font-mono text-accent">2.</span> Corre el instalador o el onboard de NemoClaw.</li>
+            <li class="flex items-start gap-3"><span class="font-mono text-accent">3.</span> Instala las Stripe Skills oficiales.</li>
+            <li class="flex items-start gap-3"><span class="font-mono text-accent">4.</span> Copia el Google Sheet base y define el tipo de empresa.</li>
           </ol>
           <a href="developers.html" class="btn btn-secondary">Ver documentación técnica <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_outward</span></span></a>
         </div>
@@ -1002,8 +1113,17 @@
               <span class="tag">Terminal</span>
               <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyInstall()">Copiar</button>
             </div>
-            <pre><code id="installCmd">curl -fsSL https://partenon.dev/install.sh | bash</code></pre>
-            <p class="text-sm text-muted mt-4">El instalador configura entorno, dependencias y el comando global <code>hermes</code>. Después copias el Google Sheet base y comienzas el onboarding.</p>
+            <pre><code id="installCmd"># Opción A: instalador local
+curl -fsSL https://partenon.dev/install.sh | bash
+
+# Opción B: onboard con NVIDIA NemoClaw
+curl -fsSL https://www.nvidia.com/nemoclaw.sh | NEMOCLAW_AGENT=hermes bash
+
+# Stripe Skills oficiales
+hermes skills install official/payments/stripe-link-cli
+hermes skills install official/payments/mpp-agent
+hermes skills install official/payments/stripe-projects</code></pre>
+            <p class="text-sm text-muted mt-4">El instalador configura entorno, dependencias y el comando global <code>hermes</code>. NemoClaw crea un sandbox con políticas de red y filesystem. Las Stripe Skills habilitan pagos programáticos bajo aprobación humana.</p>
           </div>
         </div>
       </div>

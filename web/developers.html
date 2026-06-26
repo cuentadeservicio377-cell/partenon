@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Partenon — Documentación técnica</title>
-  <meta name="description" content="Arquitectura técnica de Partenon: perfiles operativos como agentes de IA, G-Brain como cerebro compartido, MCP, Google Workspace, eval loop y workshop de 90 minutos." />
+  <meta name="description" content="Arquitectura técnica de Partenon: perfiles operativos como agentes Hermes, G-Brain por MCP, NVIDIA NemoClaw/OpenShell, Nemotron 3 Ultra, Stripe Skills, eval loop y workshop de 90 minutos." />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -293,7 +293,7 @@
             Arquitectura de Partenon.
           </h1>
           <p class="reveal text-muted text-lg leading-relaxed max-w-2xl">
-            Especificaciones para el jurado de Nous Research, Nvidia y Stripe: perfiles operativos, G-Brain vía MCP, eval loop, integraciones y el workshop de 90 minutos.
+            Especificaciones para el jurado de Nous Research, NVIDIA y Stripe: perfiles operativos, G-Brain vía MCP, eval loop, Stripe Skills, NVIDIA NemoClaw/OpenShell, Nemotron 3 Ultra y el workshop de 90 minutos.
           </p>
         </div>
         <div class="lg:col-span-4">
@@ -324,6 +324,11 @@
       <div class="reveal mermaid-container mb-12">
         <div class="mermaid">
 flowchart LR
+    subgraph NVIDIA["NVIDIA NemoClaw"]
+        OS["OpenShell<br/>sandbox + policies"]
+        NU["Nemotron 3 Ultra"]
+        NS["Nemotron 3 Super"]
+    end
     subgraph PARTENON["Partenón v0.1.0"]
         R["Hermes / Router"]
         O["Onboarding"]
@@ -341,7 +346,8 @@ flowchart LR
     end
     U["Emprendedor"]
     GW["Google Workspace"]
-    API["APIs externas<br/>Stripe / Nvidia / OpenAI / Kimi"]
+    STR["Stripe Skills<br/>link / mpp / projects"]
+    API["APIs externas<br/>OpenAI / Kimi"]
 
     U -->|"intención"| R
     R --> O
@@ -349,8 +355,10 @@ flowchart LR
     R --> G
     G --> T & M & C & GU & E & D
     Q --> T & M & C & GU & E & D
+    OS --> R & T & M & C & GU & E & D
+    NU & NS --> OS
     T & M & C & GU & E & D --> GW
-    C --> API
+    C --> STR
     GU --> API
     M --> API
     DASH --> G
@@ -482,6 +490,102 @@ sequenceDiagram
     </div>
   </section>
 
+  <!-- NVIDIA + Stripe Stack -->
+  <section class="section-pad">
+    <div class="max-w-[1400px] mx-auto px-4">
+      <div class="reveal max-w-2xl mb-12">
+        <span class="tag mb-4 block">Stack del hackathon</span>
+        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">NVIDIA y Stripe como infraestructura de agentes.</h2>
+        <p class="text-muted text-lg leading-relaxed">Partenon no solo consume APIs. Corre dentro de un sandbox, elige modelos por tarea y ejecuta pagos con límites explícitos.</p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6 mb-12">
+        <div class="reveal bezel">
+          <div class="bezel-inner p-6 md:p-8 h-full">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-sharp text-accent">security</span>
+              <h3 class="font-display text-xl tracking-tight">NVIDIA NemoClaw + OpenShell</h3>
+            </div>
+            <p class="text-sm text-muted leading-relaxed mb-4">NemoClaw orquesta agentes autónomos de larga duración. OpenShell aplica políticas fuera del proceso del agente: filesystem, red, procesos y privacidad. Incluso un prompt injection no puede saltarse las restricciones.</p>
+            <ul class="space-y-2 text-sm text-muted">
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base">check</span> Sandbox por héroe con políticas YAML.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base">check</span> Privacy router: datos sensibles a modelos locales.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base">check</span> Hermes es uno de los dos harness soportados oficialmente.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="reveal bezel reveal-delay-1">
+          <div class="bezel-inner p-6 md:p-8 h-full">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-sharp text-accent">memory</span>
+              <h3 class="font-display text-xl tracking-tight">Nemotron 3 Ultra</h3>
+            </div>
+            <p class="text-sm text-muted leading-relaxed mb-4">550B parámetros totales, 55B activos por token, arquitectura híbrida Mamba-Transformer MoE, contexto de 1M tokens. Post-entrenado para planificación, tool calling, delegación y recuperación de errores.</p>
+            <ul class="space-y-2 text-sm text-muted">
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base">check</span> Hasta 5× más throughput que modelos open comparables.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base">check</span> 30% más barato en tareas agentic.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base">check</span> Usado por el Guardián y el Estratega para reasoning complejo.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal bezel mb-12">
+        <div class="bezel-inner p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="material-symbols-sharp text-accent">payments</span>
+            <h3 class="font-display text-xl tracking-tight">Stripe Skills</h3>
+          </div>
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="p-4 rounded-lg bg-white/[0.03]">
+              <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">stripe-link-cli</div>
+              <p class="text-sm text-muted">Compras seguras con tarjeta virtual de un solo uso o Shared Payment Token. Cada spend request requiere aprobación en la app de Link.</p>
+            </div>
+            <div class="p-4 rounded-lg bg-white/[0.03]">
+              <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">mpp-agent</div>
+              <p class="text-sm text-muted">Paga por llamadas a APIs que responden HTTP 402. Soporta Stripe Link, Tempo Wallet, Privy Agent CLI y AgentCash.</p>
+            </div>
+            <div class="p-4 rounded-lg bg-white/[0.03]">
+              <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">stripe-projects</div>
+              <p class="text-sm text-muted">Provisiona SaaS autónomamente: Neon, Twilio, Vercel, Prisma, Runloop y 44 proveedores más. Credenciales sincronizadas a <code>.env</code>.</p>
+            </div>
+          </div>
+          <div class="mt-6 p-4 border border-line rounded-xl bg-bg">
+            <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Safety limits</div>
+            <p class="text-sm text-muted">Máximo $5,000 por spend request; $5,000 diarios; $20,000 mensuales. Ventana de aprobación de 10 minutos. Tarjeta/SPT válida 12 horas. Stripe Projects aisla presupuestos por proveedor y ambiente (dev/staging/prod).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal bezel">
+        <div class="bezel-inner p-6 md:p-8">
+          <div class="flex items-center justify-between mb-4">
+            <span class="tag">Ejemplo: provisionar Neon con Stripe Projects</span>
+            <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyStripeExample()">Copiar</button>
+          </div>
+          <pre><code id="stripeExample"># Onboard del proyecto
+stripe projects init
+
+# Ver catálogo
+stripe projects catalog
+
+# Provisionar Postgres para la app de pedidos
+stripe projects add neon/postgres --env dev
+
+# Crear spend request para el primer mes
+link-cli spend-request create \
+  --merchant-name "Neon" \
+  --amount 2900 \
+  --context "PostgreSQL para proyecto Aurora" \
+  --request-approval
+
+# Aprobación en la app de Link; tarjeta virtual de un solo uso
+# Credenciales se escriben en .env; Guardián rota keys al renovar</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Hero Profiles -->
   <section id="heroes" class="section-pad">
     <div class="max-w-[1400px] mx-auto px-4">
@@ -515,20 +619,20 @@ sequenceDiagram
               <div class="grid md:grid-cols-3 gap-6 text-sm">
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                  <p class="text-muted">Spreadsheets, modelos financieros, costos variables/fijos, dashboards, parsers de gastos.</p>
+                  <p class="text-muted">Spreadsheets, modelos financieros, costos variables/fijos, dashboards, parsers de gastos, análisis acelerado en GPU.</p>
                 </div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
-                  <p class="text-muted">In: facturas, estados de cuenta, gastos. Out: hojas acomodadas, categorización, reportes, alertas.</p>
+                  <p class="text-muted">In: facturas, estados de cuenta, gastos. Out: hojas acomodadas, categorización, reportes, alertas, proyecciones.</p>
                 </div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
-                  <p class="text-muted">Mensajero (presupuestos), Cobrador (ingresos), G-Brain.</p>
+                  <p class="text-muted">Mensajero (presupuestos), Cobrador (ingresos/gastos), G-Brain.</p>
                 </div>
               </div>
               <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
-                <p class="text-sm text-muted">Google Sheets + plantillas Excel + parsers de gastos + dashboards de margen.</p>
+                <p class="text-sm text-muted">Google Sheets + plantillas Excel + parsers de gastos + dashboards de margen + NVIDIA cuDF + cuOpt.</p>
               </div>
             </div>
           </div>
@@ -579,20 +683,20 @@ sequenceDiagram
               <div class="grid md:grid-cols-3 gap-6 text-sm">
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                  <p class="text-muted">Payment links, suscripciones, facturas, reportes de ingresos, webhooks.</p>
+                  <p class="text-muted">Payment links, suscripciones, facturas, compras con Link, pagos MPP, provisionamiento SaaS, webhooks.</p>
                 </div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
-                  <p class="text-muted">In: productos/servicios, precios, clientes. Out: links de pago, confirmaciones, reportes.</p>
+                  <p class="text-muted">In: productos/servicios, precios, clientes, presupuesto. Out: links de pago, spend requests aprobados, servicios provisionados, reportes.</p>
                 </div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
-                  <p class="text-muted">Stripe API, Tesorero (ingresos), G-Brain.</p>
+                  <p class="text-muted">Stripe API, Stripe Skills, Tesorero (ingresos/gastos), G-Brain, dueño (aprobación).</p>
                 </div>
               </div>
               <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
-                <p class="text-sm text-muted">Stripe API + payment links + suscripciones + webhooks + reportes en Sheets.</p>
+                <p class="text-sm text-muted">Stripe API + payment links + suscripciones + <code>stripe-link-cli</code> + <code>mpp-agent</code> + <code>stripe-projects</code> + webhooks + reportes en Sheets.</p>
               </div>
             </div>
           </div>
@@ -611,20 +715,20 @@ sequenceDiagram
               <div class="grid md:grid-cols-3 gap-6 text-sm">
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                  <p class="text-muted">Gestión de claves, permisos por perfil, modelos, cuentas de servicio, auditoría.</p>
+                  <p class="text-muted">Sandbox policies, gestión de claves, permisos por perfil, model routing, auditoría, SkillSpector.</p>
                 </div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
-                  <p class="text-muted">In: cuentas de Nvidia, OpenAI, Kimi, Stripe, redes. Out: accesos configurados, auditoría, políticas.</p>
+                  <p class="text-muted">In: cuentas de NVIDIA, OpenAI, Kimi, Stripe, redes. Out: políticas OpenShell, accesos configurados, auditoría, rotación de credenciales.</p>
                 </div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
-                  <p class="text-muted">Nvidia APIs, OpenAI, Kimi Coding, todos los héroes vía G-Brain.</p>
+                  <p class="text-muted">NVIDIA NemoClaw, OpenShell, Nemotron, OpenAI, Kimi Coding, todos los héroes vía G-Brain.</p>
                 </div>
               </div>
               <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
-                <p class="text-sm text-muted">Nvidia + OpenAI + Kimi Coding + rotación de API keys + permisos por perfil.</p>
+                <p class="text-sm text-muted">NVIDIA NemoClaw + OpenShell policies + Nemotron routing + OpenAI + Kimi Coding + rotación de API keys + permisos por perfil.</p>
               </div>
             </div>
           </div>
@@ -643,20 +747,20 @@ sequenceDiagram
               <div class="grid md:grid-cols-3 gap-6 text-sm">
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                  <p class="text-muted">Calendar, Gmail, tareas, recordatorios, priorización, planeación, checklists, briefings.</p>
+                  <p class="text-muted">Calendar, Gmail, tareas, recordatorios, priorización, planeación, checklists, briefings, cron, delegación a subagentes.</p>
                 </div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
-                  <p class="text-muted">In: eventos, correos, deadlines, misiones pendientes. Out: calendario actualizado, follow-ups, resumen.</p>
+                  <p class="text-muted">In: eventos, correos, deadlines, misiones pendientes. Out: calendario actualizado, follow-ups, resumen, tareas programadas, submisiones.</p>
                 </div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
-                  <p class="text-muted">Diplomático, Mensajero, G-Brain, Google Workspace.</p>
+                  <p class="text-muted">Diplomático, Mensajero, G-Brain, Google Workspace, cron de Hermes, subagentes.</p>
                 </div>
               </div>
               <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
-                <p class="text-sm text-muted">Google Calendar + Gmail + tareas + recordatorios + checklists + briefings.</p>
+                <p class="text-sm text-muted">Google Calendar + Gmail + tareas + recordatorios + checklists + briefings + cron de Hermes + <code>delegate_task</code>.</p>
               </div>
             </div>
           </div>
@@ -707,9 +811,9 @@ sequenceDiagram
           </button>
           <div class="accordion-body">
             <div class="px-4 pb-4 text-sm text-muted space-y-2">
-              <p><strong>Habilidades:</strong> Spreadsheets, modelos financieros, costos variables/fijos, dashboards.</p>
-              <p><strong>I/O:</strong> In: facturas, estados de cuenta. Out: hojas acomodadas, reportes, alertas.</p>
-              <p><strong>Pegaso:</strong> Google Sheets + Excel + parsers de gastos.</p>
+              <p><strong>Habilidades:</strong> Spreadsheets, modelos financieros, costos variables/fijos, dashboards, análisis GPU.</p>
+              <p><strong>I/O:</strong> In: facturas, estados de cuenta. Out: hojas acomodadas, reportes, alertas, proyecciones.</p>
+              <p><strong>Pegaso:</strong> Google Sheets + Excel + parsers + NVIDIA cuDF + cuOpt.</p>
             </div>
           </div>
         </div>
@@ -739,9 +843,9 @@ sequenceDiagram
           </button>
           <div class="accordion-body">
             <div class="px-4 pb-4 text-sm text-muted space-y-2">
-              <p><strong>Habilidades:</strong> Payment links, suscripciones, facturas, webhooks.</p>
-              <p><strong>I/O:</strong> In: productos, precios, clientes. Out: links, confirmaciones, reportes.</p>
-              <p><strong>Pegaso:</strong> Stripe API + payment links + webhooks.</p>
+              <p><strong>Habilidades:</strong> Payment links, suscripciones, facturas, Link, MPP, provisionamiento SaaS, webhooks.</p>
+              <p><strong>I/O:</strong> In: productos, precios, clientes, presupuesto. Out: links, spend requests aprobados, servicios provisionados, reportes.</p>
+              <p><strong>Pegaso:</strong> Stripe API + payment links + stripe-link-cli + mpp-agent + stripe-projects + webhooks.</p>
             </div>
           </div>
         </div>
@@ -755,9 +859,9 @@ sequenceDiagram
           </button>
           <div class="accordion-body">
             <div class="px-4 pb-4 text-sm text-muted space-y-2">
-              <p><strong>Habilidades:</strong> Gestión de claves, permisos, modelos, auditoría.</p>
-              <p><strong>I/O:</strong> In: cuentas de APIs. Out: accesos configurados, políticas.</p>
-              <p><strong>Pegaso:</strong> Nvidia + OpenAI + Kimi Coding + rotación de keys.</p>
+              <p><strong>Habilidades:</strong> Sandbox policies, gestión de claves, permisos, model routing, auditoría.</p>
+              <p><strong>I/O:</strong> In: cuentas de APIs. Out: políticas OpenShell, accesos configurados, rotación de credenciales.</p>
+              <p><strong>Pegaso:</strong> NemoClaw + OpenShell + Nemotron + OpenAI + Kimi Coding + rotación de keys.</p>
             </div>
           </div>
         </div>
@@ -771,9 +875,9 @@ sequenceDiagram
           </button>
           <div class="accordion-body">
             <div class="px-4 pb-4 text-sm text-muted space-y-2">
-              <p><strong>Habilidades:</strong> Calendar, Gmail, tareas, recordatorios, briefings.</p>
-              <p><strong>I/O:</strong> In: eventos, deadlines. Out: calendario, follow-ups, resumen.</p>
-              <p><strong>Pegaso:</strong> Google Calendar + Gmail + tareas + checklists.</p>
+              <p><strong>Habilidades:</strong> Calendar, Gmail, tareas, recordatorios, briefings, cron, subagentes.</p>
+              <p><strong>I/O:</strong> In: eventos, deadlines. Out: calendario, follow-ups, resumen, tareas programadas.</p>
+              <p><strong>Pegaso:</strong> Google Calendar + Gmail + tareas + checklists + cron + delegate_task.</p>
             </div>
           </div>
         </div>
@@ -792,6 +896,71 @@ sequenceDiagram
               <p><strong>Pegaso:</strong> Gmail + Calendar + CRM ligero + contratos.</p>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hermes Core -->
+  <section class="section-pad border-y border-line bg-surface/40">
+    <div class="max-w-[1400px] mx-auto px-4">
+      <div class="reveal max-w-2xl mb-12">
+        <span class="tag mb-4 block">Runtime</span>
+        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Hermes es más que un modelo.</h2>
+        <p class="text-muted text-lg leading-relaxed">Partenon aprovecha mecanismos nativos de Hermes Agent: skills system, memoria persistente, cron, subagentes, messaging gateway, MCP y un closed learning loop.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors">
+          <div class="material-symbols-sharp text-accent mb-4">folder_copy</div>
+          <h3 class="font-display text-lg tracking-tight mb-2">Skills System</h3>
+          <p class="text-sm text-muted">Cada héroe es un <code>SKILL.md</code> con frontmatter, slash commands y dependencias. Hermes puede crear o parchear skills tras misiones complejas.</p>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-1">
+          <div class="material-symbols-sharp text-accent mb-4">storage</div>
+          <h3 class="font-display text-lg tracking-tight mb-2">Memoria</h3>
+          <p class="text-sm text-muted"><code>MEMORY.md</code> y <code>USER.md</code> inyectados en el system prompt; SQLite FTS5 para búsqueda de sesiones; G-Brain como MCP server para memoria compartida.</p>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-2">
+          <div class="material-symbols-sharp text-accent mb-4">schedule</div>
+          <h3 class="font-display text-lg tracking-tight mb-2">Cron</h3>
+          <p class="text-sm text-muted">Tareas programadas en lenguaje natural o expresión cron. El gateway entrega a Telegram, WhatsApp, email, Slack y otras plataformas.</p>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors">
+          <div class="material-symbols-sharp text-accent mb-4">account_tree</div>
+          <h3 class="font-display text-lg tracking-tight mb-2">Subagentes</h3>
+          <p class="text-sm text-muted"><code>delegate_task</code> spawnea agentes hijos aislados con toolsets restringidos. El Estratega usa subagentes para misiones que cruzan varios héroes.</p>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-1">
+          <div class="material-symbols-sharp text-accent mb-4">forum</div>
+          <h3 class="font-display text-lg tracking-tight mb-2">Messaging Gateway</h3>
+          <p class="text-sm text-muted">Una sola sesión persiste en 22 plataformas: Telegram, WhatsApp, Slack, Discord, Signal, Email, Teams, LINE y otras.</p>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-2">
+          <div class="material-symbols-sharp text-accent mb-4">sync</div>
+          <h3 class="font-display text-lg tracking-tight mb-2">Auto-mejora</h3>
+          <p class="text-sm text-muted">Background review propone cambios a memoria y skills. El Curator consolida la biblioteca cada 7 días. Todo bajo aprobación humana.</p>
+        </div>
+      </div>
+
+      <div class="reveal bezel">
+        <div class="bezel-inner p-6 md:p-8">
+          <div class="flex items-center justify-between mb-4">
+            <span class="tag">Ejemplo: cron diario del Estratega</span>
+            <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyCronExample()">Copiar</button>
+          </div>
+          <pre><code id="cronExample">{
+  "name": "morning-briefing",
+  "schedule": "0 8 * * *",
+  "target": "estratega",
+  "action": "generate_briefing",
+  "delivery": ["telegram", "email"],
+  "inputs": {
+    "calendar": "primary",
+    "gmail_query": "is:unread",
+    "sheet": "tareas_pendientes"
+  }
+}</code></pre>
         </div>
       </div>
     </div>
@@ -915,21 +1084,25 @@ flowchart LR
           </div>
         </div>
         <div class="reveal mermaid-container">
-          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Cobrador / Stripe</div>
+          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Cobrador / Stripe Skills</div>
           <div class="mermaid">
 flowchart LR
     C["Cobrador"] -->|READ| G["G-Brain .payments"]
     C -->|CREATE| STR["Stripe API"]
+    C -->|spend request| L["Stripe Link"]
+    C -->|pay 402| MPP["MPP Agent"]
+    C -->|provision| PROJ["Stripe Projects"]
     STR -->|webhook| C
     C -->|WRITE| SH["Google Sheets"]
           </div>
         </div>
         <div class="reveal mermaid-container reveal-delay-1">
-          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Guardián / Modelos</div>
+          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Guardián / Sandbox y modelos</div>
           <div class="mermaid">
 flowchart LR
     GU["Guardián"] -->|READ/WRITE| G["G-Brain .security"]
-    GU -->|rotate keys| N["Nvidia"]
+    GU -->|policy| OS["OpenShell"]
+    GU -->|route| NU["Nemotron Ultra"]
     GU -->|rotate keys| O["OpenAI"]
     GU -->|rotate keys| K["Kimi"]
     GU -->|permisos| P["Héroes"]
@@ -1081,13 +1254,14 @@ sequenceDiagram
         <div class="lg:col-span-5 reveal">
           <span class="tag mb-4 block">Instalación</span>
           <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Empieza en minutos.</h2>
-          <p class="text-muted text-lg leading-relaxed mb-6">El instalador configura entorno Python, dependencias, el comando global <code>hermes</code> y los seis perfiles. Luego copias el Google Sheet base y conectas las variables de entorno.</p>
+          <p class="text-muted text-lg leading-relaxed mb-6">El instalador configura entorno Python, dependencias, el comando global <code>hermes</code> y los seis perfiles. También puedes correr Partenon dentro de NVIDIA NemoClaw y habilitar las Stripe Skills oficiales.</p>
           <ol class="space-y-4 mb-8 text-muted">
             <li class="flex items-start gap-3"><span class="font-mono text-accent">1.</span> Clona el repositorio.</li>
-            <li class="flex items-start gap-3"><span class="font-mono text-accent">2.</span> Corre el instalador.</li>
-            <li class="flex items-start gap-3"><span class="font-mono text-accent">3.</span> Copia el Google Sheet base.</li>
-            <li class="flex items-start gap-3"><span class="font-mono text-accent">4.</span> Configura variables de entorno.</li>
-            <li class="flex items-start gap-3"><span class="font-mono text-accent">5.</span> Define el tipo de empresa.</li>
+            <li class="flex items-start gap-3"><span class="font-mono text-accent">2.</span> Corre el instalador local o el onboard de NemoClaw.</li>
+            <li class="flex items-start gap-3"><span class="font-mono text-accent">3.</span> Instala las Stripe Skills oficiales.</li>
+            <li class="flex items-start gap-3"><span class="font-mono text-accent">4.</span> Copia el Google Sheet base.</li>
+            <li class="flex items-start gap-3"><span class="font-mono text-accent">5.</span> Configura variables de entorno.</li>
+            <li class="flex items-start gap-3"><span class="font-mono text-accent">6.</span> Define el tipo de empresa.</li>
           </ol>
           <a href="https://github.com/paolameneses/partenon" target="_blank" rel="noopener" class="btn btn-primary">
             Abrir GitHub
@@ -1104,7 +1278,16 @@ sequenceDiagram
               <pre><code id="installCmd">git clone https://github.com/paolameneses/partenon.git
 cd partenon
 
+# Opción A: instalador local
 curl -fsSL https://partenon.dev/install.sh | bash
+
+# Opción B: onboard con NVIDIA NemoClaw
+curl -fsSL https://www.nvidia.com/nemoclaw.sh | NEMOCLAW_AGENT=hermes bash
+
+# Stripe Skills oficiales
+hermes skills install official/payments/stripe-link-cli
+hermes skills install official/payments/mpp-agent
+hermes skills install official/payments/stripe-projects
 
 # Copia el Google Sheet base y conecta variables:
 # HERMES_FOLDER_ID, GOOGLE_SERVICE_ACCOUNT, STRIPE_API_KEY,
@@ -1169,22 +1352,22 @@ curl -fsSL https://partenon.dev/install.sh | bash
         <div class="reveal grid md:grid-cols-12 gap-6 items-center p-6 md:p-8 border border-line rounded-2xl bg-bg">
           <div class="md:col-span-2 font-mono text-accent">Q2 2026</div>
           <div class="md:col-span-10">
-            <div class="font-display text-xl tracking-tight mb-2">v0.1.0 — Seis héroes + dashboard + eval loop mínimo</div>
-            <p class="text-sm text-muted">Tesorero, Mensajero, Cobrador, Guardián, Estratega y Diplomático con kanban, G-Brain MCP y eval loop en el Tesorero.</p>
+            <div class="font-display text-xl tracking-tight mb-2">v0.1.0 — Seis héroes + stack del hackathon</div>
+            <p class="text-sm text-muted">Tesorero, Mensajero, Cobrador, Guardián, Estratega y Diplomático con kanban, G-Brain MCP, eval loop, Stripe Skills y arquitectura lista para NVIDIA NemoClaw.</p>
           </div>
         </div>
         <div class="reveal grid md:grid-cols-12 gap-6 items-center p-6 md:p-8 border border-line rounded-2xl bg-bg reveal-delay-1">
           <div class="md:col-span-2 font-mono text-accent">Q3 2026</div>
           <div class="md:col-span-10">
             <div class="font-display text-xl tracking-tight mb-2">v0.2 — Integraciones live</div>
-            <p class="text-sm text-muted">Google Workspace API, Stripe webhooks, modelos locales con Nvidia y despliegue en Railway.</p>
+            <p class="text-sm text-muted">Google Workspace API, Stripe webhooks, pagos programáticos con aprobación humana, sandbox NVIDIA NemoClaw/OpenShell y modelos locales con Nemotron.</p>
           </div>
         </div>
         <div class="reveal grid md:grid-cols-12 gap-6 items-center p-6 md:p-8 border border-line rounded-2xl bg-bg reveal-delay-2">
           <div class="md:col-span-2 font-mono text-accent">Q4 2026</div>
           <div class="md:col-span-10">
             <div class="font-display text-xl tracking-tight mb-2">v0.3 — Memoria avanzada</div>
-            <p class="text-sm text-muted">G-Brain persistente, entidades enlazadas, aprendizajes por misión y eval loop en todos los perfiles.</p>
+            <p class="text-sm text-muted">G-Brain persistente, entidades enlazadas, aprendizajes por misión, eval loop en todos los perfiles y cron con messaging gateway.</p>
           </div>
         </div>
         <div class="reveal grid md:grid-cols-12 gap-6 items-center p-6 md:p-8 border border-line rounded-2xl bg-bg reveal-delay-3">
@@ -1304,6 +1487,12 @@ curl -fsSL https://partenon.dev/install.sh | bash
     }
     function copyDemo() {
       navigator.clipboard.writeText(document.getElementById('demoCode').textContent);
+    }
+    function copyStripeExample() {
+      navigator.clipboard.writeText(document.getElementById('stripeExample').textContent);
+    }
+    function copyCronExample() {
+      navigator.clipboard.writeText(document.getElementById('cronExample').textContent);
     }
   </script>
 </body>

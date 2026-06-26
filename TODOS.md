@@ -8,6 +8,8 @@
 - [ ] Implementar eval loop funcional en el Tesorero (tests/evals + judge skill + threshold)
 - [ ] Agregar eval loop a los demás perfiles
 - [ ] Instalar skill ui-ux-pro-max para reviews de diseño sistemáticas
+- [ ] Probar comandos reales de Stripe Link CLI y Stripe Projects en sandbox
+- [ ] Configurar onboard de NVIDIA NemoClaw/OpenShell con perfil Hermes
 
 ## Hecho
 - [x] Diagnóstico UX/UI/estructura/storytelling de `index.html` y `developers.html`
@@ -29,6 +31,11 @@
 - [x] Repositorios analizados
 - [x] Stack visual y técnico confirmado
 - [x] `DESIGN.md`, `SPEC.md`, `AGENTS.md` actualizados
+- [x] Loop de mejora: investigar con AgentSwarm sobre NVIDIA NemoClaw, Nemotron 3 Ultra, OpenShell, CUDA-X skills, Stripe Skills y funcionalidades core de Hermes
+- [x] Enriquecer `web/index.html` con stack del hackathon (Hermes + NVIDIA + Stripe), auto-mejora y gateway
+- [x] Enriquecer `web/developers.html` con arquitectura NVIDIA/Stripe, perfiles técnicos actualizados, Hermes Core y ejemplos de comandos
+- [x] Regenerar screenshots desktop/mobile tras cambios
+- [x] Verificar visualmente páginas y validar HTML
 
 ## Parking Lot
 _Cosas descubiertas durante el desarrollo que NO están en el plan actual_
