@@ -43,6 +43,9 @@
 - [x] Enriquecer `web/index.html` con proceso de 4 pasos, contadores animados, milestone bar, métricas de impacto, growth plan de 4 canales y CTA tipeado
 - [x] Enriquecer `web/developers.html` con badges técnicos, tablas de especificaciones por héroe, API reference, workshop timeline visual e install tabs con feedback de copiado
 - [x] Actualizar `scripts/capture.py` para forzar `.stat-value` y regenerar screenshots
+- [x] Corregir "G-Brain of Garitán" → "G-Brain of Garry Tan"
+- [x] Actualizar `README.md` con la nueva estructura de 3 páginas y correcciones de información
+- [x] Regenerar screenshots desktop/mobile de `index.html`, `heroes.html` y `developers.html`
 
 ## Parking Lot
 _Cosas descubiertas durante el desarrollo que NO están en el plan actual_

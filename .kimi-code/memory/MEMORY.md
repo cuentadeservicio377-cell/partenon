@@ -6,8 +6,7 @@
 
 - **Proyecto**: Partenon
 - **Iniciado**: 2026-06-23
-- **Estado**: Seis perfiles de Hermes creados. Tres páginas web estáticas en `web/` (index.html, developers.html, heroes.html) migradas desde `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/` con estética clásica de la app React y correcciones de información. Próximo: probar Stripe Skills en sandbox, configurar onboard de NVIDIA NemoClaw/OpenShell e implementar eval loop funcional.
-- **Propósito**: Sistema de agentes IA para empresas, presentado como un panteón de héroes griegos al servicio de Hermes. Destinado a hackathon.
+- **Estado**: Seis perfiles de Hermes creados. Tres páginas web estáticas en `web/` (index.html, heroes.html, developers.html) migradas desde `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/` con estética clásica de la app React (mármol blanco, Cinzel, Inter) y correcciones de información basadas en auditorías oficiales. Próximo: probar Stripe Skills en sandbox, configurar onboard de NVIDIA NemoClaw/OpenShell e implementar eval loop funcional.
 
 ## Braindump
 
@@ -28,12 +27,12 @@ La narrativa de marca usa arquetipos (no la mitología de forma cursi) para dar 
 
 **Confirmado para las páginas web:**
 - **Páginas web**: HTML estático + Tailwind CSS + JavaScript vanilla. Alojado en GitHub Pages.
-- **Estética**: Inspirada en Nous Research / Nous Research (subproducto visual coherente).
+- **Estética**: Basada en la app React `Kimi_Agent_10 Storytelling Web Sites/app`: mármol blanco `#F7F5F0`, pergamino `#EDE8DF`, deep-stone `#2A2A2E`, midnight `#1A1A1E`, tipografías Cinzel + Inter + JetBrains Mono.
 
 **Stack del sistema (basado en repositorios analizados):**
 - **Agent Core**: Hermes Agent (Nous Research) — Python
 - **Sandbox / Orchestration**: NVIDIA NemoClaw + OpenShell
-- **Models**: NVIDIA Nemotron 3 Ultra / Super, OpenAI, Kimi Coding
+- **Models**: NVIDIA Nemotron 3 Ultra / Super, OpenAI, Kimi / Moonshot
 - **Skills nativas**: Hermes Business OS (HBOS) — 6 skills base
 - **Payments**: Stripe API + Stripe Skills (`stripe-link-cli`, `mpp-agent`, `stripe-projects`)
 - **Dashboard**: Next.js 15 + React 19 + TypeScript + Tailwind CSS
@@ -133,7 +132,7 @@ Los perfiles mapean directamente a skills existentes o propuestas de HBOS:
 - Google Workspace (Sheets, Drive, Docs, Slides, Calendar, Gmail)
 - Stripe + Stripe Skills (`stripe-link-cli`, `mpp-agent`, `stripe-projects`)
 - NVIDIA NemoClaw + OpenShell + Nemotron 3 Ultra / Super
-- G-Brain de Garitán (cerebro central vía MCP)
+- G-Brain de Garry Tan (cerebro central vía MCP)
 - Hermes Agent (Nous Research)
 - MCPs para cada héroe
 - Hermes messaging gateway (Telegram, WhatsApp, Slack, Discord, Email, LINE, etc.)
