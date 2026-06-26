@@ -364,11 +364,11 @@ For a quick overview, see [`docs/assets/hero-matrix.md`](assets/hero-matrix.md).
 Most tools have a `main()` entry point so you can test them without Hermes:
 
 ```bash
-python hermes/profiles/partenon-tesorero/skills/finance/tools/templates.py
-python hermes/profiles/partenon-mensajero/skills/comms/tools/content_calendar.py "automation for SMEs" linkedin,instagram 7
-python hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py
-python hermes/profiles/partenon-estratega/skills/ops/tools/briefings.py
-python hermes/profiles/partenon-diplomatico/skills/relations/tools/crm.py
+python3 hermes/profiles/partenon-tesorero/skills/finance/tools/templates.py
+python3 hermes/profiles/partenon-mensajero/skills/comms/tools/content_calendar.py "automation for SMEs" linkedin,instagram 7
+python3 hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py
+python3 hermes/profiles/partenon-estratega/skills/ops/tools/briefings.py
+python3 hermes/profiles/partenon-diplomatico/skills/relations/tools/crm.py
 python hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py
 ```
 
