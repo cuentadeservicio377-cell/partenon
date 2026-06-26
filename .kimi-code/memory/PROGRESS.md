@@ -2,6 +2,15 @@
 
 ## Historial de Sesiones
 
+### 2026-06-26 — Loop de mejora: integración NVIDIA/Stripe/Hermes
+- Investigación con AgentSwarm sobre NVIDIA NemoClaw, OpenShell, Nemotron 3 Ultra, CUDA-X skills, Stripe Skills (`stripe-link-cli`, `mpp-agent`, `stripe-projects`) y funcionalidades core de Hermes Agent (skills, memory, cron, subagents, messaging gateway, MCP, self-improvement).
+- Enriquecida `web/index.html`: hero con stack del hackathon, sección "Agentes que cobran, pagan y operan seguros", perfiles de héroes actualizados (Cobrador con Stripe Skills, Guardián con NemoClaw/OpenShell, Tesorero con cuDF/cuOpt, Estratega con cron/subagentes), sección "Hermes aprende de cada misión" con learning loop, cron y messaging gateway, contador de impacto corregido a "pymes", instalación con NemoClaw y Stripe Skills.
+- Enriquecida `web/developers.html`: arquitectura Mermaid con NVIDIA NemoClaw/OpenShell/Nemotron y Stripe Skills, sección "NVIDIA y Stripe como infraestructura de agentes", perfiles técnicos actualizados, sección "Hermes es más que un modelo" con skills/memory/cron/subagents/gateway/MCP/self-improvement, ejemplos de Stripe Projects y cron, instalación y roadmap actualizados.
+- Actualizados `README.md` y `TODOS.md`.
+- Regenerados screenshots desktop/mobile en `screenshots/`.
+- Validados HTML de ambas páginas.
+- Commit realizado.
+
 ### 2026-06-26 — Loop de reparación completo (3 fases)
 - Reescrita `web/index.html` como especificación maestra de marketing con narrativa de arquetipos, Hermes=empresa, 6 héroes con Pegasos, ejemplos de construcción/cafetería, contador 10→1M, carta de intención de Pablo (PlayStation/LATAM/wsc.lat) y go-to-market detallado.
 - Reescrita `web/developers.html` como espejo técnico con arquitectura Mermaid, secuencia de misión, fichas técnicas por héroe, diagramas de conexión por perfil, workshop de 90 min, estructura de repo y roadmap.

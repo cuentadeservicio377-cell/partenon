@@ -6,7 +6,7 @@
 
 - **Proyecto**: Partenon
 - **Iniciado**: 2026-06-23
-- **Estado**: Seis perfiles de Hermes creados (Guardian, Cobrador, Mensajero, Tesorero, Estratega, Diplomatico). Próximo: integrar Google Workspace, Stripe y G-Brain con los perfiles.
+- **Estado**: Seis perfiles de Hermes creados (Guardian, Cobrador, Mensajero, Tesorero, Estratega, Diplomatico). Páginas web enriquecidas con stack del hackathon Nous Research / NVIDIA / Stripe. Próximo: probar Stripe Skills en sandbox, configurar onboard de NVIDIA NemoClaw/OpenShell e implementar eval loop funcional.
 - **Propósito**: Sistema de agentes IA para empresas, presentado como un panteón de héroes griegos al servicio de Hermes. Destinado a hackathon.
 
 ## Braindump
@@ -32,11 +32,14 @@ La narrativa de marca usa arquetipos (no la mitología de forma cursi) para dar 
 
 **Stack del sistema (basado en repositorios analizados):**
 - **Agent Core**: Hermes Agent (Nous Research) — Python
+- **Sandbox / Orchestration**: NVIDIA NemoClaw + OpenShell
+- **Models**: NVIDIA Nemotron 3 Ultra / Super, OpenAI, Kimi Coding
 - **Skills nativas**: Hermes Business OS (HBOS) — 6 skills base
+- **Payments**: Stripe API + Stripe Skills (`stripe-link-cli`, `mpp-agent`, `stripe-projects`)
 - **Dashboard**: Next.js 15 + React 19 + TypeScript + Tailwind CSS
 - **Document Engine**: Python + WeasyPrint (Kami v3)
 - **Data**: Google Sheets (master data) + JSON local
-- **Communication**: Telegram (primario) + WhatsApp + Dashboard
+- **Communication**: Hermes messaging gateway (Telegram, WhatsApp, Slack, Discord, Email, LINE, etc.)
 - **Integraciones**: Google Workspace, Stripe, G-Brain vía MCP
 - **Infraestructura**: Docker / Docker Compose, opcional AWS EC2
 
@@ -128,12 +131,13 @@ Los perfiles mapean directamente a skills existentes o propuestas de HBOS:
 ## Integraciones Clave
 
 - Google Workspace (Sheets, Drive, Docs, Slides, Calendar, Gmail)
-- Stripe
+- Stripe + Stripe Skills (`stripe-link-cli`, `mpp-agent`, `stripe-projects`)
+- NVIDIA NemoClaw + OpenShell + Nemotron 3 Ultra / Super
 - G-Brain de Garitán (cerebro central vía MCP)
 - Hermes Agent (Nous Research)
 - MCPs para cada héroe
-- Telegram / WhatsApp
-- Knowles Research / Nvidia / Stripe (respaldos y jurado)
+- Hermes messaging gateway (Telegram, WhatsApp, Slack, Discord, Email, LINE, etc.)
+- Nous Research / NVIDIA / Stripe (respaldos y jurado)
 
 ## Estructura de Archivos por Empresa
 
@@ -173,13 +177,15 @@ Los perfiles mapean directamente a skills existentes o propuestas de HBOS:
 - El sistema se construirá basado en las páginas.
 - Google Workspace como superficie de trabajo compartida con el empresario.
 - HBOS como base técnica existente; Partenon es la capa de presentación y extensión de perfiles.
+- Stack del hackathon explícito en ambas páginas: Hermes Agent + NVIDIA NemoClaw/OpenShell/Nemotron 3 Ultra + Stripe Skills.
 - Estética Nous Research / manual técnico: fondo `#050505`, acento cian `#00D4FF`, tipografía monospaced en hero, sin emojis ni emdashes.
 - Copy anti-AI-slop: verbos concretos, claim + proof, sin intensificadores ni frases de transición dramáticas.
 
 ## APIs / Integraciones
 
 - Google Workspace APIs
-- Stripe API
+- Stripe API + Stripe Skills
+- NVIDIA NemoClaw / OpenShell / Nemotron
 - G-Brain (MCP)
 - Hermes Agent APIs
 - MCPs de cada herramienta/skill
