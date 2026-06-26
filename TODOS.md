@@ -108,7 +108,7 @@
 - [x] Create `docs/API.md` referencing actual code in `partenon-core/tools/`, `scripts/`, and `examples/`
 - [x] Create `docs/FAQ.md` with 20 honest questions and answers
 - [x] Create `docs/assets/architecture-diagram.mmd`, `docs/assets/hero-matrix.md`, and `docs/assets/partenon-logo.svg`
-- [x] Verify `python scripts/demo_tesorero.py` still runs
+- [x] Verify `python3 scripts/demo_tesorero.py` still runs
 - [x] Verify `cd dashboard && npm run build` still succeeds
 - [x] Cross-check internal documentation links and English consistency
 
