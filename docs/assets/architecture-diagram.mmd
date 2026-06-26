@@ -1,0 +1,48 @@
+graph TD
+    USER[User / Founder] -->|speaks to| HERMES[Hermes<br/>company profile]
+    HERMES -->|routes intent| ROUTER[partenon-core/router.py]
+    ROUTER -->|classifies| ONBOARD[onboarding_engine.py]
+    ROUTER -->|orchestrates| WORKFLOW[workflow_engine.py]
+    ROUTER -->|evaluates| EVAL[eval_loop.py]
+    ROUTER -->|reads config| CONFIG[config_loader.py]
+
+    ROUTER --> SCRIBE[partenon-tesorero<br/>Scribe]
+    ROUTER --> HERALD[partenon-mensajero<br/>Herald]
+    ROUTER --> COLLECTOR[partenon-cobrador<br/>Collector]
+    ROUTER --> GUARDIAN[partenon-guardian<br/>Guardian]
+    ROUTER --> STRATEGIST[partenon-estratega<br/>Strategist]
+    ROUTER --> DIPLOMAT[partenon-diplomatico<br/>Diplomat]
+    ROUTER --> BRAIN[partenon-brain<br/>Brain]
+
+    SCRIBE -->|tools| FIN[finance/tools/<br/>google_sheets, parsers,<br/>templates, audit]
+    HERALD -->|tools| COMMS[comms/tools/<br/>brand_intake, copy_generator,<br/>content_calendar, seo_geo_optimizer]
+    COLLECTOR -->|tools| PAY[payments/tools/<br/>stripe_tools]
+    GUARDIAN -->|tools| SEC[security/tools/<br/>key_manager, audit_logger,<br/>policy_manager, secrets_manager]
+    STRATEGIST -->|tools| OPS[ops/tools/<br/>projects, tasks, checklists,<br/>goals, briefings, calendar]
+    DIPLOMAT -->|tools| REL[relations/tools/<br/>crm, followups, schedule_meeting,<br/>generate_proposal]
+    BRAIN -->|tools| MEM[memory/tools/<br/>gbrain_client, mcp_hub, sync]
+
+    FIN --> GWS[Google Workspace MCP]
+    COMMS --> GWS
+    COMMS --> GMAIL[Gmail MCP]
+    PAY --> STRIPE[Stripe MCP]
+    PAY --> GWS
+    OPS --> GWS
+    OPS --> GMAIL
+    REL --> GWS
+    REL --> GMAIL
+    GUARDIAN -->|audit logs| GB
+    BRAIN --> GB[G-Brain MCP<br/>gbrain/server.py]
+
+    FIN -.->|income records| SCRIBE
+    COLLECTOR -.->|payment confirmed| SCRIBE
+    HERALD -.->|campaign budget| SCRIBE
+    STRATEGIST -.->|milestones| DIPLOMAT
+    DIPLOMAT -.->|payment dispute| COLLECTOR
+    COLLECTOR -.->|fraud flag| GUARDIAN
+    BRAIN -.->|context| ALL[all profiles]
+
+    style HERMES fill:#00D4FF20,stroke:#00D4FF
+    style ROUTER fill:#00D4FF20,stroke:#00D4FF
+    style GB fill:#FFB80020,stroke:#FFB800
+    style USER fill:#050505,stroke:#6B6B78

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="col-a" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#00D4FF"/>
+      <stop offset="1" stop-color="#0099CC"/>
+    </linearGradient>
+    <linearGradient id="col-b" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFB800"/>
+      <stop offset="1" stop-color="#CC9200"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="#050505"/>
+  <g transform="translate(256,256)">
+    <!-- base -->
+    <rect x="-120" y="128" width="240" height="16" rx="4" fill="#1A1A1E" stroke="#2A2A2E" stroke-width="2"/>
+    <rect x="-96" y="112" width="192" height="16" rx="4" fill="#1A1A1E" stroke="#2A2A2E" stroke-width="2"/>
+    <!-- columns -->
+    <rect x="-88" y="-80" width="28" height="192" rx="4" fill="url(#col-a)"/>
+    <rect x="-44" y="-80" width="28" height="192" rx="4" fill="url(#col-a)"/>
+    <rect x="0"   y="-80" width="28" height="192" rx="4" fill="url(#col-a)"/>
+    <rect x="44"  y="-80" width="28" height="192" rx="4" fill="url(#col-a)"/>
+    <rect x="88"  y="-80" width="28" height="192" rx="4" fill="url(#col-a)"/>
+    <!-- capital / roof -->
+    <rect x="-136" y="-96" width="272" height="20" rx="4" fill="#1A1A1E" stroke="#2A2A2E" stroke-width="2"/>
+    <path d="M-144 -96 L0 -144 L144 -96 Z" fill="none" stroke="url(#col-b)" stroke-width="12" stroke-linejoin="round"/>
+    <!-- pediment inner -->
+    <path d="M-100 -96 L0 -130 L100 -96 Z" fill="#0B0B0F"/>
+    <!-- central star -->
+    <circle cx="0" cy="-106" r="10" fill="#FFB800"/>
+  </g>
+</svg>

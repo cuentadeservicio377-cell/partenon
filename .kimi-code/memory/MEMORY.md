@@ -6,11 +6,11 @@
 
 - **Project**: Partenon
 - **Started**: 2026-06-23
-- **Status**: Public GitHub repository translated to English for international audience. All seven Hermes profiles, core tools, docs, data files, templates, cron jobs, and install scripts are now in English. Collector (partenon-cobrador) profile audit and gap-fix completed. Remaining gaps are tracked in `MISSING_IMPLEMENTATION.md`.
+- **Status**: Public GitHub repository translated to English. README rewritten from scratch and a full documentation package created: entrepreneur playbook, hero guide, quickstart, security, API, FAQ, and visual assets. All docs are grounded in actual code, in English, and cross-linked. Remaining gaps are tracked in `MISSING_IMPLEMENTATION.md`.
 - **Live site**: `https://hermespartenon.online/`
 - **Repo**: `https://github.com/cuentadeservicio377-cell/partenon`
 - **Profiles**: Scribe/Treasurer, Herald/Messenger, Collector, Guardian, Strategist, Diplomat, Brain.
-- **Verified**: `python3 scripts/demo_tesorero.py` PASS, `cd dashboard && npm run build` PASS, all profile Python tools compile PASS.
+- **Verified**: `python3 scripts/demo_tesorero.py` PASS, `cd dashboard && npm run build` PASS.
 - **Next**: standardize `GBRAIN_DATABASE_URL` naming, add automated tests, implement real intent router and workflow engine runtime, and add publishing/dispatch integrations.
 
 ## Braindump

@@ -2,6 +2,21 @@
 
 ## Session History
 
+### 2026-06-26 — Documentation package: README rewrite + hero guides + quickstart + security/API/FAQ
+- Rewrote `README.md` from scratch with ASCII banner, badges, one-liner, value prop, Mermaid diagrams, three concrete use cases, quick install block, hero feature matrix, architecture section, roadmap, and known gaps.
+- Created `docs/ENTREPRENEUR_PLAYBOOK.md` with business-type hero selection (coffee shop, agency, construction, SaaS, retail), copy-paste mission prompts, 30-60-90 day rollout checklist, and example `.finance`, `.design`, `.payments`, `.security`, `.ops`, `.relations`, `.brain` configurations.
+- Created `docs/HERO_GUIDE.md` with per-hero real tools, MCP servers, env vars, cron jobs, example prompts, and integration points for all seven profiles.
+- Created `docs/QUICKSTART.md` with 15-minute step-by-step commands, expected outputs, and screenshot placeholders.
+- Created `docs/SECURITY.md` covering `.env` handling, Google service accounts, Stripe key rotation, Guardian responsibilities, audit logging, and Docker Compose security notes.
+- Created `docs/API.md` documenting `partenon-core/tools/`, `scripts/`, `examples/`, `gbrain/server.py`, and the Next.js dashboard.
+- Created `docs/FAQ.md` with 20 honest questions and answers for entrepreneurs and developers.
+- Created `docs/assets/architecture-diagram.mmd`, `docs/assets/hero-matrix.md`, and `docs/assets/partenon-logo.svg`.
+- Cross-checked all internal documentation links and verified content is in English.
+- Verification:
+  - `python scripts/demo_tesorero.py` PASS.
+  - `cd dashboard && npm run build` PASS.
+- Updated `TODOS.md`.
+
 ### 2026-06-26 — Collector (partenon-cobrador) i18n audit and gap-fix
 - Audited `hermes/profiles/partenon-cobrador` against `web/heroes.html`, `web/developers.html`, and `web/index.html`.
 - Verified all profile files are in English; no Spanish prose remains.

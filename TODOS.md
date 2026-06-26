@@ -12,6 +12,16 @@
 - [ ] Configure NVIDIA NemoClaw/OpenShell onboarding with Hermes profile
 
 ## Completed
+- [x] Rewrite `README.md` with ASCII banner, badges, use cases, feature matrix, architecture, roadmap, and links to all new docs
+- [x] Create `docs/ENTREPRENEUR_PLAYBOOK.md` with hero selection guide, copy-paste prompts, 30-60-90 checklist, and example profile configs
+- [x] Create `docs/HERO_GUIDE.md` with real tools, MCP/env vars, cron jobs, example commands, and integration points for all 7 heroes
+- [x] Create `docs/QUICKSTART.md` with 15-minute step-by-step commands, expected outputs, and screenshot placeholders
+- [x] Create `docs/SECURITY.md` covering credential storage, `.env` handling, Google service accounts, Guardian responsibilities, and audit logging
+- [x] Create `docs/API.md` with API/CLI reference for core tools, profile tools, scripts, and examples
+- [x] Create `docs/FAQ.md` with 20 honest questions and answers
+- [x] Create `docs/assets/architecture-diagram.mmd`, `docs/assets/hero-matrix.md`, and `docs/assets/partenon-logo.svg`
+- [x] Verify all new docs reference each other with valid links
+- [x] Verify `python scripts/demo_tesorero.py` PASS and `cd dashboard && npm run build` PASS
 - [x] Migrate `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Developers.tsx` to `web/developers.html` with classic React app aesthetic (marble white, Cinzel, Inter) and mandatory information corrections
 - [x] Migrate `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Heroes.tsx` to `web/heroes.html` with classic React app aesthetic (marble white, Cinzel, Inter) and mandatory information corrections
 - [x] Migrate `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Home.tsx` to `web/index.html` with classic React app aesthetic (marble white, Cinzel, Inter) and mandatory information corrections
@@ -87,6 +97,19 @@
 - [x] Add Collector MCP-aligned tools: `create_invoice`, `list_charges`, `monitor_fraud`, `read_pending_payments`, `read_overdue_payments`, `classify_risk`, `schedule_followup`, `notify`
 - [x] Verify all Collector Python tools compile with `python3 -m py_compile`
 - [x] Audit and gap-fix `partenon-mensajero` profile (SOUL.md, config.yaml, SKILL.md, .env.example, templates, cron JSON) — translate to English, align with Herald capabilities, add MCP-aligned tools (`publish_post`, `schedule_content`, `seo_geo_optimizer`, `analyze_engagement`, `presentation_builder`, `read_brand_config`, `read_content_calendar`, `generate_post_ideas`, `read_social_metrics`, `detect_opportunities`, `notify`), and verify Python compilation
+
+## Documentation Rewrite (this session)
+- [x] Rewrite `README.md` from scratch with banner, badges, use cases, feature matrix, architecture, roadmap, and links to new docs
+- [x] Create `docs/ENTREPRENEUR_PLAYBOOK.md` with business-type hero selection, copy-paste prompts, 30-60-90 checklist, and example configs
+- [x] Create `docs/HERO_GUIDE.md` with per-hero tools, MCP servers, env vars, cron jobs, prompts, and integration points
+- [x] Create `docs/QUICKSTART.md` with 15-minute step-by-step demo commands and expected outputs
+- [x] Create `docs/SECURITY.md` covering credential storage, service accounts, key rotation, Guardian, and audit logging
+- [x] Create `docs/API.md` referencing actual code in `partenon-core/tools/`, `scripts/`, and `examples/`
+- [x] Create `docs/FAQ.md` with 20 honest questions and answers
+- [x] Create `docs/assets/architecture-diagram.mmd`, `docs/assets/hero-matrix.md`, and `docs/assets/partenon-logo.svg`
+- [x] Verify `python scripts/demo_tesorero.py` still runs
+- [x] Verify `cd dashboard && npm run build` still succeeds
+- [x] Cross-check internal documentation links and English consistency
 
 ## Pending
 - [ ] Standardize `GBRAIN_DATABASE_URL` naming across .env and gbrain server
