@@ -16,6 +16,7 @@
 - docs(readme): translate README and docs to English; align repository description with live site and GitHub URL.
 - docs(architecture): document current `partenon-core` components and mark eval-loop stub as not yet implemented.
 - docs(polish): revise README banner, API reference, FAQ, security guide, and hero capability matrix for consistency and grounded detail.
+- docs(commands): normalize all Python command examples to `python3` across README, docs, scripts, examples, install output, and `web/developers.html` to match the project environment.
 
 ### Fixed
 - docs(readme): remove non-working NVIDIA NemoClaw curl command; point to official NVIDIA instructions.
