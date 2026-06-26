@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  gbrain:
+    image: postgres:16-alpine
+    container_name: partenon-gbrain
+    environment:
+      POSTGRES_USER: gbrain
+      POSTGRES_PASSWORD: gbrain
+      POSTGRES_DB: gbrain
+    ports:
+      - "5432:5432"
+    volumes:
+      - gbrain_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gbrain -d gbrain"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    container_name: partenon-dashboard
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://gbrain:gbrain@gbrain:5432/gbrain
+    depends_on:
+      gbrain:
+        condition: service_healthy
+    volumes:
+      - ./data:/app/data:rw
+
+volumes:
+  gbrain_data:

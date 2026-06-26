@@ -1,0 +1,79 @@
+# MCP Servers Configuration for Partenon
+# Model Context Protocol — connects Partenon hero profiles to external tools.
+# Copy this block into ~/.hermes/config.yaml under mcp_servers or use `hermes mcp add <server>`.
+
+mcp_servers:
+  # === Google Workspace (Sheets, Docs, Slides, Drive, Calendar, Gmail) ===
+  google_workspace:
+    command: npx
+    args: ["-y", "@taylorwilsdon/google-workspace-mcp"]
+    env:
+      GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
+    description: "Superficie de trabajo compartida con la empresa"
+    enabled: true
+    tags: ["workspace", "sheets", "docs", "slides", "drive", "calendar", "gmail"]
+
+  # === Pagos ===
+  stripe:
+    command: npx
+    args: ["-y", "@stripe/mcp"]
+    env:
+      STRIPE_SECRET_KEY: "${STRIPE_SECRET_KEY}"
+    description: "Procesa pagos, suscripciones y facturacion"
+    enabled: true
+    tags: ["pagos", "finanzas"]
+
+  # === Email ===
+  gmail:
+    command: npx
+    args: ["-y", "@gonggyu/mcp-server-gmail"]
+    env:
+      GMAIL_ACCESS_TOKEN: "${GMAIL_ACCESS_TOKEN}"
+    description: "Envia emails formales desde el agente"
+    enabled: true
+    tags: ["comunicacion", "documentos"]
+
+  # === Calendario y agendamiento ===
+  calendly:
+    command: npx
+    args: ["-y", "@modelcontextprotocol/server-calendly"]
+    env:
+      CALENDLY_API_KEY: "${CALENDLY_API_KEY}"
+    description: "Permite a clientes agendar citas directamente"
+    enabled: false
+    tags: ["ventas", "operaciones", "calendario"]
+
+  # === Memoria compartida ===
+  gbrain:
+    command: python
+    args: ["-m", "gbrain.server"]
+    env:
+      DATABASE_URL: "${GBrain_DATABASE_URL:-postgresql://localhost:5432/gbrain}"
+    description: "Cerebro compartido de Partenon: perfiles, misiones y entidades"
+    enabled: true
+    tags: ["memory", "context"]
+
+  # === Notificaciones de equipo ===
+  slack:
+    command: npx
+    args: ["-y", "@modelcontextprotocol/server-slack"]
+    env:
+      SLACK_BOT_TOKEN: "${SLACK_BOT_TOKEN}"
+    description: "Notificaciones y comunicacion con equipo"
+    enabled: false
+    tags: ["comunicacion", "equipo"]
+
+# === MCP filters by Partenon profile ===
+mcp_filters:
+  tesorero:
+    allow: ["google_workspace", "stripe", "gbrain"]
+  mensajero:
+    allow: ["google_workspace", "gmail", "calendly", "gbrain"]
+  cobrador:
+    allow: ["google_workspace", "stripe", "gmail", "gbrain"]
+  guardian:
+    allow: ["gbrain"]
+  estratega:
+    allow: ["google_workspace", "gmail", "calendly", "slack", "gbrain"]
+  diplomatico:
+    allow: ["google_workspace", "gmail", "calendly", "gbrain"]
