@@ -76,7 +76,7 @@ class OnboardingEngine:
         name = self.config.name
         if not name or name == "My Company":
             self._log_step(
-                "Company configuration not completed. Run: python partenon-core/tools/onboarding_flow.py",
+                "Company configuration not completed. Run: python3 partenon-core/tools/onboarding_flow.py",
                 "warning",
             )
             self.results["success"] = False

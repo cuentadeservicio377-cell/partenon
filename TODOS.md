@@ -22,7 +22,7 @@
 - [x] Create `docs/FAQ.md` with 20 honest questions and answers
 - [x] Create `docs/assets/architecture-diagram.mmd`, `docs/assets/hero-matrix.md`, and `docs/assets/partenon-logo.svg`
 - [x] Verify all new docs reference each other with valid links
-- [x] Verify `python scripts/demo_tesorero.py` PASS and `cd dashboard && npm run build` PASS
+- [x] Verify `python3 scripts/demo_tesorero.py` PASS and `cd dashboard && npm run build` PASS
 - [x] Migrate `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Developers.tsx` to `web/developers.html` with classic React app aesthetic (marble white, Cinzel, Inter) and mandatory information corrections
 - [x] Migrate `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Heroes.tsx` to `web/heroes.html` with classic React app aesthetic (marble white, Cinzel, Inter) and mandatory information corrections
 - [x] Migrate `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Home.tsx` to `web/index.html` with classic React app aesthetic (marble white, Cinzel, Inter) and mandatory information corrections

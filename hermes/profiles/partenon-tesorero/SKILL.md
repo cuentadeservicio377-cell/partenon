@@ -17,7 +17,7 @@
 
 1. Copy `.env.example` to `.env` and fill in credentials.
 2. Copy `templates/.finance.example` to your workspace as `.finance`.
-3. Run `python skills/finance/tools/templates.py` to generate local templates.
+3. Run `python3 skills/finance/tools/templates.py` to generate local templates.
 4. Use `skills/finance/tools/google_sheets.py` to publish to Sheets.
 5. Use `skills/finance/tools/audit.py` to run daily reports and weekly budget reviews.
 
