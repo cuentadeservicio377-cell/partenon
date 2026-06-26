@@ -1,93 +1,84 @@
 # Partenon API and CLI Reference
 
-This document lists the commands, scripts, and API endpoints that exist in the repository today. Some are fully functional Python tools; others are stubs that document the intended interface while backend integrations are completed.
-
-## Terminology
-
-- **Hero** — one of the 7 Partenon profiles.
-- **Mission** — a single task assigned to a hero.
-- **Profile file** — `.finance`, `.design`, `.payments`, `.security`, `.ops`, `.relations`, or `.brain`.
-- **MCP** — Model Context Protocol server used by Hermes Agent.
+This document describes the programmable interfaces that exist in the repository today. It covers the Python core, scripts, and example stubs. For the Hermes Agent natural-language interface, see [`docs/HERO_GUIDE.md`](HERO_GUIDE.md).
 
 ---
 
-## Installation and setup commands
+## 1. `partenon-core` Python tools
 
-### Bash installer
+All files are under [`partenon-core/tools/`](../partenon-core/tools/).
 
-```bash
-./install.sh
+### `router.py` — Intent Router
+
+Routes natural-language messages to the correct hero profile.
+
+```python
+from partenon_core.tools.router import route_intent, get_router
+
+profile = route_intent("Organize my numbers")
+print(profile)  # "partenon-tesorero"
 ```
 
-Creates `.venv`, installs dependencies, checks for Hermes CLI, installs the `partenon-core` skill reference, copies `.env.example` to `.env`, and runs the Scribe demo.
+**Functions**
 
-### Python setup helper
+| Function | Args | Returns |
+|----------|------|---------|
+| `route_intent(message)` | `message: str` | `str | None` — profile name or `None` if no match |
+| `IntentRouter.route(message)` | `message: str` | `str | None` |
+| `IntentRouter.route_with_context(message, last_profile, last_entity)` | same + context | `dict` with `profile`, `entity`, `confidence` |
+| `get_router()` | none | singleton `IntentRouter` |
+
+**Confidence values**
+
+- `0.8` — direct route
+- `0.5` — fallback to `last_profile`
+- `0.0` — no route found
+
+**Example**
 
 ```bash
-python scripts/setup_hermes.py
+python partenon-core/tools/router.py
 ```
-
-Same steps as `install.sh`, implemented in Python.
-
-### Environment file
-
-```bash
-cp .env.example .env
-```
-
-Edit `.env` with your credentials. See [`SECURITY.md`](SECURITY.md) for safe handling.
 
 ---
 
-## Demo scripts
+### `onboarding_engine.py` — Installation Wizard
 
-### Scribe demo
+Creates local data files, industry catalog, sample client/project, and Google Workspace structure.
 
-```bash
-python scripts/demo_tesorero.py
+```python
+from partenon_core.tools.onboarding_engine import OnboardingEngine
+
+engine = OnboardingEngine("config/company.yaml")
+result = engine.run_full_onboarding()
+print(result["success"])   # True or False
+print(result["steps"])     # list of step dicts
+print(result["errors"])    # list of error strings
 ```
 
-Creates:
+**Functions**
 
-- `data/sample_expenses.xlsx` — workbook with Dashboard, Income, Fixed Expenses, Variable Expenses, and Suppliers sheets.
-- `data/sample_expenses_report.json` — income, fixed expenses, variable expenses, margin, margin percentage, and alerts.
+| Function | Args | Returns |
+|----------|------|---------|
+| `OnboardingEngine(config_path)` | `config_path: str` (optional) | engine instance |
+| `run_full_onboarding()` | none | `dict` with `success`, `steps`, `errors` |
+| `get_onboarding_status()` | none | `dict` with config existence, active profiles, etc. |
+| `get_onboarding_engine()` | none | singleton `OnboardingEngine` |
 
-Return value: prints the JSON report to stdout and writes it to disk.
+**Example**
+
+```bash
+python partenon-core/tools/onboarding_engine.py
+```
 
 ---
 
-## Core Python modules
+### `workflow_engine.py` — Event-Driven Workflows
 
-All paths are relative to the repository root.
-
-### Config loader
+Emits events and runs hard-coded multi-step workflows. Used for hero handoffs.
 
 ```python
-from partenon-core.tools.config_loader import get_config
-
-config = get_config()
-print(config.name)               # company name
-print(config.industry)           # industry
-print(config.currency)           # base currency
-print(config.integration_active("google_workspace"))
-print(config.department_active("treasurer"))
-```
-
-### Intent router
-
-```python
-from partenon-core.tools.router import get_router
-
-router = get_router()
-profile = router.route("Organize my numbers")   # -> "partenon-tesorero"
-result = router.route_with_context("Follow up with Acme", last_profile="partenon-diplomatico")
-# result -> {"profile": "partenon-diplomatico", "entity": "Acme Inc", "confidence": 0.5}
-```
-
-### Workflow engine
-
-```python
-from partenon-core.tools.workflow_engine import WorkflowEngine
+from partenon_core.tools.workflow_engine import WorkflowEngine
 
 engine = WorkflowEngine()
 event = engine.emit_event(
@@ -106,315 +97,279 @@ event = engine.emit_event(
 print(event["actions_executed"])
 ```
 
-Actions executed may include `create_operations_project`, `create_initiative_goal`, `generate_checklist`, and `notify_user`.
+**Functions**
 
-### Onboarding engine
+| Function | Args | Returns |
+|----------|------|---------|
+| `WorkflowEngine(data_dir)` | `data_dir: str` (optional) | engine instance |
+| `emit_event(type, source, entity_id, entity_type, data)` | event fields | `dict` representing the event |
+| `process_event(event)` | `event: dict` | `list[str]` of executed actions |
+| `detect_automatic_events()` | none | `list[dict]` of emitted overdue/pipeline events |
+
+**Built-in workflows**
+
+| Trigger | Actions |
+|---------|---------|
+| `client_contracted` | create project, create goal, generate checklist, notify |
+| `task_overdue` | urgent nudge, suggest reschedule |
+| `pipeline_stalled` | nudge pipeline, suggest campaign |
+| `quote_approved` | generate contract, register expected income, create project |
+| `project_progress_50` | review deadlines, alert if behind |
+| `new_client` | register client, create follow-up task, welcome nudge |
+
+---
+
+### `eval_loop.py` — Output Quality Judge
+
+Scores a hero mission output against completeness, format, safety, and context.
 
 ```python
-from partenon-core.tools.onboarding_engine import OnboardingEngine
-
-engine = OnboardingEngine()
-result = engine.run_full_onboarding()
-print(result["success"])   # False until config/company.yaml is completed
-```
-
-### Eval loop
-
-```python
-from partenon-core.tools.eval_loop import EvalLoop
+from partenon_core.tools.eval_loop import EvalLoop
 
 loop = EvalLoop()
 result = loop.evaluate(
     mission_id="mission-001",
     profile="partenon-tesorero",
-    output={"mission_id": "mission-001", "profile": "partenon-tesorero", "status": "completed", "output": {"margin": 2361.0}},
-    company_context={"name": "Aurora Coffee", "industry": "food", "currency": "USD"},
+    output={
+        "mission_id": "mission-001",
+        "profile": "partenon-tesorero",
+        "status": "completed",
+        "output": {"income": 4000, "margin": 2361},
+    },
+    company_context={"name": "Acme Coffee", "industry": "food"},
 )
-print(result.score)    # 0.0 - 10.0
-print(result.passed)   # True if score >= 7.0
+print(result.score, result.passed)
 ```
 
-> The eval loop is a functional stub. It scores completeness, format, safety, and context, but is not yet wired into every hero runtime.
+**Functions**
+
+| Function | Args | Returns |
+|----------|------|---------|
+| `EvalLoop(eval_dir)` | `eval_dir: Path` (optional) | evaluator instance |
+| `evaluate(mission_id, profile, output, company_context)` | mission output | `EvalResult` dataclass |
+| `list_results()` | none | `list[dict]` |
+| `summary()` | none | `dict` with `total`, `passed`, `average_score` |
+
+**Pass threshold**: `7.0 / 10.0`
+
+**Criteria weights**
+
+| Criterion | Weight |
+|-----------|--------|
+| completeness | 0.35 |
+| format | 0.25 |
+| safety | 0.25 |
+| context | 0.15 |
 
 ---
 
-## Hermes CLI
+### `config_loader.py` — Company Configuration
 
-The real Hermes CLI is distributed separately by Nous Research. If you have it installed, Partenon profiles can be used like this:
+Reads `config/company.yaml`.
 
-```bash
-hermes profile install hermes/profiles/partenon-tesorero --alias partenon-tesorero
-hermes profile use partenon-tesorero
-hermes run "Record a $500 advertising expense"
+```python
+from partenon_core.tools.config_loader import ConfigLoader, get_config
+
+config = get_config()
+print(config.name)       # "My Company"
+print(config.industry)   # "services"
+print(config.currency)   # "USD"
+print(config.language)   # "en"
+print(config.timezone)   # "UTC"
+print(config.integration_active("google_workspace"))
+print(config.department_active("treasurer"))
 ```
 
-### CLI stub
+**Properties / functions**
 
-A stub implementation is provided in `examples/hermes-cli-stub.py` for interface exploration:
-
-```bash
-python examples/hermes-cli-stub.py init --name "Cafe Central"
-python examples/hermes-cli-stub.py activate scribe
-python examples/hermes-cli-stub.py mission scribe --type financial-model
-python examples/hermes-cli-stub.py status --verbose
-python examples/hermes-cli-stub.py config --edit
-```
-
-Available subcommands: `init`, `activate`, `deactivate`, `mission`, `status`, `dashboard`, `test`, `config`, `backup`.
-
-State is stored in `data/hermes_cli_state.json`.
+| Name | Returns |
+|------|---------|
+| `name` | company name or `"My Company"` |
+| `industry` | industry or `"services"` |
+| `currency` | currency or `"USD"` |
+| `language` | language or `"en"` |
+| `timezone` | timezone or `"UTC"` |
+| `integration_active(name)` | `bool` |
+| `department_active(name)` | `bool` |
+| `get_config()` | singleton `ConfigLoader` |
 
 ---
 
-## REST API stub
+## 2. Scripts
 
-`examples/api-server-stub.py` is a FastAPI application that returns the documented JSON shapes.
+All scripts are under [`scripts/`](../scripts/).
 
-### Run
+### `demo_tesorero.py`
+
+Generates a sample finance workbook and JSON report.
 
 ```bash
-pip install fastapi uvicorn pydantic
+python scripts/demo_tesorero.py
+```
+
+**Outputs**
+
+- `data/sample_expenses.xlsx` — workbook with Dashboard, Income, Fixed Expenses, Variable Expenses, Suppliers sheets.
+- `data/sample_expenses_report.json` — report with `income`, `fixed_expenses`, `variable_expenses`, `margin`, `margin_pct`, `alerts`.
+
+**Return shape**
+
+```json
+{
+  "timestamp": "2026-06-26T21:00:00Z",
+  "income": 4000.0,
+  "fixed_expenses": 609.0,
+  "variable_expenses": 1030.0,
+  "margin": 2361.0,
+  "margin_pct": 59.02,
+  "alerts": []
+}
+```
+
+---
+
+### `setup_hermes.py`
+
+Alternative installer to `install.sh`.
+
+```bash
+python scripts/setup_hermes.py
+```
+
+**What it does**
+
+1. Creates `.venv` if missing.
+2. Installs `requirements.txt`.
+3. Checks for `hermes` CLI in PATH.
+4. Copies `partenon-core/SKILL.md` to `~/.hermes/skills/partenon-core`.
+5. Installs the seven profiles if `hermes` is available.
+6. Copies `.env.example` to `.env`.
+7. Creates `data/` and `logs/`.
+8. Runs `scripts/demo_tesorero.py`.
+
+**Return code**: `0` on success.
+
+---
+
+### `capture.py`
+
+Captures desktop and mobile screenshots of the static web pages using Playwright.
+
+```bash
+# Start a local server on port 8080 first, e.g.:
+# python -m http.server 8080 --directory web
+python scripts/capture.py
+```
+
+**Outputs**
+
+- `screenshots/index-desktop.png`
+- `screenshots/index-mobile.png`
+- `screenshots/heroes-desktop.png`
+- `screenshots/heroes-mobile.png`
+- `screenshots/developers-desktop.png`
+- `screenshots/developers-mobile.png`
+
+---
+
+## 3. Example stubs
+
+These files are placeholders that document the intended API shapes. They are not production backends.
+
+### `examples/api-server-stub.py`
+
+A FastAPI stub with the endpoints documented on `web/developers.html`.
+
+```bash
+pip install fastapi uvicorn
 uvicorn examples.api-server-stub:app --reload --port 8000
 ```
 
-### Endpoints
+**Endpoints**
 
 | Method | Path | Description |
 |--------|------|-------------|
-| GET | `/api/v1/heroes` | List all heroes. |
-| GET | `/api/v1/heroes/{hero_id}` | Get a single hero. |
-| POST | `/api/v1/missions` | Create a mission. Body: `{"hero": "scribe", "type": "financial-model", "input_data": {}}` |
-| GET | `/api/v1/missions/{mission_id}` | Get mission result. |
-| GET | `/api/v1/mcp/tools` | List available MCP tools. |
-| POST | `/api/v1/mcp/call` | Call an MCP tool. Body: `{"name": "create_spreadsheet", "arguments": {"title": "Finances"}}` |
-| GET | `/api/v1/status` | System status and integration health. |
+| GET | `/api/v1/heroes` | List heroes |
+| GET | `/api/v1/heroes/{hero_id}` | Get one hero |
+| POST | `/api/v1/missions` | Create a stub mission |
+| GET | `/api/v1/missions/{mission_id}` | Get mission |
+| GET | `/api/v1/mcp/tools` | List MCP tools |
+| POST | `/api/v1/mcp/call` | Stub tool call |
+| GET | `/api/v1/status` | System status |
 
-### Example calls
+**Example**
 
 ```bash
-curl http://localhost:8000/api/v1/heroes
-curl http://localhost:8000/api/v1/heroes/scribe
-
 curl -X POST http://localhost:8000/api/v1/missions \
   -H "Content-Type: application/json" \
   -d '{"hero": "scribe", "type": "expense-audit"}'
-
-curl http://localhost:8000/api/v1/mcp/tools
-
-curl -X POST http://localhost:8000/api/v1/mcp/call \
-  -H "Content-Type: application/json" \
-  -d '{"name": "create_spreadsheet", "arguments": {"title": "Partenon Finances"}}'
-
-curl http://localhost:8000/api/v1/status
 ```
-
-> This is a stub. It returns static shapes and does not execute real hero missions.
 
 ---
 
-## G-Brain MCP API
+### `examples/hermes-cli-stub.py`
 
-The G-Brain MCP server exposes shared memory tools. It is implemented in `gbrain/server.py` and backed by SQLite or PostgreSQL via `gbrain/tools.py`.
-
-### Run the server
+Demonstrates the intended `hermes` CLI shape.
 
 ```bash
-python -m gbrain.server
+python examples/hermes-cli-stub.py init --name "Acme Coffee"
+python examples/hermes-cli-stub.py activate scribe
+python examples/hermes-cli-stub.py mission scribe --type financial-model
+python examples/hermes-cli-stub.py status --verbose
 ```
 
-Environment: `GBrain_DATABASE_URL=sqlite:///data/gbrain.db` or `postgresql://localhost:5432/gbrain`.
+**Commands**
 
-### Tools
+| Command | Args |
+|---------|------|
+| `init --name` | company name |
+| `activate <hero>` | hero id |
+| `deactivate <hero>` | hero id |
+| `mission <hero> --type <type>` | hero + mission type |
+| `status [--verbose]` | show state |
+| `dashboard [--port]` | stub dashboard pointer |
+| `test [--all]` | stub tests |
+| `config --edit` | show `.env` |
+| `backup --to` | stub backup |
 
-| Tool | Arguments | Returns |
-|------|-----------|---------|
-| `gbrain_read_profile` | `profile`, `scope="default"` | JSON string with profile scope content. |
-| `gbrain_write_profile` | `profile`, `scope`, `content` (JSON string) | `"ok"` or error. |
-| `gbrain_write_mission` | `mission_id`, `profile`, `title`, `status`, `input_data`, `output_data`, `learnings` | `"ok"` or error. |
-| `gbrain_search_missions` | `profile` (optional), `status` (optional) | JSON array of missions. |
-| `gbrain_search_entities` | `query`, `kind` (optional) | JSON array of entities. |
-| `gbrain_store_learning` | `profile`, `insight` | `"ok"` or error. |
-
-### Python client example
-
-```python
-import asyncio
-from mcp import ClientSession, StdioServerParameters
-from mcp.client.stdio import stdio_client
-
-async def main():
-    params = StdioServerParameters(
-        command="python",
-        args=["-m", "gbrain.server"],
-        env={"GBrain_DATABASE_URL": "sqlite:///data/gbrain.db"},
-    )
-    async with stdio_client(params) as (read, write):
-        async with ClientSession(read, write) as session:
-            await session.initialize()
-            result = await session.call_tool(
-                "gbrain_store_learning",
-                {"profile": "scribe", "insight": "Coffee expenses spiked 20% in June."}
-            )
-            print(result)
-
-asyncio.run(main())
-```
-
-A full example is in `examples/mcp-client-example.py`.
+**State file**: `data/hermes_cli_state.json`
 
 ---
 
-## Profile tool APIs
+### `examples/mcp-client-example.py`
 
-### Scribe
-
-```python
-from hermes.profiles.partenon-tesorero.skills.finance.tools.audit import get_audit
-from hermes.profiles.partenon-tesorero.skills.finance.tools.templates import get_templates
-from hermes.profiles.partenon-tesorero.skills.finance.tools.google_sheets import get_google_sheets
-
-audit = get_audit()
-audit.run_daily_report("output/daily_report.json")
-
-get_templates().create_budget("budget.xlsx")
-get_templates().create_vendors("vendors.xlsx")
-get_templates().create_cash_flow("cash_flow.xlsx", months=6)
-
-sheets = get_google_sheets()
-sheet_id = sheets.create_dashboard("Partenon Finances")
-```
-
-### Herald
-
-```python
-from hermes.profiles.partenon-mensajero.skills.comms.tools.content_calendar import generate_calendar, save_calendar
-from hermes.profiles.partenon-mensajero.skills.comms.tools.copy_generator import generate_copy
-from hermes.profiles.partenon-mensajero.skills.comms.tools.seo_geo_optimizer import analyze
-
-calendar = generate_calendar("automation for SMBs", ["linkedin", "instagram"], 14)
-save_calendar(calendar)
-
-copy = generate_copy("post", "payment automation", "linkedin")
-seo = analyze("payment automation for SMEs")
-```
-
-### Collector
-
-```python
-from hermes.profiles.partenon-cobrador.skills.payments.tools.stripe_tools import (
-    create_payment_link, create_subscription, create_invoice,
-    send_payment_reminder, record_payment, list_charges,
-    generate_income_report, monitor_fraud
-)
-
-create_payment_link({"name": "Consultation"}, {"amount": 15000, "currency": "mxn"})
-create_subscription({"email": "client@example.com"}, {"amount": 5000, "interval": "month"})
-create_invoice({"email": "client@example.com"}, [{"description": "Service", "amount": 10000}])
-list_charges("2026-06-01", "2026-06-30")
-generate_income_report("2026-06-01", "2026-06-30")
-monitor_fraud()
-```
-
-### Guardian
-
-```python
-from hermes.profiles.partenon-guardian.skills.security.tools.key_manager import list_keys, rotate_key, audit_access
-from hermes.profiles.partenon-guardian.skills.security.tools.audit_logger import audit_log, get_audit_logs
-
-list_keys()
-rotate_key("stripe")
-audit_access("partenon-tesorero")
-audit_log("access", "partenon-tesorero", "google_sheets", "read", "allowed")
-get_audit_logs(profile="partenon-tesorero", limit=10)
-```
-
-### Strategist
-
-```python
-from hermes.profiles.partenon-estratega.skills.ops.tools.projects import get_projects
-from hermes.profiles.partenon-estratega.skills.ops.tools.tasks import get_tasks
-from hermes.profiles.partenon-estratega.skills.ops.tools.briefings import generate_morning_briefing
-
-projects = get_projects()
-projects.create_project("Q3 launch", client_name="Acme", amount=10000, delivery_date="2026-09-30")
-projects.get_projects_summary()
-
-tasks = get_tasks()
-tasks.create_task("PROJ-001", "Draft copy", assignee="Herald", due_date="2026-07-10")
-tasks.get_overdue_tasks()
-
-generate_morning_briefing(user_name="Alex")
-```
-
-### Diplomat
-
-```python
-from hermes.profiles.partenon-diplomatico.skills.relations.tools.crm import get_relations_crm
-from hermes.profiles.partenon-diplomatico.skills.relations.tools.followups import run_daily_followups
-from hermes.profiles.partenon-diplomatico.skills.relations.tools.generate_proposal import generate_proposal
-
-crm = get_relations_crm()
-crm.add_client("Acme Inc", email="hello@acme.test")
-crm.add_milestone("CLI-001", "Sign contract", "2026-07-15")
-crm.confirm_milestone("MIL-CLI-001-01")
-
-run_daily_followups()
-generate_proposal("CLI-001", "Operations Package", amount=50000, duration_days=45)
-```
-
-### Brain
-
-```python
-from hermes.profiles.partenon-brain.skills.memory.tools.gbrain_client import GBrainClient
-
-client = GBrainClient()
-client.put_page("memory/payment-terms", "50% upfront for projects over $5,000.", tags=["decision", "scribe"])
-client.get_page("memory/payment-terms")
-client.search("payment terms")
-client.conflicts("scribe")
-```
-
----
-
-## Dashboard
-
-The dashboard is a Next.js app in `dashboard/`.
+Demonstrates calling the G-Brain MCP server.
 
 ```bash
-cd dashboard
-npm install
-npm run dev      # http://localhost:3000
-npm run build    # production build
-npm run start    # production server
+pip install mcp
+python examples/mcp-client-example.py
 ```
 
-Default login: `admin` / `partenon`. Change via `DASHBOARD_APP_USERNAME` and `DASHBOARD_APP_PASSWORD` in `.env`.
-
-The dashboard reads and writes:
-
-- `data/tasks.json` — mission kanban.
-- `data/cron.json` — cron job manager.
+It launches `gbrain.server` over stdio with `GBrain_DATABASE_URL=sqlite:///data/gbrain_example.db`, lists tools, stores a learning, and searches missions.
 
 ---
 
-## Docker
+## 4. G-Brain MCP tools
+
+The local MCP server is [`gbrain/server.py`](../gbrain/server.py). Tools are defined in [`gbrain/tools.py`](../gbrain/tools.py).
+
+| Tool name | Args | Returns |
+|-----------|------|---------|
+| `gbrain_read_profile` | `profile: str`, `scope: str = "default"` | JSON string of profile scope |
+| `gbrain_write_profile` | `profile: str`, `scope: str`, `content: str` | `"ok"` or error |
+| `gbrain_write_mission` | `mission_id`, `profile`, `title`, `status`, `input_data`, `output_data`, `learnings` | `"ok"` |
+| `gbrain_search_missions` | `profile: str` (optional), `status: str` (optional) | JSON list of missions |
+| `gbrain_search_entities` | `query: str`, `kind: str` (optional) | JSON list of entities |
+| `gbrain_store_learning` | `profile: str`, `insight: str` | `"ok"` |
+
+---
+
+## 5. Hero profile tools
+
+Each hero exposes Python tools under `hermes/profiles/<profile>/skills/<skill>/tools/`. They are documented per hero in [`docs/HERO_GUIDE.md`](HERO_GUIDE.md) and can be run directly when they include a `main()` function.
 
 ```bash
-docker-compose up --build
+python hermes/profiles/partenon-mensajero/skills/comms/tools/content_calendar.py "topic" linkedin 7
+python hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py
+python hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py
 ```
-
-Services:
-
-- `gbrain` — PostgreSQL 16 on port 5432.
-- `dashboard` — Next.js dashboard on port 3000.
-
-The dashboard container mounts `./data:/app/data:rw`.
-
----
-
-## Known limitations
-
-- The REST API stub does not run real hero missions.
-- The Hermes CLI stub is for interface exploration only.
-- Live Google Workspace, Stripe, and G-Brain integrations require real credentials.
-- The eval loop is not yet enforced automatically on every mission.

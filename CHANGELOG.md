@@ -11,6 +11,7 @@
 ### Changed
 - docs(readme): translate README and docs to English; align repository description with live site and GitHub URL.
 - docs(architecture): document current `partenon-core` components and mark eval-loop stub as not yet implemented.
+- docs(polish): revise README banner, API reference, FAQ, security guide, and hero capability matrix for consistency and grounded detail.
 
 ### Fixed
 - docs(readme): remove non-working NVIDIA NemoClaw curl command; point to official NVIDIA instructions.

@@ -1,247 +1,232 @@
-# Partenon Security Model
+# Partenon Security Guide
 
-This document explains how Partenon handles credentials, permissions, audit logging, and key rotation. It is based on the actual code in `hermes/profiles/partenon-guardian/skills/security/`, `.env.example`, and the profile templates.
+This document describes the security model that is actually implemented in the repository. It is written for operators and developers who need to store credentials, rotate keys, and audit access.
 
-For setup instructions, read [`QUICKSTART.md`](QUICKSTART.md). For business guidance, read [`ENTREPRENEUR_PLAYBOOK.md`](ENTREPRENEUR_PLAYBOOK.md).
-
----
-
-## Core principle
-
-**Secrets live only in `.env`. Profile config files contain references, never values.**
-
-No hero, script, or tool in this repository should ever write a raw API key, password, or token into `.finance`, `.design`, `.payments`, `.security`, `.ops`, `.relations`, or `.brain`. If you find a file that does, treat it as a bug.
+For the full list of Guardian tools, see [`docs/HERO_GUIDE.md`](HERO_GUIDE.md). For the entrepreneur rollout checklist, see [`docs/ENTREPRENEUR_PLAYBOOK.md`](ENTREPRENEUR_PLAYBOOK.md).
 
 ---
 
-## Credential storage
+## 1. Threat model
 
-### `.env` (required)
+Partenon is designed for small businesses that already use Google Workspace, Stripe, and one or more AI providers. The main risks we address are:
 
-Copy `.env.example` to `.env` and fill in your credentials. The installer does this automatically.
+1. **Credential leakage** — API keys, service accounts, and tokens must not be committed or logged.
+2. **Over-permissioned heroes** — each profile should only access the tools and files it needs.
+3. **Stale keys** — production keys should be rotated periodically and after personnel changes.
+4. **No audit trail** — security events must be recorded with timestamps and actors.
 
-```bash
-cp .env.example .env
+---
+
+## 2. `.env` handling
+
+The global environment file is created from [`.env.example`](../.env.example) by `install.sh` or `scripts/setup_hermes.py`.
+
+### Rules
+
+- `.env` is listed in `.gitignore` and must **never** be committed.
+- Only placeholder keys are stored in `.env.example`. Real secrets are filled in locally.
+- Tools read secrets from environment variables, never from chat logs or profile files.
+
+### Required secrets
+
+| Variable | Used by | File that reads it |
+|----------|---------|-------------------|
+| `OPENROUTER_API_KEY` | All heroes that use LLMs | Every profile `config.yaml` |
+| `GOOGLE_SERVICE_ACCOUNT_JSON` | Google Workspace integrations | `partenon-core/config/mcp/servers.yaml`, Scribe, Strategist, Diplomat, Herald |
+| `STRIPE_SECRET_KEY` | Collector payments | `hermes/profiles/partenon-cobrador/.env.example`, `stripe_tools.py` |
+| `GBRAIN_DATABASE_URL` / `GBrain_DATABASE_URL` | Brain / G-Brain | `gbrain/server.py` reads `GBrain_DATABASE_URL`; `.env.example` uses `GBRAIN_DATABASE_URL` |
+
+> **Known issue**: the repository has a naming inconsistency. `gbrain/server.py` and `partenon-core/config/mcp/servers.yaml` default to `GBrain_DATABASE_URL`, while `.env.example` documents `GBRAIN_DATABASE_URL`. Set the exact variable name required by the component you run. This is tracked in [`MISSING_IMPLEMENTATION.md`](../MISSING_IMPLEMENTATION.md).
+
+### Local profile env files
+
+Each hero has its own `hermes/profiles/<profile>/.env.example`. In production, consolidate these into the root `.env` rather than maintaining separate files.
+
+---
+
+## 3. Google service accounts
+
+Partenon uses a Google Cloud service account JSON to access Sheets, Docs, Slides, Drive, Calendar, and Gmail.
+
+### How to create one
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/) → IAM & Admin → Service Accounts.
+2. Create a service account for `Partenon`.
+3. Generate a JSON key and download it.
+4. Store the JSON file outside the repo (e.g., `~/.secrets/partenon-google.json`).
+5. Set `GOOGLE_SERVICE_ACCOUNT_JSON=/absolute/path/to/key.json` in `.env`.
+
+### Recommended scopes
+
+The Scribe's [`google_sheets.py`](../hermes/profiles/partenon-tesorero/skills/finance/tools/google_sheets.py) requests:
+
+```python
+SCOPES = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive",
+]
 ```
 
-Key variables:
+For Calendar and Gmail access, enable the corresponding APIs in Google Cloud and add the minimum scopes your use case requires. Do not use a domain-wide delegation unless necessary.
 
-| Variable | Used by | Notes |
-|----------|---------|-------|
-| `OPENROUTER_API_KEY` | All heroes | Default LLM router. |
-| `GOOGLE_SERVICE_ACCOUNT_JSON` | Scribe, Herald, Strategist, Diplomat | Path to a Google Cloud service account JSON file. |
-| `STRIPE_SECRET_KEY` | Collector | Live or test Stripe key. Keep in test mode until you are ready. |
-| `STRIPE_PUBLISHABLE_KEY` | Collector | Public key for client-side links. |
-| `NVIDIA_API_KEY` | Guardian, optional | For NVIDIA NIM model access. |
-| `OPENAI_API_KEY` | Guardian, optional | For OpenAI model access. |
-| `KIMI_API_KEY` | Guardian, optional | For Kimi model access. |
-| `GBRAIN_DATABASE_URL` | Brain | Used by `.env.example`. |
-| `GBrain_DATABASE_URL` | Brain | Used by `gbrain/server.py` and `partenon-core/config/mcp/servers.yaml`. |
+### Storage rule
 
-> **Note on G-Brain naming:** `GBRAIN_DATABASE_URL` in `.env.example` does not match the `GBrain_DATABASE_URL` default used by `gbrain/server.py` and `partenon-core/config/mcp/servers.yaml`. Set the exact variable name required by the component you run. This inconsistency is tracked in `MISSING_IMPLEMENTATION.md`.
-
-### `.security` (Guardian profile file)
-
-`.security` is a configuration file, not a vault. It stores:
-
-- The environment variable name that holds each provider key.
-- A regex pattern the Guardian uses to validate key format.
-- Rotation policy (`rotation_days: 90`).
-- Least-privilege permissions for each profile.
-
-Example entry from `hermes/profiles/partenon-guardian/templates/.security.example`:
-
-```yaml
-providers:
-  stripe:
-    env_var: STRIPE_SECRET_KEY
-    pattern: "^sk_(test|live)_[A-Za-z0-9]+$"
-    required: true
-    key_reference: "env://STRIPE_SECRET_KEY"
-    rotation_days: 90
-```
-
-The actual key value is never stored here. The `key_reference` field tells the Guardian where to look in the environment.
-
-### Service account JSON files
-
-Google Workspace integrations use a service account JSON file. Store it outside the repository or in a `.gitignore`d directory such as `config/`:
-
-```bash
-mkdir -p config
-cp /path/to/downloaded-key.json config/google-service-account.json
-# Set the variable in .env
-GOOGLE_SERVICE_ACCOUNT_JSON=config/google-service-account.json
-```
-
-Add `config/` to `.gitignore` if it is not already there.
+The service account JSON is a credential. Treat it like a private key: keep it out of Git, out of screenshots, and out of chat logs.
 
 ---
 
-## Guardian responsibilities
+## 4. Stripe key rotation
 
-The Guardian (`partenon-guardian`) is the security layer. Its real tools are in `hermes/profiles/partenon-guardian/skills/security/tools/`.
+The Collector handles Stripe via [`stripe_tools.py`](../hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py). The Guardian is responsible for rotating the key.
 
-### Key management (`key_manager.py`)
+### What the Guardian does
 
-- `list_keys()` — reads environment variables, returns masked fingerprints only. Full values are never returned.
-- `rotate_key(provider)` — sets a placeholder rotation value in the environment and records metadata. The operator must replace the placeholder with the real key from the provider console.
-- `rotate_keys(providers)` — rotates multiple keys in one call.
-- `audit_access(profile)` — returns the canonical tools, MCP servers, skills, files, and actions for a profile.
-- `validate_access(profile, resource, action)` — returns an allow/deny decision against least-privilege policy.
-- `get_model_recommendation(task)` — recommends a provider/model based on task sensitivity.
+The Guardian's [`key_manager.py`](../hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py) tracks providers including Stripe:
 
-### Audit logging (`audit_logger.py`)
-
-- `audit_log()` — appends a JSON Lines event to `hermes/profiles/partenon-guardian/data/audit/security.log`.
-- `get_audit_logs()` — reads the log with optional filters by event type or profile.
-- `prune_audit_logs(retention_days=365)` — removes entries older than the retention period.
-
-### Policy management (`policy_manager.py`)
-
-- `set_policies(profile, permissions)` — writes an active RBAC policy for a profile and flags any permissions that exceed the canonical role.
-- `get_policy(profile)` — returns the active policy or the canonical default.
-
-### Secrets manager (`secrets_manager.py`)
-
-- `manage_secrets("list", key_id)` — lists configured secret references with masked fingerprints.
-- `manage_secrets("store", key_id, value)` — validates the value against the provider pattern and stores it in the environment.
-- `manage_secrets("rotate", key_id, value)` — replaces an existing secret reference.
-- `manage_secrets("delete", key_id)` — removes a secret reference from the environment.
-
-### GPU allocator (`gpu_allocator.py`)
-
-- `allocate_gpu(profile, model_name, requested_gpus)` — validates `NVIDIA_API_KEY` presence and returns a deterministic allocation config. It does not call the NVIDIA API in this version.
-
----
-
-## Key rotation workflow
-
-Partenon recommends rotating production keys every 90 days. The current workflow is semi-automated:
-
-1. The Guardian flags a key as `pending_rotation` based on `rotation_days` or the `_LAST_ROTATED` companion variable.
-2. The operator generates a new key in the provider console.
-3. The operator updates `.env` with the new key.
-4. The operator runs `source .env` or restarts the service so the new value is loaded.
-5. The Guardian logs the rotation event with masked fingerprints.
-
-Example:
-
-```bash
-# 1. Check status
-python - <<'PY'
-import sys
-sys.path.insert(0, "hermes/profiles/partenon-guardian/skills/security/tools")
-from key_manager import list_keys
-for k in list_keys():
-    print(k)
-PY
-
-# 2. Rotate placeholder (operator must still replace .env)
-python - <<'PY'
-import sys
-sys.path.insert(0, "hermes/profiles/partenon-guardian/skills/security/tools")
-from key_manager import rotate_key
-print(rotate_key("stripe"))
-PY
-
-# 3. Log the event
-python - <<'PY'
-import sys
-sys.path.insert(0, "hermes/profiles/partenon-guardian/skills/security/tools")
-from audit_logger import audit_log
-print(audit_log(
-    event_type="rotation",
-    profile="partenon-guardian",
-    resource="STRIPE_SECRET_KEY",
-    action="rotate",
-    status="success",
-    message="Stripe key rotated by operator."
-))
-PY
-```
-
----
-
-## Permission model
-
-Each hero profile declares the tools, MCP servers, skills, files, and actions it needs in `.security` and `policy_manager.py`. The Guardian compares the active policy against a canonical role and reports violations.
-
-Canonical roles are defined in `policy_manager.py` (`_CANONICAL_ROLES`). Examples:
-
-| Profile | Tools | MCP servers | Skills | Files |
-|---------|-------|-------------|--------|-------|
-| `partenon-guardian` | terminal, file, gbrain | gbrain | security | `partenon-guardian/**` |
-| `partenon-tesorero` | terminal, file | none | finance | `partenon-tesorero/**` |
-| `partenon-cobrador` | terminal, file | none | payments | `partenon-cobrador/**` |
-| `partenon-brain` | terminal, file, gbrain | gbrain | memory | `partenon-brain/**` |
-
-In a production deployment, these roles should be enforced by the orchestrator, container runtime, or secrets manager, not only by Python code.
-
----
-
-## Audit log format
-
-Each security event is a JSON Lines record:
-
-```json
-{
-  "id": "uuid",
-  "timestamp": "2026-06-26T21:00:00+00:00",
-  "event_type": "access|rotation|policy|system",
-  "profile": "partenon-cobrador",
-  "resource": "STRIPE_SECRET_KEY",
-  "action": "read",
-  "status": "allowed|denied|success|failed",
-  "message": "...",
-  "metadata": {}
+```python
+_PROVIDER_CONFIG = {
+    "stripe": {
+        "env_var": "STRIPE_SECRET_KEY",
+        "pattern": r"^sk_(test|live)_[A-Za-z0-9]+$",
+    },
 }
 ```
 
-The log path is `hermes/profiles/partenon-guardian/data/audit/security.log`.
+Functions:
+
+- `list_keys()` — shows provider, env var, masked fingerprint, status (`active` / `pending_rotation` / `missing`), and last rotation date.
+- `rotate_key(provider)` — updates the environment variable reference and timestamp. It does **not** call Stripe APIs; you replace the real key through your provider console or secrets manager.
+- `rotate_keys(providers)` — rotates multiple providers in one call.
+
+### Safe rotation sequence
+
+1. Generate a new restricted Stripe key in the Stripe Dashboard.
+2. Update your `.env` or secrets manager with the new key.
+3. Run the Guardian: `Guardian, rotate the Stripe secret key and log the event.`
+4. Verify the Collector still works (e.g., create a test payment link).
+5. Revoke the old key in Stripe.
+
+### Key status logic
+
+A key is marked `pending_rotation` if:
+
+- it has never been rotated, or
+- its last rotation timestamp is older than 90 days (`_ROTATION_INTERVAL_DAYS = 90`).
+
+You can override this by setting a companion env var such as `STRIPE_SECRET_KEY_LAST_ROTATED=2026-06-26T00:00:00Z`.
 
 ---
 
-## Network and data boundaries
+## 5. Guardian responsibilities
 
-- **Local files:** Hero tools read and write files in the project directory and `data/`. No data leaves the machine unless an external MCP or API is configured.
-- **Google Workspace:** Access is scoped to the service account you provide. Use a dedicated service account with minimum required scopes.
-- **Stripe:** Use test keys (`sk_test_*`) until you are ready for production. The Collector falls back to local-mode records when no Stripe key is available.
-- **G-Brain:** The local MCP server can run against PGLite or Postgres. The database URL is read from the environment; no hard-coded credentials are shipped.
-- **Hermes Agent CLI:** Partenon profiles are designed for the Hermes Agent CLI, but the CLI is not bundled. It must be installed separately from Nous Research.
+The Guardian is the security profile. Its tool set lives in [`hermes/profiles/partenon-guardian/skills/security/tools/`](../hermes/profiles/partenon-guardian/skills/security/tools/).
+
+### Access auditing
+
+`audit_access(profile)` returns the canonical tools, MCP servers, skills, files, and actions for a profile. It compares the requested profile against a hard-coded canonical map in `key_manager.py`. In production, you would load this from `.security` instead.
+
+Example:
+
+```python
+from hermes.profiles.partenon-guardian.skills.security.tools.key_manager import audit_access
+print(audit_access("partenon-cobrador"))
+```
+
+### Policy management
+
+`policy_manager.py` writes RBAC policies as JSON files under the profile's `data/policies/` directory:
+
+```python
+from hermes.profiles.partenon-guardian.skills.security.tools.policy_manager import set_policies
+set_policies("partenon-tesorero", permissions={
+    "tools": ["terminal", "file"],
+    "mcp_servers": ["google_workspace", "gbrain"],
+    "skills": ["finance"],
+    "files": ["hermes/profiles/partenon-tesorero/**"],
+    "actions": ["read_financial_data"],
+})
+```
+
+### Audit logging
+
+`audit_logger.py` appends JSON Lines events to:
+
+```text
+hermes/profiles/partenon-guardian/data/audit/security.log
+```
+
+Each event contains:
+
+- `id` — UUID
+- `timestamp` — ISO 8601 UTC
+- `event_type` — e.g., `access`, `rotation`, `policy`
+- `profile` — which profile triggered the event
+- `resource` — what was accessed or modified
+- `action` — what was attempted
+- `status` — `allowed`, `denied`, `success`, `failed`
+- `message` and `metadata`
+
+Example:
+
+```python
+from hermes.profiles.partenon-guardian.skills.security.tools.audit_logger import audit_log
+audit_log(
+    event_type="rotation",
+    profile="partenon-guardian",
+    resource="STRIPE_SECRET_KEY",
+    action="rotate_key",
+    status="success",
+    message="Stripe key rotated manually",
+)
+```
+
+Read logs with:
+
+```python
+from hermes.profiles.partenon-guardian.skills.security.tools.audit_logger import get_audit_logs
+print(get_audit_logs(profile="partenon-cobrador", limit=10))
+```
+
+### GPU allocation
+
+`gpu_allocator.py` returns a deterministic allocation object for NVIDIA GPU use. It denies allocation if `NVIDIA_API_KEY` is missing.
 
 ---
 
-## Security checklist before going live
+## 6. Secret masking
 
-- [ ] `.env` is created from `.env.example` and contains real credentials.
-- [ ] `.env` is listed in `.gitignore` and has never been committed.
-- [ ] Service account JSON files are stored in a `.gitignore`d directory.
-- [ ] Stripe keys are in test mode until you intentionally switch to live.
-- [ ] The Guardian has audited every active profile with `key_manager.audit_access()`.
-- [ ] API keys are rotated at least every 90 days.
-- [ ] The audit log directory has restricted file permissions.
-- [ ] The dashboard password in `.env` is not the default `partenon`.
-- [ ] You have reviewed `MISSING_IMPLEMENTATION.md` for known security gaps.
+The Guardian never prints full secrets. `key_manager._fingerprint(value)` returns a masked string:
 
----
+```python
+_fingerprint("sk_test_1234567890abcdef")  # "sk_t...cdef"
+```
 
-## What is NOT protected yet
+The eval loop in [`partenon-core/tools/eval_loop.py`](../partenon-core/tools/eval_loop.py) also scans outputs for unsafe patterns and subtracts points if it finds:
 
-The following gaps are known and tracked in `MISSING_IMPLEMENTATION.md`:
-
-- The Guardian does not integrate with a real secrets manager (HashiCorp Vault, AWS Secrets Manager, etc.). It operates on environment variables only.
-- The Guardian does not yet call provider APIs to rotate keys automatically.
-- The workflow engine does not enforce permissions at runtime.
-- There is no CI pipeline to scan for leaked secrets.
+```python
+unsafe_patterns = ["sk-", "pk-", "nvapi-", "-----BEGIN", "PRIVATE KEY", "password", "secret", "token"]
+```
 
 ---
 
-## Reporting issues
+## 7. Security checklist
 
-If you find a security issue in the code, do not open a public issue first. Contact the maintainers privately and provide:
+- [ ] `.env` is in `.gitignore` and not committed.
+- [ ] Service account JSON is stored outside the repo.
+- [ ] Stripe keys use restricted, company-owned keys rather than personal test keys.
+- [ ] The Guardian weekly audit cron job is enabled (`hermes/profiles/partenon-guardian/cron/weekly-audit.json`).
+- [ ] Every rotation event is written to `security.log`.
+- [ ] Each hero profile's permissions are documented in `.security`.
+- [ ] No profile file contains raw secret values.
+- [ ] Dashboard credentials are changed from the default `admin` / `partenon` (`DASHBOARD_APP_USERNAME`, `DASHBOARD_APP_PASSWORD`).
 
-1. The file and function involved.
-2. Steps to reproduce.
-3. The maximum impact you can demonstrate.
-4. Suggested mitigation, if any.
+---
+
+## 8. What is not implemented yet
+
+See [`MISSING_IMPLEMENTATION.md`](../MISSING_IMPLEMENTATION.md) for the complete gap list. Security-specific gaps include:
+
+- No real secrets-manager integration (HashiCorp Vault, AWS Secrets Manager, etc.). Keys are read from env vars only.
+- No automated audit log retention enforcement outside `prune_audit_logs()`.
+- No real NVIDIA NeMoClaw / OpenShell integration.
+- The Guardian's canonical roles are hard-coded in `key_manager.py`; they should be loaded from `.security` templates at runtime.
