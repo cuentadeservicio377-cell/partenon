@@ -192,6 +192,113 @@
 
     .stat-value { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
 
+    /* Spec tables */
+    .spec-table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; }
+    .spec-table th,
+    .spec-table td {
+      text-align: left;
+      padding: 0.625rem 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      vertical-align: top;
+    }
+    .spec-table th {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #6B6B78;
+      font-weight: 500;
+      background: rgba(255,255,255,0.02);
+    }
+    .spec-table tr:last-child td { border-bottom: none; }
+    .spec-table td { color: #E8E8ED; }
+    .spec-table td:first-child { color: #6B6B78; width: 30%; }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.25rem 0.625rem;
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      color: #E8E8ED;
+    }
+    .badge-accent { border-color: rgba(0,212,255,0.25); background: rgba(0,212,255,0.08); color: #00D4FF; }
+    .badge-live { border-color: rgba(255,184,0,0.25); background: rgba(255,184,0,0.08); color: #FFB800; }
+
+    /* Install tabs */
+    .install-tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .install-tab {
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: #6B6B78;
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.25s var(--ease-out-expo);
+    }
+    .install-tab:hover { color: #E8E8ED; background: rgba(255,255,255,0.04); }
+    .install-tab.active { color: #050505; background: #00D4FF; border-color: #00D4FF; }
+    .install-panel { display: none; }
+    .install-panel.active { display: block; animation: fadeIn 0.35s var(--ease-out-expo); }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 100;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      background: #111118;
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #E8E8ED;
+      font-size: 0.8125rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: opacity 0.25s var(--ease-out-expo), transform 0.25s var(--ease-out-expo);
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    /* Workshop timeline */
+    .workshop-timeline { position: relative; }
+    .workshop-timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+    .workshop-step {
+      position: relative;
+      padding-left: 42px;
+      padding-bottom: 1.5rem;
+    }
+    .workshop-step:last-child { padding-bottom: 0; }
+    .workshop-step::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 2px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #00D4FF;
+      box-shadow: 0 0 0 4px rgba(0,212,255,0.12);
+    }
+
     @media (max-width: 767px) {
       .hero-title { font-size: clamp(2.25rem, 12vw, 3.5rem); }
     }
@@ -502,9 +609,12 @@ sequenceDiagram
       <div class="grid lg:grid-cols-2 gap-6 mb-12">
         <div class="reveal bezel">
           <div class="bezel-inner p-6 md:p-8 h-full">
-            <div class="flex items-center gap-3 mb-4">
-              <span class="material-symbols-sharp text-accent">security</span>
-              <h3 class="font-display text-xl tracking-tight">NVIDIA NemoClaw + OpenShell</h3>
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-sharp text-accent">security</span>
+                <h3 class="font-display text-xl tracking-tight">NVIDIA NemoClaw + OpenShell</h3>
+              </div>
+              <span class="badge badge-live">Hermes harness</span>
             </div>
             <p class="text-sm text-muted leading-relaxed mb-4">NemoClaw orquesta agentes autónomos de larga duración. OpenShell aplica políticas fuera del proceso del agente: filesystem, red, procesos y privacidad. Incluso un prompt injection no puede saltarse las restricciones.</p>
             <ul class="space-y-2 text-sm text-muted">
@@ -609,30 +719,42 @@ link-cli spend-request create \
         <div class="hero-content active" id="tesorero-content">
           <div class="bezel">
             <div class="bezel-inner p-6 md:p-8">
-              <div class="flex items-center gap-4 mb-6">
-                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">savings</span></div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest">01 / Tesorero</div>
-                  <div class="font-display text-2xl tracking-tight">.finance</div>
+              <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">savings</span></div>
+                  <div>
+                    <div class="font-mono text-xs text-muted uppercase tracking-widest">01 / Tesorero</div>
+                    <div class="font-display text-2xl tracking-tight">.finance</div>
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <span class="badge badge-accent">v0.1.0</span>
+                  <span class="badge">GPU</span>
+                  <span class="badge">cuDF</span>
+                  <span class="badge">Sheets</span>
                 </div>
               </div>
-              <div class="grid md:grid-cols-3 gap-6 text-sm">
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                  <p class="text-muted">Spreadsheets, modelos financieros, costos variables/fijos, dashboards, parsers de gastos, análisis acelerado en GPU.</p>
-                </div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
-                  <p class="text-muted">In: facturas, estados de cuenta, gastos. Out: hojas acomodadas, categorización, reportes, alertas, proyecciones.</p>
-                </div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
-                  <p class="text-muted">Mensajero (presupuestos), Cobrador (ingresos/gastos), G-Brain.</p>
-                </div>
-              </div>
-              <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
-                <p class="text-sm text-muted">Google Sheets + plantillas Excel + parsers de gastos + dashboards de margen + NVIDIA cuDF + cuOpt.</p>
+              <div class="grid lg:grid-cols-2 gap-6">
+                <table class="spec-table">
+                  <thead><tr><th colspan="2">Especificación</th></tr></thead>
+                  <tbody>
+                    <tr><td>Rol</td><td>Auditoría, categorización y proyección financiera.</td></tr>
+                    <tr><td>Inputs</td><td>Facturas, estados de cuenta, gastos, presupuesto del Mensajero.</td></tr>
+                    <tr><td>Outputs</td><td>Sheets acomodadas, reportes JSON, alertas, proyecciones.</td></tr>
+                    <tr><td>Permisos</td><td>READ/WRITE en <code>.finance</code>; READ en <code>.payments</code>.</td></tr>
+                    <tr><td>Conexiones</td><td>Mensajero, Cobrador, G-Brain, Google Sheets.</td></tr>
+                  </tbody>
+                </table>
+                <table class="spec-table">
+                  <thead><tr><th colspan="2">Pegaso / Toolkit</th></tr></thead>
+                  <tbody>
+                    <tr><td>Workspace</td><td>Google Sheets, plantillas Excel con openpyxl.</td></tr>
+                    <tr><td>GPU</td><td>NVIDIA cuDF, cuOpt para análisis acelerado.</td></tr>
+                    <tr><td>Parsers</td><td>Facturas CFDI, estados de cuenta PDF/CSV.</td></tr>
+                    <tr><td>Eval</td><td>Score de exactitud contable vs ground truth.</td></tr>
+                    <tr><td>MCP</td><td><code>gbrain.read_profile</code>, <code>gbrain.write_mission</code>.</td></tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -641,30 +763,42 @@ link-cli spend-request create \
         <div class="hero-content" id="mensajero-content">
           <div class="bezel">
             <div class="bezel-inner p-6 md:p-8">
-              <div class="flex items-center gap-4 mb-6">
-                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">campaign</span></div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest">02 / Mensajero</div>
-                  <div class="font-display text-2xl tracking-tight">.design</div>
+              <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">campaign</span></div>
+                  <div>
+                    <div class="font-mono text-xs text-muted uppercase tracking-widest">02 / Mensajero</div>
+                    <div class="font-display text-2xl tracking-tight">.design</div>
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <span class="badge badge-accent">v0.1.0</span>
+                  <span class="badge">Open Design</span>
+                  <span class="badge">WordPress</span>
+                  <span class="badge">Docs</span>
                 </div>
               </div>
-              <div class="grid md:grid-cols-3 gap-6 text-sm">
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                  <p class="text-muted">Brand intake, copywriting, calendario de contenido, posts, presentaciones, optimización web.</p>
-                </div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
-                  <p class="text-muted">In: voz de marca, objetivos de campaña, datos del Tesorero. Out: contenido, posts, presentaciones, mails.</p>
-                </div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
-                  <p class="text-muted">Tesorero (presupuesto), G-Brain, WordPress/SSH, APIs de redes sociales.</p>
-                </div>
-              </div>
-              <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
-                <p class="text-sm text-muted">Open Design + redes sociales + SEO/GEO + WordPress/SSH + Google Docs/Slides.</p>
+              <div class="grid lg:grid-cols-2 gap-6">
+                <table class="spec-table">
+                  <thead><tr><th colspan="2">Especificación</th></tr></thead>
+                  <tbody>
+                    <tr><td>Rol</td><td>Brand, contenido, copywriting y presentaciones.</td></tr>
+                    <tr><td>Inputs</td><td>Voz de marca, objetivos de campaña, presupuesto del Tesorero.</td></tr>
+                    <tr><td>Outputs</td><td>Posts, calendario de contenido, mails, Docs/Slides.</td></tr>
+                    <tr><td>Permisos</td><td>READ/WRITE en <code>.design</code>; READ en <code>.finance</code>.</td></tr>
+                    <tr><td>Conexiones</td><td>Tesorero, G-Brain, WordPress/SSH, APIs de redes.</td></tr>
+                  </tbody>
+                </table>
+                <table class="spec-table">
+                  <thead><tr><th colspan="2">Pegaso / Toolkit</th></tr></thead>
+                  <tbody>
+                    <tr><td>Diseño</td><td>Open Design, plantillas de marca, SEO/GEO.</td></tr>
+                    <tr><td>Web</td><td>WordPress/SSH, optimización de sitio.</td></tr>
+                    <tr><td>Redes</td><td>APIs de publicación y calendarización.</td></tr>
+                    <tr><td>Eval</td><td>Score de coherencia de marca y calendario.</td></tr>
+                    <tr><td>MCP</td><td><code>gbrain.read_brand</code>, <code>gbrain.write_content</code>.</td></tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -673,30 +807,42 @@ link-cli spend-request create \
         <div class="hero-content" id="cobrador-content">
           <div class="bezel">
             <div class="bezel-inner p-6 md:p-8">
-              <div class="flex items-center gap-4 mb-6">
-                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">credit_card</span></div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest">03 / Cobrador</div>
-                  <div class="font-display text-2xl tracking-tight">.payments</div>
+              <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">credit_card</span></div>
+                  <div>
+                    <div class="font-mono text-xs text-muted uppercase tracking-widest">03 / Cobrador</div>
+                    <div class="font-display text-2xl tracking-tight">.payments</div>
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <span class="badge badge-accent">v0.1.0</span>
+                  <span class="badge">Stripe</span>
+                  <span class="badge">Link</span>
+                  <span class="badge">MPP</span>
                 </div>
               </div>
-              <div class="grid md:grid-cols-3 gap-6 text-sm">
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                  <p class="text-muted">Payment links, suscripciones, facturas, compras con Link, pagos MPP, provisionamiento SaaS, webhooks.</p>
-                </div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
-                  <p class="text-muted">In: productos/servicios, precios, clientes, presupuesto. Out: links de pago, spend requests aprobados, servicios provisionados, reportes.</p>
-                </div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
-                  <p class="text-muted">Stripe API, Stripe Skills, Tesorero (ingresos/gastos), G-Brain, dueño (aprobación).</p>
-                </div>
-              </div>
-              <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
-                <p class="text-sm text-muted">Stripe API + payment links + suscripciones + <code>stripe-link-cli</code> + <code>mpp-agent</code> + <code>stripe-projects</code> + webhooks + reportes en Sheets.</p>
+              <div class="grid lg:grid-cols-2 gap-6">
+                <table class="spec-table">
+                  <thead><tr><th colspan="2">Especificación</th></tr></thead>
+                  <tbody>
+                    <tr><td>Rol</td><td>Cobros, suscripciones, compras y provisionamiento SaaS.</td></tr>
+                    <tr><td>Inputs</td><td>Productos, precios, clientes, presupuesto, aprobación humana.</td></tr>
+                    <tr><td>Outputs</td><td>Payment links, spend requests, servicios provisionados, reportes.</td></tr>
+                    <tr><td>Permisos</td><td>READ/WRITE en <code>.payments</code>; READ en <code>.finance</code>; spend limits.</td></tr>
+                    <tr><td>Conexiones</td><td>Stripe API, Stripe Skills, Tesorero, Guardián, dueño.</td></tr>
+                  </tbody>
+                </table>
+                <table class="spec-table">
+                  <thead><tr><th colspan="2">Pegaso / Toolkit</th></tr></thead>
+                  <tbody>
+                    <tr><td>Stripe</td><td>Payment links, suscripciones, webhooks, facturas.</td></tr>
+                    <tr><td>Link CLI</td><td>Tarjetas virtuales de un solo uso con aprobación.</td></tr>
+                    <tr><td>MPP Agent</td><td>Pago de APIs que responden HTTP 402.</td></tr>
+                    <tr><td>Projects</td><td>Provisiona 47 SaaS (Neon, Twilio, Vercel, etc.).</td></tr>
+                    <tr><td>Eval</td><td>Score de conciliación y límites de gasto.</td></tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -705,30 +851,42 @@ link-cli spend-request create \
         <div class="hero-content" id="guardian-content">
           <div class="bezel">
             <div class="bezel-inner p-6 md:p-8">
-              <div class="flex items-center gap-4 mb-6">
-                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">shield</span></div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest">04 / Guardián</div>
-                  <div class="font-display text-2xl tracking-tight">.security</div>
+              <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">shield</span></div>
+                  <div>
+                    <div class="font-mono text-xs text-muted uppercase tracking-widest">04 / Guardián</div>
+                    <div class="font-display text-2xl tracking-tight">.security</div>
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <span class="badge badge-accent">v0.1.0</span>
+                  <span class="badge">NemoClaw</span>
+                  <span class="badge">OpenShell</span>
+                  <span class="badge">SkillSpector</span>
                 </div>
               </div>
-              <div class="grid md:grid-cols-3 gap-6 text-sm">
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                  <p class="text-muted">Sandbox policies, gestión de claves, permisos por perfil, model routing, auditoría, SkillSpector.</p>
-                </div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
-                  <p class="text-muted">In: cuentas de NVIDIA, OpenAI, Kimi, Stripe, redes. Out: políticas OpenShell, accesos configurados, auditoría, rotación de credenciales.</p>
-                </div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
-                  <p class="text-muted">NVIDIA NemoClaw, OpenShell, Nemotron, OpenAI, Kimi Coding, todos los héroes vía G-Brain.</p>
-                </div>
-              </div>
-              <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
-                <p class="text-sm text-muted">NVIDIA NemoClaw + OpenShell policies + Nemotron routing + OpenAI + Kimi Coding + rotación de API keys + permisos por perfil.</p>
+              <div class="grid lg:grid-cols-2 gap-6">
+                <table class="spec-table">
+                  <thead><tr><th colspan="2">Especificación</th></tr></thead>
+                  <tbody>
+                    <tr><td>Rol</td><td>Seguridad, políticas, routing de modelos y auditoría.</td></tr>
+                    <tr><td>Inputs</td><td>Cuentas de APIs, intents de otros héroes, logs de ejecución.</td></tr>
+                    <tr><td>Outputs</td><td>Políticas OpenShell, accesos, rotación de credenciales, auditoría.</td></tr>
+                    <tr><td>Permisos</td><td>READ/WRITE en <code>.security</code>; control de todos los accesos.</td></tr>
+                    <tr><td>Conexiones</td><td>NVIDIA NemoClaw, OpenShell, Nemotron, OpenAI, Kimi.</td></tr>
+                  </tbody>
+                </table>
+                <table class="spec-table">
+                  <thead><tr><th colspan="2">Pegaso / Toolkit</th></tr></thead>
+                  <tbody>
+                    <tr><td>Sandbox</td><td>NVIDIA NemoClaw + OpenShell policies (fs, red, procesos).</td></tr>
+                    <tr><td>Model routing</td><td>Privacy router: datos sensibles a modelos locales.</td></tr>
+                    <tr><td>Keys</td><td>Rotación de API keys, vault efímero, scopes por perfil.</td></tr>
+                    <tr><td>SkillSpector</td><td>Auditoría de skills y permisos antes de instalación.</td></tr>
+                    <tr><td>Eval</td><td>Score de cumplimiento de políticas y exfiltración nula.</td></tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -737,30 +895,42 @@ link-cli spend-request create \
         <div class="hero-content" id="estratega-content">
           <div class="bezel">
             <div class="bezel-inner p-6 md:p-8">
-              <div class="flex items-center gap-4 mb-6">
-                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">strategy</span></div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest">05 / Estratega</div>
-                  <div class="font-display text-2xl tracking-tight">.ops</div>
+              <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">strategy</span></div>
+                  <div>
+                    <div class="font-mono text-xs text-muted uppercase tracking-widest">05 / Estratega</div>
+                    <div class="font-display text-2xl tracking-tight">.ops</div>
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <span class="badge badge-accent">v0.1.0</span>
+                  <span class="badge">Calendar</span>
+                  <span class="badge">Gmail</span>
+                  <span class="badge">Subagentes</span>
                 </div>
               </div>
-              <div class="grid md:grid-cols-3 gap-6 text-sm">
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                  <p class="text-muted">Calendar, Gmail, tareas, recordatorios, priorización, planeación, checklists, briefings, cron, delegación a subagentes.</p>
-                </div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
-                  <p class="text-muted">In: eventos, correos, deadlines, misiones pendientes. Out: calendario actualizado, follow-ups, resumen, tareas programadas, submisiones.</p>
-                </div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
-                  <p class="text-muted">Diplomático, Mensajero, G-Brain, Google Workspace, cron de Hermes, subagentes.</p>
-                </div>
-              </div>
-              <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
-                <p class="text-sm text-muted">Google Calendar + Gmail + tareas + recordatorios + checklists + briefings + cron de Hermes + <code>delegate_task</code>.</p>
+              <div class="grid lg:grid-cols-2 gap-6">
+                <table class="spec-table">
+                  <thead><tr><th colspan="2">Especificación</th></tr></thead>
+                  <tbody>
+                    <tr><td>Rol</td><td>Planificación, priorización, recordatorios y delegación.</td></tr>
+                    <tr><td>Inputs</td><td>Eventos, correos, deadlines, misiones pendientes.</td></tr>
+                    <tr><td>Outputs</td><td>Calendario actualizado, follow-ups, briefings, submisiones.</td></tr>
+                    <tr><td>Permisos</td><td>READ/WRITE en <code>.ops</code>; READ en <code>.relations</code> y <code>.design</code>.</td></tr>
+                    <tr><td>Conexiones</td><td>Diplomático, Mensajero, G-Brain, Google Workspace.</td></tr>
+                  </tbody>
+                </table>
+                <table class="spec-table">
+                  <thead><tr><th colspan="2">Pegaso / Toolkit</th></tr></thead>
+                  <tbody>
+                    <tr><td>Workspace</td><td>Google Calendar, Gmail, tareas, recordatorios.</td></tr>
+                    <tr><td>Cron</td><td>Tareas programadas en lenguaje natural o cron.</td></tr>
+                    <tr><td>Subagentes</td><td><code>delegate_task</code> spawnea agentes hijo aislados.</td></tr>
+                    <tr><td>Gateway</td><td>Notificaciones a Telegram, WhatsApp, email, Slack.</td></tr>
+                    <tr><td>Eval</td><td>Score de cobertura y actualización de calendario.</td></tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -769,30 +939,42 @@ link-cli spend-request create \
         <div class="hero-content" id="diplomatico-content">
           <div class="bezel">
             <div class="bezel-inner p-6 md:p-8">
-              <div class="flex items-center gap-4 mb-6">
-                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">handshake</span></div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest">06 / Diplomático</div>
-                  <div class="font-display text-2xl tracking-tight">.relations</div>
+              <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">handshake</span></div>
+                  <div>
+                    <div class="font-mono text-xs text-muted uppercase tracking-widest">06 / Diplomático</div>
+                    <div class="font-display text-2xl tracking-tight">.relations</div>
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <span class="badge badge-accent">v0.1.0</span>
+                  <span class="badge">CRM</span>
+                  <span class="badge">Gmail</span>
+                  <span class="badge">Calendar</span>
                 </div>
               </div>
-              <div class="grid md:grid-cols-3 gap-6 text-sm">
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                  <p class="text-muted">Seguimiento a clientes y proveedores, conversaciones, contratos, hitos, recordatorios.</p>
-                </div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
-                  <p class="text-muted">In: conversaciones, contratos, entregables, fechas compromiso. Out: recordatorios, actualizaciones de estado, reuniones.</p>
-                </div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
-                  <p class="text-muted">Estratega, G-Brain, Gmail, Calendar.</p>
-                </div>
-              </div>
-              <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
-                <p class="text-sm text-muted">Gmail + Calendar + CRM ligero + hitos + recordatorios + contratos.</p>
+              <div class="grid lg:grid-cols-2 gap-6">
+                <table class="spec-table">
+                  <thead><tr><th colspan="2">Especificación</th></tr></thead>
+                  <tbody>
+                    <tr><td>Rol</td><td>Seguimiento a clientes, proveedores, contratos y hitos.</td></tr>
+                    <tr><td>Inputs</td><td>Conversaciones, contratos, entregables, fechas compromiso.</td></tr>
+                    <tr><td>Outputs</td><td>Recordatorios, actualizaciones de estado, reuniones.</td></tr>
+                    <tr><td>Permisos</td><td>READ/WRITE en <code>.relations</code>; READ en <code>.ops</code>.</td></tr>
+                    <tr><td>Conexiones</td><td>Estratega, G-Brain, Gmail, Calendar.</td></tr>
+                  </tbody>
+                </table>
+                <table class="spec-table">
+                  <thead><tr><th colspan="2">Pegaso / Toolkit</th></tr></thead>
+                  <tbody>
+                    <tr><td>CRM</td><td>CRM ligero en Sheets con hitos y recordatorios.</td></tr>
+                    <tr><td>Comms</td><td>Gmail, Calendar, notificaciones vía Estratega.</td></tr>
+                    <tr><td>Contratos</td><td>Plantillas en Docs, seguimiento de firmas y vencimientos.</td></tr>
+                    <tr><td>Eval</td><td>Score de cobertura de relaciones activas.</td></tr>
+                    <tr><td>MCP</td><td><code>gbrain.read_entity</code>, <code>gbrain.update_touchpoint</code>.</td></tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -1177,70 +1359,181 @@ flowchart LR
     </div>
   </section>
 
-  <!-- Workshop -->
-  <section id="workshop" class="section-pad border-y border-line bg-surface/40">
+  <!-- API Reference -->
+  <section class="section-pad border-y border-line bg-surface/40">
     <div class="max-w-[1400px] mx-auto px-4">
+      <div class="reveal max-w-2xl mb-12">
+        <span class="tag mb-4 block">API Reference</span>
+        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Contratos entre héroes y G-Brain.</h2>
+        <p class="text-muted text-lg leading-relaxed">G-Brain expone operaciones MCP que todos los héroes usan para leer perfiles, escribir misiones y consultar entidades.</p>
+      </div>
+
+      <div class="reveal bezel mb-8">
+        <div class="bezel-inner p-6 md:p-8 overflow-x-auto">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>Método</th>
+                <th>Args</th>
+                <th>Retorno</th>
+                <th>Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>gbrain.read_profile</code></td>
+                <td><code>hero: string</code></td>
+                <td>Perfil YAML</td>
+                <td>Lee el perfil operativo de un héroe.</td>
+              </tr>
+              <tr>
+                <td><code>gbrain.write_mission</code></td>
+                <td><code>hero, input, output, score</code></td>
+                <td>mission_id</td>
+                <td>Registra una misión ejecutada con eval score.</td>
+              </tr>
+              <tr>
+                <td><code>gbrain.read_missions</code></td>
+                <td><code>hero?, limit?</code></td>
+                <td>Lista de misiones</td>
+                <td>Historial filtrable por héroe.</td>
+              </tr>
+              <tr>
+                <td><code>gbrain.put_entity</code></td>
+                <td><code>type, id, payload</code></td>
+                <td>entity_id</td>
+                <td>Guarda cliente, proveedor o producto.</td>
+              </tr>
+              <tr>
+                <td><code>gbrain.get_entity</code></td>
+                <td><code>type, id</code></td>
+                <td>Entidad</td>
+                <td>Recupera una entidad por tipo e ID.</td>
+              </tr>
+              <tr>
+                <td><code>gbrain.search_memory</code></td>
+                <td><code>query, hero?</code></td>
+                <td>Hits relevantes</td>
+                <td>Búsqueda semántica sobre memoria.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="reveal bezel">
+          <div class="bezel-inner p-6 md:p-8">
+            <div class="flex items-center justify-between mb-4">
+              <span class="tag">Ejemplo: leer perfil</span>
+              <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyCode('apiRead')">Copiar</button>
+            </div>
+            <pre><code id="apiRead">await mcp.call('gbrain.read_profile', { hero: 'tesorero' });
+// { role, permissions, pegaso, eval_rubric, ... }</code></pre>
+          </div>
+        </div>
+        <div class="reveal bezel reveal-delay-1">
+          <div class="bezel-inner p-6 md:p-8">
+            <div class="flex items-center justify-between mb-4">
+              <span class="tag">Ejemplo: escribir misión</span>
+              <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyCode('apiWrite')">Copiar</button>
+            </div>
+            <pre><code id="apiWrite">await mcp.call('gbrain.write_mission', {
+  hero: 'cobrador',
+  input: { amount: 2900, merchant: 'Neon' },
+  output: { spend_request_id: 'sr_...' },
+  score: 0.92
+});</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Workshop -->
+  <section id="workshop" class="section-pad">
+    <div class="max-w-[1000px] mx-auto px-4">
       <div class="reveal max-w-2xl mb-16">
         <span class="tag mb-4 block">Workshop</span>
         <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Paquete de implementación de 90 minutos.</h2>
         <p class="text-muted text-lg leading-relaxed">El mismo formato sirve para universidades, organizaciones empresariales, coworkings y aceleradoras. Los participantes se llevan Hermes instalado.</p>
       </div>
 
-      <div class="reveal mermaid-container mb-12">
-        <div class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Flujo del workshop</div>
-        <div class="mermaid">
-sequenceDiagram
-    participant P as Participante
-    participant I as install.sh
-    participant C as partenon-core
-    participant H as Héroes
-    participant GW as Google Workspace
-
-    P->>I: curl ... | bash
-    I->>C: Python env, deps, hermes CLI
-    C->>H: Copia 6 perfiles
-    C->>GW: Clona Google Sheet base
-    Note over P,GW: Pre-instalación (antes del evento)
-    P->>C: Define tipo de empresa
-    C->>H: Crea .finance, .design, .payments, .security, .ops, .relations
-    Note over P,H: Onboarding (20-60 min)
-    H->>GW: Publica 3 misiones reales
-    Note over P,H: Práctica (60-90 min)
-        </div>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="reveal bezel">
-          <div class="bezel-inner p-8 h-full">
-            <div class="font-mono text-5xl text-accent mb-6">0–20'</div>
-            <h3 class="font-display text-xl tracking-tight mb-4">Setup</h3>
-            <ul class="space-y-3 text-sm text-muted">
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Pre-instalación con <code>curl ... | bash</code>.</li>
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Copiar Google Sheet base.</li>
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Crear archivos de perfil.</li>
-            </ul>
+      <div class="reveal workshop-timeline">
+        <div class="workshop-step">
+          <div class="bezel">
+            <div class="bezel-inner p-6 md:p-8">
+              <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest">Fase 1</div>
+                  <h3 class="font-display text-xl tracking-tight">Pre-instalación</h3>
+                </div>
+                <div class="font-mono text-sm text-accent">antes del evento</div>
+              </div>
+              <p class="text-sm text-muted leading-relaxed mb-4">El participante corre <code>curl ... | bash</code> antes de llegar. El instalador crea el entorno Python, expone <code>hermes</code> como comando global y copia los seis perfiles.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="badge">Python 3.11+</span>
+                <span class="badge">hermes CLI</span>
+                <span class="badge">6 perfiles</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="reveal bezel reveal-delay-1">
-          <div class="bezel-inner p-8 h-full">
-            <div class="font-mono text-5xl text-accent mb-6">20–60'</div>
-            <h3 class="font-display text-xl tracking-tight mb-4">Onboarding</h3>
-            <ul class="space-y-3 text-sm text-muted">
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Definir tipo de empresa.</li>
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Configurar perfiles prioritarios.</li>
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Ejecutar primera misión.</li>
-            </ul>
+        <div class="workshop-step">
+          <div class="bezel">
+            <div class="bezel-inner p-6 md:p-8">
+              <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest">Fase 2</div>
+                  <h3 class="font-display text-xl tracking-tight">Setup y Google Sheet</h3>
+                </div>
+                <div class="font-mono text-sm text-accent">0–20 min</div>
+              </div>
+              <p class="text-sm text-muted leading-relaxed mb-4">Clonar el Google Sheet base, conectar variables de entorno y verificar que los héroes puedan escribir en Workspace.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="badge">Google Sheets</span>
+                <span class="badge">Service account</span>
+                <span class="badge">.env</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="reveal bezel reveal-delay-2">
-          <div class="bezel-inner p-8 h-full">
-            <div class="font-mono text-5xl text-accent mb-6">60–90'</div>
-            <h3 class="font-display text-xl tracking-tight mb-4">Práctica</h3>
-            <ul class="space-y-3 text-sm text-muted">
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Publicar 3 misiones reales.</li>
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Revisar entregables en Sheets/Docs.</li>
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Ejecutar demo del Tesorero.</li>
-            </ul>
+        <div class="workshop-step">
+          <div class="bezel">
+            <div class="bezel-inner p-6 md:p-8">
+              <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest">Fase 3</div>
+                  <h3 class="font-display text-xl tracking-tight">Onboarding del tipo de empresa</h3>
+                </div>
+                <div class="font-mono text-sm text-accent">20–60 min</div>
+              </div>
+              <p class="text-sm text-muted leading-relaxed mb-4">Hermes pregunta qué empresa es. El participante responde y el router genera los perfiles <code>.finance</code>, <code>.design</code>, <code>.payments</code>, <code>.security</code>, <code>.ops</code> y <code>.relations</code>.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="badge">Router</span>
+                <span class="badge">Onboarding flow</span>
+                <span class="badge">Perfiles</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="workshop-step">
+          <div class="bezel">
+            <div class="bezel-inner p-6 md:p-8">
+              <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest">Fase 4</div>
+                  <h3 class="font-display text-xl tracking-tight">Práctica con 3 misiones reales</h3>
+                </div>
+                <div class="font-mono text-sm text-accent">60–90 min</div>
+              </div>
+              <p class="text-sm text-muted leading-relaxed mb-4">Cada participante publica tres misiones con los héroes, revisa entregables en Sheets/Docs y ejecuta el demo del Tesorero para validar que todo funciona.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="badge">3 misiones</span>
+                <span class="badge">Eval loop</span>
+                <span class="badge">demo_tesorero.py</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1271,27 +1564,57 @@ sequenceDiagram
         <div class="lg:col-span-7 space-y-6 reveal reveal-delay-1">
           <div class="bezel">
             <div class="bezel-inner p-6 md:p-8">
-              <div class="flex items-center justify-between mb-4">
-                <span class="tag">Terminal</span>
-                <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyInstall()">Copiar</button>
+              <div class="install-tabs">
+                <button class="install-tab active" data-install="local">Local</button>
+                <button class="install-tab" data-install="nemoclaw">NemoClaw</button>
+                <button class="install-tab" data-install="stripe">Stripe</button>
+                <button class="install-tab" data-install="env">Variables</button>
               </div>
-              <pre><code id="installCmd">git clone https://github.com/paolameneses/partenon.git
-cd partenon
 
-# Opción A: instalador local
-curl -fsSL https://partenon.dev/install.sh | bash
+              <div class="install-panel active" id="install-local">
+                <div class="flex items-center justify-between mb-4">
+                  <span class="tag">Instalador local</span>
+                  <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyCode('installLocal')">Copiar</button>
+                </div>
+                <pre><code id="installLocal">git clone https://github.com/paolameneses/partenon.git
+	cd partenon
+	curl -fsSL https://partenon.dev/install.sh | bash
+	# Crea entorno Python, instala deps, expone hermes CLI y copia perfiles.</code></pre>
+              </div>
 
-# Opción B: onboard con NVIDIA NemoClaw
-curl -fsSL https://www.nvidia.com/nemoclaw.sh | NEMOCLAW_AGENT=hermes bash
+              <div class="install-panel" id="install-nemoclaw">
+                <div class="flex items-center justify-between mb-4">
+                  <span class="tag">Onboard NVIDIA NemoClaw</span>
+                  <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyCode('installNemo')">Copiar</button>
+                </div>
+                <pre><code id="installNemo">curl -fsSL https://www.nvidia.com/nemoclaw.sh | NEMOCLAW_AGENT=hermes bash
+	# Crea sandbox con políticas OpenShell para filesystem, red y procesos.</code></pre>
+              </div>
 
-# Stripe Skills oficiales
-hermes skills install official/payments/stripe-link-cli
-hermes skills install official/payments/mpp-agent
-hermes skills install official/payments/stripe-projects
+              <div class="install-panel" id="install-stripe">
+                <div class="flex items-center justify-between mb-4">
+                  <span class="tag">Stripe Skills oficiales</span>
+                  <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyCode('installStripe')">Copiar</button>
+                </div>
+                <pre><code id="installStripe">hermes skills install official/payments/stripe-link-cli
+	hermes skills install official/payments/mpp-agent
+	hermes skills install official/payments/stripe-projects</code></pre>
+              </div>
 
-# Copia el Google Sheet base y conecta variables:
-# HERMES_FOLDER_ID, GOOGLE_SERVICE_ACCOUNT, STRIPE_API_KEY,
-# OPENAI_API_KEY, KIMI_API_KEY, NVIDIA_API_KEY</code></pre>
+              <div class="install-panel" id="install-env">
+                <div class="flex items-center justify-between mb-4">
+                  <span class="tag">Variables de entorno</span>
+                  <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyCode('installEnv')">Copiar</button>
+                </div>
+                <pre><code id="installEnv"># Copia el Google Sheet base y conecta variables:
+	HERMES_FOLDER_ID=...
+	GOOGLE_SERVICE_ACCOUNT=...
+	STRIPE_API_KEY=sk_...
+	STRIPE_WEBHOOK_SECRET=whsec_...
+	OPENAI_API_KEY=sk-...
+	KIMI_API_KEY=...
+	NVIDIA_API_KEY=...</code></pre>
+              </div>
             </div>
           </div>
           <div class="bezel">
@@ -1479,21 +1802,42 @@ hermes skills install official/payments/stripe-projects
       });
     });
 
-    function copyInstall() {
-      navigator.clipboard.writeText(document.getElementById('installCmd').textContent);
+    function copyCode(id) {
+      const el = document.getElementById(id);
+      if (el) navigator.clipboard.writeText(el.textContent);
+      showToast('Copiado al portapapeles');
     }
-    function copyTree() {
-      navigator.clipboard.writeText(document.getElementById('repoTree').textContent);
+    function copyInstall() { copyCode('installLocal'); }
+    function copyTree() { copyCode('repoTree'); }
+    function copyDemo() { copyCode('demoCode'); }
+    function copyStripeExample() { copyCode('stripeExample'); }
+    function copyCronExample() { copyCode('cronExample'); }
+
+    function showToast(message, icon = 'check') {
+      let toast = document.getElementById('toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast';
+        toast.className = 'toast';
+        document.body.appendChild(toast);
+      }
+      toast.innerHTML = `<span class="material-symbols-sharp text-accent">${icon}</span><span>${message}</span>`;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
     }
-    function copyDemo() {
-      navigator.clipboard.writeText(document.getElementById('demoCode').textContent);
-    }
-    function copyStripeExample() {
-      navigator.clipboard.writeText(document.getElementById('stripeExample').textContent);
-    }
-    function copyCronExample() {
-      navigator.clipboard.writeText(document.getElementById('cronExample').textContent);
-    }
+
+    // Install tabs
+    const installTabs = document.querySelectorAll('.install-tab');
+    const installPanels = document.querySelectorAll('.install-panel');
+    installTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.install;
+        installTabs.forEach(t => t.classList.remove('active'));
+        installPanels.forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(`install-${target}`).classList.add('active');
+      });
+    });
   </script>
 </body>
 </html>

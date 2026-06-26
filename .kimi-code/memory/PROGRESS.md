@@ -2,10 +2,11 @@
 
 ## Historial de Sesiones
 
-### 2026-06-26 — Loop de mejora: integración NVIDIA/Stripe/Hermes
-- Investigación con AgentSwarm sobre NVIDIA NemoClaw, OpenShell, Nemotron 3 Ultra, CUDA-X skills, Stripe Skills (`stripe-link-cli`, `mpp-agent`, `stripe-projects`) y funcionalidades core de Hermes Agent (skills, memory, cron, subagents, messaging gateway, MCP, self-improvement).
-- Enriquecida `web/index.html`: hero con stack del hackathon, sección "Agentes que cobran, pagan y operan seguros", perfiles de héroes actualizados (Cobrador con Stripe Skills, Guardián con NemoClaw/OpenShell, Tesorero con cuDF/cuOpt, Estratega con cron/subagentes), sección "Hermes aprende de cada misión" con learning loop, cron y messaging gateway, contador de impacto corregido a "pymes", instalación con NemoClaw y Stripe Skills.
-- Enriquecida `web/developers.html`: arquitectura Mermaid con NVIDIA NemoClaw/OpenShell/Nemotron y Stripe Skills, sección "NVIDIA y Stripe como infraestructura de agentes", perfiles técnicos actualizados, sección "Hermes es más que un modelo" con skills/memory/cron/subagents/gateway/MCP/self-improvement, ejemplos de Stripe Projects y cron, instalación y roadmap actualizados.
+### 2026-06-26 — Recuperación de storytelling desde `Kimi_Agent_10 Storytelling Web Sites/`
+- Auditoría completa de `Kimi_Agent_10 Storytelling Web Sites/` con AgentSwarm. Se recuperaron patrones narrativos y de información técnica; se descartaron estética clásica (Cinzel, mármol, iconos figurativos), errores de marca ("Nose Research" → Nous Research) y el séptimo héroe "The Brain".
+- Enriquecida `web/index.html`: sección de proceso de 4 pasos (intención → héroes → misiones → entrega), contadores animados con milestone bar 10 → 1M, métricas de impacto secundarias, growth plan de 4 canales (workshops, empresas piloto, partners técnicos, marketplace de perfiles), CTA tipeado con efecto de escritura y toast de copiado.
+- Enriquecida `web/developers.html`: badges técnicos y tablas de especificación por héroe (rol, I/O, permisos, conexiones, Pegaso/toolkit, eval, MCP), API reference de G-Brain con tabla de métodos y ejemplos de código, workshop timeline visual de 4 fases, install tabs (Local / NemoClaw / Stripe / Variables) con feedback de copiado, badge "Hermes harness" en NVIDIA NemoClaw.
+- Actualizado `scripts/capture.py` para forzar contadores `.stat-value` y regenerar screenshots.
 - Actualizados `README.md` y `TODOS.md`.
 - Regenerados screenshots desktop/mobile en `screenshots/`.
 - Validados HTML de ambas páginas.

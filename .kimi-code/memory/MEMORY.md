@@ -6,7 +6,7 @@
 
 - **Proyecto**: Partenon
 - **Iniciado**: 2026-06-23
-- **Estado**: Seis perfiles de Hermes creados (Guardian, Cobrador, Mensajero, Tesorero, Estratega, Diplomatico). Páginas web enriquecidas con stack del hackathon Nous Research / NVIDIA / Stripe. Próximo: probar Stripe Skills en sandbox, configurar onboard de NVIDIA NemoClaw/OpenShell e implementar eval loop funcional.
+- **Estado**: Seis perfiles de Hermes creados. Páginas web enriquecidas con storytelling recuperado de `Kimi_Agent_10 Storytelling Web Sites/` y stack del hackathon Nous Research / NVIDIA / Stripe. Próximo: probar Stripe Skills en sandbox, configurar onboard de NVIDIA NemoClaw/OpenShell e implementar eval loop funcional.
 - **Propósito**: Sistema de agentes IA para empresas, presentado como un panteón de héroes griegos al servicio de Hermes. Destinado a hackathon.
 
 ## Braindump

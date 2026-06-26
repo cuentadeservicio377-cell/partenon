@@ -10,14 +10,16 @@ os.makedirs(OUT, exist_ok=True)
 
 def force_counters(page):
     page.evaluate("""
-      document.querySelectorAll('.counter').forEach(el => {
+      document.querySelectorAll('.stat-value[data-target]').forEach(el => {
         const t = parseInt(el.dataset.target);
-        if (t >= 1000000) el.textContent = '1M';
-        else if (t >= 100000) el.textContent = '100K';
-        else if (t >= 10000) el.textContent = '10K';
-        else if (t >= 1000) el.textContent = '1K';
-        else if (t >= 100) el.textContent = '100';
-        else el.textContent = String(t);
+        let text;
+        if (t >= 1000000) text = '1M';
+        else if (t >= 100000) text = '100K';
+        else if (t >= 10000) text = '10K';
+        else if (t >= 1000) text = '1K';
+        else if (t >= 100) text = '100';
+        else text = String(t);
+        el.textContent = text;
       });
     """)
 
@@ -30,7 +32,7 @@ def capture(page, name, viewport):
     # Wait for Mermaid diagrams
     page.wait_for_timeout(2000)
     # Scroll to counters to trigger animation
-    page.evaluate("document.getElementById('impact')?.scrollIntoView({behavior:'instant'})" if name == "index" else "void(0)")
+    page.evaluate("document.getElementById('impacto')?.scrollIntoView({behavior:'instant'})" if name == "index" else "void(0)")
     page.wait_for_timeout(2500)
     # Ensure counters are at final values
     force_counters(page)

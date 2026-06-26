@@ -292,6 +292,53 @@
       color: #00D4FF;
       opacity: 0.3;
     }
+
+    /* Typewriter command */
+    .typewriter-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(0,212,255,0.18);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      color: #E8E8ED;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+    .typewriter-prefix { color: #00D4FF; user-select: none; font-weight: 500; }
+    .typewriter-text { min-width: 1ch; color: #E8E8ED; }
+    .typewriter-cursor {
+      color: #00D4FF;
+      animation: blink 1s step-end infinite;
+      user-select: none;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .impact-bar { transition: width 1.8s var(--ease-out-expo); }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 100;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      background: #111118;
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #E8E8ED;
+      font-size: 0.8125rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: opacity 0.25s var(--ease-out-expo), transform 0.25s var(--ease-out-expo);
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body class="antialiased">
@@ -345,7 +392,7 @@
           <p class="reveal text-muted text-base md:text-lg max-w-xl leading-relaxed mb-10">
             Construido para el hackathon de Nous Research, NVIDIA y Stripe. Hermes corre dentro de NVIDIA NemoClaw y OpenShell, razona con Nemotron 3 Ultra, y ejecuta pagos reales con Stripe Skills. Seis héroes especializados publican misiones en Google Workspace y mejoran entre sí con cada ejecución.
           </p>
-          <div class="reveal flex flex-wrap gap-4">
+          <div class="reveal flex flex-wrap gap-4 mb-8">
             <a href="#dia" class="btn btn-primary">
               Ver un día con Hermes
               <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_downward</span></span>
@@ -354,6 +401,12 @@
               Documentación técnica
               <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_outward</span></span>
             </a>
+          </div>
+          <div class="reveal" style="transition-delay: 120ms;">
+            <div class="typewriter-line" data-cmd="hermes init mi-empresa --stripe --workspace">
+              <span class="typewriter-prefix">$</span>
+              <span class="typewriter-text"></span><span class="typewriter-cursor">|</span>
+            </div>
           </div>
         </div>
 
@@ -460,6 +513,48 @@
                 <span>El dueño revisa entregables, no memoriza tareas.</span>
               </li>
             </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="como-funciona" class="section-pad">
+    <div class="max-w-[1400px] mx-auto px-4">
+      <div class="reveal max-w-2xl mb-16">
+        <span class="tag mb-4 block">Proceso</span>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">De la intención a la entrega.</h2>
+        <p class="text-muted text-lg leading-relaxed">No instalas otra app. Dices qué necesitas y Hermes convierte tu intención en misiones con evidencia.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="reveal bezel">
+          <div class="bezel-inner p-6 md:p-8 h-full">
+            <div class="font-mono text-4xl text-accent mb-4">01</div>
+            <h3 class="font-display text-xl tracking-tight mb-3">Llega la intención</h3>
+            <p class="text-sm text-muted leading-relaxed">El dueño describe su empresa y qué necesita ordenar. Hermes escucha y pregunta.</p>
+          </div>
+        </div>
+        <div class="reveal bezel reveal-delay-1">
+          <div class="bezel-inner p-6 md:p-8 h-full">
+            <div class="font-mono text-4xl text-accent mb-4">02</div>
+            <h3 class="font-display text-xl tracking-tight mb-3">Hermes activa héroes</h3>
+            <p class="text-sm text-muted leading-relaxed">Según la misión, despierta al Tesorero, Mensajero, Cobrador, Guardián, Estratega o Diplomático.</p>
+          </div>
+        </div>
+        <div class="reveal bezel reveal-delay-2">
+          <div class="bezel-inner p-6 md:p-8 h-full">
+            <div class="font-mono text-4xl text-accent mb-4">03</div>
+            <h3 class="font-display text-xl tracking-tight mb-3">Misiones en movimiento</h3>
+            <p class="text-sm text-muted leading-relaxed">Cada héroe usa su perfil, herramientas y memoria. Consultan G-Brain entre sí.</p>
+          </div>
+        </div>
+        <div class="reveal bezel reveal-delay-3">
+          <div class="bezel-inner p-6 md:p-8 h-full">
+            <div class="font-mono text-4xl text-accent mb-4">04</div>
+            <h3 class="font-display text-xl tracking-tight mb-3">El Partenón entrega</h3>
+            <p class="text-sm text-muted leading-relaxed">El resultado vive en Sheets, Docs, Calendar o Gmail. El dueño revisa, aprueba o corrige.</p>
           </div>
         </div>
       </div>
@@ -573,8 +668,8 @@
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="reveal max-w-2xl mb-12">
         <span class="tag mb-4 block">Héroes del Partenón</span>
-        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">Seis agentes. Un objetivo.</h2>
-        <p class="text-muted text-lg leading-relaxed">Cada héroe tiene un perfil, herramientas y permisos. Se activa solo cuando la misión le corresponde.</p>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">Arquetipos operativos, no más automatización sin rostro.</h2>
+        <p class="text-muted text-lg leading-relaxed">Tu empresa necesita héroes: perfiles con permisos, herramientas y memoria propia. Cada uno se activa solo cuando la misión le corresponde.</p>
       </div>
 
       <!-- Desktop tabs -->
@@ -1002,13 +1097,54 @@
         <p class="text-muted text-lg leading-relaxed">No prometemos números mágicos. Prometemos un sistema que se puede instalar hoy y medir mañana.</p>
       </div>
 
+      <div class="reveal mb-12">
+        <div class="flex items-center justify-between text-xs font-mono text-muted uppercase tracking-wider mb-4">
+          <span>10</span>
+          <span>100</span>
+          <span>1K</span>
+          <span>10K</span>
+          <span>100K</span>
+          <span>1M</span>
+        </div>
+        <div class="h-1.5 bg-white/[0.06] rounded-full overflow-hidden">
+          <div class="impact-bar h-full bg-accent rounded-full" style="width: 0%"></div>
+        </div>
+        <div class="flex items-center justify-between text-[10px] text-muted font-mono uppercase tracking-wider mt-3">
+          <span>Primeras pilotos</span>
+          <span class="hidden md:inline">Early adopters</span>
+          <span class="hidden md:inline">Workshops</span>
+          <span class="hidden md:inline">Universidades</span>
+          <span class="hidden md:inline">Coworkings</span>
+          <span>1M pymes</span>
+        </div>
+      </div>
+
       <div class="reveal grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
-        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent">10</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
-        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent">100</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
-        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent">1K</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
-        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent">10K</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
-        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent">100K</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
-        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent">1M</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
+        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent" data-target="10">0</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
+        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent" data-target="100">0</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
+        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent" data-target="1000">0</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
+        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent" data-target="10000">0</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
+        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent" data-target="100000">0</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
+        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent" data-target="1000000">0</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-4 mb-16">
+        <div class="reveal p-6 border border-line rounded-xl text-center">
+          <div class="stat-value text-3xl text-accent mb-2" data-target="40">0</div>
+          <div class="text-sm text-muted">Horas recuperadas al mes</div>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl text-center reveal-delay-1">
+          <div class="stat-value text-3xl text-accent mb-2" data-target="95">0</div>
+          <div class="text-sm text-muted">% claridad financiera</div>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl text-center reveal-delay-2">
+          <div class="stat-value text-3xl text-accent mb-2" data-target="32">0</div>
+          <div class="text-sm text-muted">% mejora en ingresos</div>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl text-center reveal-delay-3">
+          <div class="stat-value text-3xl text-accent mb-2" data-target="90">0</div>
+          <div class="text-sm text-muted">Minutos para instalar</div>
+        </div>
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
@@ -1029,7 +1165,7 @@
         </div>
       </div>
 
-      <p class="reveal text-sm text-muted mt-12 max-w-2xl">La escala 10 → 1M es una proyección de adopción basada en el paper Hermes Business OS. Los números de impacto se medirán con empresas piloto en las primeras 12 semanas.</p>
+      <p class="reveal text-sm text-muted mt-12 max-w-2xl">La escala 10 → 1M es una proyección de adopción basada en el paper Hermes Business OS. Las métricas secundarias son objetivos de diseño que mediremos con empresas piloto en las primeras 12 semanas.</p>
     </div>
   </section>
 
@@ -1065,27 +1201,68 @@
         <p class="text-muted text-lg leading-relaxed">No vendemos licencias. Vendemos un sistema usable en 90 minutos. Cada instalación nos enseña cómo mejorar el siguiente.</p>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
         <div class="reveal bezel">
-          <div class="bezel-inner p-8 h-full">
-            <div class="font-mono text-5xl text-accent mb-6">90'</div>
-            <h3 class="font-display text-xl tracking-tight mb-4">Workshop de instalación</h3>
-            <p class="text-sm text-muted leading-relaxed">Un formato único para universidades, aceleradoras, coworkings y organizaciones empresariales. Los participantes se llevan Hermes funcionando.</p>
+          <div class="bezel-inner p-6 h-full">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-sharp text-accent">school</span>
+              <span class="font-mono text-xs text-muted uppercase tracking-wider">Canal 01</span>
+            </div>
+            <h3 class="font-display text-xl tracking-tight mb-3">Workshops</h3>
+            <p class="text-sm text-muted leading-relaxed mb-4">90 minutos para instalar Hermes en vivo. Universidades, aceleradoras, coworkings y cámaras de comercio.</p>
+            <div class="font-mono text-xs text-accent">Meta: 50 eventos / trimestre</div>
           </div>
         </div>
         <div class="reveal bezel reveal-delay-1">
-          <div class="bezel-inner p-8 h-full">
-            <div class="font-mono text-5xl text-accent mb-6">01</div>
-            <h3 class="font-display text-xl tracking-tight mb-4">Primera empresa piloto</h3>
-            <p class="text-sm text-muted leading-relaxed">Instalamos en una pyme real, medimos qué tanto ayuda y documentamos el caso. Esa evidencia alimenta todo lo demás.</p>
+          <div class="bezel-inner p-6 h-full">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-sharp text-accent">store</span>
+              <span class="font-mono text-xs text-muted uppercase tracking-wider">Canal 02</span>
+            </div>
+            <h3 class="font-display text-xl tracking-tight mb-3">Empresas piloto</h3>
+            <p class="text-sm text-muted leading-relaxed mb-4">Instalamos en pymes reales, medimos impacto y publicamos casos de uso. Cada caso reduce fricción para el siguiente.</p>
+            <div class="font-mono text-xs text-accent">Meta: 10 → 100 pymes</div>
           </div>
         </div>
         <div class="reveal bezel reveal-delay-2">
-          <div class="bezel-inner p-8 h-full">
-            <div class="font-mono text-5xl text-accent mb-6">∞</div>
-            <h3 class="font-display text-xl tracking-tight mb-4">Red de implementadores</h3>
-            <p class="text-sm text-muted leading-relaxed">Estudiantes de negocios, cámaras de comercio y comunidades de emprendedores adaptan Partenon a cada industria.</p>
+          <div class="bezel-inner p-6 h-full">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-sharp text-accent">hub</span>
+              <span class="font-mono text-xs text-muted uppercase tracking-wider">Canal 03</span>
+            </div>
+            <h3 class="font-display text-xl tracking-tight mb-3">Partners técnicos</h3>
+            <p class="text-sm text-muted leading-relaxed mb-4">Consultoras, desarrolladores y comunidades de agentes adaptan perfiles a nuevas industrias y regulaciones.</p>
+            <div class="font-mono text-xs text-accent">Meta: 25 partners activos</div>
           </div>
+        </div>
+        <div class="reveal bezel reveal-delay-3">
+          <div class="bezel-inner p-6 h-full">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-sharp text-accent">rocket_launch</span>
+              <span class="font-mono text-xs text-muted uppercase tracking-wider">Canal 04</span>
+            </div>
+            <h3 class="font-display text-xl tracking-tight mb-3">Marketplace de perfiles</h3>
+            <p class="text-sm text-muted leading-relaxed mb-4">Perfiles listos para restaurantes, tiendas, consultorios, talleres y más. Cada perfil es un punto de entrada.</p>
+            <div class="font-mono text-xs text-accent">Meta: 100 perfiles</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal grid md:grid-cols-3 gap-6">
+        <div class="p-6 border border-line rounded-xl">
+          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-3">Fase 1 — 0-3 meses</div>
+          <div class="font-display text-2xl tracking-tight mb-2">Validar la instalación</div>
+          <p class="text-sm text-muted">Workshops con pymes de confianza. Refinar el onboard, el Google Sheet base y los perfiles de los 6 héroes.</p>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl reveal-delay-1">
+          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-3">Fase 2 — 3-12 meses</div>
+          <div class="font-display text-2xl tracking-tight mb-2">Escalar casos de uso</div>
+          <p class="text-sm text-muted">Publicar casos por industria. Abrir partners técnicos y universidades como canales de distribución.</p>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl reveal-delay-2">
+          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-3">Fase 3 — 12+ meses</div>
+          <div class="font-display text-2xl tracking-tight mb-2">Red de implementación</div>
+          <p class="text-sm text-muted">La comunidad instala más empresas que el equipo fundador. El sistema mejora solo con cada ejecución.</p>
         </div>
       </div>
     </div>
@@ -1202,6 +1379,80 @@ hermes skills install official/payments/stripe-projects</code></pre>
 
     function copyInstall() {
       navigator.clipboard.writeText(document.getElementById('installCmd').textContent);
+      showToast('Comando copiado', 'content_copy');
+    }
+
+    function showToast(message, icon = 'check') {
+      let toast = document.getElementById('toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast';
+        toast.className = 'toast';
+        document.body.appendChild(toast);
+      }
+      toast.innerHTML = `<span class="material-symbols-sharp text-accent">${icon}</span><span>${message}</span>`;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    // Animated counters
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const targets = entry.target.querySelectorAll('.stat-value[data-target]');
+          targets.forEach(el => animateCounter(el));
+          statObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('#impacto').forEach(el => statObserver.observe(el));
+
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.target, 10);
+      const duration = 1600;
+      const start = performance.now();
+      const format = n => {
+        if (target >= 1000000) return (n / 1000000).toFixed(n >= 1000000 ? 0 : 1) + 'M';
+        if (target >= 1000) return (n / 1000).toFixed(n >= 1000 ? 0 : 1) + 'K';
+        return Math.round(n).toString();
+      };
+      function step(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 4);
+        el.textContent = format(target * eased);
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    // Impact milestone bar
+    const impactBarObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const bar = entry.target.querySelector('.impact-bar');
+          if (bar) bar.style.width = '100%';
+          impactBarObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('#impacto').forEach(el => impactBarObserver.observe(el));
+
+    // Typewriter command
+    const typewriter = document.querySelector('.typewriter-line');
+    if (typewriter) {
+      const textEl = typewriter.querySelector('.typewriter-text');
+      const cmd = typewriter.dataset.cmd;
+      let i = 0;
+      function type() {
+        if (i <= cmd.length) {
+          textEl.textContent = cmd.slice(0, i);
+          i++;
+          setTimeout(type, i === cmd.length + 1 ? 2000 : 60 + Math.random() * 40);
+        } else {
+          setTimeout(() => { i = 0; type(); }, 3000);
+        }
+      }
+      setTimeout(type, 800);
     }
   </script>
 </body>
