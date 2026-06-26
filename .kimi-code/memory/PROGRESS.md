@@ -2,76 +2,45 @@
 
 ## Historial de Sesiones
 
+### 2026-06-26 — Loop de reparación completo (3 fases)
+- Reescrita `web/index.html` como especificación maestra de marketing con narrativa de arquetipos, Hermes=empresa, 6 héroes con Pegasos, ejemplos de construcción/cafetería, contador 10→1M, carta de intención de Pablo (PlayStation/LATAM/wsc.lat) y go-to-market detallado.
+- Reescrita `web/developers.html` como espejo técnico con arquitectura Mermaid, secuencia de misión, fichas técnicas por héroe, diagramas de conexión por perfil, workshop de 90 min, estructura de repo y roadmap.
+- Actualizados screenshots desktop/mobile en `screenshots/`.
+- Actualizado `README.md` con narrativa nueva, Pegasos, flujo y estado.
+- Actualizado `TODOS.md`.
+- Actualizados 6 SOUL.md de perfiles con sección "Pegaso".
+- Verificado `python scripts/demo_tesorero.py` PASS.
+- Verificado `cd dashboard && npm run build` PASS.
+- Commit final del loop realizado.
+
 ### 2026-06-26 — Perfil `partenon-estratega` completado
 - Creado `hermes/profiles/partenon-estratega/` como distribucion de Hermes Agent.
 - Archivos: `SOUL.md`, `config.yaml`, `.env.example`, `.ops`, `templates/.ops.example`, `cron/morning-briefing.json`, `cron/midday-pulse.json`, `cron/weekly-planning.json`, `cron/weekly-retro.json`.
-- Skill `ops` con `SKILL.md` y cinco tools Python:
-  - `projects.py`: gestion de proyectos adaptado de `hermes-operaciones`.
-  - `tasks.py`: gestion de tareas con prioridades y estados.
-  - `checklists.py`: checklists por industria (eventos, legal, consultoria, retail).
-  - `metas.py`: motor de metas (OKRs) con tracking automatico por KPI.
-  - `briefings.py`: morning briefing, midday pulse, evening wrap, weekly planning y weekly retro.
+- Skill `ops` con `SKILL.md` y cinco tools Python.
 - Tools verificados con `python3 -m py_compile` y ejecucion de prueba.
 - Actualizados `TODOS.md`, `CHANGELOG.md` y `README.md`.
 
 ### 2026-06-26 — Perfil `partenon-diplomatico` completado
 - Completado `hermes/profiles/partenon-diplomatico/` como distribucion de Hermes Agent.
-- Archivos ya existentes: `SOUL.md`, `config.yaml`, `.env.example`, `templates/.relations.example`, `cron/daily-followups.json`, `skills/relations/SKILL.md`.
-- Archivos nuevos:
-  - `skills/relations/tools/crm.py`: CRM adaptado de `hermes-ventas` para clientes, proveedores, hitos, contratos, comunicaciones y calificaciones.
-  - `skills/relations/tools/followups.py`: seguimientos diarios, recordatorios y generación de mensajes formales.
-- Tools verificados con `python3 -m py_compile` y ejecucion de prueba.
+- Archivos nuevos: `skills/relations/tools/crm.py`, `skills/relations/tools/followups.py`.
+- Tools verificados.
 - Actualizados `TODOS.md` y `CHANGELOG.md`.
 
-### 2026-06-26 — Perfil `partenon-tesorero` creado
-- Creado `hermes/profiles/partenon-tesorero/` como distribucion de Hermes Agent.
-- Archivos: `SOUL.md`, `config.yaml`, `.env.example`, `templates/.finance.example`, `cron/daily-report.json`.
-- Skill `finance` con `SKILL.md` y cuatro tools Python:
-  - `google_sheets.py`: lectura, escritura y creacion de dashboards en Google Sheets.
-  - `parsers.py`: parseo de gastos desde Excel/CSV con inferencia de categoria y tipo fijo/variable.
-  - `templates.py`: plantillas Excel de presupuesto, proveedores y flujo de caja.
-  - `__init__.py`: exports del paquete finance.
+### 2026-06-26 — Perfiles `partenon-tesorero`, `partenon-mensajero`, `partenon-cobrador`, `partenon-guardian` creados
+- Cada uno con SOUL.md, config.yaml, .env.example, templates y cron.
+- Skills finance, comms, payments, security con tools Python.
 - Tools verificados con `python3 -m py_compile`.
-- Actualizado `TODOS.md`.
-- Commit `606e8a4`.
-
-### 2026-06-26 — Perfil `partenon-mensajero` creado
-- Creado `hermes/profiles/partenon-mensajero/` como distribucion de Hermes Agent.
-- Archivos: `SOUL.md`, `config.yaml`, `.env.example`, `templates/.design.example`, `cron/weekly-content.json`.
-- Skill `comms` con `SKILL.md` y tres tools Python:
-  - `brand_intake.py`: entrevista de marca y generacion de `.design`.
-  - `content_calendar.py`: calendario de contenido semanal/mensual con contexto de marca.
-  - `copy_generator.py`: copy para ads, emails, posts y landing con QA anti-slop.
-- Tools verificados con `python3 -m py_compile` y ejecucion de prueba.
-- Actualizado `TODOS.md`.
-- Commit `c0bcf85`.
 
 ### 2026-06-24 — Rediseño Nous-style de las páginas web
-- Plan aprobado para reestructurar `web/index.html` y `web/developers.html` con estética Nous Research / manual técnico open source y reglas anti-AI-slop.
+- Plan aprobado para reestructurar `web/index.html` y `web/developers.html`.
 - Actualizado `DESIGN.md` con tokens visuales y reglas de copy anti-slop.
-- Reescrito `web/index.html`:
-  - Hero con título monospaced.
-  - Sección "Manual de dos caras" como entrada.
-  - Fichas de los 6 perfiles con archivo, herramientas y conexiones.
-  - Contador 10 → 1M con métricas de proyección.
-  - Go-to-market, instalación y Google Workspace.
-- Reescrito `web/developers.html`:
-  - Más diagramas Mermaid: arquitectura general, secuencia de misión, 4 conexiones por perfil, MCP/G-Brain, workshop.
-  - Fichas técnicas con framework, skills, tools, MCP, inputs/outputs.
-  - Estructura de repositorio con archivos `.finance`, `.design`, `.payments`, `.security`, `.ops`, `.relations`.
-  - Workshop técnico de 90 min con diagrama de secuencia.
-- Actualizados `README.md`, `SPEC.md`, `AGENTS.md`, `TODOS.md`.
-- Capturas desktop/mobile regeneradas con Playwright.
 - Commit `e786b18`.
 
 ## Features Completadas
-- Perfil `partenon-estratega` completado con skill ops, tools Python y cron matutino/midday/planning/retro.
-- Perfil `partenon-diplomatico` completado con skill relations, CRM, follow-ups y cron diario.
-- Perfil `partenon-tesorero` creado con skill finance, tools Python y cron diario.
-- Perfil `partenon-mensajero` creado con skill comms, tools Python y cron semanal.
-- Perfil `partenon-cobrador` creado con skill de pagos, plantilla y cron.
-- Perfil `partenon-guardian` creado con skill de seguridad, plantilla y cron.
-- Páginas web de marketing y técnica rediseñadas y commiteadas.
+- Páginas web maestras reconstruidas y commiteadas.
+- Seis perfiles de Hermes con SOUL.md actualizados (incluyendo Pegaso).
+- Demo Tesorero funcional.
+- Dashboard Next.js con kanban y cron.
 - Sistema visual Nous-style aplicado.
 - Documentación del proyecto sincronizada.
 

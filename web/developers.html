@@ -245,7 +245,7 @@
         </div>
         <div class="lg:col-span-4">
           <p class="reveal text-muted text-lg leading-relaxed mb-8">
-            Especificaciones técnicas para el jurado de Nous Research, Nvidia y Stripe: perfiles operativos, G-Brain vía MCP, integraciones y el workshop de 90 minutos.
+            Especificaciones para el jurado de Nous Research, Nvidia y Stripe: perfiles operativos, G-Brain vía MCP, integraciones y el workshop de 90 minutos.
           </p>
           <div class="reveal flex flex-wrap gap-4">
             <a href="#architecture" class="btn btn-primary">
@@ -275,30 +275,29 @@
         <div class="mermaid">
 flowchart LR
     subgraph PARTENON["Partenón v0.1.0"]
-        R["partenon-core / router"]
-        O["onboarding_flow"]
-        G["G-Brain MCP<br/>memoria compartida"]
-        subgraph PERFILES["Perfiles Hermes"]
-            T["partenon-tesorero<br/>.finance"]
-            M["partenon-mensajero<br/>.design"]
-            C["partenon-cobrador<br/>.payments"]
-            GU["partenon-guardian<br/>.security"]
-            E["partenon-estratega<br/>.ops"]
-            D["partenon-diplomatico<br/>.relations"]
+        R["Hermes / Router"]
+        O["Onboarding"]
+        G["G-Brain MCP"]
+        subgraph PERFILES["Héroes"]
+            T["Tesorero<br/>.finance"]
+            M["Mensajero<br/>.design"]
+            C["Cobrador<br/>.payments"]
+            GU["Guardián<br/>.security"]
+            E["Estratega<br/>.ops"]
+            D["Diplomático<br/>.relations"]
         end
-        DASH["dashboard<br/>Next.js kanban + cron"]
+        DASH["Dashboard<br/>Next.js"]
     end
     U["Emprendedor"]
     GW["Google Workspace"]
     API["APIs externas<br/>Stripe / Nvidia / OpenAI / Kimi"]
 
-    U --> R
+    U -->|"¿qué empresa es?"| R
     R --> O
     O --> G
     R --> G
     G --> T & M & C & GU & E & D
     T & M & C & GU & E & D --> GW
-    T --> S["templates/<br/>google-sheet-base"]
     C --> API
     GU --> API
     M --> API
@@ -313,7 +312,7 @@ flowchart LR
               <span class="material-symbols-sharp text-accent">corporate_fare</span>
               <h3 class="font-display text-lg tracking-tight">Hermes</h3>
             </div>
-            <p class="text-muted text-sm leading-relaxed">Recibe intenciones del usuario y las convierte en misiones. Publica en una cola compartida que los perfiles pueden tomar.</p>
+            <p class="text-muted text-sm leading-relaxed">Recibe intenciones del emprendedor, pregunta el tipo de empresa y convierte la respuesta en misiones publicadas en el Partenón.</p>
           </div>
         </div>
         <div class="reveal bezel reveal-delay-1">
@@ -322,16 +321,16 @@ flowchart LR
               <span class="material-symbols-sharp text-accent">memory</span>
               <h3 class="font-display text-lg tracking-tight">G-Brain</h3>
             </div>
-            <p class="text-muted text-sm leading-relaxed">Memoria persistente vía MCP. Almacena perfiles, misiones pasadas, preferencias y resultados para mantener contexto entre agentes.</p>
+            <p class="text-muted text-sm leading-relaxed">Memoria persistente vía MCP. Almacena perfiles, misiones pasadas, preferencias y resultados para mantener contexto entre héroes.</p>
           </div>
         </div>
         <div class="reveal bezel reveal-delay-2">
           <div class="bezel-inner p-6 md:p-8">
             <div class="flex items-center gap-3 mb-4">
               <span class="material-symbols-sharp text-accent">badge</span>
-              <h3 class="font-display text-lg tracking-tight">Perfiles</h3>
+              <h3 class="font-display text-lg tracking-tight">Héroes</h3>
             </div>
-            <p class="text-muted text-sm leading-relaxed">Agentes con habilidades específicas. Cada uno lee su archivo de perfil correspondiente antes de actuar.</p>
+            <p class="text-muted text-sm leading-relaxed">Agentes con habilidades específicas. Cada uno lee su archivo de perfil correspondiente antes de actuar y entrega en Google Workspace.</p>
           </div>
         </div>
       </div>
@@ -343,8 +342,8 @@ flowchart LR
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="reveal max-w-2xl mb-16">
         <span class="tag mb-4 block">Flujo</span>
-        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Cómo se ejecuta una misión.</h2>
-        <p class="text-muted text-lg leading-relaxed">El emprendedor no le da instrucciones a cada perfil. Habla con Hermes. Hermes publica la misión. El perfil correcto la toma.</p>
+        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">De la intención a la entrega.</h2>
+        <p class="text-muted text-lg leading-relaxed">El emprendedor no le da instrucciones a cada héroe. Habla con Hermes. Hermes publica la misión. El héroe correcto la toma y trabaja con el emprendedor hasta entregar.</p>
       </div>
       <div class="reveal mermaid-container">
         <div class="mermaid">
@@ -352,17 +351,19 @@ sequenceDiagram
     actor U as Emprendedor
     participant H as Hermes
     participant G as G-Brain
-    participant P as Perfil
+    participant P as Héroe
     participant GW as Google Workspace
 
-    U->>H: "Ordena mis finanzas"
+    U->>H: "Necesito ordenar mis finanzas"
+    H->>U: "¿Qué empresa es?"
+    U-->>H: "Empresa de construcción"
     H->>G: Consulta contexto empresa
     G-->>H: Perfil .finance, datos históricos
     H->>H: Crea misión: organizar costos
-    H->>P: Publica misión
+    H->>P: Publica misión en Partenón
     P->>G: Lee perfil y memoria
-    P->>U: Pregunta detalles
-    U-->>P: Responde
+    P->>U: Pide facturas y estados de cuenta
+    U-->>P: Entrega archivos
     P->>GW: Escribe en Sheets / Docs
     P->>H: Entrega resultado
     H->>G: Guarda resultado y aprendizajes
@@ -410,7 +411,7 @@ sequenceDiagram
         <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-1">
           <div class="material-symbols-sharp text-accent mb-4">storage</div>
           <h3 class="font-display text-lg tracking-tight mb-2">Memoria</h3>
-          <p class="text-sm text-muted">G-Brain MCP con FastMCP para contexto persistente entre perfiles.</p>
+          <p class="text-sm text-muted">G-Brain MCP con FastMCP para contexto persistente entre héroes.</p>
         </div>
         <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-2">
           <div class="material-symbols-sharp text-accent mb-4">design_services</div>
@@ -423,47 +424,6 @@ sequenceDiagram
           <p class="text-sm text-muted">Mermaid para arquitectura y secuencias.</p>
         </div>
       </div>
-
-      <div class="reveal mt-12 bezel">
-        <div class="bezel-inner p-6 md:p-8">
-          <div class="flex items-center justify-between mb-4">
-            <span class="tag">Estructura del repositorio</span>
-            <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyTree()">Copiar</button>
-          </div>
-          <pre id="repoTree"><code>partenon/
-├── web/
-│   ├── index.html
-│   └── developers.html
-├── dashboard/
-│   ├── app/ (Next.js 15, kanban + cron)
-│   └── Dockerfile
-├── partenon-core/
-│   ├── tools/ (router, onboarding_flow, workflow)
-│   ├── config/mcp/servers.yaml
-│   ├── data/initial_tasks.json
-│   └── install.sh
-├── hermes/profiles/
-│   ├── partenon-tesorero/
-│   ├── partenon-mensajero/
-│   ├── partenon-cobrador/
-│   ├── partenon-guardian/
-│   ├── partenon-estratega/
-│   └── partenon-diplomatico/
-├── gbrain/
-│   ├── server.py (FastMCP)
-│   └── memory/
-├── templates/
-│   └── google-sheet-base/finance_sheet.py
-├── scripts/
-│   └── demo_tesorero.py
-├── data/
-│   ├── sample_gastos.xlsx
-│   └── sample_gastos_report.json
-├── docker-compose.yml
-├── .env.example
-└── README.md</code></pre>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -472,8 +432,8 @@ sequenceDiagram
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="reveal max-w-2xl mb-16">
         <span class="tag mb-4 block">Perfiles técnicos</span>
-        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Cada perfil, una especificación.</h2>
-        <p class="text-muted text-lg leading-relaxed">Aquí no hay personalidades decorativas. Cada agente tiene un framework, skills, herramientas, MCP y un contrato de entrada/salida.</p>
+        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Cada héroe, una especificación.</h2>
+        <p class="text-muted text-lg leading-relaxed">Aquí no hay personalidades decorativas. Cada agente tiene un framework, skills, herramientas/Pegaso, MCP y un contrato de entrada/salida.</p>
       </div>
 
       <div class="space-y-6">
@@ -490,23 +450,27 @@ sequenceDiagram
               </div>
               <div class="flex flex-wrap gap-2">
                 <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Google Sheets API</span>
-                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Modelos de forecasting</span>
-                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Markdown</span>
+                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">openpyxl</span>
+                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Forecasting</span>
               </div>
             </div>
             <div class="grid md:grid-cols-3 gap-6 text-sm">
               <div>
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                <p class="text-muted">Spreadsheets, modelos financieros, costos variables/fijos, dashboards.</p>
+                <p class="text-muted">Spreadsheets, modelos financieros, costos variables/fijos, dashboards, parsers de gastos.</p>
               </div>
               <div>
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
-                <p class="text-muted">In: facturas, estados de cuenta, gastos. Out: hojas acomodadas, categorización, reportes.</p>
+                <p class="text-muted">In: facturas, estados de cuenta, gastos. Out: hojas acomodadas, categorización, reportes, alertas.</p>
               </div>
               <div>
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
-                <p class="text-muted">Mensajero (presupuestos), Cobrador, G-Brain.</p>
+                <p class="text-muted">Mensajero (presupuestos), Cobrador (ingresos), G-Brain.</p>
               </div>
+            </div>
+            <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
+              <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
+              <p class="text-sm text-muted">Google Sheets + plantillas Excel + parsers de gastos + dashboards de margen.</p>
             </div>
           </div>
         </div>
@@ -531,16 +495,20 @@ sequenceDiagram
             <div class="grid md:grid-cols-3 gap-6 text-sm">
               <div>
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                <p class="text-muted">Copywriting, calendario de contenido, posts, presentaciones, optimización web.</p>
+                <p class="text-muted">Brand intake, copywriting, calendario de contenido, posts, presentaciones, optimización web.</p>
               </div>
               <div>
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
-                <p class="text-muted">In: voz de marca, objetivos de campaña, datos del Tesorero. Out: contenido, posts, presentaciones.</p>
+                <p class="text-muted">In: voz de marca, objetivos de campaña, datos del Tesorero. Out: contenido, posts, presentaciones, mails.</p>
               </div>
               <div>
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
-                <p class="text-muted">Tesorero (presupuesto), G-Brain, APIs de redes sociales.</p>
+                <p class="text-muted">Tesorero (presupuesto), G-Brain, WordPress/SSH, APIs de redes sociales.</p>
               </div>
+            </div>
+            <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
+              <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
+              <p class="text-sm text-muted">Open Design + redes sociales + SEO/GEO + WordPress/SSH + Google Docs/Slides.</p>
             </div>
           </div>
         </div>
@@ -565,7 +533,7 @@ sequenceDiagram
             <div class="grid md:grid-cols-3 gap-6 text-sm">
               <div>
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                <p class="text-muted">Payment links, suscripciones, facturas, reportes de ingresos.</p>
+                <p class="text-muted">Payment links, suscripciones, facturas, reportes de ingresos, webhooks.</p>
               </div>
               <div>
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
@@ -575,6 +543,10 @@ sequenceDiagram
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
                 <p class="text-muted">Stripe API, Tesorero (ingresos), G-Brain.</p>
               </div>
+            </div>
+            <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
+              <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
+              <p class="text-sm text-muted">Stripe API + payment links + suscripciones + webhooks + reportes en Sheets.</p>
             </div>
           </div>
         </div>
@@ -599,7 +571,7 @@ sequenceDiagram
             <div class="grid md:grid-cols-3 gap-6 text-sm">
               <div>
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                <p class="text-muted">Gestión de claves, permisos por perfil, modelos, cuentas de servicio.</p>
+                <p class="text-muted">Gestión de claves, permisos por perfil, modelos, cuentas de servicio, auditoría.</p>
               </div>
               <div>
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
@@ -607,8 +579,12 @@ sequenceDiagram
               </div>
               <div>
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
-                <p class="text-muted">Nvidia APIs, OpenAI, Kimi, todos los perfiles vía G-Brain.</p>
+                <p class="text-muted">Nvidia APIs, OpenAI, Kimi Coding, todos los héroes vía G-Brain.</p>
               </div>
+            </div>
+            <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
+              <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
+              <p class="text-sm text-muted">Nvidia + OpenAI + Kimi Coding + rotación de API keys + permisos por perfil.</p>
             </div>
           </div>
         </div>
@@ -633,7 +609,7 @@ sequenceDiagram
             <div class="grid md:grid-cols-3 gap-6 text-sm">
               <div>
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                <p class="text-muted">Calendar, Gmail, tareas, recordatorios, priorización, planeación.</p>
+                <p class="text-muted">Calendar, Gmail, tareas, recordatorios, priorización, planeación, checklists, briefings.</p>
               </div>
               <div>
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
@@ -643,6 +619,10 @@ sequenceDiagram
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
                 <p class="text-muted">Diplomático, Mensajero, G-Brain, Google Workspace.</p>
               </div>
+            </div>
+            <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
+              <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
+              <p class="text-sm text-muted">Google Calendar + Gmail + tareas + recordatorios + checklists + briefings.</p>
             </div>
           </div>
         </div>
@@ -667,7 +647,7 @@ sequenceDiagram
             <div class="grid md:grid-cols-3 gap-6 text-sm">
               <div>
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                <p class="text-muted">Seguimiento a clientes y proveedores, conversaciones, contratos, hitos.</p>
+                <p class="text-muted">Seguimiento a clientes y proveedores, conversaciones, contratos, hitos, recordatorios.</p>
               </div>
               <div>
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
@@ -677,6 +657,10 @@ sequenceDiagram
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
                 <p class="text-muted">Estratega, G-Brain, Gmail, Calendar.</p>
               </div>
+            </div>
+            <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
+              <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
+              <p class="text-sm text-muted">Gmail + Calendar + CRM ligero + hitos + recordatorios + contratos.</p>
             </div>
           </div>
         </div>
@@ -689,8 +673,8 @@ sequenceDiagram
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="reveal max-w-2xl mb-16">
         <span class="tag mb-4 block">Conexiones</span>
-        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Cómo se conecta cada perfil.</h2>
-        <p class="text-muted text-lg leading-relaxed">Cada diagrama muestra el flujo de datos entre un perfil, G-Brain, Google Workspace y las APIs externas.</p>
+        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Cómo se conecta cada héroe.</h2>
+        <p class="text-muted text-lg leading-relaxed">Cada diagrama muestra el flujo de datos entre un héroe, G-Brain, Google Workspace y las APIs externas.</p>
       </div>
 
       <div class="grid lg:grid-cols-2 gap-6">
@@ -705,6 +689,16 @@ flowchart LR
           </div>
         </div>
         <div class="reveal mermaid-container reveal-delay-1">
+          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Mensajero / Canales</div>
+          <div class="mermaid">
+flowchart LR
+    M["Mensajero"] -->|READ| G["G-Brain .design"]
+    M -->|READ| S["Sheets presupuesto"]
+    M -->|POST| RS["Redes / WordPress"]
+    M -->|WRITE| D["Google Docs / Slides"]
+          </div>
+        </div>
+        <div class="reveal mermaid-container">
           <div class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Cobrador / Stripe</div>
           <div class="mermaid">
 flowchart LR
@@ -714,7 +708,7 @@ flowchart LR
     C -->|WRITE| SH["Google Sheets"]
           </div>
         </div>
-        <div class="reveal mermaid-container">
+        <div class="reveal mermaid-container reveal-delay-1">
           <div class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Guardián / Modelos</div>
           <div class="mermaid">
 flowchart LR
@@ -722,17 +716,27 @@ flowchart LR
     GU -->|rotate keys| N["Nvidia"]
     GU -->|rotate keys| O["OpenAI"]
     GU -->|rotate keys| K["Kimi"]
-    GU -->|permisos| P["Perfiles"]
+    GU -->|permisos| P["Héroes"]
+          </div>
+        </div>
+        <div class="reveal mermaid-container">
+          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Estratega / Operaciones</div>
+          <div class="mermaid">
+flowchart LR
+    E["Estratega"] -->|READ| G["G-Brain .ops"]
+    E -->|READ/WRITE| C["Google Calendar"]
+    E -->|READ/WRITE| M["Gmail"]
+    E -->|notify| D["Diplomático"]
           </div>
         </div>
         <div class="reveal mermaid-container reveal-delay-1">
-          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Mensajero / Canales</div>
+          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Diplomático / Relaciones</div>
           <div class="mermaid">
 flowchart LR
-    M["Mensajero"] -->|READ| G["G-Brain .design"]
-    M -->|READ| S["Sheets presupuesto"]
-    M -->|POST| RS["Redes / WordPress"]
-    M -->|WRITE| D["Google Docs / Slides"]
+    D["Diplomático"] -->|READ| G["G-Brain .relations"]
+    D -->|READ/WRITE| CR["CRM / Sheets"]
+    D -->|schedule| E["Estratega"]
+    D -->|notify| C["Cliente / Proveedor"]
           </div>
         </div>
       </div>
@@ -746,7 +750,7 @@ flowchart LR
         <div class="lg:col-span-5 reveal">
           <span class="tag mb-4 block">MCP</span>
           <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">G-Brain vía MCP.</h2>
-          <p class="text-muted text-lg leading-relaxed">MCP (Model Context Protocol) es el cable entre los perfiles y el cerebro. Cada agente puede leer contexto, escribir resultados y consultar lo que otros perfiles aprendieron.</p>
+          <p class="text-muted text-lg leading-relaxed">MCP (Model Context Protocol) es el cable entre los héroes y el cerebro. Cada agente puede leer contexto, escribir resultados y consultar lo que otros héroes aprendieron.</p>
         </div>
         <div class="lg:col-span-7 reveal bezel reveal-delay-1">
           <div class="bezel-inner p-6 md:p-8">
@@ -784,65 +788,6 @@ flowchart LR
     </div>
   </section>
 
-  <!-- Demo -->
-  <section id="demo" class="section-pad border-y border-line bg-surface/40">
-    <div class="max-w-[1400px] mx-auto px-4">
-      <div class="reveal max-w-2xl mb-16">
-        <span class="tag mb-4 block">Demo funcional</span>
-        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Tesorero corre hoy.</h2>
-        <p class="text-muted text-lg leading-relaxed">El perfil financiero ya genera un libro de Excel estructurado y un informe JSON. No requiere credenciales de Google para probarse localmente.</p>
-      </div>
-
-      <div class="grid lg:grid-cols-2 gap-6 mb-12">
-        <div class="reveal bezel">
-          <div class="bezel-inner p-6 md:p-8">
-            <div class="flex items-center justify-between mb-4">
-              <span class="tag">Terminal</span>
-              <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyDemo()">Copiar</button>
-            </div>
-            <pre><code id="demoCmd">python scripts/demo_tesorero.py</code></pre>
-            <p class="text-sm text-muted mt-4">Genera <code>data/sample_gastos.xlsx</code> (hojas Dashboard, Ingresos, Gastos Fijos, Gastos Variables, Proveedores) y <code>data/sample_gastos_report.json</code>.</p>
-          </div>
-        </div>
-        <div class="reveal bezel reveal-delay-1">
-          <div class="bezel-inner p-6 md:p-8">
-            <div class="tag mb-4">Output JSON</div>
-            <pre><code>{
-  "timestamp": "2026-06-26T02:37:27.997359Z",
-  "ingresos": 4000.0,
-  "gastos_fijos": 609.0,
-  "gastos_variables": 1030.0,
-  "margen": 2361.0,
-  "margen_pct": 59.03,
-  "alertas": []
-}</code></pre>
-          </div>
-        </div>
-      </div>
-
-      <div class="reveal mermaid-container">
-        <div class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Flujo del demo</div>
-        <div class="mermaid">
-sequenceDiagram
-    participant U as Usuario
-    participant D as demo_tesorero.py
-    participant T as finance_sheet.py
-    participant X as sample_gastos.xlsx
-    participant A as Auditoria
-    participant J as report.json
-
-    U->>D: python scripts/demo_tesorero.py
-    D->>T: create_finance_sheet()
-    T->>X: hojas base
-    D->>X: add_sample_expenses()
-    D->>A: audit_workbook()
-    A->>J: ingresos, gastos, margen, alertas
-    J-->>U: JSON legible
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Workshop -->
   <section id="workshop" class="section-pad border-y border-line bg-surface/40">
     <div class="max-w-[1400px] mx-auto px-4">
@@ -859,7 +804,7 @@ sequenceDiagram
     participant P as Participante
     participant I as install.sh
     participant C as partenon-core
-    participant H as Hermes profiles
+    participant H as Héroes
     participant GW as Google Workspace
     participant DASH as Dashboard
 
@@ -869,7 +814,7 @@ sequenceDiagram
     C->>GW: Clona Google Sheet base
     Note over P,GW: Pre-instalación (antes del evento)
     P->>C: Define tipo de empresa
-    C->>H: Crea .finance, .design, .security, .ops, .relations, .payments
+    C->>H: Crea .finance, .design, .payments, .security, .ops, .relations
     C->>DASH: Carga tareas iniciales
     Note over P,DASH: Onboarding (20-60 min)
     H->>GW: Publica 3 misiones reales
@@ -887,7 +832,7 @@ sequenceDiagram
               <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Pre-instalación con <code>curl ... | bash</code>.</li>
               <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Clonar repositorio y levantar Docker Compose.</li>
               <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Copiar Google Sheet base y conectar Workspace.</li>
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Crear archivos de perfil <code>.finance</code>, <code>.design</code>, <code>.security</code>, <code>.ops</code>, <code>.relations</code>, <code>.payments</code>.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Crear archivos de perfil <code>.finance</code>, <code>.design</code>, <code>.payments</code>, <code>.security</code>, <code>.ops</code>, <code>.relations</code>.</li>
             </ul>
           </div>
         </div>
@@ -920,33 +865,34 @@ sequenceDiagram
     </div>
   </section>
 
-  <!-- Install -->
+  <!-- Install + Repo -->
   <section id="install" class="section-pad">
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="grid lg:grid-cols-12 gap-12 items-start">
         <div class="lg:col-span-5 reveal">
           <span class="tag mb-4 block">Instalación</span>
           <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Empieza en minutos.</h2>
-          <p class="text-muted text-lg leading-relaxed mb-6">El instalador configura entorno, dependencias y el comando global <code>hermes</code>. Luego copias el Google Sheet base y conectas las variables de entorno.</p>
+          <p class="text-muted text-lg leading-relaxed mb-6">El instalador configura entorno Python, dependencias, el comando global <code>hermes</code> y los seis perfiles. Luego copias el Google Sheet base y conectas las variables de entorno.</p>
           <ol class="space-y-4 mb-8 text-muted">
             <li class="flex items-start gap-3"><span class="font-mono text-accent">1.</span> Clona el repositorio.</li>
             <li class="flex items-start gap-3"><span class="font-mono text-accent">2.</span> Corre el instalador.</li>
             <li class="flex items-start gap-3"><span class="font-mono text-accent">3.</span> Copia el Google Sheet base.</li>
             <li class="flex items-start gap-3"><span class="font-mono text-accent">4.</span> Configura variables de entorno.</li>
-            <li class="flex items-start gap-3"><span class="font-mono text-accent">5.</span> Despliega Apps Script.</li>
+            <li class="flex items-start gap-3"><span class="font-mono text-accent">5.</span> Define el tipo de empresa.</li>
           </ol>
           <a href="https://github.com/paolameneses/partenon" target="_blank" rel="noopener" class="btn btn-primary">
             Abrir GitHub
             <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_outward</span></span>
           </a>
         </div>
-        <div class="lg:col-span-7 reveal bezel reveal-delay-1">
-          <div class="bezel-inner p-6 md:p-8">
-            <div class="flex items-center justify-between mb-4">
-              <span class="tag">Terminal</span>
-              <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyInstall()">Copiar</button>
-            </div>
-            <pre><code id="installCmd">git clone https://github.com/paolameneses/partenon.git
+        <div class="lg:col-span-7 space-y-6 reveal reveal-delay-1">
+          <div class="bezel">
+            <div class="bezel-inner p-6 md:p-8">
+              <div class="flex items-center justify-between mb-4">
+                <span class="tag">Terminal</span>
+                <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyInstall()">Copiar</button>
+              </div>
+              <pre><code id="installCmd">git clone https://github.com/paolameneses/partenon.git
 cd partenon
 
 curl -fsSL https://partenon.dev/install.sh | bash
@@ -954,64 +900,89 @@ curl -fsSL https://partenon.dev/install.sh | bash
 # Copia el Google Sheet base y conecta variables:
 # HERMES_FOLDER_ID, GOOGLE_SERVICE_ACCOUNT, STRIPE_API_KEY,
 # OPENAI_API_KEY, KIMI_API_KEY, NVIDIA_API_KEY</code></pre>
+            </div>
+          </div>
+          <div class="bezel">
+            <div class="bezel-inner p-6 md:p-8">
+              <div class="flex items-center justify-between mb-4">
+                <span class="tag">Estructura del repositorio</span>
+                <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyTree()">Copiar</button>
+              </div>
+              <pre id="repoTree"><code>partenon/
+├── web/
+│   ├── index.html
+│   └── developers.html
+├── dashboard/
+│   ├── app/ (Next.js 15, kanban + cron)
+│   └── Dockerfile
+├── partenon-core/
+│   ├── tools/ (router, onboarding_flow, workflow)
+│   ├── config/mcp/servers.yaml
+│   ├── data/initial_tasks.json
+│   └── install.sh
+├── hermes/profiles/
+│   ├── partenon-tesorero/
+│   ├── partenon-mensajero/
+│   ├── partenon-cobrador/
+│   ├── partenon-guardian/
+│   ├── partenon-estratega/
+│   └── partenon-diplomatico/
+├── gbrain/
+│   ├── server.py (FastMCP)
+│   └── memory/
+├── templates/
+│   └── google-sheet-base/finance_sheet.py
+├── scripts/
+│   └── demo_tesorero.py
+├── data/
+│   ├── sample_gastos.xlsx
+│   └── sample_gastos_report.json
+├── docker-compose.yml
+├── .env.example
+└── README.md</code></pre>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Integrations + Roadmap -->
+  <!-- Roadmap -->
   <section class="section-pad border-y border-line bg-surface/40">
     <div class="max-w-[1400px] mx-auto px-4">
-      <div class="grid lg:grid-cols-2 gap-12">
-        <div class="reveal">
-          <span class="tag mb-4 block">Integraciones</span>
-          <h2 class="font-display text-4xl tracking-[-0.04em] leading-[0.95] mb-6">Se conecta con lo que ya usas.</h2>
-          <div class="grid grid-cols-2 gap-4">
-            <div class="p-4 border border-line rounded-xl bg-bg"><div class="font-display text-lg tracking-tight">Google Sheets</div><div class="text-xs text-muted mt-1">Finanzas y reportes</div></div>
-            <div class="p-4 border border-line rounded-xl bg-bg"><div class="font-display text-lg tracking-tight">Google Docs</div><div class="text-xs text-muted mt-1">Cartas y documentos</div></div>
-            <div class="p-4 border border-line rounded-xl bg-bg"><div class="font-display text-lg tracking-tight">Google Slides</div><div class="text-xs text-muted mt-1">Presentaciones</div></div>
-            <div class="p-4 border border-line rounded-xl bg-bg"><div class="font-display text-lg tracking-tight">Calendar</div><div class="text-xs text-muted mt-1">Agenda y hitos</div></div>
-            <div class="p-4 border border-line rounded-xl bg-bg"><div class="font-display text-lg tracking-tight">Gmail</div><div class="text-xs text-muted mt-1">Correo y notificaciones</div></div>
-            <div class="p-4 border border-line rounded-xl bg-bg"><div class="font-display text-lg tracking-tight">Stripe</div><div class="text-xs text-muted mt-1">Pagos y suscripciones</div></div>
-            <div class="p-4 border border-line rounded-xl bg-bg"><div class="font-display text-lg tracking-tight">WordPress</div><div class="text-xs text-muted mt-1">Sitios y contenido</div></div>
-            <div class="p-4 border border-line rounded-xl bg-bg"><div class="font-display text-lg tracking-tight">Telegram</div><div class="text-xs text-muted mt-1">Mensajería</div></div>
-            <div class="p-4 border border-line rounded-xl bg-bg"><div class="font-display text-lg tracking-tight">Nvidia</div><div class="text-xs text-muted mt-1">Modelos locales</div></div>
-            <div class="p-4 border border-line rounded-xl bg-bg"><div class="font-display text-lg tracking-tight">OpenAI / Kimi</div><div class="text-xs text-muted mt-1">LLMs</div></div>
+      <div class="reveal max-w-2xl mb-16">
+        <span class="tag mb-4 block">Roadmap</span>
+        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Lo que viene.</h2>
+        <p class="text-muted text-lg leading-relaxed">Partenon se construye en público. Cada versión amplía el número de héroes activos y la profundidad de sus integraciones.</p>
+      </div>
+
+      <div class="space-y-6">
+        <div class="reveal grid md:grid-cols-12 gap-6 items-center p-6 md:p-8 border border-line rounded-2xl bg-bg">
+          <div class="md:col-span-2 font-mono text-accent">Q2 2026</div>
+          <div class="md:col-span-10">
+            <div class="font-display text-xl tracking-tight mb-2">v0.1.0 — Seis héroes + dashboard</div>
+            <p class="text-sm text-muted">Tesorero, Mensajero, Cobrador, Guardián, Estratega y Diplomático con kanban y G-Brain MCP.</p>
           </div>
         </div>
-        <div class="reveal reveal-delay-1">
-          <span class="tag mb-4 block">Roadmap</span>
-          <h2 class="font-display text-4xl tracking-[-0.04em] leading-[0.95] mb-6">Lo que viene.</h2>
-          <div class="space-y-6">
-            <div class="flex gap-4">
-              <div class="font-mono text-sm text-accent w-20 shrink-0">Q2 2026</div>
-              <div>
-                <div class="font-display text-lg tracking-tight">v0.1.0 — Seis perfiles + dashboard</div>
-                <p class="text-sm text-muted">Tesorero, Mensajero, Cobrador, Guardián, Estratega y Diplomático con kanban y G-Brain MCP.</p>
-              </div>
-            </div>
-            <div class="flex gap-4">
-              <div class="font-mono text-sm text-accent w-20 shrink-0">Q3 2026</div>
-              <div>
-                <div class="font-display text-lg tracking-tight">v0.2 — Integraciones live</div>
-                <p class="text-sm text-muted">Google Workspace API, Stripe webhooks, modelos locales con Nvidia y despliegue en Railway.</p>
-              </div>
-            </div>
-            <div class="flex gap-4">
-              <div class="font-mono text-sm text-accent w-20 shrink-0">Q4 2026</div>
-              <div>
-                <div class="font-display text-lg tracking-tight">v0.3 — Memoria avanzada</div>
-                <p class="text-sm text-muted">G-Brain persistente, entidades enlazadas, aprendizajes por misión y evaluación automática.</p>
-              </div>
-            </div>
-            <div class="flex gap-4">
-              <div class="font-mono text-sm text-accent w-20 shrink-0">2027</div>
-              <div>
-                <div class="font-display text-lg tracking-tight">v1.0 — Marketplace de misiones</div>
-                <p class="text-sm text-muted">Templates por industria, comunidad de implementadores y métricas de impacto.</p>
-              </div>
-            </div>
+        <div class="reveal grid md:grid-cols-12 gap-6 items-center p-6 md:p-8 border border-line rounded-2xl bg-bg reveal-delay-1">
+          <div class="md:col-span-2 font-mono text-accent">Q3 2026</div>
+          <div class="md:col-span-10">
+            <div class="font-display text-xl tracking-tight mb-2">v0.2 — Integraciones live</div>
+            <p class="text-sm text-muted">Google Workspace API, Stripe webhooks, modelos locales con Nvidia y despliegue en Railway.</p>
+          </div>
+        </div>
+        <div class="reveal grid md:grid-cols-12 gap-6 items-center p-6 md:p-8 border border-line rounded-2xl bg-bg reveal-delay-2">
+          <div class="md:col-span-2 font-mono text-accent">Q4 2026</div>
+          <div class="md:col-span-10">
+            <div class="font-display text-xl tracking-tight mb-2">v0.3 — Memoria avanzada</div>
+            <p class="text-sm text-muted">G-Brain persistente, entidades enlazadas, aprendizajes por misión y evaluación automática.</p>
+          </div>
+        </div>
+        <div class="reveal grid md:grid-cols-12 gap-6 items-center p-6 md:p-8 border border-line rounded-2xl bg-bg reveal-delay-3">
+          <div class="md:col-span-2 font-mono text-accent">2027</div>
+          <div class="md:col-span-10">
+            <div class="font-display text-xl tracking-tight mb-2">v1.0 — Marketplace de misiones</div>
+            <p class="text-sm text-muted">Templates por industria, comunidad de implementadores y métricas de impacto.</p>
           </div>
         </div>
       </div>
@@ -1023,7 +994,7 @@ curl -fsSL https://partenon.dev/install.sh | bash
     <div class="max-w-[1400px] mx-auto px-4 text-center">
       <div class="reveal max-w-2xl mx-auto">
         <span class="tag mb-4 block">Contribuir</span>
-        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Construye el próximo perfil.</h2>
+        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Construye el próximo héroe.</h2>
         <p class="text-muted text-lg leading-relaxed mb-8">Partenon es open source. Puedes crear nuevos perfiles, agregar integraciones o mejorar los existentes. Todo pasa por G-Brain.</p>
         <div class="flex flex-wrap justify-center gap-4">
           <a href="https://github.com/paolameneses/partenon" target="_blank" rel="noopener" class="btn btn-primary">
@@ -1045,7 +1016,7 @@ curl -fsSL https://partenon.dev/install.sh | bash
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
           <div class="font-mono text-xl tracking-tight font-medium mb-1">PARTENON</div>
-          <div class="text-sm text-muted">Sistema operativo de agentes para pymes.</div>
+          <div class="text-sm text-muted">Hermes y sus héroes para tu empresa.</div>
         </div>
         <div class="flex flex-wrap gap-6 text-sm text-muted">
           <a href="index.html" class="hover:text-text transition-colors">Marketing</a>
@@ -1099,9 +1070,6 @@ curl -fsSL https://partenon.dev/install.sh | bash
     }
     function copyTree() {
       navigator.clipboard.writeText(document.getElementById('repoTree').textContent);
-    }
-    function copyDemo() {
-      navigator.clipboard.writeText(document.getElementById('demoCmd').textContent);
     }
   </script>
 </body>

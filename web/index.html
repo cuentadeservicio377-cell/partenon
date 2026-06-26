@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Partenon — Sistema operativo de agentes para pymes</title>
-  <meta name="description" content="Partenon organiza agentes de IA como un sistema operativo para tu empresa. Hermes publica misiones; seis perfiles operativos las ejecutan dentro de Google Workspace." />
+  <title>Partenon — Hermes y sus héroes para tu empresa</title>
+  <meta name="description" content="Partenon es el sistema de agentes donde Hermes, tu empresa, publica misiones y seis héroes especializados las ejecutan dentro de Google Workspace." />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -193,6 +193,22 @@
       background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 4px);
     }
 
+    .hero-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+    }
+
+    .pegasus-wing {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
+      filter: blur(20px);
+      pointer-events: none;
+    }
+
     @media (max-width: 767px) {
       .hero-title { font-size: clamp(2.75rem, 14vw, 4rem); }
     }
@@ -207,7 +223,7 @@
     <a href="index.html" class="font-mono text-sm tracking-tight font-medium px-3">PARTENON</a>
     <div class="hidden md:flex items-center gap-1 ml-2">
       <a href="#system" class="nav-link">Sistema</a>
-      <a href="#heroes" class="nav-link">Perfiles</a>
+      <a href="#heroes" class="nav-link">Héroes</a>
       <a href="#impact" class="nav-link">Impacto</a>
       <a href="#growth" class="nav-link">Crecimiento</a>
     </div>
@@ -223,7 +239,7 @@
   <!-- Mobile Menu -->
   <div id="mobileMenu" class="mobile-menu flex flex-col justify-center px-8">
     <a href="#system">Sistema</a>
-    <a href="#heroes">Perfiles</a>
+    <a href="#heroes">Héroes</a>
     <a href="#impact">Impacto</a>
     <a href="#growth">Crecimiento</a>
     <a href="developers.html">Documentación</a>
@@ -244,15 +260,15 @@
             PARTENON
           </h1>
           <p class="reveal text-xl md:text-2xl text-muted leading-snug max-w-xl mb-4">
-            Sistema operativo de agentes para pymes.
+            Hermes es tu empresa. Sus héroes hacen el trabajo.
           </p>
           <p class="reveal text-muted text-base md:text-lg max-w-xl leading-relaxed mb-10">
-            Hermes publica misiones. Seis perfiles operativos las ejecutan dentro de Google Workspace. Sin más software disperso. Sin más hojas de cálculo abandonadas.
+            Partenon es el sistema donde Hermes publica misiones y seis perfiles operativos las ejecutan dentro de Google Workspace. Sin nuevas apps. Sin hojas de cálculo abandonadas.
           </p>
           <div class="reveal flex flex-wrap gap-4">
-            <a href="developers.html#demo" class="btn btn-primary">
-              Ver demo funcional
-              <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_outward</span></span>
+            <a href="#system" class="btn btn-primary">
+              Ver cómo funciona
+              <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_downward</span></span>
             </a>
             <a href="developers.html" class="btn btn-secondary">
               Documentación técnica
@@ -265,19 +281,19 @@
           <div class="reveal bezel">
             <div class="bezel-inner p-6 md:p-8">
               <div class="flex items-center justify-between mb-8">
-                <span class="tag"><span class="tag-dot live"></span>Sistema en línea</span>
+                <span class="tag"><span class="tag-dot live"></span>Partenón activo</span>
                 <span class="font-mono text-xs text-muted">v0.1.0-alpha</span>
               </div>
               <div class="space-y-6">
                 <div>
-                  <div class="text-muted text-xs uppercase tracking-widest font-mono mb-2">Perfiles activos</div>
+                  <div class="text-muted text-xs uppercase tracking-widest font-mono mb-2">Héroes operativos</div>
                   <div class="flex items-end gap-3">
                     <span class="stat-value text-4xl font-medium text-text">06</span>
-                    <span class="text-sm text-muted mb-1">de 06 operativos</span>
+                    <span class="text-sm text-muted mb-1">de 06 listos</span>
                   </div>
                 </div>
                 <div>
-                  <div class="text-muted text-xs uppercase tracking-widest font-mono mb-2">Misiones completadas</div>
+                  <div class="text-muted text-xs uppercase tracking-widest font-mono mb-2">Misiones en el Partenón</div>
                   <div class="stat-value text-4xl font-medium text-text">1,247</div>
                   <div class="data-bar mt-2"><div class="data-bar-fill" style="width: 78%"></div></div>
                 </div>
@@ -325,7 +341,7 @@
               <span class="tag">Marketing</span>
             </div>
             <h3 class="font-display text-2xl md:text-3xl tracking-tight mb-4">Esta página explica el producto.</h3>
-            <p class="text-muted leading-relaxed">Cómo funciona Partenon, qué hace cada perfil, cómo se conectan entre sí y cómo llevamos el sistema a más empresas.</p>
+            <p class="text-muted leading-relaxed">Cómo funciona Partenon, qué hace cada héroe, cómo se conectan entre sí, cómo medimos el impacto y cómo llevamos el sistema a más empresas.</p>
           </div>
         </div>
         <div class="reveal bezel reveal-delay-1">
@@ -349,7 +365,7 @@
       <div class="grid lg:grid-cols-12 gap-12 items-start">
         <div class="lg:col-span-5 reveal">
           <span class="tag mb-4 block">Filosofía</span>
-          <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">No es mitología. Es un sistema de arquetipos operativos.</h2>
+          <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">No es mitología. Es un sistema de arquetipos.</h2>
           <p class="text-muted text-lg leading-relaxed">La metáfora griega sirve para nombrar lo que hacemos. Nunca para disfrazarlo. Detrás de cada nombre hay un perfil con herramientas reales y un trabajo medible.</p>
         </div>
         <div class="lg:col-span-7 space-y-6">
@@ -360,7 +376,7 @@
               </div>
               <div>
                 <h3 class="font-display text-xl tracking-tight mb-2">Hermes es la empresa.</h3>
-                <p class="text-muted leading-relaxed">No es un CEO. Es el nombre que le damos al negocio cuando publica misiones y recibe resultados. Hermes necesita ayuda porque ninguna empresa hace todo sola.</p>
+                <p class="text-muted leading-relaxed">No es un CEO. Es el nombre que le damos al negocio cuando publica misiones y recibe resultados. Hermes necesita ayuda porque ninguna empresa hace todo sola. Tiene un canvas poderosísimo: Google Workspace.</p>
               </div>
             </div>
           </div>
@@ -371,7 +387,7 @@
               </div>
               <div>
                 <h3 class="font-display text-xl tracking-tight mb-2">Los héroes son perfiles operativos.</h3>
-                <p class="text-muted leading-relaxed">Cada uno tiene un archivo de perfil (.finance, .design, .security) y un conjunto de habilidades. Toman misiones del Partenón y entregan resultados.</p>
+                <p class="text-muted leading-relaxed">Cada uno tiene un archivo de perfil (.finance, .design, .payments, .security, .ops, .relations) y un conjunto de habilidades. Toman misiones del Partenón y entregan resultados.</p>
               </div>
             </div>
           </div>
@@ -381,8 +397,8 @@
                 <span class="material-symbols-sharp text-accent">grid_view</span>
               </div>
               <div>
-                <h3 class="font-display text-xl tracking-tight mb-2">El Partenón es el workspace.</h3>
-                <p class="text-muted leading-relaxed">Todos trabajan en el mismo lugar: Google Workspace. Sheets, Docs, Slides, Drive, Calendar y Gmail son la superficie común donde los perfiles colaboran.</p>
+                <h3 class="font-display text-xl tracking-tight mb-2">El Partenón es la unión.</h3>
+                <p class="text-muted leading-relaxed">Hermes más sus héroes forman el Partenón. Todos trabajan en la misma superficie: Google Workspace. Sheets, Docs, Slides, Drive, Calendar y Gmail son la mesa de trabajo compartida.</p>
               </div>
             </div>
           </div>
@@ -395,31 +411,31 @@
   <section id="heroes" class="section-pad border-y border-line bg-surface/40">
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="reveal max-w-2xl mb-16">
-        <span class="tag mb-4 block">Perfiles operativos</span>
-        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">Seis perfiles. Una mesa de trabajo.</h2>
-        <p class="text-muted text-lg leading-relaxed">Cada perfil tiene su archivo de instrucciones, sus herramientas y sus conexiones con el resto. Se activa cuando la empresa necesita exactamente lo que sabe hacer.</p>
+        <span class="tag mb-4 block">Héroes del Partenón</span>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">Seis héroes. Una mesa de trabajo.</h2>
+        <p class="text-muted text-lg leading-relaxed">Cada héroe tiene una personalidad, un Pegaso (sus herramientas), un archivo de perfil y un contrato claro de entrada y salida. Se activa cuando la empresa necesita exactamente lo que sabe hacer.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 auto-rows-min">
         <!-- Tesorero -->
         <div class="reveal lg:col-span-7 bezel">
           <div class="bezel-inner p-8 md:p-10 h-full flex flex-col">
-            <div class="flex items-start justify-between mb-8">
+            <div class="flex items-start justify-between mb-6">
               <div class="flex items-center gap-4">
                 <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
                   <span class="material-symbols-sharp text-accent">savings</span>
                 </div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest">01 / Tesorero</div>
-                  <div class="font-display text-2xl tracking-tight">Google Sheets como sistema financiero</div>
+                  <div class="font-display text-2xl tracking-tight">El que acomoda los números</div>
                 </div>
               </div>
               <span class="font-mono text-accent text-sm">.finance</span>
             </div>
-            <p class="text-muted leading-relaxed mb-6 flex-grow">Acomoda los números de la empresa. Clasifica costos fijos y variables, construye dashboards y detecta qué información falta.</p>
+            <p class="text-muted leading-relaxed mb-6 flex-grow">Personalidad paciente, meticulosa y directa. Cuando Hermes dice "no entiendo mis finanzas", el Tesorero toma la misión, pide los Excel y los estados de cuenta, y devuelve un Google Sheet con costos fijos, variables, margen por obra y un dashboard que no miente.</p>
             <div class="p-4 rounded-lg bg-white/[0.03] mb-6">
-              <div class="text-xs text-muted uppercase tracking-wider font-mono mb-2">Demo funcional</div>
-              <div class="text-sm text-text">El script <code>demo_tesorero.py</code> genera un Excel con ingresos, gastos y proveedores, y devuelve un JSON con margen y alertas.</div>
+              <div class="text-xs text-muted uppercase tracking-wider font-mono mb-2">Pegaso</div>
+              <div class="text-sm text-text">Google Sheets, dashboards, plantillas Excel, parsers de gastos, análisis de margen.</div>
             </div>
             <div class="grid sm:grid-cols-2 gap-4 mb-6">
               <div class="p-4 rounded-lg bg-white/[0.03]">
@@ -431,7 +447,7 @@
                 <div class="text-sm text-text">Pauta, impuestos, renta, insumos, empleados, costo por taza.</div>
               </div>
             </div>
-            <div class="flex flex-wrap gap-2">
+            <div class="flex flex-wrap gap-2 mt-auto">
               <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Google Sheets</span>
               <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Dashboards</span>
               <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">.finance</span>
@@ -442,24 +458,28 @@
         <!-- Mensajero -->
         <div class="reveal lg:col-span-5 bezel reveal-delay-1">
           <div class="bezel-inner p-8 md:p-10 h-full flex flex-col">
-            <div class="flex items-start justify-between mb-8">
+            <div class="flex items-start justify-between mb-6">
               <div class="flex items-center gap-4">
                 <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
                   <span class="material-symbols-sharp text-accent">campaign</span>
                 </div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest">02 / Mensajero</div>
-                  <div class="font-display text-2xl tracking-tight">Comunicación y marca</div>
+                  <div class="font-display text-2xl tracking-tight">Ventas y comunicación</div>
                 </div>
               </div>
               <span class="font-mono text-accent text-sm">.design</span>
             </div>
-            <p class="text-muted leading-relaxed mb-6 flex-grow">Investiga la marca junto al emprendedor, construye la voz y ejecuta campañas, calendarios de contenido, SEO, GEO, presentaciones y mails.</p>
-            <div class="space-y-3 mb-6">
-              <div class="text-sm text-text">¿Qué vendes? ¿A quién ayudas? ¿Cómo lo haces?</div>
-              <div class="text-sm text-muted">Esas preguntas se convierten en misiones de investigación con respuestas que alimentan a todo el sistema.</div>
+            <p class="text-muted leading-relaxed mb-6 flex-grow">Personalidad curiosa, persuasiva y leal a la marca. Investiga junto al emprendedor qué vende, a quién ayuda y por qué. Construye la voz, ejecuta campañas, calendarios de contenido, SEO, GEO, presentaciones y mails. Si necesita un presupuesto, lee el Sheet del Tesorero.</p>
+            <div class="p-4 rounded-lg bg-white/[0.03] mb-6">
+              <div class="text-xs text-muted uppercase tracking-wider font-mono mb-2">Pegaso</div>
+              <div class="text-sm text-text">Open Design, redes sociales, SEO/GEO, WordPress, SSH, Google Docs/Slides.</div>
             </div>
-            <div class="flex flex-wrap gap-2">
+            <div class="space-y-3 mb-6">
+              <div class="text-sm text-text">Misiones secundarias con el emprendedor: ¿qué vendes? ¿a quién ayudas? ¿cómo lo haces?</div>
+              <div class="text-sm text-muted">Esas respuestas alimentan a todo el Partenón.</div>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-auto">
               <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Open Design</span>
               <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">SEO / GEO</span>
               <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">WordPress / SSH</span>
@@ -477,13 +497,17 @@
                 </div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest">03 / Cobrador</div>
-                  <div class="font-display text-xl tracking-tight">Stripe</div>
+                  <div class="font-display text-xl tracking-tight">El que cobra</div>
                 </div>
               </div>
               <span class="font-mono text-accent text-sm">.payments</span>
             </div>
-            <p class="text-muted text-sm leading-relaxed mb-6 flex-grow">Recibe pagos por Stripe: payment links, suscripciones, facturas y tienda online. Conecta servicios y productos físicos con la cuenta de la empresa.</p>
-            <div class="flex flex-wrap gap-2">
+            <p class="text-muted text-sm leading-relaxed mb-6 flex-grow">Personalidad firme, clara y sin vergüenza. Recibe pagos por Stripe: payment links, suscripciones, facturas y tienda online. Conecta servicios y productos físicos con la cuenta de la empresa.</p>
+            <div class="p-3 rounded-lg bg-white/[0.03] mb-6">
+              <div class="text-xs text-muted uppercase tracking-wider font-mono mb-1">Pegaso</div>
+              <div class="text-sm text-text">Stripe API, payment links, suscripciones, webhooks.</div>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-auto">
               <span class="px-2 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Stripe API</span>
               <span class="px-2 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Payment Links</span>
               <span class="px-2 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Suscripciones</span>
@@ -501,13 +525,17 @@
                 </div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest">04 / Guardián</div>
-                  <div class="font-display text-xl tracking-tight">Seguridad</div>
+                  <div class="font-display text-xl tracking-tight">Seguridad y modelos</div>
                 </div>
               </div>
               <span class="font-mono text-accent text-sm">.security</span>
             </div>
-            <p class="text-muted text-sm leading-relaxed mb-6 flex-grow">Administra modelos, API keys y cuentas. Nvidia, OpenAI, Kimi Coding, Twitter/X. Cada perfil recibe solo los accesos que necesita.</p>
-            <div class="flex flex-wrap gap-2">
+            <p class="text-muted text-sm leading-relaxed mb-6 flex-grow">Personalidad reservada, vigilante y precisa. Administra modelos, API keys y cuentas. Nvidia, OpenAI, Kimi Coding, Twitter/X. Cada héroe recibe solo los accesos que necesita.</p>
+            <div class="p-3 rounded-lg bg-white/[0.03] mb-6">
+              <div class="text-xs text-muted uppercase tracking-wider font-mono mb-1">Pegaso</div>
+              <div class="text-sm text-text">Nvidia APIs, OpenAI, Kimi Coding, rotación de keys, permisos por perfil.</div>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-auto">
               <span class="px-2 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Nvidia</span>
               <span class="px-2 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">API keys</span>
               <span class="px-2 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Permisos por perfil</span>
@@ -525,13 +553,17 @@
                 </div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest">05 / Estratega</div>
-                  <div class="font-display text-xl tracking-tight">Operaciones</div>
+                  <div class="font-display text-xl tracking-tight">Administración y operaciones</div>
                 </div>
               </div>
               <span class="font-mono text-accent text-sm">.ops</span>
             </div>
-            <p class="text-muted text-sm leading-relaxed mb-6 flex-grow">Project management interno. Google Calendar, Gmail, recordatorios, detalles de clientes y seguimiento de operaciones. Coordina a los perfiles internos.</p>
-            <div class="flex flex-wrap gap-2">
+            <p class="text-muted text-sm leading-relaxed mb-6 flex-grow">Personalidad ordenada, exigente y protectora del tiempo. Project management interno. Google Calendar, Gmail, recordatorios, detalles de clientes y seguimiento de operaciones. Coordina a los héroes internos.</p>
+            <div class="p-3 rounded-lg bg-white/[0.03] mb-6">
+              <div class="text-xs text-muted uppercase tracking-wider font-mono mb-1">Pegaso</div>
+              <div class="text-sm text-text">Google Calendar, Gmail, tareas, recordatorios, checklists, briefings.</div>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-auto">
               <span class="px-2 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Google Calendar</span>
               <span class="px-2 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Gmail</span>
               <span class="px-2 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Project mgmt</span>
@@ -542,7 +574,7 @@
         <!-- Diplomático -->
         <div class="reveal lg:col-span-6 bezel">
           <div class="bezel-inner p-8 md:p-10 h-full flex flex-col">
-            <div class="flex items-start justify-between mb-8">
+            <div class="flex items-start justify-between mb-6">
               <div class="flex items-center gap-4">
                 <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
                   <span class="material-symbols-sharp text-accent">handshake</span>
@@ -554,12 +586,16 @@
               </div>
               <span class="font-mono text-accent text-sm">.relations</span>
             </div>
-            <p class="text-muted leading-relaxed mb-6 flex-grow">Da seguimiento a clientes, proveedores, hitos y contratos. Actúa como punto medio entre lo que pide el cliente y lo que puede entregar operaciones.</p>
+            <p class="text-muted leading-relaxed mb-6 flex-grow">Personalidad diplomática, de dos caras en el buen sentido: entiende al cliente y a operaciones. Da seguimiento a clientes, proveedores, hitos y contratos. Actúa como punto medio entre lo que pide el cliente y lo que puede entregar operaciones.</p>
+            <div class="p-4 rounded-lg bg-white/[0.03] mb-6">
+              <div class="text-xs text-muted uppercase tracking-wider font-mono mb-2">Pegaso</div>
+              <div class="text-sm text-text">Gmail, Calendar, CRM ligero, hitos, recordatorios, contratos.</div>
+            </div>
             <div class="p-4 rounded-lg bg-white/[0.03] mb-6">
               <div class="text-xs text-muted uppercase tracking-wider font-mono mb-2">Ejemplo de misión</div>
               <div class="text-sm text-text">El cliente debe entregar información el viernes. Operaciones necesita dos días para producir. El Diplomático negocia el hito y lo registra en Calendar y Sheets.</div>
             </div>
-            <div class="flex flex-wrap gap-2">
+            <div class="flex flex-wrap gap-2 mt-auto">
               <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">CRM ligero</span>
               <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Hitos</span>
               <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Estratega</span>
@@ -567,18 +603,18 @@
           </div>
         </div>
 
-        <!-- Pegaso / tools -->
+        <!-- Pegaso concept -->
         <div class="reveal lg:col-span-6 bezel reveal-delay-1">
           <div class="bezel-inner p-8 md:p-10 h-full flex flex-col justify-center">
             <div class="flex items-center gap-3 mb-6">
-              <span class="tag">Herramientas</span>
+              <span class="tag">Pegaso</span>
             </div>
-            <h3 class="font-display text-2xl md:text-3xl tracking-tight mb-4">Cada perfil tiene su Pegaso.</h3>
-            <p class="text-muted leading-relaxed mb-6">Open source, skills de modelo y acceso a Google Workspace. Las herramientas se comparten entre perfiles porque en el Partenón el conocimiento no vive en silos.</p>
+            <h3 class="font-display text-2xl md:text-3xl tracking-tight mb-4">Cada héroe tiene su Pegaso.</h3>
+            <p class="text-muted leading-relaxed mb-6">Hércules no hacía todo a pie. Cada héroe de Partenon tiene sus herramientas: open source, skills de modelo, APIs y acceso a Google Workspace. Las herramientas se comparten porque en el Partenón el conocimiento no vive en silos.</p>
             <div class="grid grid-cols-2 gap-4">
               <div class="p-4 rounded-lg bg-white/[0.03]">
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Archivos de perfil</div>
-                <div class="text-sm text-text">.finance / .design / .security definen comportamiento.</div>
+                <div class="text-sm text-text">.finance / .design / .payments / .security / .ops / .relations definen comportamiento.</div>
               </div>
               <div class="p-4 rounded-lg bg-white/[0.03]">
                 <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
@@ -591,14 +627,56 @@
     </div>
   </section>
 
-  <!-- G-Brain -->
+  <!-- How it works -->
   <section class="section-pad">
+    <div class="max-w-[1400px] mx-auto px-4">
+      <div class="reveal max-w-2xl mb-16">
+        <span class="tag mb-4 block">Cómo funciona</span>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">De la intención a la misión.</h2>
+        <p class="text-muted text-lg leading-relaxed">El emprendedor no le da instrucciones a cada héroe. Habla con Hermes. Hermes publica la misión. El héroe correcto la toma y trabaja con el emprendedor hasta entregar.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="reveal bezel">
+          <div class="bezel-inner p-8 h-full">
+            <div class="font-mono text-4xl text-accent mb-4">01</div>
+            <h3 class="font-display text-xl tracking-tight mb-3">Hermes pregunta</h3>
+            <p class="text-sm text-muted leading-relaxed">¿Qué empresa es? ¿Qué necesitas ordenar? El emprendedor describe el problema en lenguaje natural.</p>
+          </div>
+        </div>
+        <div class="reveal bezel reveal-delay-1">
+          <div class="bezel-inner p-8 h-full">
+            <div class="font-mono text-4xl text-accent mb-4">02</div>
+            <h3 class="font-display text-xl tracking-tight mb-3">Divide en misiones</h3>
+            <p class="text-sm text-muted leading-relaxed">Hermes convierte la intención en misiones concretas y las publica en el Partenón.</p>
+          </div>
+        </div>
+        <div class="reveal bezel reveal-delay-2">
+          <div class="bezel-inner p-8 h-full">
+            <div class="font-mono text-4xl text-accent mb-4">03</div>
+            <h3 class="font-display text-xl tracking-tight mb-3">El héroe toma</h3>
+            <p class="text-sm text-muted leading-relaxed">El héroe adecuado lee su archivo de perfil, consulta el contexto y empieza a trabajar con el emprendedor.</p>
+          </div>
+        </div>
+        <div class="reveal bezel reveal-delay-3">
+          <div class="bezel-inner p-8 h-full">
+            <div class="font-mono text-4xl text-accent mb-4">04</div>
+            <h3 class="font-display text-xl tracking-tight mb-3">Entrega en Workspace</h3>
+            <p class="text-sm text-muted leading-relaxed">El resultado vive en Sheets, Docs, Slides o Calendar. Todos los héroes lo ven. El emprendedor no aprende otra app.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- G-Brain -->
+  <section class="section-pad border-y border-line bg-surface/40">
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="grid lg:grid-cols-12 gap-12 items-center">
         <div class="lg:col-span-5 reveal">
           <span class="tag mb-4 block">Memoria compartida</span>
-          <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">Sin cerebro, los perfiles no se hablan.</h2>
-          <p class="text-muted text-lg leading-relaxed mb-6">G-Brain de Garitán conecta a todos los perfiles por MCP. Cada agente puede leer contexto, escribir resultados y consultar lo que otros perfiles aprendieron.</p>
+          <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">Sin cerebro, los héroes no se hablan.</h2>
+          <p class="text-muted text-lg leading-relaxed mb-6">G-Brain de Garitán conecta a todos los héroes por MCP. Cada agente puede leer contexto, escribir resultados y consultar lo que otros héroes aprendieron.</p>
           <ul class="space-y-4">
             <li class="flex items-start gap-3">
               <span class="material-symbols-sharp text-accent mt-0.5">check</span>
@@ -662,7 +740,7 @@
       <div class="reveal max-w-2xl mb-16">
         <span class="tag mb-4 block">Impacto</span>
         <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">De 10 Hermes a 1 millón.</h2>
-        <p class="text-muted text-lg leading-relaxed">Cada escala cambia qué medimos y qué perfiles son más críticos. Los números son proyecciones basadas en el paper Hermes Business OS.</p>
+        <p class="text-muted text-lg leading-relaxed">Cada escala cambia qué medimos y qué héroes son más críticos. Los números son proyecciones basadas en el paper Hermes Business OS.</p>
       </div>
 
       <div class="reveal grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
@@ -683,7 +761,7 @@
         <div class="reveal p-6 border border-line rounded-xl reveal-delay-1">
           <div class="font-mono text-xs text-muted uppercase tracking-widest mb-3">Calidad</div>
           <div class="font-display text-2xl tracking-tight mb-2">Menos rework</div>
-          <p class="text-sm text-muted">Los perfiles documentan decisiones en Google Docs. El contexto no se pierde entre reuniones.</p>
+          <p class="text-sm text-muted">Los héroes documentan decisiones en Google Docs. El contexto no se pierde entre reuniones.</p>
         </div>
         <div class="reveal p-6 border border-line rounded-xl reveal-delay-2">
           <div class="font-mono text-xs text-muted uppercase tracking-widest mb-3">Horas ahorradas</div>
@@ -699,23 +777,37 @@
     </div>
   </section>
 
-  <!-- Paper -->
+  <!-- Letter / paper -->
   <section class="section-pad">
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="reveal bezel">
-        <div class="bezel-inner p-8 md:p-12 lg:p-16 flex flex-col lg:flex-row gap-10 items-center">
+        <div class="bezel-inner p-8 md:p-12 lg:p-16 flex flex-col lg:flex-row gap-10 items-start">
           <div class="lg:w-2/3">
-            <span class="tag mb-4 block">Paper</span>
-            <h2 class="font-display text-3xl md:text-4xl tracking-[-0.03em] leading-tight mb-4">Hay un paper detrás.</h2>
-            <p class="text-muted text-lg leading-relaxed mb-6">Partenon se basa en Hermes Business OS: perfiles operativos, memoria compartida y herramientas abiertas para empresas pequeñas que necesitan orden sin contratar un equipo completo.</p>
-            <a href="#" class="btn btn-secondary">
-              Leer Hermes Business OS
+            <span class="tag mb-4 block">Carta de intención</span>
+            <h2 class="font-display text-3xl md:text-4xl tracking-[-0.03em] leading-tight mb-4">Un millón de instalaciones usables.</h2>
+            <p class="text-muted text-lg leading-relaxed mb-6">Mi nombre es Pablo Meneses. En los últimos años he dirigido wsc.lat, un laboratorio de IA en Latinoamérica, y he trabajado con empresas de todos los tamaños. Siempre me doy cuenta de lo mismo: en México y Latinoamérica hay negocios con flujo de millones que llevan todo en un Excel porque contratar un ERP les suena a traición.</p>
+            <p class="text-muted text-lg leading-relaxed mb-6">Hermes está en el punto exacto donde estuvo el PlayStation. En mi generación, la PlayStation arrasó porque era fácil de adoptar. Eso creó una generación de gamers, desarrolladores y creadores. Quiero ser el investigador de implementación que mida cómo las personas adoptan Hermes en el mundo real, cómo se instala y cómo se vuelve usable.</p>
+            <p class="text-muted text-lg leading-relaxed mb-6">He estado dentro de BNI, cámaras de comercio, aceleradoras, asociaciones civiles y coworkings. Sé cómo acercarme a esas instituciones. La meta es clara: un millón de instalaciones usables de Hermes, empezando por empresas pequeñas que hoy no tienen orden.</p>
+            <a href="developers.html" class="btn btn-secondary">
+              Leer la arquitectura
               <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_outward</span></span>
             </a>
           </div>
-          <div class="lg:w-1/3 flex justify-center">
-            <div class="w-32 h-40 md:w-40 md:h-52 border border-line rounded-lg bg-panel flex items-center justify-center">
-              <span class="font-mono text-4xl text-accent">HB</span>
+          <div class="lg:w-1/3 flex flex-col gap-6">
+            <div class="p-6 border border-line rounded-xl bg-bg">
+              <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Laboratorio</div>
+              <div class="font-display text-xl tracking-tight">wsc.lat</div>
+              <p class="text-sm text-muted mt-2">AI Lab en Latinoamérica.</p>
+            </div>
+            <div class="p-6 border border-line rounded-xl bg-bg">
+              <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Meta</div>
+              <div class="font-display text-xl tracking-tight">1,000,000</div>
+              <p class="text-sm text-muted mt-2">Instalaciones usables de Hermes.</p>
+            </div>
+            <div class="p-6 border border-line rounded-xl bg-bg">
+              <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Rol propuesto</div>
+              <div class="font-display text-xl tracking-tight">Investigador de implementación</div>
+              <p class="text-sm text-muted mt-2">Medir adopción real, instalar empresa por empresa.</p>
             </div>
           </div>
         </div>
@@ -744,9 +836,9 @@
         <div class="reveal grid md:grid-cols-12 gap-6 items-center p-6 md:p-8 border border-line rounded-2xl bg-bg hover:border-line-strong transition-colors reveal-delay-1">
           <div class="md:col-span-1 font-mono text-2xl text-accent">02</div>
           <div class="md:col-span-4">
-            <h3 class="font-display text-xl md:text-2xl tracking-tight">Eventos en auditorios universitarios</h3>
+            <h3 class="font-display text-xl md:text-2xl tracking-tight">Universidades y aceleradores</h3>
           </div>
-          <div class="md:col-span-7 text-muted leading-relaxed">Nos conectamos con aceleradores y departamentos de innovación para que estudiantes de negocios adapten Partenon a empresas de su carrera.</div>
+          <div class="md:col-span-7 text-muted leading-relaxed">Nos conectamos con aceleradores y departamentos de innovación para que estudiantes de negocios adapten Partenon a empresas de su carrera en auditorios.</div>
         </div>
 
         <div class="reveal grid md:grid-cols-12 gap-6 items-center p-6 md:p-8 border border-line rounded-2xl bg-bg hover:border-line-strong transition-colors reveal-delay-2">
@@ -760,7 +852,7 @@
         <div class="reveal grid md:grid-cols-12 gap-6 items-center p-6 md:p-8 border border-line rounded-2xl bg-bg hover:border-line-strong transition-colors reveal-delay-3">
           <div class="md:col-span-1 font-mono text-2xl text-accent">04</div>
           <div class="md:col-span-4">
-            <h3 class="font-display text-xl md:text-2xl tracking-tight">Alianzas con centros de coworking</h3>
+            <h3 class="font-display text-xl md:text-2xl tracking-tight">Centros de coworking</h3>
           </div>
           <div class="md:col-span-7 text-muted leading-relaxed">Workshops específicos en espacios de emprendedores. Los participantes se llevan su Hermes instalado y funcionando.</div>
         </div>
@@ -783,13 +875,13 @@
         <div class="lg:col-span-5 reveal">
           <span class="tag mb-4 block">Instalación</span>
           <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Todo pasa en Google Workspace.</h2>
-          <p class="text-muted text-lg leading-relaxed mb-6">El repositorio incluye <code>partenon-core</code>, seis perfiles de Hermes, el cerebro G-Brain y un dashboard Next.js. Los resultados viven en Sheets, Docs, Slides, Drive, Calendar y Gmail.</p>
+          <p class="text-muted text-lg leading-relaxed mb-6">Hermes trabaja con archivos de perfil. Los héroes publican resultados en Sheets, Docs, Slides, Drive, Calendar y Gmail. Usamos la cuenta gratuita de Google como superficie común.</p>
           <ul class="space-y-3 mb-8">
-            <li class="flex items-center gap-3 text-muted"><span class="material-symbols-sharp text-accent text-sm">check</span> Instalador <code>install.sh</code> con entorno Python y Node.</li>
-            <li class="flex items-center gap-3 text-muted"><span class="material-symbols-sharp text-accent text-sm">check</span> Perfiles comparten memoria y archivos de perfil.</li>
-            <li class="flex items-center gap-3 text-muted"><span class="material-symbols-sharp text-sm">check</span> El emprendedor no aprende otra app.</li>
+            <li class="flex items-center gap-3 text-muted"><span class="material-symbols-sharp text-accent text-sm">check</span> Resultados vivos donde ya trabaja la empresa.</li>
+            <li class="flex items-center gap-3 text-muted"><span class="material-symbols-sharp text-accent text-sm">check</span> Héroes comparten archivos y contexto.</li>
+            <li class="flex items-center gap-3 text-muted"><span class="material-symbols-sharp text-accent text-sm">check</span> El emprendedor no aprende otra app.</li>
           </ul>
-          <a href="developers.html#install" class="btn btn-secondary">Ver documentación técnica <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_outward</span></span></a>
+          <a href="developers.html" class="btn btn-secondary">Ver documentación técnica <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_outward</span></span></a>
         </div>
         <div class="lg:col-span-7 reveal bezel reveal-delay-1">
           <div class="bezel-inner p-6 md:p-8">
@@ -811,7 +903,7 @@
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
           <div class="font-mono text-xl tracking-tight font-medium mb-1">PARTENON</div>
-          <div class="text-sm text-muted">Sistema operativo de agentes para pymes.</div>
+          <div class="text-sm text-muted">Hermes y sus héroes para tu empresa.</div>
         </div>
         <div class="flex flex-wrap gap-6 text-sm text-muted">
           <a href="index.html" class="hover:text-text transition-colors">Inicio</a>
