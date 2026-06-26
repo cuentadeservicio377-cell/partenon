@@ -1,44 +1,44 @@
 # DESIGN — Partenon (Nous-style / anti-slop)
 
-## Identidad
+## Identity
 
-Partenon es un sistema operativo de agentes para pymes. La interfaz debe leerse como un manual técnico open source salido de Nous Research: oscura, monospaced, con datos en vivo y sin adornos. No es mitología. Es un sistema de arquetipos operativos que corre dentro de Google Workspace.
+Partenon is an agent operating system for SMBs. The interface should read like an open-source technical manual from Nous Research: dark, monospaced, live data, no ornaments. It is not mythology. It is a system of operational archetypes that runs inside Google Workspace.
 
-## Paleta
+## Palette
 
-| Token | Valor | Uso |
-|-------|-------|-----|
-| `bg` | `#050505` | Fondo base OLED |
-| `surface` | `#08080C` | Superficies de sección alternas |
-| `panel` | `#0E0E14` | Fondos de código y diagramas |
-| `panel-raised` | `#111118` | Cards doble-bisel (inner core) |
+| Token | Value | Usage |
+|-------|-------|-------|
+| `bg` | `#050505` | OLED base background |
+| `surface` | `#08080C` | Alternate section surfaces |
+| `panel` | `#0E0E14` | Code and diagram backgrounds |
+| `panel-raised` | `#111118` | Double-bevel cards (inner core) |
 | `panel-strong` | `#16161F` | Hover/focus states |
-| `text` | `#E8E8ED` | Texto principal |
-| `muted` | `#6B6B78` | Texto secundario |
-| `dim` | `#45454F` | Metadatos, bordes suaves |
-| `accent` | `#00D4FF` | Acento único (cian quirúrgico) |
-| `accent-dim` | `rgba(0, 212, 255, 0.10)` | Fondos de acento |
-| `accent-glow` | `rgba(0, 212, 255, 0.20)` | Sombra de acento sutil |
-| `live` | `#FFB800` | Estados vivos, pings (uso quirúrgico) |
-| `line` | `rgba(255, 255, 255, 0.07)` | Bordes y divisores |
-| `line-strong` | `rgba(255, 255, 255, 0.14)` | Bordes hover |
+| `text` | `#E8E8ED` | Primary text |
+| `muted` | `#6B6B78` | Secondary text |
+| `dim` | `#45454F` | Metadata, soft borders |
+| `accent` | `#00D4FF` | Single accent (surgical cyan) |
+| `accent-dim` | `rgba(0, 212, 255, 0.10)` | Accent backgrounds |
+| `accent-glow` | `rgba(0, 212, 255, 0.20)` | Subtle accent shadow |
+| `live` | `#FFB800` | Live states, pings (surgical use) |
+| `line` | `rgba(255, 255, 255, 0.07)` | Borders and dividers |
+| `line-strong` | `rgba(255, 255, 255, 0.14)` | Hover borders |
 
-### Reglas de color
-- Un solo acento principal. El ámbar (`#FFB800`) aparece en no más de 2 elementos por página.
-- Saturación del acento por debajo del 80%.
-- No `#000000` puro. El fondo es `#050505`.
-- No gradientes masivos. Solo mesh radiales sutiles a ~3% opacity.
+### Color rules
+- One primary accent. Amber (`#FFB800`) appears on no more than 2 elements per page.
+- Accent saturation below 80%.
+- No pure `#000000`. The background is `#050505`.
+- No massive gradients. Only subtle radial meshes at ~3% opacity.
 
-## Tipografía
+## Typography
 
-| Rol | Fuente | Pesos |
-|-----|--------|-------|
+| Role | Font | Weights |
+|------|------|---------|
 | Display / data | JetBrains Mono | 400, 500 |
 | Headlines | Space Grotesk | 500, 600, 700 |
 | Body | Geist | 400, 500 |
 | Icons | Material Symbols Sharp | 300 |
 
-### Escala
+### Scale
 - Hero monospaced: `clamp(3.5rem, 10vw, 8.5rem)` / leading `0.88` / tracking `-0.055em`
 - H2: `clamp(2.5rem, 5vw, 4rem)` / leading `0.95` / tracking `-0.04em`
 - H3: `1.75rem` / leading `1.1` / tracking `-0.02em`
@@ -46,83 +46,83 @@ Partenon es un sistema operativo de agentes para pymes. La interfaz debe leerse 
 - Small/label: `0.7rem` / uppercase / tracking `0.14em`
 - Mono/data: `0.875rem` / leading `1.4`
 
-### Reglas tipográficas
+### Typographic rules
 - No Inter, Roboto, Arial, Open Sans, Helvetica.
-- Números en `font-variant-numeric: tabular-nums`.
-- Headlines con presencia: grandes, tracking ajustado, line-height apretado.
-- Body limitado a ~65 caracteres por línea.
-- Efecto manual técnico: usar mono para títulos grandes, números seed y estados.
+- Numbers in `font-variant-numeric: tabular-nums`.
+- Headlines with presence: large, tight tracking, tight line-height.
+- Body limited to ~65 characters per line.
+- Technical manual effect: use mono for large titles, seed numbers, and states.
 
 ## Layout
 
-- Contenedor: `max-w-[1400px] mx-auto px-4 md:px-6`.
-- Grid asimétrico por defecto. Bento con combinaciones de `col-span` variables.
-- Espaciado: secciones `py-24 md:py-32`.
-- Esquinas: doble-bisel exterior `18px`, interior `12px`. Botones `rounded-full` o `0` deliberado.
-- Bordes: 1px `line`, transición a `line-strong` en hover.
-- Mobile-first: todo layout asimétrico colapsa a `w-full` + `px-4` bajo 768px.
+- Container: `max-w-[1400px] mx-auto px-4 md:px-6`.
+- Asymmetric grid by default. Bento with variable `col-span` combinations.
+- Spacing: sections `py-24 md:py-32`.
+- Corners: outer double-bevel `18px`, inner `12px`. Buttons `rounded-full` or deliberate `0`.
+- Borders: 1px `line`, transition to `line-strong` on hover.
+- Mobile-first: every asymmetric layout collapses to `w-full` + `px-4` below 768px.
 
 ## Background
 
 - Base `#050505`.
-- Mesh gradient fijo: 2-3 orbes radiales grandes de acento a ~3% opacity.
-- Noise SVG fijo a `opacity-3.5`.
-- Scanlines opcionales en secciones de datos: `repeating-linear-gradient` a 2% opacity.
+- Fixed mesh gradient: 2-3 large radial accent orbs at ~3% opacity.
+- Fixed noise SVG at `opacity-3.5`.
+- Optional scanlines on data sections: `repeating-linear-gradient` at 2% opacity.
 
-## Componentes
+## Components
 
-### Nav flotante (fluid island)
-- Fijo en top, centrado, `border-radius: 999px`.
-- `backdrop-blur: 16px`, fondo `rgba(8,8,12,0.72)`.
-- Links `border-radius: 999px`, color muted, hover con fondo sutil.
-- Menú móvil: overlay full-screen con staggered reveal.
+### Floating nav (fluid island)
+- Fixed at top, centered, `border-radius: 999px`.
+- `backdrop-blur: 16px`, background `rgba(8,8,12,0.72)`.
+- Links `border-radius: 999px`, muted color, subtle background on hover.
+- Mobile menu: full-screen overlay with staggered reveal.
 
-### Botones
-- Primary: fondo `accent`, texto `bg`, peso 500, `rounded-full`, padding `0.875rem 1.5rem`.
-  - Hover: `translateY(-2px)` + `box-shadow` tintado acento.
+### Buttons
+- Primary: `accent` background, `bg` text, weight 500, `rounded-full`, padding `0.875rem 1.5rem`.
+  - Hover: `translateY(-2px)` + tinted accent `box-shadow`.
   - Active: `scale(0.98)`.
-- Secondary: borde 1px `line`, fondo `rgba(255,255,255,0.02)`, texto `text`, `rounded-full`.
-  - Hover: borde `line-strong`, texto `accent`, fondo `rgba(255,255,255,0.04)`.
-- Icono interno en botón: círculo `w-7 h-7`, se mueve en hover.
+- Secondary: 1px `line` border, `rgba(255,255,255,0.02)` background, `text` color, `rounded-full`.
+  - Hover: `line-strong` border, `accent` text, `rgba(255,255,255,0.04)` background.
+- Internal button icon: `w-7 h-7` circle, moves on hover.
 
-### Cards (doble-bisel)
-- Outer shell: fondo `rgba(255,255,255,0.025)`, borde 1px `line`, `border-radius: 18px`, padding `6px`.
-- Inner core: fondo `panel-raised`, borde 1px `rgba(255,255,255,0.05)`, `border-radius: 12px`, `box-shadow: inset 0 1px 0 rgba(255,255,255,0.04)`.
-- Hover: borde exterior pasa a `line-strong`.
+### Cards (double-bevel)
+- Outer shell: `rgba(255,255,255,0.025)` background, 1px `line` border, `border-radius: 18px`, padding `6px`.
+- Inner core: `panel-raised` background, 1px `rgba(255,255,255,0.05)` border, `border-radius: 12px`, `box-shadow: inset 0 1px 0 rgba(255,255,255,0.04)`.
+- Hover: outer border moves to `line-strong`.
 
 ### Labels / Tags
-- Mono uppercase, tracking `0.14em`, tamaño `0.7rem`, color `muted`.
-- Formato: palabras clave en mayúsculas, precedidas por dot de acento.
+- Mono uppercase, tracking `0.14em`, size `0.7rem`, `muted` color.
+- Format: uppercase keywords preceded by an accent dot.
 
-## Animaciones
+## Animations
 
-- Transiciones: `cubic-bezier(0.16, 1, 0.3, 1)` duración 350-900ms.
-- Scroll reveal: `opacity` + `translateY(32px)`, easing personalizado.
-- Contadores: animación numérica con `requestAnimationFrame`.
-- Nada de `linear` o `ease-in-out` por defecto.
-- Solo `transform` y `opacity`. Nunca `width`, `height`, `top`, `left`.
+- Transitions: `cubic-bezier(0.16, 1, 0.3, 1)` duration 350-900ms.
+- Scroll reveal: `opacity` + `translateY(32px)`, custom easing.
+- Counters: numeric animation with `requestAnimationFrame`.
+- No `linear` or `ease-in-out` by default.
+- Only `transform` and `opacity`. Never `width`, `height`, `top`, `left`.
 
-## Iconografía
+## Iconography
 
-- Material Symbols Sharp vía Google Fonts, peso 300.
-- Respaldo con SVG inline propios.
-- Prohibido: Lucide grueso, FontAwesome genérico, emojis.
+- Material Symbols Sharp via Google Fonts, weight 300.
+- Fallback with inline SVGs.
+- Forbidden: thick Lucide, generic FontAwesome, emojis.
 
-## Anti-patterns prohibidos
+## Forbidden anti-patterns
 
 - No Inter, Roboto, Arial, Open Sans, Helvetica.
 - No emojis.
-- No gradientes masivos en texto ni fondos.
-- No glows de neón por todos lados.
-- No cards redondeadas uniformes sin doble-bisel.
-- No layouts simétricos de 3 cards iguales.
-- No copy con "eleva", "impulsa", "revoluciona", "sin fisuras".
-- No emdashes. Usar punto y seguido o dos puntos.
-- No afirmaciones huecas sin dato concreto.
-- No transiciones dramáticas: "dive in", "here's the thing", "but here's the kicker".
-- No `h-screen` para hero; usar `min-h-[100dvh]`.
-- No `z-50` o `z-[9999]` arbitrarios.
+- No massive gradients on text or backgrounds.
+- No neon glows everywhere.
+- No uniformly rounded cards without double-bevel.
+- No symmetrical 3-equal-card layouts.
+- No copy with "elevate", "boost", "revolutionize", "seamless".
+- No em-dashes. Use a period or colon.
+- No hollow claims without concrete data.
+- No dramatic transitions: "dive in", "here's the thing", "but here's the kicker".
+- No `h-screen` for hero; use `min-h-[100dvh]`.
+- No arbitrary `z-50` or `z-[9999]`.
 
-## Voz
+## Voice
 
-Directa, técnica, sin adornos. Cada oración termina en un hecho verificable. Los héroes son perfiles operativos, no dioses. Hermes es la empresa. El Partenón es el lugar de trabajo compartido. Se prohíben adjetivos vacíos e intensificadores.
+Direct, technical, no ornaments. Every sentence ends in a verifiable fact. The heroes are operational profiles, not gods. Hermes is the company. The Partenon is the shared workplace. Empty adjectives and intensifiers are forbidden.

@@ -76,7 +76,7 @@
 3. Copy `Hermes Bussines OS/skills/hermes-finanzas/` tools into `skills/finance/tools/`.
 4. Copy `Open Code/Excel Agent/templates/presupuesto.py` and `proveedores.py` into `skills/finance/tools/templates.py`.
 5. Copy `Open Code/Excel Agent/parser_ordenes_arza.py` into `skills/finance/tools/parsers.py`.
-6. Write `.finance.example` with costos fijos/variables, dashboards, presupuestos.
+6. Write `.finance.example` with fixed/variable costs, dashboards, and budgets.
 7. Write `cron/daily-report.json` for daily financial summary.
 8. Verify profile structure with a simple bash `ls` check.
 9. Commit.
@@ -126,7 +126,7 @@
 1. Write `SOUL.md` for Cobrador.
 2. Copy `Hermes Bussines OS/skills/hermes-finanzas/tools/pagos.py` into `skills/payments/tools/stripe_tools.py`.
 3. Add Stripe MCP server reference from `partenon-core/config/mcp/servers.yaml`.
-4. Write `.payments.example` with productos, precios, links, suscripciones.
+4. Write `.payments.example` with products, prices, links, and subscriptions.
 5. Commit.
 
 ---
@@ -171,10 +171,10 @@
 
 **Steps:**
 1. Write `SOUL.md` for Estratega.
-2. Copy `Hermes Bussines OS/skills/hermes-operaciones/tools/proyectos.py` and `tareas.py`.
+2. Copy `Hermes Bussines OS/skills/hermes-operaciones/tools/proyectos.py` and `tareas.py` (projects and tasks).
 3. Copy `Hermes Bussines OS/skills/hermes-iniciativa/tools/morning_briefing.py` and `metas_engine.py`.
 4. Write `cron/morning-briefing.json`, `midday-pulse.json`, `weekly-planning.json`, `weekly-retro.json`.
-5. Write `.ops.example` with proyectos, metas, calendario.
+5. Write `.ops.example` with projects, goals, and calendar.
 6. Commit.
 
 ---
@@ -197,7 +197,7 @@
 1. Write `SOUL.md` for Diplomatico.
 2. Copy `Hermes Bussines OS/skills/hermes-ventas/tools/crm.py` and `pipeline.py`.
 3. Copy relevant patterns from `OpenWork Paola Meneses/workspace/skills/paola-aliados/SKILL.md`.
-4. Write `.relations.example` with clientes, proveedores, hitos.
+4. Write `.relations.example` with clients, vendors, and milestones.
 5. Commit.
 
 ---
@@ -236,7 +236,7 @@
 - Produces: `run_onboarding()` returns list of missions and creates kanban tasks.
 
 **Steps:**
-1. Define onboarding questions (tipo de empresa, industria, tamaño, contacto, branding).
+1. Define onboarding questions (company type, industry, size, contact, branding).
 2. Write `onboarding_flow.py` that asks questions, creates `.finance`, `.design`, `.payments`, `.security`, `.ops`, `.relations` from examples, and generates initial missions.
 3. Populate `initial_tasks.json` with 6 default missions (one per hero).
 4. Hook into `onboarding_engine.py`.
@@ -265,7 +265,7 @@
 1. Copy `dashboard-completo/src/lib/env.ts` → `dashboard/src/lib/env.ts` with 6 Partenon profiles.
 2. Copy `dashboard-completo/src/components/TopNav.tsx` → `ProfileSwitcher.tsx`.
 3. Copy `dashboard-completo/src/components/CronManager.tsx`.
-4. Build `KanbanBoard.tsx` with columns: ideas → backlog → por_hacer → en_progreso → revision → hecho.
+4. Build `KanbanBoard.tsx` with columns: ideas → backlog → to_do → in_progress → review → done.
 5. Read `Hermes Bussines OS/dashboard/lib/data.ts` for data model.
 6. Write `data.ts` to read/write `data/tasks.json`.
 7. Run `npm install` and `npm run build`.
@@ -287,7 +287,7 @@
 - Produces: A runnable demo that ingests sample expenses and writes a categorized Google Sheet.
 
 **Steps:**
-1. Build `finance_sheet.py` with openpyxl: pestañas Ingresos, Gastos Fijos, Gastos Variables, Dashboard, Proveedores.
+1. Build `finance_sheet.py` with openpyxl tabs: Income, Fixed Expenses, Variable Expenses, Dashboard, Suppliers.
 2. Build `dashboard_sheet.py` with KPIs simples.
 3. Write `demo_tesorero.py` that reads `data/sample_gastos.xlsx`, parses rows, categorizes with rules, and writes the Sheet.
 4. Create `data/sample_gastos.xlsx` with 20 rows of sample expenses for a cafeteria.
@@ -307,8 +307,8 @@
 - Produces: updated marketing page with onboarding story and real demo section.
 
 **Steps:**
-1. Rewrite hero to focus on "instala un equipo de operaciones en tu Google Workspace".
-2. Add section: "Onboarding en 20 minutos" with 4 steps.
+1. Rewrite hero to focus on "install an operations team in your Google Workspace".
+2. Add section: "Onboarding in 20 minutes" with 4 steps.
 3. Add section: "Demo: Tesorero organiza gastos de una cafetería" with screenshot.
 4. Update 6 hero cards to reference real profiles/SOUL.md.
 5. Update impact metrics with concrete sources from HBOS research paper.
@@ -331,7 +331,7 @@
 1. Update architecture Mermaid diagram with real components: Hermes CLI, 6 profiles, G-Brain MCP, Google Workspace, Stripe MCP.
 2. Add section "Profile distributions" showing `SOUL.md` + `config.yaml` + `skills/`.
 3. Add section "Onboarding general" with task generator and kanban/cron.
-4. Add section "Workshop técnico 90 min" with pre-install command.
+4. Add section "90-minute technical workshop" with pre-install command.
 5. Update install code block to use `install.sh` and real env vars.
 6. Add reference to NemoClaw/Nemotron 3 Ultra/Stripe Agent Toolkit/MPP.
 7. Verify Mermaid renders and responsive.
