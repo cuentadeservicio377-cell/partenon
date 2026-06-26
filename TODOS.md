@@ -12,6 +12,8 @@
 - [ ] Configurar onboard de NVIDIA NemoClaw/OpenShell con perfil Hermes
 
 ## Hecho
+- [x] Migrar `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Heroes.tsx` a `web/heroes.html` con estética clásica de la app React (mármol blanco, Cinzel, Inter) y correcciones de información obligatorias
+- [x] Migrar `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Home.tsx` a `web/index.html` con estética clásica de la app React (mármol blanco, Cinzel, Inter) y correcciones de información obligatorias
 - [x] Diagnóstico UX/UI/estructura/storytelling de `index.html` y `developers.html`
 - [x] Reescribir `web/index.html` con arco narrativo, before/after, timeline, tabs/acordeón de héroes y carta abreviada
 - [x] Reescribir `web/developers.html` con hero corto, perfiles en tabs/acordeón, sección Quality Layer y demo code

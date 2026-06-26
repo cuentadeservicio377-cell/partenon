@@ -6,7 +6,7 @@
 
 - **Proyecto**: Partenon
 - **Iniciado**: 2026-06-23
-- **Estado**: Seis perfiles de Hermes creados. Páginas web enriquecidas con storytelling recuperado de `Kimi_Agent_10 Storytelling Web Sites/` y stack del hackathon Nous Research / NVIDIA / Stripe. Próximo: probar Stripe Skills en sandbox, configurar onboard de NVIDIA NemoClaw/OpenShell e implementar eval loop funcional.
+- **Estado**: Seis perfiles de Hermes creados. Tres páginas web estáticas en `web/` (index.html, developers.html, heroes.html) migradas desde `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/` con estética clásica de la app React y correcciones de información. Próximo: probar Stripe Skills en sandbox, configurar onboard de NVIDIA NemoClaw/OpenShell e implementar eval loop funcional.
 - **Propósito**: Sistema de agentes IA para empresas, presentado como un panteón de héroes griegos al servicio de Hermes. Destinado a hackathon.
 
 ## Braindump
@@ -20,7 +20,7 @@ La narrativa de marca usa arquetipos (no la mitología de forma cursi) para dar 
 ### 2. ¿Quién lo usa?
 
 - **Emprendedores y empresas pequeñas** que necesitan organizar operaciones, finanzas, ventas, comunicación, cobranza, seguridad y administración.
-- **Hackathon judges** de Knowles Research, Nvidia y Stripe.
+- **Hackathon judges** de Nous Research, Nvidia y Stripe.
 - **Desarrolladores** que quieran entender la arquitectura e instalar el sistema.
 - **Universidades, aceleradoras, cámaras de comercio, coworkings y organizaciones empresariales** (BNI, Way Pío, Rotary, etc.) para workshops y eventos.
 
@@ -28,7 +28,7 @@ La narrativa de marca usa arquetipos (no la mitología de forma cursi) para dar 
 
 **Confirmado para las páginas web:**
 - **Páginas web**: HTML estático + Tailwind CSS + JavaScript vanilla. Alojado en GitHub Pages.
-- **Estética**: Inspirada en Nous Research / Knowles Research (subproducto visual coherente).
+- **Estética**: Inspirada en Nous Research / Nous Research (subproducto visual coherente).
 
 **Stack del sistema (basado en repositorios analizados):**
 - **Agent Core**: Hermes Agent (Nous Research) — Python
@@ -45,7 +45,7 @@ La narrativa de marca usa arquetipos (no la mitología de forma cursi) para dar 
 
 ### 4. ¿Hay deadline o prioridad?
 
-- **Prioridad 1**: Construir las dos páginas web para el hackathon.
+- **Prioridad 1**: Construir las tres páginas web para el hackathon (marketing, héroes, técnicos).
 - **Prioridad 2**: Definir arquitectura técnica y crear el repositorio del sistema.
 - **Deadline**: hackathon (por confirmar fecha exacta).
 
@@ -68,19 +68,19 @@ La narrativa de marca usa arquetipos (no la mitología de forma cursi) para dar 
 ### 6. ¿Restricciones importantes?
 
 - Debe funcionar con Google Workspace gratuito si es posible.
-- Debe sentirse como un subproducto de Nous Research / Knowles Research (estética a copiar).
+- Debe sentirse como un subproducto de Nous Research / Nous Research (estética a copiar).
 - No debe sentirse cursi ni forzado el tema griego; usar arquetipos de marketing.
-- Debe haber dos páginas web claramente diferenciadas: una de marketing y otra técnica.
+- Debe haber tres páginas web claramente diferenciadas: marketing (index.html), héroes (heroes.html) y técnica (developers.html).
 - Los empresarios deben poder trabajar en algo que conozcan (Google Workspace), no solo archivos MD en un workspace del agente.
 - Primero páginas, luego sistema.
 
 ### 7. ¿Qué haría que sea un éxito?
 
-- Tener dos páginas web impactantes para el hackathon.
+- Tener tres páginas web impactantes para el hackathon.
 - Contador de impacto: 10 → 100 → 1,000 → 10,000 → 100,000 → 1,000,000 personas/empresas ayudadas.
 - Generar webinars quincenales de instalación.
 - Eventos con universidades, aceleradoras, cámaras de comercio, coworkings.
-- Que Hermes sea el agente personalizado de aceleradoras, respaldado por Stripe, Nvidia y Knowles Research.
+- Que Hermes sea el agente personalizado de aceleradoras, respaldado por Stripe, Nvidia y Nous Research.
 - Que 10 empresas pilotos mejoren ingresos, calidad, orden financiero y ahorren horas.
 
 ## Concepto de Marca
@@ -171,13 +171,14 @@ Los perfiles mapean directamente a skills existentes o propuestas de HBOS:
 
 ## Decisiones Arquitectónicas
 
-- Las dos páginas web se construyen primero, antes del sistema.
-- La página de marketing explica el concepto, beneficios, perfiles y go-to-market.
-- La página técnica explica la arquitectura, MCPs, diagramas y proceso de workshop.
+- Las tres páginas web se construyen primero, antes del sistema.
+- `web/index.html` (marketing) explica el concepto, beneficios, perfiles y go-to-market.
+- `web/heroes.html` (héroes) detalla los 7 perfiles, sus capacidades, tools, conexiones y workflow de colaboración.
+- `web/developers.html` (técnica) explica la arquitectura, MCPs, diagramas y proceso de workshop.
 - El sistema se construirá basado en las páginas.
 - Google Workspace como superficie de trabajo compartida con el empresario.
 - HBOS como base técnica existente; Partenon es la capa de presentación y extensión de perfiles.
-- Stack del hackathon explícito en ambas páginas: Hermes Agent + NVIDIA NemoClaw/OpenShell/Nemotron 3 Ultra + Stripe Skills.
+- Stack del hackathon explícito en las tres páginas: Hermes Agent + NVIDIA NemoClaw/OpenShell/Nemotron 3 Ultra + Stripe Skills.
 - Estética Nous Research / manual técnico: fondo `#050505`, acento cian `#00D4FF`, tipografía monospaced en hero, sin emojis ni emdashes.
 - Copy anti-AI-slop: verbos concretos, claim + proof, sin intensificadores ni frases de transición dramáticas.
 
@@ -193,7 +194,7 @@ Los perfiles mapean directamente a skills existentes o propuestas de HBOS:
 ## Gotchas Conocidos
 
 - El tono mitológico debe ser sutil; evitar cursilería.
-- Las páginas deben impresionar a jurado técnico (Nvidia, Stripe, Knowles Research).
+- Las páginas deben impresionar a jurado técnico (Nvidia, Stripe, Nous Research).
 - Debe quedar claro que Hermes = empresa, no solo CEO.
 - El sistema debe entregar valor en herramientas que el empresario ya conoce (Google Workspace).
 - open-design es muy grande (331MB); se usará como referencia, no como dependencia.

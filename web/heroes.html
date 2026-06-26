@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Heroes — The Partenon</title>
+  <meta name="description" content="Meet the seven specialized agents that power The Partenon: Scribe, Herald, Collector, Guardian, Strategist, Diplomat, and Brain." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,300,0,0" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'marble-white': '#F7F5F0',
+            'parchment': '#EDE8DF',
+            'deep-stone': '#2A2A2E',
+            'midnight': '#1A1A1E',
+            'stripe-indigo': '#635BFF',
+            'nvidia-green': '#76B900',
+            'glow-amber': '#FFB800',
+            'myth-gold': '#D4A853',
+            'hero-scribe': '#4A90A4',
+            'hero-herald': '#9B59B6',
+            'hero-collector': '#635BFF',
+            'hero-guardian': '#76B900',
+            'hero-strategist': '#FFB800',
+            'hero-diplomat': '#E74C3C',
+            'hero-brain': '#D4A853',
+            'text-secondary': '#6B6B73',
+          },
+          fontFamily: {
+            'cinzel': ['Cinzel', 'Georgia', 'serif'],
+            'inter': ['Inter', 'system-ui', 'sans-serif'],
+            'mono': ['JetBrains Mono', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    :root {
+      --marble-white: #F7F5F0;
+      --parchment: #EDE8DF;
+      --deep-stone: #2A2A2E;
+      --midnight: #1A1A1E;
+      --stripe-indigo: #635BFF;
+      --nvidia-green: #76B900;
+      --glow-amber: #FFB800;
+      --myth-gold: #D4A853;
+      --container-max: 1280px;
+      --container-narrow: 800px;
+      --radius-pill: 9999px;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--deep-stone);
+      background-color: var(--marble-white);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::selection {
+      background-color: var(--stripe-indigo);
+      color: var(--marble-white);
+    }
+
+    h1, h2, h3, .font-cinzel { font-family: 'Cinzel', Georgia, serif; text-transform: uppercase; }
+    code, pre, .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+    .material-symbols-sharp {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      font-size: 1em;
+      line-height: 1;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      height: 72px;
+      transition: height 0.5s var(--ease-out-expo), background-color 0.4s ease, color 0.4s ease, backdrop-filter 0.4s ease;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .navbar.scrolled { height: 60px; }
+    .navbar.light {
+      background-color: rgba(247, 245, 240, 0.9);
+      color: #2A2A2E;
+    }
+    .navbar.dark {
+      background-color: rgba(26, 26, 30, 0.9);
+      color: #F7F5F0;
+    }
+
+    .wordmark {
+      overflow: hidden;
+      white-space: nowrap;
+      transition: opacity 0.3s ease, width 0.3s ease;
+    }
+    .navbar.scrolled .wordmark { opacity: 0; width: 0; }
+
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--stripe-indigo);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s var(--ease-out-expo);
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after { transform: scaleX(1); }
+
+    /* Mobile nav */
+    .mobile-nav {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      padding-top: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .mobile-nav.open { opacity: 1; pointer-events: auto; }
+
+    /* Animations */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+    }
+    .animate-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .animate-on-scroll.delay-1 { transition-delay: 0.08s; }
+    .animate-on-scroll.delay-2 { transition-delay: 0.16s; }
+    .animate-on-scroll.delay-3 { transition-delay: 0.24s; }
+    .animate-on-scroll.delay-4 { transition-delay: 0.32s; }
+    .animate-on-scroll.delay-5 { transition-delay: 0.40s; }
+    .animate-on-scroll.delay-6 { transition-delay: 0.48s; }
+    .animate-on-scroll.delay-7 { transition-delay: 0.56s; }
+
+    .animate-scale-on-scroll {
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.5s var(--ease-spring), transform 0.5s var(--ease-spring);
+    }
+    .animate-scale-on-scroll.is-visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .hero-divider {
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.8s var(--ease-out-expo) 0.4s;
+    }
+    .hero-divider.is-visible { transform: scaleX(1); }
+
+    .workflow-line {
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 1.5s var(--ease-out-expo) 0.2s;
+    }
+    .workflow-line.is-visible { transform: scaleY(1); }
+
+    /* Quick nav floating icons */
+    .quick-nav-item {
+      opacity: 0;
+      transform: scale(0.5);
+      transition: opacity 0.5s var(--ease-spring), transform 0.5s var(--ease-spring);
+    }
+    .quick-nav-item.is-visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Capability cards */
+    .capability-card {
+      transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s ease;
+    }
+    .capability-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(42, 42, 46, 0.08);
+    }
+
+    /* Tool badges */
+    .tool-badge {
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+    .tool-badge:hover { transform: translateY(-2px); }
+
+    /* Matrix row */
+    .matrix-row {
+      transition: background-color 0.2s ease;
+    }
+    .matrix-row:hover { background-color: rgba(212, 168, 83, 0.08); }
+
+    /* CTA buttons */
+    .cta-primary {
+      transition: transform 0.2s var(--ease-out-expo), box-shadow 0.2s ease;
+    }
+    .cta-primary:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 30px rgba(99, 91, 255, 0.3);
+    }
+
+    .copy-box {
+      transition: transform 0.2s var(--ease-out-expo), border-color 0.2s ease;
+    }
+    .copy-box:hover { transform: scale(1.02); }
+    .copy-box.copied { border-color: var(--nvidia-green); }
+
+    /* Icon colors */
+    .icon-scribe { color: #4A90A4; }
+    .icon-herald { color: #9B59B6; }
+    .icon-collector { color: #635BFF; }
+    .icon-guardian { color: #76B900; }
+    .icon-strategist { color: #FFB800; }
+    .icon-diplomat { color: #E74C3C; }
+    .icon-brain { color: #D4A853; }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      opacity: 0;
+      transition: transform 0.4s var(--ease-out-expo), opacity 0.4s ease;
+      z-index: 100;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar light" id="navbar" aria-label="Main navigation">
+    <div class="mx-auto flex h-full items-center justify-between px-6" style="max-width: var(--container-max);">
+      <a href="index.html" class="flex items-center gap-3">
+        <svg viewBox="0 0 32 32" fill="none" class="h-8 w-8" aria-hidden="true">
+          <path d="M2 28h28M4 28V12h3v16M12 28V8h3v20M20 28V8h3v20M25 28V12h3v16M2 12l14-8 14 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span class="wordmark font-cinzel text-sm tracking-[0.12em]">THE PARTENON</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html#myth" class="nav-link text-xs font-medium tracking-[0.08em] hover:text-stripe-indigo transition-colors">THE MYTH</a>
+        <a href="heroes.html" class="nav-link active text-xs font-medium tracking-[0.08em] hover:text-stripe-indigo transition-colors">THE HEROES</a>
+        <a href="index.html#vision" class="nav-link text-xs font-medium tracking-[0.08em] hover:text-stripe-indigo transition-colors">THE VISION</a>
+        <a href="developers.html" class="nav-link text-xs font-medium tracking-[0.08em] hover:text-stripe-indigo transition-colors">FOR DEVELOPERS</a>
+      </div>
+
+      <a href="developers.html" class="hidden md:inline-flex items-center rounded-full px-6 py-2.5 text-sm font-semibold tracking-[0.04em] transition-all duration-200 hover:scale-[1.02] bg-stripe-indigo text-marble-white hover:shadow-[0_0_30px_rgba(99,91,255,0.3)]">
+        INSTALL HERMES
+      </a>
+
+      <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Toggle menu" aria-expanded="false">
+        <span class="block h-0.5 w-6 bg-current transition-transform duration-300 origin-center" id="menu-bar-1"></span>
+        <span class="block h-0.5 w-6 bg-current transition-opacity duration-300" id="menu-bar-2"></span>
+        <span class="block h-0.5 w-6 bg-current transition-transform duration-300 origin-center" id="menu-bar-3"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile nav overlay -->
+  <div class="mobile-nav light" id="mobile-nav" aria-hidden="true">
+    <a href="index.html#myth" class="font-cinzel text-lg tracking-[0.08em] hover:text-stripe-indigo transition-colors">THE MYTH</a>
+    <a href="heroes.html" class="font-cinzel text-lg tracking-[0.08em] text-stripe-indigo">THE HEROES</a>
+    <a href="index.html#vision" class="font-cinzel text-lg tracking-[0.08em] hover:text-stripe-indigo transition-colors">THE VISION</a>
+    <a href="developers.html" class="font-cinzel text-lg tracking-[0.08em] hover:text-stripe-indigo transition-colors">FOR DEVELOPERS</a>
+    <a href="developers.html" class="mt-4 inline-flex items-center rounded-full px-8 py-3 text-sm font-semibold tracking-[0.04em] bg-stripe-indigo text-marble-white">INSTALL HERMES</a>
+  </div>
+
+  <main>
+    <!-- HERO -->
+    <section data-dark-section class="relative w-full overflow-hidden" style="min-height: 70vh; background-color: #2A2A2E;">
+      <div class="absolute inset-0 opacity-20 pointer-events-none">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="hero-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+              <circle cx="30" cy="30" r="1.5" fill="#D4A853" opacity="0.5" />
+              <line x1="30" y1="30" x2="90" y2="30" stroke="#D4A853" stroke-width="0.5" opacity="0.2" />
+              <line x1="30" y1="30" x2="30" y2="90" stroke="#D4A853" stroke-width="0.5" opacity="0.2" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#hero-grid)" />
+        </svg>
+      </div>
+
+      <div class="relative z-10 mx-auto px-6 flex flex-col items-center justify-center text-center" style="max-width: var(--container-narrow); min-height: 70vh; padding-top: 120px; padding-bottom: 4rem;">
+        <span class="animate-on-scroll inline-block text-xs font-semibold tracking-[0.16em] mb-6" style="color: #FFB800;">THE ASSEMBLY</span>
+
+        <h1 class="animate-on-scroll delay-1 font-cinzel text-[clamp(2.5rem,6vw,5rem)] font-normal leading-[1.05] tracking-[0.06em] mb-6" style="color: #F7F5F0;">
+          <span class="inline-block mr-[0.3em]">MEET</span>
+          <span class="inline-block mr-[0.3em]">YOUR</span>
+          <span class="inline-block">HEROES</span>
+        </h1>
+
+        <div class="hero-divider w-12 h-0.5 mb-6" style="background-color: #FFB800;"></div>
+
+        <p class="animate-on-scroll delay-2 text-base md:text-lg leading-relaxed mb-10 max-w-[640px]" style="color: rgba(247,245,240,0.6);">
+          Seven specialized agents. One unified purpose. Each hero brings a unique archetype, skillset, and personality to your enterprise — working together through The Partenon to transform how you operate.
+        </p>
+
+        <div class="heroes-quick-nav flex items-center justify-center gap-4 md:gap-5 flex-wrap">
+          <a href="#scribe" class="quick-nav-item group relative flex-shrink-0" style="transition-delay: 0.56s;">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110" style="background-color: rgba(74,144,164,0.12); border: 2px solid rgba(74,144,164,0.25);">
+              <img src="assets/hero-scribe-icon.png" alt="The Scribe" class="w-6 h-6 object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+            </div>
+            <span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[0.625rem] font-medium tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap" style="color: #4A90A4;">SCRIBE</span>
+          </a>
+          <a href="#herald" class="quick-nav-item group relative flex-shrink-0" style="transition-delay: 0.64s;">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110" style="background-color: rgba(155,89,182,0.12); border: 2px solid rgba(155,89,182,0.25);">
+              <img src="assets/hero-herald-icon.png" alt="The Herald" class="w-6 h-6 object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+            </div>
+            <span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[0.625rem] font-medium tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap" style="color: #9B59B6;">HERALD</span>
+          </a>
+          <a href="#collector" class="quick-nav-item group relative flex-shrink-0" style="transition-delay: 0.72s;">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110" style="background-color: rgba(99,91,255,0.12); border: 2px solid rgba(99,91,255,0.25);">
+              <img src="assets/hero-collector-icon.png" alt="The Collector" class="w-6 h-6 object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+            </div>
+            <span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[0.625rem] font-medium tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap" style="color: #635BFF;">COLLECTOR</span>
+          </a>
+          <a href="#guardian" class="quick-nav-item group relative flex-shrink-0" style="transition-delay: 0.80s;">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110" style="background-color: rgba(118,185,0,0.12); border: 2px solid rgba(118,185,0,0.25);">
+              <img src="assets/hero-guardian-icon.png" alt="The Guardian" class="w-6 h-6 object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+            </div>
+            <span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[0.625rem] font-medium tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap" style="color: #76B900;">GUARDIAN</span>
+          </a>
+          <a href="#strategist" class="quick-nav-item group relative flex-shrink-0" style="transition-delay: 0.88s;">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110" style="background-color: rgba(255,184,0,0.12); border: 2px solid rgba(255,184,0,0.25);">
+              <img src="assets/hero-strategist-icon.png" alt="The Strategist" class="w-6 h-6 object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+            </div>
+            <span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[0.625rem] font-medium tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap" style="color: #FFB800;">STRATEGIST</span>
+          </a>
+          <a href="#diplomat" class="quick-nav-item group relative flex-shrink-0" style="transition-delay: 0.96s;">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110" style="background-color: rgba(231,76,60,0.12); border: 2px solid rgba(231,76,60,0.25);">
+              <img src="assets/hero-diplomat-icon.png" alt="The Diplomat" class="w-6 h-6 object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+            </div>
+            <span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[0.625rem] font-medium tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap" style="color: #E74C3C;">DIPLOMAT</span>
+          </a>
+          <a href="#brain" class="quick-nav-item group relative flex-shrink-0" style="transition-delay: 1.04s;">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110" style="background-color: rgba(212,168,83,0.12); border: 2px solid rgba(212,168,83,0.25);">
+              <img src="assets/hero-brain-icon.png" alt="The Brain" class="w-6 h-6 object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+            </div>
+            <span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[0.625rem] font-medium tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap" style="color: #D4A853;">BRAIN</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE SCRIBE -->
+    <section id="scribe" class="hero-card-section w-full" style="background-color: #F7F5F0; padding: 5rem 0;">
+      <div class="mx-auto px-6" style="max-width: var(--container-max);">
+        <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+          <div class="hero-illustration w-full lg:w-[35%] flex flex-col items-center text-center animate-on-scroll">
+            <div class="w-64 h-64 md:w-80 md:h-80 rounded-full flex items-center justify-center mb-6" style="background-color: rgba(74,144,164,0.06);">
+              <img src="assets/hero-scribe-icon.png" alt="The Scribe" class="w-52 h-52 md:w-64 md:h-64 object-contain" />
+            </div>
+            <h3 class="font-cinzel text-xl md:text-2xl tracking-[0.04em] mb-2" style="color: #4A90A4;">THE SCRIBE</h3>
+            <p class="text-sm" style="color: #6B6B73;">Guardian of the Ledger</p>
+          </div>
+
+          <div class="hero-content-blocks w-full lg:w-[65%]">
+            <span class="animate-on-scroll text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #4A90A4;">HERO PROFILE</span>
+            <h2 class="animate-on-scroll delay-1 font-cinzel text-[clamp(1.75rem,3.5vw,3rem)] font-normal tracking-[0.06em] mb-3" style="color: #2A2A2E;">THE SCRIBE</h2>
+            <div class="animate-on-scroll delay-1 w-12 h-0.5 mb-5" style="background-color: #4A90A4;"></div>
+            <p class="animate-on-scroll delay-2 text-base leading-relaxed mb-8" style="color: #6B6B73;">
+              The Scribe embodies the archetype of the meticulous record-keeper — the one who sees order in chaos and transforms raw data into strategic clarity. Every number tells a story, and The Scribe is the storyteller.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+              <div class="capability-card animate-on-scroll delay-3 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(74,144,164,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #4A90A4;">Financial Modeling</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Builds complete financial models from scratch. Tracks fixed costs, variable costs, margins, and projections. Creates .finance files — standardized financial blueprints for any business type.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-4 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(74,144,164,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #4A90A4;">Dashboard Creation</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Designs real-time dashboards in Google Sheets that update automatically. Visual charts, KPI trackers, and executive summaries that evolve as your business grows.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-5 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(74,144,164,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #4A90A4;">Data Analysis</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Analyzes business data to identify trends, anomalies, and opportunities. From sales patterns to cost inefficiencies — The Scribe finds what others miss.</p>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <span class="text-xs font-semibold tracking-[0.12em] mb-3 block" style="color: #6B6B73;">TOOLS</span>
+              <div class="flex flex-wrap gap-2">
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(74,144,164,0.25); color: #4A90A4; background-color: rgba(74,144,164,0.03);">Google Sheets</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(74,144,164,0.25); color: #4A90A4; background-color: rgba(74,144,164,0.03);">Google Drive</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(74,144,164,0.25); color: #4A90A4; background-color: rgba(74,144,164,0.03);">.finance Files</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(74,144,164,0.25); color: #4A90A4; background-color: rgba(74,144,164,0.03);">Pivot Tables</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(74,144,164,0.25); color: #4A90A4; background-color: rgba(74,144,164,0.03);">Query Functions</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(74,144,164,0.25); color: #4A90A4; background-color: rgba(74,144,164,0.03);">Data Visualization</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(74,144,164,0.25); color: #4A90A4; background-color: rgba(74,144,164,0.03);">Forecasting</span>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <span class="text-xs font-semibold tracking-[0.12em] mb-3 block" style="color: #6B6B73;">WORKS CLOSELY WITH</span>
+              <div class="flex items-center gap-4 flex-wrap">
+                <div class="flex items-center gap-2">
+                  <img src="assets/hero-herald-icon.png" alt="The Herald" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid rgba(155,89,182,0.25);" />
+                  <span class="text-sm" style="color: #6B6B73;">The Herald</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <img src="assets/hero-collector-icon.png" alt="The Collector" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid rgba(99,91,255,0.25);" />
+                  <span class="text-sm" style="color: #6B6B73;">The Collector</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <img src="assets/hero-brain-icon.png" alt="The Brain" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid rgba(212,168,83,0.25);" />
+                  <span class="text-sm" style="color: #6B6B73;">The Brain</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <span class="text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #6B6B73;">MCP CONNECTIONS</span>
+              <span class="inline-flex items-center gap-1.5 text-sm font-mono" style="color: #4A90A4;">
+                <span class="material-symbols-sharp">bolt</span>
+                Google Workspace integration
+              </span>
+            </div>
+
+            <blockquote class="pl-6 py-1 border-l-[3px]" style="border-left-color: #4A90A4;">
+              <p class="text-sm italic leading-relaxed" style="color: #6B6B73;">A cafe owner needs to understand their true profitability. The Scribe receives their expense data, creates a .finance file categorizing all costs (rent, supplies, labor, marketing), builds a dashboard showing daily break-even point, and alerts when margins drop below target.</p>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE HERALD -->
+    <section id="herald" class="hero-card-section w-full" style="background-color: #EDE8DF; padding: 5rem 0;">
+      <div class="mx-auto px-6" style="max-width: var(--container-max);">
+        <div class="flex flex-col lg:flex-row-reverse gap-12 lg:gap-16 items-start">
+          <div class="hero-illustration w-full lg:w-[35%] flex flex-col items-center text-center animate-on-scroll">
+            <div class="w-64 h-64 md:w-80 md:h-80 rounded-full flex items-center justify-center mb-6" style="background-color: rgba(155,89,182,0.06);">
+              <img src="assets/hero-herald-icon.png" alt="The Herald" class="w-52 h-52 md:w-64 md:h-64 object-contain" />
+            </div>
+            <h3 class="font-cinzel text-xl md:text-2xl tracking-[0.04em] mb-2" style="color: #9B59B6;">THE HERALD</h3>
+            <p class="text-sm" style="color: #6B6B73;">Voice of the Brand</p>
+          </div>
+
+          <div class="hero-content-blocks w-full lg:w-[65%]">
+            <span class="animate-on-scroll text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #9B59B6;">HERO PROFILE</span>
+            <h2 class="animate-on-scroll delay-1 font-cinzel text-[clamp(1.75rem,3.5vw,3rem)] font-normal tracking-[0.06em] mb-3" style="color: #2A2A2E;">THE HERALD</h2>
+            <div class="animate-on-scroll delay-1 w-12 h-0.5 mb-5" style="background-color: #9B59B6;"></div>
+            <p class="animate-on-scroll delay-2 text-base leading-relaxed mb-8" style="color: #6B6B73;">
+              The Herald is the voice of your brand — the communicator who ensures your message reaches the right people at the right time. Persuasive, creative, and relentlessly focused on growth.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+              <div class="capability-card animate-on-scroll delay-3 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(155,89,182,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #9B59B6;">Brand Strategy</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Develops complete brand identities — voice, tone, visual guidelines, messaging frameworks. Creates .design files that serve as the brand bible for all other heroes.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-4 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(155,89,182,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #9B59B6;">Social Media Management</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Plans, creates, and schedules content across all platforms. Monitors engagement, responds to trends, and builds community — all aligned with your brand strategy.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-5 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(155,89,182,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #9B59B6;">SEO &amp; GEO</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Optimizes for both traditional search (SEO) and generative engine optimization (GEO). Ensures your business is found whether customers search on Google or ask AI assistants.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-6 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(155,89,182,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #9B59B6;">Campaign Management</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Designs and executes marketing campaigns — from product launches to seasonal promotions. Tracks ROI, A/B tests messaging, and scales what works.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-7 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(155,89,182,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #9B59B6;">Content Calendar</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Maintains a living content calendar that coordinates all marketing activities. Ensures no opportunity is missed and no message conflicts.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-7 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(155,89,182,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #9B59B6;">Client Presentations</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Creates pitch decks, proposals, and presentations that win business. Professional, on-brand, and persuasive.</p>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <span class="text-xs font-semibold tracking-[0.12em] mb-3 block" style="color: #6B6B73;">TOOLS</span>
+              <div class="flex flex-wrap gap-2">
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(155,89,182,0.25); color: #9B59B6; background-color: rgba(155,89,182,0.03);">Instagram</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(155,89,182,0.25); color: #9B59B6; background-color: rgba(155,89,182,0.03);">Twitter</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(155,89,182,0.25); color: #9B59B6; background-color: rgba(155,89,182,0.03);">LinkedIn</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(155,89,182,0.25); color: #9B59B6; background-color: rgba(155,89,182,0.03);">Mailchimp</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(155,89,182,0.25); color: #9B59B6; background-color: rgba(155,89,182,0.03);">.design Files</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(155,89,182,0.25); color: #9B59B6; background-color: rgba(155,89,182,0.03);">SEO Tools</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(155,89,182,0.25); color: #9B59B6; background-color: rgba(155,89,182,0.03);">Content Calendar</span>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <span class="text-xs font-semibold tracking-[0.12em] mb-3 block" style="color: #6B6B73;">WORKS CLOSELY WITH</span>
+              <div class="flex items-center gap-4 flex-wrap">
+                <div class="flex items-center gap-2">
+                  <img src="assets/hero-scribe-icon.png" alt="The Scribe" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid rgba(74,144,164,0.25);" />
+                  <span class="text-sm" style="color: #6B6B73;">The Scribe</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <img src="assets/hero-diplomat-icon.png" alt="The Diplomat" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid rgba(231,76,60,0.25);" />
+                  <span class="text-sm" style="color: #6B6B73;">The Diplomat</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <img src="assets/hero-brain-icon.png" alt="The Brain" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid rgba(212,168,83,0.25);" />
+                  <span class="text-sm" style="color: #6B6B73;">The Brain</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <span class="text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #6B6B73;">MCP CONNECTIONS</span>
+              <span class="inline-flex items-center gap-1.5 text-sm font-mono" style="color: #9B59B6;">
+                <span class="material-symbols-sharp">bolt</span>
+                Social media APIs, Open Design
+              </span>
+            </div>
+
+            <blockquote class="pl-6 py-1 border-l-[3px]" style="border-left-color: #9B59B6;">
+              <p class="text-sm italic leading-relaxed" style="color: #6B6B73;">A construction company wants to attract more residential clients. The Herald interviews the founder to understand their unique value, creates a .design file capturing the brand essence, builds a 6-month content strategy with weekly social posts, and launches a targeted local SEO campaign.</p>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE COLLECTOR -->
+    <section id="collector" class="hero-card-section w-full" style="background-color: #F7F5F0; padding: 5rem 0;">
+      <div class="mx-auto px-6" style="max-width: var(--container-max);">
+        <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+          <div class="hero-illustration w-full lg:w-[35%] flex flex-col items-center text-center animate-on-scroll">
+            <div class="w-64 h-64 md:w-80 md:h-80 rounded-full flex items-center justify-center mb-6" style="background-color: rgba(99,91,255,0.06);">
+              <img src="assets/hero-collector-icon.png" alt="The Collector" class="w-52 h-52 md:w-64 md:h-64 object-contain" />
+            </div>
+            <h3 class="font-cinzel text-xl md:text-2xl tracking-[0.04em] mb-2" style="color: #635BFF;">THE COLLECTOR</h3>
+            <p class="text-sm" style="color: #6B6B73;">Keeper of Payments</p>
+          </div>
+
+          <div class="hero-content-blocks w-full lg:w-[65%]">
+            <span class="animate-on-scroll text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #635BFF;">HERO PROFILE</span>
+            <h2 class="animate-on-scroll delay-1 font-cinzel text-[clamp(1.75rem,3.5vw,3rem)] font-normal tracking-[0.06em] mb-3" style="color: #2A2A2E;">THE COLLECTOR</h2>
+            <div class="animate-on-scroll delay-1 w-12 h-0.5 mb-5" style="background-color: #635BFF;"></div>
+            <p class="animate-on-scroll delay-2 text-base leading-relaxed mb-8" style="color: #6B6B73;">
+              The Collector is the financial gatekeeper — ensuring every transaction is processed, every invoice is sent, and every dollar is accounted for. Built on Stripe, trusted by businesses worldwide.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+              <div class="capability-card animate-on-scroll delay-3 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(99,91,255,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #635BFF;">Payment Processing</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Handles all Stripe payment flows — one-time purchases, subscriptions, installments. Configures payment methods, currencies, and checkout experiences.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-4 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(99,91,255,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #635BFF;">Invoicing</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Generates and sends professional invoices automatically. Tracks payment status, sends reminders, and reconciles received payments.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-5 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(99,91,255,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #635BFF;">Subscription Management</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Manages recurring billing, plan changes, prorations, and cancellations. Handles free trials, upgrades, and downgrades seamlessly.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-6 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(99,91,255,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #635BFF;">Revenue Tracking</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Real-time revenue dashboards connected to your Stripe account. MRR, ARR, churn rate, LTV — all tracked and reported.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-7 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(99,91,255,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #635BFF;">Financial Reconciliation</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Reconciles Stripe transactions with your accounting system. Catches discrepancies and ensures your books are always accurate.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-7 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(99,91,255,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #635BFF;">Fraud Monitoring</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Monitors transactions for suspicious patterns. Alerts on unusual activity and implements Stripe fraud prevention tools.</p>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <span class="text-xs font-semibold tracking-[0.12em] mb-3 block" style="color: #6B6B73;">TOOLS</span>
+              <div class="flex flex-wrap gap-2">
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(99,91,255,0.25); color: #635BFF; background-color: rgba(99,91,255,0.03);">Stripe API</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(99,91,255,0.25); color: #635BFF; background-color: rgba(99,91,255,0.03);">Stripe Dashboard</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(99,91,255,0.25); color: #635BFF; background-color: rgba(99,91,255,0.03);">Payment Links</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(99,91,255,0.25); color: #635BFF; background-color: rgba(99,91,255,0.03);">Checkout</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(99,91,255,0.25); color: #635BFF; background-color: rgba(99,91,255,0.03);">Billing</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(99,91,255,0.25); color: #635BFF; background-color: rgba(99,91,255,0.03);">Invoicing</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(99,91,255,0.25); color: #635BFF; background-color: rgba(99,91,255,0.03);">Connect</span>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <span class="text-xs font-semibold tracking-[0.12em] mb-3 block" style="color: #6B6B73;">WORKS CLOSELY WITH</span>
+              <div class="flex items-center gap-4 flex-wrap">
+                <div class="flex items-center gap-2">
+                  <img src="assets/hero-scribe-icon.png" alt="The Scribe" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid rgba(74,144,164,0.25);" />
+                  <span class="text-sm" style="color: #6B6B73;">The Scribe</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <img src="assets/hero-strategist-icon.png" alt="The Strategist" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid rgba(255,184,0,0.25);" />
+                  <span class="text-sm" style="color: #6B6B73;">The Strategist</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <img src="assets/hero-brain-icon.png" alt="The Brain" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid rgba(212,168,83,0.25);" />
+                  <span class="text-sm" style="color: #6B6B73;">The Brain</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <span class="text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #6B6B73;">MCP CONNECTIONS</span>
+              <span class="inline-flex items-center gap-1.5 text-sm font-mono" style="color: #635BFF;">
+                <span class="material-symbols-sharp">bolt</span>
+                Stripe integration
+              </span>
+            </div>
+
+            <blockquote class="pl-6 py-1 border-l-[3px]" style="border-left-color: #635BFF;">
+              <p class="text-sm italic leading-relaxed" style="color: #6B6B73;">A coworking space sells day passes, monthly memberships, and meeting room bookings. The Collector sets up Stripe Checkout for each product type, configures subscription billing for memberships, creates an automated invoicing system for corporate clients, and builds a revenue dashboard.</p>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE GUARDIAN -->
+    <section id="guardian" class="hero-card-section w-full" style="background-color: #EDE8DF; padding: 5rem 0;">
+      <div class="mx-auto px-6" style="max-width: var(--container-max);">
+        <div class="flex flex-col lg:flex-row-reverse gap-12 lg:gap-16 items-start">
+          <div class="hero-illustration w-full lg:w-[35%] flex flex-col items-center text-center animate-on-scroll">
+            <div class="w-64 h-64 md:w-80 md:h-80 rounded-full flex items-center justify-center mb-6" style="background-color: rgba(118,185,0,0.06);">
+              <img src="assets/hero-guardian-icon.png" alt="The Guardian" class="w-52 h-52 md:w-64 md:h-64 object-contain" />
+            </div>
+            <h3 class="font-cinzel text-xl md:text-2xl tracking-[0.04em] mb-2" style="color: #76B900;">THE GUARDIAN</h3>
+            <p class="text-sm" style="color: #6B6B73;">Protector of the Realm</p>
+          </div>
+
+          <div class="hero-content-blocks w-full lg:w-[65%]">
+            <span class="animate-on-scroll text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #76B900;">HERO PROFILE</span>
+            <h2 class="animate-on-scroll delay-1 font-cinzel text-[clamp(1.75rem,3.5vw,3rem)] font-normal tracking-[0.06em] mb-3" style="color: #2A2A2E;">THE GUARDIAN</h2>
+            <div class="animate-on-scroll delay-1 w-12 h-0.5 mb-5" style="background-color: #76B900;"></div>
+            <p class="animate-on-scroll delay-2 text-base leading-relaxed mb-8" style="color: #6B6B73;">
+              The Guardian protects your digital realm. From API keys to model access, from security protocols to system integrity — nothing enters or leaves The Partenon without The Guardian's watch.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+              <div class="capability-card animate-on-scroll delay-3 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(118,185,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #76B900;">API Key Management</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Securely stores and manages all API keys — NVIDIA, OpenAI, social platforms, and custom integrations. Rotates keys, monitors usage, and prevents exposure.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-4 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(118,185,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #76B900;">Model Administration</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Manages access to AI models across the system. Configures which heroes use which models, optimizes for cost and performance, and tracks token usage.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-5 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(118,185,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #76B900;">Security Protocols</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Implements security best practices — encryption, access control, audit logging. Ensures The Partenon meets enterprise security standards.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-6 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(118,185,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #76B900;">NVIDIA Integration</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Manages NVIDIA API connections, GPU allocation for model inference, and security configurations specific to NVIDIA services.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-7 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(118,185,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #76B900;">Access Control</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Defines permissions for each hero and user. Role-based access ensures heroes can only reach the data and tools they need.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-7 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(118,185,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #76B900;">Audit &amp; Compliance</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Maintains logs of all actions across The Partenon. Generates compliance reports and identifies security anomalies.</p>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <span class="text-xs font-semibold tracking-[0.12em] mb-3 block" style="color: #6B6B73;">TOOLS</span>
+              <div class="flex flex-wrap gap-2">
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(118,185,0,0.25); color: #76B900; background-color: rgba(118,185,0,0.03);">NVIDIA Platform</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(118,185,0,0.25); color: #76B900; background-color: rgba(118,185,0,0.03);">API Key Manager</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(118,185,0,0.25); color: #76B900; background-color: rgba(118,185,0,0.03);">Security Dashboard</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(118,185,0,0.25); color: #76B900; background-color: rgba(118,185,0,0.03);">Encryption</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(118,185,0,0.25); color: #76B900; background-color: rgba(118,185,0,0.03);">Access Control</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(118,185,0,0.25); color: #76B900; background-color: rgba(118,185,0,0.03);">MCP Security</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(118,185,0,0.25); color: #76B900; background-color: rgba(118,185,0,0.03);">Audit Logs</span>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <span class="text-xs font-semibold tracking-[0.12em] mb-3 block" style="color: #6B6B73;">WORKS CLOSELY WITH</span>
+              <div class="flex items-center gap-4 flex-wrap">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background-color: rgba(118,185,0,0.12); border: 2px solid rgba(118,185,0,0.25);">
+                    <span class="text-xs font-bold" style="color: #76B900;">A</span>
+                  </div>
+                  <span class="text-sm" style="color: #6B6B73;">All Heroes</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <img src="assets/hero-brain-icon.png" alt="The Brain" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid rgba(212,168,83,0.25);" />
+                  <span class="text-sm" style="color: #6B6B73;">The Brain</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <span class="text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #6B6B73;">MCP CONNECTIONS</span>
+              <span class="inline-flex items-center gap-1.5 text-sm font-mono" style="color: #76B900;">
+                <span class="material-symbols-sharp">bolt</span>
+                NVIDIA integration
+              </span>
+            </div>
+
+            <blockquote class="pl-6 py-1 border-l-[3px]" style="border-left-color: #76B900;">
+              <p class="text-sm italic leading-relaxed" style="color: #6B6B73;">A marketing agency uses multiple AI models and has API keys for five different platforms. The Guardian creates a secure vault for all credentials, sets up role-based access so each hero only sees what it needs, configures NVIDIA for optimal inference costs, and establishes audit logging.</p>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE STRATEGIST -->
+    <section id="strategist" class="hero-card-section w-full" style="background-color: #F7F5F0; padding: 5rem 0;">
+      <div class="mx-auto px-6" style="max-width: var(--container-max);">
+        <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+          <div class="hero-illustration w-full lg:w-[35%] flex flex-col items-center text-center animate-on-scroll">
+            <div class="w-64 h-64 md:w-80 md:h-80 rounded-full flex items-center justify-center mb-6" style="background-color: rgba(255,184,0,0.06);">
+              <img src="assets/hero-strategist-icon.png" alt="The Strategist" class="w-52 h-52 md:w-64 md:h-64 object-contain" />
+            </div>
+            <h3 class="font-cinzel text-xl md:text-2xl tracking-[0.04em] mb-2" style="color: #FFB800;">THE STRATEGIST</h3>
+            <p class="text-sm" style="color: #6B6B73;">Master of Operations</p>
+          </div>
+
+          <div class="hero-content-blocks w-full lg:w-[65%]">
+            <span class="animate-on-scroll text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #FFB800;">HERO PROFILE</span>
+            <h2 class="animate-on-scroll delay-1 font-cinzel text-[clamp(1.75rem,3.5vw,3rem)] font-normal tracking-[0.06em] mb-3" style="color: #2A2A2E;">THE STRATEGIST</h2>
+            <div class="animate-on-scroll delay-1 w-12 h-0.5 mb-5" style="background-color: #FFB800;"></div>
+            <p class="animate-on-scroll delay-2 text-base leading-relaxed mb-8" style="color: #6B6B73;">
+              The Strategist is the operational mind — the one who sees the big picture while tracking every detail. Project manager, calendar wizard, and the hero who ensures nothing falls through the cracks.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+              <div class="capability-card animate-on-scroll delay-3 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(255,184,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #FFB800;">Project Management</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Orchestrates complex projects across multiple heroes. Creates timelines, assigns tasks, tracks progress, and ensures deadlines are met.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-4 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(255,184,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #FFB800;">Calendar Management</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Manages Google Calendar for the entire team — scheduling meetings, blocking focus time, coordinating across time zones, and sending reminders.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-5 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(255,184,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #FFB800;">Task Orchestration</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Breaks down high-level goals into actionable tasks, assigns them to the right heroes, and monitors completion. The central coordination hub.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-6 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(255,184,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #FFB800;">Email Management</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Organizes inbox, drafts responses, flags priorities, and ensures important communications are never missed.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-7 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(255,184,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #FFB800;">Operations Oversight</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Monitors the health of all business operations. Identifies bottlenecks, suggests process improvements, and maintains operational standards.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-7 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(255,184,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #FFB800;">Note &amp; Detail Tracking</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Remembers the details that matter — client preferences, project nuances, follow-up items. Ask "What did we discuss with Client X?" and The Strategist knows.</p>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <span class="text-xs font-semibold tracking-[0.12em] mb-3 block" style="color: #6B6B73;">TOOLS</span>
+              <div class="flex flex-wrap gap-2">
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(255,184,0,0.25); color: #FFB800; background-color: rgba(255,184,0,0.03);">Google Calendar</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(255,184,0,0.25); color: #FFB800; background-color: rgba(255,184,0,0.03);">Google Tasks</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(255,184,0,0.25); color: #FFB800; background-color: rgba(255,184,0,0.03);">Notion</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(255,184,0,0.25); color: #FFB800; background-color: rgba(255,184,0,0.03);">Project Management Suite</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(255,184,0,0.25); color: #FFB800; background-color: rgba(255,184,0,0.03);">Email</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(255,184,0,0.25); color: #FFB800; background-color: rgba(255,184,0,0.03);">Notes</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(255,184,0,0.25); color: #FFB800; background-color: rgba(255,184,0,0.03);">Reminders</span>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <span class="text-xs font-semibold tracking-[0.12em] mb-3 block" style="color: #6B6B73;">WORKS CLOSELY WITH</span>
+              <div class="flex items-center gap-4 flex-wrap">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background-color: rgba(255,184,0,0.12); border: 2px solid rgba(255,184,0,0.25);">
+                    <span class="text-xs font-bold" style="color: #FFB800;">A</span>
+                  </div>
+                  <span class="text-sm" style="color: #6B6B73;">All Heroes</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <img src="assets/hero-diplomat-icon.png" alt="The Diplomat" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid rgba(231,76,60,0.25);" />
+                  <span class="text-sm" style="color: #6B6B73;">The Diplomat</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <img src="assets/hero-collector-icon.png" alt="The Collector" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid rgba(99,91,255,0.25);" />
+                  <span class="text-sm" style="color: #6B6B73;">The Collector</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <span class="text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #6B6B73;">MCP CONNECTIONS</span>
+              <span class="inline-flex items-center gap-1.5 text-sm font-mono" style="color: #FFB800;">
+                <span class="material-symbols-sharp">bolt</span>
+                Google Workspace integration, Calendar integration
+              </span>
+            </div>
+
+            <blockquote class="pl-6 py-1 border-l-[3px]" style="border-left-color: #FFB800;">
+              <p class="text-sm italic leading-relaxed" style="color: #6B6B73;">A design agency juggles 12 client projects simultaneously. The Strategist creates a master project timeline in Google Calendar, assigns weekly tasks to each hero, sends daily briefings to the founder, and flags when a project is at risk of missing its deadline.</p>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE DIPLOMAT -->
+    <section id="diplomat" class="hero-card-section w-full" style="background-color: #EDE8DF; padding: 5rem 0;">
+      <div class="mx-auto px-6" style="max-width: var(--container-max);">
+        <div class="flex flex-col lg:flex-row-reverse gap-12 lg:gap-16 items-start">
+          <div class="hero-illustration w-full lg:w-[35%] flex flex-col items-center text-center animate-on-scroll">
+            <div class="w-64 h-64 md:w-80 md:h-80 rounded-full flex items-center justify-center mb-6" style="background-color: rgba(231,76,60,0.06);">
+              <img src="assets/hero-diplomat-icon.png" alt="The Diplomat" class="w-52 h-52 md:w-64 md:h-64 object-contain" />
+            </div>
+            <h3 class="font-cinzel text-xl md:text-2xl tracking-[0.04em] mb-2" style="color: #E74C3C;">THE DIPLOMAT</h3>
+            <p class="text-sm" style="color: #6B6B73;">Bridge Between Worlds</p>
+          </div>
+
+          <div class="hero-content-blocks w-full lg:w-[65%]">
+            <span class="animate-on-scroll text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #E74C3C;">HERO PROFILE</span>
+            <h2 class="animate-on-scroll delay-1 font-cinzel text-[clamp(1.75rem,3.5vw,3rem)] font-normal tracking-[0.06em] mb-3" style="color: #2A2A2E;">THE DIPLOMAT</h2>
+            <div class="animate-on-scroll delay-1 w-12 h-0.5 mb-5" style="background-color: #E74C3C;"></div>
+            <p class="animate-on-scroll delay-2 text-base leading-relaxed mb-8" style="color: #6B6B73;">
+              The Diplomat has two faces — one for your clients, one for your team — and both are committed to harmony. The bridge between worlds who ensures everyone is heard, aligned, and moving forward together.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+              <div class="capability-card animate-on-scroll delay-3 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(231,76,60,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #E74C3C;">Client Relationship Management</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Maintains detailed client profiles, tracks all interactions, manages follow-ups, and ensures no client feels forgotten.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-4 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(231,76,60,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #E74C3C;">Vendor Coordination</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Manages relationships with suppliers, contractors, and service providers. Tracks deliverables, handles disputes, and maintains vendor scorecards.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-5 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(231,76,60,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #E74C3C;">Communication Bridge</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Translates between internal teams and external stakeholders. Ensures client expectations align with operational capabilities.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-6 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(231,76,60,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #E74C3C;">Meeting Facilitation</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Prepares agendas, takes notes, assigns action items, and follows up after every meeting — internal or external.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-7 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(231,76,60,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #E74C3C;">Conflict Resolution</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Identifies misalignments between client needs and team capacity. Proposes solutions that satisfy both sides.</p>
+              </div>
+              <div class="capability-card animate-on-scroll delay-7 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(231,76,60,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #E74C3C;">Partnership Management</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Manages strategic partnerships and collaborations. Tracks partnership health and identifies expansion opportunities.</p>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <span class="text-xs font-semibold tracking-[0.12em] mb-3 block" style="color: #6B6B73;">TOOLS</span>
+              <div class="flex flex-wrap gap-2">
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(231,76,60,0.25); color: #E74C3C; background-color: rgba(231,76,60,0.03);">CRM Systems</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(231,76,60,0.25); color: #E74C3C; background-color: rgba(231,76,60,0.03);">Email</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(231,76,60,0.25); color: #E74C3C; background-color: rgba(231,76,60,0.03);">Calendar</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(231,76,60,0.25); color: #E74C3C; background-color: rgba(231,76,60,0.03);">Meeting Notes</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(231,76,60,0.25); color: #E74C3C; background-color: rgba(231,76,60,0.03);">Follow-up System</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(231,76,60,0.25); color: #E74C3C; background-color: rgba(231,76,60,0.03);">Communication Log</span>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <span class="text-xs font-semibold tracking-[0.12em] mb-3 block" style="color: #6B6B73;">WORKS CLOSELY WITH</span>
+              <div class="flex items-center gap-4 flex-wrap">
+                <div class="flex items-center gap-2">
+                  <img src="assets/hero-herald-icon.png" alt="The Herald" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid rgba(155,89,182,0.25);" />
+                  <span class="text-sm" style="color: #6B6B73;">The Herald</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <img src="assets/hero-strategist-icon.png" alt="The Strategist" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid rgba(255,184,0,0.25);" />
+                  <span class="text-sm" style="color: #6B6B73;">The Strategist</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <img src="assets/hero-scribe-icon.png" alt="The Scribe" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid rgba(74,144,164,0.25);" />
+                  <span class="text-sm" style="color: #6B6B73;">The Scribe</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <span class="text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #6B6B73;">MCP CONNECTIONS</span>
+              <span class="inline-flex items-center gap-1.5 text-sm font-mono" style="color: #E74C3C;">
+                <span class="material-symbols-sharp">bolt</span>
+                CRM integration, Email integration
+              </span>
+            </div>
+
+            <blockquote class="pl-6 py-1 border-l-[3px]" style="border-left-color: #E74C3C;">
+              <p class="text-sm italic leading-relaxed" style="color: #6B6B73;">A software development firm has unhappy clients because the sales team promised features the dev team cannot deliver on time. The Diplomat reviews all active client communications, schedules alignment meetings, creates a transparent client communication plan, and implements a promise tracker.</p>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE BRAIN -->
+    <section id="brain" class="brain-special-section w-full" style="background-color: #F7F5F0; padding: 5rem 0;">
+      <div class="mx-auto px-6" style="max-width: var(--container-max);">
+        <div class="flex flex-col items-center text-center max-w-[800px] mx-auto">
+          <div class="brain-animate w-40 h-40 md:w-56 md:h-56 rounded-full flex items-center justify-center mb-8 animate-scale-on-scroll" style="background: radial-gradient(circle, rgba(212,168,83,0.08) 0%, transparent 70%);">
+            <img src="assets/hero-brain-icon.png" alt="The Brain" class="w-32 h-32 md:w-44 md:h-44 object-contain" />
+          </div>
+
+          <span class="brain-animate animate-on-scroll text-xs font-semibold tracking-[0.16em] mb-3" style="color: #D4A853;">CENTRAL INTELLIGENCE</span>
+          <h2 class="brain-animate animate-on-scroll delay-1 font-cinzel text-[clamp(2rem,4vw,3.5rem)] font-normal tracking-[0.06em] mb-2" style="color: #2A2A2E;">THE BRAIN</h2>
+          <h3 class="brain-animate animate-on-scroll delay-2 font-cinzel text-[clamp(1.2rem,2vw,1.75rem)] tracking-[0.04em] mb-4" style="color: #D4A853;">G-BRAIN OF GARITAN</h3>
+          <div class="brain-animate animate-on-scroll delay-2 w-16 h-0.5 mb-6" style="background-color: #D4A853;"></div>
+          <p class="brain-animate animate-on-scroll delay-3 text-base leading-relaxed mb-10 max-w-[640px]" style="color: #6B6B73;">
+            The Brain is the central intelligence of The Partenon — the connective tissue that transforms individual hero capabilities into a unified, self-improving system. Through MCP, The Brain gives every hero access to shared knowledge, cross-domain insights, and collective intelligence.
+          </p>
+
+          <div class="brain-animate animate-on-scroll delay-4 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mb-10">
+            <div class="brain-cap-card capability-card p-5 rounded-lg text-left" style="background-color: #EDE8DF; border: 1px solid rgba(212,168,83,0.12); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+              <h4 class="font-inter text-sm font-semibold mb-2" style="color: #D4A853;">Cross-Agent Analysis</h4>
+              <p class="text-sm leading-relaxed" style="color: #6B6B73;">Analyzes data from all heroes simultaneously. Identifies patterns that no single hero could see — like marketing spend correlating with payment delays.</p>
+            </div>
+            <div class="brain-cap-card capability-card p-5 rounded-lg text-left" style="background-color: #EDE8DF; border: 1px solid rgba(212,168,83,0.12); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+              <h4 class="font-inter text-sm font-semibold mb-2" style="color: #D4A853;">Pattern Recognition</h4>
+              <p class="text-sm leading-relaxed" style="color: #6B6B73;">Learns from every interaction, every mission, every outcome. Recognizes recurring business patterns and suggests proactive optimizations.</p>
+            </div>
+            <div class="brain-cap-card capability-card p-5 rounded-lg text-left" style="background-color: #EDE8DF; border: 1px solid rgba(212,168,83,0.12); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+              <h4 class="font-inter text-sm font-semibold mb-2" style="color: #D4A853;">MCP Orchestration</h4>
+              <p class="text-sm leading-relaxed" style="color: #6B6B73;">Manages the Model Context Protocol layer that connects all heroes to shared tools, data sources, and external APIs. Ensures seamless interoperability.</p>
+            </div>
+            <div class="brain-cap-card capability-card p-5 rounded-lg text-left" style="background-color: #EDE8DF; border: 1px solid rgba(212,168,83,0.12); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+              <h4 class="font-inter text-sm font-semibold mb-2" style="color: #D4A853;">Strategic Insights</h4>
+              <p class="text-sm leading-relaxed" style="color: #6B6B73;">Generates executive-level insights and recommendations. Not just data — but actionable intelligence that helps founders make better decisions.</p>
+            </div>
+          </div>
+
+          <div class="brain-animate animate-on-scroll delay-5 inline-flex items-center gap-2 rounded-full px-5 py-2.5 mb-4" style="background-color: #D4A853; color: #2A2A2E;">
+            <span class="material-symbols-sharp">bolt</span>
+            <span class="text-sm font-semibold tracking-wide">MCP POWERED</span>
+          </div>
+          <p class="brain-animate animate-on-scroll delay-6 text-sm leading-relaxed max-w-[500px]" style="color: #6B6B73;">
+            Model Context Protocol enables The Brain to connect every hero to shared context, tools, and memory — creating a true collective intelligence.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPARISON MATRIX -->
+    <section data-dark-section class="w-full" style="background-color: #2A2A2E; padding: clamp(4rem, 8vh, 8rem) 0;">
+      <div class="mx-auto px-6" style="max-width: var(--container-max);">
+        <div class="matrix-header text-center mb-12 animate-on-scroll">
+          <span class="text-xs font-semibold tracking-[0.16em] mb-4 block" style="color: #FFB800;">AT A GLANCE</span>
+          <h2 class="font-cinzel text-[clamp(1.75rem,4vw,3rem)] font-normal tracking-[0.06em] mb-4" style="color: #F7F5F0;">THE COMPLETE ROSTER</h2>
+          <p class="text-base" style="color: rgba(247,245,240,0.5);">Quick reference for what each hero brings to your enterprise.</p>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[700px]">
+            <thead>
+              <tr style="background-color: #1A1A1E;">
+                <th class="text-left px-4 py-3 font-cinzel text-xs tracking-[0.08em]" style="color: #FFB800;">HERO</th>
+                <th class="text-left px-4 py-3 font-cinzel text-xs tracking-[0.08em]" style="color: #FFB800;">PRIMARY ROLE</th>
+                <th class="text-left px-4 py-3 font-cinzel text-xs tracking-[0.08em]" style="color: #FFB800;">KEY TOOLS</th>
+                <th class="text-left px-4 py-3 font-cinzel text-xs tracking-[0.08em]" style="color: #FFB800;">WORKS WITH</th>
+                <th class="text-left px-4 py-3 font-cinzel text-xs tracking-[0.08em]" style="color: #FFB800;">BEST FOR</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="matrix-row animate-on-scroll" style="border-bottom: 1px solid rgba(247,245,240,0.06);">
+                <td class="px-4 py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-1 h-8 rounded-full" style="background-color: #4A90A4;"></div>
+                    <span class="font-cinzel text-sm tracking-[0.04em]" style="color: #F7F5F0;">The Scribe</span>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Financial Architect</td>
+                <td class="px-4 py-4 text-sm font-mono" style="color: rgba(247,245,240,0.7);">Google Sheets, .finance</td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Herald, Collector, Brain</td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Businesses needing financial clarity</td>
+              </tr>
+              <tr class="matrix-row animate-on-scroll delay-1" style="border-bottom: 1px solid rgba(247,245,240,0.06);">
+                <td class="px-4 py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-1 h-8 rounded-full" style="background-color: #9B59B6;"></div>
+                    <span class="font-cinzel text-sm tracking-[0.04em]" style="color: #F7F5F0;">The Herald</span>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Brand Communicator</td>
+                <td class="px-4 py-4 text-sm font-mono" style="color: rgba(247,245,240,0.7);">Social APIs, .design</td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Scribe, Diplomat, Brain</td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Building brand presence &amp; growth</td>
+              </tr>
+              <tr class="matrix-row animate-on-scroll delay-2" style="border-bottom: 1px solid rgba(247,245,240,0.06);">
+                <td class="px-4 py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-1 h-8 rounded-full" style="background-color: #635BFF;"></div>
+                    <span class="font-cinzel text-sm tracking-[0.04em]" style="color: #F7F5F0;">The Collector</span>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Payment Guardian</td>
+                <td class="px-4 py-4 text-sm font-mono" style="color: rgba(247,245,240,0.7);">Stripe API</td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Scribe, Strategist, Brain</td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Processing payments &amp; revenue tracking</td>
+              </tr>
+              <tr class="matrix-row animate-on-scroll delay-3" style="border-bottom: 1px solid rgba(247,245,240,0.06);">
+                <td class="px-4 py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-1 h-8 rounded-full" style="background-color: #76B900;"></div>
+                    <span class="font-cinzel text-sm tracking-[0.04em]" style="color: #F7F5F0;">The Guardian</span>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Security Sentinel</td>
+                <td class="px-4 py-4 text-sm font-mono" style="color: rgba(247,245,240,0.7);">NVIDIA APIs, MCP Security</td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">All Heroes, Brain</td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Securing systems &amp; managing AI models</td>
+              </tr>
+              <tr class="matrix-row animate-on-scroll delay-4" style="border-bottom: 1px solid rgba(247,245,240,0.06);">
+                <td class="px-4 py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-1 h-8 rounded-full" style="background-color: #FFB800;"></div>
+                    <span class="font-cinzel text-sm tracking-[0.04em]" style="color: #F7F5F0;">The Strategist</span>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Operations Master</td>
+                <td class="px-4 py-4 text-sm font-mono" style="color: rgba(247,245,240,0.7);">Google Calendar, PM</td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">All Heroes, Diplomat</td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Project management &amp; coordination</td>
+              </tr>
+              <tr class="matrix-row animate-on-scroll delay-5" style="border-bottom: 1px solid rgba(247,245,240,0.06);">
+                <td class="px-4 py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-1 h-8 rounded-full" style="background-color: #E74C3C;"></div>
+                    <span class="font-cinzel text-sm tracking-[0.04em]" style="color: #F7F5F0;">The Diplomat</span>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Relations Bridge</td>
+                <td class="px-4 py-4 text-sm font-mono" style="color: rgba(247,245,240,0.7);">CRM, Email</td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Herald, Strategist, Brain</td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Client &amp; vendor relationship management</td>
+              </tr>
+              <tr class="matrix-row animate-on-scroll delay-6" style="border-bottom: 1px solid rgba(247,245,240,0.06);">
+                <td class="px-4 py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-1 h-8 rounded-full" style="background-color: #D4A853;"></div>
+                    <span class="font-cinzel text-sm tracking-[0.04em]" style="color: #F7F5F0;">The Brain</span>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Central Intelligence</td>
+                <td class="px-4 py-4 text-sm font-mono" style="color: rgba(247,245,240,0.7);">MCP Protocol</td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">All Heroes</td>
+                <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Cross-agent analysis &amp; optimization</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERCONNECTED WORKFLOW -->
+    <section class="w-full" style="background-color: #EDE8DF; padding: clamp(4rem, 8vh, 8rem) 0;">
+      <div class="mx-auto px-6" style="max-width: var(--container-max);">
+        <div class="text-center mb-16">
+          <h2 class="animate-on-scroll font-cinzel text-[clamp(1.75rem,4vw,3rem)] font-normal tracking-[0.06em] mb-4" style="color: #2A2A2E;">HOW HEROES WORK TOGETHER</h2>
+          <p class="animate-on-scroll delay-1 text-base max-w-[640px] mx-auto" style="color: #6B6B73;">
+            The real power of The Partenon is not individual heroes — it is how they collaborate. Here is a real-world example of heroes coordinating on a single business mission.
+          </p>
+        </div>
+
+        <div class="text-center mb-12">
+          <span class="animate-on-scroll inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold tracking-wide" style="background-color: #635BFF; color: #F7F5F0;">
+            <span class="material-symbols-sharp">target</span>
+            PRODUCT LAUNCH MISSION
+          </span>
+        </div>
+
+        <div class="relative max-w-[800px] mx-auto">
+          <div class="workflow-line absolute left-6 md:left-8 top-0 bottom-0 w-0.5" style="background: linear-gradient(to bottom, #FFB800, #4A90A4, #9B59B6, #635BFF, #E74C3C, #76B900, #D4A853);"></div>
+
+          <div class="space-y-8">
+            <!-- Step 1 -->
+            <div class="workflow-step animate-on-scroll relative flex gap-4 md:gap-6 items-start pl-0">
+              <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #FFB800; box-shadow: 0 0 20px rgba(255,184,0,0.25);">
+                <img src="assets/hero-strategist-icon.png" alt="The Strategist" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+              </div>
+              <div class="flex-1 p-5 md:p-6 rounded-lg" style="background-color: #F7F5F0; box-shadow: 0 2px 12px rgba(42,42,46,0.06); border: 1px solid rgba(255,184,0,0.08);">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xs font-semibold tracking-[0.12em]" style="color: #FFB800;">STEP 1</span>
+                  <span class="text-xs" style="color: #6B6B73;">— The Strategist</span>
+                </div>
+                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Product Launch Project Created</h4>
+                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">The Strategist creates a project timeline, assigns deadlines, and schedules kickoff meetings with all relevant heroes.</p>
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-sharp" style="color: #FFB800; font-size: 0.875rem;">check_circle</span>
+                  <span class="text-xs font-mono" style="color: #FFB800;">Google Calendar events, task assignments</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="workflow-step animate-on-scroll delay-1 relative flex gap-4 md:gap-6 items-start pl-0">
+              <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #4A90A4; box-shadow: 0 0 20px rgba(74,144,164,0.25);">
+                <img src="assets/hero-scribe-icon.png" alt="The Scribe" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+              </div>
+              <div class="flex-1 p-5 md:p-6 rounded-lg" style="background-color: #F7F5F0; box-shadow: 0 2px 12px rgba(42,42,46,0.06); border: 1px solid rgba(74,144,164,0.08);">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xs font-semibold tracking-[0.12em]" style="color: #4A90A4;">STEP 2</span>
+                  <span class="text-xs" style="color: #6B6B73;">— The Scribe</span>
+                </div>
+                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Financial Model &amp; Pricing Built</h4>
+                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">The Scribe creates a .finance file with product cost analysis, pricing tiers, and revenue projections.</p>
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-sharp" style="color: #4A90A4; font-size: 0.875rem;">check_circle</span>
+                  <span class="text-xs font-mono" style="color: #4A90A4;">.finance file, pricing dashboard</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="workflow-step animate-on-scroll delay-2 relative flex gap-4 md:gap-6 items-start pl-0">
+              <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #9B59B6; box-shadow: 0 0 20px rgba(155,89,182,0.25);">
+                <img src="assets/hero-herald-icon.png" alt="The Herald" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+              </div>
+              <div class="flex-1 p-5 md:p-6 rounded-lg" style="background-color: #F7F5F0; box-shadow: 0 2px 12px rgba(42,42,46,0.06); border: 1px solid rgba(155,89,182,0.08);">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xs font-semibold tracking-[0.12em]" style="color: #9B59B6;">STEP 3</span>
+                  <span class="text-xs" style="color: #6B6B73;">— The Herald</span>
+                </div>
+                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Marketing Campaign Designed</h4>
+                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">The Herald references the .design file, creates campaign assets, schedules social content, and sets up SEO.</p>
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-sharp" style="color: #9B59B6; font-size: 0.875rem;">check_circle</span>
+                  <span class="text-xs font-mono" style="color: #9B59B6;">Content calendar, ad campaigns, social posts</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="workflow-step animate-on-scroll delay-3 relative flex gap-4 md:gap-6 items-start pl-0">
+              <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #635BFF; box-shadow: 0 0 20px rgba(99,91,255,0.25);">
+                <img src="assets/hero-collector-icon.png" alt="The Collector" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+              </div>
+              <div class="flex-1 p-5 md:p-6 rounded-lg" style="background-color: #F7F5F0; box-shadow: 0 2px 12px rgba(42,42,46,0.06); border: 1px solid rgba(99,91,255,0.08);">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xs font-semibold tracking-[0.12em]" style="color: #635BFF;">STEP 4</span>
+                  <span class="text-xs" style="color: #6B6B73;">— The Collector</span>
+                </div>
+                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Stripe Products &amp; Checkout Live</h4>
+                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">The Collector sets up product listings in Stripe, configures checkout flows, and tests the complete purchase journey.</p>
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-sharp" style="color: #635BFF; font-size: 0.875rem;">check_circle</span>
+                  <span class="text-xs font-mono" style="color: #635BFF;">Live payment processing</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="workflow-step animate-on-scroll delay-4 relative flex gap-4 md:gap-6 items-start pl-0">
+              <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #E74C3C; box-shadow: 0 0 20px rgba(231,76,60,0.25);">
+                <img src="assets/hero-diplomat-icon.png" alt="The Diplomat" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+              </div>
+              <div class="flex-1 p-5 md:p-6 rounded-lg" style="background-color: #F7F5F0; box-shadow: 0 2px 12px rgba(42,42,46,0.06); border: 1px solid rgba(231,76,60,0.08);">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xs font-semibold tracking-[0.12em]" style="color: #E74C3C;">STEP 5</span>
+                  <span class="text-xs" style="color: #6B6B73;">— The Diplomat</span>
+                </div>
+                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Client Outreach &amp; Follow-ups</h4>
+                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">The Diplomat reaches out to existing clients about the new product, schedules demos, and tracks conversations.</p>
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-sharp" style="color: #E74C3C; font-size: 0.875rem;">check_circle</span>
+                  <span class="text-xs font-mono" style="color: #E74C3C;">CRM updates, meeting bookings</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="workflow-step animate-on-scroll delay-5 relative flex gap-4 md:gap-6 items-start pl-0">
+              <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #76B900; box-shadow: 0 0 20px rgba(118,185,0,0.25);">
+                <img src="assets/hero-guardian-icon.png" alt="The Guardian" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+              </div>
+              <div class="flex-1 p-5 md:p-6 rounded-lg" style="background-color: #F7F5F0; box-shadow: 0 2px 12px rgba(42,42,46,0.06); border: 1px solid rgba(118,185,0,0.08);">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xs font-semibold tracking-[0.12em]" style="color: #76B900;">STEP 6</span>
+                  <span class="text-xs" style="color: #6B6B73;">— The Guardian</span>
+                </div>
+                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Security &amp; Access Verified</h4>
+                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">The Guardian audits all new integrations, verifies API security, and ensures the launch meets security standards.</p>
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-sharp" style="color: #76B900; font-size: 0.875rem;">check_circle</span>
+                  <span class="text-xs font-mono" style="color: #76B900;">Security report, access logs</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 7 -->
+            <div class="workflow-step animate-on-scroll delay-6 relative flex gap-4 md:gap-6 items-start pl-0">
+              <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #D4A853; box-shadow: 0 0 20px rgba(212,168,83,0.25);">
+                <img src="assets/hero-brain-icon.png" alt="The Brain" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+              </div>
+              <div class="flex-1 p-5 md:p-6 rounded-lg" style="background-color: #F7F5F0; box-shadow: 0 2px 12px rgba(42,42,46,0.06); border: 1px solid rgba(212,168,83,0.08);">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xs font-semibold tracking-[0.12em]" style="color: #D4A853;">STEP 7</span>
+                  <span class="text-xs" style="color: #6B6B73;">— The Brain</span>
+                </div>
+                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Cross-Agent Analysis &amp; Insights</h4>
+                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">The Brain analyzes performance across all heroes — campaign ROI, conversion rates, operational efficiency.</p>
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-sharp" style="color: #D4A853; font-size: 0.875rem;">check_circle</span>
+                  <span class="text-xs font-mono" style="color: #D4A853;">Strategic insights report</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section data-dark-section class="w-full" style="background-color: #2A2A2E; padding: 5rem 0;">
+      <div class="mx-auto px-6 text-center" style="max-width: var(--container-narrow);">
+        <h2 class="cta-headline animate-on-scroll font-cinzel text-[clamp(2rem,5vw,3.5rem)] font-normal tracking-[0.06em] mb-4" style="color: #F7F5F0;">
+          <span class="inline-block mr-[0.3em]">ASSEMBLE</span>
+          <span class="inline-block mr-[0.3em]">YOUR</span>
+          <span class="inline-block">HEROES</span>
+        </h2>
+
+        <p class="animate-on-scroll delay-1 text-base mb-8" style="color: rgba(247,245,240,0.6);">
+          Every hero is ready. Your Partenon awaits.
+        </p>
+
+        <div class="animate-on-scroll delay-2 copy-box inline-flex items-center gap-3 rounded-lg px-6 py-3 mb-8 font-mono text-sm cursor-pointer" style="background-color: #1A1A1E; color: #F7F5F0; border: 1px solid rgba(247,245,240,0.15);" onclick="copyInstall()" title="Click to copy" role="button" tabindex="0">
+          <span style="color: #76B900;">$</span>
+          <span>npx create-hermes@latest</span>
+          <span class="material-symbols-sharp opacity-40">open_in_new</span>
+        </div>
+
+        <div class="animate-on-scroll delay-3 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="developers.html" class="cta-primary inline-flex items-center gap-2 rounded-full px-8 py-4 text-base font-semibold tracking-wide" style="background-color: #635BFF; color: #F7F5F0; border-radius: var(--radius-pill); box-shadow: 0 0 30px rgba(99,91,255,0.3);">
+            INSTALL HERMES NOW
+            <span class="material-symbols-sharp">arrow_forward</span>
+          </a>
+          <a href="developers.html" class="animate-on-scroll delay-4 inline-flex items-center gap-2 text-sm font-medium transition-colors duration-200 hover:text-stripe-indigo" style="color: rgba(247,245,240,0.6);">
+            Read Technical Documentation
+            <span class="material-symbols-sharp">chevron_right</span>
+          </a>
+        </div>
+
+        <div class="animate-on-scroll delay-5 mt-10 pt-8 flex flex-wrap items-center justify-center gap-4" style="border-top: 1px solid rgba(247,245,240,0.08);">
+          <span class="text-xs" style="color: rgba(247,245,240,0.3);">Jump to:</span>
+          <a href="#scribe" class="text-xs font-medium transition-colors duration-200 hover:text-stripe-indigo" style="color: rgba(247,245,240,0.5);">THE SCRIBE</a>
+          <a href="#herald" class="text-xs font-medium transition-colors duration-200 hover:text-stripe-indigo" style="color: rgba(247,245,240,0.5);">THE HERALD</a>
+          <a href="#collector" class="text-xs font-medium transition-colors duration-200 hover:text-stripe-indigo" style="color: rgba(247,245,240,0.5);">THE COLLECTOR</a>
+          <a href="#guardian" class="text-xs font-medium transition-colors duration-200 hover:text-stripe-indigo" style="color: rgba(247,245,240,0.5);">THE GUARDIAN</a>
+          <a href="#strategist" class="text-xs font-medium transition-colors duration-200 hover:text-stripe-indigo" style="color: rgba(247,245,240,0.5);">THE STRATEGIST</a>
+          <a href="#diplomat" class="text-xs font-medium transition-colors duration-200 hover:text-stripe-indigo" style="color: rgba(247,245,240,0.5);">THE DIPLOMAT</a>
+          <a href="#brain" class="text-xs font-medium transition-colors duration-200 hover:text-stripe-indigo" style="color: rgba(247,245,240,0.5);">THE BRAIN</a>
+        </div>
+
+        <div class="animate-on-scroll delay-6 mt-8 flex items-center justify-center gap-6">
+          <a href="#" class="flex items-center gap-2 text-sm transition-colors duration-200 hover:text-stripe-indigo" style="color: rgba(247,245,240,0.5);" onclick="event.preventDefault(); showToast('GitHub coming soon')">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="developers.html" class="flex items-center gap-2 text-sm transition-colors duration-200 hover:text-stripe-indigo" style="color: rgba(247,245,240,0.5);">
+            <span class="material-symbols-sharp">menu_book</span>
+            Documentation
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full" style="background-color: #1A1A1E; color: #F7F5F0; padding: 6rem 0 3rem;">
+    <div class="mx-auto px-6" style="max-width: var(--container-max);">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <svg viewBox="0 0 32 32" fill="none" class="h-8 w-8 text-[#F7F5F0]">
+              <path d="M2 28h28M4 28V12h3v16M12 28V8h3v20M20 28V8h3v20M25 28V12h3v16M2 12l14-8 14 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="font-cinzel text-sm tracking-[0.12em]">THE PARTENON</span>
+          </div>
+          <p class="text-sm" style="color: #6B6B73;">Where Heroes Assemble for Every Enterprise</p>
+        </div>
+
+        <div>
+          <h4 class="font-inter text-xs font-semibold tracking-[0.12em] mb-4 text-[#6B6B73]">NAVIGATION</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html#myth" class="text-sm transition-colors duration-200 hover:text-stripe-indigo" style="color: rgba(247,245,240,0.6);">The Myth</a></li>
+            <li><a href="heroes.html" class="text-sm transition-colors duration-200 hover:text-stripe-indigo" style="color: rgba(247,245,240,0.6);">The Heroes</a></li>
+            <li><a href="index.html#vision" class="text-sm transition-colors duration-200 hover:text-stripe-indigo" style="color: rgba(247,245,240,0.6);">The Vision</a></li>
+            <li><a href="developers.html" class="text-sm transition-colors duration-200 hover:text-stripe-indigo" style="color: rgba(247,245,240,0.6);">Documentation</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-inter text-xs font-semibold tracking-[0.12em] mb-4 text-[#6B6B73]">PARTNERS</h4>
+          <div class="flex items-center gap-6 flex-wrap">
+            <div class="group relative flex items-center justify-center h-10 px-3 rounded-md transition-all duration-300 hover:bg-white/5 cursor-pointer">
+              <span class="font-inter text-sm font-medium tracking-wide text-[#F7F5F0]/60 group-hover:text-[#F7F5F0] transition-colors">Nous Research</span>
+            </div>
+            <div class="group relative flex items-center justify-center h-10 px-3 rounded-md transition-all duration-300 hover:bg-[#76B900]/10 cursor-pointer">
+              <span class="font-inter text-sm font-medium tracking-wide text-[#F7F5F0]/60 group-hover:text-[#76B900] transition-colors">NVIDIA</span>
+            </div>
+            <div class="group relative flex items-center justify-center h-10 px-3 rounded-md transition-all duration-300 hover:bg-[#635BFF]/10 cursor-pointer">
+              <span class="font-inter text-sm font-medium tracking-wide text-[#F7F5F0]/60 group-hover:text-[#635BFF] transition-colors">Stripe</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="h-px w-full mb-8" style="background: linear-gradient(to right, transparent, var(--myth-gold), transparent);"></div>
+
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-center md:text-left" style="color: rgba(247,245,240,0.4);">
+          &copy; 2025 The Partenon. Built for the Nous Research &times; NVIDIA &times; Stripe Hackathon.
+        </p>
+        <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium" style="background: rgba(118,185,0,0.15); color: #76B900;">
+          Open Source
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <div class="rounded-full px-5 py-2.5 text-sm font-medium shadow-lg" style="background-color: #1A1A1E; color: #F7F5F0; border: 1px solid rgba(247,245,240,0.15);">
+      <span id="toast-message">Copied to clipboard</span>
+    </div>
+  </div>
+
+  <script>
+    // Mobile nav toggle
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileNav = document.getElementById('mobile-nav');
+    const bar1 = document.getElementById('menu-bar-1');
+    const bar2 = document.getElementById('menu-bar-2');
+    const bar3 = document.getElementById('menu-bar-3');
+    let menuOpen = false;
+
+    menuBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileNav.classList.toggle('open', menuOpen);
+      mobileNav.setAttribute('aria-hidden', String(!menuOpen));
+      menuBtn.setAttribute('aria-expanded', String(menuOpen));
+
+      if (menuOpen) {
+        bar1.style.transform = 'translateY(6px) rotate(45deg)';
+        bar2.style.opacity = '0';
+        bar3.style.transform = 'translateY(-6px) rotate(-45deg)';
+      } else {
+        bar1.style.transform = '';
+        bar2.style.opacity = '1';
+        bar3.style.transform = '';
+      }
+    });
+
+    // Close mobile nav on link click
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuOpen = false;
+        mobileNav.classList.remove('open');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        bar1.style.transform = '';
+        bar2.style.opacity = '1';
+        bar3.style.transform = '';
+      });
+    });
+
+    // Navbar dark/light detection
+    const navbar = document.getElementById('navbar');
+    const darkSections = document.querySelectorAll('[data-dark-section]');
+
+    function updateNavbar() {
+      const navRect = navbar.getBoundingClientRect();
+      const navMid = navRect.top + navRect.height / 2;
+      let inDark = false;
+      darkSections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= navMid && rect.bottom >= navMid) {
+          inDark = true;
+        }
+      });
+      navbar.classList.toggle('dark', inDark);
+      navbar.classList.toggle('light', !inDark);
+      mobileNav.classList.toggle('dark', inDark);
+      mobileNav.classList.toggle('light', !inDark);
+    }
+
+    // Scroll effects
+    function onScroll() {
+      const y = window.scrollY;
+      navbar.classList.toggle('scrolled', y > 50);
+      updateNavbar();
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // IntersectionObserver for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+
+    document.querySelectorAll('.animate-on-scroll, .animate-scale-on-scroll, .quick-nav-item, .hero-divider, .workflow-line').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Copy to clipboard
+    function copyInstall() {
+      const text = 'npx create-hermes@latest';
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Copied to clipboard');
+        const box = document.querySelector('.copy-box');
+        box.classList.add('copied');
+        setTimeout(() => box.classList.remove('copied'), 1500);
+      }).catch(() => {
+        showToast('Press Cmd/Ctrl+C to copy');
+      });
+    }
+
+    // Toast
+    let toastTimeout;
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toast-message');
+      toastMessage.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    // Keyboard accessibility for copy box
+    document.querySelector('.copy-box').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        copyInstall();
+      }
+    });
+  </script>
+</body>
+</html>

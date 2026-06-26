@@ -2,6 +2,37 @@
 
 ## Historial de Sesiones
 
+### 2026-06-26 — Migración de `Heroes.tsx` a `web/heroes.html`
+- Creada la página `web/heroes.html` como versión estática basada EXACTAMENTE en `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Heroes.tsx`.
+- Stack: HTML5 estático + Tailwind CSS CDN + CSS personalizado; fuentes Cinzel, Inter, JetBrains Mono; iconos Material Symbols Sharp y SVG inline.
+- Secciones migradas: Hero "Meet Your Heroes" con navegación rápida de 7 iconos, 7 perfiles detallados de héroes (Scribe, Herald, Collector, Guardian, Strategist, Diplomat, Brain), Comparison Matrix, Workflow Timeline de product launch de 7 pasos, CTA con copy-to-clipboard.
+- Interactividad preservada: reveal on scroll con IntersectionObserver, hover cards/badges, copy-to-clipboard con toast, smooth scroll, mobile nav hamburguesa, navbar flotante que cambia entre tema claro/oscuro según sección.
+- Correcciones aplicadas en TODO el contenido:
+  - "Nose Research" → "Nous Research".
+  - "Envidia" → "NVIDIA".
+  - MCP connections presentados como integraciones/descripciones genéricas (Google Workspace, Stripe, NVIDIA, CRM, Email, Calendar, Social media APIs) en lugar de nombres de tools inventados.
+  - Footer con créditos correctos: Nous Research, NVIDIA, Stripe.
+- Validación HTML básica: OK.
+- Actualizados `TODOS.md` y `PROGRESS.md`.
+
+### 2026-06-26 — Migración de `Home.tsx` a `web/index.html`
+- Reemplazada la página `web/index.html` anterior por una versión estática basada EXACTAMENTE en `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Home.tsx`.
+- Stack: HTML5 estático + Tailwind CSS CDN + CSS personalizado; fuentes Cinzel, Inter, JetBrains Mono; iconos Material Symbols Sharp y SVG inline.
+- Secciones migradas: Hero Gateway (dos paneles), The Myth, The Heroes (7 tarjetas: Scribe, Herald, Collector, Guardian, Strategist, Diplomat, Brain), How It Works (4 pasos), Impact Counter con milestone bar, Growth Plan (4 canales), Partners, CTA con typing effect.
+- Interactividad preservada: reveal on scroll, hover de paneles/tarjetas, contadores animados con IntersectionObserver, efecto typewriter, copy-to-clipboard con toast, smooth scroll, mobile nav.
+- Correcciones aplicadas en TODO el contenido:
+  - "Nose Research" → "Nous Research".
+  - "Envidia" → "NVIDIA".
+  - Métricas inventadas etiquetadas como objetivos de diseño, hipótesis o proyecciones de adopción.
+  - No se presentan MCP tools inventados; se usan descripciones genéricas o herramientas reales de Stripe / Google Workspace.
+  - Matiz de alpha / early preview para NemoClaw / OpenShell.
+  - "Kimi Coding" → "Kimi / Moonshot" en contenido heredado.
+  - NVIDIA agent skills descritos correctamente.
+  - Stripe Skills presentados como skills opcionales de Hermes, no productos Stripe.
+  - Footer con créditos correctos y disclaimer de no afiliación oficial.
+- Validación HTML básica: OK.
+- Actualizados `TODOS.md` y `PROGRESS.md`.
+
 ### 2026-06-26 — Recuperación de storytelling desde `Kimi_Agent_10 Storytelling Web Sites/`
 - Auditoría completa de `Kimi_Agent_10 Storytelling Web Sites/` con AgentSwarm. Se recuperaron patrones narrativos y de información técnica; se descartaron estética clásica (Cinzel, mármol, iconos figurativos), errores de marca ("Nose Research" → Nous Research) y el séptimo héroe "The Brain".
 - Enriquecida `web/index.html`: sección de proceso de 4 pasos (intención → héroes → misiones → entrega), contadores animados con milestone bar 10 → 1M, métricas de impacto secundarias, growth plan de 4 canales (workshops, empresas piloto, partners técnicos, marketplace de perfiles), CTA tipeado con efecto de escritura y toast de copiado.

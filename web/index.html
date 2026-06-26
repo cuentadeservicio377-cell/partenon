@@ -1,38 +1,32 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Partenon — Hermes ejecuta tu empresa</title>
-  <meta name="description" content="Partenon: sistema de agentes para pymes construido con Hermes Agent, NVIDIA NemoClaw, Nemotron 3 Ultra y Stripe Skills. Seis héroes ejecutan finanzas, pagos, marketing y operaciones dentro de Google Workspace." />
+  <title>The Partenon — Hermes Agent System for Entrepreneurs</title>
+  <meta name="description" content="The Partenon: a complete AI agent system built with Hermes Agent, NVIDIA NemoClaw, and Stripe tools. Seven heroes handle finance, brand, payments, security, operations, relationships, and cross-agent intelligence." />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,300,0,0&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,300,0,0&display=swap" rel="stylesheet" />
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            display: ['Space Grotesk', 'sans-serif'],
-            sans: ['Geist', 'system-ui', 'sans-serif'],
+            display: ['Cinzel', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
           },
           colors: {
-            bg: '#050505',
-            surface: '#08080C',
-            panel: '#0E0E14',
-            'panel-raised': '#111118',
-            'panel-strong': '#16161F',
-            text: '#E8E8ED',
-            muted: '#6B6B78',
-            dim: '#45454F',
-            accent: '#00D4FF',
-            'accent-dim': 'rgba(0, 212, 255, 0.10)',
-            'accent-glow': 'rgba(0, 212, 255, 0.20)',
-            live: '#FFB800',
-            line: 'rgba(255,255,255,0.07)',
-            'line-strong': 'rgba(255,255,255,0.14)',
+            'marble-white': '#F7F5F0',
+            parchment: '#EDE8DF',
+            'deep-stone': '#2A2A2E',
+            midnight: '#1A1A1E',
+            'stripe-indigo': '#635BFF',
+            'nvidia-green': '#76B900',
+            'glow-amber': '#FFB800',
+            'myth-gold': '#D4A853',
           }
         }
       }
@@ -40,37 +34,46 @@
   </script>
   <style>
     :root {
+      --marble-white: #F7F5F0;
+      --parchment: #EDE8DF;
+      --deep-stone: #2A2A2E;
+      --midnight: #1A1A1E;
+      --stripe-indigo: #635BFF;
+      --nvidia-green: #76B900;
+      --glow-amber: #FFB800;
+      --myth-gold: #D4A853;
+      --text-primary: #2A2A2E;
+      --text-secondary: rgba(42, 42, 46, 0.65);
       --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --section-pad-y: clamp(4rem, 8vw, 7rem);
+      --container-max: 1200px;
+      --container-narrow: 800px;
+      --radius-pill: 999px;
+      --shadow-md: 0 4px 24px rgba(42, 42, 46, 0.08);
+      --shadow-lg: 0 12px 40px rgba(42, 42, 46, 0.12);
+      --shadow-glow-indigo: 0 0 30px rgba(99, 91, 255, 0.25);
+      --shadow-glow-gold: 0 0 40px rgba(212, 168, 83, 0.3);
     }
+
     html { scroll-behavior: smooth; }
     body {
-      background-color: #050505;
-      color: #E8E8ED;
-      font-family: 'Geist', system-ui, sans-serif;
+      background-color: var(--marble-white);
+      color: var(--text-primary);
+      font-family: 'Inter', system-ui, sans-serif;
       overflow-x: clip;
     }
+
     .material-symbols-sharp {
       font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
       font-size: 1.25rem;
       line-height: 1;
     }
 
-    .mesh {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0;
-      background:
-        radial-gradient(ellipse 70% 50% at 15% 20%, rgba(0, 212, 255, 0.045) 0%, transparent 55%),
-        radial-gradient(ellipse 60% 45% at 85% 75%, rgba(255, 184, 0, 0.025) 0%, transparent 50%),
-        radial-gradient(ellipse 50% 40% at 50% 50%, rgba(0, 212, 255, 0.02) 0%, transparent 55%);
-    }
-    .noise {
-      position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.035;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-
+    /* Reveal animations */
     .reveal {
-      opacity: 0; transform: translateY(32px);
-      transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .reveal-delay-1 { transition-delay: 80ms; }
@@ -78,85 +81,49 @@
     .reveal-delay-3 { transition-delay: 240ms; }
     .reveal-delay-4 { transition-delay: 320ms; }
 
-    .bezel {
-      background: rgba(255,255,255,0.025);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px;
-      padding: 6px;
-    }
-    .bezel-inner {
-      background: #111118;
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 12px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
-    }
-    .bezel:hover { border-color: rgba(255,255,255,0.12); }
-
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-      font-weight: 500; letter-spacing: -0.01em;
-      transition: all 0.35s var(--ease-out-expo);
-    }
-    .btn-primary {
-      background: #00D4FF; color: #050505;
-      padding: 0.875rem 1.5rem;
-      border-radius: 999px;
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 28px rgba(0, 212, 255, 0.22); }
-    .btn-primary:active { transform: scale(0.98); }
-    .btn-secondary {
-      border: 1px solid rgba(255,255,255,0.10); color: #E8E8ED;
-      padding: 0.875rem 1.5rem;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.02);
-    }
-    .btn-secondary:hover { border-color: rgba(255,255,255,0.20); color: #00D4FF; background: rgba(255,255,255,0.04); }
-    .btn-icon {
-      width: 1.75rem; height: 1.75rem; border-radius: 999px;
-      display: inline-flex; align-items: center; justify-content: center;
-      background: rgba(0,0,0,0.12); transition: transform 0.35s var(--ease-spring);
-    }
-    .btn-primary:hover .btn-icon { transform: translate(2px, -1px); }
-    .btn-secondary:hover .btn-icon { transform: translate(2px, -1px); }
-
-    .tag {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
-      text-transform: uppercase; letter-spacing: 0.14em; color: #6B6B78;
-    }
-    .tag-dot { width: 5px; height: 5px; border-radius: 999px; background: #00D4FF; box-shadow: 0 0 10px rgba(0, 212, 255, 0.5); }
-    .tag-dot.live { background: #FFB800; box-shadow: 0 0 10px rgba(255, 184, 0, 0.5); animation: pulse 2.2s infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
-
-    .line-divider { height: 1px; background: rgba(255,255,255,0.07); width: 100%; }
-
+    /* Nav */
     .nav-island {
-      position: fixed; top: 1.25rem; left: 50%; transform: translateX(-50%); z-index: 50;
-      background: rgba(8,8,12,0.72);
+      position: fixed;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+      background: rgba(247, 245, 240, 0.88);
       backdrop-filter: blur(16px);
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(42, 42, 46, 0.1);
       border-radius: 999px;
       padding: 0.5rem 0.75rem;
       max-width: calc(100% - 1.5rem);
+      box-shadow: 0 4px 24px rgba(42, 42, 46, 0.08);
     }
     .nav-link {
-      font-size: 0.8125rem; color: #6B6B78; padding: 0.5rem 0.875rem; border-radius: 999px;
+      font-size: 0.8125rem;
+      color: rgba(42, 42, 46, 0.6);
+      padding: 0.5rem 0.875rem;
+      border-radius: 999px;
       transition: all 0.25s var(--ease-out-expo);
     }
-    .nav-link:hover { color: #E8E8ED; background: rgba(255,255,255,0.04); }
+    .nav-link:hover { color: var(--deep-stone); background: rgba(42, 42, 46, 0.06); }
 
     .mobile-menu {
-      position: fixed; inset: 0; z-index: 40;
-      background: rgba(5,5,5,0.96);
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      background: rgba(247, 245, 240, 0.98);
       backdrop-filter: blur(24px);
-      opacity: 0; pointer-events: none;
+      opacity: 0;
+      pointer-events: none;
       transition: opacity 0.4s var(--ease-out-expo);
     }
     .mobile-menu.open { opacity: 1; pointer-events: auto; }
     .mobile-menu a {
-      display: block; font-family: 'Space Grotesk', sans-serif; font-size: 2rem;
-      color: #E8E8ED; padding: 0.75rem 0;
-      opacity: 0; transform: translateY(20px);
+      display: block;
+      font-family: 'Cinzel', serif;
+      font-size: 1.75rem;
+      color: var(--deep-stone);
+      padding: 0.75rem 0;
+      opacity: 0;
+      transform: translateY(20px);
       transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
     }
     .mobile-menu.open a { opacity: 1; transform: translateY(0); }
@@ -164,159 +131,121 @@
     .mobile-menu.open a:nth-child(2) { transition-delay: 140ms; }
     .mobile-menu.open a:nth-child(3) { transition-delay: 200ms; }
     .mobile-menu.open a:nth-child(4) { transition-delay: 260ms; }
-    .mobile-menu.open a:nth-child(5) { transition-delay: 320ms; }
 
-    .hero-title {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: clamp(3.25rem, 10vw, 8.5rem);
-      line-height: 0.88;
-      letter-spacing: -0.06em;
-      font-weight: 500;
-    }
-
-    .stat-value { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
-
-    .section-pad { padding-top: 6rem; padding-bottom: 6rem; }
-    @media (min-width: 768px) { .section-pad { padding-top: 8rem; padding-bottom: 8rem; } }
-
-    .data-bar { height: 6px; border-radius: 3px; background: rgba(255,255,255,0.06); overflow: hidden; }
-    .data-bar-fill { height: 100%; background: #00D4FF; border-radius: 3px; transform-origin: left; }
-
-    code { font-family: 'JetBrains Mono', monospace; color: #00D4FF; }
-    pre {
-      background: #0E0E14; border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px; padding: 1rem; overflow-x: auto;
-      font-family: 'JetBrains Mono', monospace; font-size: 0.875rem;
-    }
-
-    .scanlines {
-      background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 4px);
-    }
-
-    .hero-card {
-      background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
-    }
-
-    @media (max-width: 767px) {
-      .hero-title { font-size: clamp(2.75rem, 14vw, 4rem); }
-    }
-
-    /* Timeline */
-    .timeline {
-      position: relative;
-      padding-left: 2rem;
-    }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 0.5rem;
-      top: 0.5rem;
-      bottom: 0.5rem;
-      width: 1px;
-      background: rgba(255,255,255,0.1);
-    }
-    .timeline-item {
-      position: relative;
-      padding-bottom: 2rem;
-    }
-    .timeline-item:last-child { padding-bottom: 0; }
-    .timeline-dot {
-      position: absolute;
-      left: -1.5rem;
-      top: 0.25rem;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #00D4FF;
-      box-shadow: 0 0 0 4px rgba(0,212,255,0.15);
-    }
-    .timeline-dot.live { background: #FFB800; box-shadow: 0 0 0 4px rgba(255,184,0,0.15); }
-
-    /* Tabs */
-    .hero-tab {
-      padding: 0.75rem 1.25rem;
-      border-radius: 999px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8125rem;
-      color: #6B6B78;
-      border: 1px solid transparent;
-      background: transparent;
-      transition: all 0.25s var(--ease-out-expo);
-      cursor: pointer;
-    }
-    .hero-tab:hover { color: #E8E8ED; background: rgba(255,255,255,0.04); }
-    .hero-tab.active {
-      color: #050505;
-      background: #00D4FF;
-      border-color: #00D4FF;
-    }
-    .hero-content { display: none; }
-    .hero-content.active { display: block; animation: fadeIn 0.4s var(--ease-out-expo); }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* Accordion */
-    .accordion-item {
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      overflow: hidden;
-      background: #111118;
-    }
-    .accordion-header {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 1.25rem;
-      background: transparent;
-      border: none;
-      color: #E8E8ED;
-      cursor: pointer;
-      text-align: left;
-    }
-    .accordion-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s var(--ease-out-expo);
-    }
-    .accordion-item.open .accordion-body { max-height: 500px; }
-    .accordion-item.open .accordion-icon { transform: rotate(180deg); }
-    .accordion-icon { transition: transform 0.25s var(--ease-out-expo); }
-
-    /* Blockquote */
-    .quote-mark {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 4rem;
-      line-height: 1;
-      color: #00D4FF;
-      opacity: 0.3;
-    }
-
-    /* Typewriter command */
-    .typewriter-line {
+    /* Buttons */
+    .btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.5rem;
-      padding: 0.75rem 1rem;
-      border-radius: 12px;
-      background: rgba(0, 0, 0, 0.55);
-      border: 1px solid rgba(0,212,255,0.18);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.875rem;
-      color: #E8E8ED;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      transition: all 0.25s var(--ease-out-expo);
     }
-    .typewriter-prefix { color: #00D4FF; user-select: none; font-weight: 500; }
-    .typewriter-text { min-width: 1ch; color: #E8E8ED; }
-    .typewriter-cursor {
-      color: #00D4FF;
+    .btn-primary {
+      background: var(--stripe-indigo);
+      color: white;
+      padding: 0.875rem 1.75rem;
+      border-radius: 999px;
+      font-size: 0.8125rem;
+    }
+    .btn-primary:hover { transform: translateY(-2px) scale(1.02); box-shadow: var(--shadow-glow-indigo); }
+    .btn-secondary {
+      border: 2px solid var(--deep-stone);
+      color: var(--deep-stone);
+      padding: 0.875rem 1.75rem;
+      border-radius: 999px;
+      font-size: 0.8125rem;
+      background: transparent;
+    }
+    .btn-secondary:hover { background: var(--deep-stone); color: var(--marble-white); }
+    .btn-ghost {
+      color: var(--stripe-indigo);
+      font-size: 0.8125rem;
+    }
+    .btn-ghost:hover { opacity: 0.7; }
+
+    .icon-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    /* Hero Gateway panels */
+    .hero-gateway { min-height: 100dvh; }
+    .hero-panel {
+      flex: 1;
+      transition: flex 0.5s var(--ease-out-expo);
+    }
+    .hero-panel:hover { flex: 1.22; }
+    .hero-gateway:has(.hero-panel-left:hover) .hero-panel-right { flex: 0.82; }
+    .hero-gateway:has(.hero-panel-right:hover) .hero-panel-left { flex: 0.82; }
+
+    @media (max-width: 767px) {
+      .hero-gateway { flex-direction: column; }
+      .hero-panel { flex: none !important; min-height: 50dvh; }
+    }
+
+    /* Cards */
+    .hero-card {
+      background: var(--marble-white);
+      border-radius: 18px;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s var(--ease-out-expo);
+    }
+    .hero-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+    .hero-card .accent-bar {
+      height: 4px;
+      transition: height 0.3s var(--ease-out-expo);
+    }
+    .hero-card:hover .accent-bar { height: 6px; }
+    .hero-card .icon-wrap {
+      transition: transform 0.3s var(--ease-out-expo);
+    }
+    .hero-card:hover .icon-wrap { transform: rotate(15deg); }
+
+    .growth-card {
+      background: var(--marble-white);
+      border-radius: 18px;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s var(--ease-out-expo);
+      overflow: hidden;
+    }
+    .growth-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .growth-card img { transition: transform 0.4s var(--ease-out-expo); }
+    .growth-card:hover img { transform: scale(1.03); }
+
+    /* Process */
+    .process-line {
+      background: linear-gradient(to right, var(--glow-amber), var(--stripe-indigo));
+    }
+
+    /* Counter glow */
+    .counter-glow {
+      text-shadow: 0 0 30px currentColor;
+    }
+
+    /* Code block */
+    .code-block {
+      background: var(--midnight);
+      border-radius: 12px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .cursor-blink {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: var(--nvidia-green);
       animation: blink 1s step-end infinite;
-      user-select: none;
+      vertical-align: middle;
     }
     @keyframes blink { 50% { opacity: 0; } }
-
-    .impact-bar { transition: width 1.8s var(--ease-out-expo); }
 
     /* Toast */
     .toast {
@@ -326,9 +255,8 @@
       z-index: 100;
       padding: 0.75rem 1rem;
       border-radius: 10px;
-      background: #111118;
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #E8E8ED;
+      background: var(--deep-stone);
+      color: var(--marble-white);
       font-size: 0.8125rem;
       display: flex;
       align-items: center;
@@ -339,1120 +267,923 @@
       transition: opacity 0.25s var(--ease-out-expo), transform 0.25s var(--ease-out-expo);
     }
     .toast.show { opacity: 1; transform: translateY(0); }
+
+    /* Section background texture */
+    .bg-texture {
+      position: relative;
+    }
+    .bg-texture::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('assets/marble-texture.jpg');
+      background-size: cover;
+      opacity: 0.05;
+      pointer-events: none;
+    }
+
+    /* Greek key border */
+    .greek-key {
+      height: 12px;
+      width: 100%;
+      opacity: 0.2;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--deep-stone) 0px,
+        var(--deep-stone) 8px,
+        transparent 8px,
+        transparent 16px
+      );
+    }
+
+    /* Partner hover */
+    .partner-name {
+      transition: color 0.3s var(--ease-out-expo);
+    }
+
+    /* Typing hero CTA */
+    .typewriter-prefix { color: var(--nvidia-green); }
   </style>
 </head>
 <body class="antialiased">
-  <div class="mesh"></div>
-  <div class="noise"></div>
+  <!-- Toast -->
+  <div id="toast" class="toast">
+    <span class="material-symbols-sharp text-sm">check_circle</span>
+    <span id="toastMsg">Copied to clipboard</span>
+  </div>
 
   <!-- Navigation -->
   <nav class="nav-island flex items-center gap-1">
-    <a href="index.html" class="font-mono text-sm tracking-tight font-medium px-3">PARTENON</a>
+    <a href="index.html" class="font-display text-sm tracking-widest font-semibold px-3" style="color: var(--deep-stone);">PARTENON</a>
     <div class="hidden md:flex items-center gap-1 ml-2">
-      <a href="#problema" class="nav-link">El problema</a>
-      <a href="#dia" class="nav-link">Un día con Hermes</a>
-      <a href="#heroes" class="nav-link">Héroes</a>
-      <a href="#instalar" class="nav-link">Instalar</a>
+      <a href="#myth" class="nav-link">Myth</a>
+      <a href="#heroes" class="nav-link">Heroes</a>
+      <a href="#how-it-works" class="nav-link">Process</a>
+      <a href="#vision" class="nav-link">Vision</a>
+      <a href="#cta" class="nav-link">Install</a>
     </div>
-    <a href="developers.html" class="btn btn-secondary text-sm px-4 py-2 ml-2 hidden md:inline-flex">
-      Documentación
-      <span class="material-symbols-sharp text-base">arrow_outward</span>
-    </a>
-    <button id="menuBtn" class="md:hidden w-10 h-10 inline-flex items-center justify-center text-text" aria-label="Abrir menú">
-      <span class="material-symbols-sharp">menu</span>
+    <a href="heroes.html" class="hidden md:inline-flex btn btn-ghost ml-2">Meet the Heroes</a>
+    <a href="developers.html" class="hidden md:inline-flex btn btn-primary ml-1">For Developers</a>
+    <button id="menuBtn" class="md:hidden w-10 h-10 inline-flex items-center justify-center" aria-label="Open menu">
+      <span class="material-symbols-sharp" style="color: var(--deep-stone);">menu</span>
     </button>
   </nav>
 
   <!-- Mobile Menu -->
   <div id="mobileMenu" class="mobile-menu flex flex-col justify-center px-8">
-    <a href="#problema">El problema</a>
-    <a href="#dia">Un día con Hermes</a>
-    <a href="#heroes">Héroes</a>
-    <a href="#instalar">Instalar</a>
-    <a href="developers.html">Documentación</a>
-    <button id="closeMenu" class="absolute top-6 right-6 w-12 h-12 flex items-center justify-center text-text">
-      <span class="material-symbols-sharp text-3xl">close</span>
+    <a href="#myth">The Myth</a>
+    <a href="#heroes">The Heroes</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#vision">Vision</a>
+    <a href="#cta">Install</a>
+    <a href="heroes.html">Meet the Heroes</a>
+    <a href="developers.html">For Developers</a>
+    <button id="closeMenu" class="absolute top-6 right-6 w-12 h-12 flex items-center justify-center">
+      <span class="material-symbols-sharp text-3xl" style="color: var(--deep-stone);">close</span>
     </button>
   </div>
 
-  <!-- Hero -->
-  <section class="relative min-h-[100dvh] flex flex-col justify-center pt-32 pb-20 px-4">
-    <div class="max-w-[1400px] mx-auto w-full relative z-10">
-      <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-        <div class="lg:col-span-7">
-          <div class="reveal mb-8">
-            <span class="tag"><span class="tag-dot"></span>Hackathon Nous Research / Nvidia / Stripe</span>
-          </div>
-          <h1 class="reveal hero-title mb-8">
-            PARTENON
-          </h1>
-          <p class="reveal text-xl md:text-2xl text-muted leading-snug max-w-xl mb-6">
-            Tu empresa, ejecutada por un equipo de agentes que cobra, paga y aprende sola.
+  <!-- Hero Gateway -->
+  <section class="hero-gateway relative flex w-full overflow-hidden">
+    <!-- Left Panel -->
+    <div class="hero-panel hero-panel-left relative flex flex-1 items-center justify-center overflow-hidden" style="background-color: var(--marble-white);">
+      <div class="pointer-events-none absolute inset-0" style="background-image: url('assets/hero-parthenon-bg.jpg'); background-size: cover; background-position: center; opacity: 0.08;"></div>
+      <div class="relative z-10 px-8 text-center max-w-md reveal">
+        <span class="mb-4 inline-block font-sans text-xs font-semibold tracking-[0.16em]" style="color: var(--stripe-indigo);">HACKATHON 2025</span>
+        <h1 class="font-display mb-4" style="font-size: clamp(2.5rem, 6vw, 5rem); letter-spacing: 0.08em; line-height: 1.05; color: var(--deep-stone);">
+          THE<br />PARTENON
+        </h1>
+        <p class="mb-8 font-sans text-base leading-relaxed" style="color: var(--text-secondary); max-width: 360px; margin: 0 auto 2rem;">
+          Where heroes assemble for every enterprise. A complete AI agent system built for entrepreneurs.
+        </p>
+        <a href="#myth" class="btn btn-primary">
+          ENTER THE TEMPLE
+          <span class="material-symbols-sharp text-sm">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Center Divider -->
+    <div class="absolute left-1/2 top-0 bottom-0 z-20 hidden md:flex -translate-x-1/2 flex-col items-center justify-center pointer-events-none">
+      <div class="h-full w-px" style="background: linear-gradient(to bottom, transparent, var(--myth-gold), transparent); opacity: 0.4;"></div>
+      <div class="absolute flex h-12 w-12 items-center justify-center rounded-full border-2" style="border-color: var(--myth-gold); background: var(--marble-white);">
+        <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5" stroke="var(--myth-gold)" stroke-width="1.5">
+          <path d="M2 20h20M4 20V10h2v10M10 20V6h2v14M16 20V6h2v14M20 20V10h2v10M2 10l10-6 10 6" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="hero-panel hero-panel-right relative flex flex-1 items-center justify-center overflow-hidden" style="background-color: var(--midnight);">
+      <div class="pointer-events-none absolute inset-0" style="background-image: linear-gradient(rgba(247,245,240,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(247,245,240,0.03) 1px, transparent 1px); background-size: 40px 40px;"></div>
+      <div class="relative z-10 px-8 text-center max-w-md reveal reveal-delay-1">
+        <span class="mb-4 inline-block font-sans text-xs font-semibold tracking-[0.16em]" style="color: var(--nvidia-green);">TECHNICAL DOCUMENTATION</span>
+        <h1 class="font-display mb-4" style="font-size: clamp(2.5rem, 6vw, 5rem); letter-spacing: 0.08em; line-height: 1.05;">
+          <span style="color: var(--marble-white);">FOR</span><br />
+          <span style="color: var(--stripe-indigo);">DEVELOPERS</span>
+        </h1>
+        <p class="mb-8 font-sans text-base leading-relaxed" style="color: rgba(247,245,240,0.6); max-width: 360px; margin: 0 auto 2rem;">
+          Architecture, MCP connections, workshop structure, and technical specifications.
+        </p>
+        <a href="developers.html" class="btn" style="border: 2px solid var(--stripe-indigo); color: var(--stripe-indigo); border-radius: 999px; padding: 0.875rem 1.75rem; font-size: 0.8125rem;">
+          <span class="material-symbols-sharp text-sm">code</span>
+          VIEW THE SCHEMATICS
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Myth -->
+  <section id="myth" class="bg-texture relative w-full" style="background-color: var(--parchment); padding: var(--section-pad-y) 0;">
+    <div class="relative z-10 mx-auto px-6" style="max-width: var(--container-max);">
+      <div class="mb-16 text-center" style="max-width: var(--container-narrow); margin: 0 auto 4rem;">
+        <span class="reveal mb-3 inline-block font-sans text-xs font-semibold tracking-[0.12em]" style="color: var(--myth-gold);">THE FOUNDATION</span>
+        <h2 class="reveal font-display mb-4" style="font-size: clamp(1.75rem, 4vw, 3rem); letter-spacing: 0.06em; line-height: 1.1; color: var(--deep-stone);">
+          EVERY ENTERPRISE NEEDS ITS HEROES
+        </h2>
+        <div class="reveal mx-auto mb-4 h-0.5 w-12" style="background-color: var(--myth-gold);"></div>
+        <p class="reveal font-sans text-base leading-relaxed" style="color: var(--text-secondary);">
+          For millennia, the Parthenon stood as a monument to collective excellence — where individual mastery served a greater purpose. Today, The Partenon brings that archetype to your business.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center mb-16">
+        <div class="space-y-6">
+          <h3 class="reveal font-display text-xl tracking-[0.04em]" style="color: var(--deep-stone);">ARCHETYPES, NOT ALGORITHMS</h3>
+          <p class="reveal font-sans text-base leading-relaxed" style="color: var(--text-secondary);">
+            We don't believe in faceless automation. The Partenon is built on the understanding that every business function has an archetypal essence — the meticulous record-keeper, the persuasive communicator, the vigilant guardian, the strategic coordinator.
           </p>
-          <p class="reveal text-muted text-base md:text-lg max-w-xl leading-relaxed mb-10">
-            Construido para el hackathon de Nous Research, NVIDIA y Stripe. Hermes corre dentro de NVIDIA NemoClaw y OpenShell, razona con Nemotron 3 Ultra, y ejecuta pagos reales con Stripe Skills. Seis héroes especializados publican misiones en Google Workspace y mejoran entre sí con cada ejecución.
+          <p class="reveal font-sans text-base leading-relaxed" style="color: var(--text-secondary);">
+            Each hero in The Partenon embodies an archetype that resonates across all human enterprise. They don't just process tasks — they bring a perspective, a personality, a way of approaching problems that feels intuitively right.
           </p>
-          <div class="reveal flex flex-wrap gap-4 mb-8">
-            <a href="#dia" class="btn btn-primary">
-              Ver un día con Hermes
-              <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_downward</span></span>
+          <p class="reveal font-sans text-base leading-relaxed" style="color: var(--text-secondary);">
+            This isn't Greek mythology cosplay. It's using timeless patterns of human excellence to build AI agents that entrepreneurs actually want to work with.
+          </p>
+          <a href="#heroes" class="reveal btn btn-ghost icon-link">
+            MEET THE HEROES <span class="material-symbols-sharp text-sm">arrow_forward</span>
+          </a>
+        </div>
+
+        <div class="flex flex-col items-center">
+          <div class="reveal relative mb-4" style="max-width: 400px; width: 80%;">
+            <div class="absolute inset-0 rounded-2xl" style="background: var(--shadow-glow-gold); filter: blur(40px); opacity: 0.4;"></div>
+            <img src="assets/hermes-centerpiece.png" alt="Hermes — the enterprise hub" class="relative w-full h-auto" loading="lazy" />
+          </div>
+          <p class="reveal text-center font-sans text-xs tracking-[0.08em]" style="color: var(--text-secondary);">
+            Hermes: The enterprise. The central hub. The reason heroes assemble.
+          </p>
+        </div>
+      </div>
+
+      <!-- Archetype Band -->
+      <div class="flex items-center justify-center gap-4 md:gap-8 flex-wrap">
+        <div class="reveal flex flex-col items-center gap-2">
+          <div class="flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-full" style="background-color: #4A90A4;"><span class="font-display text-xs font-bold text-white">1</span></div>
+          <span class="font-sans text-[10px] font-medium tracking-[0.08em]" style="color: var(--text-secondary);">THE SCRIBE</span>
+        </div>
+        <div class="reveal reveal-delay-1 flex flex-col items-center gap-2">
+          <div class="flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-full" style="background-color: #9B59B6;"><span class="font-display text-xs font-bold text-white">2</span></div>
+          <span class="font-sans text-[10px] font-medium tracking-[0.08em]" style="color: var(--text-secondary);">THE HERALD</span>
+        </div>
+        <div class="reveal reveal-delay-2 flex flex-col items-center gap-2">
+          <div class="flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-full" style="background-color: #635BFF;"><span class="font-display text-xs font-bold text-white">3</span></div>
+          <span class="font-sans text-[10px] font-medium tracking-[0.08em]" style="color: var(--text-secondary);">THE COLLECTOR</span>
+        </div>
+        <div class="reveal reveal-delay-3 flex flex-col items-center gap-2">
+          <div class="flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-full" style="background-color: #76B900;"><span class="font-display text-xs font-bold text-white">4</span></div>
+          <span class="font-sans text-[10px] font-medium tracking-[0.08em]" style="color: var(--text-secondary);">THE GUARDIAN</span>
+        </div>
+        <div class="reveal reveal-delay-4 flex flex-col items-center gap-2">
+          <div class="flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-full" style="background-color: #FFB800;"><span class="font-display text-xs font-bold text-white">5</span></div>
+          <span class="font-sans text-[10px] font-medium tracking-[0.08em]" style="color: var(--text-secondary);">THE STRATEGIST</span>
+        </div>
+        <div class="reveal flex flex-col items-center gap-2">
+          <div class="flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-full" style="background-color: #E74C3C;"><span class="font-display text-xs font-bold text-white">6</span></div>
+          <span class="font-sans text-[10px] font-medium tracking-[0.08em]" style="color: var(--text-secondary);">THE DIPLOMAT</span>
+        </div>
+        <div class="reveal reveal-delay-1 flex flex-col items-center gap-2">
+          <div class="flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-full" style="background-color: #D4A853;"><span class="font-display text-xs font-bold text-white">7</span></div>
+          <span class="font-sans text-[10px] font-medium tracking-[0.08em]" style="color: var(--text-secondary);">THE BRAIN</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Heroes -->
+  <section id="heroes" class="relative w-full" style="background-color: var(--marble-white); padding: var(--section-pad-y) 0;">
+    <div class="mx-auto px-6" style="max-width: var(--container-max);">
+      <div class="mb-16 text-center" style="max-width: var(--container-narrow); margin: 0 auto 4rem;">
+        <span class="reveal mb-3 inline-block font-sans text-xs font-semibold tracking-[0.12em]" style="color: var(--stripe-indigo);">THE ASSEMBLY</span>
+        <h2 class="reveal font-display mb-4" style="font-size: clamp(1.75rem, 4vw, 3rem); letter-spacing: 0.06em; line-height: 1.1; color: var(--deep-stone);">
+          SEVEN HEROES. ONE MISSION.
+        </h2>
+        <div class="reveal mx-auto mb-4 h-0.5 w-12" style="background-color: var(--stripe-indigo);"></div>
+        <p class="reveal font-sans text-base leading-relaxed" style="color: var(--text-secondary);">
+          Each hero brings a specialization, a personality, and a set of powerful tools. Together, they form The Partenon — a complete operational system for any enterprise.
+        </p>
+      </div>
+
+      <!-- Cards Grid -->
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-16">
+        <!-- Scribe -->
+        <div class="hero-card reveal group overflow-hidden">
+          <div class="accent-bar" style="background-color: #4A90A4;"></div>
+          <div class="p-6">
+            <div class="icon-wrap mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full" style="background-color: rgba(74, 144, 164, 0.1);">
+              <img src="assets/hero-scribe-icon.png" alt="The Scribe" class="h-16 w-16 object-contain" loading="lazy" />
+            </div>
+            <h3 class="mb-2 text-center font-display text-lg tracking-[0.04em]" style="color: var(--deep-stone);">THE SCRIBE</h3>
+            <div class="mb-3 flex justify-center">
+              <span class="rounded-full px-3 py-1 font-sans text-[10px] font-semibold tracking-[0.08em] text-white" style="background-color: #4A90A4;">FINANCIAL ARCHITECT</span>
+            </div>
+            <p class="mb-4 text-center font-sans text-sm leading-relaxed" style="color: var(--text-secondary);">
+              Master of numbers and structures. The Scribe transforms chaotic business data into crystal-clear dashboards, financial models, and strategic insights using Google Sheets.
+            </p>
+            <div class="mb-4 flex flex-wrap justify-center gap-1.5">
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Google Sheets</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Financial Modeling</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Dashboards</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Data Analysis</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">.finance files</span>
+            </div>
+            <a href="heroes.html#scribe" class="flex items-center justify-center gap-1 font-sans text-xs font-medium" style="color: #4A90A4;">
+              VIEW PROFILE <span class="material-symbols-sharp text-sm">arrow_forward</span>
             </a>
-            <a href="developers.html" class="btn btn-secondary">
-              Documentación técnica
-              <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_outward</span></span>
+          </div>
+        </div>
+
+        <!-- Herald -->
+        <div class="hero-card reveal reveal-delay-1 group overflow-hidden">
+          <div class="accent-bar" style="background-color: #9B59B6;"></div>
+          <div class="p-6">
+            <div class="icon-wrap mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full" style="background-color: rgba(155, 89, 182, 0.1);">
+              <img src="assets/hero-herald-icon.png" alt="The Herald" class="h-16 w-16 object-contain" loading="lazy" />
+            </div>
+            <h3 class="mb-2 text-center font-display text-lg tracking-[0.04em]" style="color: var(--deep-stone);">THE HERALD</h3>
+            <div class="mb-3 flex justify-center">
+              <span class="rounded-full px-3 py-1 font-sans text-[10px] font-semibold tracking-[0.08em] text-white" style="background-color: #9B59B6;">VOICE OF THE BRAND</span>
+            </div>
+            <p class="mb-4 text-center font-sans text-sm leading-relaxed" style="color: var(--text-secondary);">
+              The communicator who gives your brand a voice. The Herald crafts campaigns, manages social presence, builds SEO strategies, and ensures your message reaches the right people.
+            </p>
+            <div class="mb-4 flex flex-wrap justify-center gap-1.5">
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Social Media</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">SEO/GEO</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Brand Strategy</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Content Calendar</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">.design files</span>
+            </div>
+            <a href="heroes.html#herald" class="flex items-center justify-center gap-1 font-sans text-xs font-medium" style="color: #9B59B6;">
+              VIEW PROFILE <span class="material-symbols-sharp text-sm">arrow_forward</span>
             </a>
           </div>
-          <div class="reveal" style="transition-delay: 120ms;">
-            <div class="typewriter-line" data-cmd="hermes init mi-empresa --stripe --workspace">
-              <span class="typewriter-prefix">$</span>
-              <span class="typewriter-text"></span><span class="typewriter-cursor">|</span>
+        </div>
+
+        <!-- Collector -->
+        <div class="hero-card reveal reveal-delay-2 group overflow-hidden">
+          <div class="accent-bar" style="background-color: #635BFF;"></div>
+          <div class="p-6">
+            <div class="icon-wrap mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full" style="background-color: rgba(99, 91, 255, 0.1);">
+              <img src="assets/hero-collector-icon.png" alt="The Collector" class="h-16 w-16 object-contain" loading="lazy" />
             </div>
+            <h3 class="mb-2 text-center font-display text-lg tracking-[0.04em]" style="color: var(--deep-stone);">THE COLLECTOR</h3>
+            <div class="mb-3 flex justify-center">
+              <span class="rounded-full px-3 py-1 font-sans text-[10px] font-semibold tracking-[0.08em] text-white" style="background-color: #635BFF;">PAYMENT GUARDIAN</span>
+            </div>
+            <p class="mb-4 text-center font-sans text-sm leading-relaxed" style="color: var(--text-secondary);">
+              The financial gatekeeper. The Collector manages Stripe operations — subscriptions, invoices, payment processing, and revenue tracking — ensuring every transaction flows smoothly.
+            </p>
+            <div class="mb-4 flex flex-wrap justify-center gap-1.5">
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Stripe API</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Payment Links</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Invoicing</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Revenue Tracking</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Subscriptions</span>
+            </div>
+            <a href="heroes.html#collector" class="flex items-center justify-center gap-1 font-sans text-xs font-medium" style="color: #635BFF;">
+              VIEW PROFILE <span class="material-symbols-sharp text-sm">arrow_forward</span>
+            </a>
           </div>
         </div>
 
-        <div class="lg:col-span-5">
-          <div class="reveal bezel">
-            <div class="bezel-inner p-6 md:p-8">
-              <div class="flex items-center justify-between mb-6">
-                <span class="tag"><span class="tag-dot live"></span>Hermes activo</span>
-                <span class="font-mono text-xs text-muted">v0.1.0-alpha</span>
-              </div>
-              <div class="space-y-5">
-                <div class="flex items-center gap-4 p-3 rounded-lg bg-white/[0.03]">
-                  <span class="material-symbols-sharp text-accent">savings</span>
-                  <div>
-                    <div class="text-sm text-text">Tesorero</div>
-                    <div class="text-xs text-muted">Alerta: gasto en leche +18%</div>
-                  </div>
-                </div>
-                <div class="flex items-center gap-4 p-3 rounded-lg bg-white/[0.03]">
-                  <span class="material-symbols-sharp text-accent">campaign</span>
-                  <div>
-                    <div class="text-sm text-text">Mensajero</div>
-                    <div class="text-xs text-muted">Publicó promo del día</div>
-                  </div>
-                </div>
-                <div class="flex items-center gap-4 p-3 rounded-lg bg-white/[0.03]">
-                  <span class="material-symbols-sharp text-accent">credit_card</span>
-                  <div>
-                    <div class="text-sm text-text">Cobrador</div>
-                    <div class="text-xs text-muted">Link de pago generado</div>
-                  </div>
-                </div>
-                <div class="line-divider"></div>
-                <div class="flex items-center justify-between text-sm">
-                  <span class="text-muted">Última sincronización</span>
-                  <span class="font-mono text-text" id="syncTimer">hace 12 s</span>
-                </div>
+        <!-- Guardian -->
+        <div class="hero-card reveal group overflow-hidden">
+          <div class="accent-bar" style="background-color: #76B900;"></div>
+          <div class="p-6">
+            <div class="icon-wrap mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full" style="background-color: rgba(118, 185, 0, 0.1);">
+              <img src="assets/hero-guardian-icon.png" alt="The Guardian" class="h-16 w-16 object-contain" loading="lazy" />
+            </div>
+            <h3 class="mb-2 text-center font-display text-lg tracking-[0.04em]" style="color: var(--deep-stone);">THE GUARDIAN</h3>
+            <div class="mb-3 flex justify-center">
+              <span class="rounded-full px-3 py-1 font-sans text-[10px] font-semibold tracking-[0.08em] text-white" style="background-color: #76B900;">SENTINEL OF SYSTEMS</span>
+            </div>
+            <p class="mb-4 text-center font-sans text-sm leading-relaxed" style="color: var(--text-secondary);">
+              The protector of your digital realm. The Guardian manages API keys, NVIDIA integrations, model access, and security protocols — ensuring The Partenon remains fortress-strong.
+            </p>
+            <div class="mb-4 flex flex-wrap justify-center gap-1.5">
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">NVIDIA Security</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">API Management</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Model Administration</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Access Control</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">MCP Protocols</span>
+            </div>
+            <a href="heroes.html#guardian" class="flex items-center justify-center gap-1 font-sans text-xs font-medium" style="color: #76B900;">
+              VIEW PROFILE <span class="material-symbols-sharp text-sm">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Strategist -->
+        <div class="hero-card reveal reveal-delay-1 group overflow-hidden">
+          <div class="accent-bar" style="background-color: #FFB800;"></div>
+          <div class="p-6">
+            <div class="icon-wrap mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full" style="background-color: rgba(255, 184, 0, 0.1);">
+              <img src="assets/hero-strategist-icon.png" alt="The Strategist" class="h-16 w-16 object-contain" loading="lazy" />
+            </div>
+            <h3 class="mb-2 text-center font-display text-lg tracking-[0.04em]" style="color: var(--deep-stone);">THE STRATEGIST</h3>
+            <div class="mb-3 flex justify-center">
+              <span class="rounded-full px-3 py-1 font-sans text-[10px] font-semibold tracking-[0.08em] text-white" style="background-color: #FFB800;">MASTER OF OPERATIONS</span>
+            </div>
+            <p class="mb-4 text-center font-sans text-sm leading-relaxed" style="color: var(--text-secondary);">
+              The operational mind that keeps everything moving. The Strategist manages projects, calendars, deadlines, and internal coordination — ensuring no detail is ever lost.
+            </p>
+            <div class="mb-4 flex flex-wrap justify-center gap-1.5">
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Google Calendar</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Project Management</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Task Orchestration</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Email Management</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Operations</span>
+            </div>
+            <a href="heroes.html#strategist" class="flex items-center justify-center gap-1 font-sans text-xs font-medium" style="color: #FFB800;">
+              VIEW PROFILE <span class="material-symbols-sharp text-sm">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Diplomat -->
+        <div class="hero-card reveal reveal-delay-2 group overflow-hidden">
+          <div class="accent-bar" style="background-color: #E74C3C;"></div>
+          <div class="p-6">
+            <div class="icon-wrap mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full" style="background-color: rgba(231, 76, 60, 0.1);">
+              <img src="assets/hero-diplomat-icon.png" alt="The Diplomat" class="h-16 w-16 object-contain" loading="lazy" />
+            </div>
+            <h3 class="mb-2 text-center font-display text-lg tracking-[0.04em]" style="color: var(--deep-stone);">THE DIPLOMAT</h3>
+            <div class="mb-3 flex justify-center">
+              <span class="rounded-full px-3 py-1 font-sans text-[10px] font-semibold tracking-[0.08em] text-white" style="background-color: #E74C3C;">BRIDGE BETWEEN WORLDS</span>
+            </div>
+            <p class="mb-4 text-center font-sans text-sm leading-relaxed" style="color: var(--text-secondary);">
+              The two-sided guardian of relationships. The Diplomat manages client communications, vendor coordination, and external partnerships — keeping both internal teams and external stakeholders aligned.
+            </p>
+            <div class="mb-4 flex flex-wrap justify-center gap-1.5">
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">CRM Management</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Client Communication</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Vendor Relations</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Negotiation</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Follow-ups</span>
+            </div>
+            <a href="heroes.html#diplomat" class="flex items-center justify-center gap-1 font-sans text-xs font-medium" style="color: #E74C3C;">
+              VIEW PROFILE <span class="material-symbols-sharp text-sm">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Brain -->
+        <div class="hero-card reveal reveal-delay-1 group overflow-hidden sm:col-span-2 lg:col-span-1 lg:col-start-2" style="box-shadow: var(--shadow-glow-gold);">
+          <div class="accent-bar" style="background-color: #D4A853;"></div>
+          <div class="p-6">
+            <div class="icon-wrap mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full" style="background-color: rgba(212, 168, 83, 0.1);">
+              <img src="assets/hero-brain-icon.png" alt="The Brain" class="h-16 w-16 object-contain" loading="lazy" />
+            </div>
+            <h3 class="mb-2 text-center font-display text-lg tracking-[0.04em]" style="color: var(--deep-stone);">THE BRAIN</h3>
+            <div class="mb-3 flex justify-center">
+              <span class="rounded-full px-3 py-1 font-sans text-[10px] font-semibold tracking-[0.08em] text-white" style="background-color: #D4A853;">G-BRAIN OF GARITAN</span>
+            </div>
+            <p class="mb-4 text-center font-sans text-sm leading-relaxed" style="color: var(--text-secondary);">
+              The central intelligence that connects everything. The Brain analyzes cross-hero data, identifies patterns, suggests optimizations, and ensures The Partenon operates as a unified organism through MCP.
+            </p>
+            <div class="mb-4 flex flex-wrap justify-center gap-1.5">
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">MCP Protocol</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Cross-Agent Analysis</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Pattern Recognition</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Strategic Insights</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] tracking-wide" style="background-color: rgba(42,42,46,0.06); color: var(--text-secondary);">Data Synthesis</span>
+            </div>
+            <a href="heroes.html#brain" class="flex items-center justify-center gap-1 font-sans text-xs font-medium" style="color: #D4A853;">
+              VIEW PROFILE <span class="material-symbols-sharp text-sm">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Central Diagram -->
+      <div class="reveal text-center">
+        <img src="assets/parthenon-diagram.png" alt="The Partenon structure diagram" class="mx-auto mb-4 w-full" style="max-width: 800px;" loading="lazy" />
+        <p class="font-sans text-xs tracking-[0.08em]" style="color: var(--text-secondary);">
+          The Partenon structure: Hermes at the center, heroes connected in a circle of shared knowledge and tools.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works" class="relative w-full" style="background-color: var(--deep-stone); padding: var(--section-pad-y) 0;">
+    <div class="mx-auto px-6" style="max-width: var(--container-max);">
+      <div class="mb-16 text-center" style="max-width: var(--container-narrow); margin: 0 auto 4rem;">
+        <span class="reveal mb-3 inline-block font-sans text-xs font-semibold tracking-[0.12em]" style="color: var(--glow-amber);">THE PROCESS</span>
+        <h2 class="reveal font-display mb-4" style="font-size: clamp(1.75rem, 4vw, 3rem); letter-spacing: 0.06em; line-height: 1.1; color: var(--marble-white);">
+          FROM CHAOS TO CLARITY
+        </h2>
+        <div class="reveal mx-auto mb-4 h-0.5 w-12" style="background-color: var(--glow-amber);"></div>
+        <p class="reveal font-sans text-base leading-relaxed" style="color: rgba(247,245,240,0.6);">
+          Hermes doesn't just automate — it understands your business, assembles the right heroes, and guides you through a collaborative journey of transformation.
+        </p>
+      </div>
+
+      <div class="relative mb-16">
+        <div class="process-line absolute top-24 left-0 right-0 hidden lg:block h-px origin-left"></div>
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 relative z-10">
+          <div class="reveal text-center">
+            <span class="mb-2 block font-display text-5xl" style="color: var(--glow-amber); opacity: 0.3;">01</span>
+            <div class="mb-4 flex justify-center">
+              <div class="flex h-12 w-12 items-center justify-center rounded-full" style="background-color: rgba(255,184,0,0.15);">
+                <span class="material-symbols-sharp" style="color: var(--glow-amber);">business_center</span>
               </div>
             </div>
+            <h4 class="mb-3 font-sans text-base font-semibold tracking-wide" style="color: var(--marble-white);">THE ENTREPRENEUR ARRIVES</h4>
+            <p class="font-sans text-sm leading-relaxed" style="color: rgba(247,245,240,0.6);">
+              You come with your business — a construction company, a cafe, a consultancy. Hermes asks the right questions: What do you sell? What are your costs? What keeps you up at night?
+            </p>
+          </div>
+          <div class="reveal reveal-delay-1 text-center">
+            <span class="mb-2 block font-display text-5xl" style="color: var(--glow-amber); opacity: 0.3;">02</span>
+            <div class="mb-4 flex justify-center">
+              <div class="flex h-12 w-12 items-center justify-center rounded-full" style="background-color: rgba(255,184,0,0.15);">
+                <span class="material-symbols-sharp" style="color: var(--glow-amber);">groups</span>
+              </div>
+            </div>
+            <h4 class="mb-3 font-sans text-base font-semibold tracking-wide" style="color: var(--marble-white);">HEROES ASSEMBLE</h4>
+            <p class="font-sans text-sm leading-relaxed" style="color: rgba(247,245,240,0.6);">
+              Based on your needs, Hermes activates the right heroes. The Scribe sets up your financial tracking. The Herald begins brand discovery. The Strategist creates your operational calendar. Each hero starts their mission.
+            </p>
+          </div>
+          <div class="reveal reveal-delay-2 text-center">
+            <span class="mb-2 block font-display text-5xl" style="color: var(--glow-amber); opacity: 0.3;">03</span>
+            <div class="mb-4 flex justify-center">
+              <div class="flex h-12 w-12 items-center justify-center rounded-full" style="background-color: rgba(255,184,0,0.15);">
+                <span class="material-symbols-sharp" style="color: var(--glow-amber);">fact_check</span>
+              </div>
+            </div>
+            <h4 class="mb-3 font-sans text-base font-semibold tracking-wide" style="color: var(--marble-white);">MISSIONS IN MOTION</h4>
+            <p class="font-sans text-sm leading-relaxed" style="color: rgba(247,245,240,0.6);">
+              Heroes work collaboratively — The Herald requests budget data from The Scribe. The Collector sets up Stripe for your products. The Diplomat schedules client follow-ups. All progress tracked in shared Google Workspace.
+            </p>
+          </div>
+          <div class="reveal reveal-delay-3 text-center">
+            <span class="mb-2 block font-display text-5xl" style="color: var(--glow-amber); opacity: 0.3;">04</span>
+            <div class="mb-4 flex justify-center">
+              <div class="flex h-12 w-12 items-center justify-center rounded-full" style="background-color: rgba(255,184,0,0.15);">
+                <span class="material-symbols-sharp" style="color: var(--glow-amber);">account_balance</span>
+              </div>
+            </div>
+            <h4 class="mb-3 font-sans text-base font-semibold tracking-wide" style="color: var(--marble-white);">THE PARTENON THRIVES</h4>
+            <p class="font-sans text-sm leading-relaxed" style="color: rgba(247,245,240,0.6);">
+              Your business now has a complete operational system. Dashboards show real-time numbers. Campaigns run on schedule. Payments flow automatically. And The Brain continuously optimizes everything through cross-agent intelligence.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal text-center">
+        <h3 class="font-display text-xl mb-6" style="color: var(--marble-white); letter-spacing: 0.04em;">Ready to assemble your heroes?</h3>
+        <a href="developers.html" class="btn btn-primary">INSTALL HERMES NOW</a>
+        <p class="mt-4 font-sans text-xs tracking-[0.08em]" style="color: rgba(247,245,240,0.4);">
+          Open source. Free to install. Built for entrepreneurs.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact Counter -->
+  <section id="vision" class="bg-texture relative w-full" style="background-color: var(--parchment); padding: var(--section-pad-y) 0;">
+    <div class="relative z-10 mx-auto px-6" style="max-width: var(--container-max);">
+      <div class="mb-16 text-center" style="max-width: var(--container-narrow); margin: 0 auto 4rem;">
+        <span class="reveal mb-3 inline-block font-sans text-xs font-semibold tracking-[0.12em]" style="color: var(--stripe-indigo);">THE VISION</span>
+        <h2 class="reveal font-display mb-4" style="font-size: clamp(1.75rem, 4vw, 3rem); letter-spacing: 0.06em; line-height: 1.1; color: var(--deep-stone);">
+          SCALING FROM TEN TO ONE MILLION
+        </h2>
+        <div class="reveal mx-auto mb-4 h-0.5 w-12" style="background-color: var(--stripe-indigo);"></div>
+        <p class="reveal font-sans text-base leading-relaxed" style="color: var(--text-secondary);">
+          Every entrepreneur we empower creates ripples. Below are <strong>design objectives and adoption projections</strong> — not historical metrics — for what The Partenon can achieve as it grows.
+        </p>
+      </div>
+
+      <!-- Counters Grid -->
+      <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 mb-20">
+        <div class="reveal text-center" style="max-width: 320px; margin: 0 auto;">
+          <div class="counter font-display mb-2 tabular-nums counter-glow" data-target="1000000" data-suffix="" data-color="#635BFF" style="font-size: clamp(2.5rem, 6vw, 4.5rem); letter-spacing: 0.04em; line-height: 1;">0</div>
+          <div class="mb-2 font-sans text-xs font-semibold tracking-[0.12em]" style="color: var(--text-secondary);">ENTREPRENEURS EMPOWERED</div>
+          <p class="font-sans text-sm leading-relaxed" style="color: var(--text-secondary); opacity: 0.7;">Adoption projection: from 10 to 1,000,000 — every one with a complete operational system.</p>
+        </div>
+        <div class="reveal reveal-delay-1 text-center" style="max-width: 320px; margin: 0 auto;">
+          <div class="counter font-display mb-2 tabular-nums counter-glow" data-target="40" data-suffix="" data-color="#76B900" style="font-size: clamp(2.5rem, 6vw, 4.5rem); letter-spacing: 0.04em; line-height: 1;">0</div>
+          <div class="mb-2 font-sans text-xs font-semibold tracking-[0.12em]" style="color: var(--text-secondary);">HOURS SAVED MONTHLY</div>
+          <p class="font-sans text-sm leading-relaxed" style="color: var(--text-secondary); opacity: 0.7;">Design objective: time entrepreneurs could reclaim by automating routine operations.</p>
+        </div>
+        <div class="reveal reveal-delay-2 text-center" style="max-width: 320px; margin: 0 auto;">
+          <div class="counter font-display mb-2 tabular-nums counter-glow" data-target="95" data-suffix="%" data-color="#4A90A4" style="font-size: clamp(2.5rem, 6vw, 4.5rem); letter-spacing: 0.04em; line-height: 1;">0%</div>
+          <div class="mb-2 font-sans text-xs font-semibold tracking-[0.12em]" style="color: var(--text-secondary);">FINANCIAL CLARITY</div>
+          <p class="font-sans text-sm leading-relaxed" style="color: var(--text-secondary); opacity: 0.7;">Hypothesis: share of users who report understanding their business numbers for the first time.</p>
+        </div>
+        <div class="reveal text-center" style="max-width: 320px; margin: 0 auto;">
+          <div class="counter font-display mb-2 tabular-nums counter-glow" data-target="32" data-suffix="%" data-color="#FFB800" style="font-size: clamp(2.5rem, 6vw, 4.5rem); letter-spacing: 0.04em; line-height: 1;">0%</div>
+          <div class="mb-2 font-sans text-xs font-semibold tracking-[0.12em]" style="color: var(--text-secondary);">REVENUE UPLIFT TARGET</div>
+          <p class="font-sans text-sm leading-relaxed" style="color: var(--text-secondary); opacity: 0.7;">Projection: potential revenue increase within 6 months of implementing The Partenon.</p>
+        </div>
+        <div class="reveal reveal-delay-1 text-center" style="max-width: 320px; margin: 0 auto;">
+          <div class="counter font-display mb-2 tabular-nums counter-glow" data-target="50000000" data-suffix="" data-color="#9B59B6" style="font-size: clamp(2.5rem, 6vw, 4.5rem); letter-spacing: 0.04em; line-height: 1;">0</div>
+          <div class="mb-2 font-sans text-xs font-semibold tracking-[0.12em]" style="color: var(--text-secondary);">MISSIONS COMPLETED</div>
+          <p class="font-sans text-sm leading-relaxed" style="color: var(--text-secondary); opacity: 0.7;">Adoption projection: tasks, campaigns, analyses, and operations executed by heroes.</p>
+        </div>
+        <div class="reveal reveal-delay-2 text-center" style="max-width: 320px; margin: 0 auto;">
+          <div class="counter font-display mb-2 tabular-nums counter-glow" data-target="50" data-suffix="" data-color="#E74C3C" style="font-size: clamp(2.5rem, 6vw, 4.5rem); letter-spacing: 0.04em; line-height: 1;">0</div>
+          <div class="mb-2 font-sans text-xs font-semibold tracking-[0.12em]" style="color: var(--text-secondary);">COUNTRIES REACHED</div>
+          <p class="font-sans text-sm leading-relaxed" style="color: var(--text-secondary); opacity: 0.7;">Growth hypothesis: global expansion through workshops, universities, and partnerships.</p>
+        </div>
+      </div>
+
+      <!-- Milestone Bar -->
+      <div class="relative">
+        <div class="hidden lg:block absolute left-0 right-0 top-5 h-0.5" style="background: linear-gradient(to right, var(--stripe-indigo), var(--nvidia-green));"></div>
+        <div class="grid grid-cols-2 gap-6 lg:grid-cols-6 lg:gap-4">
+          <div class="flex flex-col items-center text-center">
+            <div class="mb-2 flex h-10 w-10 items-center justify-center rounded-full border-2" style="border-color: var(--stripe-indigo); background-color: var(--stripe-indigo);">
+              <span class="font-display text-xs font-bold text-white">10</span>
+            </div>
+            <span class="font-sans text-[10px] tracking-wide" style="color: var(--text-secondary);">First 10 founders</span>
+          </div>
+          <div class="flex flex-col items-center text-center">
+            <div class="mb-2 flex h-10 w-10 items-center justify-center rounded-full border-2" style="border-color: var(--stripe-indigo); background-color: var(--stripe-indigo);">
+              <span class="font-display text-xs font-bold text-white">100</span>
+            </div>
+            <span class="font-sans text-[10px] tracking-wide" style="color: var(--text-secondary);">Early adopters</span>
+          </div>
+          <div class="flex flex-col items-center text-center">
+            <div class="mb-2 flex h-10 w-10 items-center justify-center rounded-full border-2" style="border-color: var(--stripe-indigo); background-color: var(--stripe-indigo);">
+              <span class="font-display text-xs font-bold text-white">1K</span>
+            </div>
+            <span class="font-sans text-[10px] tracking-wide" style="color: var(--text-secondary);">University partnerships begin</span>
+          </div>
+          <div class="flex flex-col items-center text-center">
+            <div class="mb-2 flex h-10 w-10 items-center justify-center rounded-full border-2" style="border-color: rgba(42,42,46,0.2); background-color: transparent;">
+              <span class="font-display text-xs font-bold" style="color: var(--text-secondary);">10K</span>
+            </div>
+            <span class="font-sans text-[10px] tracking-wide" style="color: var(--text-secondary);">Regional expansion</span>
+            <span class="mt-1 font-sans text-[9px] tracking-wide" style="color: var(--text-secondary); opacity: 0.5;">Coming soon</span>
+          </div>
+          <div class="flex flex-col items-center text-center">
+            <div class="mb-2 flex h-10 w-10 items-center justify-center rounded-full border-2" style="border-color: rgba(42,42,46,0.2); background-color: transparent;">
+              <span class="font-display text-xs font-bold" style="color: var(--text-secondary);">100K</span>
+            </div>
+            <span class="font-sans text-[10px] tracking-wide" style="color: var(--text-secondary);">Global network</span>
+            <span class="mt-1 font-sans text-[9px] tracking-wide" style="color: var(--text-secondary); opacity: 0.5;">Coming soon</span>
+          </div>
+          <div class="flex flex-col items-center text-center">
+            <div class="mb-2 flex h-10 w-10 items-center justify-center rounded-full border-2" style="border-color: rgba(42,42,46,0.2); background-color: transparent;">
+              <span class="font-display text-xs font-bold" style="color: var(--text-secondary);">1M</span>
+            </div>
+            <span class="font-sans text-[10px] tracking-wide" style="color: var(--text-secondary);">Worldwide impact</span>
+            <span class="mt-1 font-sans text-[9px] tracking-wide" style="color: var(--text-secondary); opacity: 0.5;">Coming soon</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Before / After -->
-  <section id="problema" class="section-pad border-y border-line bg-surface/40">
-    <div class="max-w-[1400px] mx-auto px-4">
-      <div class="reveal max-w-2xl mb-16">
-        <span class="tag mb-4 block">Por qué existe</span>
-        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">El negocio crece. El desorden también.</h2>
+  <!-- Growth Plan -->
+  <section class="relative w-full" style="background-color: var(--marble-white); padding: var(--section-pad-y) 0;">
+    <div class="mx-auto px-6" style="max-width: var(--container-max);">
+      <div class="mb-16 text-center" style="max-width: var(--container-narrow); margin: 0 auto 4rem;">
+        <span class="reveal mb-3 inline-block font-sans text-xs font-semibold tracking-[0.12em]" style="color: var(--nvidia-green);">THE PATH FORWARD</span>
+        <h2 class="reveal font-display mb-4" style="font-size: clamp(1.75rem, 4vw, 3rem); letter-spacing: 0.06em; line-height: 1.1; color: var(--deep-stone);">
+          HOW WE REACH THE WORLD
+        </h2>
+        <div class="reveal mx-auto mb-4 h-0.5 w-12" style="background-color: var(--nvidia-green);"></div>
+        <p class="reveal font-sans text-base leading-relaxed" style="color: var(--text-secondary);">
+          A multi-channel strategy to bring The Partenon to entrepreneurs everywhere — from university auditoriums to coworking workshops.
+        </p>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="reveal bezel">
-          <div class="bezel-inner p-8 md:p-10">
-            <div class="flex items-center gap-3 mb-6">
-              <span class="material-symbols-sharp text-muted">block</span>
-              <span class="tag">Antes</span>
-            </div>
-            <h3 class="font-display text-2xl md:text-3xl tracking-tight mb-6">La pyme sin sistema.</h3>
-            <ul class="space-y-4 text-muted">
-              <li class="flex items-start gap-3">
-                <span class="material-symbols-sharp text-accent text-sm mt-1">check_box_outline_blank</span>
-                <span>Las finanzas viven en un Excel que nadie actualiza.</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="material-symbols-sharp text-accent text-sm mt-1">check_box_outline_blank</span>
-                <span>Clientes y proveedores se pierden entre WhatsApp, mail y notas.</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="material-symbols-sharp text-accent text-sm mt-1">check_box_outline_blank</span>
-                <span>Cada app nueva promete orden, pero termina abandonada.</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="material-symbols-sharp text-accent text-sm mt-1">check_box_outline_blank</span>
-                <span>La información vive en la cabeza del dueño.</span>
-              </li>
-            </ul>
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 mb-12">
+        <div class="growth-card reveal">
+          <div class="p-6">
+            <span class="mb-3 inline-block rounded-full px-3 py-1 font-sans text-[10px] font-semibold tracking-[0.08em] text-white" style="background-color: #9B59B6;">GLOBAL REACH</span>
+            <h3 class="mb-3 font-display text-lg tracking-[0.04em]" style="color: var(--deep-stone);">BIWEEKLY WEBINARS</h3>
+            <p class="mb-4 font-sans text-sm leading-relaxed" style="color: var(--text-secondary);">
+              Every 15 days, a live session for pre-registered entrepreneurs worldwide. We install Hermes together, configure heroes for each business, and leave everyone with a working operational system. 2 hours, zero cost, high value.
+            </p>
+            <p class="mb-4 font-sans text-xs tracking-wide" style="color: var(--text-secondary); opacity: 0.7;">Target: 500 participants per session</p>
+            <button class="icon-link font-sans text-xs font-semibold" style="color: #9B59B6;">
+              REGISTER FOR NEXT SESSION <span class="material-symbols-sharp text-sm">arrow_forward</span>
+            </button>
           </div>
         </div>
-        <div class="reveal bezel reveal-delay-1">
-          <div class="bezel-inner p-8 md:p-10">
-            <div class="flex items-center gap-3 mb-6">
-              <span class="material-symbols-sharp text-accent">check_circle</span>
-              <span class="tag">Con Hermes</span>
-            </div>
-            <h3 class="font-display text-2xl md:text-3xl tracking-tight mb-6">Una mesa de trabajo viva.</h3>
-            <ul class="space-y-4 text-muted">
-              <li class="flex items-start gap-3">
-                <span class="material-symbols-sharp text-accent text-sm mt-1">check</span>
-                <span>Cada héroe escribe en Google Workspace.</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="material-symbols-sharp text-accent text-sm mt-1">check</span>
-                <span>Las misiones quedan registradas con input, output y aprendizajes.</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="material-symbols-sharp text-accent text-sm mt-1">check</span>
-                <span>Todos los héroes leen lo que los otros hicieron.</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="material-symbols-sharp text-accent text-sm mt-1">check</span>
-                <span>El dueño revisa entregables, no memoriza tareas.</span>
-              </li>
-            </ul>
+
+        <div class="growth-card reveal reveal-delay-1">
+          <div class="overflow-hidden">
+            <img src="assets/growth-universities.jpg" alt="University partnerships" class="h-48 w-full object-cover" loading="lazy" />
+          </div>
+          <div class="p-6">
+            <span class="mb-3 inline-block rounded-full px-3 py-1 font-sans text-[10px] font-semibold tracking-[0.08em] text-white" style="background-color: #4A90A4;">NEXT GENERATION</span>
+            <h3 class="mb-3 font-display text-lg tracking-[0.04em]" style="color: var(--deep-stone);">UNIVERSITY PARTNERSHIPS</h3>
+            <p class="mb-4 font-sans text-sm leading-relaxed" style="color: var(--text-secondary);">
+              Collaborating with innovation departments, business accelerators, and extracurricular programs. Students from any discipline can adapt The Partenon to a business in their field — learning entrepreneurship by building real operational systems.
+            </p>
+            <p class="mb-4 font-sans text-xs tracking-wide" style="color: var(--text-secondary); opacity: 0.7;">Target: 50 universities in Year 1</p>
+            <button class="icon-link font-sans text-xs font-semibold" style="color: #4A90A4;">
+              PARTNER WITH US <span class="material-symbols-sharp text-sm">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="growth-card reveal">
+          <div class="p-6">
+            <span class="mb-3 inline-block rounded-full px-3 py-1 font-sans text-[10px] font-semibold tracking-[0.08em] text-white" style="background-color: #E74C3C;">COMMUNITY</span>
+            <h3 class="mb-3 font-display text-lg tracking-[0.04em]" style="color: var(--deep-stone);">BUSINESS ORGANIZATIONS</h3>
+            <p class="mb-4 font-sans text-sm leading-relaxed" style="color: var(--text-secondary);">
+              Workshops with business networks, chambers of commerce, and professional associations. Members bring their businesses; we bring The Partenon. Every participant leaves with Hermes installed and heroes activated.
+            </p>
+            <p class="mb-4 font-sans text-xs tracking-wide" style="color: var(--text-secondary); opacity: 0.7;">Target: 200 organizations per year</p>
+            <button class="icon-link font-sans text-xs font-semibold" style="color: #E74C3C;">
+              JOIN THE NETWORK <span class="material-symbols-sharp text-sm">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="growth-card reveal reveal-delay-1">
+          <div class="overflow-hidden">
+            <img src="assets/growth-coworking.jpg" alt="Coworking and accelerators" class="h-48 w-full object-cover" loading="lazy" />
+          </div>
+          <div class="p-6">
+            <span class="mb-3 inline-block rounded-full px-3 py-1 font-sans text-[10px] font-semibold tracking-[0.08em] text-white" style="background-color: #FFB800;">STARTUP ECOSYSTEM</span>
+            <h3 class="mb-3 font-display text-lg tracking-[0.04em]" style="color: var(--deep-stone);">COWORKING & ACCELERATORS</h3>
+            <p class="mb-4 font-sans text-sm leading-relaxed" style="color: var(--text-secondary);">
+              Partnerships with coworking spaces and business accelerators to make Hermes the default operational backbone for every startup in their portfolio. Custom agent configurations for accelerator cohorts.
+            </p>
+            <p class="mb-4 font-sans text-xs tracking-wide" style="color: var(--text-secondary); opacity: 0.7;">Target: 100 spaces, 20 accelerators in Year 1</p>
+            <button class="icon-link font-sans text-xs font-semibold" style="color: #FFB800;">
+              BECOME A PARTNER <span class="material-symbols-sharp text-sm">arrow_forward</span>
+            </button>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- How it works -->
-  <section id="como-funciona" class="section-pad">
-    <div class="max-w-[1400px] mx-auto px-4">
-      <div class="reveal max-w-2xl mb-16">
-        <span class="tag mb-4 block">Proceso</span>
-        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">De la intención a la entrega.</h2>
-        <p class="text-muted text-lg leading-relaxed">No instalas otra app. Dices qué necesitas y Hermes convierte tu intención en misiones con evidencia.</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="reveal bezel">
-          <div class="bezel-inner p-6 md:p-8 h-full">
-            <div class="font-mono text-4xl text-accent mb-4">01</div>
-            <h3 class="font-display text-xl tracking-tight mb-3">Llega la intención</h3>
-            <p class="text-sm text-muted leading-relaxed">El dueño describe su empresa y qué necesita ordenar. Hermes escucha y pregunta.</p>
-          </div>
-        </div>
-        <div class="reveal bezel reveal-delay-1">
-          <div class="bezel-inner p-6 md:p-8 h-full">
-            <div class="font-mono text-4xl text-accent mb-4">02</div>
-            <h3 class="font-display text-xl tracking-tight mb-3">Hermes activa héroes</h3>
-            <p class="text-sm text-muted leading-relaxed">Según la misión, despierta al Tesorero, Mensajero, Cobrador, Guardián, Estratega o Diplomático.</p>
-          </div>
-        </div>
-        <div class="reveal bezel reveal-delay-2">
-          <div class="bezel-inner p-6 md:p-8 h-full">
-            <div class="font-mono text-4xl text-accent mb-4">03</div>
-            <h3 class="font-display text-xl tracking-tight mb-3">Misiones en movimiento</h3>
-            <p class="text-sm text-muted leading-relaxed">Cada héroe usa su perfil, herramientas y memoria. Consultan G-Brain entre sí.</p>
-          </div>
-        </div>
-        <div class="reveal bezel reveal-delay-3">
-          <div class="bezel-inner p-6 md:p-8 h-full">
-            <div class="font-mono text-4xl text-accent mb-4">04</div>
-            <h3 class="font-display text-xl tracking-tight mb-3">El Partenón entrega</h3>
-            <p class="text-sm text-muted leading-relaxed">El resultado vive en Sheets, Docs, Calendar o Gmail. El dueño revisa, aprueba o corrige.</p>
-          </div>
-        </div>
+      <!-- Bottom Banner -->
+      <div class="reveal flex flex-col md:flex-row items-center justify-between gap-6 rounded-2xl p-8" style="background-color: var(--deep-stone);">
+        <h3 class="font-display text-lg tracking-[0.04em]" style="color: var(--glow-amber);">THE ULTIMATE GOAL</h3>
+        <p class="flex-1 text-center font-sans text-sm leading-relaxed" style="color: var(--marble-white);">
+          Make The Partenon the default operational intelligence system for every small business in the world — powered by Stripe, NVIDIA, and Nous Research.
+        </p>
+        <a href="developers.html" class="btn btn-primary">START WITH HERMES</a>
       </div>
     </div>
   </section>
 
-  <!-- One day with Hermes -->
-  <section id="dia" class="section-pad">
-    <div class="max-w-[1000px] mx-auto px-4">
-      <div class="reveal max-w-2xl mb-16">
-        <span class="tag mb-4 block">Caso concreto</span>
-        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">Un día con Hermes: Cafetería Aurora.</h2>
-        <p class="text-muted text-lg leading-relaxed">Aurora tiene 4 empleados y vende unas 200 tazas al día. Así opera con el Partenón.</p>
-      </div>
+  <!-- Partners -->
+  <section class="relative w-full" style="background-color: var(--deep-stone); padding: 4rem 0;">
+    <div class="mx-auto px-6 text-center" style="max-width: var(--container-max);">
+      <span class="mb-8 inline-block font-sans text-xs font-semibold tracking-[0.12em]" style="color: rgba(247,245,240,0.4);">POWERED BY</span>
 
-      <div class="reveal timeline">
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="font-mono text-xs text-accent mb-1">08:00</div>
-          <h3 class="font-display text-xl tracking-tight mb-2">El Tesorero detecta un gasto raro.</h3>
-          <p class="text-muted text-sm leading-relaxed">"El gasto en leche subió 18% esta semana. ¿Ajustamos la compra o subimos el precio del capuccino?" La alerta vive en Google Sheets.</p>
+      <div class="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20 mb-8">
+        <div class="partner-logo cursor-pointer">
+          <span class="partner-name font-sans text-xl font-semibold tracking-wide" style="color: rgba(247,245,240,0.6);" data-hover="#F7F5F0">Nous Research</span>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="font-mono text-xs text-accent mb-1">10:00</div>
-          <h3 class="font-display text-xl tracking-tight mb-2">El Mensajero publica la promo.</h3>
-          <p class="text-muted text-sm leading-relaxed">Crea el copy para Instagram, guarda la versión final en Google Docs y deja el presupuesto visible para el Tesorero.</p>
+        <div class="partner-logo cursor-pointer">
+          <span class="partner-name font-sans text-xl font-semibold tracking-wide" style="color: rgba(247,245,240,0.6);" data-hover="#76B900">NVIDIA</span>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="font-mono text-xs text-accent mb-1">12:00</div>
-          <h3 class="font-display text-xl tracking-tight mb-2">El Cobrador cobra y provisiona.</h3>
-          <p class="text-muted text-sm leading-relaxed">Genera un payment link por $4,500 MXN. También renueva el dominio anual con Stripe Link y provisiona una base de datos Neon para la app de pedidos. Cada gasto pide aprobación en la app de Link.</p>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot live"></div>
-          <div class="font-mono text-xs text-accent mb-1">15:00</div>
-          <h3 class="font-display text-xl tracking-tight mb-2">El Diplomático negocia un hito.</h3>
-          <p class="text-muted text-sm leading-relaxed">El proveedor de insumos entrega el viernes. Operaciones necesita dos días. El Diplomático coordina la fecha y el Estratega la guarda en Calendar.</p>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="font-mono text-xs text-accent mb-1">17:00</div>
-          <h3 class="font-display text-xl tracking-tight mb-2">El Estratega cierra el día.</h3>
-          <p class="text-muted text-sm leading-relaxed">Revisa tareas pendientes, agenda recordatorios y deja un resumen en Gmail para el dueño.</p>
+        <div class="partner-logo cursor-pointer">
+          <span class="partner-name font-sans text-xl font-semibold tracking-wide" style="color: rgba(247,245,240,0.6);" data-hover="#635BFF">Stripe</span>
         </div>
       </div>
 
-      <div class="reveal mt-12 p-6 border border-line rounded-xl bg-bg">
-        <p class="text-sm text-muted">Esto no es un chatbot respondiendo preguntas. Es un sistema que publica misiones, las ejecuta y deja evidencia en archivos reales.</p>
-      </div>
+      <p class="mx-auto max-w-xl font-sans text-sm leading-relaxed" style="color: rgba(247,245,240,0.5);">
+        The Partenon is built for the Nous Research × NVIDIA × Stripe Hackathon — and designed to become the operational backbone of every small enterprise.
+      </p>
     </div>
   </section>
 
-  <!-- Hackathon stack -->
-  <section class="section-pad border-y border-line bg-surface/40">
-    <div class="max-w-[1400px] mx-auto px-4">
-      <div class="reveal max-w-2xl mb-12">
-        <span class="tag mb-4 block">Stack del hackathon</span>
-        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">Agentes que cobran, pagan y operan seguros.</h2>
-        <p class="text-muted text-lg leading-relaxed">Partenon une tres capas: Hermes como runtime de agentes, NVIDIA como sandbox y modelo acelerado, y Stripe como infraestructura de pagos programáticos.</p>
-      </div>
+  <!-- CTA / Install -->
+  <section id="cta" class="relative w-full" style="background: linear-gradient(to bottom, var(--marble-white), var(--parchment)); padding: var(--section-pad-y) 0;">
+    <div class="mx-auto px-6" style="max-width: var(--container-narrow);">
+      <div class="greek-key mb-12"></div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="reveal bezel">
-          <div class="bezel-inner p-6 h-full">
-            <div class="flex items-center gap-3 mb-4">
-              <span class="material-symbols-sharp text-accent">terminal</span>
-              <h3 class="font-display text-lg tracking-tight">Hermes Agent</h3>
-            </div>
-            <p class="text-sm text-muted leading-relaxed">Runtime open source de Nous Research. Skills auto-generados, memoria persistente, MCP, cron, subagentes y un gateway a 22 plataformas de mensajería.</p>
+      <div class="text-center">
+        <h2 class="reveal font-display mb-4" style="font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.06em; line-height: 1.1; color: var(--deep-stone);">
+          YOUR PARTENON AWAITS
+        </h2>
+        <p class="reveal mb-8 font-sans text-base leading-relaxed" style="color: var(--text-secondary);">
+          Hermes is open source and free to install. One command sets up your entire operational system. Your heroes are ready — all they need is a mission.
+        </p>
+
+        <!-- Code Block -->
+        <div class="reveal mx-auto mb-8 flex items-center justify-between gap-3 rounded-lg px-6 py-4 text-left code-block" style="max-width: 480px;">
+          <div class="flex items-center gap-3 min-w-0">
+            <span style="color: var(--nvidia-green);">$</span>
+            <code id="typewriterCode" class="font-mono text-sm truncate" style="color: var(--marble-white);"></code>
+            <span id="typeCursor" class="cursor-blink"></span>
           </div>
-        </div>
-        <div class="reveal bezel reveal-delay-1">
-          <div class="bezel-inner p-6 h-full">
-            <div class="flex items-center gap-3 mb-4">
-              <span class="material-symbols-sharp text-accent">security</span>
-              <h3 class="font-display text-lg tracking-tight">NVIDIA NemoClaw</h3>
-            </div>
-            <p class="text-sm text-muted leading-relaxed">Orquestación de agentes autónomos de larga duración. OpenShell sandboxa cada héroe con políticas de filesystem, red y privacidad.</p>
-          </div>
-        </div>
-        <div class="reveal bezel reveal-delay-2">
-          <div class="bezel-inner p-6 h-full">
-            <div class="flex items-center gap-3 mb-4">
-              <span class="material-symbols-sharp text-accent">memory</span>
-              <h3 class="font-display text-lg tracking-tight">Nemotron 3 Ultra</h3>
-            </div>
-            <p class="text-sm text-muted leading-relaxed">550B parámetros MoE, 55B activos por token, contexto de 1M tokens. Hasta 5× más rápido y 30% más barato en tareas de agentes.</p>
-          </div>
-        </div>
-        <div class="reveal bezel reveal-delay-3">
-          <div class="bezel-inner p-6 h-full">
-            <div class="flex items-center gap-3 mb-4">
-              <span class="material-symbols-sharp text-accent">payments</span>
-              <h3 class="font-display text-lg tracking-tight">Stripe Skills</h3>
-            </div>
-            <p class="text-sm text-muted leading-relaxed"><code>stripe-link-cli</code> para compras, <code>mpp-agent</code> para pagos por API, y <code>stripe-projects</code> para provisionar SaaS bajo presupuestos controlados.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="reveal mt-10 p-4 border border-line rounded-xl bg-bg">
-        <p class="text-sm text-muted">Partenon se inspira en proyectos ganadores de hackathons anteriores de Hermes: la competencia multi-agente de <strong>Gladiator</strong>, el flujo creativo coordinado de <strong>JumpFoundry</strong> y la memoria de personalidad de <strong>Hermes Nordic</strong>. Aquí esas lecciones se aplican a operaciones de negocio.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Heroes -->
-  <section id="heroes" class="section-pad border-y border-line bg-surface/40">
-    <div class="max-w-[1400px] mx-auto px-4">
-      <div class="reveal max-w-2xl mb-12">
-        <span class="tag mb-4 block">Héroes del Partenón</span>
-        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">Arquetipos operativos, no más automatización sin rostro.</h2>
-        <p class="text-muted text-lg leading-relaxed">Tu empresa necesita héroes: perfiles con permisos, herramientas y memoria propia. Cada uno se activa solo cuando la misión le corresponde.</p>
-      </div>
-
-      <!-- Desktop tabs -->
-      <div class="hidden md:block reveal">
-        <div class="flex flex-wrap gap-2 mb-8">
-          <button class="hero-tab active" data-hero="tesorero">Tesorero</button>
-          <button class="hero-tab" data-hero="mensajero">Mensajero</button>
-          <button class="hero-tab" data-hero="cobrador">Cobrador</button>
-          <button class="hero-tab" data-hero="guardian">Guardián</button>
-          <button class="hero-tab" data-hero="estratega">Estratega</button>
-          <button class="hero-tab" data-hero="diplomatico">Diplomático</button>
-        </div>
-
-        <div class="hero-content active" id="tesorero-content">
-          <div class="bezel">
-            <div class="bezel-inner p-8 md:p-10">
-              <div class="flex items-center gap-4 mb-6">
-                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">savings</span></div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest">01 / Tesorero</div>
-                  <div class="font-display text-2xl tracking-tight">El que acomoda los números</div>
-                </div>
-              </div>
-              <div class="grid md:grid-cols-2 gap-8">
-                <div>
-                  <p class="text-muted leading-relaxed mb-4">Personalidad paciente, meticulosa y directa. Cuando Hermes dice "no entiendo mis finanzas", el Tesorero toma la misión y devuelve un Google Sheet con costos fijos, variables, margen por obra y alertas. Puede acelerar análisis grandes con cuDF sobre GPU.</p>
-                  <div class="p-4 rounded-lg bg-white/[0.03]">
-                    <div class="text-xs text-muted uppercase tracking-wider font-mono mb-2">Pegaso</div>
-                    <div class="text-sm text-text">Google Sheets, dashboards, plantillas Excel, parsers de gastos, NVIDIA cuDF, cuOpt.</div>
-                  </div>
-                </div>
-                <div class="space-y-3">
-                  <div class="p-4 rounded-lg bg-white/[0.03]">
-                    <div class="text-xs text-muted uppercase tracking-wider font-mono mb-1">Constructora</div>
-                    <div class="text-sm text-text">Materiales, mano de obra, ganancia por obra, costos variables.</div>
-                  </div>
-                  <div class="p-4 rounded-lg bg-white/[0.03]">
-                    <div class="text-xs text-muted uppercase tracking-wider font-mono mb-1">Cafetería</div>
-                    <div class="text-sm text-text">Pauta, impuestos, renta, insumos, empleados, costo por taza.</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-content" id="mensajero-content">
-          <div class="bezel">
-            <div class="bezel-inner p-8 md:p-10">
-              <div class="flex items-center gap-4 mb-6">
-                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">campaign</span></div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest">02 / Mensajero</div>
-                  <div class="font-display text-2xl tracking-tight">Ventas y comunicación</div>
-                </div>
-              </div>
-              <div class="grid md:grid-cols-2 gap-8">
-                <div>
-                  <p class="text-muted leading-relaxed mb-4">Curioso, persuasivo y leal a la marca. Investiga qué vende, a quién ayuda y por qué. Construye voz, ejecuta campañas y publica contenido.</p>
-                  <div class="p-4 rounded-lg bg-white/[0.03]">
-                    <div class="text-xs text-muted uppercase tracking-wider font-mono mb-2">Pegaso</div>
-                    <div class="text-sm text-text">Open Design, redes sociales, SEO/GEO, WordPress/SSH, Google Docs/Slides.</div>
-                  </div>
-                </div>
-                <div class="space-y-3">
-                  <div class="p-4 rounded-lg bg-white/[0.03]">
-                    <div class="text-xs text-muted uppercase tracking-wider font-mono mb-1">Misiones clave</div>
-                    <div class="text-sm text-text">Brand intake, calendario de contenido, copy, presentaciones, mails.</div>
-                  </div>
-                  <div class="p-4 rounded-lg bg-white/[0.03]">
-                    <div class="text-xs text-muted uppercase tracking-wider font-mono mb-1">Conexión</div>
-                    <div class="text-sm text-text">Lee presupuestos del Tesorero antes de proponer campañas.</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-content" id="cobrador-content">
-          <div class="bezel">
-            <div class="bezel-inner p-8 md:p-10">
-              <div class="flex items-center gap-4 mb-6">
-                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">credit_card</span></div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest">03 / Cobrador</div>
-                  <div class="font-display text-2xl tracking-tight">El que cobra y paga</div>
-                </div>
-              </div>
-              <div class="grid md:grid-cols-2 gap-8">
-                <div>
-                  <p class="text-muted leading-relaxed mb-4">Firme, claro y sin vergüenza. Recibe pagos por Stripe y también ejecuta gastos autorizados: renueva dominios, compra créditos de API y provisiona SaaS. Ningún gasto sale sin aprobación explícita en la app de Link.</p>
-                  <div class="p-4 rounded-lg bg-white/[0.03]">
-                    <div class="text-xs text-muted uppercase tracking-wider font-mono mb-2">Pegaso</div>
-                    <div class="text-sm text-text">Stripe API, payment links, suscripciones, <code>stripe-link-cli</code>, <code>mpp-agent</code>, <code>stripe-projects</code>, webhooks.</div>
-                  </div>
-                </div>
-                <div class="space-y-3">
-                  <div class="p-4 rounded-lg bg-white/[0.03]">
-                    <div class="text-xs text-muted uppercase tracking-wider font-mono mb-1">Misiones de pago</div>
-                    <div class="text-sm text-text">Compras con Link, pagos por API 402, provisión de Neon/Twilio/Vercel, reportes de ingresos en Sheets.</div>
-                  </div>
-                  <div class="p-4 rounded-lg bg-white/[0.03]">
-                    <div class="text-xs text-muted uppercase tracking-wider font-mono mb-1">Conexión</div>
-                    <div class="text-sm text-text">Notifica ingresos y gastos al Tesorero; pide aprobación al dueño.</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-content" id="guardian-content">
-          <div class="bezel">
-            <div class="bezel-inner p-8 md:p-10">
-              <div class="flex items-center gap-4 mb-6">
-                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">shield</span></div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest">04 / Guardián</div>
-                  <div class="font-display text-2xl tracking-tight">Seguridad, sandbox y modelos</div>
-                </div>
-              </div>
-              <div class="grid md:grid-cols-2 gap-8">
-                <div>
-                  <p class="text-muted leading-relaxed mb-4">Reservado, vigilante y preciso. Administra modelos, API keys y políticas de acceso. Rutea inferencias sensibles a modelos locales vía NVIDIA OpenShell y audita cada skill antes de que entre a producción.</p>
-                  <div class="p-4 rounded-lg bg-white/[0.03]">
-                    <div class="text-xs text-muted uppercase tracking-wider font-mono mb-2">Pegaso</div>
-                    <div class="text-sm text-text">NVIDIA NemoClaw, OpenShell policies, Nemotron 3 Ultra/Super, OpenAI, Kimi Coding, rotación de keys, permisos por perfil.</div>
-                  </div>
-                </div>
-                <div class="space-y-3">
-                  <div class="p-4 rounded-lg bg-white/[0.03]">
-                    <div class="text-xs text-muted uppercase tracking-wider font-mono mb-1">Responsabilidad</div>
-                    <div class="text-sm text-text">Aislar héroes en sandboxes, auditar accesos, rotar keys, asignar permisos mínimos y decidir dónde corre cada inferencia.</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-content" id="estratega-content">
-          <div class="bezel">
-            <div class="bezel-inner p-8 md:p-10">
-              <div class="flex items-center gap-4 mb-6">
-                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">strategy</span></div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest">05 / Estratega</div>
-                  <div class="font-display text-2xl tracking-tight">Administración y operaciones</div>
-                </div>
-              </div>
-              <div class="grid md:grid-cols-2 gap-8">
-                <div>
-                  <p class="text-muted leading-relaxed mb-4">Ordenado, exigente y protector del tiempo. Project management interno. Calendar, Gmail, recordatorios, checklists y seguimiento de operaciones. Cuando una misión cruza varios héroes, el Estratega la descompone y coordina subagentes en paralelo.</p>
-                  <div class="p-4 rounded-lg bg-white/[0.03]">
-                    <div class="text-xs text-muted uppercase tracking-wider font-mono mb-2">Pegaso</div>
-                    <div class="text-sm text-text">Google Calendar, Gmail, tareas, recordatorios, checklists, briefings, cron de Hermes, <code>delegate_task</code>.</div>
-                  </div>
-                </div>
-                <div class="space-y-3">
-                  <div class="p-4 rounded-lg bg-white/[0.03]">
-                    <div class="text-xs text-muted uppercase tracking-wider font-mono mb-1">Ritmo</div>
-                    <div class="text-sm text-text">Cierre diario, recordatorios, coordinación con Diplomático, tareas programadas con cron.</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-content" id="diplomatico-content">
-          <div class="bezel">
-            <div class="bezel-inner p-8 md:p-10">
-              <div class="flex items-center gap-4 mb-6">
-                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">handshake</span></div>
-                <div>
-                  <div class="font-mono text-xs text-muted uppercase tracking-widest">06 / Diplomático</div>
-                  <div class="font-display text-2xl tracking-tight">Relaciones con clientes y proveedores</div>
-                </div>
-              </div>
-              <div class="grid md:grid-cols-2 gap-8">
-                <div>
-                  <p class="text-muted leading-relaxed mb-4">Diplomático, de dos caras en el buen sentido: entiende al cliente y a operaciones. Da seguimiento a clientes, proveedores, hitos y contratos.</p>
-                  <div class="p-4 rounded-lg bg-white/[0.03]">
-                    <div class="text-xs text-muted uppercase tracking-wider font-mono mb-2">Pegaso</div>
-                    <div class="text-sm text-text">Gmail, Calendar, CRM ligero, hitos, recordatorios, contratos.</div>
-                  </div>
-                </div>
-                <div class="space-y-3">
-                  <div class="p-4 rounded-lg bg-white/[0.03]">
-                    <div class="text-xs text-muted uppercase tracking-wider font-mono mb-1">Ejemplo</div>
-                    <div class="text-sm text-text">Cliente debe entregar información el viernes. Operaciones necesita dos días. El Diplomático negocia el hito y lo registra.</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Mobile accordion -->
-      <div class="md:hidden space-y-4 reveal">
-        <div class="accordion-item open">
-          <button class="accordion-header">
-            <div class="flex items-center gap-3">
-              <span class="material-symbols-sharp text-accent">savings</span>
-              <span class="font-display text-lg">Tesorero</span>
-            </div>
-            <span class="material-symbols-sharp accordion-icon">expand_more</span>
+          <button id="copyCmd" class="flex-shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-lg hover:bg-white/10 transition-colors" aria-label="Copy command">
+            <span class="material-symbols-sharp text-sm" style="color: var(--marble-white);">content_copy</span>
           </button>
-          <div class="accordion-body">
-            <div class="px-4 pb-4 text-sm text-muted">
-              <p class="mb-3">Acomoda los números. Devuelve Sheets con costos fijos, variables, margen y alertas.</p>
-              <p class="font-mono text-xs text-accent">Pegaso: Google Sheets, Excel, parsers de gastos.</p>
-            </div>
-          </div>
         </div>
-        <div class="accordion-item">
-          <button class="accordion-header">
-            <div class="flex items-center gap-3">
-              <span class="material-symbols-sharp text-accent">campaign</span>
-              <span class="font-display text-lg">Mensajero</span>
-            </div>
-            <span class="material-symbols-sharp accordion-icon">expand_more</span>
-          </button>
-          <div class="accordion-body">
-            <div class="px-4 pb-4 text-sm text-muted">
-              <p class="mb-3">Ventas y comunicación. Brand intake, campañas, contenido y presentaciones.</p>
-              <p class="font-mono text-xs text-accent">Pegaso: Open Design, redes, SEO/GEO, WordPress/SSH.</p>
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <button class="accordion-header">
-            <div class="flex items-center gap-3">
-              <span class="material-symbols-sharp text-accent">credit_card</span>
-              <span class="font-display text-lg">Cobrador</span>
-            </div>
-            <span class="material-symbols-sharp accordion-icon">expand_more</span>
-          </button>
-          <div class="accordion-body">
-            <div class="px-4 pb-4 text-sm text-muted">
-              <p class="mb-3">Cobra por Stripe y ejecuta gastos autorizados: Link, pagos por API 402, provisionamiento SaaS.</p>
-              <p class="font-mono text-xs text-accent">Pegaso: Stripe API, stripe-link-cli, mpp-agent, stripe-projects, webhooks.</p>
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <button class="accordion-header">
-            <div class="flex items-center gap-3">
-              <span class="material-symbols-sharp text-accent">shield</span>
-              <span class="font-display text-lg">Guardián</span>
-            </div>
-            <span class="material-symbols-sharp accordion-icon">expand_more</span>
-          </button>
-          <div class="accordion-body">
-            <div class="px-4 pb-4 text-sm text-muted">
-              <p class="mb-3">Seguridad, sandbox y modelos. Administra API keys, permisos por perfil y ruteo de inferencias.</p>
-              <p class="font-mono text-xs text-accent">Pegaso: NemoClaw, OpenShell, Nemotron, OpenAI, Kimi Coding, rotación de keys.</p>
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <button class="accordion-header">
-            <div class="flex items-center gap-3">
-              <span class="material-symbols-sharp text-accent">strategy</span>
-              <span class="font-display text-lg">Estratega</span>
-            </div>
-            <span class="material-symbols-sharp accordion-icon">expand_more</span>
-          </button>
-          <div class="accordion-body">
-            <div class="px-4 pb-4 text-sm text-muted">
-              <p class="mb-3">Administración y operaciones. Calendar, Gmail, tareas, cron y coordinación de subagentes.</p>
-              <p class="font-mono text-xs text-accent">Pegaso: Google Calendar, Gmail, tareas, checklists, cron, delegate_task.</p>
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <button class="accordion-header">
-            <div class="flex items-center gap-3">
-              <span class="material-symbols-sharp text-accent">handshake</span>
-              <span class="font-display text-lg">Diplomático</span>
-            </div>
-            <span class="material-symbols-sharp accordion-icon">expand_more</span>
-          </button>
-          <div class="accordion-body">
-            <div class="px-4 pb-4 text-sm text-muted">
-              <p class="mb-3">Relaciones con clientes y proveedores. Hitos, contratos y recordatorios.</p>
-              <p class="font-mono text-xs text-accent">Pegaso: Gmail, Calendar, CRM ligero, contratos.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- G-Brain -->
-  <section class="section-pad">
-    <div class="max-w-[1400px] mx-auto px-4">
-      <div class="grid lg:grid-cols-12 gap-12 items-center">
-        <div class="lg:col-span-5 reveal">
-          <span class="tag mb-4 block">Memoria compartida</span>
-          <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">Sin cerebro, los héroes no se hablan.</h2>
-          <p class="text-muted text-lg leading-relaxed mb-6">Hermes trae memoria nativa con <code>MEMORY.md</code> y <code>USER.md</code>. G-Brain la extiende por MCP para que cada héroe lea contexto, escriba resultados y consulte lo que otros aprendieron.</p>
-          <ul class="space-y-4">
-            <li class="flex items-start gap-3">
-              <span class="material-symbols-sharp text-accent mt-0.5">check</span>
-              <span class="text-muted">Perfiles: archivos <code>.finance</code>, <code>.design</code> y <code>.security</code> definen comportamiento.</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="material-symbols-sharp text-accent mt-0.5">check</span>
-              <span class="text-muted">Misiones: cada tarea queda registrada con input, output y aprendizajes.</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="material-symbols-sharp text-accent mt-0.5">check</span>
-              <span class="text-muted">Entidades: clientes, proveedores y productos se guardan como objetos reutilizables.</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="material-symbols-sharp text-accent mt-0.5">check</span>
-              <span class="text-muted">Skills auto-generados: tras misiones complejas Hermes crea o parchea <code>SKILL.md</code> para la empresa.</span>
-            </li>
-          </ul>
+        <!-- CTAs -->
+        <div class="reveal mb-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="developers.html" class="btn btn-primary">
+            <span class="material-symbols-sharp text-sm">download</span>
+            INSTALL HERMES
+          </a>
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            View on GitHub
+          </a>
         </div>
-        <div class="lg:col-span-7 reveal bezel reveal-delay-1">
-          <div class="bezel-inner p-8 md:p-10">
-            <div class="flex items-center justify-between mb-8">
-              <span class="tag">MCP / G-Brain</span>
-              <span class="font-mono text-xs text-muted">READ / WRITE</span>
-            </div>
-            <div class="space-y-4">
-              <div class="flex items-center gap-4 p-4 rounded-lg bg-white/[0.03]">
-                <span class="font-mono text-sm text-accent">tesorero</span>
-                <span class="text-muted">→</span>
-                <span class="font-mono text-sm text-muted">READ profile</span>
-                <span class="text-muted">→</span>
-                <span class="font-mono text-sm text-accent">.finance</span>
-              </div>
-              <div class="flex items-center gap-4 p-4 rounded-lg bg-white/[0.03]">
-                <span class="font-mono text-sm text-accent">cobrador</span>
-                <span class="text-muted">→</span>
-                <span class="font-mono text-sm text-muted">READ customer</span>
-                <span class="text-muted">→</span>
-                <span class="font-mono text-sm text-accent">Stripe</span>
-              </div>
-              <div class="flex items-center gap-4 p-4 rounded-lg bg-white/[0.03]">
-                <span class="font-mono text-sm text-accent">guardián</span>
-                <span class="text-muted">→</span>
-                <span class="font-mono text-sm text-muted">ROTATE key</span>
-                <span class="text-muted">→</span>
-                <span class="font-mono text-sm text-accent">Nvidia</span>
-              </div>
-              <div class="flex items-center gap-4 p-4 rounded-lg bg-white/[0.03]">
-                <span class="font-mono text-sm text-accent">diplomático</span>
-                <span class="text-muted">→</span>
-                <span class="font-mono text-sm text-muted">READ milestone</span>
-                <span class="text-muted">→</span>
-                <span class="font-mono text-sm text-accent">Calendar</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Self-improvement + Gateway -->
-  <section class="section-pad border-y border-line bg-surface/40">
-    <div class="max-w-[1400px] mx-auto px-4">
-      <div class="grid lg:grid-cols-2 gap-12">
-        <div class="reveal">
-          <span class="tag mb-4 block">Auto-mejora</span>
-          <h2 class="font-display text-3xl md:text-4xl tracking-[-0.04em] leading-[0.95] mb-6">Hermes aprende de cada misión.</h2>
-          <p class="text-muted leading-relaxed mb-6">Partenon no empieza de cero cada mañana. Después de cada interacción, Hermes evalúa el resultado y propone actualizaciones de memoria y skills. El Curator consolida la biblioteca cada 7 días. Todo pasa bajo aprobación humana.</p>
-          <div class="space-y-3">
-            <div class="flex items-start gap-3">
-              <span class="material-symbols-sharp text-accent mt-0.5">sync</span>
-              <span class="text-muted text-sm"><strong>Closed learning loop:</strong> interacción → registro → evaluación → optimización → skill consolidada.</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="material-symbols-sharp text-accent mt-0.5">schedule</span>
-              <span class="text-muted text-sm"><strong>Cron:</strong> tareas programadas en lenguaje natural o expresión cron; entrega a Telegram, WhatsApp, email o Sheets.</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="material-symbols-sharp text-accent mt-0.5">forum</span>
-              <span class="text-muted text-sm"><strong>Messaging gateway:</strong> una sola sesión persiste en Telegram, WhatsApp, Slack, Discord, email y 17 plataformas más.</span>
-            </div>
-          </div>
-        </div>
-        <div class="reveal bezel reveal-delay-1">
-          <div class="bezel-inner p-6 md:p-8">
-            <div class="flex items-center justify-between mb-6">
-              <span class="tag">Learning loop</span>
-              <span class="font-mono text-xs text-muted">v0.1.0-alpha</span>
-            </div>
-            <div class="space-y-4">
-              <div class="flex items-center gap-4 p-3 rounded-lg bg-white/[0.03]">
-                <span class="font-mono text-sm text-accent">1</span>
-                <span class="text-sm text-muted">Tesorero categoriza gasto inusual.</span>
-              </div>
-              <div class="flex items-center gap-4 p-3 rounded-lg bg-white/[0.03]">
-                <span class="font-mono text-sm text-accent">2</span>
-                <span class="text-sm text-muted">Dueño corrige categoría.</span>
-              </div>
-              <div class="flex items-center gap-4 p-3 rounded-lg bg-white/[0.03]">
-                <span class="font-mono text-sm text-accent">3</span>
-                <span class="text-sm text-muted">Hermes propone parche a <code>SKILL.md</code>.</span>
-              </div>
-              <div class="flex items-center gap-4 p-3 rounded-lg bg-white/[0.03]">
-                <span class="font-mono text-sm text-accent">4</span>
-                <span class="text-sm text-muted">Siguiente gasto similar se clasifica solo.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+        <a href="developers.html" class="reveal inline-flex items-center gap-1 font-sans text-sm font-medium hover:opacity-70" style="color: var(--stripe-indigo);">
+          Read the Technical Documentation <span class="material-symbols-sharp text-sm">arrow_forward</span>
+        </a>
 
-  <!-- Impact -->
-  <section id="impacto" class="section-pad border-y border-line bg-surface/40 scanlines">
-    <div class="max-w-[1400px] mx-auto px-4">
-      <div class="reveal max-w-2xl mb-16">
-        <span class="tag mb-4 block">Impacto</span>
-        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">De 10 a 1 millón de empresas ordenadas.</h2>
-        <p class="text-muted text-lg leading-relaxed">No prometemos números mágicos. Prometemos un sistema que se puede instalar hoy y medir mañana.</p>
-      </div>
-
-      <div class="reveal mb-12">
-        <div class="flex items-center justify-between text-xs font-mono text-muted uppercase tracking-wider mb-4">
-          <span>10</span>
-          <span>100</span>
-          <span>1K</span>
-          <span>10K</span>
-          <span>100K</span>
-          <span>1M</span>
-        </div>
-        <div class="h-1.5 bg-white/[0.06] rounded-full overflow-hidden">
-          <div class="impact-bar h-full bg-accent rounded-full" style="width: 0%"></div>
-        </div>
-        <div class="flex items-center justify-between text-[10px] text-muted font-mono uppercase tracking-wider mt-3">
-          <span>Primeras pilotos</span>
-          <span class="hidden md:inline">Early adopters</span>
-          <span class="hidden md:inline">Workshops</span>
-          <span class="hidden md:inline">Universidades</span>
-          <span class="hidden md:inline">Coworkings</span>
-          <span>1M pymes</span>
+        <!-- Trust Badges -->
+        <div class="reveal mt-8 flex flex-wrap items-center justify-center gap-3">
+          <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-sans text-xs font-medium" style="background-color: rgba(118,185,0,0.1); color: var(--nvidia-green);">
+            <span class="material-symbols-sharp text-sm">check_circle</span> Open Source
+          </span>
+          <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-sans text-xs font-medium" style="background-color: rgba(118,185,0,0.1); color: var(--nvidia-green);">
+            <span class="material-symbols-sharp text-sm">check_circle</span> Free Forever
+          </span>
+          <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-sans text-xs font-medium" style="background-color: rgba(118,185,0,0.1); color: var(--nvidia-green);">
+            <span class="material-symbols-sharp text-sm">check_circle</span> MCP Ready
+          </span>
+          <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-sans text-xs font-medium" style="background-color: rgba(118,185,0,0.1); color: var(--nvidia-green);">
+            <span class="material-symbols-sharp text-sm">check_circle</span> Google Workspace Integrated
+          </span>
         </div>
       </div>
 
-      <div class="reveal grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
-        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent" data-target="10">0</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
-        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent" data-target="100">0</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
-        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent" data-target="1000">0</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
-        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent" data-target="10000">0</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
-        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent" data-target="100000">0</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
-        <div class="bezel"><div class="bezel-inner p-6 text-center"><div class="stat-value text-3xl md:text-4xl text-accent" data-target="1000000">0</div><div class="text-xs text-muted uppercase tracking-wider font-mono mt-2">pymes</div></div></div>
-      </div>
-
-      <div class="grid md:grid-cols-4 gap-4 mb-16">
-        <div class="reveal p-6 border border-line rounded-xl text-center">
-          <div class="stat-value text-3xl text-accent mb-2" data-target="40">0</div>
-          <div class="text-sm text-muted">Horas recuperadas al mes</div>
-        </div>
-        <div class="reveal p-6 border border-line rounded-xl text-center reveal-delay-1">
-          <div class="stat-value text-3xl text-accent mb-2" data-target="95">0</div>
-          <div class="text-sm text-muted">% claridad financiera</div>
-        </div>
-        <div class="reveal p-6 border border-line rounded-xl text-center reveal-delay-2">
-          <div class="stat-value text-3xl text-accent mb-2" data-target="32">0</div>
-          <div class="text-sm text-muted">% mejora en ingresos</div>
-        </div>
-        <div class="reveal p-6 border border-line rounded-xl text-center reveal-delay-3">
-          <div class="stat-value text-3xl text-accent mb-2" data-target="90">0</div>
-          <div class="text-sm text-muted">Minutos para instalar</div>
-        </div>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="reveal p-6 border border-line rounded-xl">
-          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-3">Menos rework</div>
-          <div class="font-display text-2xl tracking-tight mb-2">Decisiones documentadas</div>
-          <p class="text-sm text-muted">Cada héroe escribe por qué tomó una decisión. El contexto no se pierde entre reuniones.</p>
-        </div>
-        <div class="reveal p-6 border border-line rounded-xl reveal-delay-1">
-          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-3">Menos reuniones</div>
-          <div class="font-display text-2xl tracking-tight mb-2">Estado visible</div>
-          <p class="text-sm text-muted">El dueño revisa Sheets, Docs y Calendar en lugar de preguntar en cada canal.</p>
-        </div>
-        <div class="reveal p-6 border border-line rounded-xl reveal-delay-2">
-          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-3">Menos apps abandonadas</div>
-          <div class="font-display text-2xl tracking-tight mb-2">Una superficie común</div>
-          <p class="text-sm text-muted">Google Workspace es la mesa de trabajo. No hay que migrar datos cada tres meses.</p>
-        </div>
-      </div>
-
-      <p class="reveal text-sm text-muted mt-12 max-w-2xl">La escala 10 → 1M es una proyección de adopción basada en el paper Hermes Business OS. Las métricas secundarias son objetivos de diseño que mediremos con empresas piloto en las primeras 12 semanas.</p>
-    </div>
-  </section>
-
-  <!-- Letter -->
-  <section class="section-pad">
-    <div class="max-w-[900px] mx-auto px-4">
-      <div class="reveal relative p-8 md:p-12 border border-line rounded-2xl bg-bg">
-        <div class="quote-mark absolute top-4 left-6">"</div>
-        <blockquote class="relative z-10">
-          <p class="font-display text-2xl md:text-3xl tracking-tight leading-snug mb-8">Quiero ser el investigador de implementación que mida cómo las personas adoptan Hermes en el mundo real: cómo se instala, cómo se vuelve usable y qué hace que una pyme lo mantenga vivo.</p>
-          <p class="text-muted leading-relaxed mb-6">En México y Latinoamérica hay negocios con flujo de millones que llevan todo en un Excel porque contratar un ERP les suena a traición. Hermes está en el punto de adopción donde estuvo la PlayStation: fácil de probar, fácil de convertir en hábito.</p>
-          <p class="text-muted leading-relaxed mb-8">La meta es un millón de instalaciones usables, empezando por empresas pequeñas que hoy no tienen orden.</p>
-          <footer class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
-              <span class="material-symbols-sharp text-accent">person</span>
-            </div>
-            <div>
-              <div class="font-display text-lg">Pablo Meneses</div>
-              <div class="text-sm text-muted">wsc.lat · Laboratorio de IA en Latinoamérica</div>
-            </div>
-          </footer>
-        </blockquote>
-      </div>
-    </div>
-  </section>
-
-  <!-- Go-to-market -->
-  <section id="crecimiento" class="section-pad border-y border-line bg-surface/40">
-    <div class="max-w-[1400px] mx-auto px-4">
-      <div class="reveal max-w-2xl mb-16">
-        <span class="tag mb-4 block">Crecimiento</span>
-        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-6">Instalamos empresa por empresa.</h2>
-        <p class="text-muted text-lg leading-relaxed">No vendemos licencias. Vendemos un sistema usable en 90 minutos. Cada instalación nos enseña cómo mejorar el siguiente.</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
-        <div class="reveal bezel">
-          <div class="bezel-inner p-6 h-full">
-            <div class="flex items-center gap-3 mb-4">
-              <span class="material-symbols-sharp text-accent">school</span>
-              <span class="font-mono text-xs text-muted uppercase tracking-wider">Canal 01</span>
-            </div>
-            <h3 class="font-display text-xl tracking-tight mb-3">Workshops</h3>
-            <p class="text-sm text-muted leading-relaxed mb-4">90 minutos para instalar Hermes en vivo. Universidades, aceleradoras, coworkings y cámaras de comercio.</p>
-            <div class="font-mono text-xs text-accent">Meta: 50 eventos / trimestre</div>
-          </div>
-        </div>
-        <div class="reveal bezel reveal-delay-1">
-          <div class="bezel-inner p-6 h-full">
-            <div class="flex items-center gap-3 mb-4">
-              <span class="material-symbols-sharp text-accent">store</span>
-              <span class="font-mono text-xs text-muted uppercase tracking-wider">Canal 02</span>
-            </div>
-            <h3 class="font-display text-xl tracking-tight mb-3">Empresas piloto</h3>
-            <p class="text-sm text-muted leading-relaxed mb-4">Instalamos en pymes reales, medimos impacto y publicamos casos de uso. Cada caso reduce fricción para el siguiente.</p>
-            <div class="font-mono text-xs text-accent">Meta: 10 → 100 pymes</div>
-          </div>
-        </div>
-        <div class="reveal bezel reveal-delay-2">
-          <div class="bezel-inner p-6 h-full">
-            <div class="flex items-center gap-3 mb-4">
-              <span class="material-symbols-sharp text-accent">hub</span>
-              <span class="font-mono text-xs text-muted uppercase tracking-wider">Canal 03</span>
-            </div>
-            <h3 class="font-display text-xl tracking-tight mb-3">Partners técnicos</h3>
-            <p class="text-sm text-muted leading-relaxed mb-4">Consultoras, desarrolladores y comunidades de agentes adaptan perfiles a nuevas industrias y regulaciones.</p>
-            <div class="font-mono text-xs text-accent">Meta: 25 partners activos</div>
-          </div>
-        </div>
-        <div class="reveal bezel reveal-delay-3">
-          <div class="bezel-inner p-6 h-full">
-            <div class="flex items-center gap-3 mb-4">
-              <span class="material-symbols-sharp text-accent">rocket_launch</span>
-              <span class="font-mono text-xs text-muted uppercase tracking-wider">Canal 04</span>
-            </div>
-            <h3 class="font-display text-xl tracking-tight mb-3">Marketplace de perfiles</h3>
-            <p class="text-sm text-muted leading-relaxed mb-4">Perfiles listos para restaurantes, tiendas, consultorios, talleres y más. Cada perfil es un punto de entrada.</p>
-            <div class="font-mono text-xs text-accent">Meta: 100 perfiles</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="reveal grid md:grid-cols-3 gap-6">
-        <div class="p-6 border border-line rounded-xl">
-          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-3">Fase 1 — 0-3 meses</div>
-          <div class="font-display text-2xl tracking-tight mb-2">Validar la instalación</div>
-          <p class="text-sm text-muted">Workshops con pymes de confianza. Refinar el onboard, el Google Sheet base y los perfiles de los 6 héroes.</p>
-        </div>
-        <div class="reveal p-6 border border-line rounded-xl reveal-delay-1">
-          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-3">Fase 2 — 3-12 meses</div>
-          <div class="font-display text-2xl tracking-tight mb-2">Escalar casos de uso</div>
-          <p class="text-sm text-muted">Publicar casos por industria. Abrir partners técnicos y universidades como canales de distribución.</p>
-        </div>
-        <div class="reveal p-6 border border-line rounded-xl reveal-delay-2">
-          <div class="font-mono text-xs text-muted uppercase tracking-widest mb-3">Fase 3 — 12+ meses</div>
-          <div class="font-display text-2xl tracking-tight mb-2">Red de implementación</div>
-          <p class="text-sm text-muted">La comunidad instala más empresas que el equipo fundador. El sistema mejora solo con cada ejecución.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Install -->
-  <section id="instalar" class="section-pad">
-    <div class="max-w-[1400px] mx-auto px-4">
-      <div class="grid lg:grid-cols-12 gap-12 items-start">
-        <div class="lg:col-span-5 reveal">
-          <span class="tag mb-4 block">Instalación</span>
-          <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Empieza en minutos.</h2>
-          <p class="text-muted text-lg leading-relaxed mb-6">Hermes trabaja con archivos de perfil. Los héroes publican resultados en Sheets, Docs, Slides, Drive, Calendar y Gmail. Puedes correrlo localmente o dentro de NVIDIA NemoClaw con OpenShell.</p>
-          <ol class="space-y-4 mb-8 text-muted">
-            <li class="flex items-start gap-3"><span class="font-mono text-accent">1.</span> Clona el repositorio.</li>
-            <li class="flex items-start gap-3"><span class="font-mono text-accent">2.</span> Corre el instalador o el onboard de NemoClaw.</li>
-            <li class="flex items-start gap-3"><span class="font-mono text-accent">3.</span> Instala las Stripe Skills oficiales.</li>
-            <li class="flex items-start gap-3"><span class="font-mono text-accent">4.</span> Copia el Google Sheet base y define el tipo de empresa.</li>
-          </ol>
-          <a href="developers.html" class="btn btn-secondary">Ver documentación técnica <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_outward</span></span></a>
-        </div>
-        <div class="lg:col-span-7 reveal bezel reveal-delay-1">
-          <div class="bezel-inner p-6 md:p-8">
-            <div class="flex items-center justify-between mb-4">
-              <span class="tag">Terminal</span>
-              <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyInstall()">Copiar</button>
-            </div>
-            <pre><code id="installCmd"># Opción A: instalador local
-curl -fsSL https://partenon.dev/install.sh | bash
-
-# Opción B: onboard con NVIDIA NemoClaw
-curl -fsSL https://www.nvidia.com/nemoclaw.sh | NEMOCLAW_AGENT=hermes bash
-
-# Stripe Skills oficiales
-hermes skills install official/payments/stripe-link-cli
-hermes skills install official/payments/mpp-agent
-hermes skills install official/payments/stripe-projects</code></pre>
-            <p class="text-sm text-muted mt-4">El instalador configura entorno, dependencias y el comando global <code>hermes</code>. NemoClaw crea un sandbox con políticas de red y filesystem. Las Stripe Skills habilitan pagos programáticos bajo aprobación humana.</p>
-          </div>
-        </div>
-      </div>
+      <div class="greek-key mt-12"></div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="py-12 border-t border-line">
-    <div class="max-w-[1400px] mx-auto px-4">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-        <div>
-          <div class="font-mono text-xl tracking-tight font-medium mb-1">PARTENON</div>
-          <div class="text-sm text-muted">Hermes y sus héroes para tu empresa.</div>
+  <footer class="relative w-full" style="background-color: var(--midnight); padding: 3rem 0 2rem;">
+    <div class="mx-auto px-6" style="max-width: var(--container-max);">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div class="md:col-span-2">
+          <div class="font-display text-lg tracking-widest font-semibold mb-4" style="color: var(--marble-white);">PARTENON</div>
+          <p class="font-sans text-sm leading-relaxed max-w-sm" style="color: rgba(247,245,240,0.5);">
+            A complete AI agent system for entrepreneurs. Built with Hermes Agent, NVIDIA NemoClaw / OpenShell, and Stripe tools for the Nous Research hackathon.
+          </p>
         </div>
-        <div class="flex flex-wrap gap-6 text-sm text-muted">
-          <a href="index.html" class="hover:text-text transition-colors">Inicio</a>
-          <a href="developers.html" class="hover:text-text transition-colors">Documentación</a>
-          <a href="https://github.com/paolameneses/partenon" target="_blank" rel="noopener" class="hover:text-text transition-colors">GitHub</a>
+        <div>
+          <h4 class="font-sans text-xs font-semibold tracking-[0.12em] mb-4" style="color: rgba(247,245,240,0.4);">NAVIGATE</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="font-sans text-sm hover:text-white transition-colors" style="color: rgba(247,245,240,0.6);">Home</a></li>
+            <li><a href="heroes.html" class="font-sans text-sm hover:text-white transition-colors" style="color: rgba(247,245,240,0.6);">Heroes</a></li>
+            <li><a href="developers.html" class="font-sans text-sm hover:text-white transition-colors" style="color: rgba(247,245,240,0.6);">Developers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-sans text-xs font-semibold tracking-[0.12em] mb-4" style="color: rgba(247,245,240,0.4);">RESOURCES</h4>
+          <ul class="space-y-2">
+            <li><a href="https://nousresearch.com" target="_blank" rel="noopener noreferrer" class="font-sans text-sm hover:text-white transition-colors" style="color: rgba(247,245,240,0.6);">Nous Research</a></li>
+            <li><a href="https://nvidia.com" target="_blank" rel="noopener noreferrer" class="font-sans text-sm hover:text-white transition-colors" style="color: rgba(247,245,240,0.6);">NVIDIA</a></li>
+            <li><a href="https://stripe.com" target="_blank" rel="noopener noreferrer" class="font-sans text-sm hover:text-white transition-colors" style="color: rgba(247,245,240,0.6);">Stripe</a></li>
+          </ul>
         </div>
       </div>
-      <div class="line-divider my-8"></div>
-      <div class="text-xs text-muted font-mono">Hermes Business OS · Hackathon Nous Research / Nvidia / Stripe</div>
+      <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="font-sans text-xs" style="color: rgba(247,245,240,0.4);">
+          Built for the Nous Research × NVIDIA × Stripe Hackathon. Not an official product of Nous Research, NVIDIA, or Stripe.
+        </p>
+        <p class="font-sans text-xs" style="color: rgba(247,245,240,0.4);">
+          Hermes, NemoClaw, and OpenShell references are alpha / early preview.
+        </p>
+      </div>
     </div>
   </footer>
 
   <script>
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    reveals.forEach(el => observer.observe(el));
-
+    // Mobile menu
     const menuBtn = document.getElementById('menuBtn');
     const closeMenu = document.getElementById('closeMenu');
     const mobileMenu = document.getElementById('mobileMenu');
-    menuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
-    closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
-    mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('open')));
 
-    const syncTimer = document.getElementById('syncTimer');
-    let seconds = 12;
-    setInterval(() => {
-      seconds += 1;
-      if (seconds > 59) seconds = 1;
-      syncTimer.textContent = `hace ${seconds} s`;
-    }, 3000);
+    function openMenu() { mobileMenu.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeMenuFn() { mobileMenu.classList.remove('open'); document.body.style.overflow = ''; }
 
-    // Hero tabs
-    const tabs = document.querySelectorAll('.hero-tab');
-    const contents = document.querySelectorAll('.hero-content');
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const hero = tab.dataset.hero;
-        tabs.forEach(t => t.classList.remove('active'));
-        contents.forEach(c => c.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById(`${hero}-content`).classList.add('active');
+    menuBtn.addEventListener('click', openMenu);
+    closeMenu.addEventListener('click', closeMenuFn);
+    mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenuFn));
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
       });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // Partner hover
+    document.querySelectorAll('.partner-name').forEach(el => {
+      const defaultColor = el.style.color;
+      el.addEventListener('mouseenter', () => el.style.color = el.dataset.hover);
+      el.addEventListener('mouseleave', () => el.style.color = defaultColor);
     });
 
-    // Mobile accordion
-    const accordions = document.querySelectorAll('.accordion-header');
-    accordions.forEach(header => {
-      header.addEventListener('click', () => {
-        const item = header.parentElement;
-        const isOpen = item.classList.contains('open');
-        document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
-        if (!isOpen) item.classList.add('open');
-      });
-    });
-
-    function copyInstall() {
-      navigator.clipboard.writeText(document.getElementById('installCmd').textContent);
-      showToast('Comando copiado', 'content_copy');
+    // Counter animation
+    function formatNumber(num) {
+      if (num >= 1000000) return (num / 1000000).toFixed(0) + ',000,000';
+      if (num >= 1000) return num.toLocaleString();
+      return num.toString();
     }
 
-    function showToast(message, icon = 'check') {
-      let toast = document.getElementById('toast');
-      if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'toast';
-        toast.className = 'toast';
-        document.body.appendChild(toast);
-      }
-      toast.innerHTML = `<span class="material-symbols-sharp text-accent">${icon}</span><span>${message}</span>`;
+    document.querySelectorAll('.counter').forEach(counter => {
+      const target = parseInt(counter.dataset.target, 10);
+      const suffix = counter.dataset.suffix || '';
+      const color = counter.dataset.color;
+      counter.style.color = color;
+      let hasAnimated = false;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !hasAnimated) {
+            hasAnimated = true;
+            const duration = 2500;
+            const start = performance.now();
+
+            const animate = (now) => {
+              const elapsed = now - start;
+              const progress = Math.min(elapsed / duration, 1);
+              const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress) * Math.cos((progress * 10 - 0.75) * ((2 * Math.PI) / 3));
+              counter.textContent = formatNumber(Math.floor(eased * target)) + suffix;
+              if (progress < 1) requestAnimationFrame(animate);
+            };
+            requestAnimationFrame(animate);
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.5 });
+      observer.observe(counter);
+    });
+
+    // Typewriter effect for CTA command
+    const typewriterCode = document.getElementById('typewriterCode');
+    const typeCursor = document.getElementById('typeCursor');
+    const fullText = 'npx create-hermes@latest';
+    let typedIndex = 0;
+    let hasTyped = false;
+
+    const typeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !hasTyped) {
+          hasTyped = true;
+          const interval = setInterval(() => {
+            typedIndex++;
+            typewriterCode.textContent = fullText.slice(0, typedIndex);
+            if (typedIndex >= fullText.length) {
+              clearInterval(interval);
+              typeCursor.style.animation = 'none';
+              typeCursor.style.opacity = '1';
+            }
+          }, 60);
+          typeObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.5 });
+    typeObserver.observe(document.getElementById('cta'));
+
+    // Copy to clipboard
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
       toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2000);
+      setTimeout(() => toast.classList.remove('show'), 2200);
     }
 
-    // Animated counters
-    const statObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const targets = entry.target.querySelectorAll('.stat-value[data-target]');
-          targets.forEach(el => animateCounter(el));
-          statObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    document.querySelectorAll('#impacto').forEach(el => statObserver.observe(el));
+    document.getElementById('copyCmd').addEventListener('click', () => {
+      navigator.clipboard.writeText(fullText).then(() => showToast('Command copied to clipboard'));
+    });
 
-    function animateCounter(el) {
-      const target = parseInt(el.dataset.target, 10);
-      const duration = 1600;
-      const start = performance.now();
-      const format = n => {
-        if (target >= 1000000) return (n / 1000000).toFixed(n >= 1000000 ? 0 : 1) + 'M';
-        if (target >= 1000) return (n / 1000).toFixed(n >= 1000 ? 0 : 1) + 'K';
-        return Math.round(n).toString();
-      };
-      function step(now) {
-        const p = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - p, 4);
-        el.textContent = format(target * eased);
-        if (p < 1) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-    }
-
-    // Impact milestone bar
-    const impactBarObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const bar = entry.target.querySelector('.impact-bar');
-          if (bar) bar.style.width = '100%';
-          impactBarObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.4 });
-    document.querySelectorAll('#impacto').forEach(el => impactBarObserver.observe(el));
-
-    // Typewriter command
-    const typewriter = document.querySelector('.typewriter-line');
-    if (typewriter) {
-      const textEl = typewriter.querySelector('.typewriter-text');
-      const cmd = typewriter.dataset.cmd;
-      let i = 0;
-      function type() {
-        if (i <= cmd.length) {
-          textEl.textContent = cmd.slice(0, i);
-          i++;
-          setTimeout(type, i === cmd.length + 1 ? 2000 : 60 + Math.random() * 40);
-        } else {
-          setTimeout(() => { i = 0; type(); }, 3000);
-        }
-      }
-      setTimeout(type, 800);
+    // Hero gateway touch support
+    const leftPanel = document.querySelector('.hero-panel-left');
+    const rightPanel = document.querySelector('.hero-panel-right');
+    if (window.matchMedia('(pointer: coarse)').matches) {
+      leftPanel.addEventListener('touchstart', () => { leftPanel.style.flex = '1.22'; rightPanel.style.flex = '0.82'; });
+      leftPanel.addEventListener('touchend', () => { leftPanel.style.flex = ''; rightPanel.style.flex = ''; });
+      rightPanel.addEventListener('touchstart', () => { rightPanel.style.flex = '1.22'; leftPanel.style.flex = '0.82'; });
+      rightPanel.addEventListener('touchend', () => { rightPanel.style.flex = ''; leftPanel.style.flex = ''; });
     }
   </script>
 </body>
