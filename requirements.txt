@@ -1,0 +1,4 @@
+# Partenon core dependencies
+openpyxl>=3.1.0
+fastmcp>=1.0.0
+python-dotenv>=1.0.0

@@ -10,7 +10,14 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 echo "Partenon v${PARTENON_VERSION} installer"
 echo "========================================"
 
-# 1. Check Hermes CLI
+# 1. Check Python venv
+if [ ! -d "$REPO_ROOT/.venv" ]; then
+  echo "Creating Python virtual environment..."
+  python3 -m venv "$REPO_ROOT/.venv"
+fi
+"$REPO_ROOT/.venv/bin/pip" install -q -r "$REPO_ROOT/requirements.txt"
+
+# 2. Check Hermes CLI
 if ! command -v hermes &> /dev/null; then
   echo "Hermes CLI not found. Installing..."
   curl -fsSL https://install.hermes-agent.nousresearch.com | bash
@@ -19,24 +26,24 @@ fi
 
 hermes --version
 
-# 2. Install Partenon core skill
+# 3. Install Partenon core skill
 echo "Installing partenon-core..."
 mkdir -p "$HOME/.hermes/skills/partenon-core"
 cp -R "$REPO_ROOT/partenon-core/SKILL.md" "$HOME/.hermes/skills/partenon-core/"
 
-# 3. Install hero profiles
+# 4. Install hero profiles
 for profile in tesorero mensajero cobrador guardian estratega diplomatico; do
   echo "Installing partenon-${profile}..."
   hermes profile install "$REPO_ROOT/hermes/profiles/partenon-${profile}" --alias "partenon-${profile}" || true
 done
 
-# 4. Copy environment template
+# 5. Copy environment template
 if [ ! -f "$REPO_ROOT/.env" ]; then
   cp "$REPO_ROOT/.env.example" "$REPO_ROOT/.env"
   echo "Created .env from template. Edit it with your keys."
 fi
 
-# 5. Create workspace structure
+# 6. Create workspace structure
 mkdir -p "$REPO_ROOT/data"
 mkdir -p "$REPO_ROOT/logs"
 

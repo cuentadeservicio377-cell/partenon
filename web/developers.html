@@ -274,29 +274,35 @@
       <div class="reveal mermaid-container mb-12">
         <div class="mermaid">
 flowchart LR
-    subgraph PARTENON["Partenón"]
-        H["Hermes<br/>Orquestador"]
-        G["G-Brain<br/>Memoria compartida"]
-        subgraph PERFILES["Perfiles"]
-            T["Tesorero<br/>.finance"]
-            M["Mensajero<br/>.design"]
-            C["Cobrador<br/>.payments"]
-            GU["Guardián<br/>.security"]
-            E["Estratega<br/>.ops"]
-            D["Diplomático<br/>.relations"]
+    subgraph PARTENON["Partenón v0.1.0"]
+        R["partenon-core / router"]
+        O["onboarding_flow"]
+        G["G-Brain MCP<br/>memoria compartida"]
+        subgraph PERFILES["Perfiles Hermes"]
+            T["partenon-tesorero<br/>.finance"]
+            M["partenon-mensajero<br/>.design"]
+            C["partenon-cobrador<br/>.payments"]
+            GU["partenon-guardian<br/>.security"]
+            E["partenon-estratega<br/>.ops"]
+            D["partenon-diplomatico<br/>.relations"]
         end
+        DASH["dashboard<br/>Next.js kanban + cron"]
     end
     U["Emprendedor"]
     GW["Google Workspace"]
     API["APIs externas<br/>Stripe / Nvidia / OpenAI / Kimi"]
 
-    U --> H
-    H --> G
+    U --> R
+    R --> O
+    O --> G
+    R --> G
     G --> T & M & C & GU & E & D
     T & M & C & GU & E & D --> GW
+    T --> S["templates/<br/>google-sheet-base"]
     C --> API
     GU --> API
     M --> API
+    DASH --> G
         </div>
       </div>
 
@@ -379,37 +385,37 @@ sequenceDiagram
         <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors">
           <div class="material-symbols-sharp text-accent mb-4">language</div>
           <h3 class="font-display text-lg tracking-tight mb-2">Frontend</h3>
-          <p class="text-sm text-muted">HTML estático, Tailwind CSS vía CDN, JavaScript vanilla.</p>
+          <p class="text-sm text-muted">HTML estático, Tailwind CSS vía CDN, JavaScript vanilla. Dashboard en Next.js 15 + React 19 + TypeScript.</p>
         </div>
         <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-1">
-          <div class="material-symbols-sharp text-accent mb-4">workspace_premium</div>
-          <h3 class="font-display text-lg tracking-tight mb-2">Workspace</h3>
-          <p class="text-sm text-muted">Google Sheets, Docs, Slides, Drive, Calendar, Gmail.</p>
+          <div class="material-symbols-sharp text-accent mb-4">terminal</div>
+          <h3 class="font-display text-lg tracking-tight mb-2">Core</h3>
+          <p class="text-sm text-muted">Python 3.11+, <code>partenon-core</code> con router, onboarding, workflows y MCP.</p>
         </div>
         <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-2">
+          <div class="material-symbols-sharp text-accent mb-4">workspace_premium</div>
+          <h3 class="font-display text-lg tracking-tight mb-2">Workspace</h3>
+          <p class="text-sm text-muted">Google Sheets, Docs, Slides, Drive, Calendar, Gmail. Plantillas Excel con openpyxl.</p>
+        </div>
+        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-3">
           <div class="material-symbols-sharp text-accent mb-4">payments</div>
           <h3 class="font-display text-lg tracking-tight mb-2">Pagos</h3>
           <p class="text-sm text-muted">Stripe API, webhooks, payment links y suscripciones.</p>
         </div>
-        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-3">
+        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors">
           <div class="material-symbols-sharp text-accent mb-4">neurology</div>
           <h3 class="font-display text-lg tracking-tight mb-2">IA / LLMs</h3>
           <p class="text-sm text-muted">Nous Research, OpenAI, Kimi Coding y modelos locales según perfil.</p>
         </div>
-        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors">
+        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-1">
           <div class="material-symbols-sharp text-accent mb-4">storage</div>
           <h3 class="font-display text-lg tracking-tight mb-2">Memoria</h3>
-          <p class="text-sm text-muted">G-Brain conectado vía MCP para contexto persistente.</p>
+          <p class="text-sm text-muted">G-Brain MCP con FastMCP para contexto persistente entre perfiles.</p>
         </div>
-        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-1">
+        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-2">
           <div class="material-symbols-sharp text-accent mb-4">design_services</div>
           <h3 class="font-display text-lg tracking-tight mb-2">Diseño</h3>
           <p class="text-sm text-muted">Open Design, redes sociales, WordPress y SSH para sitios.</p>
-        </div>
-        <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-2">
-          <div class="material-symbols-sharp text-accent mb-4">chat</div>
-          <h3 class="font-display text-lg tracking-tight mb-2">Comunicación</h3>
-          <p class="text-sm text-muted">Telegram, WhatsApp y email como canales de entrada/salida.</p>
         </div>
         <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-3">
           <div class="material-symbols-sharp text-accent mb-4">account_tree</div>
@@ -428,27 +434,33 @@ sequenceDiagram
 ├── web/
 │   ├── index.html
 │   └── developers.html
-├── hermes/
-│   ├── install.sh
-│   ├── profiles/
-│   │   ├── finance.example
-│   │   ├── design.example
-│   │   ├── payments.example
-│   │   ├── security.example
-│   │   ├── ops.example
-│   │   └── relations.example
-│   └── agents/
-│       ├── tesorero/
-│       ├── mensajero/
-│       ├── cobrador/
-│       ├── guardian/
-│       ├── estratega/
-│       └── diplomatico/
+├── dashboard/
+│   ├── app/ (Next.js 15, kanban + cron)
+│   └── Dockerfile
+├── partenon-core/
+│   ├── tools/ (router, onboarding_flow, workflow)
+│   ├── config/mcp/servers.yaml
+│   ├── data/initial_tasks.json
+│   └── install.sh
+├── hermes/profiles/
+│   ├── partenon-tesorero/
+│   ├── partenon-mensajero/
+│   ├── partenon-cobrador/
+│   ├── partenon-guardian/
+│   ├── partenon-estratega/
+│   └── partenon-diplomatico/
 ├── gbrain/
-│   ├── memory/
-│   └── connector.js
-├── mcp/
-│   └── server.mjs
+│   ├── server.py (FastMCP)
+│   └── memory/
+├── templates/
+│   └── google-sheet-base/finance_sheet.py
+├── scripts/
+│   └── demo_tesorero.py
+├── data/
+│   ├── sample_gastos.xlsx
+│   └── sample_gastos_report.json
+├── docker-compose.yml
+├── .env.example
 └── README.md</code></pre>
         </div>
       </div>
@@ -772,6 +784,65 @@ flowchart LR
     </div>
   </section>
 
+  <!-- Demo -->
+  <section id="demo" class="section-pad border-y border-line bg-surface/40">
+    <div class="max-w-[1400px] mx-auto px-4">
+      <div class="reveal max-w-2xl mb-16">
+        <span class="tag mb-4 block">Demo funcional</span>
+        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Tesorero corre hoy.</h2>
+        <p class="text-muted text-lg leading-relaxed">El perfil financiero ya genera un libro de Excel estructurado y un informe JSON. No requiere credenciales de Google para probarse localmente.</p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6 mb-12">
+        <div class="reveal bezel">
+          <div class="bezel-inner p-6 md:p-8">
+            <div class="flex items-center justify-between mb-4">
+              <span class="tag">Terminal</span>
+              <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyDemo()">Copiar</button>
+            </div>
+            <pre><code id="demoCmd">python scripts/demo_tesorero.py</code></pre>
+            <p class="text-sm text-muted mt-4">Genera <code>data/sample_gastos.xlsx</code> (hojas Dashboard, Ingresos, Gastos Fijos, Gastos Variables, Proveedores) y <code>data/sample_gastos_report.json</code>.</p>
+          </div>
+        </div>
+        <div class="reveal bezel reveal-delay-1">
+          <div class="bezel-inner p-6 md:p-8">
+            <div class="tag mb-4">Output JSON</div>
+            <pre><code>{
+  "timestamp": "2026-06-26T02:37:27.997359Z",
+  "ingresos": 4000.0,
+  "gastos_fijos": 609.0,
+  "gastos_variables": 1030.0,
+  "margen": 2361.0,
+  "margen_pct": 59.03,
+  "alertas": []
+}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal mermaid-container">
+        <div class="font-mono text-xs text-muted uppercase tracking-widest mb-4">Flujo del demo</div>
+        <div class="mermaid">
+sequenceDiagram
+    participant U as Usuario
+    participant D as demo_tesorero.py
+    participant T as finance_sheet.py
+    participant X as sample_gastos.xlsx
+    participant A as Auditoria
+    participant J as report.json
+
+    U->>D: python scripts/demo_tesorero.py
+    D->>T: create_finance_sheet()
+    T->>X: hojas base
+    D->>X: add_sample_expenses()
+    D->>A: audit_workbook()
+    A->>J: ingresos, gastos, margen, alertas
+    J-->>U: JSON legible
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Workshop -->
   <section id="workshop" class="section-pad border-y border-line bg-surface/40">
     <div class="max-w-[1400px] mx-auto px-4">
@@ -786,20 +857,24 @@ flowchart LR
         <div class="mermaid">
 sequenceDiagram
     participant P as Participante
-    participant I as Instalador
-    participant H as Hermes
+    participant I as install.sh
+    participant C as partenon-core
+    participant H as Hermes profiles
     participant GW as Google Workspace
+    participant DASH as Dashboard
 
     P->>I: curl ... | bash
-    I->>H: Configura entorno y perfiles
-    H->>GW: Clona Google Sheet base
+    I->>C: Python env, deps, hermes CLI
+    C->>H: Copia 6 perfiles
+    C->>GW: Clona Google Sheet base
     Note over P,GW: Pre-instalación (antes del evento)
-    P->>H: Define tipo de empresa
-    H->>GW: Crea .finance, .design, .security
-    Note over P,GW: Onboarding (20-60 min)
+    P->>C: Define tipo de empresa
+    C->>H: Crea .finance, .design, .security, .ops, .relations, .payments
+    C->>DASH: Carga tareas iniciales
+    Note over P,DASH: Onboarding (20-60 min)
     H->>GW: Publica 3 misiones reales
-    GW-->>P: Revisa entregables
-    Note over P,GW: Práctica (60-90 min)
+    DASH-->>P: Revisa kanban y entregables
+    Note over P,DASH: Práctica (60-90 min)
         </div>
       </div>
 
@@ -810,9 +885,9 @@ sequenceDiagram
             <h3 class="font-display text-xl tracking-tight mb-4">Setup</h3>
             <ul class="space-y-3 text-sm text-muted">
               <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Pre-instalación con <code>curl ... | bash</code>.</li>
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Copiar Google Sheet base.</li>
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Conectar Google Workspace.</li>
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Crear <code>.finance</code>, <code>.design</code>, <code>.security</code>.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Clonar repositorio y levantar Docker Compose.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Copiar Google Sheet base y conectar Workspace.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Crear archivos de perfil <code>.finance</code>, <code>.design</code>, <code>.security</code>, <code>.ops</code>, <code>.relations</code>, <code>.payments</code>.</li>
             </ul>
           </div>
         </div>
@@ -834,7 +909,8 @@ sequenceDiagram
             <h3 class="font-display text-xl tracking-tight mb-4">Práctica</h3>
             <ul class="space-y-3 text-sm text-muted">
               <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Publicar 3 misiones reales.</li>
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Revisar entregables en Sheets/Docs.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Revisar entregables en kanban y Sheets/Docs.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Ejecutar demo del Tesorero localmente.</li>
               <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Ajustar prompts y permisos.</li>
               <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Dejar plan de 30 días.</li>
             </ul>
@@ -911,22 +987,22 @@ curl -fsSL https://partenon.dev/install.sh | bash
             <div class="flex gap-4">
               <div class="font-mono text-sm text-accent w-20 shrink-0">Q2 2026</div>
               <div>
-                <div class="font-display text-lg tracking-tight">v0.1 — Tesorero + Mensajero</div>
-                <p class="text-sm text-muted">Hojas de finanzas automatizadas y calendario de contenido.</p>
+                <div class="font-display text-lg tracking-tight">v0.1.0 — Seis perfiles + dashboard</div>
+                <p class="text-sm text-muted">Tesorero, Mensajero, Cobrador, Guardián, Estratega y Diplomático con kanban y G-Brain MCP.</p>
               </div>
             </div>
             <div class="flex gap-4">
               <div class="font-mono text-sm text-accent w-20 shrink-0">Q3 2026</div>
               <div>
-                <div class="font-display text-lg tracking-tight">v0.2 — Cobrador + Guardián</div>
-                <p class="text-sm text-muted">Stripe integrado y gestión segura de API keys por perfil.</p>
+                <div class="font-display text-lg tracking-tight">v0.2 — Integraciones live</div>
+                <p class="text-sm text-muted">Google Workspace API, Stripe webhooks, modelos locales con Nvidia y despliegue en Railway.</p>
               </div>
             </div>
             <div class="flex gap-4">
               <div class="font-mono text-sm text-accent w-20 shrink-0">Q4 2026</div>
               <div>
-                <div class="font-display text-lg tracking-tight">v0.3 — Estratega + Diplomático</div>
-                <p class="text-sm text-muted">Project management interno y CRM de relaciones.</p>
+                <div class="font-display text-lg tracking-tight">v0.3 — Memoria avanzada</div>
+                <p class="text-sm text-muted">G-Brain persistente, entidades enlazadas, aprendizajes por misión y evaluación automática.</p>
               </div>
             </div>
             <div class="flex gap-4">
@@ -1023,6 +1099,9 @@ curl -fsSL https://partenon.dev/install.sh | bash
     }
     function copyTree() {
       navigator.clipboard.writeText(document.getElementById('repoTree').textContent);
+    }
+    function copyDemo() {
+      navigator.clipboard.writeText(document.getElementById('demoCmd').textContent);
     }
   </script>
 </body>

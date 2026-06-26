@@ -16,4 +16,6 @@ Thumbs.db
 *.swp
 *.log
 logs/
-.kimi/research/
+.kimi/
+.kimi-code/
+!.kimi-code/AGENTS.md

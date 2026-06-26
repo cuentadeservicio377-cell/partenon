@@ -1,0 +1,9 @@
+{
+  "timestamp": "2026-06-26T02:42:07.403031Z",
+  "ingresos": 4000.0,
+  "gastos_fijos": 609.0,
+  "gastos_variables": 1030.0,
+  "margen": 2361.0,
+  "margen_pct": 59.03,
+  "alertas": []
+}

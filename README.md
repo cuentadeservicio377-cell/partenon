@@ -14,11 +14,12 @@ Partenon organiza agentes de IA como un sistema operativo:
 
 ## Las superficies
 
-La entrega incluye dos páginas web estáticas y un dashboard operativo:
+La entrega incluye dos páginas web estáticas, un dashboard operativo y un demo funcional:
 
 1. **`web/index.html`** — Página de marketing. Introducción de marca, arquetipos, cómo funciona, los 6 héroes con ejemplos concretos (construcción y cafetería), G-Brain, contador de impacto 10 → 1M con múltiples métricas por escala, paper de referencia, go-to-market e instalación.
-2. **`web/developers.html`** — Página técnica. Arquitectura de agentes, diagramas Mermaid flat, stack, perfiles técnicos de los 6 héroes, diagramas de conexión por perfil, G-Brain/MCP, workshop de 90 min paquetizado, instalación, integraciones y roadmap.
+2. **`web/developers.html`** — Página técnica. Arquitectura de agentes, diagramas Mermaid flat, stack, perfiles técnicos de los 6 héroes, diagramas de conexión por perfil, G-Brain/MCP, demo funcional del Tesorero, workshop de 90 min paquetizado, instalación, integraciones y roadmap.
 3. **`dashboard/`** — Dashboard de operaciones (Next.js 15 + React 19 + TypeScript + Tailwind CSS). Muestra KPIs, kanban de misiones filtrado por perfil, administrador de cron jobs y auth simple por cookie. Lee y escribe `data/tasks.json` y `data/cron.json`.
+4. **`scripts/demo_tesorero.py`** — Demo funcional del perfil financiero. Genera `data/sample_gastos.xlsx` y `data/sample_gastos_report.json` con métricas y alertas.
 
 Las páginas web usan HTML estático, Tailwind CSS vía CDN y JavaScript vanilla. El dashboard usa Tailwind CSS con la misma paleta: tipografía Space Grotesk y Geist Mono, fondo `#050505`, acento cian `#00D4FF`, sin gradientes ni glows.
 
@@ -36,23 +37,24 @@ Las páginas web usan HTML estático, Tailwind CSS vía CDN y JavaScript vanilla
 ## Stack
 
 - **Frontend páginas**: HTML estático + Tailwind CSS CDN + JS vanilla
-- **Agent core**: Hermes Agent (Nous Research) + Python skills
+- **Agent core**: Hermes Agent (Nous Research) + Python skills + `partenon-core` (router, onboarding, workflow)
 - **Dashboard**: Next.js 15 + React 19 + TypeScript + Tailwind (en `dashboard/`)
 - **Documentos**: Python + WeasyPrint (Kami v3)
-- **Datos**: Google Workspace (Sheets, Docs, Slides, Drive, Calendar, Gmail)
+- **Datos**: Google Workspace (Sheets, Docs, Slides, Drive, Calendar, Gmail); plantillas Excel con openpyxl
 - **Pagos**: Stripe API
-- **Memoria / orquestación**: G-Brain de Garitán vía MCP
+- **Memoria / orquestación**: G-Brain de Garitán vía MCP (FastMCP)
 - **Mensajería**: Telegram (primario) + WhatsApp Business
 - **Infraestructura**: Docker / Docker Compose
 
 ## Estado
 
 - Iniciado: 2026-06-23
-- Fase actual: Construccion del repositorio del sistema Partenon basado en Hermes Business OS.
+- Fase actual: Repositorio de sistema Partenon ensamblado con perfiles, core, dashboard, G-Brain MCP y demo funcional.
 - Perfiles implementados: Tesorero (`.finance`), Mensajero (`.design`), Cobrador (`.payments`), Guardian (`.security`), Estratega (`.ops`), Diplomatico (`.relations`).
 - Web verificada: `web/index.html` y `web/developers.html` en desktop (1440px) y mobile (390px).
 - Dashboard verificado: `npm install` y `npm run build` pasan sin errores de TypeScript.
-- Próxima tarea: Integrar Google Workspace, Stripe y G-Brain con los perfiles y validar flujos end-to-end.
+- Demo verificado: `python scripts/demo_tesorero.py` genera Excel + JSON con métricas.
+- Próxima tarea: Integrar Google Workspace, Stripe y G-Brain con credenciales reales y validar flujos end-to-end.
 
 ## Instalación rápida
 
@@ -62,6 +64,20 @@ cd partenon
 ```
 
 Luego copia el Google Sheet base, sube `apps-script/Hermes.gs` y configura las variables de entorno listadas en `developers.html#install`.
+
+### Demo Tesorero
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt  # incluye openpyxl
+python scripts/demo_tesorero.py
+```
+
+Esto crea:
+
+- `data/sample_gastos.xlsx` — libro con hojas Dashboard, Ingresos, Gastos Fijos, Gastos Variables y Proveedores.
+- `data/sample_gastos_report.json` — ingresos, gastos fijos, gastos variables, margen y alertas.
 
 ### Dashboard
 

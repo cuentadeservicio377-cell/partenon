@@ -10,6 +10,10 @@
 - [ ] Workshop técnico de 90 min (formato reusable)
 
 ## Hecho
+- [x] Task 14: Verificación final, documentación y commit
+- [x] Task 13: Actualizar página técnica (`web/developers.html`) con arquitectura real, demo Tesorero y roadmap ajustado
+- [x] Task 12: Actualizar página de marketing (`web/index.html`) con enlace a demo y descripción del sistema real
+- [x] Task 11: Google Sheet base + demo Tesorero funcional (`templates/google-sheet-base/finance_sheet.py`, `scripts/demo_tesorero.py`, `data/sample_gastos.xlsx`)
 - [x] Dashboard de Partenon creado en `dashboard/`: Next.js 15 + React 19 + TypeScript + Tailwind CSS, con Home, Kanban de misiones, administrador de cron, auth simple por cookie y Dockerfile
 - [x] Perfil `partenon-estratega` creado con SOUL.md, config.yaml, .env.example, .ops, skill ops con proyectos, tareas, checklists, metas y briefings, plantilla `.ops`, cron matutino, midday, planning y retro; tools Python verificados con py_compile
 - [x] Perfil `partenon-diplomatico` creado con SOUL.md, config.yaml, .env.example, skill relations, CRM adaptado de hermes-ventas, follow-ups, plantilla `.relations`, cron diario y tools Python verificados con py_compile
