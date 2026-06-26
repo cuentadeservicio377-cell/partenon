@@ -109,6 +109,10 @@ class GoogleSheets:
 
     def read_sheet(self, spreadsheet_id: str, range_name: str) -> List[List[Any]]:
         """Read values from a spreadsheet range."""
+        return self.read_range(spreadsheet_id, range_name)
+
+    def read_range(self, spreadsheet_id: str, range_name: str) -> List[List[Any]]:
+        """Read values from a spreadsheet range."""
         service = self._get_service()
         if not service:
             return []
@@ -144,12 +148,16 @@ class GoogleSheets:
 
     def append_row(self, spreadsheet_id: str, range_name: str, row: List[Any]) -> bool:
         """Append a single row to a spreadsheet."""
+        return self.append_rows(spreadsheet_id, range_name, [row])
+
+    def append_rows(self, spreadsheet_id: str, range_name: str, rows: List[List[Any]]) -> bool:
+        """Append multiple rows to a spreadsheet."""
         service = self._get_service()
         if not service:
             return False
 
         try:
-            body = {"values": [row]}
+            body = {"values": rows}
             service.spreadsheets().values().append(
                 spreadsheetId=spreadsheet_id,
                 range=range_name,
@@ -159,8 +167,12 @@ class GoogleSheets:
             ).execute()
             return True
         except HttpError as e:
-            print(f"Failed to append row to {range_name}: {e}")
+            print(f"Failed to append rows to {range_name}: {e}")
             return False
+
+    def update_cells(self, spreadsheet_id: str, range_name: str, values: List[List[Any]]) -> bool:
+        """Update a specific range of cells (alias for write_sheet)."""
+        return self.write_sheet(spreadsheet_id, range_name, values)
 
     def create_spreadsheet(self, title: str) -> Optional[str]:
         """Create a new spreadsheet. Returns spreadsheet ID."""
@@ -204,9 +216,10 @@ class GoogleSheets:
         sheets_config = [
             {"title": "Monthly Summary"},
             {"title": "Cash Flow"},
+            {"title": "Income"},
             {"title": "Fixed Costs"},
             {"title": "Variable Costs"},
-            {"title": "Suppliers"},
+            {"title": "Vendors"},
             {"title": "Budget vs Actual"},
             {"title": "Alerts"},
         ]
@@ -249,13 +262,16 @@ class GoogleSheets:
             "Cash Flow": [
                 ["Month", "Income", "Fixed Expenses", "Variable Expenses", "Balance", "Accumulated"]
             ],
+            "Income": [
+                ["Date", "Concept", "Amount", "Client", "Channel"]
+            ],
             "Fixed Costs": [
-                ["Date", "Concept", "Amount", "Category", "Supplier", "Frequency", "Due"]
+                ["Date", "Concept", "Amount", "Category", "Vendor", "Frequency", "Due"]
             ],
             "Variable Costs": [
-                ["Date", "Concept", "Amount", "Category", "Supplier", "Project", "Fixed/Variable"]
+                ["Date", "Concept", "Amount", "Category", "Vendor", "Project", "Fixed/Variable"]
             ],
-            "Suppliers": [
+            "Vendors": [
                 ["ID", "Name", "Contact", "Phone", "Email", "Specialty", "Total Amount", "Rating"]
             ],
             "Budget vs Actual": [
@@ -268,6 +284,34 @@ class GoogleSheets:
 
         for sheet_name, values in headers.items():
             self.write_sheet(spreadsheet_id, f"{sheet_name}!A1", values)
+
+    def add_chart(self, spreadsheet_id: str, sheet_id: int, chart_spec: Dict[str, Any]) -> bool:
+        """Insert a chart into a spreadsheet."""
+        service = self._get_service()
+        if not service:
+            return False
+
+        try:
+            service.spreadsheets().batchUpdate(
+                spreadsheetId=spreadsheet_id,
+                body={"requests": [{"addChart": {"chart": chart_spec}}]}
+            ).execute()
+            return True
+        except HttpError as e:
+            print(f"Failed to add chart: {e}")
+            return False
+
+    def export_report(self, spreadsheet_id: str, range_name: str, output_path: str) -> bool:
+        """Export a sheet range to a local JSON report file."""
+        values = self.read_range(spreadsheet_id, range_name)
+        try:
+            import json
+            with open(output_path, "w", encoding="utf-8") as f:
+                json.dump({"spreadsheet_id": spreadsheet_id, "range": range_name, "values": values}, f, indent=2)
+            return True
+        except Exception as e:
+            print(f"Failed to export report: {e}")
+            return False
 
 
 # Singleton instance

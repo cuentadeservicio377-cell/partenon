@@ -1,6 +1,6 @@
 """
 Partenon Scribe - Excel Templates
-Generate reusable Excel templates for budgets, suppliers and cash flow.
+Generate reusable Excel templates for budgets, vendors and cash flow.
 """
 
 from datetime import datetime
@@ -73,7 +73,7 @@ class Templates:
         return True
 
     def create_budget(self, filepath: str = "budget.xlsx",
-                      period: str = None,
+                      period: Optional[str] = None,
                       line_items: Optional[List[Dict[str, Any]]] = None) -> Optional[str]:
         """Create a budget vs actual Excel template."""
         if not self._check_openpyxl():
@@ -178,14 +178,14 @@ class Templates:
         wb.save(filepath)
         return filepath
 
-    def create_suppliers(self, filepath: str = "suppliers.xlsx") -> Optional[str]:
-        """Create a supplier directory Excel template."""
+    def create_vendors(self, filepath: str = "vendors.xlsx") -> Optional[str]:
+        """Create a vendor directory Excel template."""
         if not self._check_openpyxl():
             return None
 
         wb = Workbook()
         ws = wb.active
-        ws.title = "Suppliers"
+        ws.title = "Vendors"
 
         headers = [
             "ID", "Name", "Contact", "Phone", "Email",
@@ -198,11 +198,11 @@ class Templates:
             _style_header(cell)
 
         examples = [
-            ["P001", "Central Stationery", "Ana Garcia", "555-0104", "ana@papeleriacentral.com",
+            ["P001", "Central Stationery", "Alice Johnson", "555-0104", "alice@centralstationery.example.com",
              "Commerce St 321", "Stationery and supplies", "Cash", "1-2 business days", 5, 0, "Fast delivery"],
-            ["P002", "Cloud Services MX", "Carlos Ruiz", "555-0201", "carlos@cloudmx.com",
+            ["P002", "Cloud Services Inc.", "Bob Smith", "555-0201", "bob@cloudservices.example.com",
              "Digital Ave 100", "Cloud and hosting", "30 days", "Immediate", 4, 0, "Annual contract"],
-            ["P003", "Northern Transport", "Maria Lopez", "555-0301", "maria@tdnorte.com",
+            ["P003", "Northern Transport", "Charlie Brown", "555-0301", "charlie@northerntransport.example.com",
              "Industrial Blvd 50", "Freight and courier", "15 days", "24-48 hours", 4, 0, ""],
         ]
 
@@ -223,6 +223,9 @@ class Templates:
 
         wb.save(filepath)
         return filepath
+
+    # Backward-compatible alias
+    create_suppliers = create_vendors
 
     def create_cash_flow(self, filepath: str = "cash_flow.xlsx",
                          months: int = 6) -> Optional[str]:

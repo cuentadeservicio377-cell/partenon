@@ -1,34 +1,28 @@
 {
-  "id": "tesorero-weekly-content",
-  "name": "Treasurer — Weekly budget vs. actuals review",
+  "name": "scribe-weekly-budget-review",
   "description": "Produces a weekly summary comparing budgeted amounts against actual spending by area.",
+  "enabled": true,
   "schedule": {
-    "frequency": "weekly",
-    "day": "monday",
-    "time": "08:00",
+    "cron": "0 8 * * 1",
     "timezone": "America/Mexico_City"
   },
-  "enabled": true,
-  "steps": [
+  "profile": "partenon-tesorero",
+  "skill": "finance",
+  "action": {
+    "tool": "audit.py",
+    "function": "run_weekly_review",
+    "args": {
+      "output_path": "output/weekly_budget_review.json"
+    }
+  },
+  "outputs": [
     {
-      "order": 1,
-      "tool": "read_budgets",
-      "description": "Loads active budgets from the master sheet"
+      "type": "file",
+      "description": "JSON weekly review written to output/weekly_budget_review.json"
     },
     {
-      "order": 2,
-      "tool": "read_spending",
-      "description": "Loads actual expenses in the same period"
-    },
-    {
-      "order": 3,
-      "tool": "compare_budget_vs_actual",
-      "description": "Calculates variance and flags areas exceeding budget"
-    },
-    {
-      "order": 4,
-      "tool": "notify",
-      "description": "Sends the variance report with recommendations"
+      "type": "notification",
+      "description": "Console notification with over-budget areas"
     }
   ]
 }

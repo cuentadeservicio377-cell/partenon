@@ -112,12 +112,12 @@ class ExpenseParser:
     """Parse expenses from Excel or CSV files."""
 
     COMMON_HEADERS = {
-        "date": ["fecha", "date", "fecha de pago", "fecha operacion", "fecha transaccion"],
-        "description": ["descripcion", "concepto", "description", "movimiento", "detalle", "referencia"],
-        "amount": ["monto", "importe", "cantidad", "amount", "total", "cargo", "abono"],
-        "category": ["categoria", "category", "rubro", "tipo"],
-        "provider": ["proveedor", "vendor", "supplier", "tienda", "comercio", " receptor"],
-        "method": ["metodo", "forma de pago", "metodo de pago", "payment method"],
+        "date": ["date", "payment date", "operation date", "transaction date"],
+        "description": ["description", "concept", "movement", "detail", "reference", "memo"],
+        "amount": ["amount", "total", "charge", "credit", "debit", "value"],
+        "category": ["category", "type", "group"],
+        "provider": ["vendor", "supplier", "provider", "store", "merchant", "payee"],
+        "method": ["payment method", "method", "payment form"],
     }
 
     def __init__(self):

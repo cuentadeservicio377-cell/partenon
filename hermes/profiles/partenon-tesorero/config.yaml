@@ -1,6 +1,7 @@
 profile:
   name: partenon-tesorero
-  display_name: Treasurer
+  display_name: Scribe
+  alias: Treasurer
   description: Finance agent for small businesses. Controls costs, budgets, vendors, and dashboards in Google Sheets.
   version: 0.1.0
 

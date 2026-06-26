@@ -47,6 +47,17 @@ I activate when:
 - `Templates.create_vendors(filepath)` - Generates a vendor directory.
 - `Templates.create_cash_flow(filepath, months)` - Generates a cash flow template.
 
+### `tools/audit.py`
+- `Audit.read_spending()` - Reads fixed and variable expenses from the master sheet.
+- `Audit.read_cash_flow()` - Calculates current cash flow and short-term projection.
+- `Audit.read_budgets()` - Loads active budgets from the sheet or `.finance` file.
+- `Audit.compare_budget_vs_actual()` - Calculates variance and flags areas exceeding budget.
+- `Audit.detect_anomalies()` - Identifies anomalies, duplicates, and budget overruns.
+- `Audit.notify(message, channel)` - Sends a report notification.
+- `Audit.export_report(report, output_path)` - Writes a JSON report file.
+- `Audit.run_daily_report(output_path)` - Runs the complete daily report workflow.
+- `Audit.run_weekly_review(output_path)` - Runs the complete weekly budget review workflow.
+
 ## Main functions
 
 ### 1. Classify fixed and variable costs
@@ -61,6 +72,7 @@ Every expense is tagged at the time of registration:
 The master dashboard includes these sheets:
 - Monthly Summary
 - Cash Flow
+- Income
 - Fixed Costs
 - Variable Costs
 - Vendors

@@ -6,7 +6,7 @@ name = "Hermes Example Inc."
 tax_id = "XAXX010101000"
 currency = "MXN"
 fiscal_year = 2026
-responsible = "Treasurer"
+responsible = "Scribe"
 master_spreadsheet = ""
 
 [fixed_costs]
@@ -75,19 +75,19 @@ responsible = "Guardian"
 [[vendors.item]]
 id = "P001"
 name = "Central Stationery"
-contact = "Ana Garcia"
+contact = "Alice Johnson"
 phone = "555-0104"
-email = "ana@papeleriacentral.com"
+email = "alice@centralstationery.example.com"
 payment_terms = "cash"
 lead_time = "1-2 business days"
 rating = 5
 
 [[vendors.item]]
 id = "P002"
-name = "Cloud MX Services"
-contact = "Carlos Ruiz"
+name = "Cloud Services Inc."
+contact = "Bob Smith"
 phone = "555-0201"
-email = "carlos@cloudmx.com"
+email = "bob@cloudservices.example.com"
 payment_terms = "30 days"
 lead_time = "immediate"
 rating = 4

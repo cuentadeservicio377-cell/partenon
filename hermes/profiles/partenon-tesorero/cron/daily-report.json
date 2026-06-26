@@ -1,33 +1,28 @@
 {
-  "id": "tesorero-daily-report",
-  "name": "Treasurer — Daily financial report",
+  "name": "scribe-daily-report",
   "description": "Generates a daily snapshot of income, expenses, cash flow, and pending alerts.",
+  "enabled": true,
   "schedule": {
-    "frequency": "daily",
-    "time": "07:00",
+    "cron": "0 7 * * *",
     "timezone": "America/Mexico_City"
   },
-  "enabled": true,
-  "steps": [
+  "profile": "partenon-tesorero",
+  "skill": "finance",
+  "action": {
+    "tool": "audit.py",
+    "function": "run_daily_report",
+    "args": {
+      "output_path": "output/daily_report.json"
+    }
+  },
+  "outputs": [
     {
-      "order": 1,
-      "tool": "read_spending",
-      "description": "Reads fixed and variable expenses from the spreadsheet"
+      "type": "file",
+      "description": "JSON daily report written to output/daily_report.json"
     },
     {
-      "order": 2,
-      "tool": "read_cash_flow",
-      "description": "Calculates current cash flow and short-term projection"
-    },
-    {
-      "order": 3,
-      "tool": "detect_anomalies",
-      "description": "Identifies anomalies, duplicate payments, or budget overruns"
-    },
-    {
-      "order": 4,
-      "tool": "notify",
-      "description": "Sends a concise report to the operator and, if configured, to the Strategist"
+      "type": "notification",
+      "description": "Console notification with cash flow summary"
     }
   ]
 }

@@ -7,9 +7,10 @@
 
 ### `finance`
 - Parse Excel, CSV, and image/PDF expenses.
-- Classify by category, cost type (fixed/variable), and provider.
+- Classify by category, cost type (fixed/variable), and vendor.
 - Generate Google Sheets dashboards.
 - Detect duplicates, anomalies, and due dates.
+- Compare budgets against actual spending.
 - Export structured JSON reports.
 
 ## Quick start
@@ -18,6 +19,7 @@
 2. Copy `templates/.finance.example` to your workspace as `.finance`.
 3. Run `python skills/finance/tools/templates.py` to generate local templates.
 4. Use `skills/finance/tools/google_sheets.py` to publish to Sheets.
+5. Use `skills/finance/tools/audit.py` to run daily reports and weekly budget reviews.
 
 ## Safety rules
 
