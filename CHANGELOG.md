@@ -7,6 +7,10 @@
 ### Added
 - feat(profiles): create `partenon-diplomatico` profile with relations skill, CRM and follow-ups.
 - feat(profiles): create `partenon-estratega` profile with ops skill (projects, tasks, checklists, goals, briefings), `.ops` template and morning/midday/planning/retro cron jobs.
+- docs(playbook): add `docs/ENTREPRENEUR_PLAYBOOK.md` with hero selection by business type, prompts, and rollout checklist.
+- docs(guides): add `docs/HERO_GUIDE.md` and `docs/QUICKSTART.md`.
+- docs(reference): add `docs/SECURITY.md`, `docs/API.md`, and `docs/FAQ.md`.
+- docs(assets): add `docs/assets/architecture-diagram.mmd`, `docs/assets/hero-matrix.md`, and `docs/assets/partenon-logo.svg`.
 
 ### Changed
 - docs(readme): translate README and docs to English; align repository description with live site and GitHub URL.

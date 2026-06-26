@@ -313,9 +313,9 @@ Demonstrates the intended `hermes` CLI shape.
 
 ```bash
 python3 examples/hermes-cli-stub.py init --name "Acme Coffee"
-python examples/hermes-cli-stub.py activate scribe
-python examples/hermes-cli-stub.py mission scribe --type financial-model
-python examples/hermes-cli-stub.py status --verbose
+python3 examples/hermes-cli-stub.py activate scribe
+python3 examples/hermes-cli-stub.py mission scribe --type financial-model
+python3 examples/hermes-cli-stub.py status --verbose
 ```
 
 **Commands**
@@ -342,7 +342,7 @@ Demonstrates calling the G-Brain MCP server.
 
 ```bash
 pip install mcp
-python examples/mcp-client-example.py
+python3 examples/mcp-client-example.py
 ```
 
 It launches `gbrain.server` over stdio with `GBrain_DATABASE_URL=sqlite:///data/gbrain_example.db`, lists tools, stores a learning, and searches missions.
