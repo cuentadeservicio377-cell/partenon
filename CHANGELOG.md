@@ -5,7 +5,7 @@
 ## [Unreleased]
 
 ### Added
-- _Empty — se actualiza durante la sesión_
+- feat(profiles): crear perfil partenon-diplomatico con skill relations, CRM y follow-ups
 
 ### Changed
 - _Empty — se actualiza durante la sesión_

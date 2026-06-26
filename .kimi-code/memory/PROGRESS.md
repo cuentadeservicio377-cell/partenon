@@ -2,6 +2,27 @@
 
 ## Historial de Sesiones
 
+### 2026-06-26 — Perfil `partenon-diplomatico` completado
+- Completado `hermes/profiles/partenon-diplomatico/` como distribucion de Hermes Agent.
+- Archivos ya existentes: `SOUL.md`, `config.yaml`, `.env.example`, `templates/.relations.example`, `cron/daily-followups.json`, `skills/relations/SKILL.md`.
+- Archivos nuevos:
+  - `skills/relations/tools/crm.py`: CRM adaptado de `hermes-ventas` para clientes, proveedores, hitos, contratos, comunicaciones y calificaciones.
+  - `skills/relations/tools/followups.py`: seguimientos diarios, recordatorios y generación de mensajes formales.
+- Tools verificados con `python3 -m py_compile` y ejecucion de prueba.
+- Actualizados `TODOS.md` y `CHANGELOG.md`.
+
+### 2026-06-26 — Perfil `partenon-tesorero` creado
+- Creado `hermes/profiles/partenon-tesorero/` como distribucion de Hermes Agent.
+- Archivos: `SOUL.md`, `config.yaml`, `.env.example`, `templates/.finance.example`, `cron/daily-report.json`.
+- Skill `finance` con `SKILL.md` y cuatro tools Python:
+  - `google_sheets.py`: lectura, escritura y creacion de dashboards en Google Sheets.
+  - `parsers.py`: parseo de gastos desde Excel/CSV con inferencia de categoria y tipo fijo/variable.
+  - `templates.py`: plantillas Excel de presupuesto, proveedores y flujo de caja.
+  - `__init__.py`: exports del paquete finance.
+- Tools verificados con `python3 -m py_compile`.
+- Actualizado `TODOS.md`.
+- Commit `606e8a4`.
+
 ### 2026-06-26 — Perfil `partenon-mensajero` creado
 - Creado `hermes/profiles/partenon-mensajero/` como distribucion de Hermes Agent.
 - Archivos: `SOUL.md`, `config.yaml`, `.env.example`, `templates/.design.example`, `cron/weekly-content.json`.
@@ -32,6 +53,8 @@
 - Commit `e786b18`.
 
 ## Features Completadas
+- Perfil `partenon-diplomatico` completado con skill relations, CRM, follow-ups y cron diario.
+- Perfil `partenon-tesorero` creado con skill finance, tools Python y cron diario.
 - Perfil `partenon-mensajero` creado con skill comms, tools Python y cron semanal.
 - Páginas web de marketing y técnica rediseñadas y commiteadas.
 - Sistema visual Nous-style aplicado.
