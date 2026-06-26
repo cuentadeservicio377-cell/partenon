@@ -291,7 +291,7 @@
 2. Build `dashboard_sheet.py` with KPIs simples.
 3. Write `demo_tesorero.py` that reads `data/sample_gastos.xlsx`, parses rows, categorizes with rules, and writes the Sheet.
 4. Create `data/sample_gastos.xlsx` with 20 rows of sample expenses for a cafeteria.
-5. Run `python scripts/demo_tesorero.py` locally (dry-run mode if no credentials).
+5. Run `python3 scripts/demo_tesorero.py` locally (dry-run mode if no credentials).
 6. Commit.
 
 ---

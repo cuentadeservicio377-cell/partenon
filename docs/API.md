@@ -37,7 +37,7 @@ print(profile)  # "partenon-tesorero"
 **Example**
 
 ```bash
-python partenon-core/tools/router.py
+python3 partenon-core/tools/router.py
 ```
 
 ---
@@ -68,7 +68,7 @@ print(result["errors"])    # list of error strings
 **Example**
 
 ```bash
-python partenon-core/tools/onboarding_engine.py
+python3 partenon-core/tools/onboarding_engine.py
 ```
 
 ---
@@ -312,7 +312,7 @@ curl -X POST http://localhost:8000/api/v1/missions \
 Demonstrates the intended `hermes` CLI shape.
 
 ```bash
-python examples/hermes-cli-stub.py init --name "Acme Coffee"
+python3 examples/hermes-cli-stub.py init --name "Acme Coffee"
 python examples/hermes-cli-stub.py activate scribe
 python examples/hermes-cli-stub.py mission scribe --type financial-model
 python examples/hermes-cli-stub.py status --verbose

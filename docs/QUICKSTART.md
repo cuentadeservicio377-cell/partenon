@@ -105,7 +105,7 @@ Open `data/sample_expenses_report.json`:
 Test how Partenon routes plain-language messages to heroes.
 
 ```bash
-python partenon-core/tools/router.py
+python3 partenon-core/tools/router.py
 ```
 
 Expected output:
@@ -249,7 +249,7 @@ Add your own screenshots here after running the steps above:
 | Step | Suggested filename | What to capture |
 |------|--------------------|-----------------|
 | 3 | `docs/assets/screenshot-scribe-demo.png` | `data/sample_expenses_report.json` output |
-| 4 | `docs/assets/screenshot-router.png` | `python partenon-core/tools/router.py` output |
+| 4 | `docs/assets/screenshot-router.png` | `python3 partenon-core/tools/router.py` output |
 | 5 | `docs/assets/screenshot-herald-copy.png` | `copy_generator.py` JSON output |
 | 8 | `docs/assets/screenshot-dashboard.png` | Dashboard at `http://localhost:3000` |
 
