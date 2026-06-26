@@ -1,58 +1,66 @@
 # TODOS
 
-## En Progreso
-- [ ] Integrar Google Workspace, Stripe y G-Brain con credenciales reales
-- [ ] Validar flujos end-to-end con empresa piloto
+## In Progress
+- [ ] Integrate Google Workspace, Stripe, and G-Brain with real credentials
+- [ ] Validate end-to-end flows with a pilot business
 
-## Pendientes
-- [ ] Implementar eval loop funcional en el Tesorero (tests/evals + judge skill + threshold)
-- [ ] Agregar eval loop a los demás perfiles
-- [ ] Instalar skill ui-ux-pro-max para reviews de diseño sistemáticas
-- [ ] Probar comandos reales de Stripe Link CLI y Stripe Projects en sandbox
-- [ ] Configurar onboard de NVIDIA NemoClaw/OpenShell con perfil Hermes
+## Pending
+- [ ] Implement functional eval loop in the Scribe (tests/evals + judge skill + threshold)
+- [ ] Add eval loop to the remaining hero profiles
+- [ ] Install skill ui-ux-pro-max for systematic design reviews
+- [ ] Test real Stripe Link CLI and Stripe Projects commands in sandbox
+- [ ] Configure NVIDIA NemoClaw/OpenShell onboarding with Hermes profile
 
-## Hecho
-- [x] Migrar `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Developers.tsx` a `web/developers.html` con estética clásica de la app React (mármol blanco, Cinzel, Inter) y correcciones de información obligatorias
-- [x] Migrar `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Heroes.tsx` a `web/heroes.html` con estética clásica de la app React (mármol blanco, Cinzel, Inter) y correcciones de información obligatorias
-- [x] Migrar `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Home.tsx` a `web/index.html` con estética clásica de la app React (mármol blanco, Cinzel, Inter) y correcciones de información obligatorias
-- [x] Diagnóstico UX/UI/estructura/storytelling de `index.html` y `developers.html`
-- [x] Reescribir `web/index.html` con arco narrativo, before/after, timeline, tabs/acordeón de héroes y carta abreviada
-- [x] Reescribir `web/developers.html` con hero corto, perfiles en tabs/acordeón, sección Quality Layer y demo code
-- [x] Diversificar componentes visuales: timeline, tabs, acordeón, blockquote, before/after
-- [x] Revisar mobile: acordeón de héroes, timeline legible, diagramas simplificados
-- [x] Generar y revisar screenshots desktop/mobile de ambas páginas
-- [x] Loop Fase 1: Reescribir página de marketing (`web/index.html`) con narrativa de arquetipos, Pegasos, carta de intención y go-to-market
-- [x] Loop Fase 2: Reescribir página técnica (`web/developers.html`) con arquitectura, diagramas Mermaid, fichas técnicas y workshop
-- [x] Task 14 anterior: Verificación, documentación y commit
-- [x] Task 13 anterior: Actualizar página técnica
-- [x] Task 12 anterior: Actualizar página de marketing
-- [x] Task 11: Google Sheet base + demo Tesorero funcional
-- [x] Dashboard de Partenon creado en `dashboard/`
-- [x] Seis perfiles de Hermes creados
-- [x] Braindump inicial completado
-- [x] Estructura de memoria y plan inicial creada
-- [x] Repositorios analizados
-- [x] Stack visual y técnico confirmado
-- [x] `DESIGN.md`, `SPEC.md`, `AGENTS.md` actualizados
-- [x] Loop de mejora: investigar con AgentSwarm sobre NVIDIA NemoClaw, Nemotron 3 Ultra, OpenShell, CUDA-X skills, Stripe Skills y funcionalidades core de Hermes
-- [x] Enriquecer `web/index.html` con stack del hackathon (Hermes + NVIDIA + Stripe), auto-mejora y gateway
-- [x] Enriquecer `web/developers.html` con arquitectura NVIDIA/Stripe, perfiles técnicos actualizados, Hermes Core y ejemplos de comandos
-- [x] Regenerar screenshots desktop/mobile tras cambios
-- [x] Verificar visualmente páginas y validar HTML
-- [x] Auditar `Kimi_Agent_10 Storytelling Web Sites/` con AgentSwarm y recuperar storytelling valioso
-- [x] Enriquecer `web/index.html` con proceso de 4 pasos, contadores animados, milestone bar, métricas de impacto, growth plan de 4 canales y CTA tipeado
-- [x] Enriquecer `web/developers.html` con badges técnicos, tablas de especificaciones por héroe, API reference, workshop timeline visual e install tabs con feedback de copiado
-- [x] Actualizar `scripts/capture.py` para forzar `.stat-value` y regenerar screenshots
-- [x] Corregir "G-Brain of Garitán" → "G-Brain of Garry Tan"
-- [x] Actualizar `README.md` con la nueva estructura de 3 páginas y correcciones de información
-- [x] Regenerar screenshots desktop/mobile de `index.html`, `heroes.html` y `developers.html`
-- [x] Desplegar sitio en dominio `hermespartenon.online` vía Hostinger File Manager
-- [x] Verificar sitio desplegado en dominio real (HTTP 200, sin términos prohibidos, assets cargando)
-- [x] Cerrar fase de desarrollo web: memoria, TODOS, gbrain y commit final
-- [x] Crear repositorio público en GitHub para Partenon
-- [x] Completar estructura del repo con 7 perfiles, `.env.example` global, `install.sh` y `scripts/setup_hermes.py`
-- [x] Crear documentación completa: `docs/for-founders.md`, `docs/for-developers.md`, `docs/architecture.md`
-- [x] Verificar builds/demo/dashboard y regenerar `web-deploy.zip`
+## Completed
+- [x] Migrate `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Developers.tsx` to `web/developers.html` with classic React app aesthetic (marble white, Cinzel, Inter) and mandatory information corrections
+- [x] Migrate `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Heroes.tsx` to `web/heroes.html` with classic React app aesthetic (marble white, Cinzel, Inter) and mandatory information corrections
+- [x] Migrate `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Home.tsx` to `web/index.html` with classic React app aesthetic (marble white, Cinzel, Inter) and mandatory information corrections
+- [x] UX/UI/structure/storytelling diagnosis of `index.html` and `developers.html`
+- [x] Rewrite `web/index.html` with narrative arc, before/after, timeline, hero tabs/accordion, and abbreviated letter
+- [x] Rewrite `web/developers.html` with short hero, hero profiles in tabs/accordion, Quality Layer section, and demo code
+- [x] Diversify visual components: timeline, tabs, accordion, blockquote, before/after
+- [x] Mobile review: hero accordion, readable timeline, simplified diagrams
+- [x] Generate and review desktop/mobile screenshots for both pages
+- [x] Loop Phase 1: Rewrite marketing page (`web/index.html`) with archetype narrative, Pegasus, letter of intent, and go-to-market
+- [x] Loop Phase 2: Rewrite technical page (`web/developers.html`) with architecture, Mermaid diagrams, technical cards, and workshop
+- [x] Previous Task 14: Verification, documentation, and commit
+- [x] Previous Task 13: Update technical page
+- [x] Previous Task 12: Update marketing page
+- [x] Previous Task 11: Google Sheet base + functional Scribe demo
+- [x] Partenon dashboard created in `dashboard/`
+- [x] Six Hermes profiles created
+- [x] Initial braindump completed
+- [x] Memory structure and initial plan created
+- [x] Repositories analyzed
+- [x] Visual and technical stack confirmed
+- [x] `DESIGN.md`, `SPEC.md`, `AGENTS.md` updated
+- [x] Improvement loop: research with AgentSwarm on NVIDIA NemoClaw, Nemotron 3 Ultra, OpenShell, CUDA-X skills, Stripe Skills, and Hermes core features
+- [x] Enrich `web/index.html` with hackathon stack (Hermes + NVIDIA + Stripe), self-improvement, and gateway
+- [x] Enrich `web/developers.html` with NVIDIA/Stripe architecture, updated technical profiles, Hermes Core, and command examples
+- [x] Regenerate desktop/mobile screenshots after changes
+- [x] Visually verify pages and validate HTML
+- [x] Audit `Kimi_Agent_10 Storytelling Web Sites/` with AgentSwarm and recover valuable storytelling
+- [x] Enrich `web/index.html` with 4-step process, animated counters, milestone bar, impact metrics, 4-channel growth plan, and typed CTA
+- [x] Enrich `web/developers.html` with technical badges, per-hero specification tables, API reference, visual workshop timeline, install tabs with copy feedback
+- [x] Update `scripts/capture.py` to force `.stat-value` and regenerate screenshots
+- [x] Correct "G-Brain of Garitán" → "G-Brain of Garry Tan"
+- [x] Update `README.md` with the new 3-page structure and information corrections
+- [x] Regenerate desktop/mobile screenshots for `index.html`, `heroes.html`, and `developers.html`
+- [x] Deploy site on `hermespartenon.online` domain via Hostinger File Manager
+- [x] Verify deployed site on real domain (HTTP 200, no banned terms, assets loading)
+- [x] Close web development phase: memory, TODOS, gbrain, and final commit
+- [x] Create public GitHub repository for Partenon
+- [x] Complete repo structure with 7 profiles, global `.env.example`, `install.sh`, and `scripts/setup_hermes.py`
+- [x] Create full documentation: `docs/for-founders.md`, `docs/for-developers.md`, `docs/architecture.md`
+- [x] Verify builds/demo/dashboard and regenerate `web-deploy.zip`
+
+## Web-Repo Consistency Audit (this session)
+- [x] Audit `web/index.html`, `web/heroes.html`, `web/developers.html` against repository contents
+- [x] Create `MISSING_IMPLEMENTATION.md` with prioritized gaps
+- [x] Create CLI/API/MCP example stubs in `examples/`
+- [x] Update `web/developers.html` install section to reflect current local setup
+- [x] Fix GitHub repository links across all three web pages
+- [x] Replace fictional `npx create-hermes@latest` CTA with real clone command
 
 ## Parking Lot
-_Cosas descubiertas durante el desarrollo que NO están en el plan actual_
+_Discoveries made during development that are NOT in the current plan_
