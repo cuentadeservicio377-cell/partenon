@@ -46,6 +46,9 @@
 - [x] Corregir "G-Brain of Garitán" → "G-Brain of Garry Tan"
 - [x] Actualizar `README.md` con la nueva estructura de 3 páginas y correcciones de información
 - [x] Regenerar screenshots desktop/mobile de `index.html`, `heroes.html` y `developers.html`
+- [x] Desplegar sitio en dominio `hermespartenon.online` vía Hostinger File Manager
+- [x] Verificar sitio desplegado en dominio real (HTTP 200, sin términos prohibidos, assets cargando)
+- [x] Cerrar fase de desarrollo web: memoria, TODOS, gbrain y commit final
 
 ## Parking Lot
 _Cosas descubiertas durante el desarrollo que NO están en el plan actual_

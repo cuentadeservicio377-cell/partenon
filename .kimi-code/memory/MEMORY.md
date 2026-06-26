@@ -6,7 +6,7 @@
 
 - **Proyecto**: Partenon
 - **Iniciado**: 2026-06-23
-- **Estado**: Seis perfiles de Hermes creados. Tres páginas web estáticas en `web/` (index.html, heroes.html, developers.html) migradas desde `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/` con estética clásica de la app React (mármol blanco, Cinzel, Inter) y correcciones de información basadas en auditorías oficiales. Próximo: probar Stripe Skills en sandbox, configurar onboard de NVIDIA NemoClaw/OpenShell e implementar eval loop funcional.
+- **Estado**: Fase de desarrollo web CERRADA. Tres páginas web estáticas en `web/` (index.html, heroes.html, developers.html) migradas desde `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/` con estética clásica de la app React (mármol blanco, Cinzel, Inter) y correcciones de información basadas en auditorías oficiales. Desplegadas en `https://hermespartenon.online/`. Próximo: probar Stripe Skills en sandbox, configurar onboard de NVIDIA NemoClaw/OpenShell e implementar eval loop funcional.
 
 ## Braindump
 
