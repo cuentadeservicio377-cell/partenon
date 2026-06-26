@@ -16,16 +16,26 @@
     },
     {
       "order": 2,
-      "tool": "filter_due_today_or_overdue",
-      "description": "Selects invoices due today or already overdue"
+      "tool": "get_upcoming_payments",
+      "description": "Selects invoices due today or in the next three days"
     },
     {
       "order": 3,
+      "tool": "get_failed_subscriptions",
+      "description": "Lists subscriptions with failed charge attempts"
+    },
+    {
+      "order": 4,
       "tool": "send_payment_reminder",
       "description": "Sends a reminder via the configured channel (email or WhatsApp)"
     },
     {
-      "order": 4,
+      "order": 5,
+      "tool": "generate_income_report",
+      "description": "Generates the daily collection summary"
+    },
+    {
+      "order": 6,
       "tool": "notify",
       "description": "Reports sent reminders and uncollectible cases to the operator"
     }

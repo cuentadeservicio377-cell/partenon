@@ -26,6 +26,11 @@
     },
     {
       "order": 4,
+      "tool": "monitor_fraud",
+      "description": "Reviews recent charges for suspicious patterns"
+    },
+    {
+      "order": 5,
       "tool": "notify",
       "description": "Informs the operator of follow-ups scheduled and cases that require human action"
     }

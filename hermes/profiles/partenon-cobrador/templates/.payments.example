@@ -39,7 +39,7 @@ links:
   - id: link_example_001
     price_id: price_example_001
     url: "https://buy.stripe.com/test_example"
-    client_email: client@example.com
+    customer_email: customer@example.com
     concept: "Initial consultation"
     created: "2026-06-26T10:00:00-06:00"
     expires: "2026-07-26T10:00:00-06:00"
@@ -47,7 +47,7 @@ links:
 
 subscriptions:
   - id: sub_example_001
-    client_email: client@example.com
+    customer_email: customer@example.com
     price_id: price_example_002
     stripe_subscription_id: sub_xxxxxxxxxxxxxxxx
     status: active
@@ -55,24 +55,37 @@ subscriptions:
     next_charge: "2026-07-26"
     failed_attempts: 0
 
-clients:
+customers:
   - id: cus_example_001
-    email: client@example.com
-    name: "Example Client"
+    email: customer@example.com
+    name: "Example Customer"
     phone: "+52 55 1234 5678"
     payments_responsible: "John Doe"
     preferred_method: card
     history: punctual
 
+invoices:
+  - id: inv_example_001
+    customer_email: customer@example.com
+    items:
+      - description: "Initial consultation"
+        amount: 150000
+        currency: mxn
+    amount: 150000
+    currency: mxn
+    status: open
+    created: "2026-06-26T10:00:00-06:00"
+    due_date: "2026-07-03"
+
 payments:
   - id: pay_example_001
     stripe_payment_intent_id: pi_xxxxxxxxxxxxxxxx
-    client_email: client@example.com
+    customer_email: customer@example.com
     price_id: price_example_001
     link_id: link_example_001
     amount: 150000
     currency: mxn
-    stripe_fee: 4350
+    stripe_commission: 4350
     status: paid
     created_at: "2026-06-26T10:00:00-06:00"
     paid_at: "2026-06-26T11:30:00-06:00"
@@ -80,10 +93,10 @@ payments:
 
 reminders:
   - id: rem_example_001
-    client_email: client@example.com
+    customer_email: customer@example.com
     payment_id: pay_example_001
     type: before_due
-    sent_at: "2026-06-23T09:00:00-06:00"
+    sent: "2026-06-23T09:00:00-06:00"
     channel: gmail
     status: sent
 

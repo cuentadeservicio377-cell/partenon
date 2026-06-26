@@ -2,7 +2,7 @@
 profile:
   name: partenon-cobrador
   display_name: Collector
-  role: payments, collections, Stripe, payment links, subscriptions, invoices
+  role: payments, collections, Stripe, payment links, subscriptions, invoices, revenue tracking, fraud monitoring
   file: .payments
   version: 0.1.0
   hermes_agent: true
@@ -26,9 +26,16 @@ mcp_servers:
 permissions:
   - create_payment_link
   - create_subscription
+  - create_invoice
   - send_payment_reminder
   - record_payment
+  - list_charges
   - generate_income_report
+  - monitor_fraud
+  - read_pending_payments
+  - read_overdue_payments
+  - classify_risk
+  - schedule_followup
   - read_payments_file
   - write_payments_file
 
@@ -45,6 +52,12 @@ workflows:
       - create_subscription
       - save_to_payments_file
       - notify_treasurer
+  - name: invoice
+    steps:
+      - validate_client
+      - create_invoice
+      - send_invoice_to_client
+      - save_to_payments_file
   - name: reminder
     steps:
       - identify_overdue_payments
@@ -57,6 +70,11 @@ workflows:
       - record_payment
       - sync_with_treasurer
       - update_client_status
+  - name: fraud_review
+    steps:
+      - list_recent_charges
+      - monitor_fraud
+      - alert_operator_on_flags
 
 handoffs:
   to:
