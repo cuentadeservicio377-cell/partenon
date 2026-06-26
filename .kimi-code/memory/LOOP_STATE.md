@@ -82,4 +82,10 @@ Reconstruir Partenon a partir de los transcripts del usuario: primero las dos p�
 - Próximo paso: Cerrar loop, actualizar PROGRESS.md y brain central.
 
 ## Human Escalation
-_Ninguna por ahora_
+_Ninguna. Loop completado en 3 iteraciones. Todos los gates ≥ 7/10._
+
+## Cierre
+- LOOP_STATE.md archivado en LOOP_LOG.md (manual si aplica).
+- TODOS.md, PROGRESS.md, README.md y brain central actualizados.
+- Commit: `2fb8cae`.
+

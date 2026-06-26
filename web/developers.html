@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Partenon — Documentación técnica</title>
-  <meta name="description" content="Arquitectura técnica de Partenon: perfiles operativos como agentes de IA, G-Brain como cerebro compartido, MCP, Google Workspace y workshop de 90 minutos." />
+  <meta name="description" content="Arquitectura técnica de Partenon: perfiles operativos como agentes de IA, G-Brain como cerebro compartido, MCP, Google Workspace, eval loop y workshop de 90 minutos." />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -195,6 +195,56 @@
     @media (max-width: 767px) {
       .hero-title { font-size: clamp(2.25rem, 12vw, 3.5rem); }
     }
+
+    /* Tabs */
+    .hero-tab {
+      padding: 0.75rem 1.25rem;
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8125rem;
+      color: #6B6B78;
+      border: 1px solid transparent;
+      background: transparent;
+      transition: all 0.25s var(--ease-out-expo);
+      cursor: pointer;
+    }
+    .hero-tab:hover { color: #E8E8ED; background: rgba(255,255,255,0.04); }
+    .hero-tab.active {
+      color: #050505;
+      background: #00D4FF;
+      border-color: #00D4FF;
+    }
+    .hero-content { display: none; }
+    .hero-content.active { display: block; animation: fadeIn 0.4s var(--ease-out-expo); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Accordion */
+    .accordion-item {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #111118;
+    }
+    .accordion-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      background: transparent;
+      border: none;
+      color: #E8E8ED;
+      cursor: pointer;
+      text-align: left;
+    }
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s var(--ease-out-expo);
+    }
+    .accordion-item.open .accordion-body { max-height: 600px; }
+    .accordion-item.open .accordion-icon { transform: rotate(180deg); }
+    .accordion-icon { transition: transform 0.25s var(--ease-out-expo); }
   </style>
 </head>
 <body class="antialiased">
@@ -205,10 +255,10 @@
   <nav class="nav-island flex items-center gap-1">
     <a href="index.html" class="font-mono text-sm tracking-tight font-medium px-3">PARTENON</a>
     <div class="hidden md:flex items-center gap-1 ml-2">
-      <a href="#architecture" class="nav-link">Arquitectura</a>
+      <a href="#arquitectura" class="nav-link">Arquitectura</a>
       <a href="#heroes" class="nav-link">Perfiles</a>
-      <a href="#install" class="nav-link">Instalación</a>
-      <a href="#workshop" class="nav-link">Workshop</a>
+      <a href="#quality" class="nav-link">Quality</a>
+      <a href="#instalar" class="nav-link">Instalación</a>
     </div>
     <a href="index.html" class="btn btn-secondary text-sm px-4 py-2 ml-2 hidden md:inline-flex">
       Marketing
@@ -221,10 +271,10 @@
 
   <!-- Mobile Menu -->
   <div id="mobileMenu" class="mobile-menu flex flex-col justify-center px-8">
-    <a href="#architecture">Arquitectura</a>
+    <a href="#arquitectura">Arquitectura</a>
     <a href="#heroes">Perfiles</a>
-    <a href="#install">Instalación</a>
-    <a href="#workshop">Workshop</a>
+    <a href="#quality">Quality</a>
+    <a href="#instalar">Instalación</a>
     <a href="index.html">Marketing</a>
     <button id="closeMenu" class="absolute top-6 right-6 w-12 h-12 flex items-center justify-center text-text">
       <span class="material-symbols-sharp text-3xl">close</span>
@@ -232,23 +282,23 @@
   </div>
 
   <!-- Hero -->
-  <section class="relative min-h-[80dvh] flex flex-col justify-center pt-32 pb-20 px-4">
+  <section class="relative min-h-[70dvh] flex flex-col justify-center pt-32 pb-20 px-4">
     <div class="max-w-[1400px] mx-auto w-full relative z-10">
       <div class="grid lg:grid-cols-12 gap-12 items-end">
         <div class="lg:col-span-8">
           <div class="reveal mb-6">
             <span class="tag"><span class="tag-dot"></span>Documentación técnica</span>
           </div>
-          <h1 class="reveal hero-title font-semibold mb-8">
+          <h1 class="reveal hero-title font-semibold mb-6">
             Arquitectura de Partenon.
           </h1>
+          <p class="reveal text-muted text-lg leading-relaxed max-w-2xl">
+            Especificaciones para el jurado de Nous Research, Nvidia y Stripe: perfiles operativos, G-Brain vía MCP, eval loop, integraciones y el workshop de 90 minutos.
+          </p>
         </div>
         <div class="lg:col-span-4">
-          <p class="reveal text-muted text-lg leading-relaxed mb-8">
-            Especificaciones para el jurado de Nous Research, Nvidia y Stripe: perfiles operativos, G-Brain vía MCP, integraciones y el workshop de 90 minutos.
-          </p>
           <div class="reveal flex flex-wrap gap-4">
-            <a href="#architecture" class="btn btn-primary">
+            <a href="#arquitectura" class="btn btn-primary">
               Ver arquitectura
               <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_downward</span></span>
             </a>
@@ -263,10 +313,10 @@
   </section>
 
   <!-- Architecture -->
-  <section id="architecture" class="section-pad border-y border-line bg-surface/40">
+  <section id="arquitectura" class="section-pad border-y border-line bg-surface/40">
     <div class="max-w-[1400px] mx-auto px-4">
-      <div class="reveal max-w-2xl mb-16">
-        <span class="tag mb-4 block">Arquitectura</span>
+      <div class="reveal max-w-2xl mb-12">
+        <span class="tag mb-4 block">Arquitectura en 3 minutos</span>
         <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Una empresa hecha de perfiles.</h2>
         <p class="text-muted text-lg leading-relaxed">Partenon no es un chatbot con múltiples personalidades. Es una cola de misiones donde cada perfil tiene permisos, herramientas y memoria propia.</p>
       </div>
@@ -278,6 +328,7 @@ flowchart LR
         R["Hermes / Router"]
         O["Onboarding"]
         G["G-Brain MCP"]
+        Q["Eval Loop"]
         subgraph PERFILES["Héroes"]
             T["Tesorero<br/>.finance"]
             M["Mensajero<br/>.design"]
@@ -292,11 +343,12 @@ flowchart LR
     GW["Google Workspace"]
     API["APIs externas<br/>Stripe / Nvidia / OpenAI / Kimi"]
 
-    U -->|"¿qué empresa es?"| R
+    U -->|"intención"| R
     R --> O
     O --> G
     R --> G
     G --> T & M & C & GU & E & D
+    Q --> T & M & C & GU & E & D
     T & M & C & GU & E & D --> GW
     C --> API
     GU --> API
@@ -327,10 +379,10 @@ flowchart LR
         <div class="reveal bezel reveal-delay-2">
           <div class="bezel-inner p-6 md:p-8">
             <div class="flex items-center gap-3 mb-4">
-              <span class="material-symbols-sharp text-accent">badge</span>
-              <h3 class="font-display text-lg tracking-tight">Héroes</h3>
+              <span class="material-symbols-sharp text-accent">verified</span>
+              <h3 class="font-display text-lg tracking-tight">Eval Loop</h3>
             </div>
-            <p class="text-muted text-sm leading-relaxed">Agentes con habilidades específicas. Cada uno lee su archivo de perfil correspondiente antes de actuar y entrega en Google Workspace.</p>
+            <p class="text-muted text-sm leading-relaxed">Juez de calidad que corre antes de enviar, en runtime y en producción. Cada output se scored contra una rúbrica antes de llegar al usuario.</p>
           </div>
         </div>
       </div>
@@ -351,6 +403,7 @@ sequenceDiagram
     actor U as Emprendedor
     participant H as Hermes
     participant G as G-Brain
+    participant Q as Eval Loop
     participant P as Héroe
     participant GW as Google Workspace
 
@@ -365,6 +418,8 @@ sequenceDiagram
     P->>U: Pide facturas y estados de cuenta
     U-->>P: Entrega archivos
     P->>GW: Escribe en Sheets / Docs
+    P->>Q: Evalúa output vs rubrica
+    Q-->>P: Score >= 0.7
     P->>H: Entrega resultado
     H->>G: Guarda resultado y aprendizajes
     H-->>U: Resumen final
@@ -391,7 +446,7 @@ sequenceDiagram
         <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-1">
           <div class="material-symbols-sharp text-accent mb-4">terminal</div>
           <h3 class="font-display text-lg tracking-tight mb-2">Core</h3>
-          <p class="text-sm text-muted">Python 3.11+, <code>partenon-core</code> con router, onboarding, workflows y MCP.</p>
+          <p class="text-sm text-muted">Python 3.11+, <code>partenon-core</code> con router, onboarding, workflows y eval loop.</p>
         </div>
         <div class="reveal p-6 border border-line rounded-xl bg-bg hover:border-line-strong transition-colors reveal-delay-2">
           <div class="material-symbols-sharp text-accent mb-4">workspace_premium</div>
@@ -430,239 +485,400 @@ sequenceDiagram
   <!-- Hero Profiles -->
   <section id="heroes" class="section-pad">
     <div class="max-w-[1400px] mx-auto px-4">
-      <div class="reveal max-w-2xl mb-16">
+      <div class="reveal max-w-2xl mb-12">
         <span class="tag mb-4 block">Perfiles técnicos</span>
         <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Cada héroe, una especificación.</h2>
         <p class="text-muted text-lg leading-relaxed">Aquí no hay personalidades decorativas. Cada agente tiene un framework, skills, herramientas/Pegaso, MCP y un contrato de entrada/salida.</p>
       </div>
 
-      <div class="space-y-6">
-        <!-- Tesorero -->
-        <div class="reveal bezel">
-          <div class="bezel-inner p-6 md:p-8">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-              <div class="flex items-center gap-4">
+      <!-- Desktop tabs -->
+      <div class="hidden md:block reveal">
+        <div class="flex flex-wrap gap-2 mb-8">
+          <button class="hero-tab active" data-hero="tesorero">.finance</button>
+          <button class="hero-tab" data-hero="mensajero">.design</button>
+          <button class="hero-tab" data-hero="cobrador">.payments</button>
+          <button class="hero-tab" data-hero="guardian">.security</button>
+          <button class="hero-tab" data-hero="estratega">.ops</button>
+          <button class="hero-tab" data-hero="diplomatico">.relations</button>
+        </div>
+
+        <div class="hero-content active" id="tesorero-content">
+          <div class="bezel">
+            <div class="bezel-inner p-6 md:p-8">
+              <div class="flex items-center gap-4 mb-6">
                 <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">savings</span></div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest">01 / Tesorero</div>
                   <div class="font-display text-2xl tracking-tight">.finance</div>
                 </div>
               </div>
-              <div class="flex flex-wrap gap-2">
-                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Google Sheets API</span>
-                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">openpyxl</span>
-                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Forecasting</span>
+              <div class="grid md:grid-cols-3 gap-6 text-sm">
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
+                  <p class="text-muted">Spreadsheets, modelos financieros, costos variables/fijos, dashboards, parsers de gastos.</p>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
+                  <p class="text-muted">In: facturas, estados de cuenta, gastos. Out: hojas acomodadas, categorización, reportes, alertas.</p>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
+                  <p class="text-muted">Mensajero (presupuestos), Cobrador (ingresos), G-Brain.</p>
+                </div>
               </div>
-            </div>
-            <div class="grid md:grid-cols-3 gap-6 text-sm">
-              <div>
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                <p class="text-muted">Spreadsheets, modelos financieros, costos variables/fijos, dashboards, parsers de gastos.</p>
+              <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
+                <p class="text-sm text-muted">Google Sheets + plantillas Excel + parsers de gastos + dashboards de margen.</p>
               </div>
-              <div>
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
-                <p class="text-muted">In: facturas, estados de cuenta, gastos. Out: hojas acomodadas, categorización, reportes, alertas.</p>
-              </div>
-              <div>
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
-                <p class="text-muted">Mensajero (presupuestos), Cobrador (ingresos), G-Brain.</p>
-              </div>
-            </div>
-            <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
-              <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
-              <p class="text-sm text-muted">Google Sheets + plantillas Excel + parsers de gastos + dashboards de margen.</p>
             </div>
           </div>
         </div>
 
-        <!-- Mensajero -->
-        <div class="reveal bezel">
-          <div class="bezel-inner p-6 md:p-8">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-              <div class="flex items-center gap-4">
+        <div class="hero-content" id="mensajero-content">
+          <div class="bezel">
+            <div class="bezel-inner p-6 md:p-8">
+              <div class="flex items-center gap-4 mb-6">
                 <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">campaign</span></div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest">02 / Mensajero</div>
                   <div class="font-display text-2xl tracking-tight">.design</div>
                 </div>
               </div>
-              <div class="flex flex-wrap gap-2">
-                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Redes sociales</span>
-                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">SEO/GEO</span>
-                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Open Design</span>
+              <div class="grid md:grid-cols-3 gap-6 text-sm">
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
+                  <p class="text-muted">Brand intake, copywriting, calendario de contenido, posts, presentaciones, optimización web.</p>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
+                  <p class="text-muted">In: voz de marca, objetivos de campaña, datos del Tesorero. Out: contenido, posts, presentaciones, mails.</p>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
+                  <p class="text-muted">Tesorero (presupuesto), G-Brain, WordPress/SSH, APIs de redes sociales.</p>
+                </div>
               </div>
-            </div>
-            <div class="grid md:grid-cols-3 gap-6 text-sm">
-              <div>
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                <p class="text-muted">Brand intake, copywriting, calendario de contenido, posts, presentaciones, optimización web.</p>
+              <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
+                <p class="text-sm text-muted">Open Design + redes sociales + SEO/GEO + WordPress/SSH + Google Docs/Slides.</p>
               </div>
-              <div>
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
-                <p class="text-muted">In: voz de marca, objetivos de campaña, datos del Tesorero. Out: contenido, posts, presentaciones, mails.</p>
-              </div>
-              <div>
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
-                <p class="text-muted">Tesorero (presupuesto), G-Brain, WordPress/SSH, APIs de redes sociales.</p>
-              </div>
-            </div>
-            <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
-              <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
-              <p class="text-sm text-muted">Open Design + redes sociales + SEO/GEO + WordPress/SSH + Google Docs/Slides.</p>
             </div>
           </div>
         </div>
 
-        <!-- Cobrador -->
-        <div class="reveal bezel">
-          <div class="bezel-inner p-6 md:p-8">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-              <div class="flex items-center gap-4">
+        <div class="hero-content" id="cobrador-content">
+          <div class="bezel">
+            <div class="bezel-inner p-6 md:p-8">
+              <div class="flex items-center gap-4 mb-6">
                 <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">credit_card</span></div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest">03 / Cobrador</div>
                   <div class="font-display text-2xl tracking-tight">.payments</div>
                 </div>
               </div>
-              <div class="flex flex-wrap gap-2">
-                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Stripe API</span>
-                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Webhooks</span>
-                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Facturación</span>
+              <div class="grid md:grid-cols-3 gap-6 text-sm">
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
+                  <p class="text-muted">Payment links, suscripciones, facturas, reportes de ingresos, webhooks.</p>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
+                  <p class="text-muted">In: productos/servicios, precios, clientes. Out: links de pago, confirmaciones, reportes.</p>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
+                  <p class="text-muted">Stripe API, Tesorero (ingresos), G-Brain.</p>
+                </div>
               </div>
-            </div>
-            <div class="grid md:grid-cols-3 gap-6 text-sm">
-              <div>
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                <p class="text-muted">Payment links, suscripciones, facturas, reportes de ingresos, webhooks.</p>
+              <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
+                <p class="text-sm text-muted">Stripe API + payment links + suscripciones + webhooks + reportes en Sheets.</p>
               </div>
-              <div>
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
-                <p class="text-muted">In: productos/servicios, precios, clientes. Out: links de pago, confirmaciones, reportes.</p>
-              </div>
-              <div>
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
-                <p class="text-muted">Stripe API, Tesorero (ingresos), G-Brain.</p>
-              </div>
-            </div>
-            <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
-              <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
-              <p class="text-sm text-muted">Stripe API + payment links + suscripciones + webhooks + reportes en Sheets.</p>
             </div>
           </div>
         </div>
 
-        <!-- Guardián -->
-        <div class="reveal bezel">
-          <div class="bezel-inner p-6 md:p-8">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-              <div class="flex items-center gap-4">
+        <div class="hero-content" id="guardian-content">
+          <div class="bezel">
+            <div class="bezel-inner p-6 md:p-8">
+              <div class="flex items-center gap-4 mb-6">
                 <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">shield</span></div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest">04 / Guardián</div>
                   <div class="font-display text-2xl tracking-tight">.security</div>
                 </div>
               </div>
-              <div class="flex flex-wrap gap-2">
-                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Nvidia</span>
-                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">API keys</span>
-                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Permisos</span>
+              <div class="grid md:grid-cols-3 gap-6 text-sm">
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
+                  <p class="text-muted">Gestión de claves, permisos por perfil, modelos, cuentas de servicio, auditoría.</p>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
+                  <p class="text-muted">In: cuentas de Nvidia, OpenAI, Kimi, Stripe, redes. Out: accesos configurados, auditoría, políticas.</p>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
+                  <p class="text-muted">Nvidia APIs, OpenAI, Kimi Coding, todos los héroes vía G-Brain.</p>
+                </div>
               </div>
-            </div>
-            <div class="grid md:grid-cols-3 gap-6 text-sm">
-              <div>
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                <p class="text-muted">Gestión de claves, permisos por perfil, modelos, cuentas de servicio, auditoría.</p>
+              <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
+                <p class="text-sm text-muted">Nvidia + OpenAI + Kimi Coding + rotación de API keys + permisos por perfil.</p>
               </div>
-              <div>
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
-                <p class="text-muted">In: cuentas de Nvidia, OpenAI, Kimi, Stripe, redes. Out: accesos configurados, auditoría, políticas.</p>
-              </div>
-              <div>
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
-                <p class="text-muted">Nvidia APIs, OpenAI, Kimi Coding, todos los héroes vía G-Brain.</p>
-              </div>
-            </div>
-            <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
-              <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
-              <p class="text-sm text-muted">Nvidia + OpenAI + Kimi Coding + rotación de API keys + permisos por perfil.</p>
             </div>
           </div>
         </div>
 
-        <!-- Estratega -->
-        <div class="reveal bezel">
-          <div class="bezel-inner p-6 md:p-8">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-              <div class="flex items-center gap-4">
+        <div class="hero-content" id="estratega-content">
+          <div class="bezel">
+            <div class="bezel-inner p-6 md:p-8">
+              <div class="flex items-center gap-4 mb-6">
                 <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">strategy</span></div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest">05 / Estratega</div>
                   <div class="font-display text-2xl tracking-tight">.ops</div>
                 </div>
               </div>
-              <div class="flex flex-wrap gap-2">
-                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Calendar API</span>
-                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Gmail</span>
-                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Tareas</span>
+              <div class="grid md:grid-cols-3 gap-6 text-sm">
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
+                  <p class="text-muted">Calendar, Gmail, tareas, recordatorios, priorización, planeación, checklists, briefings.</p>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
+                  <p class="text-muted">In: eventos, correos, deadlines, misiones pendientes. Out: calendario actualizado, follow-ups, resumen.</p>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
+                  <p class="text-muted">Diplomático, Mensajero, G-Brain, Google Workspace.</p>
+                </div>
               </div>
-            </div>
-            <div class="grid md:grid-cols-3 gap-6 text-sm">
-              <div>
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                <p class="text-muted">Calendar, Gmail, tareas, recordatorios, priorización, planeación, checklists, briefings.</p>
+              <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
+                <p class="text-sm text-muted">Google Calendar + Gmail + tareas + recordatorios + checklists + briefings.</p>
               </div>
-              <div>
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
-                <p class="text-muted">In: eventos, correos, deadlines, misiones pendientes. Out: calendario actualizado, follow-ups, resumen.</p>
-              </div>
-              <div>
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
-                <p class="text-muted">Diplomático, Mensajero, G-Brain, Google Workspace.</p>
-              </div>
-            </div>
-            <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
-              <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
-              <p class="text-sm text-muted">Google Calendar + Gmail + tareas + recordatorios + checklists + briefings.</p>
             </div>
           </div>
         </div>
 
-        <!-- Diplomático -->
-        <div class="reveal bezel">
-          <div class="bezel-inner p-6 md:p-8">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-              <div class="flex items-center gap-4">
+        <div class="hero-content" id="diplomatico-content">
+          <div class="bezel">
+            <div class="bezel-inner p-6 md:p-8">
+              <div class="flex items-center gap-4 mb-6">
                 <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center"><span class="material-symbols-sharp text-accent">handshake</span></div>
                 <div>
                   <div class="font-mono text-xs text-muted uppercase tracking-widest">06 / Diplomático</div>
                   <div class="font-display text-2xl tracking-tight">.relations</div>
                 </div>
               </div>
-              <div class="flex flex-wrap gap-2">
-                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">CRM</span>
-                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Hitos</span>
-                <span class="px-2.5 py-1 rounded-full bg-white/[0.05] text-xs font-mono text-muted">Gmail</span>
+              <div class="grid md:grid-cols-3 gap-6 text-sm">
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
+                  <p class="text-muted">Seguimiento a clientes y proveedores, conversaciones, contratos, hitos, recordatorios.</p>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
+                  <p class="text-muted">In: conversaciones, contratos, entregables, fechas compromiso. Out: recordatorios, actualizaciones de estado, reuniones.</p>
+                </div>
+                <div>
+                  <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
+                  <p class="text-muted">Estratega, G-Brain, Gmail, Calendar.</p>
+                </div>
               </div>
-            </div>
-            <div class="grid md:grid-cols-3 gap-6 text-sm">
-              <div>
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Habilidades</div>
-                <p class="text-muted">Seguimiento a clientes y proveedores, conversaciones, contratos, hitos, recordatorios.</p>
+              <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
+                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
+                <p class="text-sm text-muted">Gmail + Calendar + CRM ligero + hitos + recordatorios + contratos.</p>
               </div>
-              <div>
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Inputs / Outputs</div>
-                <p class="text-muted">In: conversaciones, contratos, entregables, fechas compromiso. Out: recordatorios, actualizaciones de estado, reuniones.</p>
-              </div>
-              <div>
-                <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Conexiones</div>
-                <p class="text-muted">Estratega, G-Brain, Gmail, Calendar.</p>
-              </div>
-            </div>
-            <div class="mt-6 p-4 rounded-lg bg-white/[0.03]">
-              <div class="font-mono text-xs text-muted uppercase tracking-widest mb-2">Pegaso</div>
-              <p class="text-sm text-muted">Gmail + Calendar + CRM ligero + hitos + recordatorios + contratos.</p>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- Mobile accordion -->
+      <div class="md:hidden space-y-4 reveal">
+        <div class="accordion-item open">
+          <button class="accordion-header">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-sharp text-accent">savings</span>
+              <span class="font-mono text-sm">.finance</span>
+            </div>
+            <span class="material-symbols-sharp accordion-icon">expand_more</span>
+          </button>
+          <div class="accordion-body">
+            <div class="px-4 pb-4 text-sm text-muted space-y-2">
+              <p><strong>Habilidades:</strong> Spreadsheets, modelos financieros, costos variables/fijos, dashboards.</p>
+              <p><strong>I/O:</strong> In: facturas, estados de cuenta. Out: hojas acomodadas, reportes, alertas.</p>
+              <p><strong>Pegaso:</strong> Google Sheets + Excel + parsers de gastos.</p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-sharp text-accent">campaign</span>
+              <span class="font-mono text-sm">.design</span>
+            </div>
+            <span class="material-symbols-sharp accordion-icon">expand_more</span>
+          </button>
+          <div class="accordion-body">
+            <div class="px-4 pb-4 text-sm text-muted space-y-2">
+              <p><strong>Habilidades:</strong> Brand intake, copywriting, calendario de contenido, posts.</p>
+              <p><strong>I/O:</strong> In: voz de marca, presupuesto. Out: contenido, presentaciones, mails.</p>
+              <p><strong>Pegaso:</strong> Open Design + redes + SEO/GEO + WordPress/SSH.</p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-sharp text-accent">credit_card</span>
+              <span class="font-mono text-sm">.payments</span>
+            </div>
+            <span class="material-symbols-sharp accordion-icon">expand_more</span>
+          </button>
+          <div class="accordion-body">
+            <div class="px-4 pb-4 text-sm text-muted space-y-2">
+              <p><strong>Habilidades:</strong> Payment links, suscripciones, facturas, webhooks.</p>
+              <p><strong>I/O:</strong> In: productos, precios, clientes. Out: links, confirmaciones, reportes.</p>
+              <p><strong>Pegaso:</strong> Stripe API + payment links + webhooks.</p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-sharp text-accent">shield</span>
+              <span class="font-mono text-sm">.security</span>
+            </div>
+            <span class="material-symbols-sharp accordion-icon">expand_more</span>
+          </button>
+          <div class="accordion-body">
+            <div class="px-4 pb-4 text-sm text-muted space-y-2">
+              <p><strong>Habilidades:</strong> Gestión de claves, permisos, modelos, auditoría.</p>
+              <p><strong>I/O:</strong> In: cuentas de APIs. Out: accesos configurados, políticas.</p>
+              <p><strong>Pegaso:</strong> Nvidia + OpenAI + Kimi Coding + rotación de keys.</p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-sharp text-accent">strategy</span>
+              <span class="font-mono text-sm">.ops</span>
+            </div>
+            <span class="material-symbols-sharp accordion-icon">expand_more</span>
+          </button>
+          <div class="accordion-body">
+            <div class="px-4 pb-4 text-sm text-muted space-y-2">
+              <p><strong>Habilidades:</strong> Calendar, Gmail, tareas, recordatorios, briefings.</p>
+              <p><strong>I/O:</strong> In: eventos, deadlines. Out: calendario, follow-ups, resumen.</p>
+              <p><strong>Pegaso:</strong> Google Calendar + Gmail + tareas + checklists.</p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-sharp text-accent">handshake</span>
+              <span class="font-mono text-sm">.relations</span>
+            </div>
+            <span class="material-symbols-sharp accordion-icon">expand_more</span>
+          </button>
+          <div class="accordion-body">
+            <div class="px-4 pb-4 text-sm text-muted space-y-2">
+              <p><strong>Habilidades:</strong> Seguimiento a clientes/proveedores, contratos, hitos.</p>
+              <p><strong>I/O:</strong> In: conversaciones, fechas. Out: recordatorios, reuniones.</p>
+              <p><strong>Pegaso:</strong> Gmail + Calendar + CRM ligero + contratos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quality Layer -->
+  <section id="quality" class="section-pad border-y border-line bg-surface/40">
+    <div class="max-w-[1400px] mx-auto px-4">
+      <div class="reveal max-w-2xl mb-12">
+        <span class="tag mb-4 block">Quality Layer</span>
+        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">Slop se atrapa antes de salir.</h2>
+        <p class="text-muted text-lg leading-relaxed">Partenon no genera y espera. Cada output pasa por un eval loop con casos de prueba, una rúbrica y un threshold. Eso es lo que diferencia un agente productivo de un generador de slop.</p>
+      </div>
+
+      <div class="reveal mermaid-container mb-12">
+        <div class="mermaid">
+flowchart LR
+    subgraph EVAL["Eval Loop"]
+        TC["Test Cases<br/>ground truth"]
+        R["Rúbrica 0-1"]
+        TH["Threshold 0.7"]
+        J["Judge Skill"]
+    end
+    H["Héroe"] -->|genera| OUT["Output"]
+    OUT --> EVAL
+    J -->|score >= 0.7| SHIP["Ship"]
+    J -->|score < 0.7| REWORK["Rework + nuevo test case"]
+    REWORK --> TC
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="reveal bezel">
+          <div class="bezel-inner p-8 h-full">
+            <div class="font-mono text-5xl text-accent mb-6">01</div>
+            <h3 class="font-display text-xl tracking-tight mb-4">Antes de enviar</h3>
+            <p class="text-sm text-muted leading-relaxed">Cambio de prompt o modelo dispara la suite completa. Hermes compara scores contra baseline y pide aprobación si algo regresa.</p>
+          </div>
+        </div>
+        <div class="reveal bezel reveal-delay-1">
+          <div class="bezel-inner p-8 h-full">
+            <div class="font-mono text-5xl text-accent mb-6">02</div>
+            <h3 class="font-display text-xl tracking-tight mb-4">En runtime</h3>
+            <p class="text-sm text-muted leading-relaxed">Cada output se valida contra estructura y rúbrica. Si un JSON está roto o un reporte no cuadra, el héroe lo corrige antes de entregar.</p>
+          </div>
+        </div>
+        <div class="reveal bezel reveal-delay-2">
+          <div class="bezel-inner p-8 h-full">
+            <div class="font-mono text-5xl text-accent mb-6">03</div>
+            <h3 class="font-display text-xl tracking-tight mb-4">En producción</h3>
+            <p class="text-sm text-muted leading-relaxed">Un cron samplea ejecuciones reales. Si el score promedio baja, Hermes avisa. Cada fallo se convierte en un nuevo caso de prueba.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo code -->
+  <section class="section-pad">
+    <div class="max-w-[1400px] mx-auto px-4">
+      <div class="reveal max-w-2xl mb-12">
+        <span class="tag mb-4 block">Demo funcional</span>
+        <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">El Tesorero ya puede auditar.</h2>
+        <p class="text-muted text-lg leading-relaxed"><code>demo_tesorero.py</code> genera un workbook de ejemplo y un reporte JSON. En la próxima iteración el eval loop scoreará el output contra casos de prueba financieros.</p>
+      </div>
+
+      <div class="reveal bezel">
+        <div class="bezel-inner p-6 md:p-8">
+          <div class="flex items-center justify-between mb-4">
+            <span class="tag">scripts/demo_tesorero.py</span>
+            <button class="text-xs text-muted hover:text-accent font-mono" onclick="copyDemo()">Copiar</button>
+          </div>
+          <pre><code id="demoCode">python scripts/demo_tesorero.py
+
+# Crea:
+# data/sample_gastos.xlsx
+# data/sample_gastos_report.json
+
+# Reporte:
+{
+  "ingresos": 4000.0,
+  "gastos_fijos": 609.0,
+  "gastos_variables": 1030.0,
+  "margen": 2361.0,
+  "margen_pct": 59.03,
+  "alertas": []
+}</code></pre>
         </div>
       </div>
     </div>
@@ -750,7 +966,7 @@ flowchart LR
         <div class="lg:col-span-5 reveal">
           <span class="tag mb-4 block">MCP</span>
           <h2 class="font-display text-4xl md:text-5xl tracking-[-0.04em] leading-[0.95] mb-6">G-Brain vía MCP.</h2>
-          <p class="text-muted text-lg leading-relaxed">MCP (Model Context Protocol) es el cable entre los héroes y el cerebro. Cada agente puede leer contexto, escribir resultados y consultar lo que otros héroes aprendieron.</p>
+          <p class="text-muted text-lg leading-relaxed">MCP es el cable entre los héroes y el cerebro. Cada agente puede leer contexto, escribir resultados y consultar lo que otros aprendieron.</p>
         </div>
         <div class="lg:col-span-7 reveal bezel reveal-delay-1">
           <div class="bezel-inner p-6 md:p-8">
@@ -806,7 +1022,6 @@ sequenceDiagram
     participant C as partenon-core
     participant H as Héroes
     participant GW as Google Workspace
-    participant DASH as Dashboard
 
     P->>I: curl ... | bash
     I->>C: Python env, deps, hermes CLI
@@ -815,11 +1030,9 @@ sequenceDiagram
     Note over P,GW: Pre-instalación (antes del evento)
     P->>C: Define tipo de empresa
     C->>H: Crea .finance, .design, .payments, .security, .ops, .relations
-    C->>DASH: Carga tareas iniciales
-    Note over P,DASH: Onboarding (20-60 min)
+    Note over P,H: Onboarding (20-60 min)
     H->>GW: Publica 3 misiones reales
-    DASH-->>P: Revisa kanban y entregables
-    Note over P,DASH: Práctica (60-90 min)
+    Note over P,H: Práctica (60-90 min)
         </div>
       </div>
 
@@ -830,9 +1043,8 @@ sequenceDiagram
             <h3 class="font-display text-xl tracking-tight mb-4">Setup</h3>
             <ul class="space-y-3 text-sm text-muted">
               <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Pre-instalación con <code>curl ... | bash</code>.</li>
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Clonar repositorio y levantar Docker Compose.</li>
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Copiar Google Sheet base y conectar Workspace.</li>
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Crear archivos de perfil <code>.finance</code>, <code>.design</code>, <code>.payments</code>, <code>.security</code>, <code>.ops</code>, <code>.relations</code>.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Copiar Google Sheet base.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Crear archivos de perfil.</li>
             </ul>
           </div>
         </div>
@@ -844,7 +1056,6 @@ sequenceDiagram
               <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Definir tipo de empresa.</li>
               <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Configurar perfiles prioritarios.</li>
               <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Ejecutar primera misión.</li>
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Conectar Stripe y redes sociales.</li>
             </ul>
           </div>
         </div>
@@ -854,10 +1065,8 @@ sequenceDiagram
             <h3 class="font-display text-xl tracking-tight mb-4">Práctica</h3>
             <ul class="space-y-3 text-sm text-muted">
               <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Publicar 3 misiones reales.</li>
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Revisar entregables en kanban y Sheets/Docs.</li>
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Ejecutar demo del Tesorero localmente.</li>
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Ajustar prompts y permisos.</li>
-              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Dejar plan de 30 días.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Revisar entregables en Sheets/Docs.</li>
+              <li class="flex items-start gap-2"><span class="material-symbols-sharp text-accent text-base mt-0.5">check</span> Ejecutar demo del Tesorero.</li>
             </ul>
           </div>
         </div>
@@ -866,7 +1075,7 @@ sequenceDiagram
   </section>
 
   <!-- Install + Repo -->
-  <section id="install" class="section-pad">
+  <section id="instalar" class="section-pad">
     <div class="max-w-[1400px] mx-auto px-4">
       <div class="grid lg:grid-cols-12 gap-12 items-start">
         <div class="lg:col-span-5 reveal">
@@ -916,7 +1125,7 @@ curl -fsSL https://partenon.dev/install.sh | bash
 │   ├── app/ (Next.js 15, kanban + cron)
 │   └── Dockerfile
 ├── partenon-core/
-│   ├── tools/ (router, onboarding_flow, workflow)
+│   ├── tools/ (router, onboarding_flow, workflow, eval)
 │   ├── config/mcp/servers.yaml
 │   ├── data/initial_tasks.json
 │   └── install.sh
@@ -960,8 +1169,8 @@ curl -fsSL https://partenon.dev/install.sh | bash
         <div class="reveal grid md:grid-cols-12 gap-6 items-center p-6 md:p-8 border border-line rounded-2xl bg-bg">
           <div class="md:col-span-2 font-mono text-accent">Q2 2026</div>
           <div class="md:col-span-10">
-            <div class="font-display text-xl tracking-tight mb-2">v0.1.0 — Seis héroes + dashboard</div>
-            <p class="text-sm text-muted">Tesorero, Mensajero, Cobrador, Guardián, Estratega y Diplomático con kanban y G-Brain MCP.</p>
+            <div class="font-display text-xl tracking-tight mb-2">v0.1.0 — Seis héroes + dashboard + eval loop mínimo</div>
+            <p class="text-sm text-muted">Tesorero, Mensajero, Cobrador, Guardián, Estratega y Diplomático con kanban, G-Brain MCP y eval loop en el Tesorero.</p>
           </div>
         </div>
         <div class="reveal grid md:grid-cols-12 gap-6 items-center p-6 md:p-8 border border-line rounded-2xl bg-bg reveal-delay-1">
@@ -975,7 +1184,7 @@ curl -fsSL https://partenon.dev/install.sh | bash
           <div class="md:col-span-2 font-mono text-accent">Q4 2026</div>
           <div class="md:col-span-10">
             <div class="font-display text-xl tracking-tight mb-2">v0.3 — Memoria avanzada</div>
-            <p class="text-sm text-muted">G-Brain persistente, entidades enlazadas, aprendizajes por misión y evaluación automática.</p>
+            <p class="text-sm text-muted">G-Brain persistente, entidades enlazadas, aprendizajes por misión y eval loop en todos los perfiles.</p>
           </div>
         </div>
         <div class="reveal grid md:grid-cols-12 gap-6 items-center p-6 md:p-8 border border-line rounded-2xl bg-bg reveal-delay-3">
@@ -1003,7 +1212,7 @@ curl -fsSL https://partenon.dev/install.sh | bash
           </a>
           <a href="index.html" class="btn btn-secondary">
             Volver al marketing
-            <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_back</span></span>
+            <span class="btn-icon"><span class="material-symbols-sharp text-sm">arrow_outward</span></span>
           </a>
         </div>
       </div>
@@ -1019,7 +1228,7 @@ curl -fsSL https://partenon.dev/install.sh | bash
           <div class="text-sm text-muted">Hermes y sus héroes para tu empresa.</div>
         </div>
         <div class="flex flex-wrap gap-6 text-sm text-muted">
-          <a href="index.html" class="hover:text-text transition-colors">Marketing</a>
+          <a href="index.html" class="hover:text-text transition-colors">Inicio</a>
           <a href="developers.html" class="hover:text-text transition-colors">Documentación</a>
           <a href="https://github.com/paolameneses/partenon" target="_blank" rel="noopener" class="hover:text-text transition-colors">GitHub</a>
         </div>
@@ -1039,12 +1248,10 @@ curl -fsSL https://partenon.dev/install.sh | bash
         primaryBorderColor: '#00D4FF',
         lineColor: '#6B6B78',
         secondaryColor: '#0E0E14',
-        tertiaryColor: '#050505',
-        fontFamily: 'Geist',
-        fontSize: '14px'
-      },
-      flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' },
-      sequence: { useMaxWidth: true }
+        tertiaryColor: '#08080C',
+        fontFamily: 'Geist, sans-serif',
+        fontSize: '13px'
+      }
     });
 
     const reveals = document.querySelectorAll('.reveal');
@@ -1065,11 +1272,38 @@ curl -fsSL https://partenon.dev/install.sh | bash
     closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
     mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('open')));
 
+    // Hero tabs
+    const tabs = document.querySelectorAll('.hero-tab');
+    const contents = document.querySelectorAll('.hero-content');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const hero = tab.dataset.hero;
+        tabs.forEach(t => t.classList.remove('active'));
+        contents.forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(`${hero}-content`).classList.add('active');
+      });
+    });
+
+    // Mobile accordion
+    const accordions = document.querySelectorAll('.accordion-header');
+    accordions.forEach(header => {
+      header.addEventListener('click', () => {
+        const item = header.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
     function copyInstall() {
       navigator.clipboard.writeText(document.getElementById('installCmd').textContent);
     }
     function copyTree() {
       navigator.clipboard.writeText(document.getElementById('repoTree').textContent);
+    }
+    function copyDemo() {
+      navigator.clipboard.writeText(document.getElementById('demoCode').textContent);
     }
   </script>
 </body>

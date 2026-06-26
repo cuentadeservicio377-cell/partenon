@@ -17,8 +17,8 @@ Partenon organiza agentes de IA como un sistema operativo:
 
 La documentación del sistema vive primero en dos páginas web estáticas. A partir de ellas se construye el repositorio.
 
-1. **`web/index.html`** — Página de marketing. Introducción de marca, narrativa de arquetipos, Hermes como empresa, los 6 héroes con personalidad y Pegaso, ejemplos concretos (construcción y cafetería), G-Brain, contador de impacto 10 → 1M, carta de intención de Pablo Meneses, go-to-market e instalación.
-2. **`web/developers.html`** — Página técnica. Arquitectura de agentes, diagramas Mermaid flat, stack, perfiles técnicos de los 6 héroes con Pegaso/MCP/I/O, diagramas de conexión por perfil, G-Brain/MCP, workshop de 90 min paquetizado, instalación, estructura de repositorio y roadmap.
+1. **`web/index.html`** — Página de marketing con arco narrativo: problema (pyme sin sistema), promesa (una mesa de trabajo viva), caso concreto (un día con Hermes en Cafetería Aurora), héroes en tabs/acordeón, G-Brain, impacto sin números inventados, carta de intención abreviada, go-to-market enfocado e instalación.
+2. **`web/developers.html`** — Página técnica. Arquitectura de agentes con Eval Loop, diagramas Mermaid flat, stack, perfiles técnicos de los 6 héroes en tabs/acordeón, diagramas de conexión por perfil, G-Brain/MCP, demo funcional del Tesorero, workshop de 90 min paquetizado, instalación, estructura de repositorio y roadmap.
 3. **`dashboard/`** — Dashboard de operaciones (Next.js 15 + React 19 + TypeScript + Tailwind CSS). Muestra KPIs, kanban de misiones filtrado por perfil, administrador de cron jobs y auth simple por cookie. Lee y escribe `data/tasks.json` y `data/cron.json`.
 
 Las páginas web usan HTML estático, Tailwind CSS vía CDN y JavaScript vanilla. El dashboard usa Tailwind CSS con la misma paleta: tipografía Space Grotesk y Geist Mono, fondo `#050505`, acento cian `#00D4FF`, sin gradientes ni glows.
@@ -44,7 +44,7 @@ Las páginas web usan HTML estático, Tailwind CSS vía CDN y JavaScript vanilla
 ## Stack
 
 - **Frontend páginas**: HTML estático + Tailwind CSS CDN + JS vanilla
-- **Agent core**: Hermes Agent (Nous Research) + Python skills + `partenon-core` (router, onboarding, workflow)
+- **Agent core**: Hermes Agent (Nous Research) + Python skills + `partenon-core` (router, onboarding, workflow, eval loop)
 - **Dashboard**: Next.js 15 + React 19 + TypeScript + Tailwind (en `dashboard/`)
 - **Documentos**: Python + WeasyPrint (Kami v3)
 - **Datos**: Google Workspace (Sheets, Docs, Slides, Drive, Calendar, Gmail); plantillas Excel con openpyxl
@@ -80,12 +80,12 @@ Abre http://localhost:3000 y entra con usuario `admin` y contrasena `partenon` (
 ## Estado
 
 - Iniciado: 2026-06-23
-- Fase actual: Páginas web reconstruidas como especificación maestra. Repositorio en alineación.
+- Fase actual: Páginas web reescritas con arco narrativo, componentes diversificados (timeline, tabs, acordeón, blockquote) y sección Quality Layer en la documentación técnica.
 - Perfiles implementados: Tesorero (`.finance`), Mensajero (`.design`), Cobrador (`.payments`), Guardian (`.security`), Estratega (`.ops`), Diplomatico (`.relations`).
-- Web verificada: `web/index.html` y `web/developers.html` en desktop (1440px) y mobile (390px).
+- Web verificada: `web/index.html` y `web/developers.html` en desktop (1440px) y mobile (390px). Screenshots actualizadas en `screenshots/`.
 - Dashboard verificado: `npm install` y `npm run build` pasan sin errores de TypeScript.
 - Demo verificado: `python scripts/demo_tesorero.py` genera Excel + JSON con métricas.
-- Próxima tarea: Integrar Google Workspace, Stripe y G-Brain con credenciales reales y validar flujos end-to-end.
+- Próxima tarea: Implementar eval loop funcional en el Tesorero (test cases + judge skill + threshold 0.7) y luego integrar Google Workspace, Stripe y G-Brain con credenciales reales.
 
 ## Instalación rápida
 
