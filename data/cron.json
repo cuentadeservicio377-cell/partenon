@@ -1,0 +1,23 @@
+[
+  {
+    "id": "cron-001",
+    "profile": "partenon-tesorero",
+    "schedule": "0 9 * * 1",
+    "command": "python -m partenon.tesorero weekly_report",
+    "enabled": true
+  },
+  {
+    "id": "cron-002",
+    "profile": "partenon-mensajero",
+    "schedule": "0 10 * * *",
+    "command": "python -m partenon.mensajero content_check",
+    "enabled": true
+  },
+  {
+    "id": "cron-003",
+    "profile": "partenon-guardian",
+    "schedule": "0 2 * * 0",
+    "command": "python -m partenon.guardian security_audit",
+    "enabled": false
+  }
+]

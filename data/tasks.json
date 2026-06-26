@@ -1,0 +1,50 @@
+[
+  {
+    "id": "mission-001",
+    "profile": "partenon-tesorero",
+    "title": "Organizar costos fijos y variables de la empresa",
+    "status": "backlog",
+    "priority": "alta",
+    "description": "Revisar todos los gastos, clasificarlos en fijos/variables y construir un dashboard en Google Sheets."
+  },
+  {
+    "id": "mission-002",
+    "profile": "partenon-mensajero",
+    "title": "Definir voz de marca y mensajes clave",
+    "status": "backlog",
+    "priority": "alta",
+    "description": "Entrevistar al emprendedor, completar .design y crear primer calendario de contenido."
+  },
+  {
+    "id": "mission-003",
+    "profile": "partenon-cobrador",
+    "title": "Configurar productos y links de pago en Stripe",
+    "status": "backlog",
+    "priority": "media",
+    "description": "Listar productos/servicios, precios y crear payment links o suscripciones."
+  },
+  {
+    "id": "mission-004",
+    "profile": "partenon-guardian",
+    "title": "Auditar y documentar API keys y permisos",
+    "status": "backlog",
+    "priority": "alta",
+    "description": "Crear .security con proveedores, keys de referencia y permisos por perfil."
+  },
+  {
+    "id": "mission-005",
+    "profile": "partenon-estratega",
+    "title": "Crear primer proyecto y calendario de operaciones",
+    "status": "backlog",
+    "priority": "alta",
+    "description": "Configurar Google Calendar, crear proyecto inicial y asignar tareas con deadlines."
+  },
+  {
+    "id": "mission-006",
+    "profile": "partenon-diplomatico",
+    "title": "Registrar clientes y proveedores clave",
+    "status": "backlog",
+    "priority": "media",
+    "description": "Crear .relations con contactos, hitos pendientes y proximos follow-ups."
+  }
+]
