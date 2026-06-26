@@ -380,21 +380,21 @@
           </button>
           <div class="accordion-body hidden mt-3" id="config-scribe">
             <div class="relative group cb-wrap" id="cfg-scribe">
-  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class=<span class="sh-string">"sh-keyword"</span>>interface</span> ScribeConfig {
-  <span class="sh-prop">googleSheets</span>: {
-    <span class="sh-prop">credentials</span>: <span class=<span class="sh-string">"sh-type"</span>>string</span>;
-    <span class="sh-prop">spreadsheetId</span>: <span class=<span class="sh-string">"sh-type"</span>>string</span>;
-    <span class="sh-prop">range</span>: <span class=<span class="sh-string">"sh-type"</span>>string</span>;
+  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class="sh-keyword">interface</span> ScribeConfig {
+  googleSheets: {
+    credentials: <span class="sh-type">string</span>;
+    spreadsheetId: <span class="sh-type">string</span>;
+    range: <span class="sh-type">string</span>;
   };
-  <span class="sh-prop">financeFile</span>: {
-    <span class="sh-prop">format</span>: &quot;.finance&quot;;
-    <span class="sh-prop">schema</span>: &quot;v1.<span class="sh-number">0</span>&quot;;
-    <span class="sh-prop">fields</span>: [&quot;cost_fixed&quot;, &quot;cost_variable&quot;, &quot;revenue&quot;, &quot;tax_rate&quot;];
+  financeFile: {
+    format: <span class="sh-string">&quot;.finance&quot;</span>;
+    schema: <span class="sh-string">&quot;v1.0&quot;</span>;
+    fields: [<span class="sh-string">&quot;cost_fixed&quot;</span>, <span class="sh-string">&quot;cost_variable&quot;</span>, <span class="sh-string">&quot;revenue&quot;</span>, <span class="sh-string">&quot;tax_rate&quot;</span>];
   };
-  <span class="sh-prop">dashboard</span>: {
-    <span class="sh-prop">enabled</span>: <span class=<span class="sh-string">"sh-type"</span>>boolean</span>;
-    <span class="sh-prop">template</span>: &quot;financial_overview&quot; | &quot;cash_flow&quot; | &quot;custom&quot;;
-    <span class="sh-prop">refreshInterval</span>: <span class=<span class="sh-string">"sh-type"</span>>number</span>;
+  dashboard: {
+    enabled: <span class="sh-type">boolean</span>;
+    template: <span class="sh-string">&quot;financial_overview&quot;</span> | <span class="sh-string">&quot;cash_flow&quot;</span> | <span class="sh-string">&quot;custom&quot;</span>;
+    refreshInterval: <span class="sh-type">number</span>;
   };
 }</pre>
   <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="cfg-scribe" title="Copy to clipboard">
@@ -484,17 +484,17 @@ $ hermes mission scribe --type financial-model \
           </button>
           <div class="accordion-body hidden mt-3" id="config-herald">
             <div class="relative group cb-wrap" id="cfg-herald">
-  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class=<span class="sh-string">"sh-keyword"</span>>interface</span> HeraldConfig {
-  <span class="sh-prop">brandFile</span>: {
-    <span class="sh-prop">format</span>: &quot;.design&quot;;
-    <span class="sh-prop">schema</span>: &quot;v1.<span class="sh-number">0</span>&quot;;
-    <span class="sh-prop">sections</span>: [&quot;voice&quot;, &quot;visual&quot;, &quot;messaging&quot;, &quot;audience&quot;];
+  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class="sh-keyword">interface</span> HeraldConfig {
+  brandFile: {
+    format: <span class="sh-string">&quot;.design&quot;</span>;
+    schema: <span class="sh-string">&quot;v1.0&quot;</span>;
+    sections: [<span class="sh-string">&quot;voice&quot;</span>, <span class="sh-string">&quot;visual&quot;</span>, <span class="sh-string">&quot;messaging&quot;</span>, <span class="sh-string">&quot;audience&quot;</span>];
   };
-  <span class="sh-prop">socialAccounts</span>: <span class=<span class="sh-string">"sh-type"</span>>string</span>[];
-  <span class="sh-prop">contentStrategy</span>: {
-    <span class="sh-prop">seoEnabled</span>: <span class=<span class="sh-string">"sh-type"</span>>boolean</span>;
-    <span class="sh-prop">geoTargeting</span>: <span class=<span class="sh-string">"sh-type"</span>>boolean</span>;
-    <span class="sh-prop">calendarIntegration</span>: <span class=<span class="sh-string">"sh-type"</span>>boolean</span>;
+  socialAccounts: <span class="sh-type">string</span>[];
+  contentStrategy: {
+    seoEnabled: <span class="sh-type">boolean</span>;
+    geoTargeting: <span class="sh-type">boolean</span>;
+    calendarIntegration: <span class="sh-type">boolean</span>;
   };
 }</pre>
   <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="cfg-herald" title="Copy to clipboard">
@@ -584,18 +584,18 @@ $ hermes mission herald --type brand-strategy \
           </button>
           <div class="accordion-body hidden mt-3" id="config-collector">
             <div class="relative group cb-wrap" id="cfg-collector">
-  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class=<span class="sh-string">"sh-keyword"</span>>interface</span> CollectorConfig {
-  <span class="sh-prop">stripe</span>: {
-    <span class="sh-prop">apiKey</span>: <span class=<span class="sh-string">"sh-type"</span>>string</span>;
-    <span class="sh-prop">webhookSecret</span>: <span class=<span class="sh-string">"sh-type"</span>>string</span>;
-    <span class="sh-prop">products</span>: <span class=<span class="sh-string">"sh-type"</span>>string</span>[];
-    <span class="sh-prop">subscriptions</span>: <span class=<span class="sh-string">"sh-type"</span>>boolean</span>;
+  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class="sh-keyword">interface</span> CollectorConfig {
+  stripe: {
+    apiKey: <span class="sh-type">string</span>;
+    webhookSecret: <span class="sh-type">string</span>;
+    products: <span class="sh-type">string</span>[];
+    subscriptions: <span class="sh-type">boolean</span>;
   };
-  <span class="sh-prop">paymentMethods</span>: [&quot;card&quot;, &quot;bank_transfer&quot;, &quot;digital_wallet&quot;];
-  <span class="sh-prop">invoicing</span>: {
-    <span class="sh-prop">autoGenerate</span>: <span class=<span class="sh-string">"sh-type"</span>>boolean</span>;
-    <span class="sh-prop">template</span>: <span class=<span class="sh-string">"sh-type"</span>>string</span>;
-    <span class="sh-prop">reminderDays</span>: <span class=<span class="sh-string">"sh-type"</span>>number</span>[];
+  paymentMethods: [<span class="sh-string">&quot;card&quot;</span>, <span class="sh-string">&quot;bank_transfer&quot;</span>, <span class="sh-string">&quot;digital_wallet&quot;</span>];
+  invoicing: {
+    autoGenerate: <span class="sh-type">boolean</span>;
+    template: <span class="sh-type">string</span>;
+    reminderDays: <span class="sh-type">number</span>[];
   };
 }</pre>
   <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="cfg-collector" title="Copy to clipboard">
@@ -685,22 +685,22 @@ $ hermes mission collector --type payment-setup \
           </button>
           <div class="accordion-body hidden mt-3" id="config-guardian">
             <div class="relative group cb-wrap" id="cfg-guardian">
-  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class=<span class="sh-string">"sh-keyword"</span>>interface</span> GuardianConfig {
-  <span class="sh-prop">nvidia</span>: {
-    <span class="sh-prop">apiKey</span>: <span class=<span class="sh-string">"sh-type"</span>>string</span>;
-    <span class="sh-prop">models</span>: <span class=<span class="sh-string">"sh-type"</span>>string</span>[];
-    <span class="sh-prop">rateLimits</span>: {
-      <span class="sh-prop">requestsPerMinute</span>: <span class=<span class="sh-string">"sh-type"</span>>number</span>;
-      <span class="sh-prop">tokensPerDay</span>: <span class=<span class="sh-string">"sh-type"</span>>number</span>;
+  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class="sh-keyword">interface</span> GuardianConfig {
+  nvidia: {
+    apiKey: <span class="sh-type">string</span>;
+    models: <span class="sh-type">string</span>[];
+    rateLimits: {
+      requestsPerMinute: <span class="sh-type">number</span>;
+      tokensPerDay: <span class="sh-type">number</span>;
     };
   };
-  <span class="sh-prop">apiKeyManager</span>: {
-    <span class="sh-prop">rotationPolicy</span>: &quot;daily&quot; | &quot;weekly&quot; | &quot;monthly&quot;;
-    <span class="sh-prop">alertOnExposure</span>: <span class=<span class="sh-string">"sh-type"</span>>boolean</span>;
+  apiKeyManager: {
+    rotationPolicy: <span class="sh-string">&quot;daily&quot;</span> | <span class="sh-string">&quot;weekly&quot;</span> | <span class="sh-string">&quot;monthly&quot;</span>;
+    alertOnExposure: <span class="sh-type">boolean</span>;
   };
-  <span class="sh-prop">accessControl</span>: {
-    <span class="sh-prop">rbac</span>: <span class=<span class="sh-string">"sh-type"</span>>boolean</span>;
-    <span class="sh-prop">auditLog</span>: <span class=<span class="sh-string">"sh-type"</span>>boolean</span>;
+  accessControl: {
+    rbac: <span class="sh-type">boolean</span>;
+    auditLog: <span class="sh-type">boolean</span>;
   };
 }</pre>
   <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="cfg-guardian" title="Copy to clipboard">
@@ -790,18 +790,18 @@ $ hermes mission guardian --type security-audit \
           </button>
           <div class="accordion-body hidden mt-3" id="config-strategist">
             <div class="relative group cb-wrap" id="cfg-strategist">
-  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class=<span class="sh-string">"sh-keyword"</span>>interface</span> StrategistConfig {
-  <span class="sh-prop">googleCalendar</span>: {
-    <span class="sh-prop">credentials</span>: <span class=<span class="sh-string">"sh-type"</span>>string</span>;
-    <span class="sh-prop">calendarId</span>: <span class=<span class="sh-string">"sh-type"</span>>string</span>;
-    <span class="sh-prop">syncDirection</span>: &quot;bidirectional&quot; | &quot;push&quot; | &quot;pull&quot;;
+  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class="sh-keyword">interface</span> StrategistConfig {
+  googleCalendar: {
+    credentials: <span class="sh-type">string</span>;
+    calendarId: <span class="sh-type">string</span>;
+    syncDirection: <span class="sh-string">&quot;bidirectional&quot;</span> | <span class="sh-string">&quot;push&quot;</span> | <span class="sh-string">&quot;pull&quot;</span>;
   };
-  <span class="sh-prop">projectManagement</span>: {
-    <span class="sh-prop">methodology</span>: &quot;agile&quot; | &quot;waterfall&quot; | &quot;hybrid&quot;;
-    <span class="sh-prop">autoAssign</span>: <span class=<span class="sh-string">"sh-type"</span>>boolean</span>;
-    <span class="sh-prop">reminderSettings</span>: {
-      <span class="sh-prop">beforeHours</span>: <span class=<span class="sh-string">"sh-type"</span>>number</span>[];
-      <span class="sh-prop">channels</span>: [&quot;email&quot;, &quot;slack&quot;, &quot;in_app&quot;];
+  projectManagement: {
+    methodology: <span class="sh-string">&quot;agile&quot;</span> | <span class="sh-string">&quot;waterfall&quot;</span> | <span class="sh-string">&quot;hybrid&quot;</span>;
+    autoAssign: <span class="sh-type">boolean</span>;
+    reminderSettings: {
+      beforeHours: <span class="sh-type">number</span>[];
+      channels: [<span class="sh-string">&quot;email&quot;</span>, <span class="sh-string">&quot;slack&quot;</span>, <span class="sh-string">&quot;in_app&quot;</span>];
     };
   };
 }</pre>
@@ -892,19 +892,19 @@ $ hermes mission strategist --type project-setup \
           </button>
           <div class="accordion-body hidden mt-3" id="config-diplomat">
             <div class="relative group cb-wrap" id="cfg-diplomat">
-  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class=<span class="sh-string">"sh-keyword"</span>>interface</span> DiplomatConfig {
-  <span class="sh-prop">crm</span>: {
-    <span class="sh-prop">provider</span>: &quot;salesforce&quot; | &quot;hubspot&quot; | &quot;custom&quot;;
-    <span class="sh-prop">apiKey</span>: <span class=<span class="sh-string">"sh-type"</span>>string</span>;
-    <span class="sh-prop">syncInterval</span>: <span class=<span class="sh-string">"sh-type"</span>>number</span>;
+  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class="sh-keyword">interface</span> DiplomatConfig {
+  crm: {
+    provider: <span class="sh-string">&quot;salesforce&quot;</span> | <span class="sh-string">&quot;hubspot&quot;</span> | <span class="sh-string">&quot;custom&quot;</span>;
+    apiKey: <span class="sh-type">string</span>;
+    syncInterval: <span class="sh-type">number</span>;
   };
-  <span class="sh-prop">clientPortal</span>: {
-    <span class="sh-prop">enabled</span>: <span class=<span class="sh-string">"sh-type"</span>>boolean</span>;
-    <span class="sh-prop">whiteLabel</span>: <span class=<span class="sh-string">"sh-type"</span>>boolean</span>;
-    <span class="sh-prop">notificationChannels</span>: <span class=<span class="sh-string">"sh-type"</span>>string</span>[];
+  clientPortal: {
+    enabled: <span class="sh-type">boolean</span>;
+    whiteLabel: <span class="sh-type">boolean</span>;
+    notificationChannels: <span class="sh-type">string</span>[];
   };
-  <span class="sh-prop">followUp</span>: {
-    <span class="sh-prop">autoReminders</span>: <span class=<span class="sh-string">"sh-type"</span>>boolean</span>;
+  followUp: {
+    autoReminders: <span class="sh-type">boolean</span>;
     escalationRules: EscalationRule[];
   };
 }</pre>
@@ -995,16 +995,16 @@ $ hermes mission diplomat --type client-onboard \
           </button>
           <div class="accordion-body hidden mt-3" id="config-brain">
             <div class="relative group cb-wrap" id="cfg-brain">
-  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#F0EDE6;color:#2A2A2E;letter-spacing:0.02em;"><span class=<span class="sh-string">"sh-keyword"</span>>interface</span> BrainConfig {
-  <span class="sh-prop">mcpHub</span>: {
-    <span class="sh-prop">version</span>: &quot;<span class="sh-number">1.0</span>&quot;;
-    <span class="sh-prop">protocol</span>: &quot;model_context_protocol&quot;;
-    <span class="sh-prop">transports</span>: [&quot;stdio&quot;, &quot;http&quot;, &quot;websocket&quot;];
+  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#F0EDE6;color:#2A2A2E;letter-spacing:0.02em;"><span class="sh-keyword">interface</span> BrainConfig {
+  mcpHub: {
+    version: <span class="sh-string">&quot;1.0&quot;</span>;
+    protocol: <span class="sh-string">&quot;model_context_protocol&quot;</span>;
+    transports: [<span class="sh-string">&quot;stdio&quot;</span>, <span class="sh-string">&quot;http&quot;</span>, <span class="sh-string">&quot;websocket&quot;</span>];
   };
-  <span class="sh-prop">orchestration</span>: {
-    <span class="sh-prop">loadBalancing</span>: &quot;round_robin&quot; | &quot;least_loaded&quot; | &quot;priority&quot;;
-    <span class="sh-prop">failover</span>: <span class=<span class="sh-string">"sh-type"</span>>boolean</span>;
-    <span class="sh-prop">healthCheckInterval</span>: <span class=<span class="sh-string">"sh-type"</span>>number</span>;
+  orchestration: {
+    loadBalancing: <span class="sh-string">&quot;round_robin&quot;</span> | <span class="sh-string">&quot;least_loaded&quot;</span> | <span class="sh-string">&quot;priority&quot;</span>;
+    failover: <span class="sh-type">boolean</span>;
+    healthCheckInterval: <span class="sh-type">number</span>;
   };
 }</pre>
   <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="cfg-brain" title="Copy to clipboard">
@@ -1092,12 +1092,12 @@ $ hermes mission brain --type cross-agent-analysis \
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16 reveal">
         <div class="rounded-lg overflow-hidden" style="background-color:var(--midnight);border:1px solid #4A90A425;"><div class="px-5 py-3 flex items-center gap-3" style="border-bottom:1px solid #4A90A420;"><span class="font-mono text-lg font-bold" style="color:#4A90A4;">01</span><span class="font-inter text-sm font-semibold" style="color:var(--marble-white);">Context Registration</span></div><div class="p-4"><div class="relative group cb-wrap" id="mcp-01">
-  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class=<span class="sh-string">"sh-keyword"</span>>await</span> brain.registerContext({
-  <span class="sh-prop">agent</span>: &#x27;scribe&#x27;,
-  <span class=<span class="sh-string">"sh-keyword"</span>>type</span>: &#x27;financial_model&#x27;,
+  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class="sh-keyword">await</span> brain.registerContext({
+  agent: <span class="sh-string">&#x27;scribe&#x27;</span>,
+  <span class="sh-keyword">type</span>: <span class="sh-string">&#x27;financial_model&#x27;</span>,
   data: financeFile,
-  <span class="sh-prop">access</span>: [&#x27;herald&#x27;, &#x27;strategist&#x27;, &#x27;brain&#x27;],
-  <span class="sh-prop">ttl</span>: &#x27;30d&#x27;
+  access: [<span class="sh-string">&#x27;herald&#x27;</span>, <span class="sh-string">&#x27;strategist&#x27;</span>, <span class="sh-string">&#x27;brain&#x27;</span>],
+  ttl: <span class="sh-string">&#x27;30d&#x27;</span>
 });</pre>
   <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="mcp-01" title="Copy to clipboard">
     <span class="material-symbols-sharp text-base copy-icon" style="color:#F7F5F0;">content_copy</span>
@@ -1105,10 +1105,10 @@ $ hermes mission brain --type cross-agent-analysis \
   </button>
 </div></div></div>
 <div class="rounded-lg overflow-hidden" style="background-color:var(--midnight);border:1px solid #9B59B625;"><div class="px-5 py-3 flex items-center gap-3" style="border-bottom:1px solid #9B59B620;"><span class="font-mono text-lg font-bold" style="color:#9B59B6;">02</span><span class="font-inter text-sm font-semibold" style="color:var(--marble-white);">Cross-Agent Discovery</span></div><div class="p-4"><div class="relative group cb-wrap" id="mcp-02">
-  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class=<span class="sh-string">"sh-keyword"</span>>const</span> context = <span class=<span class="sh-string">"sh-keyword"</span>>await</span> brain.discover({
-  <span class="sh-prop">requestedBy</span>: &#x27;herald&#x27;,
-  <span class=<span class="sh-string">"sh-keyword"</span>>type</span>: &#x27;financial_model&#x27;,
-  <span class="sh-prop">scope</span>: &#x27;latest&#x27;
+  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class="sh-keyword">const</span> context = <span class="sh-keyword">await</span> brain.discover({
+  requestedBy: <span class="sh-string">&#x27;herald&#x27;</span>,
+  <span class="sh-keyword">type</span>: <span class="sh-string">&#x27;financial_model&#x27;</span>,
+  scope: <span class="sh-string">&#x27;latest&#x27;</span>
 });
 <span class="sh-comment">// Returns: The Scribe&#x27;s financial data</span></pre>
   <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="mcp-02" title="Copy to clipboard">
@@ -1117,12 +1117,12 @@ $ hermes mission brain --type cross-agent-analysis \
   </button>
 </div></div></div>
 <div class="rounded-lg overflow-hidden" style="background-color:var(--midnight);border:1px solid #D4A85325;"><div class="px-5 py-3 flex items-center gap-3" style="border-bottom:1px solid #D4A85320;"><span class="font-mono text-lg font-bold" style="color:#D4A853;">03</span><span class="font-inter text-sm font-semibold" style="color:var(--marble-white);">Insight Generation</span></div><div class="p-4"><div class="relative group cb-wrap" id="mcp-03">
-  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class=<span class="sh-string">"sh-keyword"</span>>const</span> insight = <span class=<span class="sh-string">"sh-keyword"</span>>await</span> brain.generateInsight({
-  <span class="sh-prop">pattern</span>: &#x27;correlation&#x27;,
-  <span class="sh-prop">sources</span>: [&#x27;scribe.revenue&#x27;, 
-    &#x27;herald.campaigns&#x27;, 
-    &#x27;collector.payments&#x27;],
-  <span class="sh-prop">output</span>: &#x27;optimization_report&#x27;
+  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class="sh-keyword">const</span> insight = <span class="sh-keyword">await</span> brain.generateInsight({
+  pattern: <span class="sh-string">&#x27;correlation&#x27;</span>,
+  sources: [<span class="sh-string">&#x27;scribe.revenue&#x27;</span>, 
+    <span class="sh-string">&#x27;herald.campaigns&#x27;</span>, 
+    <span class="sh-string">&#x27;collector.payments&#x27;</span>],
+  output: <span class="sh-string">&#x27;optimization_report&#x27;</span>
 });</pre>
   <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="mcp-03" title="Copy to clipboard">
     <span class="material-symbols-sharp text-base copy-icon" style="color:#F7F5F0;">content_copy</span>
@@ -1153,13 +1153,13 @@ $ hermes mission brain --type cross-agent-analysis \
         <div class="mx-auto" style="max-width:600px;">
           <div class="relative group cb-wrap" id="jsonrpc-example">
   <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;">{
-  &quot;jsonrpc&quot;: &quot;<span class="sh-number">2.0</span>&quot;,
-  &quot;method&quot;: &quot;tools/call&quot;,
-  &quot;params&quot;: {
-    &quot;name&quot;: &quot;google_sheets_query&quot;,
-    &quot;arguments&quot;: {
-      &quot;spreadsheetId&quot;: &quot;...&quot;,
-      &quot;range&quot;: &quot;A1:D100&quot;
+  <span class="sh-string">&quot;jsonrpc&quot;</span>: <span class="sh-string">&quot;2.0&quot;</span>,
+  <span class="sh-string">&quot;method&quot;</span>: <span class="sh-string">&quot;tools/call&quot;</span>,
+  <span class="sh-string">&quot;params&quot;</span>: {
+    <span class="sh-string">&quot;name&quot;</span>: <span class="sh-string">&quot;google_sheets_query&quot;</span>,
+    <span class="sh-string">&quot;arguments&quot;</span>: {
+      <span class="sh-string">&quot;spreadsheetId&quot;</span>: <span class="sh-string">&quot;...&quot;</span>,
+      <span class="sh-string">&quot;range&quot;</span>: <span class="sh-string">&quot;A1:D100&quot;</span>
     }
   }
 }</pre>
@@ -1525,13 +1525,13 @@ $ hermes mission brain --type cross-agent-analysis \
         <h3 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-4" style="color:var(--deep-stone);">Pre-Workshop Checklist</h3>
         <div class="relative group cb-wrap" id="preworkshop">
   <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#F0EDE6;color:#2A2A2E;letter-spacing:0.02em;"># Pre-workshop requirements
-$ node --version  # &gt;= <span class="sh-number">20.0</span>.<span class="sh-number">0</span>
-$ npm --version   # &gt;= <span class="sh-number">10.0</span>.<span class="sh-number">0</span>
+$ node --version  # &gt;= <span class="sh-number">20</span>.<span class="sh-number">0</span>.<span class="sh-number">0</span>
+$ npm --version   # &gt;= <span class="sh-number">10</span>.<span class="sh-number">0</span>.<span class="sh-number">0</span>
 
 # Required accounts (free tier acceptable)
-# ✓ Google account (<span class=<span class="sh-string">"sh-keyword"</span>>for</span> Workspace integration)
-# ✓ Stripe account (test mode <span class=<span class="sh-string">"sh-keyword"</span>>for</span> development)
-# ✓ NVIDIA account (API key <span class=<span class="sh-string">"sh-keyword"</span>>for</span> security features)
+# ✓ Google account (<span class="sh-keyword">for</span> Workspace integration)
+# ✓ Stripe account (test mode <span class="sh-keyword">for</span> development)
+# ✓ NVIDIA account (API key <span class="sh-keyword">for</span> security features)
 
 # One-line installation
 $ npx create-hermes@latest my-partenon
@@ -1589,9 +1589,9 @@ $ hermes configure --interactive</pre>
 $ npx create-hermes@latest my-enterprise
 
 # Follow the interactive wizard
-? What <span class=<span class="sh-string">"sh-keyword"</span>>type</span> <span class=<span class="sh-string">"sh-keyword"</span>>of</span> business?  Cafe / Retail / SaaS / Construction / Other
+? What <span class="sh-keyword">type</span> <span class="sh-keyword">of</span> business?  Cafe / Retail / SaaS / Construction / Other
 ? Business name:  My Amazing Cafe
-? Activate <span class="sh-prop">heroes</span>:  [x] Scribe [x] Herald [x] Collector
+? Activate heroes:  [x] Scribe [x] Herald [x] Collector
                      [x] Guardian [x] Strategist [x] Diplomat
 ? Google account:  user@gmail.com
 ? Stripe account:  sk_test_...
@@ -1610,14 +1610,14 @@ $ npx create-hermes@latest my-enterprise
 $ hermes dashboard
 # → Opens Google Sheets dashboard
 # → Starts hero monitoring
-# → Launches web <span class=<span class="sh-string">"sh-keyword"</span>>interface</span></pre>
+# → Launches web <span class="sh-keyword">interface</span></pre>
   <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="install-code-0" title="Copy to clipboard">
     <span class="material-symbols-sharp text-base copy-icon" style="color:#F7F5F0;">content_copy</span>
     <span class="material-symbols-sharp text-base check-icon hidden" style="color:#76B900;">check</span>
   </button>
 </div></div><div class="install-panel" id="install-panel-1"><div class="relative group cb-wrap" id="install-code-1">
   <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"># Clone the repository
-$ git clone <span class="sh-prop">https</span>:<span class="sh-comment">//github.com/the-parthenon/hermes.git</span>
+$ git clone https:<span class="sh-comment">//github.com/the-parthenon/hermes.git</span>
 $ cd hermes
 
 # Install dependencies
@@ -1873,26 +1873,26 @@ $ docker run -d \
         <div class="mx-auto" style="max-width:600px;">
           <div class="relative group cb-wrap" id="status-response">
   <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#F0EDE6;color:#2A2A2E;letter-spacing:0.02em;">{
-  &quot;status&quot;: &quot;healthy&quot;,
-  &quot;version&quot;: &quot;<span class="sh-number">1.0</span>.<span class="sh-number">0</span>&quot;,
-  &quot;heroes&quot;: {
-    &quot;scribe&quot;: { &quot;status&quot;: &quot;active&quot;, &quot;lastMission&quot;: &quot;<span class="sh-number">2025</span>-<span class="sh-number">01</span>-<span class="sh-prop">15T10</span>:<span class="sh-number">30</span>:00Z&quot; },
-    &quot;herald&quot;: { &quot;status&quot;: &quot;active&quot;, &quot;lastMission&quot;: &quot;<span class="sh-number">2025</span>-<span class="sh-number">01</span>-<span class="sh-prop">15T09</span>:<span class="sh-number">15</span>:00Z&quot; },
-    &quot;collector&quot;: { &quot;status&quot;: &quot;active&quot;, &quot;lastMission&quot;: &quot;<span class="sh-number">2025</span>-<span class="sh-number">01</span>-<span class="sh-prop">15T08</span>:<span class="sh-number">45</span>:00Z&quot; },
-    &quot;guardian&quot;: { &quot;status&quot;: &quot;active&quot;, &quot;lastCheck&quot;: &quot;<span class="sh-number">2025</span>-<span class="sh-number">01</span>-<span class="sh-prop">15T11</span>:<span class="sh-number">00</span>:00Z&quot; },
-    &quot;strategist&quot;: { &quot;status&quot;: &quot;active&quot;, &quot;lastMission&quot;: &quot;<span class="sh-number">2025</span>-<span class="sh-number">01</span>-<span class="sh-prop">15T10</span>:<span class="sh-number">00</span>:00Z&quot; },
-    &quot;diplomat&quot;: { &quot;status&quot;: &quot;active&quot;, &quot;lastMission&quot;: &quot;<span class="sh-number">2025</span>-<span class="sh-number">01</span>-<span class="sh-prop">14T16</span>:<span class="sh-number">30</span>:00Z&quot; },
-    &quot;brain&quot;: { &quot;status&quot;: &quot;active&quot;, &quot;insightsGenerated&quot;: <span class="sh-number">147</span> }
+  <span class="sh-string">&quot;status&quot;</span>: <span class="sh-string">&quot;healthy&quot;</span>,
+  <span class="sh-string">&quot;version&quot;</span>: <span class="sh-string">&quot;1.0.0&quot;</span>,
+  <span class="sh-string">&quot;heroes&quot;</span>: {
+    <span class="sh-string">&quot;scribe&quot;</span>: { <span class="sh-string">&quot;status&quot;</span>: <span class="sh-string">&quot;active&quot;</span>, <span class="sh-string">&quot;lastMission&quot;</span>: <span class="sh-string">&quot;2025-01-15T10:30:00Z&quot;</span> },
+    <span class="sh-string">&quot;herald&quot;</span>: { <span class="sh-string">&quot;status&quot;</span>: <span class="sh-string">&quot;active&quot;</span>, <span class="sh-string">&quot;lastMission&quot;</span>: <span class="sh-string">&quot;2025-01-15T09:15:00Z&quot;</span> },
+    <span class="sh-string">&quot;collector&quot;</span>: { <span class="sh-string">&quot;status&quot;</span>: <span class="sh-string">&quot;active&quot;</span>, <span class="sh-string">&quot;lastMission&quot;</span>: <span class="sh-string">&quot;2025-01-15T08:45:00Z&quot;</span> },
+    <span class="sh-string">&quot;guardian&quot;</span>: { <span class="sh-string">&quot;status&quot;</span>: <span class="sh-string">&quot;active&quot;</span>, <span class="sh-string">&quot;lastCheck&quot;</span>: <span class="sh-string">&quot;2025-01-15T11:00:00Z&quot;</span> },
+    <span class="sh-string">&quot;strategist&quot;</span>: { <span class="sh-string">&quot;status&quot;</span>: <span class="sh-string">&quot;active&quot;</span>, <span class="sh-string">&quot;lastMission&quot;</span>: <span class="sh-string">&quot;2025-01-15T10:00:00Z&quot;</span> },
+    <span class="sh-string">&quot;diplomat&quot;</span>: { <span class="sh-string">&quot;status&quot;</span>: <span class="sh-string">&quot;active&quot;</span>, <span class="sh-string">&quot;lastMission&quot;</span>: <span class="sh-string">&quot;2025-01-14T16:30:00Z&quot;</span> },
+    <span class="sh-string">&quot;brain&quot;</span>: { <span class="sh-string">&quot;status&quot;</span>: <span class="sh-string">&quot;active&quot;</span>, <span class="sh-string">&quot;insightsGenerated&quot;</span>: <span class="sh-number">147</span> }
   },
-  &quot;mcp&quot;: {
-    &quot;connectedAgents&quot;: <span class="sh-number">7</span>,
-    &quot;contextObjects&quot;: <span class="sh-number">23</span>,
-    &quot;lastInsight&quot;: &quot;<span class="sh-number">2025</span>-<span class="sh-number">01</span>-<span class="sh-prop">15T10</span>:<span class="sh-number">55</span>:00Z&quot;
+  <span class="sh-string">&quot;mcp&quot;</span>: {
+    <span class="sh-string">&quot;connectedAgents&quot;</span>: <span class="sh-number">7</span>,
+    <span class="sh-string">&quot;contextObjects&quot;</span>: <span class="sh-number">23</span>,
+    <span class="sh-string">&quot;lastInsight&quot;</span>: <span class="sh-string">&quot;2025-01-15T10:55:00Z&quot;</span>
   },
-  &quot;integrations&quot;: {
-    &quot;google_workspace&quot;: &quot;connected&quot;,
-    &quot;stripe&quot;: &quot;connected&quot;,
-    &quot;nvidia&quot;: &quot;connected&quot;
+  <span class="sh-string">&quot;integrations&quot;</span>: {
+    <span class="sh-string">&quot;google_workspace&quot;</span>: <span class="sh-string">&quot;connected&quot;</span>,
+    <span class="sh-string">&quot;stripe&quot;</span>: <span class="sh-string">&quot;connected&quot;</span>,
+    <span class="sh-string">&quot;nvidia&quot;</span>: <span class="sh-string">&quot;connected&quot;</span>
   }
 }</pre>
   <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="status-response" title="Copy to clipboard">

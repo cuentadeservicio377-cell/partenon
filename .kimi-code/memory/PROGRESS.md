@@ -2,6 +2,20 @@
 
 ## Historial de Sesiones
 
+### 2026-06-26 — Migración de `Developers.tsx` a `web/developers.html`
+- Reemplazada la página `web/developers.html` anterior por una versión estática basada EXACTAMENTE en `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Developers.tsx`.
+- Stack: HTML5 estático + Tailwind CSS CDN + CSS personalizado; fuentes Cinzel, Inter, JetBrains Mono; iconos Material Symbols Sharp y SVG inline.
+- Secciones migradas: hero técnico "THE ARCHITECTURE OF HEROES", diagrama de arquitectura SVG interactivo, especificaciones técnicas de los 7 héroes (Scribe, Herald, Collector, Guardian, Strategist, Diplomat, Brain) con tablas de capabilities/MCP tools y ejemplos CLI, Model Context Protocol con diagrama SVG y tabla de métodos, Integration Patterns con 3 sequence diagrams, Google Workspace file structure, Workshop Protocol con timeline visual, materiales y formatos, Install con tabs (Quick Start / Manual / Docker), repository structure, environment variables, API Reference con CLI commands y REST endpoints.
+- Interactividad preservada: reveal on scroll con IntersectionObserver, navbar flotante con tema claro/oscuro según sección, mobile nav hamburguesa, copy-to-clipboard con toast, install tabs, acordeones de configuración por héroe, hover sobre nodos del diagrama de arquitectura, smooth scroll.
+- Correcciones aplicadas en TODO el contenido:
+  - "Nose Research" → "Nous Research".
+  - "Envidia" → "NVIDIA".
+  - MCP tools inventados reemplazados por nombres/descripciones genéricas o herramientas reales (create_spreadsheet, append_rows, create_payment_link, etc.).
+  - "Kimi Coding" → "Kimi / Moonshot" en variables de entorno.
+  - Footer con créditos correctos: Nous Research, NVIDIA, Stripe.
+- Validación HTML básica: OK.
+- Actualizados `TODOS.md` y `PROGRESS.md`.
+
 ### 2026-06-26 — Migración de `Heroes.tsx` a `web/heroes.html`
 - Creada la página `web/heroes.html` como versión estática basada EXACTAMENTE en `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Heroes.tsx`.
 - Stack: HTML5 estático + Tailwind CSS CDN + CSS personalizado; fuentes Cinzel, Inter, JetBrains Mono; iconos Material Symbols Sharp y SVG inline.
