@@ -1,6 +1,6 @@
 {
-  "id": "mensajero-midday-pulse",
-  "name": "Messenger — Midday pulse",
+  "id": "herald-midday-pulse",
+  "name": "Herald — Midday pulse",
   "description": "Reviews published posts and engagement, recommends real-time adjustments.",
   "schedule": {
     "frequency": "daily",
@@ -8,6 +8,7 @@
     "timezone": "America/Mexico_City"
   },
   "enabled": true,
+  "profile": "partenon-herald",
   "steps": [
     {
       "order": 1,

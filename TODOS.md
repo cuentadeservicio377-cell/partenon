@@ -86,6 +86,7 @@
 - [x] Audit and gap-fix `partenon-cobrador` profile (template schema alignment, config.yaml, SKILL.md, .env.example)
 - [x] Add Collector MCP-aligned tools: `create_invoice`, `list_charges`, `monitor_fraud`, `read_pending_payments`, `read_overdue_payments`, `classify_risk`, `schedule_followup`, `notify`
 - [x] Verify all Collector Python tools compile with `python3 -m py_compile`
+- [x] Audit and gap-fix `partenon-mensajero` profile (SOUL.md, config.yaml, SKILL.md, .env.example, templates, cron JSON) — translate to English, align with Herald capabilities, add MCP-aligned tools (`publish_post`, `schedule_content`, `seo_geo_optimizer`, `analyze_engagement`, `presentation_builder`, `read_brand_config`, `read_content_calendar`, `generate_post_ideas`, `read_social_metrics`, `detect_opportunities`, `notify`), and verify Python compilation
 
 ## Pending
 - [ ] Standardize `GBRAIN_DATABASE_URL` naming across .env and gbrain server

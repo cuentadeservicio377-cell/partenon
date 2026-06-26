@@ -1,28 +1,40 @@
 meta:
   version: "0.1.0"
-  profile: partenon-mensajero
+  profile: partenon-herald
   updated_at: "2026-01-01T00:00:00"
 
 brand:
   brand_name: "Company name"
   website: "https://mycompany.com"
   industry: "services"
-  market: "Mexico / Latin America"
+  market: "United States / English-speaking markets"
   stage: "growth"
 
 positioning:
   what_you_sell: "Main service or product in one sentence"
   who_you_help: "Role, industry, and size of the ideal buyer"
   how_you_do_it: "Mechanism, process, or key differentiator"
-  positioning_statement: "For [audience] who [pain], [brand] offers [offer] that [result]"
+  positioning: "For [audience] who [pain], [brand] offers [offer] that [result]"
   differentiator: "Why they choose you before another option"
 
 voice:
   tone: "direct and close"
-  form_of_address: "you"
+  addressing: "you informal"
   style: "clear, no filler, no emojis"
   emojis: false
   slang: false
+
+visual:
+  colors:
+    primary: "#9B59B6"
+    secondary: "#2A2A2E"
+    accent: "#D4A853"
+    background: "#F7F5F0"
+  typography:
+    display: "Cinzel"
+    body: "Inter"
+    mono: "JetBrains Mono"
+  imagery: "Clean photography, no generic stock poses, prefer real work scenes"
 
 audience:
   primary:
@@ -49,7 +61,7 @@ messaging:
     - "We organize your SME operations without friction"
     - "Decisions with data, not intuition"
     - "Implementation in days, not months"
-  prohibited_claims:
+  claims_to_avoid:
     - "100% automated"
     - "Guaranteed results"
     - "The best solution on the market"

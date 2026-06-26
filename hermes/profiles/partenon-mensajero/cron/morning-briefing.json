@@ -1,6 +1,6 @@
 {
-  "id": "mensajero-morning-briefing",
-  "name": "Messenger — Morning content briefing",
+  "id": "herald-morning-briefing",
+  "name": "Herald — Morning content briefing",
   "description": "Creates the daily content briefing with calendar, active campaigns, and suggested posts.",
   "schedule": {
     "frequency": "daily",
@@ -8,6 +8,7 @@
     "timezone": "America/Mexico_City"
   },
   "enabled": true,
+  "profile": "partenon-herald",
   "steps": [
     {
       "order": 1,

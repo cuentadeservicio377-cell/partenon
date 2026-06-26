@@ -1,7 +1,7 @@
 profile:
-  name: partenon-mensajero
-  display_name: Messenger
-  role: communication, brand, sales, content, editorial calendar, SEO/GEO, presentations, email, WordPress
+  name: partenon-herald
+  display_name: Herald
+  role: communications, brand, content, editorial calendar, SEO/GEO, presentations, email, and WordPress
   files:
     design: .design
   version: 0.1.0
@@ -17,15 +17,20 @@ tools:
     - terminal
     - google_workspace
     - gbrain
+    - social_media
+    - open_design
   optional:
     - web_search
     - wordpress
     - ssh
+    - mailchimp
 
 mcp_servers:
   - google_workspace
   - gbrain
   - gmail
+  - social_media
+  - open_design
 
 memory:
   local:
@@ -33,10 +38,10 @@ memory:
     - output/campaigns/
     - output/copy/
   gbrain:
-    page: partenon-mensajero/memory
-    missions: partenon-mensajero/missions
+    page: partenon-herald/memory
+    missions: partenon-herald/missions
 
 logging:
   level: info
   destination: console
-  file: logs/messenger.log
+  file: logs/herald.log

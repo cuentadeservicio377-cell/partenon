@@ -1,10 +1,11 @@
 {
-  "name": "weekly-content-plan",
+  "id": "herald-weekly-content-plan",
+  "name": "Herald — Weekly content plan",
   "description": "Plans the week's content for active channels defined in .design",
   "schedule": "0 9 * * 1",
   "timezone": "America/Mexico_City",
   "enabled": true,
-  "profile": "partenon-mensajero",
+  "profile": "partenon-herald",
   "skill": "comms",
   "steps": [
     {

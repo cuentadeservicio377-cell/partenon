@@ -123,7 +123,7 @@ def empty_design() -> Dict[str, Any]:
     return {
         "meta": {
             "version": "0.1.0",
-            "profile": "partenon-mensajero",
+            "profile": "partenon-herald",
             "updated_at": datetime.now().isoformat(),
         },
         "brand": {
@@ -146,6 +146,20 @@ def empty_design() -> Dict[str, Any]:
             "style": "direct, clear, no filler",
             "emojis": False,
             "slang": False,
+        },
+        "visual": {
+            "colors": {
+                "primary": "#9B59B6",
+                "secondary": "#2A2A2E",
+                "accent": "#D4A853",
+                "background": "#F7F5F0",
+            },
+            "typography": {
+                "display": "Cinzel",
+                "body": "Inter",
+                "mono": "JetBrains Mono",
+            },
+            "imagery": "Clean photography, no generic stock poses",
         },
         "audience": {
             "primary": {
@@ -194,6 +208,43 @@ def parse_channels(value: Any) -> List[str]:
     if isinstance(value, str):
         return [v.strip().lower() for v in value.split(",") if v.strip()]
     return []
+
+
+def design_path_for_id(qid: str) -> List[str]:
+    """Map a question id to its location in the .design structure."""
+    mapping = {
+        "brand_name": ["brand", "brand_name"],
+        "website": ["brand", "website"],
+        "market": ["brand", "market"],
+        "what_you_sell": ["positioning", "what_you_sell"],
+        "who_you_help": ["positioning", "who_you_help"],
+        "how_you_do_it": ["positioning", "how_you_do_it"],
+        "positioning": ["positioning", "positioning"],
+        "differentiator": ["positioning", "differentiator"],
+        "tone": ["voice", "tone"],
+        "addressing": ["voice", "addressing"],
+        "claims_to_avoid": ["messaging", "claims_to_avoid"],
+        "final_approver": ["operations", "final_approver"],
+        "objections": ["audience", "primary", "objections"],
+        "proof_points": ["messaging", "proof_points"],
+        "channels": ["channels"],
+        "kpis": ["kpis", "comms"],
+        "words_always": ["messaging", "key_messages"],
+        "words_never": ["messaging", "claims_to_avoid"],
+    }
+    return mapping.get(qid, qid.split("."))
+
+
+def get_current_value(design: Dict[str, Any], qid: str) -> Any:
+    """Return the current value of a question id from the design, if any."""
+    path = design_path_for_id(qid)
+    current: Any = design
+    for key in path:
+        if isinstance(current, dict) and key in current:
+            current = current[key]
+        else:
+            return ""
+    return current
 
 
 def update_design_from_answers(design: Dict[str, Any], answers: Dict[str, Any]) -> Dict[str, Any]:
@@ -315,10 +366,9 @@ def interactive_intake(path: Path = DEFAULT_DESIGN_PATH) -> Dict[str, Any]:
 
     print("\n=== Brand interview (P0) ===")
     for q in p0_questions():
-        current = design
-        for key in q["id"].split("."):
-            current = current.get(key, {}) if isinstance(current, dict) else ""
-        default = current if isinstance(current, str) else ""
+        default = get_current_value(design, q["id"])
+        if isinstance(default, list):
+            default = ", ".join(str(d) for d in default)
         prompt = f"{q['question']}"
         if default:
             prompt += f" [{default}]"
@@ -331,9 +381,18 @@ def interactive_intake(path: Path = DEFAULT_DESIGN_PATH) -> Dict[str, Any]:
 
     print("\n=== Brand interview (P1, optional) ===")
     for q in p1_questions():
-        value = input(f"{q['question']} (Enter to skip): ").strip()
+        default = get_current_value(design, q["id"])
+        if isinstance(default, list):
+            default = ", ".join(str(d) for d in default)
+        prompt = f"{q['question']}"
+        if default:
+            prompt += f" [{default}]"
+        prompt += " (Enter to skip): "
+        value = input(prompt).strip()
         if value:
             answers[q["id"]] = value
+        elif default and not q["required"]:
+            answers[q["id"]] = default
 
     design = update_design_from_answers(design, answers)
     missing = validate_p0(design)
