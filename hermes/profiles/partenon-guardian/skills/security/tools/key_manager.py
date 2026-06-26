@@ -244,6 +244,28 @@ def validate_access(profile: str, resource: str, action: str) -> Dict[str, Any]:
     }
 
 
+def rotate_keys(providers: List[str]) -> List[Dict[str, str]]:
+    """
+    Rotate API keys for multiple providers in one call.
+
+    Returns a list of rotation results. Unknown providers are skipped
+    with an error entry instead of raising an exception.
+    """
+    results: List[Dict[str, str]] = []
+    for provider in providers:
+        try:
+            results.append(rotate_key(provider))
+        except ValueError as exc:
+            results.append(
+                {
+                    "provider": provider,
+                    "error": str(exc),
+                    "rotated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                }
+            )
+    return results
+
+
 def get_model_recommendation(task: str) -> Dict[str, str]:
     """
     Recommend a model and provider based on task sensitivity, cost,

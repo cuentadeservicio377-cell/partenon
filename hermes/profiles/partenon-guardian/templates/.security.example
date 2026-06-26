@@ -51,8 +51,13 @@ permissions_by_profile:
     actions:
       - list_keys
       - rotate_key
+      - rotate_keys
       - audit_access
       - validate_access
+      - manage_secrets
+      - allocate_gpu
+      - set_policies
+      - audit_log
 
   partenon-tesorero:
     tools:
