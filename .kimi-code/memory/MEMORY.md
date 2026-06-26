@@ -6,7 +6,7 @@
 
 - **Proyecto**: Partenon
 - **Iniciado**: 2026-06-23
-- **Estado**: Páginas web rediseñadas y commiteadas → Próximo: construir repositorio del sistema
+- **Estado**: Seis perfiles de Hermes creados (Guardian, Cobrador, Mensajero, Tesorero, Estratega, Diplomatico). Próximo: integrar Google Workspace, Stripe y G-Brain con los perfiles.
 - **Propósito**: Sistema de agentes IA para empresas, presentado como un panteón de héroes griegos al servicio de Hermes. Destinado a hackathon.
 
 ## Braindump
