@@ -3,19 +3,19 @@
 import json
 import os
 import subprocess
-from typing import Any
+from typing import Any, Optional
 
 
 class GBrainClient:
     """G-Brain client via the `gbrain` command."""
 
-    def __init__(self, database_url: str | None = None):
+    def __init__(self, database_url: Optional[str] = None):
         self.database_url = database_url or os.getenv(
             "GBRAIN_DATABASE_URL", "postgresql://localhost:5432/gbrain"
         )
 
     def _call(
-        self, command: str, *args: str, stdin: str | None = None
+        self, command: str, *args: str, stdin: Optional[str] = None
     ) -> dict[str, Any]:
         """Run a gbrain command and return parsed JSON."""
         full_args = ["gbrain", command, *args]
@@ -35,7 +35,7 @@ class GBrainClient:
             return {"ok": True, "raw": result.stdout.strip()}
 
     def put_page(
-        self, slug: str, content: str, tags: list[str] | None = None
+        self, slug: str, content: str, tags: Optional[list[str]] = None
     ) -> dict[str, Any]:
         """Save or update a page in G-Brain."""
         tags = tags or []
@@ -56,7 +56,7 @@ class GBrainClient:
         """Create a typed link between two pages."""
         return self._call("link", from_slug, to_slug, "--type", type_)
 
-    def conflicts(self, profile: str | None = None) -> dict[str, Any]:
+    def conflicts(self, profile: Optional[str] = None) -> dict[str, Any]:
         """Detect decisions marked as conflicting."""
         query = f"conflict:true {profile or ''}".strip()
         return self.search(query, limit=20)
