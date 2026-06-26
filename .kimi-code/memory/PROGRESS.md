@@ -2,6 +2,17 @@
 
 ## Historial de Sesiones
 
+### 2026-06-26 — Perfil `partenon-mensajero` creado
+- Creado `hermes/profiles/partenon-mensajero/` como distribucion de Hermes Agent.
+- Archivos: `SOUL.md`, `config.yaml`, `.env.example`, `templates/.design.example`, `cron/weekly-content.json`.
+- Skill `comms` con `SKILL.md` y tres tools Python:
+  - `brand_intake.py`: entrevista de marca y generacion de `.design`.
+  - `content_calendar.py`: calendario de contenido semanal/mensual con contexto de marca.
+  - `copy_generator.py`: copy para ads, emails, posts y landing con QA anti-slop.
+- Tools verificados con `python3 -m py_compile` y ejecucion de prueba.
+- Actualizado `TODOS.md`.
+- Commit `c0bcf85`.
+
 ### 2026-06-24 — Rediseño Nous-style de las páginas web
 - Plan aprobado para reestructurar `web/index.html` y `web/developers.html` con estética Nous Research / manual técnico open source y reglas anti-AI-slop.
 - Actualizado `DESIGN.md` con tokens visuales y reglas de copy anti-slop.
@@ -21,6 +32,7 @@
 - Commit `e786b18`.
 
 ## Features Completadas
+- Perfil `partenon-mensajero` creado con skill comms, tools Python y cron semanal.
 - Páginas web de marketing y técnica rediseñadas y commiteadas.
 - Sistema visual Nous-style aplicado.
 - Documentación del proyecto sincronizada.
