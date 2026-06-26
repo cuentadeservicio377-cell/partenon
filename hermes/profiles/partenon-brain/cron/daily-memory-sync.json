@@ -1,0 +1,7 @@
+{
+  "name": "daily-memory-sync",
+  "schedule": "0 6 * * *",
+  "description": "Sincroniza aprendizajes pendientes de los heroes con G-Brain.",
+  "command": "hermes profile use partenon-brain --run 'Sincroniza la memoria del dia: indexa aprendizajes pendientes, detecta conflictos y genera un resumen ejecutivo para Hermes.'",
+  "enabled": true
+}

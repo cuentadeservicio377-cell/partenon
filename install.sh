@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Partenon Installer
-# Installs Hermes Agent CLI, Partenon core, and the 6 hero profiles.
+# Installs Hermes Agent CLI, Partenon core, and the 7 hero profiles.
 
 PARTENON_VERSION="0.1.0"
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -32,7 +32,7 @@ mkdir -p "$HOME/.hermes/skills/partenon-core"
 cp -R "$REPO_ROOT/partenon-core/SKILL.md" "$HOME/.hermes/skills/partenon-core/"
 
 # 4. Install hero profiles
-for profile in tesorero mensajero cobrador guardian estratega diplomatico; do
+for profile in tesorero mensajero cobrador guardian estratega diplomatico brain; do
   echo "Installing partenon-${profile}..."
   hermes profile install "$REPO_ROOT/hermes/profiles/partenon-${profile}" --alias "partenon-${profile}" || true
 done

@@ -1,0 +1,33 @@
+profile:
+  name: partenon-brain
+  display_name: Brain
+  description: Agente de memoria e inteligencia colectiva para Partenon. Indexa aprendizajes, resuelve conflictos de contexto y alimenta el onboarding de los demas heroes.
+  version: 0.1.0
+
+model:
+  default: openrouter/anthropic/claude-opus-4
+  fallback: openrouter/anthropic/claude-sonnet-4
+
+tools:
+  enabled:
+    - gbrain
+    - file
+    - terminal
+
+mcp_servers:
+  - name: gbrain
+    command: gbrain
+    args:
+      - serve
+      - --stdio
+
+files:
+  profile_config: ".brain"
+  env_example: ".env.example"
+
+behavior:
+  always_search_before_decision: true
+  tag_every_memory_page: true
+  link_related_decisions: true
+  daily_memory_sync_enabled: true
+  expose_no_credentials: true
