@@ -131,7 +131,7 @@ def main() -> int:
     print(f"1. cd {REPO_ROOT}")
     print("2. Edit .env with your credentials.")
     print("3. If you have Hermes CLI: hermes profile use partenon-tesorero")
-    print("4. Run: python scripts/demo_tesorero.py")
+    print("4. Run: python3 scripts/demo_tesorero.py")
     print("5. Start the dashboard: cd dashboard && npm install && npm run dev")
     return 0
 

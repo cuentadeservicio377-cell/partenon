@@ -1,6 +1,6 @@
 """
 Scribe Demo: generates a sample expense workbook and runs a simple Partenon finance audit.
-Run: python scripts/demo_tesorero.py
+Run: python3 scripts/demo_tesorero.py
 """
 
 import json
