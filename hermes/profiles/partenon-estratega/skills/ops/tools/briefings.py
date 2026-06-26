@@ -71,6 +71,25 @@ def _default_currency(data_dir: Path) -> str:
         return "MXN"
 
 
+def _parse_date(value: str) -> Optional[datetime]:
+    """Parse an ISO datetime or date string."""
+    if not value:
+        return None
+    try:
+        return datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        try:
+            return datetime.strptime(value, "%Y-%m-%d")
+        except ValueError:
+            return None
+
+
+def _date_str(value: str) -> Optional[str]:
+    """Return the YYYY-MM-DD portion of a datetime/date string."""
+    dt = _parse_date(value)
+    return dt.strftime("%Y-%m-%d") if dt else None
+
+
 class Briefings:
     """Generates proactive daily and weekly briefings."""
 
@@ -111,15 +130,15 @@ class Briefings:
         critical_today = []
         for task in tasks:
             if task.get("status") in ["pending", "in_progress", "blocked"]:
-                due_date = task.get("due_date")
-                if due_date == today_str:
+                due_date_str = _date_str(task.get("due_date", ""))
+                if due_date_str == today_str:
                     critical_today.append(f"   {task['title']} (due today)")
 
         for task in tasks:
             if task.get("status") in ["pending", "in_progress", "blocked"]:
-                due_date = task.get("due_date")
-                if due_date and due_date < today_str:
-                    days = (today - datetime.strptime(due_date, "%Y-%m-%d")).days
+                due_date_str = _date_str(task.get("due_date", ""))
+                if due_date_str and due_date_str < today_str:
+                    days = (today - _parse_date(task.get("due_date"))).days
                     critical_today.append(f"   {task['title']} (overdue {days} days)")
 
         entries = pipeline_data.get("entries", [])
@@ -158,8 +177,8 @@ class Briefings:
         total_to_collect = sum(q.get("total", 0) for q in to_collect)
         overdue = []
         for q in to_collect:
-            expected_payment = q.get("expected_payment_date")
-            if expected_payment and expected_payment < today_str:
+            expected_payment_str = _date_str(q.get("expected_payment_date", ""))
+            if expected_payment_str and expected_payment_str < today_str:
                 overdue.append(q)
 
         finances_text = f"{self.currency} {total_to_collect:,.0f} to collect"
@@ -171,8 +190,8 @@ class Briefings:
         delayed = 0
         for p in projects:
             if p.get("status") in ["planned", "in_progress", "paused"]:
-                delivery_date = p.get("delivery_date")
-                if delivery_date and delivery_date < today_str:
+                delivery_date_str = _date_str(p.get("delivery_date", ""))
+                if delivery_date_str and delivery_date_str < today_str:
                     delayed += 1
 
         alerts = []
@@ -214,11 +233,14 @@ class Briefings:
         tasks_data = _load_json(self.data_dir, "tasks.json")
         tasks = tasks_data.get("tasks", [])
 
-        done_today = [t for t in tasks if t.get("completed_at") == today_str]
+        done_today = [
+            t for t in tasks
+            if _date_str(t.get("completed_at", "")) == today_str
+        ]
         pending = [
             t for t in tasks
             if t.get("status") in ["pending", "in_progress"]
-            and t.get("due_date") == today_str
+            and _date_str(t.get("due_date", "")) == today_str
         ]
 
         lines = [
@@ -256,16 +278,19 @@ class Briefings:
         tasks_data = _load_json(self.data_dir, "tasks.json")
         tasks = tasks_data.get("tasks", [])
 
-        done_today = [t for t in tasks if t.get("completed_at") == today_str]
+        done_today = [
+            t for t in tasks
+            if _date_str(t.get("completed_at", "")) == today_str
+        ]
         pending_today = [
             t for t in tasks
             if t.get("status") in ["pending", "in_progress"]
-            and t.get("due_date") == today_str
+            and _date_str(t.get("due_date", "")) == today_str
         ]
         for_tomorrow = [
             t for t in tasks
             if t.get("status") in ["pending", "in_progress"]
-            and t.get("due_date") == tomorrow
+            and _date_str(t.get("due_date", "")) == tomorrow
         ]
 
         lines = [
@@ -349,7 +374,8 @@ class Briefings:
         overdue = [
             t for t in tasks
             if t.get("status") in ["pending", "in_progress", "blocked"]
-            and t.get("due_date", "") < today.strftime("%Y-%m-%d")
+            and _date_str(t.get("due_date", ""))
+            and _date_str(t.get("due_date", "")) < today.strftime("%Y-%m-%d")
         ]
 
         entries = pipeline_data.get("entries", [])
@@ -362,8 +388,8 @@ class Briefings:
         delayed = 0
         for p in projects:
             if p.get("status") in ["planned", "in_progress", "paused"]:
-                delivery_date = p.get("delivery_date")
-                if delivery_date and delivery_date < today.strftime("%Y-%m-%d"):
+                delivery_date_str = _date_str(p.get("delivery_date", ""))
+                if delivery_date_str and delivery_date_str < today.strftime("%Y-%m-%d"):
                     delayed += 1
 
         lines = [
