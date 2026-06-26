@@ -1,6 +1,6 @@
 # Project Memory: Partenon
 
-> Last session: 2026-06-26
+> Last session: 2026-06-26T22:04Z
 
 ## Current Context
 
@@ -10,7 +10,7 @@
 - **Live site**: `https://hermespartenon.online/`
 - **Repo**: `https://github.com/cuentadeservicio377-cell/partenon`
 - **Profiles**: Scribe/Treasurer, Herald/Messenger, Collector, Guardian, Strategist, Diplomat, Brain.
-- **Verified**: `python3 scripts/demo_tesorero.py` PASS, `cd dashboard && npm run build` PASS.
+- **Verified**: `python3 scripts/demo_tesorero.py` PASS, `cd dashboard && npm run build` PASS. All command examples normalized to `python3` across README, docs, scripts, examples, install output, and `web/developers.html`.
 - **Next**: standardize `GBRAIN_DATABASE_URL` naming, add automated tests, implement real intent router and workflow engine runtime, and add publishing/dispatch integrations.
 
 ## Braindump

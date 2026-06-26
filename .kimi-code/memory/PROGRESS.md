@@ -2,6 +2,15 @@
 
 ## Session History
 
+### 2026-06-26 — Final python3 normalization and session close
+- Normalized every Python command example from `python` to `python3` across `README.md`, all new docs (`docs/ENTREPRENEUR_PLAYBOOK.md`, `docs/HERO_GUIDE.md`, `docs/QUICKSTART.md`, `docs/SECURITY.md`, `docs/API.md`, `docs/FAQ.md`, `docs/for-developers.md`, `docs/assets/hero-matrix.md`), existing docs (`docs/superpowers/plans/2026-06-26-partenon-system-build.md`), scripts (`scripts/demo_tesorero.py`, `scripts/setup_hermes.py`), examples (`examples/hermes-cli-stub.py`, `examples/mcp-client-example.py`, `examples/README.md`), `install.sh`, `partenon-core/tools/onboarding_engine.py`, `hermes/profiles/partenon-tesorero/SKILL.md`, `web/developers.html`, and `TODOS.md`.
+- Updated Python badge in `README.md` to 3.12+.
+- Updated `CHANGELOG.md` with the command-normalization change.
+- Verified:
+  - `python3 scripts/demo_tesorero.py` PASS.
+  - `cd dashboard && npm run build` PASS.
+- Working tree clean; no additional commit needed because all changes were already committed in this session.
+
 ### 2026-06-26 — Documentation polish and final commit
 - Finalized working-directory revisions to `README.md`, `docs/API.md`, `docs/FAQ.md`, `docs/SECURITY.md`, and `docs/assets/hero-matrix.md`.
 - Reverted timestamp-only changes to demo artifacts (`data/sample_expenses.xlsx`, `data/sample_expenses_report.json`).
