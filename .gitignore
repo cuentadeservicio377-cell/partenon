@@ -18,6 +18,10 @@ screenshots/deploy/
 *.swp
 *.log
 logs/
+hermes/data/
+partenon-core/data/goals.json
+data/workspaces/
+*.local.json
 .kimi/
 .kimi-code/
 !.kimi-code/AGENTS.md

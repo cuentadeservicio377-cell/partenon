@@ -236,5 +236,27 @@
 - Project documentation synchronized.
 - English translation of README and docs completed.
 
+### 2026-06-26 — Herald profile i18n audit and gap-fix
+- Audited `web/heroes.html` and `web/developers.html` promises for The Herald (brand strategy, social media, SEO/GEO, campaign management, content calendar, presentations).
+- Verified all `partenon-mensajero` profile files are translated to English (`SOUL.md`, `config.yaml`, `.env.example`, `SKILL.md`, cron JSON, templates, tools).
+- Aligned `.design.example` keys with tool logic (`positioning`, `addressing`, `claims_to_avoid`) and added a `visual` section.
+- Restructured `config.yaml` with Herald role, MCP servers, and optional social/WordPress tools.
+- Expanded `.env.example` with social media API and WordPress/SSH variables.
+- Added missing MCP-aligned tools in `hermes/profiles/partenon-mensajero/skills/comms/tools/`:
+  - `publish_post.py` — validate and record social posts with approval gating.
+  - `schedule_content.py` — build a post schedule from a content calendar.
+  - `seo_geo_optimizer.py` — keyword analysis and SEO/GEO recommendations.
+  - `analyze_engagement.py` — engagement report and opportunity detection.
+  - `presentation_builder.py` — generate slide deck outlines.
+  - `read_brand_config.py`, `read_content_calendar.py`, `generate_post_ideas.py` — cron workflow helpers.
+  - `read_social_metrics.py`, `detect_opportunities.py`, `notify.py` — midday pulse helpers.
+  - `__init__.py` for the comms skill package.
+- Added `templates/pitch-deck/base.md` for presentation structure.
+- Updated cron JSON files to use Herald identifiers and English descriptions.
+- Verified all Herald Python tools compile with `python3 -m py_compile`.
+
 ## Resolved Blockers
 - None.
+
+## Remaining Gaps
+- The profile directory remains named `partenon-mensajero` because external files (e.g., `data/cron.json`, `scripts/setup_hermes.py`) reference that path. Only internal file contents were translated.
