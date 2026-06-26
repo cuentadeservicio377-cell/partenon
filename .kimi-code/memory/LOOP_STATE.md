@@ -5,7 +5,7 @@ Crear un repositorio público en GitHub para Partenon que sea instalable y usabl
 
 ## Verify (gates de éxito)
 - [x] Gate 1: Repo creado en GitHub bajo la cuenta activa (`cuentadeservicio377-cell`) con nombre `partenon`, remote configurado y todo el código de `main` subido. (score: 10/10)
-- [ ] Gate 2: Estructura del repo refleja la arquitectura completa documentada en la web: `web/`, `dashboard/`, `hermes/profiles/` (7 héroes), `docs/`, `scripts/`, `install.sh`, `.env.example`, `README.md`. (score: __/10)
+- [x] Gate 2: Estructura del repo refleja la arquitectura completa documentada en la web: `web/`, `dashboard/`, `hermes/profiles/` (7 héroes), `docs/`, `scripts/`, `install.sh`, `.env.example`, `README.md`. (score: 9/10)
 - [ ] Gate 3: Documentación completa para emprendedores (`docs/for-founders.md`) y developers (`docs/for-developers.md`) basada en el contenido de `web/index.html`, `web/heroes.html` y `web/developers.html`. (score: __/10)
 - [ ] Gate 4: Los 7 perfiles de Hermes tienen `SOUL.md`, `config.yaml`, `.env.example`, skills y tools funcionales; faltantes se crean o se marcan explícitamente como stubs con checklist. (score: __/10)
 - [ ] Gate 5: Scripts de setup funcionan: `install.sh` descarga dependencias y `scripts/setup_hermes.py` instala perfiles en el directorio de Hermes Agent. (score: __/10)
@@ -18,9 +18,9 @@ Crear un repositorio público en GitHub para Partenon que sea instalable y usabl
 - Si un mismo gate falla 2 veces seguidas sin progreso → escalación humana.
 
 ## Current State
-- Iteración: 1 / 7
-- Última acción: Crear repo remoto y subir código base limpio (sin secrets en historial).
-- Último resultado: Repo `https://github.com/cuentadeservicio377-cell/partenon` creado y `main` subido exitosamente.
+- Iteración: 2 / 7
+- Última acción: Completar estructura del repo con perfil Brain, .env.example global y setup script.
+- Último resultado: 7 perfiles disponibles, install.sh y scripts/setup_hermes.py listos.
 
 ## Attempt Log
 ### Iteración 0
@@ -39,6 +39,18 @@ Crear un repositorio público en GitHub para Partenon que sea instalable y usabl
 - Resultado: Repo creado. Secreto `sk_test_[REDACTED]` eliminado del historial. Push exitoso.
 - Score: Gate 1 = 10/10
 - Próximo paso: Iteración 2 — completar estructura (`.env.example`, perfil Brain, setup script, limpiar pycache).
+
+### Iteración 2
+- Acción: Completar estructura del repo.
+- Plan:
+  1. Crear `.env.example` global con placeholders seguros.
+  2. Crear perfil `partenon-brain` con SOUL.md, config.yaml, skill memory y cron.
+  3. Actualizar `install.sh` para instalar 7 perfiles.
+  4. Crear `scripts/setup_hermes.py` como helper de instalacion.
+  5. Limpiar `__pycache__`.
+- Resultado: `.env.example` global creado, perfil Brain completo, install.sh y setup script actualizados.
+- Score: Gate 2 = 9/10
+- Próximo paso: Iteración 3 — documentación completa para founders y developers.
 
 ## Human Escalation
 Si durante la ejecución se requiere decisión sobre credenciales reales (Google Workspace, Stripe, G-Brain, NVIDIA) o cambio de arquitectura, se pausa el loop para input humano.

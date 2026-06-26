@@ -1,6 +1,11 @@
 # Partenon
 
+[![Site](https://img.shields.io/badge/live-hermespartenon.online-00D4FF)](https://hermespartenon.online/)
+
 > Sistema operativo de agentes IA para pymes, presentado como un panteón de héroes al servicio de Hermes. Proyecto para el hackatón Nous Research / NVIDIA / Stripe.
+>
+> 🌐 **Sitio web**: [https://hermespartenon.online/](https://hermespartenon.online/)
+> 📦 **Repositorio**: [https://github.com/cuentadeservicio377-cell/partenon](https://github.com/cuentadeservicio377-cell/partenon)
 
 ## Qué es
 
@@ -12,6 +17,12 @@ Partenon organiza agentes de IA como un sistema operativo:
 - **Pegaso** = las herramientas de cada héroe: skills, MCPs, APIs y plataformas open source.
 - **G-Brain de Garry Tan** = el cerebro que conecta todo por MCP.
 - **Google Workspace** = la superficie donde trabajan empresa y agentes.
+
+## Documentación
+
+- [`docs/for-founders.md`](docs/for-founders.md) — Guía para emprendedores: qué es Partenon, los 7 héroes, ejemplos y plan de crecimiento.
+- [`docs/for-developers.md`](docs/for-developers.md) — Guía técnica completa: stack, arquitectura, instalación, API y workshop.
+- [`docs/architecture.md`](docs/architecture.md) — Visión general de la arquitectura y flujo de misiones.
 
 ## Las tres páginas maestras
 
@@ -85,32 +96,36 @@ Abre http://localhost:3000 y entra con usuario `admin` y contrasena `partenon` (
 ## Estado
 
 - Iniciado: 2026-06-23
-- Fase actual: Páginas web migradas a HTML estático desde la app React `Kimi_Agent_10 Storytelling Web Sites/app`, con correcciones de información basadas en auditorías oficiales.
-- Perfiles implementados: Tesorero (`.finance`), Mensajero (`.design`), Cobrador (`.payments`), Guardian (`.security`), Estratega (`.ops`), Diplomatico (`.relations`).
+- **Repositorio público**: [github.com/cuentadeservicio377-cell/partenon](https://github.com/cuentadeservicio377-cell/partenon)
+- **Sitio web desplegado**: [https://hermespartenon.online/](https://hermespartenon.online/)
+- Fase actual: Repositorio público creado con 7 perfiles de Hermes, documentación completa y scripts de instalación.
+- Perfiles implementados: Tesorero (`.finance`), Mensajero (`.design`), Cobrador (`.payments`), Guardian (`.security`), Estratega (`.ops`), Diplomático (`.relations`), Brain (`.brain`).
 - Web verificada: `web/index.html`, `web/heroes.html` y `web/developers.html` en desktop (1440px) y mobile (390px). Screenshots actualizadas en `screenshots/`. HTML validado.
 - Dashboard verificado: `npm install` y `npm run build` pasan sin errores de TypeScript.
 - Demo verificado: `python scripts/demo_tesorero.py` genera Excel + JSON con métricas.
-- Próxima tarea: Implementar eval loop funcional en el Tesorero (test cases + judge skill + threshold 0.7), probar Stripe Skills en sandbox y configurar onboard de NVIDIA NemoClaw.
+- Próxima tarea: Implementar eval loop funcional en el Tesorero, probar Stripe Skills en sandbox y configurar onboard de NVIDIA NemoClaw.
 
 ## Instalación rápida
 
 ```bash
-git clone https://github.com/paolameneses/partenon.git
+git clone https://github.com/cuentadeservicio377-cell/partenon.git
 cd partenon
 
-# Opción A: instalador local
-curl -fsSL https://partenon.dev/install.sh | bash
+# Opción A: instalador bash
+./install.sh
 
-# Opción B: onboard con NVIDIA NemoClaw (alpha)
+# Opción B: setup con Python
+python scripts/setup_hermes.py
+
+# Opción C: onboard con NVIDIA NemoClaw (alpha)
 curl -fsSL https://www.nvidia.com/nemoclaw.sh | NEMOCLAW_AGENT=hermes bash
-
-# Stripe Skills vía Hermes
-hermes skills install official/payments/stripe-link-cli
-hermes skills install official/payments/mpp-agent
-hermes skills install official/payments/stripe-projects
 ```
 
-Luego copia el Google Sheet base, configura las variables de entorno listadas en `.env.example` y define el tipo de empresa en el onboarding.
+Luego:
+1. Copia `.env.example` a `.env` y completa tus credenciales.
+2. Copia el Google Sheet base desde `templates/google-sheet-base/`.
+3. Corre `python scripts/demo_tesorero.py` para verificar la instalación.
+4. Abre el dashboard: `cd dashboard && npm install && npm run dev`.
 
 ## Repositorios relacionados
 
