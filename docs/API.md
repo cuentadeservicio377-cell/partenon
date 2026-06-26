@@ -369,7 +369,7 @@ The local MCP server is [`gbrain/server.py`](../gbrain/server.py). Tools are def
 Each hero exposes Python tools under `hermes/profiles/<profile>/skills/<skill>/tools/`. They are documented per hero in [`docs/HERO_GUIDE.md`](HERO_GUIDE.md) and can be run directly when they include a `main()` function.
 
 ```bash
-python hermes/profiles/partenon-mensajero/skills/comms/tools/content_calendar.py "topic" linkedin 7
-python hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py
-python hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py
+python3 hermes/profiles/partenon-mensajero/skills/comms/tools/content_calendar.py "topic" linkedin 7
+python3 hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py
+python3 hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py
 ```

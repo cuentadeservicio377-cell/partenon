@@ -369,7 +369,7 @@ python3 hermes/profiles/partenon-mensajero/skills/comms/tools/content_calendar.p
 python3 hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py
 python3 hermes/profiles/partenon-estratega/skills/ops/tools/briefings.py
 python3 hermes/profiles/partenon-diplomatico/skills/relations/tools/crm.py
-python hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py
+python3 hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py
 ```
 
 For the full list of available tools per profile, inspect the `skills/<skill>/tools/` directory.

@@ -128,7 +128,7 @@ Try the Herald's copy generator without any API credentials:
 
 ```bash
 # Create a minimal .design first
-python hermes/profiles/partenon-mensajero/skills/comms/tools/brand_intake.py
+python3 hermes/profiles/partenon-mensajero/skills/comms/tools/brand_intake.py
 ```
 
 Answer the prompts, or press Enter to accept defaults. It writes `.design` in the current directory.
