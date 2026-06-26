@@ -1,0 +1,76 @@
+{
+  "metadata": {},
+  "productos": [
+    {
+      "id": "prod_001",
+      "nombre": "Test",
+      "descripcion": "",
+      "activo": true
+    }
+  ],
+  "precios": [
+    {
+      "id": "price_001",
+      "product_id": "prod_001",
+      "amount": 10000,
+      "currency": "mxn",
+      "tipo": "one_time"
+    },
+    {
+      "id": "price_002",
+      "amount": 5000,
+      "currency": "mxn",
+      "tipo": "recurring",
+      "interval": "month"
+    }
+  ],
+  "links": [
+    {
+      "id": "link_001",
+      "price_id": "price_001",
+      "url": "https://buy.stripe.com/test_link_001",
+      "concepto": "Test",
+      "creado": "2026-06-26T02:03:26.460842+00:00",
+      "estado": "active"
+    }
+  ],
+  "suscripciones": [
+    {
+      "id": "sub_001",
+      "cliente_email": "test@example.com",
+      "price_id": "price_002",
+      "stripe_subscription_id": "sub_test_sub_001",
+      "estado": "active",
+      "ciclo": "month",
+      "proximo_cobro": "2026-07-26",
+      "intentos_fallidos": 0
+    }
+  ],
+  "clientes": [],
+  "pagos": [
+    {
+      "id": "pag_001",
+      "stripe_payment_intent_id": "pi_test_001",
+      "cliente_email": "test@example.com",
+      "amount": 10000,
+      "currency": "MXN",
+      "comision_stripe": 320,
+      "estado": "pagado",
+      "fecha_creacion": "2026-06-26T02:03:26.462426+00:00",
+      "fecha_pago": "2026-06-26T02:03:26.462428+00:00",
+      "sincronizado_con_tesorero": false
+    }
+  ],
+  "recordatorios": [
+    {
+      "id": "rem_001",
+      "cliente_email": "test@example.com",
+      "tipo": "manual",
+      "enviado": "2026-06-26T02:03:26.462154+00:00",
+      "canal": "gmail",
+      "estado": "enviado",
+      "asunto": "Recordatorio de pago pendiente — MXN 10000",
+      "cuerpo": "Hola Test,\n\nTe recordamos que tienes un pago pendiente de MXN 10000.\nFecha de vencimiento: 2026-06-30.\n\nSi ya realizaste el pago, por favor ignora este mensaje.\n\nSaludos,"
+    }
+  ]
+}

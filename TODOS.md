@@ -10,6 +10,8 @@
 - [ ] Workshop técnico de 90 min (formato reusable)
 
 ## Hecho
+- [x] Perfil `partenon-tesorero` creado con SOUL.md, config.yaml, .env.example, skill finance, plantilla `.finance`, cron diario y tools Python verificados con py_compile
+- [x] Perfil `partenon-cobrador` creado con SOUL.md, config.yaml, .env.example, .payments, skill de pagos, plantilla y cron
 - [x] Braindump inicial completado
 - [x] Estructura de memoria y plan inicial creada
 - [x] Repositorios analizados (Hermes Agent, Open Design, taste-skill, no_ai_slop_writing_rules, hallmark)
