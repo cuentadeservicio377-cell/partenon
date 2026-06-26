@@ -49,6 +49,10 @@
 - [x] Desplegar sitio en dominio `hermespartenon.online` vía Hostinger File Manager
 - [x] Verificar sitio desplegado en dominio real (HTTP 200, sin términos prohibidos, assets cargando)
 - [x] Cerrar fase de desarrollo web: memoria, TODOS, gbrain y commit final
+- [x] Crear repositorio público en GitHub para Partenon
+- [x] Completar estructura del repo con 7 perfiles, `.env.example` global, `install.sh` y `scripts/setup_hermes.py`
+- [x] Crear documentación completa: `docs/for-founders.md`, `docs/for-developers.md`, `docs/architecture.md`
+- [x] Verificar builds/demo/dashboard y regenerar `web-deploy.zip`
 
 ## Parking Lot
 _Cosas descubiertas durante el desarrollo que NO están en el plan actual_

@@ -6,7 +6,7 @@
 
 - **Proyecto**: Partenon
 - **Iniciado**: 2026-06-23
-- **Estado**: Fase de desarrollo web CERRADA. Tres páginas web estáticas en `web/` (index.html, heroes.html, developers.html) migradas desde `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/` con estética clásica de la app React (mármol blanco, Cinzel, Inter) y correcciones de información basadas en auditorías oficiales. Desplegadas en `https://hermespartenon.online/`. Próximo: probar Stripe Skills en sandbox, configurar onboard de NVIDIA NemoClaw/OpenShell e implementar eval loop funcional.
+- **Estado**: Repositorio público en GitHub creado y listo para hackathon. Tres páginas web estáticas en `web/` desplegadas en `https://hermespartenon.online/`. Siete perfiles de Hermes en `hermes/profiles/` (Tesorero, Mensajero, Cobrador, Guardian, Estratega, Diplomático, Brain). Documentación completa en `docs/` (for-founders, for-developers, architecture). Scripts de instalación: `install.sh` y `scripts/setup_hermes.py`. Próximo: probar Stripe Skills en sandbox, configurar onboard de NVIDIA NemoClaw/OpenShell e implementar eval loop funcional.
 
 ## Braindump
 
@@ -177,6 +177,11 @@ Los perfiles mapean directamente a skills existentes o propuestas de HBOS:
 - El sistema se construirá basado en las páginas.
 - Google Workspace como superficie de trabajo compartida con el empresario.
 - HBOS como base técnica existente; Partenon es la capa de presentación y extensión de perfiles.
+- Repositorio público en GitHub: `https://github.com/cuentadeservicio377-cell/partenon`.
+- Perfil `partenon-brain` agregado como séptimo héroe para memoria colectiva vía G-Brain.
+- `.env.example` global con placeholders seguros para evitar secret scanning de GitHub.
+- `install.sh` y `scripts/setup_hermes.py` para instalación automatizada en entornos con Hermes Agent.
+- Documentación del repo desacoplada de las páginas web: `docs/for-founders.md`, `docs/for-developers.md`, `docs/architecture.md`.
 - Stack del hackathon explícito en las tres páginas: Hermes Agent + NVIDIA NemoClaw/OpenShell/Nemotron 3 Ultra + Stripe Skills.
 - Estética Nous Research / manual técnico: fondo `#050505`, acento cian `#00D4FF`, tipografía monospaced en hero, sin emojis ni emdashes.
 - Copy anti-AI-slop: verbos concretos, claim + proof, sin intensificadores ni frases de transición dramáticas.

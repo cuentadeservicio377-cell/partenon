@@ -2,6 +2,30 @@
 
 ## Historial de Sesiones
 
+### 2026-06-26 — Creación del repositorio público en GitHub con loop-engineering
+- Activado loop-engineering para construir el repositorio de Partenon en GitHub de punta a punta.
+- Creado repo público `cuentadeservicio377-cell/partenon` y subida la rama `main`.
+- Resuelto bloqueo de GitHub Push Protection: placeholder `sk_test_[REDACTED]` en `.env.example` fue detectado como secreto; se reescribió el historial con `git filter-repo` para eliminar el patrón del repo.
+- Completada estructura del repo:
+  - `.env.example` global con placeholders seguros.
+  - Perfil `partenon-brain` completo: `SOUL.md`, `config.yaml`, `.env.example`, `.brain`, skill `memory` con `gbrain_client.py`, cron diario y template.
+  - `install.sh` actualizado para instalar los 7 perfiles.
+  - `scripts/setup_hermes.py` como helper de instalación alternativo.
+  - Limpieza de `__pycache__`.
+- Documentación completa añadida:
+  - `docs/for-founders.md` basado en `web/index.html`.
+  - `docs/for-developers.md` basado en `web/developers.html`.
+  - `docs/architecture.md` con visión general del sistema.
+  - `README.md` actualizado con URL del repo, badge live, links a docs y estado actual.
+- Verificación:
+  - `python scripts/demo_tesorero.py` PASS.
+  - `cd dashboard && npm run build` PASS.
+  - `python3 -m py_compile` en scripts y perfil Brain PASS.
+  - `web-deploy.zip` regenerado (27 MB).
+  - Sitio live `https://hermespartenon.online/` responde HTTP 200 en `/`, `/heroes.html` y `/developers.html`.
+- Loop completado en 4 iteraciones. Todos los gates ≥ 7/10.
+- Actualizados `TODOS.md`, `PROGRESS.md`, `MEMORY.md`, brain central y gbrain.
+
 ### 2026-06-26 — Migración de `Developers.tsx` a `web/developers.html` + despliegue en hermespartenon.online
 - Reemplazada la página `web/developers.html` anterior por una versión estática basada EXACTAMENTE en `Kimi_Agent_10 Storytelling Web Sites/app/src/pages/Developers.tsx`.
 - Stack: HTML5 estático + Tailwind CSS CDN + CSS personalizado; fuentes Cinzel, Inter, JetBrains Mono; iconos Material Symbols Sharp y SVG inline.
