@@ -136,7 +136,7 @@ Answer the prompts, or press Enter to accept defaults. It writes `.design` in th
 Then generate a post:
 
 ```bash
-python hermes/profiles/partenon-mensajero/skills/comms/tools/copy_generator.py post "payment automation" linkedin
+python3 hermes/profiles/partenon-mensajero/skills/comms/tools/copy_generator.py post "payment automation" linkedin
 ```
 
 Expected output: a JSON object with three ad variants and a `qa` block showing whether any banned patterns were found.
@@ -148,7 +148,7 @@ Expected output: a JSON object with three ad variants and a `qa` block showing w
 No Stripe key is required. The Collector falls back to local `.payments` records.
 
 ```bash
-python hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py
+python3 hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py
 ```
 
 Expected output: several JSON objects showing a test payment link, subscription, invoice, reminder, and payment record.
