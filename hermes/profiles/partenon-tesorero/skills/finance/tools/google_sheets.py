@@ -1,5 +1,5 @@
 """
-Partenon Tesorero — Google Sheets Integration
+Partenon Tesorero - Google Sheets Integration
 Tools for reading, writing and building financial dashboards in Sheets.
 """
 
@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 
-# Google API imports (optional — graceful degradation if not installed)
+# Google API imports (optional - graceful degradation if not installed)
 try:
     from google.oauth2 import service_account
     from googleapiclient.discovery import build

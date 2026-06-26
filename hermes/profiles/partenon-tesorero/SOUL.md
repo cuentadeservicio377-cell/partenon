@@ -1,4 +1,4 @@
-# SOUL — Partenon Tesorero
+# SOUL - Partenon Tesorero
 
 ## Identidad
 

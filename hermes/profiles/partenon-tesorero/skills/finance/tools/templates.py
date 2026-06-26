@@ -1,5 +1,5 @@
 """
-Partenon Tesorero — Excel Templates
+Partenon Tesorero - Excel Templates
 Generate reusable Excel templates for budgets, providers and cash flow.
 """
 

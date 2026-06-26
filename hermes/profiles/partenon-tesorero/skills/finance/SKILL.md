@@ -11,7 +11,7 @@ metadata:
     status: draft
 ---
 
-# Skill: Finance — Partenon Tesorero v0.1
+# Skill: Finance - Partenon Tesorero v0.1
 
 ## Rol
 
@@ -30,22 +30,22 @@ Me activo cuando:
 ## Herramientas Python
 
 ### `tools/google_sheets.py`
-- `GoogleSheets.read_sheet(spreadsheet_id, range_name)` — Lee un rango de Sheets.
-- `GoogleSheets.write_sheet(spreadsheet_id, range_name, values)` — Escribe un rango en Sheets.
-- `GoogleSheets.append_row(spreadsheet_id, range_name, row)` — Agrega una fila al final.
-- `GoogleSheets.create_dashboard(title, sheets)` — Crea spreadsheet maestro con hojas base.
-- `GoogleSheets.get_or_create_spreadsheet(title)` — Busca o crea spreadsheet por titulo.
+- `GoogleSheets.read_sheet(spreadsheet_id, range_name)` - Lee un rango de Sheets.
+- `GoogleSheets.write_sheet(spreadsheet_id, range_name, values)` - Escribe un rango en Sheets.
+- `GoogleSheets.append_row(spreadsheet_id, range_name, row)` - Agrega una fila al final.
+- `GoogleSheets.create_dashboard(title, sheets)` - Crea spreadsheet maestro con hojas base.
+- `GoogleSheets.get_or_create_spreadsheet(title)` - Busca o crea spreadsheet por titulo.
 
 ### `tools/parsers.py`
-- `ExpenseParser.parse_excel(filepath)` — Extrae gastos de un archivo Excel o CSV.
-- `ExpenseParser.parse_csv(filepath)` — Extrae gastos de CSV.
-- `ExpenseParser.normalize_amount(value)` — Normaliza montos a numero.
-- `ExpenseParser.infer_category(description)` — Sugiere categoria a partir de descripcion.
+- `ExpenseParser.parse_excel(filepath)` - Extrae gastos de un archivo Excel o CSV.
+- `ExpenseParser.parse_csv(filepath)` - Extrae gastos de CSV.
+- `ExpenseParser.normalize_amount(value)` - Normaliza montos a numero.
+- `ExpenseParser.infer_category(description)` - Sugiere categoria a partir de descripcion.
 
 ### `tools/templates.py`
-- `Templates.crear_presupuesto(filepath, periodo, rubros)` — Genera plantilla de presupuesto.
-- `Templates.crear_proveedores(filepath)` — Genera directorio de proveedores.
-- `Templates.crear_flujo_caja(filepath, meses)` — Genera plantilla de flujo de caja.
+- `Templates.crear_presupuesto(filepath, periodo, rubros)` - Genera plantilla de presupuesto.
+- `Templates.crear_proveedores(filepath)` - Genera directorio de proveedores.
+- `Templates.crear_flujo_caja(filepath, meses)` - Genera plantilla de flujo de caja.
 
 ## Funciones principales
 

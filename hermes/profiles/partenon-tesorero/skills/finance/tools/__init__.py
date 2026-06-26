@@ -1,5 +1,5 @@
 """
-Partenon Tesorero — Finance tools package.
+Partenon Tesorero - Finance tools package.
 """
 
 from .google_sheets import GoogleSheets, get_google_sheets

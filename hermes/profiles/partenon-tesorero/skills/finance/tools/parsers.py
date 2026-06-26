@@ -1,5 +1,5 @@
 """
-Partenon Tesorero — Expense Parsers
+Partenon Tesorero - Expense Parsers
 Extract and normalize expenses from Excel and CSV files.
 """
 
