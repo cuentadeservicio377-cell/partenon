@@ -69,7 +69,13 @@
 - [x] Translate Diplomat relations Python tools to English and align .relations keys
 - [x] Translate Brain gbrain_client.py to English
 - [x] Translate data/cron.json and data/tasks.json to English with runnable commands
+- [x] Translate AGENTS.md, DESIGN.md, SPEC.md, and docs/superpowers plan snippets to English
+- [x] Translate Next.js dashboard UI strings, status/priority enums, and profile display names to English
 - [x] Update MISSING_IMPLEMENTATION.md with current state and gaps
+- [x] Fix Diplomat .relations parser to handle nested objects and JSON templates
+- [x] Fix Strategist briefings import (goals.py) so the tool runs standalone
+- [x] Remove Spanish fallbacks from partenon-core config_loader
+- [x] Verify onboarding_engine.py loads config_loader correctly
 - [x] Syntax-check all profile Python tools
 - [x] Run demo_tesorero.py successfully
 - [x] Build dashboard (Next.js) successfully

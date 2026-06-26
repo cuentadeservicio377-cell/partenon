@@ -2,6 +2,23 @@
 
 ## Session History
 
+### 2026-06-26 — Final i18n pass: AGENTS/DESIGN/SPEC, dashboard UI, profile tooling
+- Translated remaining Spanish source files to English:
+  - `AGENTS.md`, `DESIGN.md`, `SPEC.md`, and remaining Spanish snippets in `docs/superpowers/plans/2026-06-26-partenon-system-build.md`.
+  - Next.js dashboard `dashboard/src/app/(dashboard)/page.tsx`: labels, status (`done`), and priority (`high`, `medium`, `low`) strings.
+- Continued profile i18n from earlier in the session:
+  - Translated all profile config templates (`.finance.example`, `.design.example`, `.payments.example`, `.relations.example`, `.brain.example`) to English.
+  - Translated all profile cron JSON files to English.
+  - Translated Strategist `tasks.py`, Diplomat `crm.py` and `followups.py`, and Brain `gbrain_client.py` to English.
+- Translated `data/cron.json` and `data/tasks.json` to English with runnable command placeholders.
+- Updated `MISSING_IMPLEMENTATION.md` with current implementation state and gaps.
+- Verification:
+  - `python3 -m py_compile` on all profile Python files PASS.
+  - `python3 scripts/demo_tesorero.py` PASS.
+  - `cd dashboard && npm run build` PASS.
+  - Diplomat CRM and follow-up scripts run without errors PASS.
+- Updated `TODOS.md`.
+
 ### 2026-06-26 — scripts-core-install audit and English translation
 - Audited `install.sh`, `scripts/setup_hermes.py`, `scripts/demo_tesorero.py`, `.env.example`, and `partenon-core/` against `web/developers.html` promises.
 - Translated all touched files to English: `.env.example`, `install.sh`, `scripts/setup_hermes.py`, `scripts/demo_tesorero.py`, `templates/google-sheet-base/finance_sheet.py`, and all `partenon-core/` files.
