@@ -47,44 +47,44 @@ def create_finance_sheet(output_path: Path):
     # Dashboard
     ws = wb.active
     ws.title = "Dashboard"
-    headers = ["Indicador", "Valor", "Nota"]
+    headers = ["Indicator", "Value", "Note"]
     ws.append(headers)
     for cell in ws[1]:
         style_header(cell)
 
     rows = [
-        ["Ingresos mes actual", "=SUM(Ingresos[C])", "Suma de hoja Ingresos"],
-        ["Gastos fijos mes", "=SUMIF('Gastos Fijos'[C],\"<>\")", "Costos recurrentes"],
-        ["Gastos variables mes", "=SUMIF('Gastos Variables'[C],\"<>\")", "Costos proporcionales"],
-        ["Margen estimado", "=B2-B3-B4", "Ingresos - gastos"],
-        ["Proveedores activos", "=COUNTA(Proveedores[A])-1", ""],
+        ["Current month income", "=SUM(Income!C:C)", "Sum of Income sheet"],
+        ["Monthly fixed expenses", "=SUM('Fixed Expenses'!C:C)", "Recurring costs"],
+        ["Monthly variable expenses", "=SUM('Variable Expenses'!C:C)", "Proportional costs"],
+        ["Estimated margin", "=B2-B3-B4", "Income - expenses"],
+        ["Active suppliers", "=COUNTA(Suppliers!A:A)-1", ""],
     ]
     for row in rows:
         ws.append(row)
         for cell in ws[ws.max_row]:
             style_cell(cell)
 
-    # Ingresos
-    ws = wb.create_sheet("Ingresos")
-    ws.append(["Fecha", "Concepto", "Monto", "Cliente", "Canal"])
+    # Income
+    ws = wb.create_sheet("Income")
+    ws.append(["Date", "Concept", "Amount", "Client", "Channel"])
     for cell in ws[1]:
         style_header(cell)
 
-    # Gastos Fijos
-    ws = wb.create_sheet("Gastos Fijos")
-    ws.append(["Fecha", "Concepto", "Monto", "Frecuencia", "Proveedor"])
+    # Fixed Expenses
+    ws = wb.create_sheet("Fixed Expenses")
+    ws.append(["Date", "Concept", "Amount", "Frequency", "Supplier"])
     for cell in ws[1]:
         style_header(cell)
 
-    # Gastos Variables
-    ws = wb.create_sheet("Gastos Variables")
-    ws.append(["Fecha", "Concepto", "Monto", "Categoria", "Proveedor"])
+    # Variable Expenses
+    ws = wb.create_sheet("Variable Expenses")
+    ws.append(["Date", "Concept", "Amount", "Category", "Supplier"])
     for cell in ws[1]:
         style_header(cell)
 
-    # Proveedores
-    ws = wb.create_sheet("Proveedores")
-    ws.append(["Nombre", "Servicio", "Contacto", "Pago habitual", "Calificacion"])
+    # Suppliers
+    ws = wb.create_sheet("Suppliers")
+    ws.append(["Name", "Service", "Contact", "Usual payment", "Rating"])
     for cell in ws[1]:
         style_header(cell)
 

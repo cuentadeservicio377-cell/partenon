@@ -2,49 +2,49 @@
   {
     "id": "mission-001",
     "profile": "partenon-tesorero",
-    "title": "Organizar costos fijos y variables de la empresa",
+    "title": "Organize company fixed and variable costs",
     "status": "backlog",
-    "priority": "alta",
-    "description": "Revisar todos los gastos, clasificarlos en fijos/variables y construir un dashboard en Google Sheets."
+    "priority": "high",
+    "description": "Review all expenses, classify them as fixed/variable, and build a dashboard in Google Sheets."
   },
   {
     "id": "mission-002",
     "profile": "partenon-mensajero",
-    "title": "Definir voz de marca y mensajes clave",
+    "title": "Define brand voice and key messages",
     "status": "backlog",
-    "priority": "alta",
-    "description": "Entrevistar al emprendedor, completar .design y crear primer calendario de contenido."
+    "priority": "high",
+    "description": "Interview the entrepreneur, complete .design, and create the first content calendar."
   },
   {
     "id": "mission-003",
     "profile": "partenon-cobrador",
-    "title": "Configurar productos y links de pago en Stripe",
+    "title": "Configure Stripe products and payment links",
     "status": "backlog",
-    "priority": "media",
-    "description": "Listar productos/servicios, precios y crear payment links o suscripciones."
+    "priority": "medium",
+    "description": "List products/services, prices, and create payment links or subscriptions."
   },
   {
     "id": "mission-004",
     "profile": "partenon-guardian",
-    "title": "Auditar y documentar API keys y permisos",
+    "title": "Audit and document API keys and permissions",
     "status": "backlog",
-    "priority": "alta",
-    "description": "Crear .security con proveedores, keys de referencia y permisos por perfil."
+    "priority": "high",
+    "description": "Create .security with providers, reference keys, and permissions per profile."
   },
   {
     "id": "mission-005",
     "profile": "partenon-estratega",
-    "title": "Crear primer proyecto y calendario de operaciones",
+    "title": "Create the first project and operations calendar",
     "status": "backlog",
-    "priority": "alta",
-    "description": "Configurar Google Calendar, crear proyecto inicial y asignar tareas con deadlines."
+    "priority": "high",
+    "description": "Set up Google Calendar, create the initial project, and assign tasks with deadlines."
   },
   {
     "id": "mission-006",
     "profile": "partenon-diplomatico",
-    "title": "Registrar clientes y proveedores clave",
+    "title": "Register key clients and suppliers",
     "status": "backlog",
-    "priority": "media",
-    "description": "Crear .relations con contactos, hitos pendientes y proximos follow-ups."
+    "priority": "medium",
+    "description": "Create .relations with contacts, pending milestones, and upcoming follow-ups."
   }
 ]

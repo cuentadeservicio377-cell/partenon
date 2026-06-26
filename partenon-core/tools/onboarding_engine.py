@@ -1,39 +1,41 @@
 """
-Hermes Business OS — Onboarding Engine
+Partenon Onboarding Engine.
+
 Automates the full onboarding process: config, Google Workspace setup,
 folder structure, templates, and first-project creation.
 """
 
 import json
+import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Any, Dict, Optional
 
-import sys
 sys.path.insert(0, str(Path(__file__).parent))
 
-from config_loader import get_config, ConfigLoader
+try:
+    from .config_loader import ConfigLoader, get_config
+except ImportError:
+    from config_loader import ConfigLoader, get_config
 
 
 class OnboardingEngine:
     """
-    Automates the complete onboarding workflow for a new HBOS installation.
-    
+    Automates the complete onboarding workflow for a new Partenon installation.
+
     Steps:
-    1. Validate or create empresa.yaml
-    2. Create Google Drive folder structure
-    3. Create Google Sheets masters
-    4. Generate industry-specific templates
-    5. Create welcome project / sample data
-    6. Verify everything with hbos doctor
+    1. Validate or create company.yaml
+    2. Create local data structure
+    3. Create industry-specific catalog
+    4. Generate sample data
+    5. Set up Google Workspace (if configured)
+    6. Generate welcome documents
     """
-    
+
     def __init__(self, config_path: str = None):
         self.config = ConfigLoader(config_path) if config_path else get_config()
-        # Find project root: go up from skills/hermes-business-core/tools/
         current = Path(__file__).resolve()
-        self.project_root = current.parent.parent.parent.parent  # up to project root
-        # Fallback: if we can't find the right root, try current working directory
+        self.project_root = current.parent.parent.parent
         if not (self.project_root / "config").exists():
             cwd = Path.cwd()
             if (cwd / "config").exists():
@@ -47,32 +49,19 @@ class OnboardingEngine:
             "steps": [],
             "errors": [],
         }
-        
+
     def run_full_onboarding(self) -> Dict[str, Any]:
         """Run the complete onboarding process."""
-        self._log_step("Iniciando onboarding de Hermes Business OS", "info")
-        
-        # Step 1: Validate config
+        self._log_step("Starting Partenon onboarding", "info")
         self._validate_config()
-        
-        # Step 2: Create local data structure
         self._create_local_data_structure()
-        
-        # Step 3: Create industry-specific catalog
         self._create_industry_catalog()
-        
-        # Step 4: Create sample data if empty
         self._create_sample_data()
-        
-        # Step 5: Setup Google Workspace (if configured)
         self._setup_google_workspace()
-        
-        # Step 6: Generate welcome documents
         self._generate_welcome_documents()
-        
-        self._log_step("Onboarding completado", "success")
+        self._log_step("Onboarding completed", "success")
         return self.results
-    
+
     def _log_step(self, message: str, status: str = "info"):
         """Log a step result."""
         self.results["steps"].append({
@@ -80,22 +69,22 @@ class OnboardingEngine:
             "status": status,
             "timestamp": datetime.now().isoformat(),
         })
-        
-        emoji = {"info": "ℹ️", "success": "✅", "warning": "⚠️", "error": "❌"}.get(status, "•")
-        print(f"  {emoji} {message}")
-    
+        print(f"  [{status}] {message}")
+
     def _validate_config(self):
         """Validate company configuration."""
-        nombre = self.config.nombre
-        if not nombre or nombre == "Mi Empresa":
-            self._log_step("Configuración de empresa no completada. Ejecuta: hbos setup", "warning")
+        name = self.config.name
+        if not name or name == "My Company":
+            self._log_step(
+                "Company configuration not completed. Run: python partenon-core/tools/onboarding_flow.py",
+                "warning",
+            )
             self.results["success"] = False
             return
-        
-        self._log_step(f"Empresa configurada: {nombre}", "success")
-    
+        self._log_step(f"Company configured: {name}", "success")
+
     def _create_local_data_structure(self):
-        """Create local JSON data files if they don't exist."""
+        """Create local JSON data files if they do not exist."""
         files = {
             "clients.json": {"clients": [], "next_id": 1},
             "projects.json": {"projects": [], "next_id": 1},
@@ -104,274 +93,242 @@ class OnboardingEngine:
             "pipeline.json": {"entries": []},
             "checklists.json": {},
             "catalog.json": {},
+            "events.json": {"events": []},
+            "nudges.json": {"nudges": []},
+            "goals.json": {"goals": []},
         }
-        
         for filename, default_data in files.items():
             filepath = self.data_dir / filename
             if not filepath.exists():
                 with open(filepath, "w", encoding="utf-8") as f:
                     json.dump(default_data, f, ensure_ascii=False, indent=2)
-                self._log_step(f"Creado: data/{filename}", "success")
+                self._log_step(f"Created: data/{filename}", "success")
             else:
-                self._log_step(f"Existe: data/{filename}", "info")
-    
+                self._log_step(f"Exists: data/{filename}", "info")
+
     def _create_industry_catalog(self):
         """Create service catalog based on industry."""
         catalog_file = self.data_dir / "catalog.json"
-        industry = self.config.industria
-        moneda = self.config.moneda
-        
+        industry = self.config.industry
+        currency = self.config.currency
         catalogs = {
-            "eventos": {
-                "servicios": [
-                    {"codigo": "EVT-BAS", "nombre": "Paquete Básico", "descripcion": "Decoración básica para evento", "precio_base": 50000, "unidad": "evento"},
-                    {"codigo": "EVT-INT", "nombre": "Paquete Intermedio", "descripcion": "Decoración intermedia + mobiliario", "precio_base": 100000, "unidad": "evento"},
-                    {"codigo": "EVT-PRE", "nombre": "Paquete Premium", "descripcion": "Decoración premium + mobiliario + iluminación", "precio_base": 180000, "unidad": "evento"},
-                    {"codigo": "EVT-MES", "nombre": "Mesas de dulces", "descripcion": "Mesa de dulces personalizada", "precio_base": 8000, "unidad": "mesa"},
-                    {"codigo": "EVT-FLO", "nombre": "Arreglo floral", "descripcion": "Centros de mesa y decoración floral", "precio_base": 5000, "unidad": "arreglo"},
+            "events": {
+                "services": [
+                    {"code": "EVT-BAS", "name": "Basic Package", "description": "Basic event decoration", "base_price": 50000, "unit": "event"},
+                    {"code": "EVT-INT", "name": "Intermediate Package", "description": "Intermediate decoration + furniture", "base_price": 100000, "unit": "event"},
+                    {"code": "EVT-PRE", "name": "Premium Package", "description": "Premium decoration + furniture + lighting", "base_price": 180000, "unit": "event"},
+                    {"code": "EVT-MES", "name": "Candy table", "description": "Custom candy table", "base_price": 8000, "unit": "table"},
+                    {"code": "EVT-FLO", "name": "Floral arrangement", "description": "Centerpieces and floral decoration", "base_price": 5000, "unit": "arrangement"},
                 ],
-                "multiplicadores": {"temporada_alta": 1.2, "temporada_baja": 0.9, "urgencia": 1.3}
+                "multipliers": {"high_season": 1.2, "low_season": 0.9, "urgency": 1.3}
             },
             "legal": {
-                "servicios": [
-                    {"codigo": "LEG-CON", "nombre": "Revisión de contrato", "descripcion": "Revisión y opinión legal de contrato", "precio_base": 15000, "unidad": "contrato"},
-                    {"codigo": "LEG-DEM", "nombre": "Elaboración de demanda", "descripcion": "Demanda civil o mercantil", "precio_base": 35000, "unidad": "demanda"},
-                    {"codigo": "LEG-ASE", "nombre": "Asesoría mensual", "descripcion": "Asesoría legal mensual preventiva", "precio_base": 12000, "unidad": "mes"},
-                    {"codigo": "LEG-REP", "nombre": "Representación judicial", "descripcion": "Representación en juicio", "precio_base": 50000, "unidad": "juicio"},
-                    {"codigo": "LEG-CONS", "nombre": "Consulta legal", "descripcion": "Consulta puntual", "precio_base": 3000, "unidad": "consulta"},
+                "services": [
+                    {"code": "LEG-CON", "name": "Contract review", "description": "Review and legal opinion of a contract", "base_price": 15000, "unit": "contract"},
+                    {"code": "LEG-DEM", "name": "Demand drafting", "description": "Civil or commercial demand", "base_price": 35000, "unit": "demand"},
+                    {"code": "LEG-ASE", "name": "Monthly advisory", "description": "Monthly preventive legal advisory", "base_price": 12000, "unit": "month"},
+                    {"code": "LEG-REP", "name": "Judicial representation", "description": "Representation in trial", "base_price": 50000, "unit": "trial"},
+                    {"code": "LEG-CONS", "name": "Legal consultation", "description": "Point consultation", "base_price": 3000, "unit": "consultation"},
                 ],
-                "multiplicadores": {"complejidad_alta": 1.5, "complejidad_media": 1.2, "urgencia": 1.3}
+                "multipliers": {"high_complexity": 1.5, "medium_complexity": 1.2, "urgency": 1.3}
             },
-            "consultoria": {
-                "servicios": [
-                    {"codigo": "CON-DIA", "nombre": "Diagnóstico", "descripcion": "Diagnóstico inicial de negocio", "precio_base": 25000, "unidad": "diagnóstico"},
-                    {"codigo": "CON-EST", "nombre": "Estrategia", "descripcion": "Plan estratégico", "precio_base": 50000, "unidad": "plan"},
-                    {"codigo": "CON-IMP", "nombre": "Implementación", "descripcion": "Implementación de estrategia", "precio_base": 40000, "unidad": "mes"},
-                    {"codigo": "CON-CAP", "nombre": "Capacitación", "descripcion": "Taller o capacitación", "precio_base": 15000, "unidad": "sesión"},
+            "consulting": {
+                "services": [
+                    {"code": "CON-DIA", "name": "Diagnosis", "description": "Initial business diagnosis", "base_price": 25000, "unit": "diagnosis"},
+                    {"code": "CON-EST", "name": "Strategy", "description": "Strategic plan", "base_price": 50000, "unit": "plan"},
+                    {"code": "CON-IMP", "name": "Implementation", "description": "Strategy implementation", "base_price": 40000, "unit": "month"},
+                    {"code": "CON-CAP", "name": "Training", "description": "Workshop or training", "base_price": 15000, "unit": "session"},
                 ],
-                "multiplicadores": {"empresa_grande": 1.5, "empresa_mediana": 1.2, "urgencia": 1.2}
+                "multipliers": {"large_company": 1.5, "medium_company": 1.2, "urgency": 1.2}
             },
             "retail": {
-                "servicios": [
-                    {"codigo": "RTL-PRO", "nombre": "Producto A", "descripcion": "Descripción del producto", "precio_base": 500, "unidad": "pieza"},
-                    {"codigo": "RTL-PRB", "nombre": "Producto B", "descripcion": "Descripción del producto", "precio_base": 800, "unidad": "pieza"},
-                    {"codigo": "RTL-ENV", "nombre": "Envío", "descripcion": "Envío a domicilio", "precio_base": 150, "unidad": "envío"},
+                "services": [
+                    {"code": "RTL-PRO", "name": "Product A", "description": "Product description", "base_price": 500, "unit": "piece"},
+                    {"code": "RTL-PRB", "name": "Product B", "description": "Product description", "base_price": 800, "unit": "piece"},
+                    {"code": "RTL-ENV", "name": "Shipping", "description": "Home delivery", "base_price": 150, "unit": "shipment"},
                 ],
-                "multiplicadores": {"mayoreo": 0.85, "menudeo": 1.0}
+                "multipliers": {"wholesale": 0.85, "retail": 1.0}
             },
         }
-        
-        default_catalog = catalogs.get(industry, catalogs["consultoria"])
-        
+        default_catalog = catalogs.get(industry, catalogs["consulting"])
         if not catalog_file.exists() or catalog_file.stat().st_size < 50:
             with open(catalog_file, "w", encoding="utf-8") as f:
                 json.dump(default_catalog, f, ensure_ascii=False, indent=2)
-            self._log_step(f"Catálogo de servicios creado para industria: {industry}", "success")
+            self._log_step(f"Service catalog created for industry: {industry}", "success")
         else:
-            self._log_step("Catálogo de servicios ya existe", "info")
-    
+            self._log_step("Service catalog already exists", "info")
+
     def _create_sample_data(self):
         """Create sample/demo data if database is empty."""
         clients_file = self.data_dir / "clients.json"
         projects_file = self.data_dir / "projects.json"
-        
         with open(clients_file, "r", encoding="utf-8") as f:
             clients_data = json.load(f)
-        
         if clients_data.get("clients"):
-            self._log_step("Ya existen clientes, omitiendo datos de ejemplo", "info")
+            self._log_step("Clients already exist, skipping sample data", "info")
             return
-        
-        # Create sample client
         sample_client = {
             "id": "CLI-001",
-            "nombre": "Cliente de Ejemplo",
-            "email": "ejemplo@email.com",
-            "telefono": "+52 55 0000 0000",
-            "tipo_proyecto": "proyecto de ejemplo",
-            "fuente": "onboarding",
-            "estado": "prospecto",
-            "notas": "Cliente creado automáticamente durante el onboarding",
-            "fecha_registro": datetime.now().isoformat(),
-            "ultima_actualizacion": datetime.now().isoformat(),
-            "proyectos": ["PROJ-001"],
+            "name": "Example Client",
+            "email": "example@email.com",
+            "phone": "+1 000 000 0000",
+            "project_type": "example project",
+            "source": "onboarding",
+            "status": "prospect",
+            "notes": "Client created automatically during onboarding",
+            "registration_date": datetime.now().isoformat(),
+            "last_updated": datetime.now().isoformat(),
+            "projects": ["PROJ-001"],
         }
-        
-        # Create sample project
         sample_project = {
             "id": "PROJ-001",
-            "nombre": "Proyecto de Bienvenida",
-            "cliente_id": "CLI-001",
-            "cliente_nombre": "Cliente de Ejemplo",
-            "descripcion": "Proyecto de ejemplo para familiarizarte con Hermes",
-            "tipo": self.config.industria,
-            "estado": "planificado",
-            "monto": 0,
-            "fecha_creacion": datetime.now().isoformat(),
-            "fecha_inicio": datetime.now().isoformat(),
-            "fecha_entrega": datetime.now().isoformat(),
-            "fecha_completado": None,
-            "progreso": 0,
-            "tareas": [],
+            "name": "Welcome Project",
+            "client_id": "CLI-001",
+            "client_name": "Example Client",
+            "description": "Example project to get familiar with Partenon",
+            "type": self.config.industry,
+            "status": "planned",
+            "amount": 0,
+            "created": datetime.now().isoformat(),
+            "start_date": datetime.now().isoformat(),
+            "delivery_date": datetime.now().isoformat(),
+            "completed_date": None,
+            "progress": 0,
+            "tasks": [],
             "checklist": [],
-            "notas": "",
-            "historial": [{"accion": "Creación durante onboarding", "fecha": datetime.now().isoformat()}],
+            "notes": "",
+            "history": [{"action": "Created during onboarding", "date": datetime.now().isoformat()}],
         }
-        
         clients_data["clients"] = [sample_client]
         clients_data["next_id"] = 2
-        
         with open(clients_file, "w", encoding="utf-8") as f:
             json.dump(clients_data, f, ensure_ascii=False, indent=2)
-        
         with open(projects_file, "r", encoding="utf-8") as f:
             projects_data = json.load(f)
-        
         projects_data["projects"] = [sample_project]
         projects_data["next_id"] = 2
-        
         with open(projects_file, "w", encoding="utf-8") as f:
             json.dump(projects_data, f, ensure_ascii=False, indent=2)
-        
-        self._log_step("Datos de ejemplo creados (cliente + proyecto)", "success")
-    
+        self._log_step("Sample data created (client + project)", "success")
+
     def _setup_google_workspace(self):
-        """Setup Google Workspace if configured."""
-        if not self.config.integracion_activa("google_workspace"):
-            self._log_step("Google Workspace no está activo, omitiendo", "info")
+        """Set up Google Workspace if configured."""
+        if not self.config.integration_active("google_workspace"):
+            self._log_step("Google Workspace is not active, skipping", "info")
             return
-        
         try:
             from google_workspace import get_google_workspace
             gw = get_google_workspace()
-            
             if not gw._init_credentials():
-                self._log_step("No se pudieron cargar credenciales de Google", "warning")
+                self._log_step("Could not load Google credentials", "warning")
                 return
-            
-            # Create main folder
-            empresa_nombre = self.config.nombre
-            folder_name = f"Hermes OS — {empresa_nombre}"
-            
+            company_name = self.config.name
+            folder_name = f"Partenon — {company_name}"
             folder_id = gw.get_or_create_folder(folder_name)
             if folder_id:
-                self._log_step(f"Carpeta de Drive creada: {folder_name}", "success")
-                
-                # Create subfolders
-                subfolders = ["Clientes", "Proyectos", "Templates"]
+                self._log_step(f"Drive folder created: {folder_name}", "success")
+                subfolders = ["Clients", "Projects", "Templates"]
                 for sub in subfolders:
                     sub_id = gw.get_or_create_folder(sub, folder_id)
                     if sub_id:
                         self._log_step(f"  └─ {sub}/", "success")
-            
-            # Create master spreadsheet
-            spreadsheet_id = gw.create_spreadsheet("Indice de Proyectos")
+            spreadsheet_id = gw.create_spreadsheet("Project Index")
             if spreadsheet_id:
-                self._log_step("Spreadsheet maestro creado: Indice de Proyectos", "success")
-                
-                # Setup headers
+                self._log_step("Master spreadsheet created: Project Index", "success")
                 gw.update_spreadsheet_values(
                     spreadsheet_id,
-                    "Proyectos!A1:H1",
-                    [["ID", "Nombre", "Cliente", "Tipo", "Estado", "Fecha", "Monto", "Link Drive"]]
+                    "Projects!A1:H1",
+                    [["ID", "Name", "Client", "Type", "Status", "Date", "Amount", "Drive Link"]],
                 )
                 gw.update_spreadsheet_values(
                     spreadsheet_id,
-                    "Clientes!A1:G1",
-                    [["ID", "Nombre", "Email", "Teléfono", "Fuente", "Estado", "Fecha registro"]]
+                    "Clients!A1:G1",
+                    [["ID", "Name", "Email", "Phone", "Source", "Status", "Registration Date"]],
                 )
                 gw.update_spreadsheet_values(
                     spreadsheet_id,
-                    "Finanzas!A1:E1",
-                    [["ID Proyecto", "Ingreso", "Gasto", "Margen", "Estado pago"]]
+                    "Finance!A1:E1",
+                    [["Project ID", "Income", "Expense", "Margin", "Payment Status"]],
                 )
-                
-                self._log_step("  └─ Headers de pestañas creados", "success")
-        
+                self._log_step("  └─ Sheet headers created", "success")
         except Exception as e:
-            self._log_step(f"Error configurando Google Workspace: {e}", "error")
+            self._log_step(f"Error configuring Google Workspace: {e}", "error")
             self.results["errors"].append(str(e))
-    
+
     def _generate_welcome_documents(self):
         """Generate welcome/guide documents."""
         docs_dir = self.project_root / "docs"
+        docs_dir.mkdir(exist_ok=True)
         welcome_file = docs_dir / "WELCOME.md"
-        
-        empresa = self.config.nombre
-        industria = self.config.industria
-        
-        welcome_content = f"""# 🎉 Bienvenido a Hermes Business OS
+        company = self.config.name
+        industry = self.config.industry
+        welcome_content = f"""# Welcome to Partenon
 
-## {empresa}
+## {company}
 
-Hermes Business OS está ahora configurado para tu empresa.
+Partenon is now configured for your company.
 
-### ¿Qué puedes hacer ahora?
+## What can you do now?
 
-1. **Habla con Hermes por Telegram**
-   - Envía: "Registra un cliente nuevo"
-   - Envía: "Cotiza un servicio"
-   - Envía: "¿Qué tenemos pendiente?"
+1. **Talk to Hermes via Telegram**
+   - Send: "Register a new client"
+   - Send: "Quote a service"
+   - Send: "What do we have pending?"
 
-2. **Usa el Dashboard Web**
+2. **Use the Web Dashboard**
    ```bash
    cd dashboard
    npm install
    npm run dev
    ```
-   Abre http://localhost:3000
+   Open http://localhost:3000
 
-3. **Gestiona tu negocio**
-   - Clientes y prospectos
-   - Cotizaciones y pipeline
-   - Proyectos y tareas
-   - Documentos automáticos
+3. **Manage your business**
+   - Clients and prospects
+   - Quotes and pipeline
+   - Projects and tasks
+   - Automatic documents
 
-### Primeros comandos útiles
+## Useful first commands
 
-| Comando | Descripción |
+| Command | Description |
 |---------|-------------|
-| `/empresa` | Ver configuración |
-| `/clientes` | Listar clientes |
-| `/proyectos` | Listar proyectos |
-| `/estado` | Resumen del negocio |
+| `/company` | View configuration |
+| `/clients` | List clients |
+| `/projects` | List projects |
+| `/status` | Business summary |
 
-### Industria: {industria}
+## Industry: {industry}
 
-Hermes viene preconfigurado con:
-- Catálogo de servicios para {industria}
-- Templates de documentos
-- Checklists por fase
+Partenon comes preconfigured with:
+- Service catalog for {industry}
+- Document templates
+- Checklists per phase
 
 ---
 
-*Documento generado automáticamente por Hermes Business OS Onboarding*
+*Document generated automatically by Partenon Onboarding*
 """
-        
         with open(welcome_file, "w", encoding="utf-8") as f:
             f.write(welcome_content)
-        
-        self._log_step(f"Guía de bienvenida creada: docs/WELCOME.md", "success")
-    
+        self._log_step(f"Welcome guide created: docs/WELCOME.md", "success")
+
     def get_onboarding_status(self) -> Dict[str, Any]:
         """Get current onboarding status."""
         status = {
             "config_exists": self.config.config_path.exists(),
-            "company_name": self.config.nombre,
-            "industry": self.config.industria,
+            "company_name": self.config.name,
+            "industry": self.config.industry,
             "data_dir_exists": self.data_dir.exists(),
-            "google_workspace_active": self.config.integracion_activa("google_workspace"),
-            "departments_active": [],
+            "google_workspace_active": self.config.integration_active("google_workspace"),
+            "profiles_active": [],
         }
-        
-        for dept in ["ventas", "operaciones", "documentos", "finanzas", "rrhh"]:
-            if self.config.departamento_activo(dept):
-                status["departments_active"].append(dept)
-        
+        for profile in ["scribe", "herald", "collector", "guardian", "strategist", "diplomat", "brain"]:
+            if self.config.department_active(profile):
+                status["profiles_active"].append(profile)
         return status
 
 
-# Singleton
 _onboarding_instance = None
 
 
@@ -386,14 +343,12 @@ def get_onboarding_engine() -> OnboardingEngine:
 if __name__ == "__main__":
     engine = OnboardingEngine()
     result = engine.run_full_onboarding()
-    
     print("\n" + "=" * 50)
     if result["success"]:
-        print("✅ Onboarding completado exitosamente")
+        print("Onboarding completed successfully")
     else:
-        print("⚠️  Onboarding completado con advertencias")
-    
+        print("Onboarding completed with warnings")
     if result["errors"]:
-        print("\nErrores:")
+        print("\nErrors:")
         for err in result["errors"]:
             print(f"  - {err}")

@@ -1,38 +1,38 @@
-# Onboarding General de Partenon
+# Partenon General Onboarding
 
-Preguntas que Hermes hace al emprendedor en el workshop inicial.
+Questions Hermes asks the entrepreneur during the initial workshop.
 
-## Empresa
+## Company
 
-1. Cual es el nombre de tu empresa?
-2. A que industria perteneces? (retail, servicios, manufactura, tecnologia, eventos, alimentos, construccion, otros)
-3. Cuantas personas trabajan en la empresa? (solo yo, 2-5, 6-10, 11-25, 26+)
-4. En que ciudad/pais operas?
-5. Cual es tu moneda principal? (MXN, USD, EUR, COP, ARS, etc.)
+1. What is your company name?
+2. What industry do you belong to? (retail, services, manufacturing, technology, events, food, construction, other)
+3. How many people work in the company? (just me, 2-5, 6-10, 11-25, 26+)
+4. In which city/country do you operate?
+5. What is your primary currency? (MXN, USD, EUR, COP, ARS, etc.)
 
-## Oferta
+## Offering
 
-6. Que vendes? (producto, servicio, suscripcion, mixto)
-7. A quien se lo vendes? Describe a tu cliente ideal.
-8. Que problema resuelves?
-9. Por que te eligen antes que a la competencia?
+6. What do you sell? (product, service, subscription, mixed)
+7. Who do you sell it to? Describe your ideal customer.
+8. What problem do you solve?
+9. Why do they choose you over the competition?
 
-## Operacion
+## Operations
 
-10. Como recibes pagos hoy? (efectivo, transferencia, Stripe, Mercado Pago, otro)
-11. En que herramienta guardas tus finanzas? (Excel, Sheets, QuickBooks, Contpaqi, ninguna)
-12. Como gestionas tus tareas y proyectos? (notas, WhatsApp, Trello, Asana, ninguna)
-13. Como comunicas con clientes y proveedores? (email, WhatsApp, llamadas, CRM)
-14. Tienes sitio web? Si es asi, cual es la URL y en que plataforma? (WordPress, Shopify, Wix, custom)
+10. How do you receive payments today? (cash, bank transfer, Stripe, Mercado Pago, other)
+11. What tool do you use to track finances? (Excel, Sheets, QuickBooks, Contpaqi, none)
+12. How do you manage tasks and projects? (notes, WhatsApp, Trello, Asana, none)
+13. How do you communicate with clients and vendors? (email, WhatsApp, calls, CRM)
+14. Do you have a website? If so, what is the URL and platform? (WordPress, Shopify, Wix, custom)
 
-## Accesos
+## Access
 
-15. Tienes cuenta de Google Workspace o Gmail de empresa?
-16. Tienes cuenta de Stripe?
-17. Tienes API keys de OpenAI, Kimi, Nvidia u otros modelos?
+15. Do you have a Google Workspace or business Gmail account?
+16. Do you have a Stripe account?
+17. Do you have API keys for OpenAI, Kimi, Nvidia, or other models?
 
-## Prioridades
+## Priorities
 
-18. Cual es el problema mas urgente que quieres resolver en las proximas 2 semanas?
-19. Que informacion necesitas ver cada manana para tomar mejores decisiones?
-20. Con que frecuencia quieres que Hermes te envie un resumen? (diario, semanal)
+18. What is the most urgent problem you want to solve in the next 2 weeks?
+19. What information do you need to see every morning to make better decisions?
+20. How often do you want Hermes to send you a summary? (daily, weekly)

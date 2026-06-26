@@ -9,19 +9,19 @@ mcp_servers:
     args: ["-y", "@taylorwilsdon/google-workspace-mcp"]
     env:
       GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
-    description: "Superficie de trabajo compartida con la empresa"
+    description: "Shared work surface with the company"
     enabled: true
     tags: ["workspace", "sheets", "docs", "slides", "drive", "calendar", "gmail"]
 
-  # === Pagos ===
+  # === Payments ===
   stripe:
     command: npx
     args: ["-y", "@stripe/mcp"]
     env:
       STRIPE_SECRET_KEY: "${STRIPE_SECRET_KEY}"
-    description: "Procesa pagos, suscripciones y facturacion"
+    description: "Processes payments, subscriptions, and invoicing"
     enabled: true
-    tags: ["pagos", "finanzas"]
+    tags: ["payments", "finance"]
 
   # === Email ===
   gmail:
@@ -29,51 +29,53 @@ mcp_servers:
     args: ["-y", "@gonggyu/mcp-server-gmail"]
     env:
       GMAIL_ACCESS_TOKEN: "${GMAIL_ACCESS_TOKEN}"
-    description: "Envia emails formales desde el agente"
+    description: "Sends formal emails from the agent"
     enabled: true
-    tags: ["comunicacion", "documentos"]
+    tags: ["communication", "documents"]
 
-  # === Calendario y agendamiento ===
+  # === Calendar and scheduling ===
   calendly:
     command: npx
     args: ["-y", "@modelcontextprotocol/server-calendly"]
     env:
       CALENDLY_API_KEY: "${CALENDLY_API_KEY}"
-    description: "Permite a clientes agendar citas directamente"
+    description: "Lets clients book appointments directly"
     enabled: false
-    tags: ["ventas", "operaciones", "calendario"]
+    tags: ["sales", "operations", "calendar"]
 
-  # === Memoria compartida ===
+  # === Shared memory ===
   gbrain:
     command: python
     args: ["-m", "gbrain.server"]
     env:
-      DATABASE_URL: "${GBrain_DATABASE_URL:-postgresql://localhost:5432/gbrain}"
-    description: "Cerebro compartido de Partenon: perfiles, misiones y entidades"
+      DATABASE_URL: "${GBRAIN_DATABASE_URL:-postgresql://localhost:5432/gbrain}"
+    description: "Shared brain of Partenon: profiles, missions, and entities"
     enabled: true
     tags: ["memory", "context"]
 
-  # === Notificaciones de equipo ===
+  # === Team notifications ===
   slack:
     command: npx
     args: ["-y", "@modelcontextprotocol/server-slack"]
     env:
       SLACK_BOT_TOKEN: "${SLACK_BOT_TOKEN}"
-    description: "Notificaciones y comunicacion con equipo"
+    description: "Notifications and team communication"
     enabled: false
-    tags: ["comunicacion", "equipo"]
+    tags: ["communication", "team"]
 
 # === MCP filters by Partenon profile ===
 mcp_filters:
-  tesorero:
+  scribe:
     allow: ["google_workspace", "stripe", "gbrain"]
-  mensajero:
+  herald:
     allow: ["google_workspace", "gmail", "calendly", "gbrain"]
-  cobrador:
+  collector:
     allow: ["google_workspace", "stripe", "gmail", "gbrain"]
   guardian:
     allow: ["gbrain"]
-  estratega:
+  strategist:
     allow: ["google_workspace", "gmail", "calendly", "slack", "gbrain"]
-  diplomatico:
+  diplomat:
     allow: ["google_workspace", "gmail", "calendly", "gbrain"]
+  brain:
+    allow: ["gbrain"]

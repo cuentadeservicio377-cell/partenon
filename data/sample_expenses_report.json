@@ -1,0 +1,9 @@
+{
+  "timestamp": "2026-06-26T21:02:02.660928+00:00Z",
+  "income": 4000.0,
+  "fixed_expenses": 609.0,
+  "variable_expenses": 1030.0,
+  "margin": 2361.0,
+  "margin_pct": 59.03,
+  "alerts": []
+}

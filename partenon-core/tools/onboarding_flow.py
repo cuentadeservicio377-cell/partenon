@@ -1,10 +1,10 @@
 """
 Partenon General Onboarding Flow.
-Asks business questions, creates profile files and generates initial kanban missions.
+
+Asks business questions, creates profile files, and generates initial kanban missions.
 """
 
 import json
-import os
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
@@ -14,12 +14,12 @@ from typing import Any, Dict, List
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PROFILE_EXAMPLES = REPO_ROOT / "hermes" / "profiles"
 PROFILE_FILES = {
-    "tesorero": ".finance",
-    "mensajero": ".design",
-    "cobrador": ".payments",
+    "scribe": ".finance",
+    "herald": ".design",
+    "collector": ".payments",
     "guardian": ".security",
-    "estratega": ".ops",
-    "diplomatico": ".relations",
+    "strategist": ".ops",
+    "diplomat": ".relations",
 }
 
 
@@ -45,9 +45,9 @@ def create_profile_files(answers: Dict[str, str], workspace: Path) -> Dict[str, 
         if example.exists():
             shutil.copy(example, target)
             content = target.read_text(encoding="utf-8")
-            content = content.replace("{{EMPRESA_NOMBRE}}", answers.get("nombre", "Mi Empresa"))
-            content = content.replace("{{INDUSTRIA}}", answers.get("industria", "servicios"))
-            content = content.replace("{{MONEDA}}", answers.get("moneda", "MXN"))
+            content = content.replace("{{EMPRESA_NOMBRE}}", answers.get("name", "My Company"))
+            content = content.replace("{{INDUSTRIA}}", answers.get("industry", "services"))
+            content = content.replace("{{MONEDA}}", answers.get("currency", "USD"))
             target.write_text(content, encoding="utf-8")
         created[filename] = target
     return created
@@ -67,7 +67,7 @@ def run_onboarding(answers: Dict[str, str], workspace: Path) -> Dict[str, Any]:
     Run the general onboarding.
 
     Args:
-        answers: dict with keys like nombre, industria, moneda, etc.
+        answers: dict with keys like name, industry, currency, etc.
         workspace: directory where profile files and tasks will be written.
 
     Returns:
@@ -82,10 +82,10 @@ def run_onboarding(answers: Dict[str, str], workspace: Path) -> Dict[str, Any]:
         json.dump(missions, f, ensure_ascii=False, indent=2)
 
     summary = {
-        "empresa": answers.get("nombre", "Mi Empresa"),
-        "industria": answers.get("industria", "servicios"),
-        "perfiles_activos": list(PROFILE_FILES.values()),
-        "misiones_generadas": len(missions),
+        "company": answers.get("name", "My Company"),
+        "industry": answers.get("industry", "services"),
+        "active_profiles": list(PROFILE_FILES.values()),
+        "missions_generated": len(missions),
         "workspace": str(workspace),
     }
 
@@ -98,11 +98,11 @@ def run_onboarding(answers: Dict[str, str], workspace: Path) -> Dict[str, Any]:
 
 if __name__ == "__main__":
     sample_answers = {
-        "nombre": "Cafeteria Aurora",
-        "industria": "alimentos",
-        "moneda": "MXN",
-        "tamano": "2-5",
-        "pais": "Mexico",
+        "name": "Aurora Coffee",
+        "industry": "food",
+        "currency": "USD",
+        "size": "2-5",
+        "country": "Mexico",
     }
     result = run_onboarding(sample_answers, REPO_ROOT / "data" / "workspaces" / "demo")
     print(json.dumps(result, ensure_ascii=False, indent=2))

@@ -13,79 +13,92 @@ class IntentRouter:
     INTENT_PATTERNS = {
         "partenon-tesorero": {
             "keywords": [
-                "finanza", "finanzas", "presupuesto", "gasto", "gastos", "ingreso", "ingresos",
-                "costo", "costos", "excel", "sheet", "spreadsheet", "dashboard", "numero",
-                "numeros", "pago", "pagos", "cobro", "cobros", "factura", "facturas",
-                "estado de cuenta", "flujo de caja", "margen", "rentabilidad", "iva",
+                "finance", "finances", "budget", "expense", "expenses", "income",
+                "cost", "costs", "excel", "sheet", "spreadsheet", "dashboard", "number",
+                "numbers", "payment", "payments", "collection", "collections",
+                "invoice", "invoices", "account statement", "cash flow", "margin",
+                "profitability", "tax", "fixed cost", "variable cost",
             ],
             "patterns": [
-                r"\b(ordena|acomoda|revisa)\s+(mis\s+)?(finanzas|numeros|gastos|cuentas)\b",
-                r"\b(costo\s+fijo|costo\s+variable|gasto\s+fijo|gasto\s+variable)\b",
-                r"\b(cuanto\s+(facturamos|ganamos|gastamos|debemos))\b",
+                r"\b(organize|review|sort out)\s+(my\s+)?(finances|numbers|expenses|accounts)\b",
+                r"\b(fixed\s+cost|variable\s+cost)\b",
+                r"\b(how\s+much\s+(did\s+we\s+(invoice|earn|spend)|do\s+we\s+owe))\b",
             ]
         },
         "partenon-mensajero": {
             "keywords": [
-                "marca", "branding", "comunicacion", "marketing", "redes", "social", "contenido",
-                "campana", "campaña", "calendario", "seo", "geo", "post", "copy", "mensaje",
-                "presentacion", "presentación", "carta", "mail", "email", "landing", "sitio",
-                "wordpress", "blog", "lead magnet", "lead magnet",
+                "brand", "branding", "communication", "marketing", "social", "content",
+                "campaign", "calendar", "seo", "geo", "post", "copy", "message",
+                "presentation", "letter", "mail", "email", "landing", "site",
+                "wordpress", "blog", "lead magnet",
             ],
             "patterns": [
-                r"\b(crea|haz|genera)\s+(una\s+)?(campana|campaña|presentacion|presentación|publicacion|publicación)\b",
-                r"\b(calendario\s+de\s+contenido|plan\s+de\s+contenido)\b",
-                r"\b(voz\s+de\s+marca|mensaje\s+de\s+marca)\b",
+                r"\b(create|make|generate)\s+(a\s+)?(campaign|presentation|publication)\b",
+                r"\b(content\s+calendar|content\s+plan)\b",
+                r"\b(brand\s+voice|brand\s+message)\b",
             ]
         },
         "partenon-cobrador": {
             "keywords": [
-                "cobrar", "cobranza", "cobro", "cobros", "pago", "pagos", "stripe", "link de pago",
-                "suscripcion", "suscripción", "factura", "facturar", "tarjeta", "cliente\s+debe",
-                "saldo", "adeudo", "recordatorio de pago",
+                "collect", "collection", "collections", "payment", "payments", "stripe",
+                "payment link", "subscription", "invoice", "bill", "card", "customer owes",
+                "balance", "debt", "payment reminder", "recurring",
             ],
             "patterns": [
-                r"\b(genera|crea|envia)\s+(un\s+)?(link|enlace)\s+de\s+pago\b",
-                r"\b(suscripcion|suscripción|recurrente|mensualidad)\b",
-                r"\b(recordatorio\s+de\s+pago|cobrar\s+a)\b",
+                r"\b(generate|create|send)\s+(a\s+)?(payment\s+link|link)\b",
+                r"\b(subscription|recurring|monthly)\b",
+                r"\b(payment\s+reminder|collect\s+from)\b",
             ]
         },
         "partenon-guardian": {
             "keywords": [
-                "seguridad", "api key", "api keys", "clave", "token", "permiso", "permisos",
-                "modelo", "modelos", "nvidia", "openai", "kimi", "cuenta", "acceso", "accesos",
-                "audit", "auditoria", "sandbox", "nemotron", "neoclaw",
+                "security", "api key", "api keys", "key", "token", "permission", "permissions",
+                "model", "models", "nvidia", "openai", "kimi", "account", "access",
+                "audit", "sandbox", "nemotron", "neoclaw",
             ],
             "patterns": [
-                r"\b(rota|cambia|revoca)\s+(la\s+)?(api\s+key|clave|token)\b",
-                r"\b(que\s+modelos|configura\s+modelos|administra\s+accesos)\b",
-                r"\b(permisos\s+de\s+(tesorero|mensajero|cobrador|guardian|estratega|diplomatico))\b",
+                r"\b(rotate|change|revoke)\s+(the\s+)?(api\s+key|key|token)\b",
+                r"\b(which\s+models|configure\s+models|manage\s+access)\b",
+                r"\b(permissions\s+of\s+(treasurer|messenger|collector|guardian|strategist|diplomat))\b",
             ]
         },
         "partenon-estratega": {
             "keywords": [
-                "proyecto", "proyectos", "tarea", "tareas", "pendiente", "pendientes",
-                "checklist", "hito", "hitos", "deadline", "fecha", "calendario", "agenda",
-                "recordatorio", "recordatorios", "asignar", "responsable", "equipo", "metas",
-                "objetivos", "okr", "plan", "planeacion", "planificación", "semana", "mes",
+                "project", "projects", "task", "tasks", "pending", "backlog",
+                "checklist", "milestone", "milestones", "deadline", "date", "calendar", "agenda",
+                "reminder", "reminders", "assign", "owner", "team", "goals",
+                "objectives", "okr", "plan", "planning", "week", "month",
             ],
             "patterns": [
-                r"\b(crea|nuevo|inicia)\s+(un\s+)?(proyecto|hito)\b",
-                r"\b(tareas?\s+pendientes?|que\s+tenemos\s+pendiente)\b",
-                r"\b(calendario|agenda|recordatorio)\b",
-                r"\b(briefing|plan\s+semanal|review\s+semanal)\b",
+                r"\b(create|new|start)\s+(a\s+)?(project|milestone)\b",
+                r"\b(pending\s+tasks?|what\s+do\s+we\s+have\s+pending)\b",
+                r"\b(calendar|agenda|reminder)\b",
+                r"\b(briefing|weekly\s+plan|weekly\s+review)\b",
             ]
         },
         "partenon-diplomatico": {
             "keywords": [
-                "cliente", "clientes", "proveedor", "proveedores", "aliado", "aliados",
-                "relacion", "relación", "relaciones", "seguimiento", "contrato", "contratos",
-                "hito", "hitos", "negociacion", "negociación", "acuerdo", "acuerdos",
-                "satisfaccion", "satisfacción", "reunion", "reunión", "llamada",
+                "client", "clients", "vendor", "vendors", "partner", "partners",
+                "relationship", "relationships", "follow-up", "follow up", "contract", "contracts",
+                "milestone", "milestones", "negotiation", "agreement", "agreements",
+                "satisfaction", "meeting", "call",
             ],
             "patterns": [
-                r"\b(dame\s+seguimiento\s+a|como\s+va)\s+(el\s+)?(cliente|proveedor)\b",
-                r"\b(negocia|coordina)\s+(con\s+)?(cliente|proveedor)\b",
-                r"\b(hitos?\s+del\s+(cliente|proveedor))\b",
+                r"\b(follow\s+up\s+on|how\s+is)\s+(the\s+)?(client|vendor)\b",
+                r"\b(negotiate|coordinate)\s+(with\s+)?(client|vendor)\b",
+                r"\b(milestones?\s+of\s+(the\s+)?(client|vendor))\b",
+            ]
+        },
+        "partenon-brain": {
+            "keywords": [
+                "memory", "context", "insight", "insights", "pattern", "patterns",
+                "remember", "recall", "history", "learn", "learned",
+                "decision", "decisions", "knowledge",
+            ],
+            "patterns": [
+                r"\b(what\s+did\s+we\s+decid(e|ed)|what\s+was\s+said|remember\s+that)\b",
+                r"\b(recall|summarize|search)\s+(my\s+)?(memory|context|history)\b",
+                r"\b(insights?|patterns?|trends?|findings?)\b",
             ]
         },
     }
@@ -162,3 +175,18 @@ def get_router() -> IntentRouter:
 def route_intent(message: str) -> Optional[str]:
     """Convenience function."""
     return get_router().route(message)
+
+
+if __name__ == "__main__":
+    samples = [
+        "Organize my numbers",
+        "Create a campaign for next week",
+        "Generate a payment link",
+        "Rotate my OpenAI API key",
+        "What do I have this week?",
+        "Follow up with client Acme Inc",
+        "What did we decide last month?",
+    ]
+    router = get_router()
+    for s in samples:
+        print(f"{s!r:45} -> {router.route(s)}")

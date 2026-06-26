@@ -1,11 +1,11 @@
 """
-Demo Tesorero: generates a sample expense workbook and runs a simple Partenon finance audit.
+Scribe Demo: generates a sample expense workbook and runs a simple Partenon finance audit.
 Run: python scripts/demo_tesorero.py
 """
 
 import json
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -20,40 +20,40 @@ def add_sample_expenses(path: Path):
 
     wb = load_workbook(path)
 
-    # Gastos Fijos
-    ws = wb["Gastos Fijos"]
+    # Fixed Expenses
+    ws = wb["Fixed Expenses"]
     for row in [
-        [datetime(2026, 6, 1), "Oficina coworking", 450.0, "Mensual", "WeWork"],
-        [datetime(2026, 6, 1), "Software contable", 39.0, "Mensual", "QuickBooks"],
-        [datetime(2026, 6, 1), "Seguridad AWS", 120.0, "Mensual", "Amazon Web Services"],
+        [datetime(2026, 6, 1), "Coworking office", 450.0, "Monthly", "WeWork"],
+        [datetime(2026, 6, 1), "Accounting software", 39.0, "Monthly", "QuickBooks"],
+        [datetime(2026, 6, 1), "AWS security", 120.0, "Monthly", "Amazon Web Services"],
     ]:
         ws.append(row)
 
-    # Gastos Variables
-    ws = wb["Gastos Variables"]
+    # Variable Expenses
+    ws = wb["Variable Expenses"]
     for row in [
-        [datetime(2026, 6, 3), "Publicidad Meta", 250.0, "Marketing", "Meta"],
-        [datetime(2026, 6, 5), "Freelance diseno", 600.0, "Diseno", "Upwork"],
-        [datetime(2026, 6, 8), "Viaje cliente", 180.0, "Operaciones", "Uber"],
+        [datetime(2026, 6, 3), "Meta advertising", 250.0, "Marketing", "Meta"],
+        [datetime(2026, 6, 5), "Freelance design", 600.0, "Design", "Upwork"],
+        [datetime(2026, 6, 8), "Client travel", 180.0, "Operations", "Uber"],
     ]:
         ws.append(row)
 
-    # Ingresos
-    ws = wb["Ingresos"]
+    # Income
+    ws = wb["Income"]
     for row in [
-        [datetime(2026, 6, 2), "Retainer consultoria", 2500.0, "Acme S.A.", "Transferencia"],
-        [datetime(2026, 6, 10), "Desarrollo web", 1500.0, "Beta Labs", "Stripe"],
+        [datetime(2026, 6, 2), "Consulting retainer", 2500.0, "Acme Inc.", "Wire transfer"],
+        [datetime(2026, 6, 10), "Web development", 1500.0, "Beta Labs", "Stripe"],
     ]:
         ws.append(row)
 
-    # Proveedores
-    ws = wb["Proveedores"]
+    # Suppliers
+    ws = wb["Suppliers"]
     for row in [
         ["WeWork", "Coworking", "wework.com", 450.0, 4],
-        ["QuickBooks", "Contabilidad", "quickbooks.intuit.com", 39.0, 5],
-        ["Amazon Web Services", "Infraestructura", "aws.amazon.com", 120.0, 5],
-        ["Meta", "Publicidad", "business.meta.com", 250.0, 3],
-        ["Upwork", "Talento", "upwork.com", 600.0, 4],
+        ["QuickBooks", "Accounting", "quickbooks.intuit.com", 39.0, 5],
+        ["Amazon Web Services", "Infrastructure", "aws.amazon.com", 120.0, 5],
+        ["Meta", "Advertising", "business.meta.com", 250.0, 3],
+        ["Upwork", "Talent", "upwork.com", 600.0, 4],
     ]:
         ws.append(row)
 
@@ -77,46 +77,46 @@ def audit_workbook(path: Path) -> dict:
                 pass
         return total
 
-    income = col_sum("Ingresos", 2)
-    fixed = col_sum("Gastos Fijos", 2)
-    variable = col_sum("Gastos Variables", 2)
+    income = col_sum("Income", 2)
+    fixed = col_sum("Fixed Expenses", 2)
+    variable = col_sum("Variable Expenses", 2)
     margin = income - fixed - variable
 
     report = {
-        "timestamp": datetime.utcnow().isoformat() + "Z",
-        "ingresos": income,
-        "gastos_fijos": fixed,
-        "gastos_variables": variable,
-        "margen": margin,
-        "margen_pct": round(margin / income * 100, 2) if income else 0,
-        "alertas": [],
+        "timestamp": datetime.now(timezone.utc).isoformat() + "Z",
+        "income": income,
+        "fixed_expenses": fixed,
+        "variable_expenses": variable,
+        "margin": margin,
+        "margin_pct": round(margin / income * 100, 2) if income else 0,
+        "alerts": [],
     }
 
     if margin < 0:
-        report["alertas"].append("Margen negativo: gastos superan ingresos.")
+        report["alerts"].append("Negative margin: expenses exceed income.")
     if fixed > income * 0.5:
-        report["alertas"].append("Gastos fijos superan el 50% de los ingresos.")
+        report["alerts"].append("Fixed expenses exceed 50% of income.")
     if variable > income * 0.3:
-        report["alertas"].append("Gastos variables superan el 30% de los ingresos.")
+        report["alerts"].append("Variable expenses exceed 30% of income.")
 
     return report
 
 
 def main():
     root = Path(__file__).resolve().parents[1]
-    sample = root / "data" / "sample_gastos.xlsx"
+    sample = root / "data" / "sample_expenses.xlsx"
     sample.parent.mkdir(parents=True, exist_ok=True)
 
     create_finance_sheet(sample)
     add_sample_expenses(sample)
     report = audit_workbook(sample)
 
-    report_path = root / "data" / "sample_gastos_report.json"
+    report_path = root / "data" / "sample_expenses_report.json"
     report_path.write_text(json.dumps(report, indent=2, ensure_ascii=False))
 
-    print("=== Partenon Tesorero Demo ===")
+    print("=== Partenon Scribe Demo ===")
     print(f"Workbook: {sample}")
-    print(f"Reporte: {report_path}")
+    print(f"Report: {report_path}")
     print(json.dumps(report, indent=2, ensure_ascii=False))
 
 
