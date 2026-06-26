@@ -55,7 +55,7 @@ export function TopNav({ profiles }: TopNavProps) {
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <label htmlFor="profile-select" className="text-sm text-partenon-muted">
-            Perfil
+            Profile
           </label>
           <select
             id="profile-select"
@@ -64,7 +64,7 @@ export function TopNav({ profiles }: TopNavProps) {
             disabled={isPending}
             className="rounded-lg border border-partenon-border bg-partenon-surface px-3 py-2 text-sm text-partenon-text"
           >
-            <option value="all">Todos</option>
+            <option value="all">All</option>
             {profiles.map((p) => (
               <option key={p.id} value={p.id}>
                 {p.name}
@@ -94,7 +94,7 @@ export function TopNav({ profiles }: TopNavProps) {
             onClick={handleLogout}
             className="rounded-lg px-4 py-2 text-sm font-medium text-partenon-muted transition-colors hover:bg-partenon-surface hover:text-partenon-text"
           >
-            Salir
+            Log out
           </button>
         </nav>
       </div>

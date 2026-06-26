@@ -14,28 +14,28 @@ export default async function HomePage({ searchParams }: PageProps) {
   const filteredMissions = profile && profile !== 'all' ? missions.filter((m) => m.profile === profile) : missions;
   const filteredCron = profile && profile !== 'all' ? cronJobs.filter((j) => j.profile === profile) : cronJobs;
 
-  const done = filteredMissions.filter((m) => m.status === 'hecho').length;
+  const done = filteredMissions.filter((m) => m.status === 'done').length;
   const total = filteredMissions.length;
   const activeCron = filteredCron.filter((j) => j.enabled).length;
-  const highPriority = filteredMissions.filter((m) => m.priority === 'alta' && m.status !== 'hecho').length;
+  const highPriority = filteredMissions.filter((m) => m.priority === 'high' && m.status !== 'done').length;
 
   const q = profile && profile !== 'all' ? `?profile=${encodeURIComponent(profile)}` : '';
 
   return (
     <main className="grid gap-6">
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <KpiCard label="Misiones" value={`${done}/${total}`} href={`/kanban${q}`} />
-        <KpiCard label="Cron jobs activos" value={String(activeCron)} href={`/cron${q}`} />
-        <KpiCard label="Alta prioridad" value={String(highPriority)} href={`/kanban${q}`} />
-        <KpiCard label="Perfiles" value="6" href={`/kanban${q}`} />
+        <KpiCard label="Missions" value={`${done}/${total}`} href={`/kanban${q}`} />
+        <KpiCard label="Active cron jobs" value={String(activeCron)} href={`/cron${q}`} />
+        <KpiCard label="High priority" value={String(highPriority)} href={`/kanban${q}`} />
+        <KpiCard label="Profiles" value="6" href={`/kanban${q}`} />
       </section>
 
       <section className="grid gap-6 lg:grid-cols-2">
         <div className="rounded-xl border border-partenon-border bg-partenon-card p-4 md:p-6">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="font-display text-lg font-medium text-partenon-text">Misiones recientes</h2>
+            <h2 className="font-display text-lg font-medium text-partenon-text">Recent missions</h2>
             <Link href={`/kanban${q}`} className="text-sm text-partenon-cyan hover:underline">
-              Ver kanban
+              View kanban
             </Link>
           </div>
           <div className="grid gap-3">
@@ -50,9 +50,9 @@ export default async function HomePage({ searchParams }: PageProps) {
                 </div>
                 <span
                   className={`text-xs font-medium uppercase ${
-                    m.priority === 'alta'
+                    m.priority === 'high'
                       ? 'text-partenon-amber'
-                      : m.priority === 'media'
+                      : m.priority === 'medium'
                         ? 'text-partenon-cyan'
                         : 'text-partenon-muted'
                   }`}
@@ -62,7 +62,7 @@ export default async function HomePage({ searchParams }: PageProps) {
               </div>
             ))}
             {filteredMissions.length === 0 && (
-              <p className="text-sm text-partenon-muted">No hay misiones para este perfil.</p>
+              <p className="text-sm text-partenon-muted">No missions for this profile.</p>
             )}
           </div>
         </div>
@@ -71,7 +71,7 @@ export default async function HomePage({ searchParams }: PageProps) {
           <div className="mb-4 flex items-center justify-between">
             <h2 className="font-display text-lg font-medium text-partenon-text">Cron jobs</h2>
             <Link href={`/cron${q}`} className="text-sm text-partenon-cyan hover:underline">
-              Administrar
+              Manage
             </Link>
           </div>
           <div className="grid gap-3">
@@ -91,12 +91,12 @@ export default async function HomePage({ searchParams }: PageProps) {
                       : 'bg-partenon-muted/10 text-partenon-muted'
                   }`}
                 >
-                  {j.enabled ? 'Activo' : 'Pausado'}
+                  {j.enabled ? 'Active' : 'Paused'}
                 </span>
               </div>
             ))}
             {filteredCron.length === 0 && (
-              <p className="text-sm text-partenon-muted">No hay cron jobs para este perfil.</p>
+              <p className="text-sm text-partenon-muted">No cron jobs for this profile.</p>
             )}
           </div>
         </div>

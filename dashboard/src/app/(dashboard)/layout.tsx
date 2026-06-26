@@ -10,10 +10,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           Partenon Mission Control
         </h1>
         <p className="mt-1 text-sm text-partenon-muted">
-          Panel de operaciones para los seis perfiles de Hermes.
+          Operations panel for the six Hermes profiles.
         </p>
       </header>
-      <Suspense fallback={<div className="mb-6 rounded-xl border border-partenon-border bg-partenon-card p-4 text-sm text-partenon-muted">Cargando navegacion...</div>}>
+      <Suspense fallback={<div className="mb-6 rounded-xl border border-partenon-border bg-partenon-card p-4 text-sm text-partenon-muted">Loading navigation...</div>}>
         <TopNav profiles={PROFILES.map((p) => ({ id: p.id, name: p.name }))} />
       </Suspense>
       {children}

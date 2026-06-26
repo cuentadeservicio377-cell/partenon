@@ -13,8 +13,8 @@ export default async function CronPage({ searchParams }: PageProps) {
   return (
     <main className="grid gap-6">
       <div className="flex items-center justify-between">
-        <h2 className="font-display text-xl font-medium text-partenon-text">Administrador de cron</h2>
-        <p className="text-sm text-partenon-muted">{jobs.length} jobs configurados</p>
+        <h2 className="font-display text-xl font-medium text-partenon-text">Cron manager</h2>
+        <p className="text-sm text-partenon-muted">{jobs.length} jobs configured</p>
       </div>
       <CronManager jobs={jobs} selectedProfile={profile} />
     </main>

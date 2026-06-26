@@ -41,7 +41,7 @@ export function CronManager({ jobs, selectedProfile }: CronManagerProps) {
 
   function create() {
     if (!command.trim()) {
-      setStatus('El comando es obligatorio.');
+      setStatus('Command is required.');
       return;
     }
     setStatus('');
@@ -50,7 +50,7 @@ export function CronManager({ jobs, selectedProfile }: CronManagerProps) {
       await createCronJob({ profile, schedule, command, enabled });
       resetForm();
       setBusyId(null);
-      setStatus('Job creado.');
+      setStatus('Job created.');
       window.location.reload();
     });
   }
@@ -65,7 +65,7 @@ export function CronManager({ jobs, selectedProfile }: CronManagerProps) {
   }
 
   function remove(id: string) {
-    if (!confirm('Eliminar este cron job?')) return;
+    if (!confirm('Delete this cron job?')) return;
     setBusyId(id);
     startTransition(async () => {
       const updated = await deleteCronJob(id);
@@ -77,10 +77,10 @@ export function CronManager({ jobs, selectedProfile }: CronManagerProps) {
   return (
     <div className="grid gap-6">
       <section className="rounded-xl border border-partenon-border bg-partenon-card p-4 md:p-6">
-        <h2 className="mb-4 font-display text-lg font-medium text-partenon-text">Nuevo cron job</h2>
+        <h2 className="mb-4 font-display text-lg font-medium text-partenon-text">New cron job</h2>
         <div className="grid gap-4 md:grid-cols-2">
           <div className="grid gap-2">
-            <label className="text-xs text-partenon-muted">Perfil</label>
+            <label className="text-xs text-partenon-muted">Profile</label>
             <select
               value={profile}
               onChange={(e) => setProfile(e.target.value as ProfileId)}
@@ -103,7 +103,7 @@ export function CronManager({ jobs, selectedProfile }: CronManagerProps) {
             />
           </div>
           <div className="grid gap-2 md:col-span-2">
-            <label className="text-xs text-partenon-muted">Comando</label>
+            <label className="text-xs text-partenon-muted">Command</label>
             <input
               value={command}
               onChange={(e) => setCommand(e.target.value)}
@@ -120,7 +120,7 @@ export function CronManager({ jobs, selectedProfile }: CronManagerProps) {
               className="h-4 w-4 accent-partenon-cyan"
             />
             <label htmlFor="enabled" className="text-sm text-partenon-text">
-              Activado
+              Enabled
             </label>
           </div>
         </div>
@@ -130,16 +130,16 @@ export function CronManager({ jobs, selectedProfile }: CronManagerProps) {
             disabled={busyId === 'create' || isPending}
             className="rounded-lg bg-partenon-cyan px-4 py-2 text-sm font-medium text-partenon-bg transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Crear job
+            Create job
           </button>
           {status ? <p className="text-sm text-partenon-muted">{status}</p> : null}
         </div>
       </section>
 
       <section className="rounded-xl border border-partenon-border bg-partenon-card p-4 md:p-6">
-        <h2 className="mb-4 font-display text-lg font-medium text-partenon-text">Jobs existentes</h2>
+        <h2 className="mb-4 font-display text-lg font-medium text-partenon-text">Existing jobs</h2>
         {visible.length === 0 ? (
-          <p className="text-sm text-partenon-muted">No hay cron jobs.</p>
+          <p className="text-sm text-partenon-muted">No cron jobs.</p>
         ) : (
           <div className="grid gap-3">
             {visible.map((job) => (
@@ -163,7 +163,7 @@ export function CronManager({ jobs, selectedProfile }: CronManagerProps) {
                           : 'bg-partenon-muted/10 text-partenon-muted'
                       }`}
                     >
-                      {job.enabled ? 'Activo' : 'Pausado'}
+                      {job.enabled ? 'Active' : 'Paused'}
                     </span>
                   </div>
                   <code className="font-mono text-xs text-partenon-text">{job.command}</code>
@@ -175,14 +175,14 @@ export function CronManager({ jobs, selectedProfile }: CronManagerProps) {
                     disabled={busyId === job.id || isPending}
                     className="rounded-md border border-partenon-border bg-partenon-card px-3 py-1.5 text-xs font-medium text-partenon-text transition-colors hover:border-partenon-cyan hover:text-partenon-cyan disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    {job.enabled ? 'Pausar' : 'Activar'}
+                    {job.enabled ? 'Pause' : 'Activate'}
                   </button>
                   <button
                     onClick={() => remove(job.id)}
                     disabled={busyId === job.id || isPending}
                     className="rounded-md border border-partenon-border bg-partenon-card px-3 py-1.5 text-xs font-medium text-partenon-text transition-colors hover:border-partenon-amber hover:text-partenon-amber disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    Eliminar
+                    Delete
                   </button>
                 </div>
               </article>

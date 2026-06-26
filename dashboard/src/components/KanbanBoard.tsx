@@ -19,9 +19,9 @@ type KanbanBoardProps = {
 };
 
 const PRIORITY_ORDER: Record<string, number> = {
-  alta: 1,
-  media: 2,
-  baja: 3,
+  high: 1,
+  medium: 2,
+  low: 3,
 };
 
 export function KanbanBoard({ missions, selectedProfile }: KanbanBoardProps) {
@@ -71,7 +71,7 @@ export function KanbanBoard({ missions, selectedProfile }: KanbanBoardProps) {
                   />
                 ))}
                 {column.length === 0 && (
-                  <p className="py-6 text-center text-xs text-partenon-muted">Sin misiones</p>
+                  <p className="py-6 text-center text-xs text-partenon-muted">No missions</p>
                 )}
               </div>
             </div>
@@ -121,7 +121,7 @@ function MissionCard({
         )}
         {currentIndex < STATUSES.length - 1 && (
           <MoveButton
-            label=">>_"
+            label=">>"
             title={STATUS_LABELS[STATUSES[currentIndex + 1]]}
             disabled={busy}
             onClick={() => onMove(mission.id, STATUSES[currentIndex + 1])}
@@ -134,7 +134,7 @@ function MissionCard({
 
 function PriorityBadge({ priority }: { priority: string }) {
   const color =
-    priority === 'alta' ? 'text-partenon-amber' : priority === 'media' ? 'text-partenon-cyan' : 'text-partenon-muted';
+    priority === 'high' ? 'text-partenon-amber' : priority === 'medium' ? 'text-partenon-cyan' : 'text-partenon-muted';
   return <span className={`text-xs font-medium uppercase ${color}`}>{priority}</span>;
 }
 

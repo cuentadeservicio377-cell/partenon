@@ -35,12 +35,12 @@ export default async function LoginPage({
     <main className="flex min-h-[60vh] items-center justify-center px-4">
       <div className="w-full max-w-sm rounded-xl border border-partenon-border bg-partenon-card p-6">
         <h1 className="mb-1 font-display text-2xl font-medium text-partenon-text">Partenon</h1>
-        <p className="mb-6 text-sm text-partenon-muted">Ingresa al panel de operaciones.</p>
+        <p className="mb-6 text-sm text-partenon-muted">Sign in to the operations panel.</p>
         <form action={login} className="grid gap-4">
           <input type="hidden" name="next" value={next} />
           <div className="grid gap-2">
             <label htmlFor="username" className="text-xs text-partenon-muted">
-              Usuario
+              Username
             </label>
             <input
               id="username"
@@ -51,7 +51,7 @@ export default async function LoginPage({
           </div>
           <div className="grid gap-2">
             <label htmlFor="password" className="text-xs text-partenon-muted">
-              Contrasena
+              Password
             </label>
             <input
               id="password"
@@ -61,12 +61,12 @@ export default async function LoginPage({
               className="rounded-lg border border-partenon-border bg-partenon-surface px-3 py-2 text-sm text-partenon-text"
             />
           </div>
-          {error && <p className="text-sm text-partenon-amber">Credenciales incorrectas.</p>}
+          {error && <p className="text-sm text-partenon-amber">Incorrect credentials.</p>}
           <button
             type="submit"
             className="rounded-lg bg-partenon-cyan px-4 py-2 text-sm font-medium text-partenon-bg transition-opacity hover:opacity-90"
           >
-            Entrar
+            Sign in
           </button>
         </form>
       </div>

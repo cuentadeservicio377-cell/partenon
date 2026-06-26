@@ -13,9 +13,9 @@ export default async function KanbanPage({ searchParams }: PageProps) {
   return (
     <main className="grid gap-6">
       <div className="flex items-center justify-between">
-        <h2 className="font-display text-xl font-medium text-partenon-text">Kanban de misiones</h2>
+        <h2 className="font-display text-xl font-medium text-partenon-text">Mission kanban</h2>
         <p className="text-sm text-partenon-muted">
-          {missions.length} misiones en total
+          {missions.length} missions in total
         </p>
       </div>
       <KanbanBoard missions={missions} selectedProfile={profile} />

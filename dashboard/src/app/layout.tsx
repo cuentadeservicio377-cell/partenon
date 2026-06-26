@@ -15,12 +15,12 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: 'Partenon Mission Control',
-  description: 'Dashboard de operaciones para agentes Hermes de Partenon.',
+  description: 'Operations dashboard for Partenon Hermes agents.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${spaceGrotesk.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${spaceGrotesk.variable} ${geistMono.variable}`}>
       <body className="min-h-screen bg-partenon-bg font-body antialiased">{children}</body>
     </html>
   );

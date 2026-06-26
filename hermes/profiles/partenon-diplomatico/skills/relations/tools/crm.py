@@ -70,19 +70,6 @@ class RelationsCRM:
     }
     ENTITY_TYPES = {"client", "vendor"}
 
-    # Map legacy Spanish section names to canonical English keys.
-    SECTION_ALIASES = {
-        "clientes": "clients",
-        "proveedores": "vendors",
-        "contratos": "contracts",
-        "comunicaciones": "communications",
-        "recordatorios": "reminders",
-        "hitos": "milestones",
-        "empresa": "company",
-        "archivo": "file",
-        "actualizado": "updated",
-    }
-
     def __init__(self, relations_file: Optional[Path] = None):
         self.config = _load_config()
         self.data_dir = _resolve_data_dir()
@@ -128,9 +115,6 @@ class RelationsCRM:
         self._cache = self._empty_data()
         return self._cache
 
-    def _canonical_key(self, key: str) -> str:
-        return self.SECTION_ALIASES.get(key, key)
-
     def _parse_relations(self, content: str) -> Dict[str, Any]:
         """Parse .relations file content. Supports JSON and simple YAML-like syntax."""
         content = content.strip()
@@ -160,7 +144,7 @@ class RelationsCRM:
 
             # Section headers like "clients:"
             if stripped.endswith(":") and ":" not in stripped[:-1]:
-                key = self._canonical_key(stripped[:-1].strip())
+                key = stripped[:-1].strip()
                 if key in data:
                     current_section = key
                     current_item = None
@@ -176,13 +160,13 @@ class RelationsCRM:
                 rest = stripped[2:]
                 if ":" in rest:
                     k, v = rest.split(":", 1)
-                    current_item[self._canonical_key(k.strip())] = self._coerce_value(v.strip())
+                    current_item[k.strip()] = self._coerce_value(v.strip())
                 continue
 
             # Key-value pair
             if ":" in stripped and current_item is not None:
                 k, v = stripped.split(":", 1)
-                key = self._canonical_key(k.strip())
+                key = k.strip()
                 value = v.strip()
 
                 # Nested object handling for main_contact
