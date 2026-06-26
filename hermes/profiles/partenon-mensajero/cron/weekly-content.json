@@ -1,0 +1,51 @@
+{
+  "name": "weekly-content-plan",
+  "description": "Planifica el contenido de la semana para los canales activos definidos en .design",
+  "schedule": "0 9 * * 1",
+  "timezone": "America/Mexico_City",
+  "enabled": true,
+  "profile": "partenon-mensajero",
+  "skill": "comms",
+  "steps": [
+    {
+      "order": 1,
+      "action": "read",
+      "target": ".design",
+      "purpose": "Cargar voz de marca, canales y mensajes clave"
+    },
+    {
+      "order": 2,
+      "action": "run",
+      "tool": "skills/comms/tools/content_calendar.py",
+      "args": [
+        "{brand.positioning.que_vendes}",
+        "{brand.channels}",
+        "7"
+      ],
+      "purpose": "Generar calendario semanal con angulo de marca"
+    },
+    {
+      "order": 3,
+      "action": "run",
+      "tool": "skills/comms/tools/copy_generator.py",
+      "args": [
+        "post",
+        "{brand.positioning.que_vendes}",
+        "{brand.channels.0}"
+      ],
+      "purpose": "Generar copy base para el canal principal"
+    },
+    {
+      "order": 4,
+      "action": "notify",
+      "channel": "gbrain",
+      "message": "Plan semanal de contenido generado para revision",
+      "purpose": "Registrar mision y esperar aprobacion"
+    }
+  ],
+  "output": {
+    "folder": "output/campaigns",
+    "file_pattern": "CAL-{date}-*/content-calendar.json"
+  },
+  "approval_required": true
+}

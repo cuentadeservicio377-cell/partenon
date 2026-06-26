@@ -1,0 +1,87 @@
+meta:
+  version: "0.1.0"
+  profile: partenon-mensajero
+  updated_at: "2026-01-01T00:00:00"
+
+brand:
+  nombre_marca: "Nombre de la empresa"
+  website: "https://miempresa.com"
+  industria: "servicios"
+  mercado: "Mexico / Latinoamerica"
+  etapa: "crecimiento"
+
+positioning:
+  que_vendes: "Servicio o producto principal en una oracion"
+  a_quien_ayudas: "Rol, industria y tamano del comprador ideal"
+  como_lo_haces: "Mecanismo, proceso o diferenciador clave"
+  posicionamiento: "Para [audiencia] que [dolor], [marca] ofrece [oferta] que [resultado]"
+  diferenciador: "Por que te eligen antes que otra opcion"
+
+voice:
+  tono: "directo y cercano"
+  forma_trato: "tu"
+  estilo: "claro, sin relleno, sin emojis"
+  emojis: false
+  slang: false
+
+audience:
+  primary:
+    rol: "Dueno de pyme o gerente de operaciones"
+    industria: "retail / servicios / manufactura"
+    tamano: "5-50 empleados"
+    dolor: "Pierden tiempo en tareas repetitivas y no tienen claridad de metricas"
+    outcome: "Operaciones ordenadas y decisiones con datos"
+    objeciones:
+      - "Parece complejo de implementar"
+      - "No tenemos tiempo para migrar"
+  secondary:
+    - rol: "Freelancer en crecimiento"
+      dolor: "No tiene procesos escalables"
+
+channels:
+  - linkedin
+  - instagram
+  - blog
+  - newsletter
+
+messaging:
+  key_messages:
+    - "Ordenamos las operaciones de tu pyme sin friccion"
+    - "Decisiones con datos, no con intuicion"
+    - "Implementacion en dias, no en meses"
+  claims_prohibidos:
+    - "100% automatizado"
+    - "Resultados garantizados"
+    - "La mejor solucion del mercado"
+  proof_points:
+    - "+50 empresas operando con el sistema"
+    - "Reduccion promedio de 10h semanales en tareas administrativas"
+  cta_matrix:
+    awareness: "Conoce como funciona"
+    consideration: "Agenda una llamada de diagnostico"
+    decision: "Comienza esta semana"
+
+content:
+  pillars:
+    - name: "Educativo"
+      purpose: "Ensenar algo util sobre operaciones y datos"
+    - name: "Prueba social"
+      purpose: "Mostrar resultados y casos reales"
+    - name: "Detras de escena"
+      purpose: "Mostrar como trabajamos"
+  topics_to_own:
+    - "operaciones en pymes"
+    - "automatizacion sin friccion"
+    - "metricas que importan"
+  topics_to_avoid:
+    - "critica abierta a competidores"
+    - "promesas de ingresos sin evidencia"
+
+operations:
+  aprobador_final: "Nombre del dueno o responsable"
+  autonomia:
+    draft_copy: true
+    create_calendar: true
+    publish_social: false
+    send_email: false
+    launch_ads: false

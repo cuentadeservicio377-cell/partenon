@@ -10,6 +10,7 @@
 - [ ] Workshop técnico de 90 min (formato reusable)
 
 ## Hecho
+- [x] Perfil `partenon-mensajero` creado con SOUL.md, config.yaml, .env.example, skill comms, plantilla `.design`, cron semanal y tools Python verificados con py_compile
 - [x] Perfil `partenon-tesorero` creado con SOUL.md, config.yaml, .env.example, skill finance, plantilla `.finance`, cron diario y tools Python verificados con py_compile
 - [x] Perfil `partenon-cobrador` creado con SOUL.md, config.yaml, .env.example, .payments, skill de pagos, plantilla y cron
 - [x] Braindump inicial completado

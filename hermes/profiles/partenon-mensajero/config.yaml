@@ -1,0 +1,42 @@
+profile:
+  name: partenon-mensajero
+  display_name: Mensajero
+  role: comunicacion, marca, ventas, contenido, calendario editorial, SEO/GEO, presentaciones, mails, WordPress
+  archivos:
+    design: .design
+  version: 0.1.0
+
+model:
+  default: openrouter/google/gemini-2.5-flash-preview-05-20
+  fallback: openrouter/anthropic/claude-sonnet-4-20250514
+  reasoning: openrouter/anthropic/claude-opus-4
+
+tools:
+  core:
+    - file
+    - terminal
+    - google_workspace
+    - gbrain
+  optional:
+    - web_search
+    - wordpress
+    - ssh
+
+mcp_servers:
+  - google_workspace
+  - gbrain
+  - gmail
+
+memory:
+  local:
+    - .design
+    - output/campaigns/
+    - output/copy/
+  gbrain:
+    page: partenon-mensajero/memory
+    missions: partenon-mensajero/missions
+
+logging:
+  level: info
+  destination: console
+  file: logs/mensajero.log
