@@ -68,6 +68,7 @@
 - [x] Translate Strategist ops Python tools to English and align JSON keys
 - [x] Translate Diplomat relations Python tools to English and align .relations keys
 - [x] Translate Brain gbrain_client.py to English
+- [x] Audit and gap-fix `partenon-brain` profile: translate all files to English, add MCP tools (`share_context`, `find_patterns`, `orchestrate_agents`, `register_agent`, `generate_insight`), fix `gbrain_client.put_page` stdin handling, add daily sync tools, and verify Python compilation
 - [x] Translate data/cron.json and data/tasks.json to English with runnable commands
 - [x] Translate AGENTS.md, DESIGN.md, SPEC.md, and docs/superpowers plan snippets to English
 - [x] Translate Next.js dashboard UI strings, status/priority enums, and profile display names to English

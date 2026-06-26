@@ -2,7 +2,7 @@ profile:
   name: partenon-brain
   display_name: Brain
   description: Memory and collective intelligence agent for Partenon. Indexes learnings, resolves context conflicts, and feeds onboarding for the other heroes.
-  version: 0.1.0
+  version: 0.2.0
 
 model:
   default: openrouter/anthropic/claude-opus-4

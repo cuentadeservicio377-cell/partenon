@@ -14,11 +14,14 @@ class GBrainClient:
             "GBRAIN_DATABASE_URL", "postgresql://localhost:5432/gbrain"
         )
 
-    def _call(self, command: str, *args: str) -> dict[str, Any]:
+    def _call(
+        self, command: str, *args: str, stdin: str | None = None
+    ) -> dict[str, Any]:
         """Run a gbrain command and return parsed JSON."""
         full_args = ["gbrain", command, *args]
         result = subprocess.run(
             full_args,
+            input=stdin.encode() if stdin is not None else None,
             capture_output=True,
             text=True,
             check=False,
@@ -31,19 +34,13 @@ class GBrainClient:
         except json.JSONDecodeError:
             return {"ok": True, "raw": result.stdout.strip()}
 
-    def put_page(self, slug: str, content: str, tags: list[str] | None = None) -> dict[str, Any]:
+    def put_page(
+        self, slug: str, content: str, tags: list[str] | None = None
+    ) -> dict[str, Any]:
         """Save or update a page in G-Brain."""
-        import tempfile
-
         tags = tags or []
         full_content = f"---\ntags: {json.dumps(tags)}\n---\n\n{content}"
-        with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False) as f:
-            f.write(full_content)
-            path = f.name
-        try:
-            return self._call("put", slug, f"<{path}")
-        finally:
-            os.unlink(path)
+        return self._call("put", slug, stdin=full_content)
 
     def get_page(self, slug: str) -> dict[str, Any]:
         """Retrieve a page by slug."""
@@ -53,7 +50,9 @@ class GBrainClient:
         """Hybrid text search."""
         return self._call("query", query, "--no-expand")
 
-    def link(self, from_slug: str, to_slug: str, type_: str = "related") -> dict[str, Any]:
+    def link(
+        self, from_slug: str, to_slug: str, type_: str = "related"
+    ) -> dict[str, Any]:
         """Create a typed link between two pages."""
         return self._call("link", from_slug, to_slug, "--type", type_)
 
