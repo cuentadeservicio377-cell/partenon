@@ -1,0 +1,17 @@
+{
+  "id": "morning-briefing",
+  "name": "Morning Briefing",
+  "profile": "partenon-estratega",
+  "schedule": "0 8 * * 1-5",
+  "timezone": "America/Mexico_City",
+  "tool": "skills.ops.tools.briefings",
+  "method": "generar_morning_briefing",
+  "args": {
+    "nombre_usuario": "{{owner.name}}"
+  },
+  "output": {
+    "channel": "gmail",
+    "subject": "Briefing matutino — {{date}}"
+  },
+  "enabled": true
+}

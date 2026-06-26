@@ -1,0 +1,42 @@
+profile:
+  name: partenon-estratega
+  display_name: Estratega
+  description: Operaciones, project management, Google Calendar, Gmail, tareas, recordatorios, metas y briefings.
+  file: .ops
+  version: 0.1.0
+
+model:
+  default: openrouter/google/gemini-2.5-flash-preview
+  fallback: openrouter/anthropic/claude-sonnet-4-20250514
+
+tools:
+  - google_workspace
+  - gbrain
+  - file
+  - terminal
+
+mcp:
+  - google_workspace
+  - gbrain
+  - gmail
+
+cron:
+  - id: morning-briefing
+    schedule: "0 8 * * 1-5"
+    file: cron/morning-briefing.json
+  - id: midday-pulse
+    schedule: "0 14 * * 1-5"
+    file: cron/midday-pulse.json
+  - id: weekly-planning
+    schedule: "0 9 * * 1"
+    file: cron/weekly-planning.json
+  - id: weekly-retro
+    schedule: "0 20 * * 0"
+    file: cron/weekly-retro.json
+
+metadata:
+  partenon:
+    hero: estratega
+    color: "#00D4FF"
+    tags: [operaciones, proyectos, tareas, metas, calendario, briefings]
+    related_profiles: [partenon-tesorero, partenon-mensajero, partenon-cobrador, partenon-guardian, partenon-diplomatico]

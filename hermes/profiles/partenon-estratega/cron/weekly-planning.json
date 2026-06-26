@@ -1,0 +1,17 @@
+{
+  "id": "weekly-planning",
+  "name": "Weekly Planning",
+  "profile": "partenon-estratega",
+  "schedule": "0 9 * * 1",
+  "timezone": "America/Mexico_City",
+  "tool": "skills.ops.tools.briefings",
+  "method": "generar_weekly_planning",
+  "args": {
+    "nombre_usuario": "{{owner.name}}"
+  },
+  "output": {
+    "channel": "gmail",
+    "subject": "Planning semanal — {{date}}"
+  },
+  "enabled": true
+}

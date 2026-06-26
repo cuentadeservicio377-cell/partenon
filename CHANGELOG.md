@@ -6,6 +6,7 @@
 
 ### Added
 - feat(profiles): crear perfil partenon-diplomatico con skill relations, CRM y follow-ups
+- feat(profiles): crear perfil partenon-estratega con skill ops (proyectos, tareas, checklists, metas, briefings), plantilla `.ops` y cron matutino/midday/planning/retro
 
 ### Changed
 - _Empty — se actualiza durante la sesión_

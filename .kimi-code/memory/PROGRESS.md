@@ -2,6 +2,18 @@
 
 ## Historial de Sesiones
 
+### 2026-06-26 — Perfil `partenon-estratega` completado
+- Creado `hermes/profiles/partenon-estratega/` como distribucion de Hermes Agent.
+- Archivos: `SOUL.md`, `config.yaml`, `.env.example`, `.ops`, `templates/.ops.example`, `cron/morning-briefing.json`, `cron/midday-pulse.json`, `cron/weekly-planning.json`, `cron/weekly-retro.json`.
+- Skill `ops` con `SKILL.md` y cinco tools Python:
+  - `projects.py`: gestion de proyectos adaptado de `hermes-operaciones`.
+  - `tasks.py`: gestion de tareas con prioridades y estados.
+  - `checklists.py`: checklists por industria (eventos, legal, consultoria, retail).
+  - `metas.py`: motor de metas (OKRs) con tracking automatico por KPI.
+  - `briefings.py`: morning briefing, midday pulse, evening wrap, weekly planning y weekly retro.
+- Tools verificados con `python3 -m py_compile` y ejecucion de prueba.
+- Actualizados `TODOS.md`, `CHANGELOG.md` y `README.md`.
+
 ### 2026-06-26 — Perfil `partenon-diplomatico` completado
 - Completado `hermes/profiles/partenon-diplomatico/` como distribucion de Hermes Agent.
 - Archivos ya existentes: `SOUL.md`, `config.yaml`, `.env.example`, `templates/.relations.example`, `cron/daily-followups.json`, `skills/relations/SKILL.md`.
@@ -53,9 +65,12 @@
 - Commit `e786b18`.
 
 ## Features Completadas
+- Perfil `partenon-estratega` completado con skill ops, tools Python y cron matutino/midday/planning/retro.
 - Perfil `partenon-diplomatico` completado con skill relations, CRM, follow-ups y cron diario.
 - Perfil `partenon-tesorero` creado con skill finance, tools Python y cron diario.
 - Perfil `partenon-mensajero` creado con skill comms, tools Python y cron semanal.
+- Perfil `partenon-cobrador` creado con skill de pagos, plantilla y cron.
+- Perfil `partenon-guardian` creado con skill de seguridad, plantilla y cron.
 - Páginas web de marketing y técnica rediseñadas y commiteadas.
 - Sistema visual Nous-style aplicado.
 - Documentación del proyecto sincronizada.

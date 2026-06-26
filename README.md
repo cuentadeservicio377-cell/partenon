@@ -47,8 +47,10 @@ Ambas usan HTML estático, Tailwind CSS vía CDN y JavaScript vanilla, con tipog
 ## Estado
 
 - Iniciado: 2026-06-23
-- Fase actual: Reescritura de `web/index.html` y `web/developers.html` con estética Nous-style / anti-slop: fondo OLED `#050505`, tipografía monospaced técnica, nav flotante, doble-bisel en cards, acento cian `#00D4FF`, layouts asimétricos/bento y copy sin emdashes ni intensificadores. Verificado en desktop (1440px) y mobile (390px).
-- Próxima tarea: Construir el repositorio del sistema Partenon basado en Hermes Business OS.
+- Fase actual: Construccion del repositorio del sistema Partenon basado en Hermes Business OS.
+- Perfiles implementados: Tesorero (`.finance`), Mensajero (`.design`), Cobrador (`.payments`), Guardian (`.security`), Estratega (`.ops`), Diplomatico (`.relations`).
+- Web verificada: `web/index.html` y `web/developers.html` en desktop (1440px) y mobile (390px).
+- Próxima tarea: Integrar Google Workspace, Stripe y G-Brain con los perfiles y validar flujos end-to-end.
 
 ## Instalación rápida
 

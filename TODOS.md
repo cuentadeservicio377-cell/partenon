@@ -10,6 +10,7 @@
 - [ ] Workshop técnico de 90 min (formato reusable)
 
 ## Hecho
+- [x] Perfil `partenon-estratega` creado con SOUL.md, config.yaml, .env.example, .ops, skill ops con proyectos, tareas, checklists, metas y briefings, plantilla `.ops`, cron matutino, midday, planning y retro; tools Python verificados con py_compile
 - [x] Perfil `partenon-diplomatico` creado con SOUL.md, config.yaml, .env.example, skill relations, CRM adaptado de hermes-ventas, follow-ups, plantilla `.relations`, cron diario y tools Python verificados con py_compile
 - [x] Perfil `partenon-mensajero` creado con SOUL.md, config.yaml, .env.example, skill comms, plantilla `.design`, cron semanal y tools Python verificados con py_compile
 - [x] Perfil `partenon-tesorero` creado con SOUL.md, config.yaml, .env.example, skill finance, plantilla `.finance`, cron diario y tools Python verificados con py_compile
