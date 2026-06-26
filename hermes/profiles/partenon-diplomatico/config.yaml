@@ -1,30 +1,57 @@
 profile:
   name: partenon-diplomatico
   display_name: Diplomat
-  description: Client and vendor relationships, milestones, reminders, and coordination with Strategist.
+  role: client and vendor relationships, CRM operations, meeting scheduling, follow-ups, proposals, and external communications
+  files:
+    relations: .relations
   version: 0.1.0
-  model: openrouter/google/gemini-2.5-flash-preview
-  soul: SOUL.md
-  profile_file: .relations
+
+model:
+  default: openrouter/google/gemini-2.5-flash-preview
+  fallback: openrouter/anthropic/claude-sonnet-4
 
 tools:
-  - google_workspace
-  - gbrain
-  - file
+  core:
+    - file
+    - google_workspace
+    - gbrain
+  optional:
+    - web_search
+    - terminal
 
 mcp_servers:
-  - google_workspace
-  - gbrain
-  - gmail
+  - name: google_workspace
+    command: npx
+    args:
+      - -y
+      - "@modelcontextprotocol/server-google-workspace"
+    env:
+      GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
 
-files:
-  - .relations
+  - name: gbrain
+    command: gbrain
+    args:
+      - serve
+      - --stdio
 
-env:
-  - GOOGLE_SERVICE_ACCOUNT_JSON
-  - OPENROUTER_API_KEY
+  - name: gmail
+    command: npx
+    args:
+      - -y
+      - "@modelcontextprotocol/server-gmail"
+    env:
+      GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
 
-metadata:
-  partenon:
-    tags: [partenon, diplomat, relations, clients, vendors]
-    related_profiles: [partenon-estratega, partenon-tesorero, partenon-mensajero, partenon-cobrador]
+memory:
+  local:
+    - .relations
+    - output/proposals/
+    - output/meetings/
+  gbrain:
+    page: partenon-diplomatico/memory
+    missions: partenon-diplomatico/missions
+
+logging:
+  level: info
+  destination: console
+  file: logs/diplomat.log

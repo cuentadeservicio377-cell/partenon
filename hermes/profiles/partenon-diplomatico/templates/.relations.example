@@ -8,9 +8,9 @@
       "id": "CLI-001",
       "name": "Example Client",
       "main_contact": {
-        "name": "Ana Lopez",
-        "email": "ana@client-example.com",
-        "phone": "+52 55 1234 5678"
+        "name": "Jane Smith",
+        "email": "jane@client-example.com",
+        "phone": "+1 555 123 4567"
       },
       "category": "services",
       "origin": "referral",
@@ -39,9 +39,9 @@
       "id": "VEN-001",
       "name": "Example Vendor",
       "main_contact": {
-        "name": "Carlos Ruiz",
-        "email": "carlos@vendor-example.com",
-        "phone": "+52 55 8765 4321"
+        "name": "John Doe",
+        "email": "john@vendor-example.com",
+        "phone": "+1 555 987 6543"
       },
       "category": "furniture",
       "service": "Chair and table rental",

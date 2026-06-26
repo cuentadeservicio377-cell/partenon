@@ -1,10 +1,11 @@
 ---
 name: relations
-description: Relations skill for the Partenon Diplomat. Records clients and vendors, follows up, negotiates milestones, sends reminders, and rates relationships.
+description: Relations skill for the Partenon Diplomat. Records clients and vendors, follows up, negotiates milestones, sends reminders, schedules meetings, logs interactions, generates proposals, syncs contacts, and rates relationships.
 version: 0.1.0
 metadata:
   partenon:
-    tags: [partenon, diplomat, relations, crm, clients, vendors]
+    profile: partenon-diplomatico
+    tags: [partenon, diplomat, relations, crm, clients, vendors, meetings, proposals]
     related_skills: [partenon-core]
     depends_on: [partenon-core]
 ---
@@ -13,7 +14,7 @@ metadata:
 
 ## Role
 
-I am the Diplomat's Relations skill. I keep the `.relations` file updated with clients, vendors, milestones, contracts, and communications.
+I am the Diplomat's Relations skill. I keep the `.relations` file updated with clients, vendors, milestones, contracts, communications, meetings, and follow-ups.
 
 ## Activation
 
@@ -24,6 +25,48 @@ I activate when:
 - A commitment date is near and confirmation is missing.
 - A formal reminder needs to be sent.
 - The owner asks to rate a relationship.
+- A meeting needs to be scheduled with a stakeholder.
+- A proposal needs to be generated for a client.
+- Contacts need to be synced with an external CRM.
+
+## Python tools
+
+### `tools/crm.py`
+- `RelationsCRM.add_client()` — Register a client.
+- `RelationsCRM.add_vendor()` — Register a vendor.
+- `RelationsCRM.get_entity()` — Search by name or ID.
+- `RelationsCRM.list_entities()` — List by type or status.
+- `RelationsCRM.update_entity()` — Update client or vendor fields.
+- `RelationsCRM.add_milestone()` — Add a milestone.
+- `RelationsCRM.update_milestone()` — Change milestone status or date.
+- `RelationsCRM.confirm_milestone()` — Mark a milestone as confirmed in writing.
+- `RelationsCRM.get_milestones()` — List active milestones of an entity.
+- `RelationsCRM.add_communication()` — Log an interaction.
+- `RelationsCRM.add_contract()` — Register a contract.
+- `RelationsCRM.add_reminder()` — Schedule a reminder.
+- `RelationsCRM.rate_relationship()` — Assign rating A / B / C / D with reason.
+- `RelationsCRM.get_relationship_summary()` — Summary with last activity, pending milestones, and rating.
+
+### `tools/followups.py`
+- `get_pending_followups()` — List pending reminders and milestones that need attention.
+- `build_reminder_message()` — Generate a formal reminder message.
+- `schedule_reminder()` — Schedule a new reminder.
+- `run_daily_followups()` — Daily cron entry point that returns a structured report.
+
+### `tools/sync_contacts.py`
+- `sync_contacts()` — Export `.relations` contacts to a CRM-ready payload and import external contacts into `.relations`.
+
+### `tools/schedule_meeting.py`
+- `schedule_meeting()` — Create a meeting record with attendees, time, and a generated meet link placeholder.
+
+### `tools/log_interaction.py`
+- `log_interaction()` — Convenience wrapper for `RelationsCRM.add_communication()`.
+
+### `tools/generate_proposal.py`
+- `generate_proposal()` — Draft a proposal document from client context, milestones, and contract data.
+
+### `tools/auto_followup.py`
+- `auto_followup()` — Run the daily follow-up report and return recommended actions.
 
 ## Functions
 
@@ -79,6 +122,21 @@ Criteria:
 - **C**: Relationship with recurring friction; requires attention.
 - **D**: Critical relationship; recovery or exit plan needed.
 
+### 6. Schedule meeting
+
+- `schedule_meeting.py::schedule_meeting()` — Creates a meeting record with attendees, date, duration, and a generated meet link.
+- The meeting is logged in `.relations` communications and can be synced to the shared calendar.
+
+### 7. Generate proposal
+
+- `generate_proposal.py::generate_proposal()` — Drafts a proposal from client data, milestones, contracts, and notes.
+- Outputs a structured proposal object and a markdown-ready text.
+
+### 8. Sync contacts
+
+- `sync_contacts.py::sync_contacts()` — Converts `.relations` clients and vendors into a CRM sync payload.
+- Supports `hubspot` and `salesforce` providers and imports external contacts back into `.relations`.
+
 ## Relationship states
 
 ```
@@ -104,6 +162,9 @@ Cancelled    Rescheduled  Blocked    Closed
 - `/followup [name]` — View follow-up of an entity.
 - `/reminder [name] [message]` — Schedule reminder.
 - `/rate [name] [A/B/C/D]` — Rate relationship.
+- `/meet [attendees] [date]` — Schedule meeting.
+- `/propose [client]` — Generate proposal draft.
+- `/sync [crm]` — Sync contacts with CRM.
 
 ## Rules
 
@@ -113,3 +174,4 @@ Cancelled    Rescheduled  Blocked    Closed
 - Rate relationship after each relevant interaction.
 - Keep `.relations` as the single source of truth.
 - Document communications with date and next step.
+- Never sign contracts alone; draft and request approval.
