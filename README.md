@@ -16,7 +16,7 @@
     <img src="https://img.shields.io/badge/repo-github-181717?logo=github" alt="GitHub repo">
   </a>
   <img src="https://img.shields.io/badge/build-passing-00D4FF" alt="Build passing">
-  <img src="https://img.shields.io/badge/python-3.10+-FFB800?logo=python&logoColor=white" alt="Python 3.10+">
+  <img src="https://img.shields.io/badge/python-3.12+-FFB800?logo=python&logoColor=white" alt="Python 3.12+">
   <img src="https://img.shields.io/badge/next.js-15.1.3-000000?logo=next.js&logoColor=white" alt="Next.js 15.1.3">
   <img src="https://img.shields.io/badge/license-TBD-lightgrey" alt="License TBD">
 </p>
@@ -93,7 +93,7 @@ Then:
 
 ```bash
 # Verify the finance demo
-python scripts/demo_tesorero.py
+python3 scripts/demo_tesorero.py
 
 # Start the operations dashboard
 cd dashboard
@@ -218,4 +218,4 @@ See [`MISSING_IMPLEMENTATION.md`](MISSING_IMPLEMENTATION.md) for the full audit.
 
 - Live site: https://hermespartenon.online/
 - Repository: https://github.com/cuentadeservicio377-cell/partenon
-- Verified: `python scripts/demo_tesorero.py` and `cd dashboard && npm run build` pass locally.
+- Verified: `python3 scripts/demo_tesorero.py` and `cd dashboard && npm run build` pass locally.

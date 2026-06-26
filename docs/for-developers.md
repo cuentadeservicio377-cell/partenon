@@ -93,7 +93,7 @@ cd partenon
 ```bash
 git clone https://github.com/cuentadeservicio377-cell/partenon.git
 cd partenon
-python scripts/setup_hermes.py
+python3 scripts/setup_hermes.py
 ```
 
 ### Environment variables
@@ -147,7 +147,7 @@ Each profile is a Hermes Agent distribution with:
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python scripts/demo_tesorero.py
+python3 scripts/demo_tesorero.py
 ```
 
 This generates:

@@ -2,6 +2,13 @@
 
 ## Session History
 
+### 2026-06-26 — Documentation polish and final commit
+- Finalized working-directory revisions to `README.md`, `docs/API.md`, `docs/FAQ.md`, `docs/SECURITY.md`, and `docs/assets/hero-matrix.md`.
+- Reverted timestamp-only changes to demo artifacts (`data/sample_expenses.xlsx`, `data/sample_expenses_report.json`).
+- Cross-checked all internal documentation links; fixed `docs/FAQ.md` relative link to `MISSING_IMPLEMENTATION.md`.
+- Updated `CHANGELOG.md`.
+- Committed: `425d467 docs: polish README, API, FAQ, SECURITY, and hero-matrix`.
+
 ### 2026-06-26 — Documentation package: README rewrite + hero guides + quickstart + security/API/FAQ
 - Rewrote `README.md` from scratch with ASCII banner, badges, one-liner, value prop, Mermaid diagrams, three concrete use cases, quick install block, hero feature matrix, architecture section, roadmap, and known gaps.
 - Created `docs/ENTREPRENEUR_PLAYBOOK.md` with business-type hero selection (coffee shop, agency, construction, SaaS, retail), copy-paste mission prompts, 30-60-90 day rollout checklist, and example `.finance`, `.design`, `.payments`, `.security`, `.ops`, `.relations`, `.brain` configurations.

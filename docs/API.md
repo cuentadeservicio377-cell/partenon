@@ -204,7 +204,7 @@ All scripts are under [`scripts/`](../scripts/).
 Generates a sample finance workbook and JSON report.
 
 ```bash
-python scripts/demo_tesorero.py
+python3 scripts/demo_tesorero.py
 ```
 
 **Outputs**
@@ -233,7 +233,7 @@ python scripts/demo_tesorero.py
 Alternative installer to `install.sh`.
 
 ```bash
-python scripts/setup_hermes.py
+python3 scripts/setup_hermes.py
 ```
 
 **What it does**
@@ -258,7 +258,7 @@ Captures desktop and mobile screenshots of the static web pages using Playwright
 ```bash
 # Start a local server on port 8080 first, e.g.:
 # python -m http.server 8080 --directory web
-python scripts/capture.py
+python3 scripts/capture.py
 ```
 
 **Outputs**

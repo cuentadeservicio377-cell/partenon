@@ -182,7 +182,7 @@ Brain, search for all learnings about customer churn and generate an insight rep
   cp hermes/profiles/partenon-brain/templates/.brain.example .brain
   ```
 - [ ] Customize `.finance` with your fixed costs, variable budgets, and vendors.
-- [ ] Run `python scripts/demo_tesorero.py` and verify the workbook.
+- [ ] Run `python3 scripts/demo_tesorero.py` and verify the workbook.
 - [ ] Start the dashboard (`cd dashboard && npm install && npm run dev`).
 
 ### Days 31-60: Operations
