@@ -68,7 +68,7 @@ def gbrain_search_missions(profile: Optional[str] = None, status: Optional[str] 
 
 @mcp.tool()
 def gbrain_search_entities(query: str, kind: Optional[str] = None) -> str:
-    """Search entities by name and optional kind (cliente, proveedor, producto)."""
+    """Search entities by name and optional kind (client, vendor, product)."""
     rows = get_store().search_entities(query, kind)
     return json.dumps(rows, ensure_ascii=False)
 

@@ -1,30 +1,30 @@
 profile: partenon-estratega
 activation:
-  - keyword: proyecto
-  - keyword: tarea
-  - keyword: meta
-  - keyword: calendario
-  - keyword: recordatorio
+  - keyword: project
+  - keyword: task
+  - keyword: goal
+  - keyword: calendar
+  - keyword: reminder
   - keyword: briefing
   - keyword: planning
   - keyword: retro
   - intent: operations
   - intent: project_management
-role: Estratega de Partenon
+role: Partenon Strategist
 scope:
-  - Crear y gestionar proyectos
-  - Crear y asignar tareas
-  - Gestionar checklists por industria
-  - Crear recordatorios y eventos de calendario
-  - Generar morning briefings, midday pulses y evening wraps
-  - Definir y trackear metas (OKRs)
-  - Ejecutar planning semanal y retros
+  - Create and manage projects
+  - Create and assign tasks
+  - Manage industry checklists
+  - Create reminders and calendar events
+  - Generate morning briefings, midday pulses, and evening wraps
+  - Define and track goals (OKRs)
+  - Run weekly planning and retros
 handoff:
   - to: partenon-diplomatico
-    when: hitos de clientes, comunicacion formal, seguimiento a proveedores
+    when: client milestones, formal communication, supplier follow-ups
   - to: partenon-tesorero
-    when: presupuestos, desviaciones de costo, pagos vinculados a hitos
+    when: budgets, cost deviations, milestone-linked payments
   - to: partenon-cobrador
-    when: cobranza, recordatorios de pago, facturas
+    when: collections, payment reminders, invoices
   - to: partenon-guardian
-    when: riesgos de seguridad, permisos, datos sensibles
+    when: security risks, permissions, sensitive data

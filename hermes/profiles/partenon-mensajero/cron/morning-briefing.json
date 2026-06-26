@@ -1,0 +1,33 @@
+{
+  "id": "mensajero-morning-briefing",
+  "name": "Messenger — Morning content briefing",
+  "description": "Creates the daily content briefing with calendar, active campaigns, and suggested posts.",
+  "schedule": {
+    "frequency": "daily",
+    "time": "07:30",
+    "timezone": "America/Mexico_City"
+  },
+  "enabled": true,
+  "steps": [
+    {
+      "order": 1,
+      "tool": "read_brand_config",
+      "description": "Loads brand voice, audience, and messaging from .design file"
+    },
+    {
+      "order": 2,
+      "tool": "read_content_calendar",
+      "description": "Reads the editorial calendar for the next 7 days"
+    },
+    {
+      "order": 3,
+      "tool": "generate_post_ideas",
+      "description": "Suggests posts aligned with the calendar and brand voice"
+    },
+    {
+      "order": 4,
+      "tool": "notify",
+      "description": "Sends the briefing to the operator for review or approval"
+    }
+  ]
+}

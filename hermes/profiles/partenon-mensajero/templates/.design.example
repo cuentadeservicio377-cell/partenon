@@ -4,39 +4,39 @@ meta:
   updated_at: "2026-01-01T00:00:00"
 
 brand:
-  nombre_marca: "Nombre de la empresa"
-  website: "https://miempresa.com"
-  industria: "servicios"
-  mercado: "Mexico / Latinoamerica"
-  etapa: "crecimiento"
+  brand_name: "Company name"
+  website: "https://mycompany.com"
+  industry: "services"
+  market: "Mexico / Latin America"
+  stage: "growth"
 
 positioning:
-  que_vendes: "Servicio o producto principal en una oracion"
-  a_quien_ayudas: "Rol, industria y tamano del comprador ideal"
-  como_lo_haces: "Mecanismo, proceso o diferenciador clave"
-  posicionamiento: "Para [audiencia] que [dolor], [marca] ofrece [oferta] que [resultado]"
-  diferenciador: "Por que te eligen antes que otra opcion"
+  what_you_sell: "Main service or product in one sentence"
+  who_you_help: "Role, industry, and size of the ideal buyer"
+  how_you_do_it: "Mechanism, process, or key differentiator"
+  positioning_statement: "For [audience] who [pain], [brand] offers [offer] that [result]"
+  differentiator: "Why they choose you before another option"
 
 voice:
-  tono: "directo y cercano"
-  forma_trato: "tu"
-  estilo: "claro, sin relleno, sin emojis"
+  tone: "direct and close"
+  form_of_address: "you"
+  style: "clear, no filler, no emojis"
   emojis: false
   slang: false
 
 audience:
   primary:
-    rol: "Dueno de pyme o gerente de operaciones"
-    industria: "retail / servicios / manufactura"
-    tamano: "5-50 empleados"
-    dolor: "Pierden tiempo en tareas repetitivas y no tienen claridad de metricas"
-    outcome: "Operaciones ordenadas y decisiones con datos"
-    objeciones:
-      - "Parece complejo de implementar"
-      - "No tenemos tiempo para migrar"
+    role: "Small business owner or operations manager"
+    industry: "retail / services / manufacturing"
+    size: "5-50 employees"
+    pain: "They lose time on repetitive tasks and lack clarity on metrics"
+    outcome: "Ordered operations and data-driven decisions"
+    objections:
+      - "It looks complex to implement"
+      - "We don't have time to migrate"
   secondary:
-    - rol: "Freelancer en crecimiento"
-      dolor: "No tiene procesos escalables"
+    - role: "Growing freelancer"
+      pain: "Does not have scalable processes"
 
 channels:
   - linkedin
@@ -46,40 +46,40 @@ channels:
 
 messaging:
   key_messages:
-    - "Ordenamos las operaciones de tu pyme sin friccion"
-    - "Decisiones con datos, no con intuicion"
-    - "Implementacion en dias, no en meses"
-  claims_prohibidos:
-    - "100% automatizado"
-    - "Resultados garantizados"
-    - "La mejor solucion del mercado"
+    - "We organize your SME operations without friction"
+    - "Decisions with data, not intuition"
+    - "Implementation in days, not months"
+  prohibited_claims:
+    - "100% automated"
+    - "Guaranteed results"
+    - "The best solution on the market"
   proof_points:
-    - "+50 empresas operando con el sistema"
-    - "Reduccion promedio de 10h semanales en tareas administrativas"
+    - "+50 companies operating with the system"
+    - "Average reduction of 10h per week in administrative tasks"
   cta_matrix:
-    awareness: "Conoce como funciona"
-    consideration: "Agenda una llamada de diagnostico"
-    decision: "Comienza esta semana"
+    awareness: "See how it works"
+    consideration: "Schedule a diagnostic call"
+    decision: "Start this week"
 
 content:
   pillars:
-    - name: "Educativo"
-      purpose: "Ensenar algo util sobre operaciones y datos"
-    - name: "Prueba social"
-      purpose: "Mostrar resultados y casos reales"
-    - name: "Detras de escena"
-      purpose: "Mostrar como trabajamos"
+    - name: "Educational"
+      purpose: "Teach something useful about operations and data"
+    - name: "Social proof"
+      purpose: "Show results and real cases"
+    - name: "Behind the scenes"
+      purpose: "Show how we work"
   topics_to_own:
-    - "operaciones en pymes"
-    - "automatizacion sin friccion"
-    - "metricas que importan"
+    - "operations in SMEs"
+    - "automation without friction"
+    - "metrics that matter"
   topics_to_avoid:
-    - "critica abierta a competidores"
-    - "promesas de ingresos sin evidencia"
+    - "open criticism of competitors"
+    - "promises of income without evidence"
 
 operations:
-  aprobador_final: "Nombre del dueno o responsable"
-  autonomia:
+  final_approver: "Owner or responsible person name"
+  autonomy:
     draft_copy: true
     create_calendar: true
     publish_social: false

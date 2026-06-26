@@ -5,13 +5,13 @@
   "schedule": "0 9 * * 1",
   "timezone": "America/Mexico_City",
   "tool": "skills.ops.tools.briefings",
-  "method": "generar_weekly_planning",
+  "method": "generate_weekly_planning",
   "args": {
-    "nombre_usuario": "{{owner.name}}"
+    "user_name": "{{owner.name}}"
   },
   "output": {
     "channel": "gmail",
-    "subject": "Planning semanal — {{date}}"
+    "subject": "Weekly planning — {{date}}"
   },
   "enabled": true
 }

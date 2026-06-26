@@ -62,5 +62,23 @@
 - [x] Fix GitHub repository links across all three web pages
 - [x] Replace fictional `npx create-hermes@latest` CTA with real clone command
 
+## English Translation & Core Tooling Audit (this session)
+- [x] Translate all profile configuration templates to English (.finance, .design, .payments, .relations, .brain)
+- [x] Translate all profile cron JSON files to English
+- [x] Translate Strategist ops Python tools to English and align JSON keys
+- [x] Translate Diplomat relations Python tools to English and align .relations keys
+- [x] Translate Brain gbrain_client.py to English
+- [x] Translate data/cron.json and data/tasks.json to English with runnable commands
+- [x] Update MISSING_IMPLEMENTATION.md with current state and gaps
+- [x] Syntax-check all profile Python tools
+- [x] Run demo_tesorero.py successfully
+- [x] Build dashboard (Next.js) successfully
+
+## Pending
+- [ ] Standardize `GBRAIN_DATABASE_URL` naming across .env and gbrain server
+- [ ] Add automated tests for translated tools
+- [ ] Implement real intent router and workflow engine runtime
+- [ ] Add publishing/dispatch integrations for Messenger, Collector, and Diplomat
+
 ## Parking Lot
 _Discoveries made during development that are NOT in the current plan_

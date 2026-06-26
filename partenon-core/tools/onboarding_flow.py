@@ -20,6 +20,7 @@ PROFILE_FILES = {
     "guardian": ".security",
     "strategist": ".ops",
     "diplomat": ".relations",
+    "brain": ".brain",
 }
 
 

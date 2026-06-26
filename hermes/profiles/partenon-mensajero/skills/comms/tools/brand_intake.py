@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Partenon Mensajero — Brand Intake Tool
-Adaptacion del cuestionario de marca. Genera el archivo .design de la empresa.
+Partenon Herald — Brand Intake Tool
+Adaptation of the brand questionnaire. Generates the company's .design file.
 """
 
 import json
@@ -20,53 +20,53 @@ def p0_questions() -> List[Dict[str, Any]]:
     """Minimum required fields to unlock real campaigns."""
     return [
         {
-            "id": "nombre_marca",
-            "question": "Nombre publico de la marca o empresa",
+            "id": "brand_name",
+            "question": "Public brand or company name",
             "required": True,
         },
         {
             "id": "website",
-            "question": "Sitio web principal (URL)",
+            "question": "Main website URL",
             "required": False,
         },
         {
-            "id": "que_vendes",
-            "question": "Que vendes en una oracion",
+            "id": "what_you_sell",
+            "question": "What you sell in one sentence",
             "required": True,
         },
         {
-            "id": "a_quien_ayudas",
-            "question": "A quien ayudas (buyer primario: rol, industria, tamano)",
+            "id": "who_you_help",
+            "question": "Who you help (primary buyer: role, industry, size)",
             "required": True,
         },
         {
-            "id": "como_lo_haces",
-            "question": "Como lo haces (mecanismo, proceso o diferenciador clave)",
+            "id": "how_you_do_it",
+            "question": "How you do it (mechanism, process, or key differentiator)",
             "required": True,
         },
         {
-            "id": "mercado",
-            "question": "Mercado o geografia que atiendes",
+            "id": "market",
+            "question": "Market or geography you serve",
             "required": True,
         },
         {
-            "id": "tono",
-            "question": "Tono de la marca (formal, cercano, tecnico, directo, premium, etc.)",
+            "id": "tone",
+            "question": "Brand tone (formal, close, technical, direct, premium, etc.)",
             "required": True,
         },
         {
-            "id": "forma_trato",
-            "question": "Forma de trato (tu, usted, ustedes)",
+            "id": "addressing",
+            "question": "Form of address (you formal, you informal, plural)",
             "required": True,
         },
         {
-            "id": "claims_prohibidos",
-            "question": "Claims o promesas que debemos evitar hasta tener evidencia",
+            "id": "claims_to_avoid",
+            "question": "Claims or promises to avoid until evidence exists",
             "required": False,
         },
         {
-            "id": "aprobador_final",
-            "question": "Quien aprueba el copy y las campanas finalmente",
+            "id": "final_approver",
+            "question": "Who finally approves copy and campaigns",
             "required": True,
         },
     ]
@@ -76,43 +76,43 @@ def p1_questions() -> List[Dict[str, Any]]:
     """Strong strategy fields."""
     return [
         {
-            "id": "posicionamiento",
-            "question": "En una oracion: que eres, para quien y que resultado creas",
+            "id": "positioning",
+            "question": "In one sentence: what you are, for whom, and what result you create",
             "required": False,
         },
         {
-            "id": "diferenciador",
-            "question": "Por que alguien deberia elegirte en lugar de un competidor",
+            "id": "differentiator",
+            "question": "Why someone should choose you over a competitor",
             "required": False,
         },
         {
             "id": "proof_points",
-            "question": "Puntos de prueba que ya tienes (testimonios, metricas, casos)",
+            "question": "Proof points you already have (testimonials, metrics, cases)",
             "required": False,
         },
         {
-            "id": "objeciones",
-            "question": "Objeciones principales que frenan la compra",
+            "id": "objections",
+            "question": "Main objections that stop the purchase",
             "required": False,
         },
         {
-            "id": "canales",
-            "question": "Canales activos o prioritarios (lista separada por comas)",
+            "id": "channels",
+            "question": "Active or priority channels (comma-separated list)",
             "required": False,
         },
         {
             "id": "kpis",
-            "question": "KPIs que definen exito para comunicaciones",
+            "question": "KPIs that define success for communications",
             "required": False,
         },
         {
-            "id": "palabras_siempre",
-            "question": "Palabras o frases que siempre deben aparecer",
+            "id": "words_always",
+            "question": "Words or phrases that must always appear",
             "required": False,
         },
         {
-            "id": "palabras_nunca",
-            "question": "Palabras o frases que nunca deben usarse",
+            "id": "words_never",
+            "question": "Words or phrases that must never be used",
             "required": False,
         },
     ]
@@ -127,46 +127,46 @@ def empty_design() -> Dict[str, Any]:
             "updated_at": datetime.now().isoformat(),
         },
         "brand": {
-            "nombre_marca": "",
+            "brand_name": "",
             "website": "",
-            "industria": "",
-            "mercado": "",
-            "etapa": "",
+            "industry": "",
+            "market": "",
+            "stage": "",
         },
         "positioning": {
-            "que_vendes": "",
-            "a_quien_ayudas": "",
-            "como_lo_haces": "",
-            "posicionamiento": "",
-            "diferenciador": "",
+            "what_you_sell": "",
+            "who_you_help": "",
+            "how_you_do_it": "",
+            "positioning": "",
+            "differentiator": "",
         },
         "voice": {
-            "tono": "",
-            "forma_trato": "tu",
-            "estilo": "directo, claro, sin relleno",
+            "tone": "",
+            "addressing": "you informal",
+            "style": "direct, clear, no filler",
             "emojis": False,
             "slang": False,
         },
         "audience": {
             "primary": {
-                "rol": "",
-                "industria": "",
-                "tamano": "",
-                "dolor": "",
+                "role": "",
+                "industry": "",
+                "size": "",
+                "pain": "",
                 "outcome": "",
-                "objeciones": [],
+                "objections": [],
             },
             "secondary": [],
         },
         "channels": [],
         "messaging": {
             "key_messages": [],
-            "claims_prohibidos": [],
+            "claims_to_avoid": [],
             "proof_points": [],
             "cta_matrix": {
-                "awareness": "Conoce como funciona",
-                "consideration": "Agenda una llamada",
-                "decision": "Compra ahora",
+                "awareness": "See how it works",
+                "consideration": "Book a diagnostic call",
+                "decision": "Start this week",
             },
         },
         "content": {
@@ -175,8 +175,8 @@ def empty_design() -> Dict[str, Any]:
             "topics_to_avoid": [],
         },
         "operations": {
-            "aprobador_final": "",
-            "autonomia": {
+            "final_approver": "",
+            "autonomy": {
                 "draft_copy": True,
                 "create_calendar": True,
                 "publish_social": False,
@@ -199,32 +199,32 @@ def parse_channels(value: Any) -> List[str]:
 def update_design_from_answers(design: Dict[str, Any], answers: Dict[str, Any]) -> Dict[str, Any]:
     """Map interview answers into the .design structure."""
     brand = design.setdefault("brand", {})
-    brand["nombre_marca"] = answers.get("nombre_marca", brand.get("nombre_marca", ""))
+    brand["brand_name"] = answers.get("brand_name", brand.get("brand_name", ""))
     brand["website"] = answers.get("website", brand.get("website", ""))
-    brand["mercado"] = answers.get("mercado", brand.get("mercado", ""))
+    brand["market"] = answers.get("market", brand.get("market", ""))
 
     positioning = design.setdefault("positioning", {})
-    positioning["que_vendes"] = answers.get("que_vendes", positioning.get("que_vendes", ""))
-    positioning["a_quien_ayudas"] = answers.get("a_quien_ayudas", positioning.get("a_quien_ayudas", ""))
-    positioning["como_lo_haces"] = answers.get("como_lo_haces", positioning.get("como_lo_haces", ""))
-    positioning["posicionamiento"] = answers.get("posicionamiento", positioning.get("posicionamiento", ""))
-    positioning["diferenciador"] = answers.get("diferenciador", positioning.get("diferenciador", ""))
+    positioning["what_you_sell"] = answers.get("what_you_sell", positioning.get("what_you_sell", ""))
+    positioning["who_you_help"] = answers.get("who_you_help", positioning.get("who_you_help", ""))
+    positioning["how_you_do_it"] = answers.get("how_you_do_it", positioning.get("how_you_do_it", ""))
+    positioning["positioning"] = answers.get("positioning", positioning.get("positioning", ""))
+    positioning["differentiator"] = answers.get("differentiator", positioning.get("differentiator", ""))
 
     voice = design.setdefault("voice", {})
-    voice["tono"] = answers.get("tono", voice.get("tono", ""))
-    voice["forma_trato"] = answers.get("forma_trato", voice.get("forma_trato", "tu"))
+    voice["tone"] = answers.get("tone", voice.get("tone", ""))
+    voice["addressing"] = answers.get("addressing", voice.get("addressing", "you informal"))
 
     audience = design.setdefault("audience", {})
     primary = audience.setdefault("primary", {})
-    primary["rol"] = answers.get("a_quien_ayudas", primary.get("rol", ""))
-    if "objeciones" in answers:
-        objeciones = answers["objeciones"]
-        if isinstance(objeciones, str):
-            primary["objeciones"] = [o.strip() for o in objeciones.split("\n") if o.strip()]
-        elif isinstance(objeciones, list):
-            primary["objeciones"] = objeciones
+    primary["role"] = answers.get("who_you_help", primary.get("role", ""))
+    if "objections" in answers:
+        objections = answers["objections"]
+        if isinstance(objections, str):
+            primary["objections"] = [o.strip() for o in objections.split("\n") if o.strip()]
+        elif isinstance(objections, list):
+            primary["objections"] = objections
 
-    design["channels"] = parse_channels(answers.get("canales", design.get("channels", [])))
+    design["channels"] = parse_channels(answers.get("channels", design.get("channels", [])))
 
     messaging = design.setdefault("messaging", {})
     if "proof_points" in answers:
@@ -234,15 +234,15 @@ def update_design_from_answers(design: Dict[str, Any], answers: Dict[str, Any]) 
         elif isinstance(proof, list):
             messaging["proof_points"] = proof
 
-    if "claims_prohibidos" in answers:
-        claims = answers["claims_prohibidos"]
+    if "claims_to_avoid" in answers:
+        claims = answers["claims_to_avoid"]
         if isinstance(claims, str):
-            messaging["claims_prohibidos"] = [c.strip() for c in claims.split("\n") if c.strip()]
+            messaging["claims_to_avoid"] = [c.strip() for c in claims.split("\n") if c.strip()]
         elif isinstance(claims, list):
-            messaging["claims_prohibidos"] = claims
+            messaging["claims_to_avoid"] = claims
 
-    if "palabras_siempre" in answers:
-        words = answers["palabras_siempre"]
+    if "words_always" in answers:
+        words = answers["words_always"]
         if isinstance(words, str):
             messaging.setdefault("key_messages", []).extend(
                 [w.strip() for w in words.split("\n") if w.strip()]
@@ -252,7 +252,7 @@ def update_design_from_answers(design: Dict[str, Any], answers: Dict[str, Any]) 
         design.setdefault("kpis", {}).setdefault("comms", parse_channels(answers["kpis"]))
 
     operations = design.setdefault("operations", {})
-    operations["aprobador_final"] = answers.get("aprobador_final", operations.get("aprobador_final", ""))
+    operations["final_approver"] = answers.get("final_approver", operations.get("final_approver", ""))
 
     design["meta"]["updated_at"] = datetime.now().isoformat()
     return design
@@ -266,20 +266,20 @@ def validate_p0(design: Dict[str, Any]) -> List[str]:
     brand = design.get("brand", {})
     operations = design.get("operations", {})
 
-    if not positioning.get("que_vendes"):
-        missing.append("positioning.que_vendes")
-    if not positioning.get("a_quien_ayudas"):
-        missing.append("positioning.a_quien_ayudas")
-    if not positioning.get("como_lo_haces"):
-        missing.append("positioning.como_lo_haces")
-    if not voice.get("tono"):
-        missing.append("voice.tono")
-    if not voice.get("forma_trato"):
-        missing.append("voice.forma_trato")
-    if not brand.get("mercado"):
-        missing.append("brand.mercado")
-    if not operations.get("aprobador_final"):
-        missing.append("operations.aprobador_final")
+    if not positioning.get("what_you_sell"):
+        missing.append("positioning.what_you_sell")
+    if not positioning.get("who_you_help"):
+        missing.append("positioning.who_you_help")
+    if not positioning.get("how_you_do_it"):
+        missing.append("positioning.how_you_do_it")
+    if not voice.get("tone"):
+        missing.append("voice.tone")
+    if not voice.get("addressing"):
+        missing.append("voice.addressing")
+    if not brand.get("market"):
+        missing.append("brand.market")
+    if not operations.get("final_approver"):
+        missing.append("operations.final_approver")
 
     return missing
 
@@ -313,7 +313,7 @@ def interactive_intake(path: Path = DEFAULT_DESIGN_PATH) -> Dict[str, Any]:
     design = load_design(path)
     answers: Dict[str, Any] = {}
 
-    print("\n=== Entrevista de marca (P0) ===")
+    print("\n=== Brand interview (P0) ===")
     for q in p0_questions():
         current = design
         for key in q["id"].split("."):
@@ -329,9 +329,9 @@ def interactive_intake(path: Path = DEFAULT_DESIGN_PATH) -> Dict[str, Any]:
         elif default:
             answers[q["id"]] = default
 
-    print("\n=== Entrevista de marca (P1, opcional) ===")
+    print("\n=== Brand interview (P1, optional) ===")
     for q in p1_questions():
-        value = input(f"{q['question']} (Enter para omitir): ").strip()
+        value = input(f"{q['question']} (Enter to skip): ").strip()
         if value:
             answers[q["id"]] = value
 
@@ -344,13 +344,13 @@ def interactive_intake(path: Path = DEFAULT_DESIGN_PATH) -> Dict[str, Any]:
         "success": len(missing) == 0,
         "path": str(path.resolve()),
         "missing_p0": missing,
-        "brand_name": design.get("brand", {}).get("nombre_marca", ""),
+        "brand_name": design.get("brand", {}).get("brand_name", ""),
     }
 
     if missing:
-        print(f"\n.design guardado, pero faltan campos P0: {', '.join(missing)}")
+        print(f"\n.design saved, but P0 fields are missing: {', '.join(missing)}")
     else:
-        print(f"\n.design guardado correctamente en {path}")
+        print(f"\n.design saved successfully at {path}")
 
     return result
 
@@ -366,7 +366,7 @@ def generate_design_from_dict(answers: Dict[str, Any], path: Path = DEFAULT_DESI
         "success": len(missing) == 0,
         "path": str(path.resolve()),
         "missing_p0": missing,
-        "brand_name": design.get("brand", {}).get("nombre_marca", ""),
+        "brand_name": design.get("brand", {}).get("brand_name", ""),
     }
 
 

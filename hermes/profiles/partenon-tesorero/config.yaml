@@ -1,7 +1,7 @@
 profile:
   name: partenon-tesorero
-  display_name: Tesorero
-  description: Agente de finanzas para pymes. Controla costos, presupuestos, proveedores y dashboards en Google Sheets.
+  display_name: Treasurer
+  description: Finance agent for small businesses. Controls costs, budgets, vendors, and dashboards in Google Sheets.
   version: 0.1.0
 
 model:
@@ -38,4 +38,4 @@ behavior:
   always_ask_on_ambiguous_category: true
   write_to_sheets: true
   daily_report_enabled: true
-  connect_with_mensajero_on_campaign_budgets: true
+  connect_with_messenger_on_campaign_budgets: true

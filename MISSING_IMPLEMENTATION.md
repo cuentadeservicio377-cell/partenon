@@ -1,80 +1,220 @@
-# Missing Implementation Audit — The Partenon
+# Missing Implementation Audit
 
-> Scope: `web-repo-consistency`  
-> Audited: `web/index.html`, `web/heroes.html`, `web/developers.html` against repository contents.  
-> Date: 2026-06-26
+This document tracks gaps between what the Partenon website and documentation promise and what is currently implemented in the repository. It is written in English because the public repository targets an international audience.
 
-This document lists every feature, tool, MCP server, API endpoint, or architecture component described in the public web pages that is **not yet implemented** in the repository. Items are ordered by priority: **P0 (blocks installation)**, **P1 (major feature gaps)**, **P2 (consistency / polish gaps)**.
+## How to read this file
 
----
-
-## P0 — Installation / Runtime Blockers
-
-These gaps prevent a visitor from installing or running the system as advertised.
-
-| # | Gap | Where it is promised | Current reality | Recommended fix |
-|---|-----|----------------------|-----------------|-----------------|
-| 1 | **`npx create-hermes@latest` does not exist** | CTA on `index.html`, copy box on `heroes.html`, install tabs on `developers.html` | No npm package named `create-hermes` is published. The command fails. | Replace the public CTA with the real local setup flow (`git clone` + Python venv + `pip install`) and publish a stub package only after it works. |
-| 2 | **`fastmcp>=1.0.0` is not a valid dependency** | `requirements.txt` | PyPI has no package `fastmcp`. The dependency blocks `pip install -r requirements.txt`. | Change to the correct package (`mcp>=1.0.0`) or remove if unused. |
-| 3 | **`config_loader` module is missing** | `partenon-core/tools/onboarding_engine.py` line 15 | `from config_loader import get_config, ConfigLoader` fails because the file does not exist. | Add `partenon-core/tools/config_loader.py` with a minimal `ConfigLoader` class that reads `config/empresa.yaml` or environment variables. |
-| 4 | **`hermes` CLI is not implemented** | `developers.html` CLI reference, `install.sh`, `scripts/setup_hermes.py` | No `hermes` binary or Python package provides `hermes activate`, `hermes mission`, etc. | Create a Python CLI entry point (`partenon-core/cli.py`) that implements the documented commands as stubs. |
-| 5 | **REST API endpoints are not implemented** | `developers.html` `/api/v1/heroes`, `/api/v1/missions`, `/api/v1/mcp/tools`, `/api/v1/mcp/call` | No HTTP server file exists for these routes. | Add a minimal FastAPI/Flask server (`partenon-core/api_server.py`) that returns the documented JSON shapes. |
+- **Severity**: `BLOCKER` means the feature cannot be used without it; `HIGH` means a core promise is unfulfilled; `MEDIUM` means quality or completeness is affected; `LOW` means cosmetic or nice-to-have.
+- **Status**: `NOT_STARTED`, `PARTIAL`, `STUB`, `DONE`.
 
 ---
 
-## P1 — Major Feature Gaps
+## 1. Core platform promises
 
-These are capabilities heavily featured on the website but missing or only stubbed in code.
+### 1.1 Functional eval loop
+- **Promise**: `web/developers.html` and `docs/architecture.md` describe a quality-measurement loop with a judge skill and configurable threshold.
+- **Reality**: `partenon-core/tools/eval_loop.py` is implemented and can score mission outputs against completeness, format, safety, and context criteria. It is not yet wired into the router or hero runtime.
+- **Severity**: MEDIUM
+- **Status**: PARTIAL
+- **Files**: `partenon-core/tools/eval_loop.py`, `partenon-core/SKILL.md`
+- **Suggested fix**: Call `EvalLoop.evaluate()` from the mission router or a post-action hook, and persist scores in G-Brain.
 
-| # | Gap | Promised in | Current reality | Recommended fix |
-|---|-----|-------------|-----------------|-----------------|
-| 6 | **Eval loop / judge skill** | `docs/architecture.md`, `developers.html` "Quality Layer" (implied) | No eval loop, judge skill, or threshold code exists. | Add `partenon-core/tools/eval_loop.py` with a pluggable judge and pass/fail threshold. |
-| 7 | **Real Google Workspace MCP integration** | `developers.html`, profiles (Scribe, Strategist) | `servers.yaml` references `@taylorwilsdon/google-workspace-mcp`; profile `config.yaml` references `@modelcontextprotocol/server-google-workspace`. Neither is confirmed installed or wired to real credentials. | Pick one working MCP server, document setup, and add a small wrapper that authenticates with `GOOGLE_SERVICE_ACCOUNT_JSON`. |
-| 8 | **Stripe operations beyond placeholders** | `developers.html`, Collector profile | `stripe_tools.py` exists but only as a stub. No real payment link, subscription, invoice, or webhook handling. | Implement `create_payment_link`, `create_invoice`, `create_subscription`, and `list_charges` using the Stripe Python SDK. |
-| 9 | **Social media APIs (Instagram, Twitter/X, LinkedIn)** | `developers.html`, Herald profile | No API clients or posting logic. | Add stub OAuth + posting modules under `hermes/profiles/partenon-mensajero/skills/comms/tools/`. |
-| 10 | **CRM integration (HubSpot / Salesforce)** | `developers.html`, Diplomat profile | `crm.py` is a placeholder. No contact sync, meeting scheduler, or follow-up engine. | Implement HubSpot CRM stub with contact/metting/follow-up actions. |
-| 11 | **NVIDIA NemoClaw / OpenShell integration** | `index.html`, `developers.html`, Guardian profile | No code connects to NVIDIA APIs, allocates GPUs, or manages model access. | Add a Guardian tool that reads `NVIDIA_API_KEY` and reports model availability (stub is acceptable for alpha). |
-| 12 | **Calendar / Gmail API actions** | `developers.html`, Strategist profile | No Google Calendar event creation or Gmail sending logic. | Add thin wrappers around Google API client libraries. |
-| 13 | **Workshop deliverables** | `developers.html` workshop section | Slides, participant handbook, and facilitator script buttons show "Coming soon!" but no files exist. | Create `workshops/slides/`, `workshops/handbooks/`, `workshops/facilitator/` with markdown templates. |
-| 14 | **Docker image `ghcr.io/theparthenon/hermes:latest`** | `developers.html` Docker install tab | No Dockerfile or GitHub Actions workflow builds this image. | Add a root `Dockerfile` and a `.github/workflows/docker.yml` workflow, or remove the tab until ready. |
-| 15 | **Real-time dashboards / Google Sheets dashboards** | `index.html`, `heroes.html`, Scribe profile | `demo_tesorero.py` creates a static `.xlsx` file, not a live Google Sheets dashboard. | Add a script that creates/updates a Google Sheet with charts using the Sheets API. |
+### 1.2 Mission router
+- **Promise**: `partenon-core` routes user intent to the correct hero.
+- **Reality**: `partenon-core/tools/router.py` has Spanish keyword/pattern dictionaries and does not load hero configs dynamically. It classifies a handful of finance and operations keywords only.
+- **Severity**: HIGH
+- **Status**: PARTIAL
+- **Files**: `partenon-core/tools/router.py`
+- **Suggested fix**: Translate keywords to English, load profile metadata from `hermes/profiles/*/config.yaml`, and expose a `classify_intent(text)` API that returns a ranked list of profiles.
 
----
+### 1.3 Workflow engine
+- **Promise**: Multi-hero missions are orchestrated by a workflow engine.
+- **Reality**: `partenon-core/tools/workflow_engine.py` contains hard-coded Spanish event/action placeholders and no execution runtime.
+- **Severity**: HIGH
+- **Status**: STUB
+- **Files**: `partenon-core/tools/workflow_engine.py`
+- **Suggested fix**: Define a minimal workflow schema (trigger, actions, handoffs), persist workflows in JSON, and execute them step by step with G-Brain state.
 
-## P2 — Consistency / Polish Gaps
-
-These reduce trust or create confusion between the website and the repository.
-
-| # | Gap | Promised in | Current reality | Recommended fix |
-|---|-----|-------------|-----------------|-----------------|
-| 16 | **GitHub links point to wrong URLs** | `index.html` footer "View on GitHub", `heroes.html` CTA GitHub link, `developers.html` manual setup | Links go to `https://github.com` or `github.com/the-parthenon/hermes.git` instead of `github.com/cuentadeservicio377-cell/partenon`. | Update all GitHub links to the actual repository URL. |
-| 17 | **Repository structure diagram is fictional** | `developers.html` "Repository Structure" tree | Tree shows `apps/hermes/`, `packages/mcp-sdk/`, `packages/heroes/`, etc. Actual repo is flat. | Replace with the real tree or label it as the target architecture. |
-| 18 | **`.env.example` still in Spanish** | Global project | The file mixes Spanish comments and placeholder instructions. | Translate to English and align variables with `developers.html` env table. |
-| 19 | **Profile file extensions are inconsistent** | `developers.html` mentions `.finance`, `.design`, etc. | Some profiles use Spanish-derived names (`.ops`, `.relations`) without explanation. | Document the mapping in `docs/file-formats.md` or rename to English equivalents. |
-| 20 | **No `LICENSE` or `CONTRIBUTING.md`** | `developers.html` repo structure lists both | Neither file exists. | Add MIT `LICENSE` and a minimal `CONTRIBUTING.md`. |
-| 21 | **No test suite** | Implied by production-ready claims | No `tests/` directory. | Add `tests/test_router.py`, `tests/test_demo.py`, and a CI runner. |
-| 22 | **MCP protocol methods (`mcp.register`, `mcp.context.share`, etc.) are not wired to real code** | `developers.html` MCP section | `gbrain/server.py` only exposes `gbrain_*` tools, not the generic MCP methods shown. | Clarify in the page that these are conceptual methods or implement them in `gbrain/server.py`. |
-| 23 | **`scripts/setup_hermes.py` and `install.sh` reference a fake Hermes install URL** | Setup scripts | `https://install.hermes-agent.nousresearch.com` and `https://www.nvidia.com/nemoclaw.sh` are not guaranteed to work and may fail. | Replace with clear placeholder instructions and error messages. |
-| 24 | **Docs are in Spanish** | `README.md`, `docs/` | The user-facing docs are Spanish while the website is English. | Translate docs to English (handled by `docs-and-readme` scope). |
-| 25 | **No web deployment assets / build verification** | `index.html` references many image assets | Some assets may be missing; build verification is manual. | Add an asset manifest and a simple HTML validator script. |
+### 1.4 Onboarding engine
+- **Promise**: New heroes learn company context from a structured onboarding flow.
+- **Reality**: `partenon-core/tools/onboarding_engine.py` and `onboarding_flow.py` exist but are mostly skeletons.
+- **Severity**: MEDIUM
+- **Status**: STUB
+- **Files**: `partenon-core/tools/onboarding_engine.py`, `partenon-core/tools/onboarding_flow.py`
+- **Suggested fix**: Read `.brain`, `.finance`, `.design`, `.relations`, `.payments`, and `.security` files and produce a context summary that is passed to the hero at runtime.
 
 ---
 
-## Quick-Win Placeholders Already Created
+## 2. Hero profiles
 
-To move the repo closer to the website promises, this audit scope created:
+### 2.1 Treasurer (finance) — `partenon-tesorero`
+- **Status**: PARTIAL
+- **Done**: SOUL, config, SKILL, templates, cron, and finance tools have been translated to English. `google_sheets.py` can create a spreadsheet and seed headers. `parsers.py` can read Excel/CSV expenses. `templates.py` generates local Excel templates.
+- **Gaps**:
+  - No end-to-end demo that parses an uploaded file and writes to Google Sheets.
+  - `CATEGORY_KEYWORDS` in `parsers.py` are English-only; historic Spanish transaction descriptions are accepted but inferred categories will be English words. This is intentional but must be documented.
+  - No automated tests.
+- **Files**: `hermes/profiles/partenon-tesorero/skills/finance/tools/*.py`
 
-- `examples/hermes-cli-stub.py` — demonstrates the documented CLI commands as local stubs.
-- `examples/api-server-stub.py` — minimal FastAPI server returning the documented `/api/v1/*` JSON shapes.
-- `examples/mcp-client-example.py` — example of calling G-Brain MCP tools.
-- `examples/README.md` — how to run the stubs.
+### 2.2 Messenger (communications) — `partenon-mensajero`
+- **Status**: PARTIAL
+- **Done**: SOUL, config, SKILL, `.design` template, `.env.example`, cron, and comms tools are translated to English. `brand_intake.py`, `copy_generator.py`, and `content_calendar.py` are functional.
+- **Gaps**:
+  - No actual publishing integration (LinkedIn, Instagram, WordPress, etc.).
+  - `config.yaml` references `wordpress` and `ssh` tools but no implementation exists.
+  - No Gmail MCP integration for sending newsletters.
+- **Files**: `hermes/profiles/partenon-mensajero/`
 
-These stubs are **not production code**; they exist so visitors can see the intended interfaces while real implementations are built by the corresponding scopes.
+### 2.3 Collector (payments) — `partenon-cobrador`
+- **Status**: PARTIAL
+- **Done**: SOUL, config, SKILL, `.env.example`, `.payments` template, cron, and Stripe tools are translated to English. `stripe_tools.py` can create payment links, subscriptions, reminders, and record payments in local mode or via the Stripe library.
+- **Gaps**:
+  - No end-to-end Stripe MCP wiring.
+  - No invoice generation or PDF receipt creation.
+  - Collections rely on local JSON; no real Gmail/WhatsApp reminder dispatch.
+- **Files**: `hermes/profiles/partenon-cobrador/`
+
+### 2.4 Guardian (security / NVIDIA) — `partenon-guardian`
+- **Status**: PARTIAL
+- **Done**: SOUL, config, `.env.example`, `.security` template, cron, and `key_manager.py` are translated to English. `key_manager.py` can list keys, rotate placeholders, audit access, validate access, and recommend models.
+- **Gaps**:
+  - No real secrets-manager integration (only environment variables).
+  - No NVIDIA NeMo / OpenShell integration.
+  - No automated audit log persistence.
+- **Files**: `hermes/profiles/partenon-guardian/`
+
+### 2.5 Strategist (operations) — `partenon-estratega`
+- **Status**: PARTIAL
+- **Done**: SOUL, config, `.ops`, template, cron, SKILL.md, and ops tools are translated to English. `projects.py`, `tasks.py`, `checklists.py`, `goals.py`, and `briefings.py` are functional with English field names.
+- **Gaps**:
+  - No Google Calendar or Gmail MCP integration is wired; tools read local JSON only.
+  - No automated tests.
+- **Files**: `hermes/profiles/partenon-estratega/skills/ops/tools/*.py`
+
+### 2.6 Diplomat (relations) — `partenon-diplomatico`
+- **Status**: PARTIAL
+- **Done**: SOUL, config, `.relations` template, cron, SKILL.md, and relations tools are translated to English. `crm.py` and `followups.py` use English field names and match the translated `.relations` template.
+- **Gaps**:
+  - No actual Google Contacts or Gmail integration.
+  - No handoff automation with Strategist beyond documentation.
+  - No automated tests.
+- **Files**: `hermes/profiles/partenon-diplomatico/skills/relations/tools/*.py`
+
+### 2.7 Brain (intelligence / memory) — `partenon-brain`
+- **Status**: PARTIAL
+- **Done**: SOUL, config, `.env.example`, `.brain` template, cron, SKILL.md, and `gbrain_client.py` are translated to English.
+- **Gaps**:
+  - `gbrain_client.py` shells out to a `gbrain` binary that is not bundled in this repo.
+  - No persistent G-Brain implementation beyond the separate `gbrain/` experiment.
+  - The website promises collective memory, conflict detection, and onboarding context.
+- **Files**: `hermes/profiles/partenon-brain/skills/memory/tools/gbrain_client.py`, `gbrain/`
 
 ---
 
-## Priority Action Summary
+## 3. Data files
 
-1. **Fix P0 blockers first** so `pip install` and the onboarding script run without errors.
-2. **Implement P1 stubs** for the highest-impact features: Hermes CLI, REST API, eval loop, Stripe tools, Google Workspace wrapper.
-3. **Resolve P2 consistency issues** so the website, README, and repository stay aligned.
+### 3.1 `data/tasks.json`
+- **Gap**: Translated to English in this pass.
+- **Impact**: Dashboard now shows English missions.
+- **Status**: DONE
+
+### 3.2 `data/cron.json`
+- **Gap**: Commands now point to existing scripts/tools instead of non-existent `partenon.*` modules. Some entries are still illustrative.
+- **Impact**: Cron entries are runnable placeholders.
+- **Status**: PARTIAL
+- **Suggested fix**: Replace Treasurer demo command with a real weekly report script; add Guardian CLI entry point.
+
+---
+
+## 4. Install and environment
+
+### 4.1 Hermes CLI availability
+- **Promise**: Website and docs imply a smooth install of Hermes profiles.
+- **Reality**: Hermes Agent CLI is not bundled in this repo. `install.sh` and `scripts/setup_hermes.py` handle this gracefully by checking PATH and printing instructions.
+- **Severity**: MEDIUM (handled, but public expectations need to be set)
+- **Status**: PARTIAL
+- **Suggested fix**: Keep the install note in `README.md` and `web/developers.html`.
+
+### 4.2 `GBRAIN_DATABASE_URL` mismatch
+- **Promise**: `.env.example` documents `GBRAIN_DATABASE_URL`.
+- **Reality**: `gbrain/server.py` and `partenon-core/config/mcp/servers.yaml` use `GBrain_DATABASE_URL`.
+- **Severity**: MEDIUM
+- **Status**: DOCUMENTED
+- **Suggested fix**: Standardize on one variable name across `.env.example`, `gbrain/server.py`, and `partenon-core/config/mcp/servers.yaml`.
+
+### 4.3 Demo output filenames
+- **Promise**: `README.md` and `docs/for-developers.md` say the demo creates `data/sample_gastos.xlsx` and `data/sample_gastos_report.json`.
+- **Reality**: `scripts/demo_tesorero.py` creates `data/sample_expenses.xlsx` and `data/sample_expenses_report.json`.
+- **Severity**: LOW
+- **Status**: PARTIAL
+- **Suggested fix**: Update docs to match the actual filenames.
+
+---
+
+## 5. Web pages vs repository
+
+### 5.1 Live integrations
+- **Promise**: `web/index.html` shows Google Workspace, Stripe, NVIDIA, and G-Brain as working integrations.
+- **Reality**: Integrations are partially implemented as local tools that require real credentials to do anything live.
+- **Severity**: HIGH
+- **Status**: PARTIAL
+- **Suggested fix**: Add a "current status" section to the site, or implement at least one sandboxed end-to-end flow (e.g., Stripe test payment link).
+
+### 5.2 Counter and metrics
+- **Promise**: `web/index.html` displays `10 -> 1M` growth milestones.
+- **Reality**: Numbers are static HTML. No tracking or dynamic reporting exists.
+- **Severity**: LOW (marketing page)
+- **Status**: NOT_STARTED
+
+### 5.3 Dashboard
+- **Promise**: `web/developers.html` and `README.md` describe a working dashboard.
+- **Reality**: The Next.js dashboard builds and runs, but it only reads/writes local JSON files (`data/tasks.json`, `data/cron.json`). It is not connected to heroes or G-Brain.
+- **Severity**: MEDIUM
+- **Status**: PARTIAL
+- **Suggested fix**: Keep the dashboard as a local ops view and document it clearly.
+
+---
+
+## 6. Testing and quality
+
+### 6.1 No automated tests
+- **Gap**: There is no `tests/` directory or CI workflow.
+- **Impact**: Refactors and translations cannot be verified automatically.
+- **Severity**: HIGH
+- **Status**: NOT_STARTED
+- **Suggested fix**: Add unit tests for `partenon-core` tools and at least one integration test for the Treasurer parser/template flow.
+
+### 6.2 No linting or formatting config
+- **Gap**: No `pyproject.toml`, `ruff.toml`, or GitHub Actions.
+- **Severity**: LOW
+- **Status**: NOT_STARTED
+- **Suggested fix**: Add a minimal Python formatter/linter and a pre-commit hook.
+
+---
+
+## 7. Suggested priority order
+
+1. Implement a real intent router in `partenon-core`.
+2. Implement the workflow engine runtime.
+3. Wire the eval loop into the router.
+4. Add publishing integrations for Messenger and dispatch integrations for Collector/Diplomat.
+5. Add tests for Treasurer and core tools.
+6. Standardize `GBRAIN_DATABASE_URL` naming.
+7. Update README/demo output filenames if still inconsistent.
+8. Add CI/linting.
+
+---
+
+## 8. Files changed in this audit/fix pass
+
+- `README.md` — translated, badges, install note.
+- `docs/for-founders.md` — translated.
+- `docs/for-developers.md` — translated, install note, known gaps.
+- `docs/architecture.md` — translated.
+- `.env.example` — translated comments, added `HERMES_CLI_PATH` placeholder.
+- `install.sh` / `scripts/setup_hermes.py` — safe installer, no fake URLs, demo run.
+- `partenon-core/` — README, SKILL, and tools translated to English; `eval_loop.py` added.
+- `gbrain/` — README, server, tools translated to English.
+- `hermes/profiles/partenon-*/` — all seven hero profiles translated: SOUL, config, SKILL, `.env.example`, cron, templates, and Python tools.
+- `data/cron.json` / `data/tasks.json` — translated and mapped to existing scripts.
+- `MISSING_IMPLEMENTATION.md` — this file.

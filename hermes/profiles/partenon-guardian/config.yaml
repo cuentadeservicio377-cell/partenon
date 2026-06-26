@@ -1,9 +1,16 @@
 # Profile: partenon-guardian
 # Role: Security, models, API keys, profile permissions, and audit.
 
+profile:
+  name: partenon-guardian
+  display_name: Guardian
+  description: Security, model access, API keys, profile permissions, and audit for Partenon.
+  version: 0.1.0
+  hermes_agent: true
+
 model:
-  provider: kimi-coding
-  model: kimi-k2-6
+  provider: openrouter
+  model: openrouter/anthropic/claude-opus-4
 
 agent:
   max_iterations: 40

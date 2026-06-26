@@ -1,110 +1,110 @@
 ---
 name: finance
-description: Skill de finanzas para el perfil Tesorero de Partenon. Clasifica costos fijos y variables, construye dashboards, analiza gastos y detecta inconsistencias en Google Sheets.
+description: Finance skill for the Partenon Treasurer profile. Classifies fixed and variable costs, builds dashboards, analyzes expenses, and detects inconsistencies in Google Sheets.
 version: 0.1.0
 metadata:
   partenon:
     profile: partenon-tesorero
-    tags: [finanzas, google-sheets, presupuestos, proveedores, costos, dashboards]
+    tags: [finance, google-sheets, budgets, vendors, costs, dashboards]
     related_skills: [business-core, marketing, operations]
     depends_on: [google_workspace]
     status: draft
 ---
 
-# Skill: Finance - Partenon Tesorero v0.1
+# Skill: Finance — Partenon Treasurer v0.1
 
-## Rol
+## Role
 
-Soy la skill de finanzas del Tesorero. Mantengo los numeros de Hermes ordenados, visibles y auditables en Google Sheets.
+I am the Treasurer's finance skill. I keep Hermes' numbers organized, visible, and auditable in Google Sheets.
 
-## Activacion
+## Activation
 
-Me activo cuando:
-- Se recibe un gasto o ingreso para registrar.
-- Se necesita clasificar un costo como fijo o variable.
-- Se pide un presupuesto de proyecto o campana.
-- Hay que construir o actualizar un dashboard.
-- Se detecta una inconsistencia o duplicidad.
-- Se acerca una fecha de vencimiento.
+I activate when:
+- An expense or income needs to be recorded.
+- A cost needs to be classified as fixed or variable.
+- A project or campaign budget is requested.
+- A dashboard needs to be built or updated.
+- An inconsistency or duplicate is detected.
+- A due date is approaching.
 
-## Herramientas Python
+## Python tools
 
 ### `tools/google_sheets.py`
-- `GoogleSheets.read_sheet(spreadsheet_id, range_name)` - Lee un rango de Sheets.
-- `GoogleSheets.write_sheet(spreadsheet_id, range_name, values)` - Escribe un rango en Sheets.
-- `GoogleSheets.append_row(spreadsheet_id, range_name, row)` - Agrega una fila al final.
-- `GoogleSheets.create_dashboard(title, sheets)` - Crea spreadsheet maestro con hojas base.
-- `GoogleSheets.get_or_create_spreadsheet(title)` - Busca o crea spreadsheet por titulo.
+- `GoogleSheets.read_sheet(spreadsheet_id, range_name)` - Reads a Sheets range.
+- `GoogleSheets.write_sheet(spreadsheet_id, range_name, values)` - Writes a range to Sheets.
+- `GoogleSheets.append_row(spreadsheet_id, range_name, row)` - Appends a row at the end.
+- `GoogleSheets.create_dashboard(title, sheets)` - Creates a master spreadsheet with base sheets.
+- `GoogleSheets.get_or_create_spreadsheet(title)` - Finds or creates a spreadsheet by title.
 
 ### `tools/parsers.py`
-- `ExpenseParser.parse_excel(filepath)` - Extrae gastos de un archivo Excel o CSV.
-- `ExpenseParser.parse_csv(filepath)` - Extrae gastos de CSV.
-- `ExpenseParser.normalize_amount(value)` - Normaliza montos a numero.
-- `ExpenseParser.infer_category(description)` - Sugiere categoria a partir de descripcion.
+- `ExpenseParser.parse_excel(filepath)` - Extracts expenses from an Excel or CSV file.
+- `ExpenseParser.parse_csv(filepath)` - Extracts expenses from CSV.
+- `ExpenseParser.normalize_amount(value)` - Normalizes amounts to numbers.
+- `ExpenseParser.infer_category(description)` - Suggests a category from a description.
 
 ### `tools/templates.py`
-- `Templates.crear_presupuesto(filepath, periodo, rubros)` - Genera plantilla de presupuesto.
-- `Templates.crear_proveedores(filepath)` - Genera directorio de proveedores.
-- `Templates.crear_flujo_caja(filepath, meses)` - Genera plantilla de flujo de caja.
+- `Templates.create_budget(filepath, period, items)` - Generates a budget template.
+- `Templates.create_vendors(filepath)` - Generates a vendor directory.
+- `Templates.create_cash_flow(filepath, months)` - Generates a cash flow template.
 
-## Funciones principales
+## Main functions
 
-### 1. Clasificar costos fijos y variables
+### 1. Classify fixed and variable costs
 
-Cada gasto se etiqueta en el momento del registro:
-- Fijo: renta, salarios base, servicios recurrentes.
-- Variable: materiales, publicidad, flete, comisiones.
-- Ambiguo: se deja en revision y se pregunta al usuario.
+Every expense is tagged at the time of registration:
+- Fixed: rent, base salaries, recurring services.
+- Variable: materials, advertising, shipping, commissions.
+- Ambiguous: left for review and the user is asked.
 
-### 2. Construir dashboard
+### 2. Build dashboard
 
-El dashboard maestro incluye estas hojas:
-- Resumen Mensual
-- Flujo de Caja
-- Costos Fijos
-- Costos Variables
-- Proveedores
-- Presupuestos vs Real
-- Alertas
+The master dashboard includes these sheets:
+- Monthly Summary
+- Cash Flow
+- Fixed Costs
+- Variable Costs
+- Vendors
+- Budget vs Actual
+- Alerts
 
-### 3. Analizar gastos
+### 3. Analyze expenses
 
-- Comparar gastos reales contra presupuesto.
-- Calcular variacion porcentual.
-- Identificar top proveedores por monto.
-- Agrupar gastos por categoria y periodo.
+- Compare actual expenses against budget.
+- Calculate percentage variance.
+- Identify top vendors by amount.
+- Group expenses by category and period.
 
-### 4. Detectar inconsistencias
+### 4. Detect inconsistencies
 
-- Duplicidades de transacciones.
-- Montos negativos o nulos.
-- Categorias vacias o desconocidas.
-- Vencimientos proximos sin pago registrado.
-- Variaciones de precio mayores al umbral configurado.
+- Duplicate transactions.
+- Negative or null amounts.
+- Empty or unknown categories.
+- Upcoming due dates without recorded payment.
+- Price variations greater than the configured threshold.
 
-## Flujo: Registrar un gasto
+## Flow: Record an expense
 
-1. Recibir descripcion, monto, fecha y metodo.
-2. Normalizar monto y fecha.
-3. Inferir categoria.
-4. Clasificar como fijo o variable.
-5. Si es ambiguo, preguntar al usuario.
-6. Escribir fila en la hoja correspondiente de Sheets.
-7. Actualizar dashboard si aplica.
+1. Receive description, amount, date, and method.
+2. Normalize amount and date.
+3. Infer category.
+4. Classify as fixed or variable.
+5. If ambiguous, ask the user.
+6. Write the row in the corresponding Sheets sheet.
+7. Update the dashboard if applicable.
 
-## Flujo: Presupuesto de campana
+## Flow: Campaign budget
 
-1. Recibir parametros de la campana del Mensajero.
-2. Calcular costos variables esperados.
-3. Verificar disponibilidad contra presupuesto de marketing.
-4. Crear o actualizar presupuesto en Sheets.
-5. Compartir enlace con el Mensajero.
+1. Receive campaign parameters from the Messenger.
+2. Calculate expected variable costs.
+3. Verify availability against the marketing budget.
+4. Create or update the budget in Sheets.
+5. Share the link with the Messenger.
 
-## Reglas
+## Rules
 
-- Siempre escribir en Google Sheets.
-- Preguntar antes de categorizar ambiguo.
-- No modificar transacciones pasadas; crear reversos.
-- Mantener moneda y redondeo consistentes.
-- Alertar vencimientos 3 dias antes.
-- Conectar con Mensajero para presupuestos de campanas.
+- Always write to Google Sheets.
+- Ask before categorizing ambiguous expenses.
+- Do not modify past transactions; create reversals.
+- Maintain consistent currency and rounding.
+- Alert due dates 3 days in advance.
+- Connect with the Messenger for campaign budgets.

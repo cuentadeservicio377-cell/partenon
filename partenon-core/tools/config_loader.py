@@ -23,9 +23,7 @@ class ConfigLoader:
         cwd = Path.cwd()
         candidates = [
             cwd / "config" / "company.yaml",
-            cwd / "config" / "empresa.yaml",
             cwd.parent / "config" / "company.yaml",
-            cwd.parent / "config" / "empresa.yaml",
             Path.home() / ".hermes" / "partenon" / "config" / "company.yaml",
         ]
         for candidate in candidates:
@@ -47,38 +45,38 @@ class ConfigLoader:
 
     @property
     def name(self) -> str:
-        company = self._data.get("company", self._data.get("empresa", {}))
-        return company.get("name", company.get("nombre", "My Company"))
+        company = self._data.get("company", {})
+        return company.get("name", "My Company")
 
     @property
     def industry(self) -> str:
-        company = self._data.get("company", self._data.get("empresa", {}))
-        return company.get("industry", company.get("industria", "services"))
+        company = self._data.get("company", {})
+        return company.get("industry", "services")
 
     @property
     def currency(self) -> str:
-        company = self._data.get("company", self._data.get("empresa", {}))
-        return company.get("currency", company.get("moneda", "USD"))
+        company = self._data.get("company", {})
+        return company.get("currency", "USD")
 
     @property
     def language(self) -> str:
-        company = self._data.get("company", self._data.get("empresa", {}))
-        return company.get("language", company.get("idioma", "en"))
+        company = self._data.get("company", {})
+        return company.get("language", "en")
 
     @property
     def timezone(self) -> str:
-        company = self._data.get("company", self._data.get("empresa", {}))
+        company = self._data.get("company", {})
         return company.get("timezone", "UTC")
 
     def integration_active(self, name: str) -> bool:
         integrations = self._data.get("integrations", {})
         integration = integrations.get(name, {})
-        return bool(integration.get("active", integration.get("activo", False)))
+        return bool(integration.get("active", False))
 
     def department_active(self, name: str) -> bool:
         profiles = self._data.get("profiles", {})
         profile = profiles.get(name, {})
-        return bool(profile.get("active", profile.get("activo", False)))
+        return bool(profile.get("active", False))
 
 
 def get_config() -> ConfigLoader:

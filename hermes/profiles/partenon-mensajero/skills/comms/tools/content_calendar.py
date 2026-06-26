@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Partenon Mensajero — Content Calendar Tool
-Adaptacion de social_calendar.py. Genera calendarios de contenido con contexto de marca.
+Partenon Herald — Content Calendar Tool
+Generates content calendars with brand context.
 """
 
 import json
@@ -16,73 +16,73 @@ import yaml
 
 CONTENT_PILLARS = {
     "educational": {
-        "name": "Educativo",
-        "description": "Ensena algo util a la audiencia",
+        "name": "Educational",
+        "description": "Teach something useful to the audience",
         "formats": [
-            "How-to directo",
-            "Tip rapido",
-            "Mito vs realidad",
-            "Framework o metodo",
-            "Recomendacion de herramienta",
-            "Dato del sector",
+            "Direct how-to",
+            "Quick tip",
+            "Myth vs reality",
+            "Framework or method",
+            "Tool recommendation",
+            "Sector data point",
         ],
     },
     "behind_the_scenes": {
-        "name": "Detras de escena",
-        "description": "Muestra el proceso real sin filtros",
+        "name": "Behind the scenes",
+        "description": "Show the real process without filters",
         "formats": [
-            "Dia de trabajo",
-            "Stack de herramientas",
-            "Proceso paso a paso",
-            "Leccion aprendida",
-            "Metricas compartidas",
+            "Workday",
+            "Tool stack",
+            "Step-by-step process",
+            "Lesson learned",
+            "Shared metrics",
         ],
     },
     "social_proof": {
-        "name": "Prueba social",
-        "description": "Resultados, testimonios y credibilidad",
+        "name": "Social proof",
+        "description": "Results, testimonials, and credibility",
         "formats": [
-            "Caso de cliente",
-            "Testimonio",
-            "Antes y despues",
-            "Hito alcanzado",
-            "Contenido generado por usuarios",
+            "Customer case",
+            "Testimonial",
+            "Before and after",
+            "Milestone reached",
+            "User-generated content",
         ],
     },
     "engagement": {
         "name": "Engagement",
-        "description": "Inicia conversaciones y construye comunidad",
+        "description": "Start conversations and build community",
         "formats": [
-            "Opinion contundente",
-            "Pregunta abierta",
-            "Encuesta",
-            "Esto o aquello",
-            "Completa la frase",
+            "Strong opinion",
+            "Open question",
+            "Poll",
+            "This or that",
+            "Complete the sentence",
         ],
     },
     "promotional": {
-        "name": "Promocional",
-        "description": "Promocion directa del producto o servicio (uso moderado)",
+        "name": "Promotional",
+        "description": "Direct product or service promotion (use moderately)",
         "formats": [
-            "Demo de producto",
-            "Destacado de beneficio",
-            "Oferta especial",
-            "Promo de evento o webinar",
-            "Recurso gratuito",
+            "Product demo",
+            "Benefit highlight",
+            "Special offer",
+            "Event or webinar promo",
+            "Free resource",
         ],
     },
 }
 
 
 POSTING_FREQUENCY = {
-    "linkedin": {"ideal": "3-5x/semana", "minimum": "2x/semana"},
-    "twitter": {"ideal": "3-5x/dia", "minimum": "1x/dia"},
-    "instagram": {"ideal": "4-7x/semana", "minimum": "3x/semana"},
-    "tiktok": {"ideal": "1-3x/dia", "minimum": "3x/semana"},
-    "youtube": {"ideal": "2-3x/semana", "minimum": "1x/semana"},
-    "facebook": {"ideal": "3-5x/semana", "minimum": "2x/semana"},
-    "blog": {"ideal": "2-4x/mes", "minimum": "1x/mes"},
-    "newsletter": {"ideal": "1-2x/semana", "minimum": "2x/mes"},
+    "linkedin": {"ideal": "3-5x/week", "minimum": "2x/week"},
+    "twitter": {"ideal": "3-5x/day", "minimum": "1x/day"},
+    "instagram": {"ideal": "4-7x/week", "minimum": "3x/week"},
+    "tiktok": {"ideal": "1-3x/day", "minimum": "3x/week"},
+    "youtube": {"ideal": "2-3x/week", "minimum": "1x/week"},
+    "facebook": {"ideal": "3-5x/week", "minimum": "2x/week"},
+    "blog": {"ideal": "2-4x/month", "minimum": "1x/month"},
+    "newsletter": {"ideal": "1-2x/week", "minimum": "2x/month"},
 }
 
 
@@ -132,7 +132,7 @@ def generate_calendar(
 
     brand_context = brand_context or {}
     positioning = brand_context.get("positioning", {})
-    brand_name = brand_context.get("brand", {}).get("nombre_marca", topic)
+    brand_name = brand_context.get("brand", {}).get("brand_name", topic)
     key_messages = brand_context.get("messaging", {}).get("key_messages", [])
     start_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
 
@@ -167,19 +167,19 @@ def generate_calendar(
             "day_of_week": date.strftime("%A"),
             "pillar": pillar["name"],
             "format": content_format,
-            "topic_angle": f"{content_format} sobre {message_angle}",
+            "topic_angle": f"{content_format} about {message_angle}",
             "channels": {},
             "status": "planned",
         }
 
         for channel in channels:
-            guidance = f"{content_format} adaptado a {channel}"
+            guidance = f"{content_format} adapted to {channel}"
             if channel in ["linkedin", "blog"]:
-                guidance += ". Priorizar valor educativo y estructura escaneable."
+                guidance += ". Prioritize educational value and scannable structure."
             elif channel in ["instagram", "tiktok"]:
-                guidance += ". Primero el gancho visual, despues la idea."
+                guidance += ". Visual hook first, then the idea."
             elif channel == "newsletter":
-                guidance += ". Un solo tema, una sola accion."
+                guidance += ". One topic, one action."
 
             day_entry["channels"][channel] = {
                 "guidance": guidance,
@@ -190,10 +190,10 @@ def generate_calendar(
         calendar["calendar"].append(day_entry)
 
     calendar["repurposing_notes"] = [
-        "Cada pieza larga genera al menos 3 piezas cortas.",
-        "Reutilizar el gancho mas fuerte para stories o reels.",
-        "Un caso de cliente se convierte en post, email y carrusel.",
-        "Republicar el contenido mejorado 2-4 semanas despues.",
+        "Every long piece generates at least 3 short pieces.",
+        "Reuse the strongest hook for stories or reels.",
+        "A customer case becomes a post, email, and carousel.",
+        "Repost improved content 2-4 weeks later.",
     ]
 
     return calendar
@@ -218,8 +218,8 @@ def main() -> int:
 
     if len(sys.argv) < 2:
         print(json.dumps({
-            "usage": "python3 content_calendar.py <topic> [canal1,canal2,...] [dias]",
-            "example": "python3 content_calendar.py 'automatizacion para pymes' linkedin,instagram 14",
+            "usage": "python3 content_calendar.py <topic> [channel1,channel2,...] [days]",
+            "example": "python3 content_calendar.py 'automation for SMBs' linkedin,instagram 14",
             "available_channels": list(POSTING_FREQUENCY.keys()),
         }, ensure_ascii=False, indent=2))
         return 0

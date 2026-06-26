@@ -5,13 +5,13 @@
   "schedule": "0 20 * * 0",
   "timezone": "America/Mexico_City",
   "tool": "skills.ops.tools.briefings",
-  "method": "generar_weekly_retro",
+  "method": "generate_weekly_retro",
   "args": {
-    "nombre_usuario": "{{owner.name}}"
+    "user_name": "{{owner.name}}"
   },
   "output": {
     "channel": "gmail",
-    "subject": "Retro semanal — {{date}}"
+    "subject": "Weekly retro — {{date}}"
   },
   "enabled": true
 }

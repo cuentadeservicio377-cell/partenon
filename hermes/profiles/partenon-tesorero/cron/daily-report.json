@@ -1,33 +1,33 @@
 {
-  "name": "daily-report",
-  "description": "Reporte diario de finanzas: ingresos, gastos, vencimientos y alertas.",
-  "schedule": "0 8 * * *",
-  "timezone": "America/Mexico_City",
-  "profile": "partenon-tesorero",
-  "skill": "finance",
+  "id": "tesorero-daily-report",
+  "name": "Treasurer — Daily financial report",
+  "description": "Generates a daily snapshot of income, expenses, cash flow, and pending alerts.",
+  "schedule": {
+    "frequency": "daily",
+    "time": "07:00",
+    "timezone": "America/Mexico_City"
+  },
   "enabled": true,
-  "actions": [
+  "steps": [
     {
-      "tool": "finance.tools.google_sheets",
-      "method": "read_sheet",
-      "args": {
-        "spreadsheet_id": "${PARTENON_TESORERO_SHEET_ID}",
-        "range_name": "Alertas!A:G"
-      }
+      "order": 1,
+      "tool": "read_spending",
+      "description": "Reads fixed and variable expenses from the spreadsheet"
     },
     {
-      "tool": "finance.tools.google_sheets",
-      "method": "read_sheet",
-      "args": {
-        "spreadsheet_id": "${PARTENON_TESORERO_SHEET_ID}",
-        "range_name": "Resumen Mensual!A:G"
-      }
+      "order": 2,
+      "tool": "read_cash_flow",
+      "description": "Calculates current cash flow and short-term projection"
+    },
+    {
+      "order": 3,
+      "tool": "detect_anomalies",
+      "description": "Identifies anomalies, duplicate payments, or budget overruns"
+    },
+    {
+      "order": 4,
+      "tool": "notify",
+      "description": "Sends a concise report to the operator and, if configured, to the Strategist"
     }
-  ],
-  "output": {
-    "channel": "gbrain",
-    "summary_template": "Reporte diario del Tesorero: {fecha}",
-    "include_alerts": true,
-    "include_pending_payments": true
-  }
+  ]
 }

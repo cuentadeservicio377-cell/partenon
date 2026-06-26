@@ -1,6 +1,6 @@
 """
-Partenon Tesorero - Excel Templates
-Generate reusable Excel templates for budgets, providers and cash flow.
+Partenon Scribe - Excel Templates
+Generate reusable Excel templates for budgets, suppliers and cash flow.
 """
 
 from datetime import datetime
@@ -68,59 +68,59 @@ class Templates:
 
     def _check_openpyxl(self) -> bool:
         if not OPENPYXL_AVAILABLE:
-            self.errors.append("openpyxl no esta instalado")
+            self.errors.append("openpyxl is not installed")
             return False
         return True
 
-    def crear_presupuesto(self, filepath: str = "presupuesto.xlsx",
-                          periodo: str = None,
-                          rubros: Optional[List[Dict[str, Any]]] = None) -> Optional[str]:
+    def create_budget(self, filepath: str = "budget.xlsx",
+                      period: str = None,
+                      line_items: Optional[List[Dict[str, Any]]] = None) -> Optional[str]:
         """Create a budget vs actual Excel template."""
         if not self._check_openpyxl():
             return None
 
         wb = Workbook()
         ws = wb.active
-        ws.title = "Presupuesto"
+        ws.title = "Budget"
 
-        periodo = periodo or datetime.now().strftime("%B %Y")
+        period = period or datetime.now().strftime("%B %Y")
 
         # Title
-        ws["A1"] = "PRESUPUESTO VS REAL"
+        ws["A1"] = "BUDGET VS ACTUAL"
         ws["A1"].font = Font(bold=True, size=18, color=COLOR_DARK)
         ws.merge_cells("A1:F1")
         ws["A1"].alignment = Alignment(horizontal="center", vertical="center")
         ws.row_dimensions[1].height = 30
 
-        ws["A2"] = "Periodo:"
-        ws["B2"] = periodo
+        ws["A2"] = "Period:"
+        ws["B2"] = period
         ws["A2"].font = Font(bold=True)
 
         # Headers
-        headers = ["Rubro", "Presupuestado", "Real", "Diferencia", "% Variacion", "Observaciones"]
+        headers = ["Line Item", "Budget", "Actual", "Difference", "% Variance", "Notes"]
         for col, header in enumerate(headers, 1):
             cell = ws.cell(row=4, column=col, value=header)
             _style_header(cell)
 
-        default_rubros = [
-            {"rubro": "Materiales", "presupuestado": 30000},
-            {"rubro": "Publicidad", "presupuestado": 12000},
-            {"rubro": "Salarios", "presupuestado": 45000},
-            {"rubro": "Renta", "presupuestado": 15000},
-            {"rubro": "Servicios", "presupuestado": 5000},
-            {"rubro": "Flete", "presupuestado": 5000},
+        default_items = [
+            {"line_item": "Materials", "budget": 30000},
+            {"line_item": "Advertising", "budget": 12000},
+            {"line_item": "Salaries", "budget": 45000},
+            {"line_item": "Rent", "budget": 15000},
+            {"line_item": "Services", "budget": 5000},
+            {"line_item": "Freight", "budget": 5000},
         ]
-        rubros = rubros or default_rubros
+        line_items = line_items or default_items
 
         start_row = 5
-        for idx, item in enumerate(rubros):
+        for idx, item in enumerate(line_items):
             row = start_row + idx
-            ws.cell(row=row, column=1, value=item.get("rubro", ""))
-            ws.cell(row=row, column=2, value=item.get("presupuestado", 0))
-            ws.cell(row=row, column=3, value=item.get("real", 0))
+            ws.cell(row=row, column=1, value=item.get("line_item", ""))
+            ws.cell(row=row, column=2, value=item.get("budget", 0))
+            ws.cell(row=row, column=3, value=item.get("actual", 0))
             ws.cell(row=row, column=4, value=f"=C{row}-B{row}")
             ws.cell(row=row, column=5, value=f"=IF(B{row}=0,0,D{row}/B{row})")
-            ws.cell(row=row, column=6, value=item.get("observaciones", ""))
+            ws.cell(row=row, column=6, value=item.get("notes", ""))
 
             for col in range(1, 7):
                 cell = ws.cell(row=row, column=col)
@@ -131,7 +131,7 @@ class Templates:
                     _format_percent(cell)
 
         # Totals
-        total_row = start_row + len(rubros)
+        total_row = start_row + len(line_items)
         ws.cell(row=total_row, column=1, value="TOTAL").font = Font(bold=True, size=12)
         ws.cell(row=total_row, column=1).alignment = Alignment(horizontal="right", vertical="center")
 
@@ -163,9 +163,9 @@ class Templates:
         chart = BarChart()
         chart.type = "col"
         chart.style = 10
-        chart.title = "Presupuestado vs Real"
-        chart.y_axis.title = "Monto"
-        chart.x_axis.title = "Rubro"
+        chart.title = "Budget vs Actual"
+        chart.y_axis.title = "Amount"
+        chart.x_axis.title = "Line Item"
 
         data = Reference(ws, min_col=2, min_row=4, max_row=total_row - 1, max_col=3)
         cats = Reference(ws, min_col=1, min_row=5, max_row=total_row - 1)
@@ -178,19 +178,19 @@ class Templates:
         wb.save(filepath)
         return filepath
 
-    def crear_proveedores(self, filepath: str = "proveedores.xlsx") -> Optional[str]:
-        """Create a provider directory Excel template."""
+    def create_suppliers(self, filepath: str = "suppliers.xlsx") -> Optional[str]:
+        """Create a supplier directory Excel template."""
         if not self._check_openpyxl():
             return None
 
         wb = Workbook()
         ws = wb.active
-        ws.title = "Proveedores"
+        ws.title = "Suppliers"
 
         headers = [
-            "ID", "Nombre", "Contacto", "Telefono", "Email",
-            "Direccion", "Especialidad", "Condiciones de Pago",
-            "Tiempo de Entrega", "Calificacion (1-5)", "Monto Total", "Notas"
+            "ID", "Name", "Contact", "Phone", "Email",
+            "Address", "Specialty", "Payment Terms",
+            "Lead Time", "Rating (1-5)", "Total Amount", "Notes"
         ]
 
         for col, header in enumerate(headers, 1):
@@ -198,12 +198,12 @@ class Templates:
             _style_header(cell)
 
         examples = [
-            ["P001", "Papeleria Central", "Ana Garcia", "555-0104", "ana@papeleriacentral.com",
-             "Calle Comercio 321", "Papeleria y consumibles", "Contado", "1-2 dias habiles", 5, 0, "Entrega rapida"],
-            ["P002", "Servicios Cloud MX", "Carlos Ruiz", "555-0201", "carlos@cloudmx.com",
-             "Av. Digital 100", "Cloud y hosting", "30 dias", "Inmediato", 4, 0, "Contrato anual"],
-            ["P003", "Transportes del Norte", "Maria Lopez", "555-0301", "maria@tdnorte.com",
-             "Blvd. Industrial 50", "Flete y mensajeria", "15 dias", "24-48 horas", 4, 0, ""],
+            ["P001", "Central Stationery", "Ana Garcia", "555-0104", "ana@papeleriacentral.com",
+             "Commerce St 321", "Stationery and supplies", "Cash", "1-2 business days", 5, 0, "Fast delivery"],
+            ["P002", "Cloud Services MX", "Carlos Ruiz", "555-0201", "carlos@cloudmx.com",
+             "Digital Ave 100", "Cloud and hosting", "30 days", "Immediate", 4, 0, "Annual contract"],
+            ["P003", "Northern Transport", "Maria Lopez", "555-0301", "maria@tdnorte.com",
+             "Industrial Blvd 50", "Freight and courier", "15 days", "24-48 hours", 4, 0, ""],
         ]
 
         for row_idx, row_data in enumerate(examples, 2):
@@ -224,34 +224,34 @@ class Templates:
         wb.save(filepath)
         return filepath
 
-    def crear_flujo_caja(self, filepath: str = "flujo_caja.xlsx",
-                         meses: int = 6) -> Optional[str]:
+    def create_cash_flow(self, filepath: str = "cash_flow.xlsx",
+                         months: int = 6) -> Optional[str]:
         """Create a cash flow projection Excel template."""
         if not self._check_openpyxl():
             return None
 
         wb = Workbook()
         ws = wb.active
-        ws.title = "Flujo de Caja"
+        ws.title = "Cash Flow"
 
-        ws["A1"] = "FLUJO DE CAJA PROYECTADO"
+        ws["A1"] = "PROJECTED CASH FLOW"
         ws["A1"].font = Font(bold=True, size=18, color=COLOR_DARK)
         ws.merge_cells("A1:F1")
         ws["A1"].alignment = Alignment(horizontal="center", vertical="center")
         ws.row_dimensions[1].height = 30
 
-        headers = ["Mes", "Ingresos", "Gastos Fijos", "Gastos Variables", "Balance", "Acumulado"]
+        headers = ["Month", "Income", "Fixed Expenses", "Variable Expenses", "Balance", "Accumulated"]
         for col, header in enumerate(headers, 1):
             cell = ws.cell(row=3, column=col, value=header)
             _style_header(cell)
 
         now = datetime.now()
         start_row = 4
-        for i in range(meses):
+        for i in range(months):
             row = start_row + i
-            mes = (now.month + i - 1) % 12 + 1
-            anio = now.year + (now.month + i - 1) // 12
-            ws.cell(row=row, column=1, value=f"{anio}-{mes:02d}")
+            month = (now.month + i - 1) % 12 + 1
+            year = now.year + (now.month + i - 1) // 12
+            ws.cell(row=row, column=1, value=f"{year}-{month:02d}")
             ws.cell(row=row, column=2, value=0)
             ws.cell(row=row, column=3, value=0)
             ws.cell(row=row, column=4, value=0)

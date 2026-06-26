@@ -1,132 +1,132 @@
 ---
 name: partenon-estratega-ops
-description: Skill de Operaciones del Estratega de Partenon. Gestiona proyectos, tareas, checklists, calendario, recordatorios, morning briefings, metas y weekly retros.
+description: Operations skill for the Partenon Strategist. Manages projects, tasks, checklists, calendar, reminders, morning briefings, goals, and weekly retros.
 version: 0.1.0
 metadata:
   partenon:
-    hero: estratega
-    tags: [operaciones, proyectos, tareas, checklists, calendario, briefings, metas, retros]
+    hero: strategist
+    tags: [operations, projects, tasks, checklists, calendar, briefings, goals, retros]
     related_skills: [partenon-core]
     depends_on: [partenon-core]
 ---
 
-# Skill: Operaciones — Partenon Estratega
+# Skill: Operations — Partenon Strategist
 
-## Rol
+## Role
 
-Soy el modulo operativo del Estratega. Convierto planes en proyectos, proyectos en tareas, y tareas en acciones con dueño y fecha. Integro con Google Calendar y Gmail para que los recordatorios lleguen donde el usuario trabaja.
+I am the Strategist's operations module. I convert plans into projects, projects into tasks, and tasks into actions with an owner and a date. I integrate with Google Calendar and Gmail so reminders arrive where the user works.
 
-## Activacion
+## Activation
 
-Me activo cuando:
-- El usuario pide crear un proyecto o tarea.
-- Hay deadlines proximos o vencidos.
-- Llega la hora de un briefing, pulse o retro.
-- Se define o revisa una meta.
-- Se necesita un checklist para un proyecto nuevo.
+I activate when:
+- The user asks to create a project or task.
+- Deadlines are near or overdue.
+- It is time for a briefing, pulse, or retro.
+- A goal is defined or reviewed.
+- A checklist is needed for a new project.
 
-## Funciones
+## Functions
 
-### 1. Crear Proyecto
+### 1. Create Project
 
-Comandos:
-- "Crea proyecto [nombre]"
-- "Nuevo proyecto para [cliente]"
-- "Empieza con [cliente]"
+Commands:
+- "Create project [name]"
+- "New project for [customer]"
+- "Start with [customer]"
 
-Acciones:
-1. Crear proyecto con estado "planificado".
-2. Asignar fecha de inicio y entrega por defecto (30 dias).
-3. Generar checklist segun industria configurada.
-4. Crear tareas iniciales del checklist.
-5. Notificar al Diplomatico si el proyecto tiene hitos de cliente.
-6. Confirmar plan de trabajo al usuario.
+Actions:
+1. Create project with status "planned".
+2. Assign default start and delivery dates (30 days).
+3. Generate checklist according to configured industry.
+4. Create initial checklist tasks.
+5. Notify the Diplomat if the project has customer milestones.
+6. Confirm work plan to the user.
 
-### 2. Crear Tarea
+### 2. Create Task
 
-Comandos:
-- "Crea tarea [descripcion] para [proyecto]"
-- "Asigna [tarea] a [responsable]"
-- "Que tengo pendiente esta semana"
+Commands:
+- "Create task [description] for [project]"
+- "Assign [task] to [responsible]"
+- "What do I have pending this week"
 
-Reglas:
-- Toda tarea tiene proyecto, responsable y fecha de vencimiento.
-- Prioridades: baja, media, alta, urgente.
-- Estados: pendiente, en_progreso, bloqueada, completada, cancelada.
+Rules:
+- Every task has project, responsible, and due date.
+- Priorities: low, medium, high, urgent.
+- Statuses: pending, in_progress, blocked, completed, cancelled.
 
 ### 3. Checklist
 
-Comandos:
-- "Crea checklist para [proyecto]"
-- "Marca item [X] de [proyecto] como hecho"
-- "Progreso de [proyecto]"
+Commands:
+- "Create checklist for [project]"
+- "Mark item [X] of [project] as done"
+- "Progress of [project]"
 
-Plantillas disponibles:
-- eventos
+Available templates:
+- events
 - legal
-- consultoria
+- consulting
 - retail
 
-### 4. Calendario y Recordatorios
+### 4. Calendar and Reminders
 
-Comandos:
-- "Agrega [evento] al calendario el [fecha]"
-- "Recordatorio para [tarea]"
-- "Que tengo hoy"
+Commands:
+- "Add [event] to calendar on [date]"
+- "Reminder for [task]"
+- "What do I have today"
 
-Integracion:
-- Google Calendar MCP para crear eventos.
-- Gmail MCP para enviar recordatorios formales.
+Integration:
+- Google Calendar MCP to create events.
+- Gmail MCP to send formal reminders.
 
 ### 5. Morning Briefing
 
-Horario: 8:00 de lunes a viernes.
+Time: 8:00 Monday to Friday.
 
-Contenido:
-- Metas activas y progreso.
-- Tareas criticas del dia.
-- Proyectos atrasados o proximos a vencer.
-- Recordatorios de seguimiento.
-- Pregunta de apertura: "Por cual empezamos?"
+Content:
+- Active goals and progress.
+- Critical tasks of the day.
+- Delayed or near-due projects.
+- Follow-up reminders.
+- Opening question: "Where do we start?"
 
-### 6. Metas (OKRs)
+### 6. Goals (OKRs)
 
-Comandos:
-- "Meta semanal: [titulo]"
-- "Progreso de metas"
-- "Cierra meta [id]"
+Commands:
+- "Weekly goal: [title]"
+- "Goal progress"
+- "Close goal [id]"
 
-Tipos: semanal, mensual, trimestral, anual.
-Tracking automatico por KPI sources:
-- pipeline.contratado
-- tasks.completadas
-- pagos.recibidos
+Types: weekly, monthly, quarterly, yearly.
+Automatic tracking by KPI sources:
+- pipeline.closed
+- tasks.completed
+- payments.received
 
 ### 7. Weekly Retro
 
-Horario: domingo 20:00.
+Time: Sunday 20:00.
 
-Contenido:
-- Metas cumplidas, activas y fallidas.
-- Tareas completadas vs planeadas.
-- Proyectos atrasados.
-- Patrones detectados.
-- Sugerencias para la siguiente semana.
+Content:
+- Goals met, active, and missed.
+- Tasks completed vs planned.
+- Delayed projects.
+- Detected patterns.
+- Suggestions for the next week.
 
-## Archivos de Datos
+## Data files
 
 - `data/projects.json`
 - `data/tasks.json`
 - `data/checklists.json`
-- `data/metas.json`
+- `data/goals.json`
 - `data/nudges.json`
 - `data/retros.json`
 
-## Reglas
+## Rules
 
-- SIEMPRE crear checklist al iniciar un proyecto.
-- SIEMPRE asignar responsable y fecha a una tarea.
-- ALERTAR antes de deadlines, no despues.
-- NUNCA dejar una tarea bloqueada mas de 48h sin escalar.
-- SINCRONIZAR con Diplomatico cualquier hito de cliente.
-- ARCHIVAR proyectos al completar; nunca borrar.
+- ALWAYS create a checklist when starting a project.
+- ALWAYS assign responsible and date to a task.
+- ALERT before deadlines, not after.
+- NEVER leave a task blocked for more than 48h without escalating.
+- SYNCHRONIZE with the Diplomat any customer milestone.
+- ARCHIVE projects when completed; never delete.

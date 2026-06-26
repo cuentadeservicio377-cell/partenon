@@ -1,5 +1,5 @@
 """
-Partenon Tesorero - Google Sheets Integration
+Partenon Scribe - Google Sheets Integration
 Tools for reading, writing and building financial dashboards in Sheets.
 """
 
@@ -195,20 +195,20 @@ class GoogleSheets:
 
         return self.create_spreadsheet(title)
 
-    def create_dashboard(self, title: str = "Partenon Finanzas") -> Optional[str]:
+    def create_dashboard(self, title: str = "Partenon Finances") -> Optional[str]:
         """Create master finance dashboard with base sheets."""
         spreadsheet_id = self.get_or_create_spreadsheet(title)
         if not spreadsheet_id:
             return None
 
         sheets_config = [
-            {"title": "Resumen Mensual"},
-            {"title": "Flujo de Caja"},
-            {"title": "Costos Fijos"},
-            {"title": "Costos Variables"},
-            {"title": "Proveedores"},
-            {"title": "Presupuestos vs Real"},
-            {"title": "Alertas"},
+            {"title": "Monthly Summary"},
+            {"title": "Cash Flow"},
+            {"title": "Fixed Costs"},
+            {"title": "Variable Costs"},
+            {"title": "Suppliers"},
+            {"title": "Budget vs Actual"},
+            {"title": "Alerts"},
         ]
 
         service = self._get_service()
@@ -243,26 +243,26 @@ class GoogleSheets:
     def _seed_headers(self, spreadsheet_id: str):
         """Write default headers to dashboard sheets."""
         headers = {
-            "Resumen Mensual": [
-                ["Periodo", "Ingresos", "Gastos", "Balance", "Margen %", "Transacciones", "Actualizado"]
+            "Monthly Summary": [
+                ["Period", "Income", "Expenses", "Balance", "Margin %", "Transactions", "Updated"]
             ],
-            "Flujo de Caja": [
-                ["Mes", "Ingresos", "Gastos Fijos", "Gastos Variables", "Balance", "Acumulado"]
+            "Cash Flow": [
+                ["Month", "Income", "Fixed Expenses", "Variable Expenses", "Balance", "Accumulated"]
             ],
-            "Costos Fijos": [
-                ["Fecha", "Concepto", "Monto", "Categoria", "Proveedor", "Frecuencia", "Vencimiento"]
+            "Fixed Costs": [
+                ["Date", "Concept", "Amount", "Category", "Supplier", "Frequency", "Due"]
             ],
-            "Costos Variables": [
-                ["Fecha", "Concepto", "Monto", "Categoria", "Proveedor", "Proyecto", "Fijo/Variable"]
+            "Variable Costs": [
+                ["Date", "Concept", "Amount", "Category", "Supplier", "Project", "Fixed/Variable"]
             ],
-            "Proveedores": [
-                ["ID", "Nombre", "Contacto", "Telefono", "Email", "Especialidad", "Monto Total", "Calificacion"]
+            "Suppliers": [
+                ["ID", "Name", "Contact", "Phone", "Email", "Specialty", "Total Amount", "Rating"]
             ],
-            "Presupuestos vs Real": [
-                ["Area", "Periodo", "Presupuestado", "Real", "Diferencia", "% Variacion", "Estado"]
+            "Budget vs Actual": [
+                ["Area", "Period", "Budget", "Actual", "Difference", "% Variance", "Status"]
             ],
-            "Alertas": [
-                ["Tipo", "Descripcion", "Categoria", "Monto", "Severidad", "Accion Sugerida", "Fecha"]
+            "Alerts": [
+                ["Type", "Description", "Category", "Amount", "Severity", "Suggested Action", "Date"]
             ],
         }
 

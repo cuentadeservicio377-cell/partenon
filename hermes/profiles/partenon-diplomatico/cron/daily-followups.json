@@ -1,6 +1,6 @@
 {
   "name": "daily-followups",
-  "description": "Revisa seguimientos pendientes del Diplomático cada mañana.",
+  "description": "Review pending Diplomat follow-ups every morning.",
   "enabled": true,
   "schedule": {
     "cron": "0 8 * * *",
@@ -12,18 +12,18 @@
     "tool": "followups.py",
     "function": "run_daily_followups",
     "args": {
-      "dias_alerta": [1, 3, 7],
-      "canales": ["gmail", "google_workspace"]
+      "alert_days": [1, 3, 7],
+      "channels": ["gmail", "google_workspace"]
     }
   },
   "outputs": [
     {
       "type": "gbrain_mission",
-      "description": "Registrar misión de seguimiento diario"
+      "description": "Register daily follow-up mission"
     },
     {
       "type": "calendar_event",
-      "description": "Crear evento de bloqueo si hay hitos críticos"
+      "description": "Create blocking event if there are critical milestones"
     }
   ]
 }

@@ -1,8 +1,8 @@
 profile:
   name: partenon-mensajero
-  display_name: Mensajero
-  role: comunicacion, marca, ventas, contenido, calendario editorial, SEO/GEO, presentaciones, mails, WordPress
-  archivos:
+  display_name: Messenger
+  role: communication, brand, sales, content, editorial calendar, SEO/GEO, presentations, email, WordPress
+  files:
     design: .design
   version: 0.1.0
 
@@ -39,4 +39,4 @@ memory:
 logging:
   level: info
   destination: console
-  file: logs/mensajero.log
+  file: logs/messenger.log

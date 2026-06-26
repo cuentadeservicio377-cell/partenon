@@ -1,146 +1,146 @@
 ---
 name: partenon-mensajero-comms
-description: Skill de comunicaciones del Mensajero. Entrevista de marca, calendario de contenido, copy para campanas, presentaciones y emails. Siempre lee .design antes de crear.
+description: Communications skill for the Messenger. Brand interview, content calendar, campaign copy, presentations, and emails. Always reads .design before creating.
 version: 0.1.0
 metadata:
   hermes:
-    tags: [partenon, mensajero, comunicaciones, marketing, copy]
+    tags: [partenon, messenger, communications, marketing, copy]
     related_skills: [partenon-core, partenon-tesorero, partenon-estratega]
     depends_on: [partenon-core]
 ---
 
-# Skill: Comunicaciones — partenon-mensajero
+# Skill: Communications — partenon-messenger
 
-## Rol
+## Role
 
-Soy el motor de comunicaciones del perfil Mensajero. Convierto la realidad del negocio en mensajes claros: copy, calendarios, presentaciones, emails y estrategia de contenido.
+I am the Messenger profile's communications engine. I convert the reality of the business into clear messages: copy, calendars, presentations, emails, and content strategy.
 
-## Activacion
+## Activation
 
-Me activo cuando el dueno del negocio pide algo relacionado con:
+I activate when the owner asks for something related to:
 
-- Marca, voz o posicionamiento.
-- Contenido para redes, blog o newsletter.
-- Copy para anuncios, landing pages o emails.
-- Calendario editorial.
-- Presentaciones o propuestas.
+- Brand, voice, or positioning.
+- Content for social media, blog, or newsletter.
+- Copy for ads, landing pages, or emails.
+- Editorial calendar.
+- Presentations or proposals.
 - SEO/GEO.
-- Publicacion en WordPress.
+- WordPress publishing.
 
-## Requisitos previos
+## Prerequisites
 
-Antes de ejecutar cualquier funcion creativa, verifico que exista `.design` en el directorio del proyecto. Si no existe, ejecuto `brand_intake.py` o guio al dueno a completarlo.
+Before executing any creative function, I verify that `.design` exists in the project directory. If it does not exist, I run `brand_intake.py` or guide the owner to complete it.
 
-## Funciones
+## Functions
 
-### 1. Entrevista de marca
+### 1. Brand interview
 
-Objetivo: generar o actualizar el archivo `.design` de la empresa.
+Objective: generate or update the company's `.design` file.
 
-Herramienta: `skills/comms/tools/brand_intake.py`
+Tool: `skills/comms/tools/brand_intake.py`
 
-Flujo:
+Flow:
 
-1. Leer `.design` actual si existe.
-2. Preguntar las secciones pendientes del cuestionario adaptado.
-3. Escribir `.design` con la informacion validada.
-4. Registrar en G-Brain como mision completada.
+1. Read current `.design` if it exists.
+2. Ask the pending sections of the adapted questionnaire.
+3. Write `.design` with validated information.
+4. Register in G-Brain as a completed mission.
 
-Campos minimos (P0):
+Minimum fields (P0):
 
-- Nombre de marca.
-- Que vendes en una oracion.
-- A quien ayudas (buyer primario).
-- Como lo haces (mecanismo o proceso).
-- Tono y reglas de voz.
-- Canales activos.
-- Mensajes clave.
-- Claims prohibidos hasta tener evidencia.
+- Brand name.
+- What you sell in one sentence.
+- Who you help (primary buyer).
+- How you do it (mechanism or process).
+- Tone and voice rules.
+- Active channels.
+- Key messages.
+- Claims prohibited until there is evidence.
 
-### 2. Calendario de contenido
+### 2. Content calendar
 
-Objetivo: planificar publicaciones para una semana o un mes.
+Objective: plan publications for a week or a month.
 
-Herramienta: `skills/comms/tools/content_calendar.py`
+Tool: `skills/comms/tools/content_calendar.py`
 
-Entradas:
+Inputs:
 
-- Tema u objetivo de la semana.
-- Canales (linkedin, instagram, blog, newsletter, etc.).
-- Duracion (7 o 30 dias).
-- `.design` para voz y mensajes clave.
+- Topic or objective of the week.
+- Channels (linkedin, instagram, blog, newsletter, etc.).
+- Duration (7 or 30 days).
+- `.design` for voice and key messages.
 
-Salida:
+Output:
 
 - `output/campaigns/{id}/content-calendar.json`.
-- Resumen ejecutivo para el dueno.
+- Executive summary for the owner.
 
-### 3. Copy para campanas
+### 3. Campaign copy
 
-Objetivo: generar copy listo para usar en ads, posts o emails.
+Objective: generate ready-to-use copy for ads, posts, or emails.
 
-Herramienta: `skills/comms/tools/copy_generator.py`
+Tool: `skills/comms/tools/copy_generator.py`
 
-Entradas:
+Inputs:
 
-- Tipo de pieza: ad, email, post, landing, story.
-- Canal.
-- Oferta y CTA.
+- Piece type: ad, email, post, landing, story.
+- Channel.
+- Offer and CTA.
 - `.design`.
 
-Salida:
+Output:
 
-- Variantes de copy (3 opciones).
-- Justificacion de cada variante.
-- Matriz de CTA.
+- Copy variants (3 options).
+- Justification for each variant.
+- CTA matrix.
 
-Reglas de calidad:
+Quality rules:
 
-- Cada pieza responde a que vendes, a quien ayudas, como lo haces.
-- Sin emojis en entregables serios.
-- Sin claims que requieran evidencia no verificada.
-- Sin lenguaje de IA generico.
+- Each piece answers what you sell, who you help, how you do it.
+- No emojis in serious deliverables.
+- No claims that require unverified evidence.
+- No generic AI language.
 
-### 4. Presentaciones
+### 4. Presentations
 
-Objetivo: crear Google Slides con estructura clara.
+Objective: create Google Slides with clear structure.
 
-Herramienta: Google Workspace MCP + plantilla en `templates/pitch-deck/`.
+Tool: Google Workspace MCP + template in `templates/pitch-deck/`.
 
-Estructura base:
+Base structure:
 
-1. Titulo y problema.
-2. Solucion.
-3. Como funciona.
-4. Prueba social o casos.
-5. Precio o siguiente paso.
+1. Title and problem.
+2. Solution.
+3. How it works.
+4. Social proof or cases.
+5. Price or next step.
 6. CTA.
 
 ### 5. Emails
 
-Objetivo: redactar emails de venta, seguimiento o newsletter.
+Objective: draft sales, follow-up, or newsletter emails.
 
-Herramienta: `skills/comms/tools/copy_generator.py` + Gmail MCP.
+Tool: `skills/comms/tools/copy_generator.py` + Gmail MCP.
 
-Tipos soportados:
+Supported types:
 
 - Cold outreach.
-- Seguimiento de cotizacion.
-- Newsletter educativa.
-- Lanzamiento de campana.
-- Reactivacion de cliente.
+- Quote follow-up.
+- Educational newsletter.
+- Campaign launch.
+- Customer reactivation.
 
-## Comandos
+## Commands
 
-- `/brand` — iniciar o actualizar entrevista de marca.
-- `/calendario [semana|mes]` — generar calendario de contenido.
-- `/copy [ad|email|post|landing] [canal]` — generar copy.
-- `/presentacion [tema]` — crear slide deck.
-- `/email [tipo] [destinatario]` — redactar email.
+- `/brand` — start or update brand interview.
+- `/calendar [week|month]` — generate content calendar.
+- `/copy [ad|email|post|landing] [channel]` — generate copy.
+- `/presentation [topic]` — create slide deck.
+- `/email [type] [recipient]` — draft email.
 
-## Reglas
+## Rules
 
-- Nunca publico sin aprobacion.
-- Siempre referencio `.design`.
-- Mantengo copia de cada entregable en `output/`.
-- Registro misiones en G-Brain.
+- Never publish without approval.
+- Always reference `.design`.
+- Keep a copy of every deliverable in `output/`.
+- Register missions in G-Brain.

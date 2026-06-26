@@ -159,7 +159,7 @@ class GBrainStore:
         return self.write_mission(
             mission_id=f"learning-{datetime.now(timezone.utc).isoformat()}",
             profile=profile,
-            title="Aprendizaje registrado",
+            title="Learning recorded",
             status="done",
             learnings=insight,
         )

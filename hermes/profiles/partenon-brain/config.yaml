@@ -1,7 +1,7 @@
 profile:
   name: partenon-brain
   display_name: Brain
-  description: Agente de memoria e inteligencia colectiva para Partenon. Indexa aprendizajes, resuelve conflictos de contexto y alimenta el onboarding de los demas heroes.
+  description: Memory and collective intelligence agent for Partenon. Indexes learnings, resolves context conflicts, and feeds onboarding for the other heroes.
   version: 0.1.0
 
 model:

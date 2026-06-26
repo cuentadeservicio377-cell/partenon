@@ -1,4 +1,4 @@
-"""Cliente MCP para G-Brain usado por el Brain de Partenon."""
+"""MCP client for G-Brain used by the Partenon Brain."""
 
 import json
 import os
@@ -7,7 +7,7 @@ from typing import Any
 
 
 class GBrainClient:
-    """Cliente de G-Brain via comando `gbrain`."""
+    """G-Brain client via the `gbrain` command."""
 
     def __init__(self, database_url: str | None = None):
         self.database_url = database_url or os.getenv(
@@ -15,7 +15,7 @@ class GBrainClient:
         )
 
     def _call(self, command: str, *args: str) -> dict[str, Any]:
-        """Ejecuta un comando de gbrain y devuelve el JSON parseado."""
+        """Run a gbrain command and return parsed JSON."""
         full_args = ["gbrain", command, *args]
         result = subprocess.run(
             full_args,
@@ -32,7 +32,7 @@ class GBrainClient:
             return {"ok": True, "raw": result.stdout.strip()}
 
     def put_page(self, slug: str, content: str, tags: list[str] | None = None) -> dict[str, Any]:
-        """Guarda o actualiza una pagina en G-Brain."""
+        """Save or update a page in G-Brain."""
         import tempfile
 
         tags = tags or []
@@ -46,18 +46,18 @@ class GBrainClient:
             os.unlink(path)
 
     def get_page(self, slug: str) -> dict[str, Any]:
-        """Recupera una pagina por slug."""
+        """Retrieve a page by slug."""
         return self._call("get", slug)
 
     def search(self, query: str, limit: int = 5) -> dict[str, Any]:
-        """Busqueda hibrida por texto."""
+        """Hybrid text search."""
         return self._call("query", query, "--no-expand")
 
     def link(self, from_slug: str, to_slug: str, type_: str = "related") -> dict[str, Any]:
-        """Crea un enlace tipado entre dos paginas."""
+        """Create a typed link between two pages."""
         return self._call("link", from_slug, to_slug, "--type", type_)
 
     def conflicts(self, profile: str | None = None) -> dict[str, Any]:
-        """Detecta decisiones marcadas como conflictivas."""
+        """Detect decisions marked as conflicting."""
         query = f"conflict:true {profile or ''}".strip()
         return self.search(query, limit=20)

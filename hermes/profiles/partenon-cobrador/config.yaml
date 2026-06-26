@@ -1,9 +1,9 @@
 ---
 profile:
   name: partenon-cobrador
-  display_name: Cobrador
-  role: pagos, cobranza, Stripe, payment links, suscripciones, facturas
-  archivo: .payments
+  display_name: Collector
+  role: payments, collections, Stripe, payment links, subscriptions, invoices
+  file: .payments
   version: 0.1.0
   hermes_agent: true
 
@@ -33,39 +33,39 @@ permissions:
   - write_payments_file
 
 workflows:
-  - name: cobro_por_link
+  - name: collect_by_link
     steps:
-      - validar_pago_en_sistema
-      - crear_payment_link
-      - enviar_link_al_cliente
-      - registrar_mision_en_gbrain
-  - name: suscripcion
+      - validate_payment_in_system
+      - create_payment_link
+      - send_link_to_client
+      - register_mission_in_gbrain
+  - name: subscription
     steps:
-      - validar_cliente
-      - crear_subscription
-      - guardar_en_payments_file
-      - notificar_a_tesorero
-  - name: recordatorio
+      - validate_client
+      - create_subscription
+      - save_to_payments_file
+      - notify_treasurer
+  - name: reminder
     steps:
-      - identificar_pagos_vencidos
-      - personalizar_mensaje
-      - enviar_recordatorio
-      - actualizar_estado_de_cobranza
-  - name: pago_confirmado
+      - identify_overdue_payments
+      - personalize_message
+      - send_reminder
+      - update_collection_status
+  - name: payment_confirmed
     steps:
-      - confirmar_pago_en_stripe
-      - registrar_pago
-      - sincronizar_con_tesorero
-      - actualizar_estado_de_cliente
+      - confirm_payment_in_stripe
+      - record_payment
+      - sync_with_treasurer
+      - update_client_status
 
 handoffs:
   to:
-    - partenon-tesorero: cuando el pago requiere registro contable o conciliación.
-    - partenon-diplomatico: cuando el cliente no responde o hay una disputa.
-    - partenon-guardian: cuando se detecta fraude o intento de pago inválido.
+    - partenon-tesorero: when the payment requires accounting record or reconciliation.
+    - partenon-diplomatico: when the client does not respond or there is a dispute.
+    - partenon-guardian: when fraud or an invalid payment attempt is detected.
   from:
-    - partenon-tesorero: cuando se identifica una cuenta por cobrar.
-    - partenon-diplomatico: cuando se acuerda un plan de pago.
+    - partenon-tesorero: when an account receivable is identified.
+    - partenon-diplomatico: when a payment plan is agreed.
 
 logging:
   level: INFO

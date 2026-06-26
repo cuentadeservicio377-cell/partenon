@@ -18,11 +18,12 @@
       "args": {
         "profiles": [
           "partenon-guardian",
-          "partenon-treasurer",
-          "partenon-messenger",
-          "partenon-collector",
-          "partenon-strategist",
-          "partenon-diplomat"
+          "partenon-tesorero",
+          "partenon-mensajero",
+          "partenon-cobrador",
+          "partenon-estratega",
+          "partenon-diplomatico",
+          "partenon-brain"
         ]
       },
       "output": "security/weekly/profiles"

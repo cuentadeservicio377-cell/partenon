@@ -1,6 +1,6 @@
 ---
 name: memory
-description: Skill de memoria e inteligencia para el perfil Brain de Partenon. Indexa aprendizajes, busca contexto historico y detecta conflictos entre decisiones.
+description: Memory and intelligence skill for the Partenon Brain profile. Indexes learnings, searches historical context, and detects conflicts between decisions.
 version: 0.1.0
 metadata:
   partenon:
@@ -11,61 +11,61 @@ metadata:
     status: draft
 ---
 
-# Skill: Memory - Partenon Brain v0.1
+# Skill: Memory — Partenon Brain v0.1
 
-## Rol
+## Role
 
-Soy la skill de memoria del Brain. Guardo lo que aprende Hermes y lo devuelvo cuando otro hero lo necesita.
+I am the Brain's memory skill. I save what Hermes learns and return it when another hero needs it.
 
-## Activacion
+## Activation
 
-Me activo cuando:
-- Un hero termina una mision y hay conclusiones para guardar.
-- Un hero necesita contexto historico antes de actuar.
-- Se detecta una posible contradiccion con decisiones previas.
-- Llega el momento de sincronizacion diaria.
-- Un nuevo hero se incorpora y necesita onboarding.
+I activate when:
+- A hero finishes a mission and there are conclusions to save.
+- A hero needs historical context before acting.
+- A possible contradiction with previous decisions is detected.
+- The daily sync time arrives.
+- A new hero joins and needs onboarding.
 
-## Herramientas Python
+## Python tools
 
 ### `tools/gbrain_client.py`
-- `GBrainClient.put_page(slug, content, tags=None)` - Guarda o actualiza una pagina en G-Brain.
-- `GBrainClient.get_page(slug)` - Recupera una pagina por slug.
-- `GBrainClient.search(query, limit=5)` - Busqueda hibrida por texto.
-- `GBrainClient.link(from_slug, to_slug, type='related')` - Crea un enlace entre paginas.
-- `GBrainClient.conflicts(profile=None)` - Detecta decisiones contradictorias.
+- `GBrainClient.put_page(slug, content, tags=None)` - Saves or updates a page in G-Brain.
+- `GBrainClient.get_page(slug)` - Retrieves a page by slug.
+- `GBrainClient.search(query, limit=5)` - Hybrid text search.
+- `GBrainClient.link(from_slug, to_slug, type='related')` - Creates a link between pages.
+- `GBrainClient.conflicts(profile=None)` - Detects contradictory decisions.
 
-## Funciones principales
+## Main functions
 
-### 1. Indexar aprendizaje
+### 1. Index learning
 
-1. Recibir resumen de mision, perfil autor y conclusiones.
-2. Generar slug unico: `<empresa>/learnings/<fecha>-<perfil>-<mision>`.
-3. Guardar pagina con tags y backlinks a la mision.
-4. Notificar al hero si hay decisiones relacionadas.
+1. Receive mission summary, author profile, and conclusions.
+2. Generate unique slug: `<company>/learnings/<date>-<profile>-<mission>`.
+3. Save page with tags and backlinks to the mission.
+4. Notify the hero if there are related decisions.
 
-### 2. Recuperar contexto
+### 2. Retrieve context
 
-1. Recibir pregunta o tema del hero.
-2. Buscar en G-Brain.
-3. Sintetizar respuesta con fuentes y fechas.
-4. Devolver resumen + slugs relevantes.
+1. Receive question or topic from the hero.
+2. Search in G-Brain.
+3. Synthesize response with sources and dates.
+4. Return summary + relevant slugs.
 
-### 3. Detectar conflictos
+### 3. Detect conflicts
 
-1. Iterar decisiones recientes.
-2. Comparar contra decisiones pasadas del mismo perfil o area.
-3. Si hay contradiccion, marcar y notificar al Estratega.
+1. Iterate recent decisions.
+2. Compare against past decisions from the same profile or area.
+3. If there is a contradiction, flag and notify the Strategist.
 
-### 4. Onboarding de nuevo hero
+### 4. Onboard new hero
 
-1. Recibir perfil a incorporar.
-2. Recopilar decisiones y aprendizajes relevantes.
-3. Generar resumen de contexto y guardarlo en `onboarding/`.
+1. Receive profile to incorporate.
+2. Gather relevant decisions and learnings.
+3. Generate context summary and save it in `onboarding/`.
 
-## Reglas
+## Rules
 
-- No indexar datos sensibles.
-- Siempre etiquetar con autor, fecha y perfil.
-- Mantener backlinks para navegabilidad.
-- Sintetizar, no reemplazar reportes.
+- Do not index sensitive data.
+- Always tag with author, date, and profile.
+- Maintain backlinks for navigability.
+- Synthesize, do not replace reports.

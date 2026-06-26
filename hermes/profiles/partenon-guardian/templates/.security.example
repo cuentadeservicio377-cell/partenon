@@ -54,7 +54,7 @@ permissions_by_profile:
       - audit_access
       - validate_access
 
-  partenon-treasurer:
+  partenon-tesorero:
     tools:
       - terminal
       - file
@@ -62,21 +62,70 @@ permissions_by_profile:
     skills:
       - finance
     files:
-      - hermes/profiles/partenon-treasurer/**
+      - hermes/profiles/partenon-tesorero/**
     actions:
       - read_financial_data
 
-  partenon-messenger:
+  partenon-mensajero:
     tools:
       - terminal
       - file
     mcp_servers: []
     skills:
-      - messaging
+      - comms
     files:
-      - hermes/profiles/partenon-messenger/**
+      - hermes/profiles/partenon-mensajero/**
     actions:
       - send_message
+
+  partenon-cobrador:
+    tools:
+      - terminal
+      - file
+    mcp_servers: []
+    skills:
+      - payments
+    files:
+      - hermes/profiles/partenon-cobrador/**
+    actions:
+      - manage_payments
+
+  partenon-estratega:
+    tools:
+      - terminal
+      - file
+    mcp_servers: []
+    skills:
+      - ops
+    files:
+      - hermes/profiles/partenon-estratega/**
+    actions:
+      - manage_operations
+
+  partenon-diplomatico:
+    tools:
+      - terminal
+      - file
+    mcp_servers: []
+    skills:
+      - relations
+    files:
+      - hermes/profiles/partenon-diplomatico/**
+    actions:
+      - manage_relations
+
+  partenon-brain:
+    tools:
+      - terminal
+      - file
+    mcp_servers:
+      - gbrain
+    skills:
+      - memory
+    files:
+      - hermes/profiles/partenon-brain/**
+    actions:
+      - manage_memory
 
 policies:
   least_privilege: true

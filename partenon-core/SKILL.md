@@ -1,11 +1,11 @@
 ---
 name: partenon-core
-description: Core of Partenon. Loads company configuration, routes conversations to the 6 hero profiles, maintains business context, integrates with Google Workspace and G-Brain, coordinates handoffs, and guides general onboarding. Always active.
+description: Core of Partenon. Loads company configuration, routes conversations to the 7 hero profiles, maintains business context, integrates with Google Workspace and G-Brain, coordinates handoffs, and guides general onboarding. Always active.
 version: 0.1.0
 metadata:
   hermes:
     tags: [partenon, core, business, enterprise]
-    related_skills: [partenon-tesorero, partenon-mensajero, partenon-cobrador, partenon-guardian, partenon-estratega, partenon-diplomatico]
+    related_skills: [partenon-tesorero, partenon-mensajero, partenon-cobrador, partenon-guardian, partenon-estratega, partenon-diplomatico, partenon-brain]
     auto_load: true
     priority: 1
 ---
@@ -17,7 +17,7 @@ metadata:
 I am the core of Partenon. My job is to:
 
 1. Load and maintain company configuration from `config/company.yaml`.
-2. Route conversations to the correct profile: Treasurer, Messenger, Collector, Guardian, Strategist, or Diplomat.
+2. Route conversations to the correct profile: Scribe, Herald, Collector, Guardian, Strategist, Diplomat, or Brain.
 3. Maintain client, vendor, and project context across the conversation.
 4. Integrate with Google Workspace and G-Brain via MCP.
 5. Coordinate handoffs between profiles.
@@ -80,6 +80,7 @@ When the business owner sends a message, I analyze intent and route:
 | API keys, models, permissions, security | Guardian | "Rotate the OpenAI API key" |
 | Projects, tasks, calendar, goals | Strategist | "What do I have this week" |
 | Clients, vendors, contracts, milestones | Diplomat | "Follow up on client X" |
+| Memory, context, past decisions, insights | Brain | "What did we decide last month?" |
 
 ## Rules
 

@@ -1,15 +1,15 @@
 """
-Partenon Cobrador — Stripe Tools
+Partenon Collector — Stripe Tools
 
-Funciones de pago, suscripción, recordatorios y registro de cobros.
-Compatible con Python 3.12.
+Payment, subscription, reminder, and collection record functions.
+Compatible with Python 3.12.
 
-Este módulo está diseñado para funcionar bajo dos modos:
-1. Dentro de Hermes Agent, usando el MCP server de Stripe.
-2. De forma standalone, si la librería `stripe` está disponible.
+This module is designed to work in two modes:
+1. Inside Hermes Agent, using the Stripe MCP server.
+2. Standalone, if the `stripe` library is available.
 
-Cuando no hay librería ni cliente MCP, las funciones devuelven un resultado
-estructurado con success=False indicando que falta configuración.
+When there is no library or MCP client, functions return a structured
+result with success=False indicating that configuration is missing.
 """
 
 from __future__ import annotations
@@ -20,28 +20,28 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
-# Intentar cargar stripe; si no está disponible, usamos el MCP o devolvemos error.
+# Try to load stripe; if not available, we use MCP or return an error.
 try:
     import stripe as stripe_lib
 
     HAS_STRIPE = True
-except Exception:  # pragma: no cover - stripe es opcional en desarrollo
+except Exception:  # pragma: no cover - stripe is optional in development
     stripe_lib = None  # type: ignore[assignment]
     HAS_STRIPE = False
 
 
 # ---------------------------------------------------------------------------
-# Configuración y utilidades
+# Configuration and utilities
 # ---------------------------------------------------------------------------
 
 
 def _get_stripe_key() -> str | None:
-    """Obtiene la API key de Stripe desde variables de entorno."""
+    """Get Stripe API key from environment variables."""
     return os.getenv("STRIPE_SECRET_KEY")
 
 
 def _init_stripe() -> bool:
-    """Inicializa la librería stripe si está disponible."""
+    """Initialize the stripe library if available."""
     if not HAS_STRIPE:
         return False
     key = _get_stripe_key()
@@ -52,36 +52,36 @@ def _init_stripe() -> bool:
 
 
 def _payments_file(profile_dir: Path | None = None) -> Path:
-    """Resuelve la ruta al archivo maestro .payments."""
+    """Resolve the path to the master .payments file."""
     if profile_dir is not None:
         return profile_dir / ".payments"
 
-    # Buscar hacia arriba desde el archivo actual hasta encontrar .payments
+    # Search upward from the current file until .payments is found
     current = Path(__file__).resolve()
     for parent in current.parents:
         candidate = parent / ".payments"
         if candidate.exists():
             return candidate
-        # Límite de búsqueda para evitar escalar hasta la raíz del sistema
+        # Search limit to avoid climbing to the system root
         if parent.name == "partenon-cobrador":
             return candidate
     return Path(__file__).resolve().parents[3] / ".payments"
 
 
 def _load_payments(profile_dir: Path | None = None) -> dict[str, Any]:
-    """Carga el archivo .payments como dict."""
+    """Load the .payments file as a dict."""
     payments_file = _payments_file(profile_dir)
     if not payments_file.exists():
-        return {"metadata": {}, "productos": [], "precios": [], "links": [], "suscripciones": [], "clientes": [], "pagos": [], "recordatorios": []}
+        return {"metadata": {}, "products": [], "prices": [], "links": [], "subscriptions": [], "customers": [], "payments": [], "reminders": []}
     try:
         with open(payments_file, "r", encoding="utf-8") as f:
             return json.load(f)
     except Exception:
-        return {"metadata": {}, "productos": [], "precios": [], "links": [], "suscripciones": [], "clientes": [], "pagos": [], "recordatorios": []}
+        return {"metadata": {}, "products": [], "prices": [], "links": [], "subscriptions": [], "customers": [], "payments": [], "reminders": []}
 
 
 def _save_payments(data: dict[str, Any], profile_dir: Path | None = None) -> None:
-    """Guarda el archivo .payments."""
+    """Save the .payments file."""
     payments_file = _payments_file(profile_dir)
     payments_file.parent.mkdir(parents=True, exist_ok=True)
     with open(payments_file, "w", encoding="utf-8") as f:
@@ -89,40 +89,40 @@ def _save_payments(data: dict[str, Any], profile_dir: Path | None = None) -> Non
 
 
 def _now_iso() -> str:
-    """Fecha/hora actual en formato ISO 8601 con zona horaria."""
+    """Current date/time in ISO 8601 format with timezone."""
     return datetime.now(timezone.utc).isoformat()
 
 
 def _generate_id(prefix: str, collection: list[dict[str, Any]]) -> str:
-    """Genera un ID secuencial simple basado en el prefijo y la colección."""
+    """Generate a simple sequential ID based on prefix and collection."""
     count = len(collection) + 1
     return f"{prefix}_{count:03d}"
 
 
 # ---------------------------------------------------------------------------
-# Funciones principales
+# Main functions
 # ---------------------------------------------------------------------------
 
 
 def create_payment_link(product: dict[str, Any], price: dict[str, Any]) -> dict[str, Any]:
     """
-    Crea un link de pago de Stripe.
+    Create a Stripe payment link.
 
     Args:
-        product: dict con al menos 'name'. Opcional 'description'.
-        price: dict con 'amount' (entero, centavos), 'currency' (default 'mxn').
+        product: dict with at least 'name'. Optional 'description'.
+        price: dict with 'amount' (integer, cents), 'currency' (default 'mxn').
 
     Returns:
-        Dict con success, url, payment_link_id y message.
+        Dict with success, url, payment_link_id, and message.
     """
     product_name = product.get("name")
     if not product_name:
-        return {"success": False, "error": "El producto requiere 'name'."}
+        return {"success": False, "error": "Product requires 'name'."}
 
     amount = price.get("amount")
     currency = price.get("currency", "mxn").lower()
     if not isinstance(amount, int) or amount <= 0:
-        return {"success": False, "error": "El precio requiere 'amount' entero positivo en centavos."}
+        return {"success": False, "error": "Price requires positive integer 'amount' in cents."}
 
     if _init_stripe():
         try:
@@ -139,37 +139,37 @@ def create_payment_link(product: dict[str, Any], price: dict[str, Any]) -> dict[
                 "payment_link_id": link.id,
                 "product_id": stripe_product.id,
                 "price_id": stripe_price.id,
-                "message": f"Link de pago creado: {link.url}",
+                "message": f"Payment link created: {link.url}",
             }
         except Exception as exc:
             return {"success": False, "error": f"Stripe error: {exc}"}
 
-    # Modo sin librería Stripe: simular respuesta para pruebas.
+    # Mode without Stripe library: simulate response for tests.
     data = _load_payments()
-    product_id = _generate_id("prod", data.get("productos", []))
-    price_id = _generate_id("price", data.get("precios", []))
+    product_id = _generate_id("prod", data.get("products", []))
+    price_id = _generate_id("price", data.get("prices", []))
     link_id = _generate_id("link", data.get("links", []))
 
-    data.setdefault("productos", []).append({
+    data.setdefault("products", []).append({
         "id": product_id,
-        "nombre": product_name,
-        "descripcion": product.get("description", ""),
-        "activo": True,
+        "name": product_name,
+        "description": product.get("description", ""),
+        "active": True,
     })
-    data.setdefault("precios", []).append({
+    data.setdefault("prices", []).append({
         "id": price_id,
         "product_id": product_id,
         "amount": amount,
         "currency": currency,
-        "tipo": "one_time",
+        "type": "one_time",
     })
     data.setdefault("links", []).append({
         "id": link_id,
         "price_id": price_id,
         "url": f"https://buy.stripe.com/test_{link_id}",
-        "concepto": product_name,
-        "creado": _now_iso(),
-        "estado": "active",
+        "concept": product_name,
+        "created": _now_iso(),
+        "status": "active",
     })
     _save_payments(data)
 
@@ -179,37 +179,37 @@ def create_payment_link(product: dict[str, Any], price: dict[str, Any]) -> dict[
         "payment_link_id": link_id,
         "product_id": product_id,
         "price_id": price_id,
-        "message": "Link de pago creado en modo local (Stripe MCP no disponible).",
+        "message": "Payment link created in local mode (Stripe MCP not available).",
     }
 
 
 def create_subscription(customer: dict[str, Any], price: dict[str, Any]) -> dict[str, Any]:
     """
-    Crea una suscripción de Stripe para un cliente.
+    Create a Stripe subscription for a customer.
 
     Args:
-        customer: dict con 'email' requerido, 'name' opcional.
-        price: dict con 'id' de precio existente o 'amount'/'currency'/'interval'.
+        customer: dict with 'email' required, 'name' optional.
+        price: dict with existing Stripe 'id' or 'amount'/'currency'/'interval'.
 
     Returns:
-        Dict con success, subscription_id, status, next_payment y message.
+        Dict with success, subscription_id, status, next_payment, and message.
     """
     email = customer.get("email")
     if not email:
-        return {"success": False, "error": "El cliente requiere 'email'."}
+        return {"success": False, "error": "Customer requires 'email'."}
 
     price_id = price.get("id")
     if not price_id:
-        # Crear precio recurrente si no se proporciona id
+        # Create recurring price if no id is provided
         amount = price.get("amount")
         currency = price.get("currency", "mxn").lower()
         interval = price.get("interval", "month")
         if not isinstance(amount, int) or amount <= 0:
-            return {"success": False, "error": "El precio requiere 'id' o 'amount' entero positivo."}
+            return {"success": False, "error": "Price requires 'id' or positive integer 'amount'."}
 
         if _init_stripe():
             try:
-                product = stripe_lib.Product.create(name=price.get("product_name", "Suscripción"))
+                product = stripe_lib.Product.create(name=price.get("product_name", "Subscription"))
                 stripe_price = stripe_lib.Price.create(
                     unit_amount=amount,
                     currency=currency,
@@ -218,15 +218,15 @@ def create_subscription(customer: dict[str, Any], price: dict[str, Any]) -> dict
                 )
                 price_id = stripe_price.id
             except Exception as exc:
-                return {"success": False, "error": f"Stripe error al crear precio: {exc}"}
+                return {"success": False, "error": f"Stripe error creating price: {exc}"}
         else:
             data = _load_payments()
-            price_id = _generate_id("price", data.get("precios", []))
-            data.setdefault("precios", []).append({
+            price_id = _generate_id("price", data.get("prices", []))
+            data.setdefault("prices", []).append({
                 "id": price_id,
                 "amount": amount,
                 "currency": currency,
-                "tipo": "recurring",
+                "type": "recurring",
                 "interval": interval,
             })
             _save_payments(data)
@@ -245,24 +245,24 @@ def create_subscription(customer: dict[str, Any], price: dict[str, Any]) -> dict
                 "next_payment": datetime.fromtimestamp(
                     subscription.current_period_end, tz=timezone.utc
                 ).isoformat(),
-                "message": f"Suscripción {subscription.id} creada para {email}.",
+                "message": f"Subscription {subscription.id} created for {email}.",
             }
         except Exception as exc:
             return {"success": False, "error": f"Stripe error: {exc}"}
 
-    # Modo local
+    # Local mode
     data = _load_payments()
-    sub_id = _generate_id("sub", data.get("suscripciones", []))
+    sub_id = _generate_id("sub", data.get("subscriptions", []))
     next_payment = (datetime.now(timezone.utc) + timedelta(days=30)).isoformat()
-    data.setdefault("suscripciones", []).append({
+    data.setdefault("subscriptions", []).append({
         "id": sub_id,
-        "cliente_email": email,
+        "customer_email": email,
         "price_id": price_id,
         "stripe_subscription_id": f"sub_test_{sub_id}",
-        "estado": "active",
-        "ciclo": price.get("interval", "month"),
-        "proximo_cobro": next_payment[:10],
-        "intentos_fallidos": 0,
+        "status": "active",
+        "cycle": price.get("interval", "month"),
+        "next_charge": next_payment[:10],
+        "failed_attempts": 0,
     })
     _save_payments(data)
 
@@ -271,55 +271,55 @@ def create_subscription(customer: dict[str, Any], price: dict[str, Any]) -> dict
         "subscription_id": sub_id,
         "status": "active",
         "next_payment": next_payment,
-        "message": f"Suscripción {sub_id} creada en modo local para {email}.",
+        "message": f"Subscription {sub_id} created in local mode for {email}.",
     }
 
 
 def send_payment_reminder(customer: dict[str, Any]) -> dict[str, Any]:
     """
-    Envía un recordatorio de pago al cliente.
+    Send a payment reminder to the customer.
 
     Args:
-        customer: dict con 'email', 'name', 'amount_due', 'currency', 'due_date',
-                  y opcional 'payment_link'.
+        customer: dict with 'email', 'name', 'amount_due', 'currency', 'due_date',
+                  and optional 'payment_link'.
 
     Returns:
-        Dict con success, channel, message_id y message.
+        Dict with success, channel, message_id, and message.
     """
     email = customer.get("email")
     if not email:
-        return {"success": False, "error": "El cliente requiere 'email'."}
+        return {"success": False, "error": "Customer requires 'email'."}
 
     name = customer.get("name", email)
     amount_due = customer.get("amount_due")
     currency = customer.get("currency", "mxn").upper()
-    due_date = customer.get("due_date", "por confirmar")
+    due_date = customer.get("due_date", "to be confirmed")
     payment_link = customer.get("payment_link")
 
-    subject = f"Recordatorio de pago pendiente — {currency} {amount_due or 'N/A'}"
+    subject = f"Pending payment reminder — {currency} {amount_due or 'N/A'}"
     body_lines = [
-        f"Hola {name},",
+        f"Hi {name},",
         "",
-        f"Te recordamos que tienes un pago pendiente de {currency} {amount_due or 'N/A'}.",
-        f"Fecha de vencimiento: {due_date}.",
+        f"We remind you that you have a pending payment of {currency} {amount_due or 'N/A'}.",
+        f"Due date: {due_date}.",
     ]
     if payment_link:
-        body_lines.append(f"Puedes realizar el pago aquí: {payment_link}")
-    body_lines.extend(["", "Si ya realizaste el pago, por favor ignora este mensaje.", "", "Saludos,"])
+        body_lines.append(f"You can make the payment here: {payment_link}")
+    body_lines.extend(["", "If you already made the payment, please ignore this message.", "", "Regards,"])
 
-    # En un entorno real, esto delegaría al MCP de Gmail.
-    # Aquí registramos el recordatorio en .payments.
+    # In a real environment, this would delegate to the Gmail MCP.
+    # Here we register the reminder in .payments.
     data = _load_payments()
-    reminder_id = _generate_id("rem", data.get("recordatorios", []))
-    data.setdefault("recordatorios", []).append({
+    reminder_id = _generate_id("rem", data.get("reminders", []))
+    data.setdefault("reminders", []).append({
         "id": reminder_id,
-        "cliente_email": email,
-        "tipo": "manual",
-        "enviado": _now_iso(),
-        "canal": "gmail",
-        "estado": "enviado",
-        "asunto": subject,
-        "cuerpo": "\n".join(body_lines),
+        "customer_email": email,
+        "type": "manual",
+        "sent": _now_iso(),
+        "channel": "gmail",
+        "status": "sent",
+        "subject": subject,
+        "body": "\n".join(body_lines),
     })
     _save_payments(data)
 
@@ -327,20 +327,20 @@ def send_payment_reminder(customer: dict[str, Any]) -> dict[str, Any]:
         "success": True,
         "channel": "gmail",
         "message_id": reminder_id,
-        "message": f"Recordatorio enviado a {email} por {currency} {amount_due or 'N/A'}.",
+        "message": f"Reminder sent to {email} for {currency} {amount_due or 'N/A'}.",
     }
 
 
 def record_payment(intent: dict[str, Any]) -> dict[str, Any]:
     """
-    Registra un pago confirmado por Stripe.
+    Record a Stripe-confirmed payment.
 
     Args:
-        intent: dict con 'payment_intent_id', 'amount', 'currency',
+        intent: dict with 'payment_intent_id', 'amount', 'currency',
                 'customer_email', 'status', 'created'.
 
     Returns:
-        Dict con success, payment_id, synced_to_treasurer y message.
+        Dict with success, payment_id, synced_to_scribe, and message.
     """
     payment_intent_id = intent.get("payment_intent_id")
     amount = intent.get("amount")
@@ -349,63 +349,63 @@ def record_payment(intent: dict[str, Any]) -> dict[str, Any]:
     status = intent.get("status")
 
     if not payment_intent_id:
-        return {"success": False, "error": "Falta 'payment_intent_id'."}
+        return {"success": False, "error": "Missing 'payment_intent_id'."}
     if not isinstance(amount, int) or amount <= 0:
-        return {"success": False, "error": "Falta 'amount' entero positivo."}
+        return {"success": False, "error": "Missing positive integer 'amount'."}
     if not customer_email:
-        return {"success": False, "error": "Falta 'customer_email'."}
+        return {"success": False, "error": "Missing 'customer_email'."}
 
     if status != "succeeded":
-        return {"success": False, "error": f"El pago no está confirmado. Estado: {status}"}
+        return {"success": False, "error": f"Payment is not confirmed. Status: {status}"}
 
     data = _load_payments()
-    payment_id = _generate_id("pag", data.get("pagos", []))
-    comision = int(round(amount * 0.029)) + 30  # Aproximación Stripe MX
+    payment_id = _generate_id("pay", data.get("payments", []))
+    commission = int(round(amount * 0.029)) + 30  # Approximation for Stripe MX
 
-    data.setdefault("pagos", []).append({
+    data.setdefault("payments", []).append({
         "id": payment_id,
         "stripe_payment_intent_id": payment_intent_id,
-        "cliente_email": customer_email,
+        "customer_email": customer_email,
         "amount": amount,
         "currency": currency,
-        "comision_stripe": comision,
-        "estado": "pagado",
-        "fecha_creacion": intent.get("created") or _now_iso(),
-        "fecha_pago": _now_iso(),
-        "sincronizado_con_tesorero": False,
+        "stripe_commission": commission,
+        "status": "paid",
+        "created_at": intent.get("created") or _now_iso(),
+        "paid_at": _now_iso(),
+        "synced_to_scribe": False,
     })
     _save_payments(data)
 
-    # Notificación simulada al Tesorero (en producción via gbrain MCP)
-    synced_to_treasurer = True
+    # Simulated notification to the Scribe (in production via gbrain MCP)
+    synced_to_scribe = True
 
     return {
         "success": True,
         "payment_id": payment_id,
-        "synced_to_treasurer": synced_to_treasurer,
-        "message": f"Pago {payment_id} registrado: {currency} {amount}. Sincronizado con Tesorero.",
+        "synced_to_scribe": synced_to_scribe,
+        "message": f"Payment {payment_id} recorded: {currency} {amount}. Synced with Scribe.",
     }
 
 
 def generate_income_report(start_date: str, end_date: str) -> dict[str, Any]:
     """
-    Genera un reporte de ingresos entre dos fechas.
+    Generate an income report between two dates.
 
     Args:
-        start_date: fecha inicial en formato ISO 8601 (YYYY-MM-DD).
-        end_date: fecha final en formato ISO 8601 (YYYY-MM-DD).
+        start_date: start date in ISO 8601 format (YYYY-MM-DD).
+        end_date: end date in ISO 8601 format (YYYY-MM-DD).
 
     Returns:
-        Dict con total_collected, pending, overdue, by_customer, by_product.
+        Dict with total_collected, pending, overdue, by_customer, by_product.
     """
     try:
         start = datetime.fromisoformat(start_date).replace(tzinfo=timezone.utc)
         end = datetime.fromisoformat(end_date).replace(tzinfo=timezone.utc) + timedelta(days=1)
     except ValueError:
-        return {"success": False, "error": "Formato de fecha inválido. Use YYYY-MM-DD."}
+        return {"success": False, "error": "Invalid date format. Use YYYY-MM-DD."}
 
     data = _load_payments()
-    pagos = data.get("pagos", [])
+    payments = data.get("payments", [])
 
     total_collected = 0
     total_pending = 0
@@ -413,38 +413,38 @@ def generate_income_report(start_date: str, end_date: str) -> dict[str, Any]:
     by_customer: dict[str, int] = {}
     by_product: dict[str, int] = {}
 
-    for pago in pagos:
+    for payment in payments:
         try:
-            pago_date = datetime.fromisoformat(pago.get("fecha_pago") or pago.get("fecha_creacion") or "")
-            if pago_date.tzinfo is None:
-                pago_date = pago_date.replace(tzinfo=timezone.utc)
+            payment_date = datetime.fromisoformat(payment.get("paid_at") or payment.get("created_at") or "")
+            if payment_date.tzinfo is None:
+                payment_date = payment_date.replace(tzinfo=timezone.utc)
         except ValueError:
             continue
 
-        if not (start <= pago_date < end):
+        if not (start <= payment_date < end):
             continue
 
-        amount = pago.get("amount", 0)
-        estado = pago.get("estado", "")
-        customer = pago.get("cliente_email", "desconocido")
+        amount = payment.get("amount", 0)
+        status = payment.get("status", "")
+        customer = payment.get("customer_email", "unknown")
 
-        if estado == "pagado":
+        if status == "paid":
             total_collected += amount
             by_customer[customer] = by_customer.get(customer, 0) + amount
-        elif estado in ("pendiente", "parcial"):
+        elif status in ("pending", "partial"):
             total_pending += amount
 
-    # Cuentas vencidas (simple: fecha de creación anterior a hoy y estado pendiente)
+    # Overdue accounts (simple: creation date earlier than today and status pending)
     today = datetime.now(timezone.utc)
-    for pago in pagos:
-        if pago.get("estado") not in ("pendiente", "parcial"):
+    for payment in payments:
+        if payment.get("status") not in ("pending", "partial"):
             continue
         try:
-            due = datetime.fromisoformat(pago.get("fecha_creacion", ""))
+            due = datetime.fromisoformat(payment.get("created_at", ""))
             if due.tzinfo is None:
                 due = due.replace(tzinfo=timezone.utc)
             if due < today:
-                overdue += pago.get("amount", 0)
+                overdue += payment.get("amount", 0)
         except ValueError:
             continue
 
@@ -456,55 +456,55 @@ def generate_income_report(start_date: str, end_date: str) -> dict[str, Any]:
         "overdue": overdue,
         "by_customer": by_customer,
         "by_product": by_product,
-        "currency": data.get("metadata", {}).get("moneda", "MXN"),
+        "currency": data.get("metadata", {}).get("currency", "MXN"),
     }
 
 
 # ---------------------------------------------------------------------------
-# Funciones adicionales de cobranza
+# Additional collection functions
 # ---------------------------------------------------------------------------
 
 
 def get_overdue_payments() -> list[dict[str, Any]]:
-    """Devuelve los pagos vencidos con días de retraso."""
+    """Return overdue payments with days late."""
     data = _load_payments()
     today = datetime.now(timezone.utc)
     overdue: list[dict[str, Any]] = []
 
-    for pago in data.get("pagos", []):
-        if pago.get("estado") not in ("pendiente", "parcial"):
+    for payment in data.get("payments", []):
+        if payment.get("status") not in ("pending", "partial"):
             continue
         try:
-            due = datetime.fromisoformat(pago.get("fecha_creacion", ""))
+            due = datetime.fromisoformat(payment.get("created_at", ""))
             if due.tzinfo is None:
                 due = due.replace(tzinfo=timezone.utc)
             if due < today:
-                pago_copy = dict(pago)
-                pago_copy["dias_vencido"] = (today - due).days
-                overdue.append(pago_copy)
+                payment_copy = dict(payment)
+                payment_copy["days_overdue"] = (today - due).days
+                overdue.append(payment_copy)
         except ValueError:
             continue
 
-    overdue.sort(key=lambda p: p.get("dias_vencido", 0), reverse=True)
+    overdue.sort(key=lambda p: p.get("days_overdue", 0), reverse=True)
     return overdue
 
 
 def get_upcoming_payments(days: int = 3) -> list[dict[str, Any]]:
-    """Devuelve pagos próximos a vencer en los próximos N días."""
+    """Return payments due in the next N days."""
     data = _load_payments()
     today = datetime.now(timezone.utc)
     future = today + timedelta(days=days)
     upcoming: list[dict[str, Any]] = []
 
-    for pago in data.get("pagos", []):
-        if pago.get("estado") not in ("pendiente", "parcial"):
+    for payment in data.get("payments", []):
+        if payment.get("status") not in ("pending", "partial"):
             continue
         try:
-            due = datetime.fromisoformat(pago.get("fecha_creacion", ""))
+            due = datetime.fromisoformat(payment.get("created_at", ""))
             if due.tzinfo is None:
                 due = due.replace(tzinfo=timezone.utc)
             if today <= due <= future:
-                upcoming.append(pago)
+                upcoming.append(payment)
         except ValueError:
             continue
 
@@ -512,13 +512,13 @@ def get_upcoming_payments(days: int = 3) -> list[dict[str, Any]]:
 
 
 def get_failed_subscriptions() -> list[dict[str, Any]]:
-    """Devuelve suscripciones con intentos de cobro fallidos."""
+    """Return subscriptions with failed charge attempts."""
     data = _load_payments()
-    return [s for s in data.get("suscripciones", []) if s.get("intentos_fallidos", 0) > 0]
+    return [s for s in data.get("subscriptions", []) if s.get("failed_attempts", 0) > 0]
 
 
 if __name__ == "__main__":
-    # Pequeña verificación de sintaxis y funcionamiento básico.
+    # Small syntax and basic functionality check.
     print("create_payment_link:", create_payment_link({"name": "Test"}, {"amount": 10000}))
     print("create_subscription:", create_subscription({"email": "test@example.com"}, {"amount": 5000, "interval": "month"}))
     print("send_payment_reminder:", send_payment_reminder({

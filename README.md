@@ -80,7 +80,7 @@ python scripts/demo_tesorero.py
 
 This creates:
 
-- `data/sample_expenses.xlsx` — workbook with Dashboard, Income, Fixed Expenses, Variable Expenses, and Vendors sheets.
+- `data/sample_expenses.xlsx` — workbook with Dashboard, Income, Fixed Expenses, Variable Expenses, and Suppliers sheets.
 - `data/sample_expenses_report.json` — income, fixed expenses, variable expenses, margin, and alerts.
 
 ## Dashboard

@@ -1,5 +1,5 @@
 """
-Partenon Tesorero - Expense Parsers
+Partenon Scribe - Expense Parsers
 Extract and normalize expenses from Excel and CSV files.
 """
 
@@ -18,22 +18,22 @@ except ImportError:
 
 
 CATEGORY_KEYWORDS = {
-    "renta": ["renta", "arrendamiento", "oficina"],
-    "nomina": ["nomina", "salario", "sueldo", "aguinaldo", "honorarios"],
-    "tecnologia": ["cloud", "hosting", "dominio", "software", "suscripcion", "saas"],
-    "marketing": ["publicidad", "ads", "campana", "facebook", "google ads", "impresion"],
-    "materiales": ["material", "insumo", "mercancia", "producto", "inventario"],
-    "logistica": ["flete", "envio", "mensajeria", "transporte", "gasolina"],
-    "servicios": ["luz", "agua", "internet", "telefono", "limpieza", "seguridad"],
-    "impuestos": ["iva", "isr", "impuesto", "tenencia", "licencia"],
-    "mantenimiento": ["mantenimiento", "reparacion", "servicio tecnico"],
-    "otros": [],
+    "rent": ["rent", "lease", "office"],
+    "payroll": ["payroll", "salary", "wage", "bonus", "fees"],
+    "technology": ["cloud", "hosting", "domain", "software", "subscription", "saas"],
+    "marketing": ["advertising", "ads", "campaign", "facebook", "google ads", "impression"],
+    "materials": ["material", "supply", "merchandise", "product", "inventory"],
+    "logistics": ["freight", "shipping", "courier", "transport", "gasoline"],
+    "services": ["electricity", "water", "internet", "phone", "cleaning", "security"],
+    "taxes": ["vat", "income tax", "tax", "ownership", "license"],
+    "maintenance": ["maintenance", "repair", "technical service"],
+    "other": [],
 }
 
 FIXED_KEYWORDS = [
-    "renta", "arrendamiento", "nomina", "salario", "sueldo", "seguro",
-    "internet", "telefono", "hosting", "dominio", "suscripcion", "saas",
-    "luz", "agua", "gas", "limpieza", "vigilancia", "seguridad",
+    "rent", "lease", "payroll", "salary", "wage", "insurance",
+    "internet", "phone", "hosting", "domain", "subscription", "saas",
+    "electricity", "water", "gas", "cleaning", "surveillance", "security",
 ]
 
 
@@ -80,12 +80,12 @@ def infer_category(description: str) -> str:
     """Infer expense category from description."""
     text = normalize_text(description)
     for category, keywords in CATEGORY_KEYWORDS.items():
-        if category == "otros":
+        if category == "other":
             continue
         for keyword in keywords:
             if keyword in text:
                 return category
-    return "otros"
+    return "other"
 
 
 def infer_cost_type(description: str, category: Optional[str] = None) -> str:
@@ -95,7 +95,7 @@ def infer_cost_type(description: str, category: Optional[str] = None) -> str:
         text += " " + normalize_text(category)
     for keyword in FIXED_KEYWORDS:
         if keyword in text:
-            return "fijo"
+            return "fixed"
     return "variable"
 
 
@@ -112,12 +112,12 @@ class ExpenseParser:
     """Parse expenses from Excel or CSV files."""
 
     COMMON_HEADERS = {
-        "fecha": ["fecha", "date", "fecha de pago", "fecha operacion", "fecha transaccion"],
-        "descripcion": ["descripcion", "concepto", "description", "movimiento", "detalle", "referencia"],
-        "monto": ["monto", "importe", "cantidad", "amount", "total", "cargo", "abono"],
-        "categoria": ["categoria", "category", "rubro", "tipo"],
-        "proveedor": ["proveedor", "vendor", "supplier", "tienda", "comercio", " receptor"],
-        "metodo": ["metodo", "forma de pago", "metodo de pago", "payment method"],
+        "date": ["fecha", "date", "fecha de pago", "fecha operacion", "fecha transaccion"],
+        "description": ["descripcion", "concepto", "description", "movimiento", "detalle", "referencia"],
+        "amount": ["monto", "importe", "cantidad", "amount", "total", "cargo", "abono"],
+        "category": ["categoria", "category", "rubro", "tipo"],
+        "provider": ["proveedor", "vendor", "supplier", "tienda", "comercio", " receptor"],
+        "method": ["metodo", "forma de pago", "metodo de pago", "payment method"],
     }
 
     def __init__(self):
@@ -126,12 +126,12 @@ class ExpenseParser:
     def parse_excel(self, filepath: str) -> List[Dict[str, Any]]:
         """Parse expenses from an Excel file."""
         if not OPENPYXL_AVAILABLE:
-            self.errors.append("openpyxl no esta instalado")
+            self.errors.append("openpyxl is not installed")
             return []
 
         path = Path(filepath)
         if not path.exists():
-            self.errors.append(f"Archivo no existe: {filepath}")
+            self.errors.append(f"File does not exist: {filepath}")
             return []
 
         expenses = []
@@ -144,7 +144,7 @@ class ExpenseParser:
                 expenses.extend(sheet_expenses)
             wb.close()
         except Exception as e:
-            self.errors.append(f"Error leyendo Excel: {e}")
+            self.errors.append(f"Error reading Excel: {e}")
 
         return expenses
 
@@ -152,7 +152,7 @@ class ExpenseParser:
         """Parse expenses from a CSV file."""
         path = Path(filepath)
         if not path.exists():
-            self.errors.append(f"Archivo no existe: {filepath}")
+            self.errors.append(f"File does not exist: {filepath}")
             return []
 
         expenses = []
@@ -164,7 +164,7 @@ class ExpenseParser:
         except UnicodeDecodeError:
             return self.parse_csv(filepath, encoding="latin-1")
         except Exception as e:
-            self.errors.append(f"Error leyendo CSV: {e}")
+            self.errors.append(f"Error reading CSV: {e}")
 
         return expenses
 
@@ -176,11 +176,11 @@ class ExpenseParser:
         header_row = rows[0]
         column_map = self._map_columns(header_row)
 
-        if not column_map.get("monto"):
+        if not column_map.get("amount"):
             # Try headerless format: look for columns with amounts
             column_map = self._infer_headerless_columns(rows)
 
-        if not column_map.get("monto"):
+        if not column_map.get("amount"):
             return []
 
         expenses = []
@@ -189,7 +189,7 @@ class ExpenseParser:
                 continue
 
             expense = self._build_expense(row, column_map, source)
-            if expense.get("monto") is not None and expense.get("monto") > 0:
+            if expense.get("amount") is not None and expense.get("amount") > 0:
                 expenses.append(expense)
 
         return expenses
@@ -220,14 +220,14 @@ class ExpenseParser:
             numeric_count = sum(1 for v in values if normalize_amount(v) is not None)
 
             if numeric_count > len(values) * 0.5:
-                mapping["monto"] = col_idx
+                mapping["amount"] = col_idx
                 break
 
         # Assume first column is date, second is description if available
         if max_cols >= 2:
-            mapping["descripcion"] = 1
+            mapping["description"] = 1
             if max_cols >= 1:
-                mapping["fecha"] = 0
+                mapping["date"] = 0
 
         return mapping
 
@@ -239,16 +239,16 @@ class ExpenseParser:
                 return None
             return row[idx]
 
-        raw_description = get("descripcion") or ""
+        raw_description = get("description") or ""
         description = str(raw_description).strip()
         if not description:
-            description = "Sin descripcion"
+            description = "No description"
 
-        amount = normalize_amount(get("monto"))
-        date_value = normalize_date(get("fecha"))
-        category = get("categoria")
-        provider = get("proveedor")
-        method = get("metodo")
+        amount = normalize_amount(get("amount"))
+        date_value = normalize_date(get("date"))
+        category = get("category")
+        provider = get("provider")
+        method = get("method")
 
         if category is None or str(category).strip() == "":
             category = infer_category(description)
@@ -256,13 +256,13 @@ class ExpenseParser:
         cost_type = infer_cost_type(description, category)
 
         return {
-            "fecha": clean_value(date_value),
-            "descripcion": description,
-            "monto": amount,
-            "categoria": category,
-            "proveedor": str(provider).strip() if provider else "",
-            "metodo": str(method).strip() if method else "",
-            "tipo": cost_type,
+            "date": clean_value(date_value),
+            "description": description,
+            "amount": amount,
+            "category": category,
+            "provider": str(provider).strip() if provider else "",
+            "method": str(method).strip() if method else "",
+            "type": cost_type,
             "source": source,
             "raw": {str(k): clean_value(v) for k, v in zip(self.COMMON_HEADERS.keys(), [get(f) for f in self.COMMON_HEADERS])},
         }
@@ -273,7 +273,7 @@ class ExpenseParser:
         duplicates = []
 
         for expense in expenses:
-            key = f"{expense.get('fecha')}|{expense.get('descripcion')}|{expense.get('monto')}"
+            key = f"{expense.get('date')}|{expense.get('description')}|{expense.get('amount')}"
             if key in seen:
                 duplicates.append(expense)
             seen.setdefault(key, []).append(expense)
@@ -284,18 +284,18 @@ class ExpenseParser:
         """Detect anomalies in expenses."""
         anomalies = []
         for expense in expenses:
-            monto = expense.get("monto")
-            if monto is None or monto <= 0:
+            amount = expense.get("amount")
+            if amount is None or amount <= 0:
                 anomalies.append({
-                    "tipo": "monto invalido",
+                    "type": "invalid amount",
                     "expense": expense,
-                    "razon": "El monto es nulo, cero o negativo",
+                    "reason": "Amount is null, zero or negative",
                 })
-            if not expense.get("descripcion") or expense.get("descripcion") == "Sin descripcion":
+            if not expense.get("description") or expense.get("description") == "No description":
                 anomalies.append({
-                    "tipo": "descripcion vacia",
+                    "type": "missing description",
                     "expense": expense,
-                    "razon": "Falta descripcion",
+                    "reason": "Description is missing",
                 })
         return anomalies
 

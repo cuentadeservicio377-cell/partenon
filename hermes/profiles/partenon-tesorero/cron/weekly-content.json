@@ -1,0 +1,34 @@
+{
+  "id": "tesorero-weekly-content",
+  "name": "Treasurer — Weekly budget vs. actuals review",
+  "description": "Produces a weekly summary comparing budgeted amounts against actual spending by area.",
+  "schedule": {
+    "frequency": "weekly",
+    "day": "monday",
+    "time": "08:00",
+    "timezone": "America/Mexico_City"
+  },
+  "enabled": true,
+  "steps": [
+    {
+      "order": 1,
+      "tool": "read_budgets",
+      "description": "Loads active budgets from the master sheet"
+    },
+    {
+      "order": 2,
+      "tool": "read_spending",
+      "description": "Loads actual expenses in the same period"
+    },
+    {
+      "order": 3,
+      "tool": "compare_budget_vs_actual",
+      "description": "Calculates variance and flags areas exceeding budget"
+    },
+    {
+      "order": 4,
+      "tool": "notify",
+      "description": "Sends the variance report with recommendations"
+    }
+  ]
+}

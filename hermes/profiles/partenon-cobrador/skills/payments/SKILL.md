@@ -3,97 +3,97 @@ name: payments
 version: 0.1.0
 profile: partenon-cobrador
 description: >
-  Gestiona pagos, suscripciones, links de pago, recordatorios y reportes de ingresos
-  mediante Stripe y Google Workspace.
+  Manages payments, subscriptions, payment links, reminders, and income reports
+  through Stripe and Google Workspace.
 ---
 
-# Skill: Payments — Partenon Cobrador
+# Skill: Payments — Partenon Collector
 
-## Rol
+## Role
 
-Soy la capa de pagos del Cobrador. Conecto Stripe con el resto del Partenón para que cada cobro tenga origen, destino y registro.
+I am the Collector's payments layer. I connect Stripe with the rest of Partenon so that every charge has origin, destination, and record.
 
-## Funciones
+## Functions
 
 ### `create_payment_link(product, price)`
 
-Genera un link de pago de Stripe para un producto y precio.
+Generates a Stripe payment link for a product and price.
 
-**Parámetros:**
-- `product` (dict): `name`, `description` opcional.
-- `price` (dict): `amount` (entero en centavos), `currency` (default `mxn`), `recurring` opcional.
+**Parameters:**
+- `product` (dict): `name`, optional `description`.
+- `price` (dict): `amount` (integer in smallest currency unit), `currency` (default `mxn`), optional `recurring`.
 
-**Retorno:**
-- Dict con `success`, `url`, `payment_link_id`, `message`.
+**Return:**
+- Dict with `success`, `url`, `payment_link_id`, `message`.
 
 ### `create_subscription(customer, price)`
 
-Crea una suscripción de Stripe para un cliente y un precio recurrente.
+Creates a Stripe subscription for a customer and a recurring price.
 
-**Parámetros:**
-- `customer` (dict): `email` requerido, `name` opcional.
-- `price` (dict): `id` del precio de Stripe o `amount`/`currency`/`interval` para crearlo.
+**Parameters:**
+- `customer` (dict): `email` required, `name` optional.
+- `price` (dict): Stripe price `id` or `amount`/`currency`/`interval` to create it.
 
-**Retorno:**
-- Dict con `success`, `subscription_id`, `status`, `next_payment`, `message`.
+**Return:**
+- Dict with `success`, `subscription_id`, `status`, `next_payment`, `message`.
 
 ### `send_payment_reminder(customer)`
 
-Envía un recordatorio de pago al cliente por el canal configurado (Gmail primero, luego Google Chat si aplica).
+Sends a payment reminder to the customer through the configured channel (Gmail first, then Google Chat if applicable).
 
-**Parámetros:**
-- `customer` (dict): `email`, `name`, `amount_due`, `currency`, `due_date`, `payment_link` opcional.
+**Parameters:**
+- `customer` (dict): `email`, `name`, `amount_due`, `currency`, `due_date`, optional `payment_link`.
 
-**Retorno:**
-- Dict con `success`, `channel`, `message_id` (si aplica), `message`.
+**Return:**
+- Dict with `success`, `channel`, `message_id` (if applicable), `message`.
 
 ### `record_payment(intent)`
 
-Registra un pago confirmado por Stripe en el archivo `.payments` y notifica al Tesorero.
+Records a Stripe-confirmed payment in the `.payments` file and notifies the Treasurer.
 
-**Parámetros:**
+**Parameters:**
 - `intent` (dict): `payment_intent_id`, `amount`, `currency`, `customer_email`, `status`, `created`.
 
-**Retorno:**
-- Dict con `success`, `payment_id`, `synced_to_treasurer`, `message`.
+**Return:**
+- Dict with `success`, `payment_id`, `synced_to_treasurer`, `message`.
 
 ### `generate_income_report(start_date, end_date)`
 
-Genera un reporte de ingresos para un rango de fechas.
+Generates an income report for a date range.
 
-**Parámetros:**
-- `start_date` (str): ISO 8601, por ejemplo `2026-06-01`.
-- `end_date` (str): ISO 8601, por ejemplo `2026-06-30`.
+**Parameters:**
+- `start_date` (str): ISO 8601, for example `2026-06-01`.
+- `end_date` (str): ISO 8601, for example `2026-06-30`.
 
-**Retorno:**
-- Dict con `total_collected`, `pending`, `overdue`, `by_customer`, `by_product`.
+**Return:**
+- Dict with `total_collected`, `pending`, `overdue`, `by_customer`, `by_product`.
 
-## Estados de Cobranza
+## Collection states
 
 ```
-Pendiente → Recordatorio enviado → Pagado → Registrado → Sincronizado con Tesorero
-     ↓
-Vencido → Segundo recordatorio → Tercer recordatorio → Escalado a Diplomático
-     ↓
-Fallido → Reintentar método → Cancelar suscripción
+Pending → Reminder sent → Paid → Recorded → Synced with Treasurer
+   ↓
+Overdue → Second reminder → Third reminder → Escalated to Diplomat
+   ↓
+Failed → Retry method → Cancel subscription
 ```
 
-## Reglas
+## Rules
 
-- **SIEMPRE** validar que existe un registro de cobro antes de crear un link.
-- **SIEMPRE** usar `record_payment` después de confirmar un pago en Stripe.
-- **SIEMPRE** notificar al Tesorero cuando un pago se confirme.
-- **NUNCA** enviar más de tres recordatorios sin escalar.
-- **NUNCA** crear una suscripción sin consentimiento documentado del cliente.
+- **ALWAYS** validate that a charge record exists before creating a link.
+- **ALWAYS** use `record_payment` after confirming a payment in Stripe.
+- **ALWAYS** notify the Treasurer when a payment is confirmed.
+- **NEVER** send more than three reminders without escalating.
+- **NEVER** create a subscription without documented customer consent.
 
-## Archivos
+## Files
 
-- `.payments`: archivo maestro de productos, precios, links, suscripciones, clientes y pagos.
-- `templates/.payments.example`: plantilla inicial del archivo maestro.
-- `cron/daily-collection.json`: configuración de revisión diaria de cobranza.
+- `.payments`: master file of products, prices, links, subscriptions, clients, and payments.
+- `templates/.payments.example`: initial template for the master file.
+- `cron/daily-collection.json`: daily collection review configuration.
 
-## Dependencias
+## Dependencies
 
-- `stripe_tools.py`: implementación de las funciones principales.
-- `google_workspace` MCP: envío de recordatorios y registro en Sheets.
-- `gbrain` MCP: registro de misiones y contexto del cliente.
+- `stripe_tools.py`: implementation of the main functions.
+- `google_workspace` MCP: sending reminders and recording in Sheets.
+- `gbrain` MCP: recording missions and client context.

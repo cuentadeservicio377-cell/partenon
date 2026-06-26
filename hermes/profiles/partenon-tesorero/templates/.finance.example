@@ -1,124 +1,124 @@
-# Archivo de configuracion del Tesorero
-# Copiar como .finance en la raiz del workspace de la empresa
+# Treasurer configuration file
+# Copy as .finance in the workspace root of the company
 
-[empresa]
-nombre = "Hermes Ejemplo S.A. de C.V."
-rfc = "XAXX010101000"
-moneda = "MXN"
-ejercicio_fiscal = 2026
-responsable = "Tesorero"
-spreadsheet_maestro = ""
+[company]
+name = "Hermes Example Inc."
+tax_id = "XAXX010101000"
+currency = "MXN"
+fiscal_year = 2026
+responsible = "Treasurer"
+master_spreadsheet = ""
 
-[costos_fijos]
-# Gastos recurrentes con monto predecible
-[[costos_fijos.item]]
-nombre = "Renta oficina"
-monto = 15000.00
-frecuencia = "mensual"
-categoria = "oficina"
-dia_vencimiento = 5
+[fixed_costs]
+# Recurring expenses with predictable amount
+[[fixed_costs.item]]
+name = "Office rent"
+amount = 15000.00
+frequency = "monthly"
+category = "office"
+due_day = 5
 
-[[costos_fijos.item]]
-nombre = "Salarios base"
-monto = 45000.00
-frecuencia = "quincenal"
-categoria = "nomina"
-dia_vencimiento = 15
+[[fixed_costs.item]]
+name = "Base salaries"
+amount = 45000.00
+frequency = "biweekly"
+category = "payroll"
+due_day = 15
 
-[[costos_fijos.item]]
-nombre = "Servicios cloud"
-monto = 2500.00
-frecuencia = "mensual"
-categoria = "tecnologia"
-dia_vencimiento = 20
+[[fixed_costs.item]]
+name = "Cloud services"
+amount = 2500.00
+frequency = "monthly"
+category = "technology"
+due_day = 20
 
-[costos_variables]
-# Gastos que cambian segun volumen de operacion
-[[costos_variables.item]]
-nombre = "Materiales de produccion"
-categoria = "materiales"
-presupuesto_mensual = 30000.00
+[variable_costs]
+# Expenses that change according to operation volume
+[[variable_costs.item]]
+name = "Production materials"
+category = "materials"
+monthly_budget = 30000.00
 
-[[costos_variables.item]]
-nombre = "Publicidad digital"
-categoria = "marketing"
-presupuesto_mensual = 12000.00
-proveedor_default = "Google Ads"
+[[variable_costs.item]]
+name = "Digital advertising"
+category = "marketing"
+monthly_budget = 12000.00
+default_vendor = "Google Ads"
 
-[[costos_variables.item]]
-nombre = "Flete y envios"
-categoria = "logistica"
-presupuesto_mensual = 5000.00
+[[variable_costs.item]]
+name = "Shipping and freight"
+category = "logistics"
+monthly_budget = 5000.00
 
-[presupuestos]
-# Presupuestos activos por area
-[[presupuestos.area]]
-nombre = "Operacion"
-monto = 100000.00
-periodo = "2026-Q3"
-responsable = "Estratega"
+[budgets]
+# Active budgets by area
+[[budgets.area]]
+name = "Operations"
+amount = 100000.00
+period = "2026-Q3"
+responsible = "Strategist"
 
-[[presupuestos.area]]
-nombre = "Marketing"
-monto = 50000.00
-periodo = "2026-Q3"
-responsable = "Mensajero"
+[[budgets.area]]
+name = "Marketing"
+amount = 50000.00
+period = "2026-Q3"
+responsible = "Messenger"
 
-[[presupuestos.area]]
-nombre = "Tecnologia"
-monto = 25000.00
-periodo = "2026-Q3"
-responsable = "Guardian"
+[[budgets.area]]
+name = "Technology"
+amount = 25000.00
+period = "2026-Q3"
+responsible = "Guardian"
 
-[proveedores]
-# Directorio de proveedores habituales
-[[proveedores.item]]
+[vendors]
+# Directory of usual vendors
+[[vendors.item]]
 id = "P001"
-nombre = "Papeleria Central"
-contacto = "Ana Garcia"
-telefono = "555-0104"
+name = "Central Stationery"
+contact = "Ana Garcia"
+phone = "555-0104"
 email = "ana@papeleriacentral.com"
-condiciones_pago = "contado"
-tiempo_entrega = "1-2 dias habiles"
-calificacion = 5
+payment_terms = "cash"
+lead_time = "1-2 business days"
+rating = 5
 
-[[proveedores.item]]
+[[vendors.item]]
 id = "P002"
-nombre = "Servicios Cloud MX"
-contacto = "Carlos Ruiz"
-telefono = "555-0201"
+name = "Cloud MX Services"
+contact = "Carlos Ruiz"
+phone = "555-0201"
 email = "carlos@cloudmx.com"
-condiciones_pago = "30 dias"
-tiempo_entrega = "inmediato"
-calificacion = 4
+payment_terms = "30 days"
+lead_time = "immediate"
+rating = 4
 
 [dashboards]
-# Hojas del dashboard financiero
-[[dashboards.hoja]]
-nombre = "Resumen Mensual"
-tipo = "kpi"
-actualizar = "diario"
+# Financial dashboard sheets
+[[dashboards.sheet]]
+name = "Monthly Summary"
+type = "kpi"
+update = "daily"
 
-[[dashboards.hoja]]
-nombre = "Flujo de Caja"
-tipo = "proyeccion"
-actualizar = "semanal"
+[[dashboards.sheet]]
+name = "Cash Flow"
+type = "projection"
+update = "weekly"
 
-[[dashboards.hoja]]
-nombre = "Proveedores"
-tipo = "directorio"
-actualizar = "mensual"
+[[dashboards.sheet]]
+name = "Vendors"
+type = "directory"
+update = "monthly"
 
-[[dashboards.hoja]]
-nombre = "Presupuestos vs Real"
-tipo = "comparativo"
-actualizar = "semanal"
+[[dashboards.sheet]]
+name = "Budget vs Actual"
+type = "comparative"
+update = "weekly"
 
-[reglas]
-# Reglas de negocio del Tesorero
-iva = 0.16
-margen_minimo_esperado = 30.0
-alerta_dias_vencimiento = 3
-redondeo_decimales = 2
-permite_gasto_sin_presupuesto = false
-conecta_con_mensajero = true
+[rules]
+# Treasurer business rules
+tax_rate = 0.16
+minimum_expected_margin = 30.0
+alert_days_before_due = 3
+rounding_decimals = 2
+allow_expense_without_budget = false
+connect_with_messenger = true

@@ -3,21 +3,24 @@
     "id": "cron-001",
     "profile": "partenon-tesorero",
     "schedule": "0 9 * * 1",
-    "command": "python -m partenon.tesorero weekly_report",
-    "enabled": true
+    "command": "python3 scripts/demo_tesorero.py",
+    "enabled": true,
+    "note": "Runs the Treasurer demo. Replace with a real weekly report script once available."
   },
   {
     "id": "cron-002",
     "profile": "partenon-mensajero",
     "schedule": "0 10 * * *",
-    "command": "python -m partenon.mensajero content_check",
-    "enabled": true
+    "command": "python3 hermes/profiles/partenon-mensajero/skills/comms/tools/content_calendar.py 'daily content' linkedin,instagram 7",
+    "enabled": true,
+    "note": "Generates a 7-day content calendar. Requires .design for brand context."
   },
   {
     "id": "cron-003",
     "profile": "partenon-guardian",
     "schedule": "0 2 * * 0",
-    "command": "python -m partenon.guardian security_audit",
-    "enabled": false
+    "command": "python3 hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py",
+    "enabled": false,
+    "note": "Security audit placeholder. Tool defines functions but has no CLI entry point yet."
   }
 ]

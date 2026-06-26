@@ -2,6 +2,18 @@
 
 ## Session History
 
+### 2026-06-26 — scripts-core-install audit and English translation
+- Audited `install.sh`, `scripts/setup_hermes.py`, `scripts/demo_tesorero.py`, `.env.example`, and `partenon-core/` against `web/developers.html` promises.
+- Translated all touched files to English: `.env.example`, `install.sh`, `scripts/setup_hermes.py`, `scripts/demo_tesorero.py`, `templates/google-sheet-base/finance_sheet.py`, and all `partenon-core/` files.
+- Made `install.sh` and `scripts/setup_hermes.py` safe and functional: removed fake Hermes CLI install URL, added clear placeholders and instructions, and made Hermes CLI detection graceful.
+- Updated `demo_tesorero.py` to use English sheet names and report keys; renamed generated artifacts to `sample_expenses.*`.
+- Added missing core stubs: `partenon-core/tools/config_loader.py` and `partenon-core/tools/eval_loop.py`.
+- Extended `router.py` to route to the 7th hero profile (`partenon-brain`) and translated all intent patterns to English.
+- Hardened `workflow_engine.py` and `onboarding_engine.py` so they no longer depend on non-existent HBOS modules.
+- Verified: `python scripts/demo_tesorero.py` PASS, `python partenon-core/tools/router.py` PASS, `python partenon-core/tools/workflow_engine.py` PASS, `python partenon-core/tools/eval_loop.py` PASS, `python partenon-core/tools/onboarding_engine.py` PASS, `python3 -m py_compile` PASS, `bash -n install.sh` PASS.
+- Created `docs/WELCOME.md` via onboarding engine.
+- Updated `.kimi-code/memory/TODOS.md` and `.brain/MEMORY.md`.
+
 ### 2026-06-26 — docs-and-readme audit and English translation
 - Audited `README.md` and `docs/` against `web/index.html`, `web/heroes.html` and `web/developers.html`.
 - Translated `README.md`, `docs/for-founders.md`, `docs/for-developers.md` and `docs/architecture.md` to English.
@@ -126,6 +138,22 @@
 - Approved plan to restructure `web/index.html` and `web/developers.html`.
 - Updated `DESIGN.md` with visual tokens and anti-slop copy rules.
 - Commit `e786b18`.
+
+### 2026-06-26 — Profile templates, cron, and tool translation to English
+- Translated all profile configuration templates to English: `.finance.example`, `.design.example`, `.payments.example`, `.relations.example`, `.brain.example`.
+- Translated all profile cron JSON files under `hermes/profiles/*/cron/` to English.
+- Translated remaining Python tools to English and aligned JSON keys:
+  - `hermes/profiles/partenon-estratega/skills/ops/tools/tasks.py`
+  - `hermes/profiles/partenon-diplomatico/skills/relations/tools/crm.py`
+  - `hermes/profiles/partenon-diplomatico/skills/relations/tools/followups.py`
+  - `hermes/profiles/partenon-brain/skills/memory/tools/gbrain_client.py`
+- Translated `data/cron.json` and `data/tasks.json` to English with runnable command placeholders.
+- Updated `MISSING_IMPLEMENTATION.md` to reflect the current implementation state.
+- Verified syntax for all profile Python tools via `python3 -m py_compile`.
+- Verified `python3 scripts/demo_tesorero.py` runs successfully.
+- Verified `cd dashboard && npm run build` succeeds.
+- Cleaned generated test artifacts (`.payments`, `output/`, cache files, temporary goals JSON).
+- Updated `TODOS.md` with completed translation and verification tasks.
 
 ## Completed Features
 - Master web pages rebuilt and committed.

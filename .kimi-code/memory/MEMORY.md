@@ -6,7 +6,12 @@
 
 - **Project**: Partenon
 - **Started**: 2026-06-23
-- **Status**: Public GitHub repository created and ready for the hackathon. Three static web pages in `web/` deployed at `https://hermespartenon.online/`. Seven Hermes profiles in `hermes/profiles/` (Scribe, Herald, Collector, Guardian, Strategist, Diplomat, Brain). Full documentation in `docs/` (for-founders, for-developers, architecture) translated to English. Install scripts: `install.sh` and `scripts/setup_hermes.py`. Next: test Stripe Skills in sandbox, configure NVIDIA NemoClaw/OpenShell onboarding and implement functional eval loop.
+- **Status**: Public GitHub repository translated to English for international audience. All seven Hermes profiles, core tools, docs, data files, templates, cron jobs, and install scripts are now in English. Remaining gaps are tracked in `MISSING_IMPLEMENTATION.md`.
+- **Live site**: `https://hermespartenon.online/`
+- **Repo**: `https://github.com/cuentadeservicio377-cell/partenon`
+- **Profiles**: Scribe/Treasurer, Herald/Messenger, Collector, Guardian, Strategist, Diplomat, Brain.
+- **Verified**: `python3 scripts/demo_tesorero.py` PASS, `cd dashboard && npm run build` PASS, all profile Python tools compile PASS.
+- **Next**: standardize `GBRAIN_DATABASE_URL` naming, add automated tests, implement real intent router and workflow engine runtime, and add publishing/dispatch integrations.
 
 ## Braindump
 
@@ -180,7 +185,10 @@ Profiles map directly to existing or proposed HBOS skills:
 - Public GitHub repository: `https://github.com/cuentadeservicio377-cell/partenon`.
 - `partenon-brain` profile added as seventh hero for collective memory via G-Brain.
 - Global `.env.example` with safe placeholders to avoid GitHub secret scanning.
-- `install.sh` and `scripts/setup_hermes.py` for automated installation in environments with Hermes Agent.
+- `install.sh` and `scripts/setup_hermes.py` for local environment setup; they do not download unverified binaries and provide clear instructions when Hermes CLI is missing.
+- `partenon-core/tools/eval_loop.py` added as a lightweight QA stub for hero mission outputs.
+- `partenon-core/tools/config_loader.py` added so the onboarding engine can run without external HBOS dependencies.
+- All scripts/core/install files translated to English.
 - Repo documentation decoupled from web pages: `docs/for-founders.md`, `docs/for-developers.md`, `docs/architecture.md`.
 - Hackathon stack explicit on the three pages: Hermes Agent + NVIDIA NemoClaw/OpenShell/Nemotron 3 Ultra + Stripe Skills.
 - Nous Research / open-source manual aesthetic: background `#050505`, cyan accent `#00D4FF`, monospace hero font, no emojis or em-dashes.

@@ -1,11 +1,11 @@
 profile:
   name: partenon-diplomatico
-  display_name: Diplomático
-  description: Relaciones con clientes y proveedores, hitos, recordatorios y coordinación con Estratega.
+  display_name: Diplomat
+  description: Client and vendor relationships, milestones, reminders, and coordination with Strategist.
   version: 0.1.0
   model: openrouter/google/gemini-2.5-flash-preview
   soul: SOUL.md
-  archivo_perfil: .relations
+  profile_file: .relations
 
 tools:
   - google_workspace
@@ -26,5 +26,5 @@ env:
 
 metadata:
   partenon:
-    tags: [partenon, diplomatico, relaciones, clientes, proveedores]
+    tags: [partenon, diplomat, relations, clients, vendors]
     related_profiles: [partenon-estratega, partenon-tesorero, partenon-mensajero, partenon-cobrador]

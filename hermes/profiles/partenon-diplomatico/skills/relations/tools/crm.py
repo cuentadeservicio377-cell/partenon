@@ -1,6 +1,6 @@
 """
-Partenon Diplomatico — Relations CRM Tool
-Manages clients, suppliers, milestones, contracts and communications.
+Partenon Diplomat — Relations CRM Tool
+Manages clients, vendors, milestones, contracts, and communications.
 Uses local JSON or Google Workspace as data backend.
 """
 
@@ -16,7 +16,7 @@ from typing import Any, Dict, List, Optional
 def _load_config() -> Dict[str, Any]:
     """Load config from environment or fallback defaults."""
     return {
-        "moneda": os.getenv("PARTENON_MONEDA", "MXN"),
+        "currency": os.getenv("PARTENON_CURRENCY", "MXN"),
         "timezone": os.getenv("PARTENON_TIMEZONE", "America/Mexico_City"),
     }
 
@@ -54,21 +54,34 @@ def _resolve_relations_file() -> Optional[Path]:
 
 
 class RelationsCRM:
-    """Customer and supplier relationship manager for the Diplomatico profile."""
+    """Customer and vendor relationship manager for the Diplomat profile."""
 
-    CALIFICACIONES_VALIDAS = {"A", "B", "C", "D"}
-    ESTADOS_ENTIDAD = {"activa", "pausada", "inactiva", "revisar", "archivada"}
-    ESTADOS_HITO = {
-        "propuesto",
-        "confirmado",
-        "en_curso",
-        "completado",
-        "cancelado",
-        "reprogramado",
-        "bloqueado",
-        "cerrado",
+    VALID_RATINGS = {"A", "B", "C", "D"}
+    ENTITY_STATES = {"active", "paused", "inactive", "review", "archived"}
+    MILESTONE_STATES = {
+        "proposed",
+        "confirmed",
+        "in_progress",
+        "completed",
+        "cancelled",
+        "rescheduled",
+        "blocked",
+        "closed",
     }
-    TIPOS_ENTIDAD = {"cliente", "proveedor"}
+    ENTITY_TYPES = {"client", "vendor"}
+
+    # Map legacy Spanish section names to canonical English keys.
+    SECTION_ALIASES = {
+        "clientes": "clients",
+        "proveedores": "vendors",
+        "contratos": "contracts",
+        "comunicaciones": "communications",
+        "recordatorios": "reminders",
+        "hitos": "milestones",
+        "empresa": "company",
+        "archivo": "file",
+        "actualizado": "updated",
+    }
 
     def __init__(self, relations_file: Optional[Path] = None):
         self.config = _load_config()
@@ -79,12 +92,12 @@ class RelationsCRM:
         self.relations_file = relations_file or _resolve_relations_file()
         self._cache: Optional[Dict[str, Any]] = None
         self._next_ids: Dict[str, int] = {
-            "cliente": 1,
-            "proveedor": 1,
-            "hito": 1,
-            "contrato": 1,
-            "comunicacion": 1,
-            "recordatorio": 1,
+            "client": 1,
+            "vendor": 1,
+            "milestone": 1,
+            "contract": 1,
+            "communication": 1,
+            "reminder": 1,
         }
 
     def _load(self) -> Dict[str, Any]:
@@ -115,6 +128,9 @@ class RelationsCRM:
         self._cache = self._empty_data()
         return self._cache
 
+    def _canonical_key(self, key: str) -> str:
+        return self.SECTION_ALIASES.get(key, key)
+
     def _parse_relations(self, content: str) -> Dict[str, Any]:
         """Parse .relations file content. Supports JSON and simple YAML-like syntax."""
         content = content.strip()
@@ -142,14 +158,14 @@ class RelationsCRM:
             stripped = line.lstrip()
             indent = len(line) - len(stripped)
 
-            # Section headers like "clientes:"
+            # Section headers like "clients:"
             if stripped.endswith(":") and ":" not in stripped[:-1]:
-                key = stripped[:-1].strip()
+                key = self._canonical_key(stripped[:-1].strip())
                 if key in data:
                     current_section = key
                     current_item = None
                     indent_stack = [(indent, key)]
-                continue
+                    continue
 
             # List item like "- id: CLI-001"
             if stripped.startswith("- "):
@@ -160,23 +176,26 @@ class RelationsCRM:
                 rest = stripped[2:]
                 if ":" in rest:
                     k, v = rest.split(":", 1)
-                    current_item[k.strip()] = self._coerce_value(v.strip())
+                    current_item[self._canonical_key(k.strip())] = self._coerce_value(v.strip())
                 continue
 
             # Key-value pair
             if ":" in stripped and current_item is not None:
                 k, v = stripped.split(":", 1)
-                key = k.strip()
+                key = self._canonical_key(k.strip())
                 value = v.strip()
 
-                # Nested object handling for contacto_principal
+                # Nested object handling for main_contact
                 if value == "":
                     current_item[key] = {}
                     indent_stack.append((indent, key))
                     continue
 
                 # Detect nested keys by indent
-                if indent > indent_stack[-1][0] and isinstance(current_item.get(indent_stack[-1][1]), dict):
+                if (
+                    indent > indent_stack[-1][0]
+                    and isinstance(current_item.get(indent_stack[-1][1]), dict)
+                ):
                     parent = current_item[indent_stack[-1][1]]
                     parent[key] = self._coerce_value(value)
                 else:
@@ -188,11 +207,11 @@ class RelationsCRM:
     def _coerce_value(value: str) -> Any:
         """Coerce a string value to bool/int/float/None where possible."""
         lowered = value.lower()
-        if lowered in {"true", "verdadero", "si", "sí"}:
+        if lowered in {"true", "yes"}:
             return True
-        if lowered in {"false", "falso", "no"}:
+        if lowered in {"false", "no"}:
             return False
-        if lowered in {"null", "none", "nulo", "~"}:
+        if lowered in {"null", "none", "~"}:
             return None
         if value.startswith('"') and value.endswith('"'):
             return value[1:-1]
@@ -207,14 +226,14 @@ class RelationsCRM:
 
     def _empty_data(self) -> Dict[str, Any]:
         return {
-            "empresa": "",
-            "archivo": ".relations",
-            "actualizado": datetime.now().isoformat(),
-            "clientes": [],
-            "proveedores": [],
-            "contratos": [],
-            "comunicaciones": [],
-            "recordatorios": [],
+            "company": "",
+            "file": ".relations",
+            "updated": datetime.now().isoformat(),
+            "clients": [],
+            "vendors": [],
+            "contracts": [],
+            "communications": [],
+            "reminders": [],
         }
 
     def _sync_cache(self, data: Dict[str, Any]) -> None:
@@ -229,11 +248,11 @@ class RelationsCRM:
         """Persist current state to cache. .relations remains the source of truth."""
         if self._cache is None:
             return
-        self._cache["actualizado"] = datetime.now().isoformat()
+        self._cache["updated"] = datetime.now().isoformat()
         self._sync_cache(self._cache)
 
     def _generate_id(self, prefix: str, counter_key: str) -> str:
-        """Generate sequential IDs like CLI-001, PROV-001, HIT-001."""
+        """Generate sequential IDs like CLI-001, VEN-001, MIL-001."""
         number = self._next_ids.get(counter_key, 1)
         entity_id = f"{prefix}-{number:03d}"
         self._next_ids[counter_key] = number + 1
@@ -241,7 +260,7 @@ class RelationsCRM:
 
     def _detect_existing_id(self, data: Dict[str, Any], prefix: str, key: str) -> None:
         """Update next ID counters based on existing records."""
-        for section in ["clientes", "proveedores", "hitos", "contratos", "comunicaciones", "recordatorios"]:
+        for section in ["clients", "vendors", "milestones", "contracts", "communications", "reminders"]:
             for item in data.get(section, []):
                 entity_id = item.get("id", "")
                 if entity_id.startswith(prefix + "-"):
@@ -253,433 +272,434 @@ class RelationsCRM:
                         pass
 
     def _find_entity(self, data: Dict[str, Any], query: str) -> Optional[Dict[str, Any]]:
-        """Find an entity by ID or name across clients and suppliers."""
+        """Find an entity by ID or name across clients and vendors."""
         query_lower = query.lower()
-        for section in ["clientes", "proveedores"]:
+        for section in ["clients", "vendors"]:
             for entity in data.get(section, []):
                 if entity.get("id", "").lower() == query_lower:
                     return entity
-                if query_lower in entity.get("nombre", "").lower():
+                if query_lower in entity.get("name", "").lower():
                     return entity
-                contacto = entity.get("contacto_principal", {})
-                if contacto and query_lower in contacto.get("email", "").lower():
+                contact = entity.get("main_contact", {})
+                if contact and query_lower in contact.get("email", "").lower():
                     return entity
         return None
 
     def _get_entity_type(self, entity: Dict[str, Any]) -> str:
         """Infer entity type from its structure or surrounding context."""
-        if "proyectos" in entity:
-            return "cliente"
-        if "servicio" in entity or "contratos" in entity:
-            return "proveedor"
-        return "desconocido"
+        if "projects" in entity:
+            return "client"
+        if "service" in entity or "contracts" in entity:
+            return "vendor"
+        return "unknown"
 
-    def add_cliente(
+    def add_client(
         self,
-        nombre: str,
+        name: str,
         email: str = "",
-        telefono: str = "",
-        categoria: str = "",
-        origen: str = "directo",
-        notas: str = "",
+        phone: str = "",
+        category: str = "",
+        origin: str = "direct",
+        notes: str = "",
         **kwargs: Any,
     ) -> Dict[str, Any]:
         """Register a new client."""
         data = self._load()
-        self._detect_existing_id(data, "CLI", "cliente")
+        self._detect_existing_id(data, "CLI", "client")
 
-        existing = self._find_entity(data, nombre)
+        existing = self._find_entity(data, name)
         if existing:
             return {
                 "success": False,
-                "error": f"Entidad '{nombre}' ya existe ({existing['id']})",
+                "error": f"Entity '{name}' already exists ({existing['id']})",
                 "entity": existing,
             }
 
-        entity_id = self._generate_id("CLI", "cliente")
-        cliente = {
+        entity_id = self._generate_id("CLI", "client")
+        client = {
             "id": entity_id,
-            "nombre": nombre,
-            "contacto_principal": {
-                "nombre": kwargs.get("contacto_nombre", ""),
+            "name": name,
+            "main_contact": {
+                "name": kwargs.get("contact_name", ""),
                 "email": email,
-                "telefono": telefono,
+                "phone": phone,
             },
-            "categoria": categoria,
-            "origen": origen,
-            "estado": "activa",
-            "calificacion": kwargs.get("calificacion", "B"),
-            "calificacion_motivo": kwargs.get("calificacion_motivo", "Registro inicial."),
-            "fecha_registro": datetime.now().isoformat(),
-            "ultima_actividad": datetime.now().isoformat(),
-            "notas": notas,
-            "proyectos": [],
-            "hitos": [],
+            "category": category,
+            "origin": origin,
+            "status": "active",
+            "rating": kwargs.get("rating", "B"),
+            "rating_reason": kwargs.get("rating_reason", "Initial registration."),
+            "registered_at": datetime.now().isoformat(),
+            "last_activity": datetime.now().isoformat(),
+            "notes": notes,
+            "projects": [],
+            "milestones": [],
         }
-        cliente.update(kwargs)
-        data["clientes"].append(cliente)
+        client.update(kwargs)
+        data["clients"].append(client)
         self._save()
 
         return {
             "success": True,
-            "entity": cliente,
-            "message": f"Cliente registrado: {nombre} ({entity_id})",
+            "entity": client,
+            "message": f"Client registered: {name} ({entity_id})",
         }
 
-    def add_proveedor(
+    def add_vendor(
         self,
-        nombre: str,
+        name: str,
         email: str = "",
-        telefono: str = "",
-        categoria: str = "",
-        servicio: str = "",
-        origen: str = "directo",
-        notas: str = "",
+        phone: str = "",
+        category: str = "",
+        service: str = "",
+        origin: str = "direct",
+        notes: str = "",
         **kwargs: Any,
     ) -> Dict[str, Any]:
-        """Register a new supplier."""
+        """Register a new vendor."""
         data = self._load()
-        self._detect_existing_id(data, "PROV", "proveedor")
+        self._detect_existing_id(data, "VEN", "vendor")
 
-        existing = self._find_entity(data, nombre)
+        existing = self._find_entity(data, name)
         if existing:
             return {
                 "success": False,
-                "error": f"Entidad '{nombre}' ya existe ({existing['id']})",
+                "error": f"Entity '{name}' already exists ({existing['id']})",
                 "entity": existing,
             }
 
-        entity_id = self._generate_id("PROV", "proveedor")
-        proveedor = {
+        entity_id = self._generate_id("VEN", "vendor")
+        vendor = {
             "id": entity_id,
-            "nombre": nombre,
-            "contacto_principal": {
-                "nombre": kwargs.get("contacto_nombre", ""),
+            "name": name,
+            "main_contact": {
+                "name": kwargs.get("contact_name", ""),
                 "email": email,
-                "telefono": telefono,
+                "phone": phone,
             },
-            "categoria": categoria,
-            "servicio": servicio,
-            "origen": origen,
-            "estado": "activa",
-            "calificacion": kwargs.get("calificacion", "B"),
-            "calificacion_motivo": kwargs.get("calificacion_motivo", "Registro inicial."),
-            "fecha_registro": datetime.now().isoformat(),
-            "ultima_actividad": datetime.now().isoformat(),
-            "notas": notas,
-            "contratos": [],
-            "hitos": [],
+            "category": category,
+            "service": service,
+            "origin": origin,
+            "status": "active",
+            "rating": kwargs.get("rating", "B"),
+            "rating_reason": kwargs.get("rating_reason", "Initial registration."),
+            "registered_at": datetime.now().isoformat(),
+            "last_activity": datetime.now().isoformat(),
+            "notes": notes,
+            "contracts": [],
+            "milestones": [],
         }
-        proveedor.update(kwargs)
-        data["proveedores"].append(proveedor)
+        vendor.update(kwargs)
+        data["vendors"].append(vendor)
         self._save()
 
         return {
             "success": True,
-            "entity": proveedor,
-            "message": f"Proveedor registrado: {nombre} ({entity_id})",
+            "entity": vendor,
+            "message": f"Vendor registered: {name} ({entity_id})",
         }
 
     def get_entity(self, query: str) -> Optional[Dict[str, Any]]:
-        """Find a client or supplier by ID, name or email."""
+        """Find a client or vendor by ID, name or email."""
         data = self._load()
         return self._find_entity(data, query)
 
-    def list_entities(self, tipo: Optional[str] = None, estado: Optional[str] = None) -> List[Dict[str, Any]]:
+    def list_entities(
+        self, entity_type: Optional[str] = None, status: Optional[str] = None
+    ) -> List[Dict[str, Any]]:
         """List entities filtered by type and/or status."""
         data = self._load()
         sections = []
-        if tipo is None:
-            sections = ["clientes", "proveedores"]
-        elif tipo == "cliente":
-            sections = ["clientes"]
-        elif tipo == "proveedor":
-            sections = ["proveedores"]
+        if entity_type is None:
+            sections = ["clients", "vendors"]
+        elif entity_type == "client":
+            sections = ["clients"]
+        elif entity_type == "vendor":
+            sections = ["vendors"]
         else:
-            raise ValueError(f"Tipo inválido: {tipo}. Use 'cliente' o 'proveedor'.")
+            raise ValueError(f"Invalid type: {entity_type}. Use 'client' or 'vendor'.")
 
         results = []
         for section in sections:
             for entity in data.get(section, []):
-                if estado and entity.get("estado") != estado:
+                if status and entity.get("status") != status:
                     continue
                 results.append(entity)
         return results
 
     def update_entity(self, entity_id: str, **updates: Any) -> Dict[str, Any]:
-        """Update fields for a client or supplier."""
+        """Update fields for a client or vendor."""
         data = self._load()
 
-        for section in ["clientes", "proveedores"]:
+        for section in ["clients", "vendors"]:
             for entity in data.get(section, []):
                 if entity.get("id", "").lower() == entity_id.lower():
                     for key, value in updates.items():
-                        if key == "contacto_principal" and isinstance(value, dict):
-                            entity["contacto_principal"].update(value)
+                        if key == "main_contact" and isinstance(value, dict):
+                            entity["main_contact"].update(value)
                         else:
                             entity[key] = value
-                    entity["ultima_actividad"] = datetime.now().isoformat()
+                    entity["last_activity"] = datetime.now().isoformat()
                     self._save()
                     return {
                         "success": True,
                         "entity": entity,
-                        "message": f"{entity_id} actualizado",
+                        "message": f"{entity_id} updated",
                     }
 
         return {
             "success": False,
-            "error": f"Entidad {entity_id} no encontrada",
+            "error": f"Entity {entity_id} not found",
         }
 
-    def add_hito(
+    def add_milestone(
         self,
         entity_id: str,
-        descripcion: str,
-        fecha: str,
-        responsable: str = "Diplomatico",
-        siguiente_paso: str = "",
+        description: str,
+        date: str,
+        responsible: str = "Diplomat",
+        next_step: str = "",
     ) -> Dict[str, Any]:
         """Add a milestone to an entity."""
         data = self._load()
-        self._detect_existing_id(data, "HIT", "hito")
+        self._detect_existing_id(data, "MIL", "milestone")
 
         entity = self._find_entity(data, entity_id)
         if not entity:
             return {
                 "success": False,
-                "error": f"Entidad {entity_id} no encontrada",
+                "error": f"Entity {entity_id} not found",
             }
 
-        hito_id = self._generate_id("HIT", "hito")
-        entity_type = self._get_entity_type(entity)
-        hito_id = f"HIT-{entity_id}-{hito_id.split('-')[-1]}"
+        milestone_id = self._generate_id("MIL", "milestone")
+        milestone_id = f"MIL-{entity_id}-{milestone_id.split('-')[-1]}"
 
-        hito = {
-            "id": hito_id,
-            "descripcion": descripcion,
-            "fecha": fecha,
-            "estado": "propuesto",
-            "confirmado_escrito": False,
-            "responsable": responsable,
-            "siguiente_paso": siguiente_paso,
+        milestone = {
+            "id": milestone_id,
+            "description": description,
+            "date": date,
+            "status": "proposed",
+            "confirmed_in_writing": False,
+            "responsible": responsible,
+            "next_step": next_step,
         }
-        entity.setdefault("hitos", []).append(hito)
-        entity["ultima_actividad"] = datetime.now().isoformat()
+        entity.setdefault("milestones", []).append(milestone)
+        entity["last_activity"] = datetime.now().isoformat()
         self._save()
 
         return {
             "success": True,
-            "hito": hito,
-            "message": f"Hito agregado a {entity_id}: {descripcion}",
+            "milestone": milestone,
+            "message": f"Milestone added to {entity_id}: {description}",
         }
 
-    def update_hito(
+    def update_milestone(
         self,
-        hito_id: str,
-        nuevo_estado: Optional[str] = None,
-        nueva_fecha: Optional[str] = None,
-        siguiente_paso: Optional[str] = None,
+        milestone_id: str,
+        new_status: Optional[str] = None,
+        new_date: Optional[str] = None,
+        next_step: Optional[str] = None,
     ) -> Dict[str, Any]:
         """Update milestone state, date or next step."""
-        if nuevo_estado and nuevo_estado not in self.ESTADOS_HITO:
+        if new_status and new_status not in self.MILESTONE_STATES:
             return {
                 "success": False,
-                "error": f"Estado inválido. Válidos: {', '.join(sorted(self.ESTADOS_HITO))}",
+                "error": f"Invalid status. Valid: {', '.join(sorted(self.MILESTONE_STATES))}",
             }
 
         data = self._load()
-        for section in ["clientes", "proveedores"]:
+        for section in ["clients", "vendors"]:
             for entity in data.get(section, []):
-                for hito in entity.get("hitos", []):
-                    if hito.get("id", "").lower() == hito_id.lower():
-                        if nuevo_estado:
-                            hito["estado"] = nuevo_estado
-                        if nueva_fecha:
-                            hito["fecha"] = nueva_fecha
-                        if siguiente_paso is not None:
-                            hito["siguiente_paso"] = siguiente_paso
-                        entity["ultima_actividad"] = datetime.now().isoformat()
+                for milestone in entity.get("milestones", []):
+                    if milestone.get("id", "").lower() == milestone_id.lower():
+                        if new_status:
+                            milestone["status"] = new_status
+                        if new_date:
+                            milestone["date"] = new_date
+                        if next_step is not None:
+                            milestone["next_step"] = next_step
+                        entity["last_activity"] = datetime.now().isoformat()
                         self._save()
                         return {
                             "success": True,
-                            "hito": hito,
-                            "message": f"Hito {hito_id} actualizado",
+                            "milestone": milestone,
+                            "message": f"Milestone {milestone_id} updated",
                         }
 
         return {
             "success": False,
-            "error": f"Hito {hito_id} no encontrado",
+            "error": f"Milestone {milestone_id} not found",
         }
 
-    def confirmar_hito(self, hito_id: str) -> Dict[str, Any]:
+    def confirm_milestone(self, milestone_id: str) -> Dict[str, Any]:
         """Mark a milestone as confirmed in writing."""
-        result = self.update_hito(
-            hito_id,
-            nuevo_estado="confirmado",
+        result = self.update_milestone(
+            milestone_id,
+            new_status="confirmed",
         )
         if not result["success"]:
             return result
 
-        result["hito"]["confirmado_escrito"] = True
-        result["hito"]["fecha_confirmacion"] = datetime.now().isoformat()
+        result["milestone"]["confirmed_in_writing"] = True
+        result["milestone"]["confirmed_at"] = datetime.now().isoformat()
         self._save()
 
         return {
             "success": True,
-            "hito": result["hito"],
-            "message": f"Hito {hito_id} confirmado por escrito",
+            "milestone": result["milestone"],
+            "message": f"Milestone {milestone_id} confirmed in writing",
         }
 
-    def get_hitos(self, entity_id: str, estado: Optional[str] = None) -> List[Dict[str, Any]]:
+    def get_milestones(self, entity_id: str, status: Optional[str] = None) -> List[Dict[str, Any]]:
         """List milestones for an entity, optionally filtered by state."""
         data = self._load()
         entity = self._find_entity(data, entity_id)
         if not entity:
             return []
 
-        hitos = entity.get("hitos", [])
-        if estado:
-            hitos = [h for h in hitos if h.get("estado") == estado]
-        return hitos
+        milestones = entity.get("milestones", [])
+        if status:
+            milestones = [m for m in milestones if m.get("status") == status]
+        return milestones
 
-    def add_comunicacion(
+    def add_communication(
         self,
         entity_id: str,
-        canal: str,
-        asunto: str,
-        resumen: str,
-        siguiente_paso: str = "",
-        hito_relacionado: str = "",
+        channel: str,
+        subject: str,
+        summary: str,
+        next_step: str = "",
+        related_milestone: str = "",
     ) -> Dict[str, Any]:
         """Register a communication summary for an entity."""
         data = self._load()
-        self._detect_existing_id(data, "COM", "comunicacion")
+        self._detect_existing_id(data, "COM", "communication")
 
         entity = self._find_entity(data, entity_id)
         if not entity:
             return {
                 "success": False,
-                "error": f"Entidad {entity_id} no encontrada",
+                "error": f"Entity {entity_id} not found",
             }
 
-        com_id = self._generate_id("COM", "comunicacion")
-        comunicacion = {
+        com_id = self._generate_id("COM", "communication")
+        communication = {
             "id": com_id,
-            "entidad_id": entity_id,
-            "canal": canal,
-            "fecha": datetime.now().isoformat(),
-            "asunto": asunto,
-            "resumen": resumen,
-            "siguiente_paso": siguiente_paso,
-            "hito_relacionado": hito_relacionado,
+            "entity_id": entity_id,
+            "channel": channel,
+            "date": datetime.now().isoformat(),
+            "subject": subject,
+            "summary": summary,
+            "next_step": next_step,
+            "related_milestone": related_milestone,
         }
-        data.setdefault("comunicaciones", []).append(comunicacion)
-        entity["ultima_actividad"] = datetime.now().isoformat()
+        data.setdefault("communications", []).append(communication)
+        entity["last_activity"] = datetime.now().isoformat()
         self._save()
 
         return {
             "success": True,
-            "comunicacion": comunicacion,
-            "message": f"Comunicación registrada para {entity_id}",
+            "communication": communication,
+            "message": f"Communication registered for {entity_id}",
         }
 
-    def add_contrato(
+    def add_contract(
         self,
         entity_id: str,
-        tipo: str,
-        objeto: str,
-        monto: float = 0,
-        moneda: str = "",
-        vigencia_inicio: str = "",
-        vigencia_fin: str = "",
-        documento_url: str = "",
+        contract_type: str,
+        contract_object: str,
+        amount: float = 0,
+        currency: str = "",
+        start_date: str = "",
+        end_date: str = "",
+        document_url: str = "",
     ) -> Dict[str, Any]:
         """Register a contract linked to an entity."""
         data = self._load()
-        self._detect_existing_id(data, "CONT", "contrato")
+        self._detect_existing_id(data, "CONT", "contract")
 
         entity = self._find_entity(data, entity_id)
         if not entity:
             return {
                 "success": False,
-                "error": f"Entidad {entity_id} no encontrada",
+                "error": f"Entity {entity_id} not found",
             }
 
-        cont_id = self._generate_id("CONT", "contrato")
-        contrato = {
+        cont_id = self._generate_id("CONT", "contract")
+        contract = {
             "id": cont_id,
-            "entidad_id": entity_id,
-            "tipo": tipo,
-            "objeto": objeto,
-            "monto": monto,
-            "moneda": moneda or self.config["moneda"],
-            "vigencia_inicio": vigencia_inicio,
-            "vigencia_fin": vigencia_fin,
-            "estado": "vigente",
-            "documento_url": documento_url,
+            "entity_id": entity_id,
+            "type": contract_type,
+            "object": contract_object,
+            "amount": amount,
+            "currency": currency or self.config["currency"],
+            "start_date": start_date,
+            "end_date": end_date,
+            "status": "active",
+            "document_url": document_url,
         }
-        data.setdefault("contratos", []).append(contrato)
-        entity.setdefault("contratos", []).append(cont_id)
-        entity["ultima_actividad"] = datetime.now().isoformat()
+        data.setdefault("contracts", []).append(contract)
+        entity.setdefault("contracts", []).append(cont_id)
+        entity["last_activity"] = datetime.now().isoformat()
         self._save()
 
         return {
             "success": True,
-            "contrato": contrato,
-            "message": f"Contrato registrado para {entity_id}: {cont_id}",
+            "contract": contract,
+            "message": f"Contract registered for {entity_id}: {cont_id}",
         }
 
-    def add_recordatorio(
+    def add_reminder(
         self,
         entity_id: str,
-        mensaje: str,
-        fecha: str,
-        canal: str = "email",
-        tipo: str = "seguimiento",
+        message: str,
+        date: str,
+        channel: str = "email",
+        reminder_type: str = "follow-up",
     ) -> Dict[str, Any]:
         """Schedule a follow-up reminder."""
         data = self._load()
-        self._detect_existing_id(data, "REC", "recordatorio")
+        self._detect_existing_id(data, "REM", "reminder")
 
         entity = self._find_entity(data, entity_id)
         if not entity:
             return {
                 "success": False,
-                "error": f"Entidad {entity_id} no encontrada",
+                "error": f"Entity {entity_id} not found",
             }
 
-        rec_id = self._generate_id("REC", "recordatorio")
-        recordatorio = {
+        rec_id = self._generate_id("REM", "reminder")
+        reminder = {
             "id": rec_id,
-            "entidad_id": entity_id,
-            "tipo": tipo,
-            "fecha": fecha,
-            "mensaje": mensaje,
-            "canal": canal,
-            "estado": "pendiente",
+            "entity_id": entity_id,
+            "type": reminder_type,
+            "date": date,
+            "message": message,
+            "channel": channel,
+            "status": "pending",
         }
-        data.setdefault("recordatorios", []).append(recordatorio)
+        data.setdefault("reminders", []).append(reminder)
         self._save()
 
         return {
             "success": True,
-            "recordatorio": recordatorio,
-            "message": f"Recordatorio programado para {entity_id}",
+            "reminder": reminder,
+            "message": f"Reminder scheduled for {entity_id}",
         }
 
-    def rate_relationship(self, entity_id: str, calificacion: str, motivo: str = "") -> Dict[str, Any]:
+    def rate_relationship(self, entity_id: str, rating: str, reason: str = "") -> Dict[str, Any]:
         """Rate a relationship as A, B, C or D."""
-        calificacion_upper = calificacion.upper()
-        if calificacion_upper not in self.CALIFICACIONES_VALIDAS:
+        rating_upper = rating.upper()
+        if rating_upper not in self.VALID_RATINGS:
             return {
                 "success": False,
-                "error": f"Calificación inválida. Válidas: {', '.join(sorted(self.CALIFICACIONES_VALIDAS))}",
+                "error": f"Invalid rating. Valid: {', '.join(sorted(self.VALID_RATINGS))}",
             }
 
         return self.update_entity(
             entity_id,
-            calificacion=calificacion_upper,
-            calificacion_motivo=motivo or "Calificación actualizada.",
+            rating=rating_upper,
+            rating_reason=reason or "Rating updated.",
         )
 
     def get_relationship_summary(self, entity_id: str) -> Dict[str, Any]:
@@ -689,45 +709,46 @@ class RelationsCRM:
         if not entity:
             return {
                 "success": False,
-                "error": f"Entidad {entity_id} no encontrada",
+                "error": f"Entity {entity_id} not found",
             }
 
-        entity_id_actual = entity["id"]
-        comunicaciones = [
-            c for c in data.get("comunicaciones", [])
-            if c.get("entidad_id", "").lower() == entity_id_actual.lower()
+        actual_entity_id = entity["id"]
+        communications = [
+            c for c in data.get("communications", [])
+            if c.get("entity_id", "").lower() == actual_entity_id.lower()
         ]
-        contratos = [
-            c for c in data.get("contratos", [])
-            if c.get("entidad_id", "").lower() == entity_id_actual.lower()
+        contracts = [
+            c for c in data.get("contracts", [])
+            if c.get("entity_id", "").lower() == actual_entity_id.lower()
         ]
-        recordatorios = [
-            r for r in data.get("recordatorios", [])
-            if r.get("entidad_id", "").lower() == entity_id_actual.lower() and r.get("estado") == "pendiente"
+        pending_reminders = [
+            r for r in data.get("reminders", [])
+            if r.get("entity_id", "").lower() == actual_entity_id.lower()
+            and r.get("status") == "pending"
         ]
-        hitos_pendientes = [
-            h for h in entity.get("hitos", [])
-            if h.get("estado") not in {"completado", "cerrado", "cancelado"}
+        pending_milestones = [
+            m for m in entity.get("milestones", [])
+            if m.get("status") not in {"completed", "closed", "cancelled"}
         ]
 
         return {
             "success": True,
             "entity": entity,
-            "tipo": self._get_entity_type(entity),
-            "hitos_pendientes": hitos_pendientes,
-            "comunicaciones_recientes": sorted(
-                comunicaciones,
-                key=lambda x: x.get("fecha", ""),
+            "type": self._get_entity_type(entity),
+            "pending_milestones": pending_milestones,
+            "recent_communications": sorted(
+                communications,
+                key=lambda x: x.get("date", ""),
                 reverse=True,
             )[:5],
-            "contratos": contratos,
-            "recordatorios_pendientes": recordatorios,
+            "contracts": contracts,
+            "pending_reminders": pending_reminders,
         }
 
     def extract_entity_from_message(self, message: str) -> Optional[str]:
         """Try to extract an entity name from natural language."""
         patterns = [
-            r"(?:cliente|proveedor|de|con|para)\s+([A-Z][a-z]+\s+(?:[A-Z][a-z]+\s*)+)",
+            r"(?:client|vendor|from|with|for)\s+([A-Z][a-z]+\s+(?:[A-Z][a-z]+\s*)+)",
             r"([A-Z][a-z]+\s+[A-Z][a-z]+)",
         ]
 
@@ -738,7 +759,7 @@ class RelationsCRM:
                 name = match.group(1).strip()
                 entity = self._find_entity(data, name)
                 if entity:
-                    return entity["nombre"]
+                    return entity["name"]
 
         return None
 
@@ -757,5 +778,5 @@ def get_relations_crm(relations_file: Optional[Path] = None) -> RelationsCRM:
 
 if __name__ == "__main__":
     crm = get_relations_crm()
-    print(crm.add_cliente("Acme Corp", email="hola@acme.test"))
-    print(crm.add_proveedor("Papelera Central", categoria="papeleria"))
+    print(crm.add_client("Acme Corp", email="hello@acme.test"))
+    print(crm.add_vendor("Paper Central", category="stationery"))

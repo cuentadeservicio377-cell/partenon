@@ -1,0 +1,28 @@
+{
+  "id": "mensajero-midday-pulse",
+  "name": "Messenger — Midday pulse",
+  "description": "Reviews published posts and engagement, recommends real-time adjustments.",
+  "schedule": {
+    "frequency": "daily",
+    "time": "13:00",
+    "timezone": "America/Mexico_City"
+  },
+  "enabled": true,
+  "steps": [
+    {
+      "order": 1,
+      "tool": "read_social_metrics",
+      "description": "Collects metrics from the configured social channels"
+    },
+    {
+      "order": 2,
+      "tool": "detect_opportunities",
+      "description": "Identifies high-engagement content and reply opportunities"
+    },
+    {
+      "order": 3,
+      "tool": "notify",
+      "description": "Sends recommendations and urgent comments to the operator"
+    }
+  ]
+}

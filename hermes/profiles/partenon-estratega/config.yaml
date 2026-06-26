@@ -1,13 +1,13 @@
 profile:
   name: partenon-estratega
-  display_name: Estratega
-  description: Operaciones, project management, Google Calendar, Gmail, tareas, recordatorios, metas y briefings.
+  display_name: Strategist
+  description: Operations, project management, Google Calendar, Gmail, tasks, reminders, goals, and briefings.
   file: .ops
   version: 0.1.0
 
 model:
-  default: openrouter/google/gemini-2.5-flash-preview
-  fallback: openrouter/anthropic/claude-sonnet-4-20250514
+  default: openrouter/anthropic/claude-opus-4
+  fallback: openrouter/anthropic/claude-sonnet-4
 
 tools:
   - google_workspace
@@ -36,7 +36,7 @@ cron:
 
 metadata:
   partenon:
-    hero: estratega
+    hero: strategist
     color: "#00D4FF"
-    tags: [operaciones, proyectos, tareas, metas, calendario, briefings]
+    tags: [operations, projects, tasks, goals, calendar, briefings]
     related_profiles: [partenon-tesorero, partenon-mensajero, partenon-cobrador, partenon-guardian, partenon-diplomatico]

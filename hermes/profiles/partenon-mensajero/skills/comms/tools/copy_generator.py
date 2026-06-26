@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Partenon Mensajero — Copy Generator Tool
-Genera copy para ads, emails, posts y landing. Anti-AI-slop.
+Partenon Herald — Copy Generator Tool
+Generates copy for ads, emails, posts, and landing pages. Anti-AI-slop.
 """
 
 import json
@@ -14,17 +14,17 @@ import yaml
 
 
 BANNED_PATTERNS = [
-    "revolucionario",
+    "revolutionary",
     "game changer",
-    "transforma tu vida",
-    "sin esfuerzo",
-    "100% garantizado",
-    "resultados inmediatos",
-    "unico en el mercado",
-    "descubre el secreto",
-    "aprovecha ya",
-    "no te lo pierdas",
-    "la mejor solucion",
+    "transform your life",
+    "effortless",
+    "100% guaranteed",
+    "instant results",
+    "only one on the market",
+    "discover the secret",
+    "act now",
+    "do not miss out",
+    "the best solution",
 ]
 
 
@@ -47,22 +47,22 @@ def get_brand_context(design: Dict[str, Any]) -> Dict[str, Any]:
     audience = design.get("audience", {})
 
     return {
-        "brand_name": design.get("brand", {}).get("nombre_marca", "Tu marca"),
-        "que_vendes": positioning.get("que_vendes", ""),
-        "a_quien_ayudas": positioning.get("a_quien_ayudas", ""),
-        "como_lo_haces": positioning.get("como_lo_haces", ""),
-        "tono": voice.get("tono", "directo"),
-        "forma_trato": voice.get("forma_trato", "tu"),
+        "brand_name": design.get("brand", {}).get("brand_name", "Your brand"),
+        "what_you_sell": positioning.get("what_you_sell", ""),
+        "who_you_help": positioning.get("who_you_help", ""),
+        "how_you_do_it": positioning.get("how_you_do_it", ""),
+        "tone": voice.get("tone", "direct"),
+        "addressing": voice.get("addressing", "you informal"),
         "key_messages": messaging.get("key_messages", []),
-        "claims_prohibidos": messaging.get("claims_prohibidos", []),
+        "claims_to_avoid": messaging.get("claims_to_avoid", []),
         "proof_points": messaging.get("proof_points", []),
         "cta_matrix": messaging.get("cta_matrix", {}),
-        "primary_dolor": audience.get("primary", {}).get("dolor", ""),
+        "primary_pain": audience.get("primary", {}).get("pain", ""),
         "primary_outcome": audience.get("primary", {}).get("outcome", ""),
     }
 
 
-def sanitize_text(text: str, banned: List[str]) -> str:
+def sanitize_text(text: str, banned: List[str]) -> List[str]:
     """Remove or flag banned patterns from copy."""
     flagged = []
     lower_text = text.lower()
@@ -74,25 +74,25 @@ def sanitize_text(text: str, banned: List[str]) -> str:
 
 def generate_hook(brand: Dict[str, Any], topic: str, channel: str) -> str:
     """Generate a channel-aware hook."""
-    dolor = brand["primary_dolor"] or "el problema que no deja crecer tu negocio"
-    outcome = brand["primary_outcome"] or "un resultado claro y medible"
-    que_vendes = brand["que_vendes"] or topic
+    pain = brand["primary_pain"] or "the problem that keeps your business from growing"
+    outcome = brand["primary_outcome"] or "a clear and measurable result"
+    what_you_sell = brand["what_you_sell"] or topic
 
     if channel in ["linkedin", "blog"]:
-        return f"La mayoria de empresas lidian con {dolor}. Aqui hay una forma mas directa de llegar a {outcome}."
+        return f"Most businesses deal with {pain}. Here is a more direct way to reach {outcome}."
     if channel in ["instagram", "tiktok"]:
-        return f"Si {dolor}, esto cambia como piensas sobre {que_vendes}."
+        return f"If {pain}, this changes how you think about {what_you_sell}."
     if channel == "email":
-        return f"Hablemos de {dolor}. Hay una forma de acercarte a {outcome} sin complicar el dia a dia."
-    return f"{dolor}? Existe una forma mas clara de resolverlo."
+        return f"Let's talk about {pain}. There is a way to get closer to {outcome} without complicating your day."
+    return f"{pain}? There is a clearer way to solve it."
 
 
 def generate_body(brand: Dict[str, Any], topic: str) -> str:
     """Generate a concise body paragraph."""
     parts = [
-        f"Ayudamos a {brand['a_quien_ayudas']} a {brand['primary_outcome']}." if brand["a_quien_ayudas"] and brand["primary_outcome"] else "",
-        f"Lo hacemos a traves de {brand['como_lo_haces']}." if brand["como_lo_haces"] else "",
-        f"El punto central: {topic}." if topic else "",
+        f"We help {brand['who_you_help']} to {brand['primary_outcome']}." if brand["who_you_help"] and brand["primary_outcome"] else "",
+        f"We do it through {brand['how_you_do_it']}." if brand["how_you_do_it"] else "",
+        f"The central point: {topic}." if topic else "",
     ]
     return " ".join(p for p in parts if p)
 
@@ -100,7 +100,7 @@ def generate_body(brand: Dict[str, Any], topic: str) -> str:
 def generate_cta(brand: Dict[str, Any], stage: str = "consideration") -> str:
     """Generate a stage-appropriate CTA."""
     cta_matrix = brand.get("cta_matrix", {})
-    return cta_matrix.get(stage, "Conoce mas")
+    return cta_matrix.get(stage, "Learn more")
 
 
 def generate_ad_copy(brand: Dict[str, Any], topic: str, channel: str) -> Dict[str, Any]:
@@ -110,9 +110,9 @@ def generate_ad_copy(brand: Dict[str, Any], topic: str, channel: str) -> Dict[st
     cta = generate_cta(brand, "consideration")
 
     variants = [
-        {"name": "Directa", "headline": hook, "body": body, "cta": cta},
-        {"name": "Dolor", "headline": f"Cansado de {brand['primary_dolor']}?", "body": body, "cta": cta},
-        {"name": "Resultado", "headline": f"Como llegar a {brand['primary_outcome']}", "body": body, "cta": cta},
+        {"name": "Direct", "headline": hook, "body": body, "cta": cta},
+        {"name": "Pain", "headline": f"Tired of {brand['primary_pain']}?", "body": body, "cta": cta},
+        {"name": "Outcome", "headline": f"How to reach {brand['primary_outcome']}", "body": body, "cta": cta},
     ]
 
     return {
@@ -125,17 +125,17 @@ def generate_ad_copy(brand: Dict[str, Any], topic: str, channel: str) -> Dict[st
 
 def generate_email_copy(brand: Dict[str, Any], topic: str, email_type: str = "outreach") -> Dict[str, Any]:
     """Generate email copy."""
-    subject = f"Sobre {topic}"
+    subject = f"About {topic}"
     if email_type == "follow_up":
-        subject = f"Seguimiento: {topic}"
+        subject = f"Follow-up: {topic}"
     elif email_type == "newsletter":
-        subject = f"Este mes: {topic}"
+        subject = f"This month: {topic}"
 
-    saludo = "Estimado/a" if brand["forma_trato"] == "usted" else "Hola"
+    greeting = "Dear" if brand["addressing"] == "you formal" else "Hi"
     cta = generate_cta(brand, "decision") if email_type == "follow_up" else generate_cta(brand, "consideration")
 
     body_lines = [
-        f"{saludo}",
+        f"{greeting}",
         "",
         generate_hook(brand, topic, "email"),
         "",
@@ -143,7 +143,7 @@ def generate_email_copy(brand: Dict[str, Any], topic: str, email_type: str = "ou
         "",
         f"{cta}.",
         "",
-        "Saludos,",
+        "Regards,",
         brand["brand_name"],
     ]
 
@@ -175,12 +175,12 @@ def generate_landing_copy(brand: Dict[str, Any], topic: str) -> Dict[str, Any]:
         "type": "landing",
         "topic": topic,
         "hero": {
-            "headline": f"{brand['brand_name']} ayuda a {brand['a_quien_ayudas']} a {brand['primary_outcome']}",
+            "headline": f"{brand['brand_name']} helps {brand['who_you_help']} to {brand['primary_outcome']}",
             "subheadline": generate_body(brand, topic),
             "cta": generate_cta(brand, "decision"),
         },
-        "problem": brand["primary_dolor"],
-        "solution": brand["como_lo_haces"],
+        "problem": brand["primary_pain"],
+        "solution": brand["how_you_do_it"],
         "proof": brand["proof_points"][:3],
         "faq_cta": generate_cta(brand, "consideration"),
     }
@@ -208,11 +208,11 @@ def generate_copy(
     else:
         return {
             "success": False,
-            "error": f"Tipo de pieza no soportado: {piece_type}",
+            "error": f"Unsupported piece type: {piece_type}",
         }
 
     all_text = json.dumps(result, ensure_ascii=False)
-    flagged = sanitize_text(all_text, BANNED_PATTERNS + brand["claims_prohibidos"])
+    flagged = sanitize_text(all_text, BANNED_PATTERNS + brand["claims_to_avoid"])
 
     result["success"] = True
     result["qa"] = {
@@ -240,9 +240,9 @@ def main() -> int:
     """CLI entry point."""
     if len(sys.argv) < 3:
         print(json.dumps({
-            "usage": "python3 copy_generator.py <tipo> <tema> [canal|email_type]",
+            "usage": "python3 copy_generator.py <type> <topic> [channel|email_type]",
             "types": ["ad", "email", "post", "landing"],
-            "example": "python3 copy_generator.py ad 'automatizacion de cobros' linkedin",
+            "example": "python3 copy_generator.py ad 'payment automation' linkedin",
         }, ensure_ascii=False, indent=2))
         return 0
 

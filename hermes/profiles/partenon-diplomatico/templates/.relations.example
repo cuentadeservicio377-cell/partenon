@@ -1,93 +1,113 @@
-# Archivo .relations de Partenon — Diplomático
-# Copia este archivo como .relations en la raíz del workspace de la empresa.
-
-empresa: Mi Empresa
-archivo: .relations
-actualizado: 2026-06-26T00:00:00
-
-clientes:
-  - id: CLI-001
-    nombre: Cliente Ejemplo
-    contacto_principal:
-      nombre: Ana López
-      email: ana@cliente-ejemplo.com
-      telefono: "+52 55 1234 5678"
-    categoria: servicios
-    origen: referido
-    estado: activa
-    calificacion: A
-    calificacion_motivo: Puntual, comunicación clara, proyectos recurrentes.
-    fecha_registro: 2026-01-15T10:00:00
-    ultima_actividad: 2026-06-20T14:30:00
-    notas: Cliente clave. Prefiere reuniones por la mañana.
-    proyectos:
-      - PROJ-001
-    hitos:
-      - id: HIT-CLI-001-01
-        descripcion: Entrega de propuesta de servicios
-        fecha: 2026-06-30
-        estado: propuesto
-        confirmado_escrito: false
-        responsable: Diplomatico
-        siguiente_paso: Enviar borrador y confirmar recepción
-
-proveedores:
-  - id: PROV-001
-    nombre: Proveedor Ejemplo
-    contacto_principal:
-      nombre: Carlos Ruiz
-      email: carlos@proveedor-ejemplo.com
-      telefono: "+52 55 8765 4321"
-    categoria: mobiliario
-    servicio: Renta de sillas y mesas
-    estado: activa
-    calificacion: B
-    calificacion_motivo: Buenos precios, entregas ocasionalmente retrasadas.
-    fecha_registro: 2026-02-10T09:00:00
-    ultima_actividad: 2026-06-22T11:00:00
-    notas: Confirmar disponibilidad con al menos 7 días de anticipación.
-    contratos:
-      - id: CONT-PROV-001-01
-        tipo: acuerdo_marco
-        vigencia_inicio: 2026-01-01
-        vigencia_fin: 2026-12-31
-        terminos: Tarifa preferencial por volumen mayor a 50 piezas.
-    hitos:
-      - id: HIT-PROV-001-01
-        descripcion: Confirmar disponibilidad para evento del 15 de julio
-        fecha: 2026-06-28
-        estado: propuesto
-        confirmado_escrito: false
-        responsable: Diplomatico
-        siguiente_paso: Llamar y enviar confirmación por email
-
-contratos:
-  - id: CONT-CLI-001-01
-    entidad_id: CLI-001
-    tipo: servicio
-    objeto: Consultoría de operaciones
-    monto: 50000
-    moneda: MXN
-    vigencia_inicio: 2026-06-01
-    vigencia_fin: 2026-08-31
-    estado: vigente
-    documento_url: ""
-
-comunicaciones:
-  - id: COM-001
-    entidad_id: CLI-001
-    canal: email
-    fecha: 2026-06-20T14:30:00
-    asunto: Seguimiento a propuesta
-    resumen: Ana solicitó ajustar alcance. Se enviará nueva versión el 28 de junio.
-    siguiente_paso: Enviar borrador ajustado
-    hito_relacionado: HIT-CLI-001-01
-
-recordatorios:
-  - id: REC-001
-    entidad_id: PROV-001
-    tipo: hito
-    fecha: 2026-06-27T09:00:00
-    mensaje: Recordar a Proveedor Ejemplo confirmar disponibilidad para el 15 de julio.
-    canal: email
-    estado: pendiente
+{
+  "note": "Partenon .relations file — Diplomat. Copy this file as .relations in the workspace root and adjust it for your business.",
+  "company": "My Company",
+  "file": ".relations",
+  "updated": "2026-06-26T00:00:00",
+  "clients": [
+    {
+      "id": "CLI-001",
+      "name": "Example Client",
+      "main_contact": {
+        "name": "Ana Lopez",
+        "email": "ana@client-example.com",
+        "phone": "+52 55 1234 5678"
+      },
+      "category": "services",
+      "origin": "referral",
+      "status": "active",
+      "rating": "A",
+      "rating_reason": "Punctual, clear communication, recurring projects.",
+      "registered_at": "2026-01-15T10:00:00",
+      "last_activity": "2026-06-20T14:30:00",
+      "notes": "Key client. Prefers morning meetings.",
+      "projects": ["PROJ-001"],
+      "milestones": [
+        {
+          "id": "MIL-CLI-001-01",
+          "description": "Service proposal delivery",
+          "date": "2026-06-30",
+          "status": "proposed",
+          "confirmed_in_writing": false,
+          "responsible": "Diplomat",
+          "next_step": "Send draft and confirm receipt"
+        }
+      ]
+    }
+  ],
+  "vendors": [
+    {
+      "id": "VEN-001",
+      "name": "Example Vendor",
+      "main_contact": {
+        "name": "Carlos Ruiz",
+        "email": "carlos@vendor-example.com",
+        "phone": "+52 55 8765 4321"
+      },
+      "category": "furniture",
+      "service": "Chair and table rental",
+      "status": "active",
+      "rating": "B",
+      "rating_reason": "Good prices, deliveries occasionally delayed.",
+      "registered_at": "2026-02-10T09:00:00",
+      "last_activity": "2026-06-22T11:00:00",
+      "notes": "Confirm availability at least 7 days in advance.",
+      "contracts": [
+        {
+          "id": "CON-VEN-001-01",
+          "type": "framework_agreement",
+          "start_date": "2026-01-01",
+          "end_date": "2026-12-31",
+          "terms": "Preferred rate for volume over 50 pieces."
+        }
+      ],
+      "milestones": [
+        {
+          "id": "MIL-VEN-001-01",
+          "description": "Confirm availability for July 15 event",
+          "date": "2026-06-28",
+          "status": "proposed",
+          "confirmed_in_writing": false,
+          "responsible": "Diplomat",
+          "next_step": "Call and send confirmation by email"
+        }
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "id": "CON-CLI-001-01",
+      "entity_id": "CLI-001",
+      "type": "service",
+      "object": "Operations consulting",
+      "amount": 50000,
+      "currency": "MXN",
+      "start_date": "2026-06-01",
+      "end_date": "2026-08-31",
+      "status": "active",
+      "document_url": ""
+    }
+  ],
+  "communications": [
+    {
+      "id": "COM-001",
+      "entity_id": "CLI-001",
+      "channel": "email",
+      "date": "2026-06-20T14:30:00",
+      "subject": "Proposal follow-up",
+      "summary": "Ana requested to adjust scope. New version will be sent on June 28.",
+      "next_step": "Send adjusted draft",
+      "related_milestone": "MIL-CLI-001-01"
+    }
+  ],
+  "reminders": [
+    {
+      "id": "REM-001",
+      "entity_id": "VEN-001",
+      "type": "milestone",
+      "date": "2026-06-27T09:00:00",
+      "message": "Remind Example Vendor to confirm availability for July 15.",
+      "channel": "email",
+      "status": "pending"
+    }
+  ]
+}

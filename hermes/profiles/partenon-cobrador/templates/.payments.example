@@ -1,94 +1,94 @@
-# Archivo maestro de pagos — Partenon Cobrador
-# Copia este archivo como `.payments` en el directorio raíz del cliente/empresa.
-# Todos los montos se guardan como enteros en la moneda más pequeña (centavos).
+# Partenon Collector — Master payments file
+# Copy this file as `.payments` in the client/company root directory.
+# All amounts are stored as integers in the smallest currency unit (cents).
 
 metadata:
   version: "0.1.0"
   profile: partenon-cobrador
-  moneda: MXN
+  currency: MXN
   timezone: America/Mexico_City
-  creado: "2026-06-26"
+  created: "2026-06-26"
 
-productos:
-  - id: prod_ejemplo_001
-    nombre: "Consultoría inicial"
-    descripcion: "Sesión de diagnóstico de 60 minutos."
-    activo: true
+products:
+  - id: prod_example_001
+    name: "Initial consultation"
+    description: "60-minute diagnostic session."
+    active: true
 
-  - id: prod_ejemplo_002
-    nombre: "Retainer mensual"
-    descripcion: "Paquete de horas mensuales de acompañamiento."
-    activo: true
+  - id: prod_example_002
+    name: "Monthly retainer"
+    description: "Monthly accompaniment hour package."
+    active: true
 
-precios:
-  - id: price_ejemplo_001
-    product_id: prod_ejemplo_001
+prices:
+  - id: price_example_001
+    product_id: prod_example_001
     amount: 150000
     currency: mxn
-    tipo: one_time
+    type: one_time
 
-  - id: price_ejemplo_002
-    product_id: prod_ejemplo_002
+  - id: price_example_002
+    product_id: prod_example_002
     amount: 50000
     currency: mxn
-    tipo: recurring
+    type: recurring
     interval: month
     interval_count: 1
 
 links:
-  - id: link_ejemplo_001
-    price_id: price_ejemplo_001
-    url: "https://buy.stripe.com/test_ejemplo"
-    cliente_email: cliente@ejemplo.com
-    concepto: "Consultoría inicial"
-    creado: "2026-06-26T10:00:00-06:00"
-    expira: "2026-07-26T10:00:00-06:00"
-    estado: active
+  - id: link_example_001
+    price_id: price_example_001
+    url: "https://buy.stripe.com/test_example"
+    client_email: client@example.com
+    concept: "Initial consultation"
+    created: "2026-06-26T10:00:00-06:00"
+    expires: "2026-07-26T10:00:00-06:00"
+    status: active
 
-suscripciones:
-  - id: sub_ejemplo_001
-    cliente_email: cliente@ejemplo.com
-    price_id: price_ejemplo_002
+subscriptions:
+  - id: sub_example_001
+    client_email: client@example.com
+    price_id: price_example_002
     stripe_subscription_id: sub_xxxxxxxxxxxxxxxx
-    estado: active
-    ciclo: month
-    proximo_cobro: "2026-07-26"
-    intentos_fallidos: 0
+    status: active
+    cycle: month
+    next_charge: "2026-07-26"
+    failed_attempts: 0
 
-clientes:
-  - id: cus_ejemplo_001
-    email: cliente@ejemplo.com
-    nombre: "Cliente Ejemplo"
-    telefono: "+52 55 1234 5678"
-    responsable_pagos: "Juan Pérez"
-    metodo_preferido: tarjeta
-    historial: puntual
+clients:
+  - id: cus_example_001
+    email: client@example.com
+    name: "Example Client"
+    phone: "+52 55 1234 5678"
+    payments_responsible: "John Doe"
+    preferred_method: card
+    history: punctual
 
-pagos:
-  - id: pag_ejemplo_001
+payments:
+  - id: pay_example_001
     stripe_payment_intent_id: pi_xxxxxxxxxxxxxxxx
-    cliente_email: cliente@ejemplo.com
-    price_id: price_ejemplo_001
-    link_id: link_ejemplo_001
+    client_email: client@example.com
+    price_id: price_example_001
+    link_id: link_example_001
     amount: 150000
     currency: mxn
-    comision_stripe: 4350
-    estado: pagado
-    fecha_creacion: "2026-06-26T10:00:00-06:00"
-    fecha_pago: "2026-06-26T11:30:00-06:00"
-    sincronizado_con_tesorero: true
+    stripe_fee: 4350
+    status: paid
+    created_at: "2026-06-26T10:00:00-06:00"
+    paid_at: "2026-06-26T11:30:00-06:00"
+    synced_with_treasurer: true
 
-recordatorios:
-  - id: rem_ejemplo_001
-    cliente_email: cliente@ejemplo.com
-    pago_id: pag_ejemplo_001
-    tipo: previo
-    enviado: "2026-06-23T09:00:00-06:00"
-    canal: gmail
-    estado: enviado
+reminders:
+  - id: rem_example_001
+    client_email: client@example.com
+    payment_id: pay_example_001
+    type: before_due
+    sent_at: "2026-06-23T09:00:00-06:00"
+    channel: gmail
+    status: sent
 
-politicas:
-  max_recordatorios: 3
-  dias_previo_recordatorio: 3
-  dias_post_vencimiento_escalamiento: 3
-  permitir_pagos_parciales: false
+policies:
+  max_reminders: 3
+  days_before_reminder: 3
+  days_after_due_for_escalation: 3
+  allow_partial_payments: false

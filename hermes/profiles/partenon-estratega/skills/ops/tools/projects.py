@@ -1,5 +1,5 @@
 """
-Partenon Estratega — Projects Tool
+Partenon Strategist — Projects Tool
 Manages projects, assignments, and project lifecycle.
 """
 
@@ -31,44 +31,44 @@ def _resolve_data_dir() -> Path:
 
 
 def _default_industry() -> str:
-    """Read industry from empresa.yaml if available."""
+    """Read industry from company.yaml if available."""
     current = Path(__file__).resolve()
     for parent in current.parents:
         if parent.name == "partenon-core":
-            config_path = parent / "config" / "empresa.yaml"
+            config_path = parent / "config" / "company.yaml"
             break
-        config_path = parent / "partenon-core" / "config" / "empresa.yaml"
+        config_path = parent / "partenon-core" / "config" / "company.yaml"
         if config_path.exists():
             break
     else:
-        return "consultoria"
+        return "consulting"
 
     if not config_path.exists():
-        return "consultoria"
+        return "consulting"
 
     try:
         import yaml
         with open(config_path, "r", encoding="utf-8") as f:
             data = yaml.safe_load(f) or {}
-        return data.get("empresa", {}).get("industria", "consultoria")
+        return data.get("company", {}).get("industry", "consulting")
     except Exception:
-        return "consultoria"
+        return "consulting"
 
 
-class Proyectos:
+class Projects:
     """Project management tool."""
 
     PROJECT_STATUSES = [
-        "planificado",
-        "en_progreso",
-        "pausado",
-        "completado",
-        "cancelado",
-        "entregado",
+        "planned",
+        "in_progress",
+        "paused",
+        "completed",
+        "canceled",
+        "delivered",
     ]
 
     def __init__(self):
-        self.industria = _default_industry()
+        self.industry = _default_industry()
         self.data_dir = _resolve_data_dir()
         self.projects_file = self.data_dir / "projects.json"
         self._projects = None
@@ -111,54 +111,54 @@ class Proyectos:
 
     def create_project(
         self,
-        nombre: str,
-        cliente_id: str = None,
-        cliente_nombre: str = None,
-        descripcion: str = None,
-        fecha_inicio: str = None,
-        fecha_entrega: str = None,
-        monto: float = 0,
-        tipo: str = None,
-        notas: str = None,
+        name: str,
+        client_id: str = None,
+        client_name: str = None,
+        description: str = None,
+        start_date: str = None,
+        delivery_date: str = None,
+        amount: float = 0,
+        type: str = None,
+        notes: str = None,
     ) -> Dict[str, Any]:
         """Create a new project."""
         self._load()
 
-        if fecha_inicio and isinstance(fecha_inicio, str):
+        if start_date and isinstance(start_date, str):
             try:
-                fecha_inicio_dt = datetime.fromisoformat(fecha_inicio.replace("Z", "+00:00"))
+                start_date_dt = datetime.fromisoformat(start_date.replace("Z", "+00:00"))
             except ValueError:
-                fecha_inicio_dt = datetime.now()
+                start_date_dt = datetime.now()
         else:
-            fecha_inicio_dt = datetime.now()
+            start_date_dt = datetime.now()
 
-        if fecha_entrega and isinstance(fecha_entrega, str):
+        if delivery_date and isinstance(delivery_date, str):
             try:
-                fecha_entrega_dt = datetime.fromisoformat(fecha_entrega.replace("Z", "+00:00"))
+                delivery_date_dt = datetime.fromisoformat(delivery_date.replace("Z", "+00:00"))
             except ValueError:
-                fecha_entrega_dt = fecha_inicio_dt + timedelta(days=30)
+                delivery_date_dt = start_date_dt + timedelta(days=30)
         else:
-            fecha_entrega_dt = fecha_inicio_dt + timedelta(days=30)
+            delivery_date_dt = start_date_dt + timedelta(days=30)
 
         project = {
             "id": self._generate_project_id(),
-            "nombre": nombre,
-            "cliente_id": cliente_id,
-            "cliente_nombre": cliente_nombre or "Cliente no especificado",
-            "descripcion": descripcion or "",
-            "tipo": tipo or self.industria,
-            "estado": "planificado",
-            "monto": monto,
-            "fecha_creacion": datetime.now().isoformat(),
-            "fecha_inicio": fecha_inicio_dt.isoformat(),
-            "fecha_entrega": fecha_entrega_dt.isoformat(),
-            "fecha_completado": None,
-            "progreso": 0,
-            "tareas": [],
+            "name": name,
+            "client_id": client_id,
+            "client_name": client_name or "Client not specified",
+            "description": description or "",
+            "type": type or self.industry,
+            "status": "planned",
+            "amount": amount,
+            "created_at": datetime.now().isoformat(),
+            "start_date": start_date_dt.isoformat(),
+            "delivery_date": delivery_date_dt.isoformat(),
+            "completed_at": None,
+            "progress": 0,
+            "tasks": [],
             "checklist": [],
-            "notas": notas or "",
-            "historial": [
-                {"accion": "Creacion", "fecha": datetime.now().isoformat()}
+            "notes": notes or "",
+            "history": [
+                {"action": "Created", "date": datetime.now().isoformat()}
             ],
         }
 
@@ -167,8 +167,8 @@ class Proyectos:
 
         return {
             "success": True,
-            "proyecto": project,
-            "message": f"Proyecto creado: {nombre} ({project['id']})",
+            "project": project,
+            "message": f"Project created: {name} ({project['id']})",
         }
 
     def get_project(self, project_id: str) -> Optional[Dict[str, Any]]:
@@ -190,7 +190,7 @@ class Proyectos:
         for project in self._projects:
             if project["id"].lower() == query_lower:
                 return project
-            if query_lower in project["nombre"].lower():
+            if query_lower in project["name"].lower():
                 return project
 
         return None
@@ -204,89 +204,89 @@ class Proyectos:
                 safe_updates = {
                     k: v
                     for k, v in updates.items()
-                    if k not in ["id", "historial", "tareas", "checklist"]
+                    if k not in ["id", "history", "tasks", "checklist"]
                 }
                 project.update(safe_updates)
-                project["historial"].append({
-                    "accion": f"Actualizacion: {', '.join(safe_updates.keys())}",
-                    "fecha": datetime.now().isoformat(),
+                project["history"].append({
+                    "action": f"Updated: {', '.join(safe_updates.keys())}",
+                    "date": datetime.now().isoformat(),
                 })
                 self._save()
 
                 return {
                     "success": True,
-                    "proyecto": project,
-                    "message": f"Proyecto {project_id} actualizado",
+                    "project": project,
+                    "message": f"Project {project_id} updated",
                 }
 
         return {
             "success": False,
-            "error": f"Proyecto {project_id} no encontrado",
+            "error": f"Project {project_id} not found",
         }
 
     def update_status(
-        self, project_id: str, nuevo_estado: str, notas: str = None
+        self, project_id: str, new_status: str, notes: str = None
     ) -> Dict[str, Any]:
         """Update project status."""
-        if nuevo_estado not in self.PROJECT_STATUSES:
+        if new_status not in self.PROJECT_STATUSES:
             return {
                 "success": False,
-                "error": f"Estado invalido. Validos: {', '.join(self.PROJECT_STATUSES)}",
+                "error": f"Invalid status. Valid: {', '.join(self.PROJECT_STATUSES)}",
             }
 
         self._load()
 
         for project in self._projects:
             if project["id"].lower() == project_id.lower():
-                estado_anterior = project["estado"]
-                project["estado"] = nuevo_estado
+                previous_status = project["status"]
+                project["status"] = new_status
 
-                if nuevo_estado == "completado":
-                    project["fecha_completado"] = datetime.now().isoformat()
-                    project["progreso"] = 100
+                if new_status == "completed":
+                    project["completed_at"] = datetime.now().isoformat()
+                    project["progress"] = 100
 
-                project["historial"].append({
-                    "accion": f"Cambio de estado: {estado_anterior} -> {nuevo_estado}",
-                    "fecha": datetime.now().isoformat(),
-                    "notas": notas or "",
+                project["history"].append({
+                    "action": f"Status change: {previous_status} -> {new_status}",
+                    "date": datetime.now().isoformat(),
+                    "notes": notes or "",
                 })
                 self._save()
 
                 return {
                     "success": True,
-                    "proyecto": project,
-                    "message": f"{project['nombre']}: {estado_anterior} -> {nuevo_estado}",
+                    "project": project,
+                    "message": f"{project['name']}: {previous_status} -> {new_status}",
                 }
 
         return {
             "success": False,
-            "error": f"Proyecto {project_id} no encontrado",
+            "error": f"Project {project_id} not found",
         }
 
-    def update_progress(self, project_id: str, progreso: int) -> Dict[str, Any]:
+    def update_progress(self, project_id: str, progress: int) -> Dict[str, Any]:
         """Update project progress percentage."""
-        progreso = max(0, min(100, progreso))
+        progress = max(0, min(100, progress))
 
-        result = self.update_project(project_id, progreso=progreso)
+        result = self.update_project(project_id, progress=progress)
 
         if result["success"]:
-            result["message"] = f"Progreso de {project_id}: {progreso}%"
+            result["message"] = f"Progress for {project_id}: {progress}%"
 
         return result
 
     def list_projects(
-        self, estado: str = None, cliente_id: str = None
+        self, status: str = None, client_id: str = None
     ) -> List[Dict[str, Any]]:
         """List projects, optionally filtered."""
         self._load()
 
         projects = self._projects
 
-        if estado:
-            projects = [p for p in projects if p["estado"] == estado]
+        if status:
+            projects = [p for p in projects if p["status"] == status]
 
-        if cliente_id:
-            projects = [p for p in projects if p.get("cliente_id") == cliente_id]
+        if client_id:
+            projects = [p for p in projects if p.get("client_id") == client_id]
 
         return projects
 
@@ -301,9 +301,9 @@ class Proyectos:
 
         overdue = []
         for project in self._projects:
-            if project["estado"] in ["planificado", "en_progreso", "pausado"]:
-                fecha_entrega = datetime.fromisoformat(project["fecha_entrega"])
-                if fecha_entrega < now:
+            if project["status"] in ["planned", "in_progress", "paused"]:
+                delivery_date = datetime.fromisoformat(project["delivery_date"])
+                if delivery_date < now:
                     overdue.append(project)
 
         return overdue
@@ -313,25 +313,25 @@ class Proyectos:
         self._load()
 
         total = len(self._projects)
-        activos = len([p for p in self._projects if p["estado"] in ["planificado", "en_progreso", "pausado"]])
-        completados = len([p for p in self._projects if p["estado"] in ["completado", "entregado"]])
-        atrasados = len(self.get_overdue_projects())
+        active = len([p for p in self._projects if p["status"] in ["planned", "in_progress", "paused"]])
+        completed = len([p for p in self._projects if p["status"] in ["completed", "delivered"]])
+        overdue = len(self.get_overdue_projects())
 
-        active_projects = [p for p in self._projects if p["estado"] in ["planificado", "en_progreso"]]
+        active_projects = [p for p in self._projects if p["status"] in ["planned", "in_progress"]]
         avg_progress = (
-            sum(p["progreso"] for p in active_projects) / len(active_projects)
+            sum(p["progress"] for p in active_projects) / len(active_projects)
             if active_projects
             else 0
         )
 
         return {
             "total": total,
-            "activos": activos,
-            "completados": completados,
-            "atrasados": atrasados,
-            "cancelados": len([p for p in self._projects if p["estado"] == "cancelado"]),
-            "promedio_progreso": round(avg_progress, 1),
-            "proximos_vencimientos": self._get_upcoming_deadlines(),
+            "active": active,
+            "completed": completed,
+            "overdue": overdue,
+            "canceled": len([p for p in self._projects if p["status"] == "canceled"]),
+            "average_progress": round(avg_progress, 1),
+            "upcoming_deadlines": self._get_upcoming_deadlines(),
         }
 
     def _get_upcoming_deadlines(self, days: int = 7) -> List[Dict[str, Any]]:
@@ -341,51 +341,51 @@ class Proyectos:
         upcoming = []
 
         for project in self._projects:
-            if project["estado"] in ["planificado", "en_progreso"]:
-                fecha_entrega = datetime.fromisoformat(project["fecha_entrega"])
-                days_left = (fecha_entrega - now).days
+            if project["status"] in ["planned", "in_progress"]:
+                delivery_date = datetime.fromisoformat(project["delivery_date"])
+                days_left = (delivery_date - now).days
 
                 if 0 <= days_left <= days:
                     upcoming.append({
-                        "proyecto": project,
-                        "dias_restantes": days_left,
-                        "fecha_entrega": fecha_entrega.strftime("%Y-%m-%d"),
+                        "project": project,
+                        "days_left": days_left,
+                        "delivery_date": delivery_date.strftime("%Y-%m-%d"),
                     })
 
-        upcoming.sort(key=lambda x: x["dias_restantes"])
+        upcoming.sort(key=lambda x: x["days_left"])
         return upcoming
 
     def format_project_summary(self, summary: Dict[str, Any]) -> str:
         """Format projects summary for display."""
         lines = [
-            "Resumen de Proyectos",
+            "Project Summary",
             "",
             f"Total: {summary['total']}",
-            f"Activos: {summary['activos']}",
-            f"Completados: {summary['completados']}",
-            f"Atrasados: {summary['atrasados']}",
-            f"Promedio de progreso: {summary['promedio_progreso']}%",
+            f"Active: {summary['active']}",
+            f"Completed: {summary['completed']}",
+            f"Overdue: {summary['overdue']}",
+            f"Average progress: {summary['average_progress']}%",
         ]
 
-        if summary["proximos_vencimientos"]:
-            lines.extend(["", "Proximos vencimientos:"])
-            for item in summary["proximos_vencimientos"]:
-                proyecto = item["proyecto"]
-                marker = "URGENTE" if item["dias_restantes"] <= 2 else "proximo"
+        if summary["upcoming_deadlines"]:
+            lines.extend(["", "Upcoming deadlines:"])
+            for item in summary["upcoming_deadlines"]:
+                project = item["project"]
+                marker = "URGENT" if item["days_left"] <= 2 else "upcoming"
                 lines.append(
-                    f"{marker} {proyecto['nombre']} — {item['dias_restantes']} dias ({item['fecha_entrega']})"
+                    f"{marker} {project['name']} — {item['days_left']} days ({item['delivery_date']})"
                 )
 
         return "\n".join(lines)
 
 
 # Singleton
-_proyectos_instance = None
+_projects_instance = None
 
 
-def get_proyectos() -> Proyectos:
-    """Get or create singleton Proyectos instance."""
-    global _proyectos_instance
-    if _proyectos_instance is None:
-        _proyectos_instance = Proyectos()
-    return _proyectos_instance
+def get_projects() -> Projects:
+    """Get or create singleton Projects instance."""
+    global _projects_instance
+    if _projects_instance is None:
+        _projects_instance = Projects()
+    return _projects_instance

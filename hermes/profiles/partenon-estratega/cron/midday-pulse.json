@@ -5,13 +5,13 @@
   "schedule": "0 14 * * 1-5",
   "timezone": "America/Mexico_City",
   "tool": "skills.ops.tools.briefings",
-  "method": "generar_midday_pulse",
+  "method": "generate_midday_pulse",
   "args": {
-    "nombre_usuario": "{{owner.name}}"
+    "user_name": "{{owner.name}}"
   },
   "output": {
     "channel": "gmail",
-    "subject": "Pulse del medio dia — {{date}}"
+    "subject": "Midday pulse — {{date}}"
   },
   "enabled": true
 }

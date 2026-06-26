@@ -172,17 +172,41 @@ def audit_access(profile: str) -> Dict[str, Any]:
             "skills": {"security"},
             "files": {"hermes/profiles/partenon-guardian/**"},
         },
-        "partenon-treasurer": {
+        "partenon-tesorero": {
             "tools": {"terminal", "file"},
             "mcp_servers": set(),
             "skills": {"finance"},
-            "files": {"hermes/profiles/partenon-treasurer/**"},
+            "files": {"hermes/profiles/partenon-tesorero/**"},
         },
-        "partenon-messenger": {
+        "partenon-mensajero": {
             "tools": {"terminal", "file"},
             "mcp_servers": set(),
-            "skills": {"messaging"},
-            "files": {"hermes/profiles/partenon-messenger/**"},
+            "skills": {"comms"},
+            "files": {"hermes/profiles/partenon-mensajero/**"},
+        },
+        "partenon-cobrador": {
+            "tools": {"terminal", "file"},
+            "mcp_servers": set(),
+            "skills": {"payments"},
+            "files": {"hermes/profiles/partenon-cobrador/**"},
+        },
+        "partenon-estratega": {
+            "tools": {"terminal", "file"},
+            "mcp_servers": set(),
+            "skills": {"ops"},
+            "files": {"hermes/profiles/partenon-estratega/**"},
+        },
+        "partenon-diplomatico": {
+            "tools": {"terminal", "file"},
+            "mcp_servers": set(),
+            "skills": {"relations"},
+            "files": {"hermes/profiles/partenon-diplomatico/**"},
+        },
+        "partenon-brain": {
+            "tools": {"terminal", "file"},
+            "mcp_servers": {"gbrain"},
+            "skills": {"memory"},
+            "files": {"hermes/profiles/partenon-brain/**"},
         },
     }
 

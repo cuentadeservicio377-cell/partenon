@@ -1,5 +1,5 @@
 """
-Partenon Estratega — Tasks Tool
+Partenon Strategist — Tasks Tool
 Manages tasks within projects.
 """
 
@@ -30,22 +30,22 @@ def _resolve_data_dir() -> Path:
     return local
 
 
-class Tareas:
+class Tasks:
     """Task management tool."""
 
     TASK_STATUSES = [
-        "pendiente",
-        "en_progreso",
-        "bloqueada",
-        "completada",
-        "cancelada",
+        "pending",
+        "in_progress",
+        "blocked",
+        "completed",
+        "canceled",
     ]
 
     PRIORITIES = {
-        "baja": 1,
-        "media": 2,
-        "alta": 3,
-        "urgente": 4,
+        "low": 1,
+        "medium": 2,
+        "high": 3,
+        "urgent": 4,
     }
 
     def __init__(self):
@@ -91,44 +91,44 @@ class Tareas:
 
     def create_task(
         self,
-        proyecto_id: str,
-        titulo: str,
-        descripcion: str = None,
-        responsable: str = None,
-        fecha_vencimiento: str = None,
-        prioridad: str = "media",
-        dependencias: List[str] = None,
-        etiquetas: List[str] = None,
+        project_id: str,
+        title: str,
+        description: str = None,
+        assignee: str = None,
+        due_date: str = None,
+        priority: str = "medium",
+        dependencies: List[str] = None,
+        tags: List[str] = None,
     ) -> Dict[str, Any]:
         """Create a new task."""
         self._load()
 
-        if prioridad not in self.PRIORITIES:
-            prioridad = "media"
+        if priority not in self.PRIORITIES:
+            priority = "medium"
 
-        if fecha_vencimiento and isinstance(fecha_vencimiento, str):
+        if due_date and isinstance(due_date, str):
             try:
-                fecha_vencimiento_dt = datetime.fromisoformat(fecha_vencimiento.replace("Z", "+00:00"))
+                due_date_dt = datetime.fromisoformat(due_date.replace("Z", "+00:00"))
             except ValueError:
-                fecha_vencimiento_dt = datetime.now() + timedelta(days=7)
+                due_date_dt = datetime.now() + timedelta(days=7)
         else:
-            fecha_vencimiento_dt = datetime.now() + timedelta(days=7)
+            due_date_dt = datetime.now() + timedelta(days=7)
 
         task = {
             "id": self._generate_task_id(),
-            "proyecto_id": proyecto_id,
-            "titulo": titulo,
-            "descripcion": descripcion or "",
-            "responsable": responsable or "No asignado",
-            "estado": "pendiente",
-            "prioridad": prioridad,
-            "prioridad_valor": self.PRIORITIES[prioridad],
-            "fecha_creacion": datetime.now().isoformat(),
-            "fecha_vencimiento": fecha_vencimiento_dt.isoformat(),
-            "fecha_completado": None,
-            "dependencias": dependencias or [],
-            "etiquetas": etiquetas or [],
-            "comentarios": [],
+            "project_id": project_id,
+            "title": title,
+            "description": description or "",
+            "assignee": assignee or "Unassigned",
+            "status": "pending",
+            "priority": priority,
+            "priority_value": self.PRIORITIES[priority],
+            "created_at": datetime.now().isoformat(),
+            "due_date": due_date_dt.isoformat(),
+            "completed_at": None,
+            "dependencies": dependencies or [],
+            "tags": tags or [],
+            "comments": [],
         }
 
         self._tasks.append(task)
@@ -136,8 +136,8 @@ class Tareas:
 
         return {
             "success": True,
-            "tarea": task,
-            "message": f"Tarea creada: {titulo} ({task['id']})",
+            "task": task,
+            "message": f"Task created: {title} ({task['id']})",
         }
 
     def get_task(self, task_id: str) -> Optional[Dict[str, Any]]:
@@ -159,79 +159,79 @@ class Tareas:
                 safe_updates = {
                     k: v
                     for k, v in updates.items()
-                    if k not in ["id", "proyecto_id", "fecha_creacion"]
+                    if k not in ["id", "project_id", "created_at"]
                 }
                 task.update(safe_updates)
                 self._save()
 
                 return {
                     "success": True,
-                    "tarea": task,
-                    "message": f"Tarea {task_id} actualizada",
+                    "task": task,
+                    "message": f"Task {task_id} updated",
                 }
 
         return {
             "success": False,
-            "error": f"Tarea {task_id} no encontrada",
+            "error": f"Task {task_id} not found",
         }
 
-    def complete_task(self, task_id: str, comentario: str = None) -> Dict[str, Any]:
+    def complete_task(self, task_id: str, comment: str = None) -> Dict[str, Any]:
         """Mark task as completed."""
         result = self.update_task(
             task_id,
-            estado="completada",
-            fecha_completado=datetime.now().isoformat(),
+            status="completed",
+            completed_at=datetime.now().isoformat(),
         )
 
-        if result["success"] and comentario:
-            task = result["tarea"]
-            task["comentarios"].append({
-                "tipo": "completado",
-                "texto": comentario,
-                "fecha": datetime.now().isoformat(),
+        if result["success"] and comment:
+            task = result["task"]
+            task["comments"].append({
+                "type": "completion",
+                "text": comment,
+                "date": datetime.now().isoformat(),
             })
             self._save()
 
         if result["success"]:
-            result["message"] = f"Tarea {task_id} completada"
+            result["message"] = f"Task {task_id} completed"
 
         return result
 
     def list_tasks(
         self,
-        proyecto_id: str = None,
-        estado: str = None,
-        responsable: str = None,
-        prioridad: str = None,
+        project_id: str = None,
+        status: str = None,
+        assignee: str = None,
+        priority: str = None,
     ) -> List[Dict[str, Any]]:
         """List tasks with optional filters."""
         self._load()
 
         tasks = self._tasks
 
-        if proyecto_id:
-            tasks = [t for t in tasks if t["proyecto_id"].lower() == proyecto_id.lower()]
+        if project_id:
+            tasks = [t for t in tasks if t["project_id"].lower() == project_id.lower()]
 
-        if estado:
-            tasks = [t for t in tasks if t["estado"] == estado]
+        if status:
+            tasks = [t for t in tasks if t["status"] == status]
 
-        if responsable:
-            tasks = [t for t in tasks if responsable.lower() in t["responsable"].lower()]
+        if assignee:
+            tasks = [t for t in tasks if assignee.lower() in t["assignee"].lower()]
 
-        if prioridad:
-            tasks = [t for t in tasks if t["prioridad"] == prioridad]
+        if priority:
+            tasks = [t for t in tasks if t["priority"] == priority]
 
-        tasks.sort(key=lambda t: (-t["prioridad_valor"], t["fecha_vencimiento"]))
+        tasks.sort(key=lambda t: (-t["priority_value"], t["due_date"]))
 
         return tasks
 
-    def get_pending_tasks(self, proyecto_id: str = None) -> List[Dict[str, Any]]:
+    def get_pending_tasks(self, project_id: str = None) -> List[Dict[str, Any]]:
         """Get pending tasks."""
-        return self.list_tasks(proyecto_id=proyecto_id, estado="pendiente")
+        return self.list_tasks(project_id=project_id, status="pending")
 
-    def get_tasks_by_project(self, proyecto_id: str) -> List[Dict[str, Any]]:
+    def get_tasks_by_project(self, project_id: str) -> List[Dict[str, Any]]:
         """Get all tasks for a project."""
-        return self.list_tasks(proyecto_id=proyecto_id)
+        return self.list_tasks(project_id=project_id)
 
     def get_overdue_tasks(self) -> List[Dict[str, Any]]:
         """Get overdue tasks."""
@@ -240,44 +240,44 @@ class Tareas:
 
         overdue = []
         for task in self._tasks:
-            if task["estado"] in ["pendiente", "en_progreso", "bloqueada"]:
-                fecha_vencimiento = datetime.fromisoformat(task["fecha_vencimiento"])
-                if fecha_vencimiento < now:
+            if task["status"] in ["pending", "in_progress", "blocked"]:
+                due_date = datetime.fromisoformat(task["due_date"])
+                if due_date < now:
                     overdue.append(task)
 
-        overdue.sort(key=lambda t: -t["prioridad_valor"])
+        overdue.sort(key=lambda t: -t["priority_value"])
         return overdue
 
-    def get_tasks_summary(self, proyecto_id: str = None) -> Dict[str, Any]:
+    def get_tasks_summary(self, project_id: str = None) -> Dict[str, Any]:
         """Get tasks summary."""
-        tasks = self.list_tasks(proyecto_id=proyecto_id)
+        tasks = self.list_tasks(project_id=project_id)
 
         total = len(tasks)
-        pendientes = len([t for t in tasks if t["estado"] == "pendiente"])
-        en_progreso = len([t for t in tasks if t["estado"] == "en_progreso"])
-        bloqueadas = len([t for t in tasks if t["estado"] == "bloqueada"])
-        completadas = len([t for t in tasks if t["estado"] == "completada"])
-        vencidas = len([
+        pending = len([t for t in tasks if t["status"] == "pending"])
+        in_progress = len([t for t in tasks if t["status"] == "in_progress"])
+        blocked = len([t for t in tasks if t["status"] == "blocked"])
+        completed = len([t for t in tasks if t["status"] == "completed"])
+        overdue = len([
             t for t in tasks
-            if t["estado"] in ["pendiente", "en_progreso", "bloqueada"]
-            and datetime.fromisoformat(t["fecha_vencimiento"]) < datetime.now()
+            if t["status"] in ["pending", "in_progress", "blocked"]
+            and datetime.fromisoformat(t["due_date"]) < datetime.now()
         ])
 
-        completion_rate = (completadas / total * 100) if total > 0 else 0
+        completion_rate = (completed / total * 100) if total > 0 else 0
 
         return {
             "total": total,
-            "pendientes": pendientes,
-            "en_progreso": en_progreso,
-            "bloqueadas": bloqueadas,
-            "completadas": completadas,
-            "vencidas": vencidas,
-            "tasa_completado": round(completion_rate, 1),
-            "proximas_vencimientos": self._get_upcoming_deadlines(proyecto_id),
+            "pending": pending,
+            "in_progress": in_progress,
+            "blocked": blocked,
+            "completed": completed,
+            "overdue": overdue,
+            "completion_rate": round(completion_rate, 1),
+            "upcoming_deadlines": self._get_upcoming_deadlines(project_id),
         }
 
     def _get_upcoming_deadlines(
-        self, proyecto_id: str = None, days: int = 3
+        self, project_id: str = None, days: int = 3
     ) -> List[Dict[str, Any]]:
         """Get tasks with deadlines in the next N days."""
         self._load()
@@ -285,66 +285,66 @@ class Tareas:
         upcoming = []
 
         for task in self._tasks:
-            if task["estado"] in ["pendiente", "en_progreso", "bloqueada"]:
-                if proyecto_id and task["proyecto_id"].lower() != proyecto_id.lower():
+            if task["status"] in ["pending", "in_progress", "blocked"]:
+                if project_id and task["project_id"].lower() != project_id.lower():
                     continue
 
-                fecha_vencimiento = datetime.fromisoformat(task["fecha_vencimiento"])
-                days_left = (fecha_vencimiento - now).days
+                due_date = datetime.fromisoformat(task["due_date"])
+                days_left = (due_date - now).days
 
                 if 0 <= days_left <= days:
                     upcoming.append({
-                        "tarea": task,
-                        "dias_restantes": days_left,
-                        "fecha_vencimiento": fecha_vencimiento.strftime("%Y-%m-%d"),
+                        "task": task,
+                        "days_left": days_left,
+                        "due_date": due_date.strftime("%Y-%m-%d"),
                     })
 
-        upcoming.sort(key=lambda x: x["dias_restantes"])
+        upcoming.sort(key=lambda x: x["days_left"])
         return upcoming
 
-    def format_task_list(self, tasks: List[Dict[str, Any]], title: str = "Tareas") -> str:
+    def format_task_list(self, tasks: List[Dict[str, Any]], title: str = "Tasks") -> str:
         """Format task list for display."""
         if not tasks:
-            return f"No hay {title.lower()}."
+            return f"No {title.lower()}."
 
         lines = [f"{title} ({len(tasks)})", ""]
 
         status_markers = {
-            "pendiente": "[ ]",
-            "en_progreso": "[~]",
-            "bloqueada": "[B]",
-            "completada": "[x]",
-            "cancelada": "[-]",
+            "pending": "[ ]",
+            "in_progress": "[~]",
+            "blocked": "[B]",
+            "completed": "[x]",
+            "canceled": "[-]",
         }
 
         priority_markers = {
-            "baja": "",
-            "media": "",
-            "alta": "ALTA",
-            "urgente": "URGENTE",
+            "low": "",
+            "medium": "",
+            "high": "HIGH",
+            "urgent": "URGENT",
         }
 
         for task in tasks:
-            status_marker = status_markers.get(task["estado"], "•")
-            priority_marker = priority_markers.get(task["prioridad"], "")
+            status_marker = status_markers.get(task["status"], "•")
+            priority_marker = priority_markers.get(task["priority"], "")
 
-            fecha_vencimiento = datetime.fromisoformat(task["fecha_vencimiento"])
+            due_date = datetime.fromisoformat(task["due_date"])
             is_overdue = (
-                fecha_vencimiento < datetime.now()
-                and task["estado"] not in ["completada", "cancelada"]
+                due_date < datetime.now()
+                and task["status"] not in ["completed", "canceled"]
             )
-            overdue_marker = " VENCIDA" if is_overdue else ""
+            overdue_marker = " OVERDUE" if is_overdue else ""
 
             lines.append(
-                f"{status_marker} {priority_marker} {task['titulo']} ({task['id']}){overdue_marker}"
+                f"{status_marker} {priority_marker} {task['title']} ({task['id']}){overdue_marker}"
             )
-            lines.append(f"   Estado: {task['estado']} | Prioridad: {task['prioridad']}")
+            lines.append(f"   Status: {task['status']} | Priority: {task['priority']}")
             lines.append(
-                f"   Responsable: {task['responsable']} | Vence: {fecha_vencimiento.strftime('%Y-%m-%d')}"
+                f"   Assignee: {task['assignee']} | Due: {due_date.strftime('%Y-%m-%d')}"
             )
 
-            if task["descripcion"]:
-                lines.append(f"   {task['descripcion'][:80]}...")
+            if task["description"]:
+                lines.append(f"   {task['description'][:80]}...")
 
             lines.append("")
 
@@ -353,36 +353,36 @@ class Tareas:
     def format_tasks_summary(self, summary: Dict[str, Any]) -> str:
         """Format tasks summary for display."""
         lines = [
-            "Resumen de Tareas",
+            "Task Summary",
             "",
             f"Total: {summary['total']}",
-            f"Pendientes: {summary['pendientes']}",
-            f"En progreso: {summary['en_progreso']}",
-            f"Bloqueadas: {summary['bloqueadas']}",
-            f"Completadas: {summary['completadas']}",
-            f"Vencidas: {summary['vencidas']}",
-            f"Tasa de completado: {summary['tasa_completado']}%",
+            f"Pending: {summary['pending']}",
+            f"In progress: {summary['in_progress']}",
+            f"Blocked: {summary['blocked']}",
+            f"Completed: {summary['completed']}",
+            f"Overdue: {summary['overdue']}",
+            f"Completion rate: {summary['completion_rate']}%",
         ]
 
-        if summary["proximas_vencimientos"]:
-            lines.extend(["", "Proximas vencimientos:"])
-            for item in summary["proximas_vencimientos"]:
-                task = item["tarea"]
-                marker = "URGENTE" if item["dias_restantes"] <= 1 else "proximo"
+        if summary["upcoming_deadlines"]:
+            lines.extend(["", "Upcoming deadlines:"])
+            for item in summary["upcoming_deadlines"]:
+                task = item["task"]
+                marker = "URGENT" if item["days_left"] <= 1 else "upcoming"
                 lines.append(
-                    f"{marker} {task['titulo']} — {item['dias_restantes']} dias ({item['fecha_vencimiento']})"
+                    f"{marker} {task['title']} — {item['days_left']} days ({item['due_date']})"
                 )
 
         return "\n".join(lines)
 
 
 # Singleton
-_tareas_instance = None
+_tasks_instance = None
 
 
-def get_tareas() -> Tareas:
-    """Get or create singleton Tareas instance."""
-    global _tareas_instance
-    if _tareas_instance is None:
-        _tareas_instance = Tareas()
-    return _tareas_instance
+def get_tasks() -> Tasks:
+    """Get or create singleton Tasks instance."""
+    global _tasks_instance
+    if _tasks_instance is None:
+        _tasks_instance = Tasks()
+    return _tasks_instance

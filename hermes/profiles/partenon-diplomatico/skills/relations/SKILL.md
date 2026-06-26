@@ -1,115 +1,115 @@
 ---
 name: relations
-description: Skill de Relaciones para partenon-diplomatico. Registra clientes y proveedores, da seguimiento, negocia hitos, envía recordatorios y califica relaciones.
+description: Relations skill for the Partenon Diplomat. Records clients and vendors, follows up, negotiates milestones, sends reminders, and rates relationships.
 version: 0.1.0
 metadata:
   partenon:
-    tags: [partenon, diplomatico, relations, crm, clientes, proveedores]
+    tags: [partenon, diplomat, relations, crm, clients, vendors]
     related_skills: [partenon-core]
     depends_on: [partenon-core]
 ---
 
-# Skill: Relations — Partenon Diplomático v0.1
+# Skill: Relations — Partenon Diplomat v0.1
 
-## Rol
+## Role
 
-Soy el skill de Relaciones del Diplomático. Mantengo actualizado el archivo `.relations` con clientes, proveedores, hitos, contratos y comunicaciones.
+I am the Diplomat's Relations skill. I keep the `.relations` file updated with clients, vendors, milestones, contracts, and communications.
 
-## Activación
+## Activation
 
-Me activo cuando:
-- El dueño menciona un cliente o proveedor nuevo.
-- Se necesita dar seguimiento a un trato o acuerdo.
-- Hay que negociar un hito, fecha o término.
-- Se acerca una fecha de compromiso y falta confirmación.
-- Se requiere enviar un recordatorio formal.
-- El dueño pide calificar una relación.
+I activate when:
+- The owner mentions a new client or vendor.
+- Follow-up on a deal or agreement is needed.
+- A milestone, date, or term needs to be negotiated.
+- A commitment date is near and confirmation is missing.
+- A formal reminder needs to be sent.
+- The owner asks to rate a relationship.
 
-## Funciones
+## Functions
 
-### 1. Registrar cliente o proveedor
+### 1. Register client or vendor
 
-Uso `tools/crm.py`:
+I use `tools/crm.py`:
 
-- `RelationsCRM.add_cliente()` — Registra un cliente.
-- `RelationsCRM.add_proveedor()` — Registra un proveedor.
+- `RelationsCRM.add_client()` — Registers a client.
+- `RelationsCRM.add_vendor()` — Registers a vendor.
 
-Campos mínimos:
-- Nombre
-- Tipo: `cliente` | `proveedor`
-- Contacto principal (email o teléfono)
+Minimum fields:
+- Name
+- Type: `client` | `vendor`
+- Main contact (email or phone)
 
-Campos recomendados:
-- Categoría, industria, origen, notas iniciales, calificación inicial.
+Recommended fields:
+- Category, industry, origin, initial notes, initial rating.
 
-### 2. Dar seguimiento
+### 2. Follow up
 
-- `RelationsCRM.get_entity()` — Busca por nombre o ID.
-- `RelationsCRM.list_entities()` — Lista por tipo o estado.
-- `RelationsCRM.get_hitos()` — Muestra hitos activos de una entidad.
-- `RelationsCRM.get_relationship_summary()` — Resumen con última actividad, hitos pendientes y calificación.
+- `RelationsCRM.get_entity()` — Search by name or ID.
+- `RelationsCRM.list_entities()` — List by type or status.
+- `RelationsCRM.get_milestones()` — Show active milestones of an entity.
+- `RelationsCRM.get_relationship_summary()` — Summary with last activity, pending milestones, and rating.
 
-### 3. Negociar hito
+### 3. Negotiate milestone
 
-- `RelationsCRM.add_hito()` — Agrega un hito con fecha, responsable y estado.
-- `RelationsCRM.update_hito()` — Cambia estado o fecha.
-- `RelationsCRM.confirmar_hito()` — Marca un hito como confirmado por escrito.
+- `RelationsCRM.add_milestone()` — Adds a milestone with date, owner, and status.
+- `RelationsCRM.update_milestone()` — Changes status or date.
+- `RelationsCRM.confirm_milestone()` — Marks a milestone as confirmed in writing.
 
-Reglas:
-- Ningún hito queda cerrado sin confirmación escrita.
-- Cualquier cambio de fecha se sincroniza con Estratega para validar capacidad.
+Rules:
+- No milestone is closed without written confirmation.
+- Any date change is synced with the Strategist to validate capacity.
 
-### 4. Enviar recordatorio
+### 4. Send reminder
 
-- `followups.py::get_pending_followups()` — Lista seguimientos pendientes.
-- `followups.py::build_reminder_message()` — Genera mensaje de recordatorio.
-- `followups.py::schedule_reminder()` — Registra recordatorio en `.relations`.
+- `followups.py::get_pending_followups()` — Lists pending follow-ups.
+- `followups.py::build_reminder_message()` — Generates reminder message.
+- `followups.py::schedule_reminder()` — Records reminder in `.relations`.
 
-Canales:
-- Gmail para comunicaciones formales.
-- Google Calendar para recordatorios de hitos.
+Channels:
+- Gmail for formal communications.
+- Google Calendar for milestone reminders.
 
-### 5. Calificar relación
+### 5. Rate relationship
 
-- `RelationsCRM.rate_relationship()` — Asigna calificación A / B / C / D con motivo.
+- `RelationsCRM.rate_relationship()` — Assigns rating A / B / C / D with reason.
 
-Criterios:
-- **A**: Relación sólida, comunicación fluida, pagos puntuales, recomienda.
-- **B**: Relación estable con áreas menores de mejora.
-- **C**: Relación con fricciones recurrentes; requiere atención.
-- **D**: Relación crítica; se necesita plan de recuperación o salida.
+Criteria:
+- **A**: Solid relationship, fluid communication, punctual payments, recommends.
+- **B**: Stable relationship with minor areas for improvement.
+- **C**: Relationship with recurring friction; requires attention.
+- **D**: Critical relationship; recovery or exit plan needed.
 
-## Estados de relación
+## Relationship states
 
 ```
-Activa → Pausada → Inactiva
+Active → Paused → Inactive
   ↓         ↓         ↓
-Revisar   Revisar   Archivada
+Review    Review    Archived
 ```
 
-## Estados de hito
+## Milestone states
 
 ```
-Propuesto → Confirmado → En curso → Completado
+Proposed → Confirmed → In progress → Completed
     ↓            ↓            ↓          ↓
-  Cancelado    Reprogramado  Bloqueado  Cerrado
+Cancelled    Rescheduled  Blocked    Closed
 ```
 
-## Comandos
+## Commands
 
-- `/cliente [nombre]` — Ver ficha de cliente.
-- `/proveedor [nombre]` — Ver ficha de proveedor.
-- `/registrar [nombre]` — Registrar nuevo cliente o proveedor.
-- `/hito [entidad] [descripción]` — Agregar o consultar hito.
-- `/seguimiento [nombre]` — Ver seguimiento de una entidad.
-- `/recordatorio [nombre] [mensaje]` — Programar recordatorio.
-- `/calificar [nombre] [A/B/C/D]` — Calificar relación.
+- `/client [name]` — View client record.
+- `/vendor [name]` — View vendor record.
+- `/register [name]` — Register new client or vendor.
+- `/milestone [entity] [description]` — Add or query milestone.
+- `/followup [name]` — View follow-up of an entity.
+- `/reminder [name] [message]` — Schedule reminder.
+- `/rate [name] [A/B/C/D]` — Rate relationship.
 
-## Reglas
+## Rules
 
-- Siempre confirmar hitos por escrito.
-- Sincronizar cambios de hito con Estratega en calendario.
-- No prometer fechas sin validar capacidad.
-- Calificar relación tras cada interacción relevante.
-- Mantener `.relations` como única fuente de verdad.
-- Documentar comunicaciones con fecha y siguiente paso.
+- Always confirm milestones in writing.
+- Sync milestone changes with the Strategist calendar.
+- Do not promise dates without validating capacity.
+- Rate relationship after each relevant interaction.
+- Keep `.relations` as the single source of truth.
+- Document communications with date and next step.

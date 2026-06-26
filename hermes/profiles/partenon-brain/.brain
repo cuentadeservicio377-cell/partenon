@@ -1,17 +1,17 @@
-# Brain — Archivo de perfil de Partenon
+# Brain — Partenon profile file
 
-Este archivo configura como el Brain indexa y recupera memoria para Hermes.
+This file configures how the Brain indexes and retrieves memory for Hermes.
 
-## Estructura de memoria
+## Memory structure
 
-- `decisions/` — decisiones validadas por Hermes o por un hero con autoridad.
-- `learnings/` — aprendizajes de cada mision.
-- `profiles/` — preferencias y contexto de cada hero.
-- `onboarding/` — contexto historico para nuevos heroes.
+- `decisions/` — decisions validated by Hermes or by an authoritative hero.
+- `learnings/` — learnings from each mission.
+- `profiles/` — preferences and context of each hero.
+- `onboarding/` — historical context for new heroes.
 
-## Reglas de indexacion
+## Indexing rules
 
-1. Cada pagina lleva autor, fecha y tags.
-2. Todo aprendizaje debe enlazar a la mision que lo genero.
-3. Las decisiones contradictorias se marcan con `conflict: true`.
-4. No se indexan credenciales ni datos personales.
+1. Every page has author, date, and tags.
+2. Every learning must link to the mission that generated it.
+3. Contradictory decisions are marked with `conflict: true`.
+4. Credentials and personal data are not indexed.

@@ -1,6 +1,6 @@
 {
   "name": "weekly-content-plan",
-  "description": "Planifica el contenido de la semana para los canales activos definidos en .design",
+  "description": "Plans the week's content for active channels defined in .design",
   "schedule": "0 9 * * 1",
   "timezone": "America/Mexico_City",
   "enabled": true,
@@ -11,18 +11,18 @@
       "order": 1,
       "action": "read",
       "target": ".design",
-      "purpose": "Cargar voz de marca, canales y mensajes clave"
+      "purpose": "Load brand voice, channels, and key messages"
     },
     {
       "order": 2,
       "action": "run",
       "tool": "skills/comms/tools/content_calendar.py",
       "args": [
-        "{brand.positioning.que_vendes}",
+        "{brand.positioning.what_you_sell}",
         "{brand.channels}",
         "7"
       ],
-      "purpose": "Generar calendario semanal con angulo de marca"
+      "purpose": "Generate weekly calendar with brand angle"
     },
     {
       "order": 3,
@@ -30,17 +30,17 @@
       "tool": "skills/comms/tools/copy_generator.py",
       "args": [
         "post",
-        "{brand.positioning.que_vendes}",
+        "{brand.positioning.what_you_sell}",
         "{brand.channels.0}"
       ],
-      "purpose": "Generar copy base para el canal principal"
+      "purpose": "Generate base copy for the main channel"
     },
     {
       "order": 4,
       "action": "notify",
       "channel": "gbrain",
-      "message": "Plan semanal de contenido generado para revision",
-      "purpose": "Registrar mision y esperar aprobacion"
+      "message": "Weekly content plan generated for review",
+      "purpose": "Register mission and wait for approval"
     }
   ],
   "output": {
