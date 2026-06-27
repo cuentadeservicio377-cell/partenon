@@ -1,0 +1,65 @@
+meta:
+  version: 0.1.0
+  profile: partenon-herald
+  updated_at: '2026-06-26T18:37:18.546466'
+brand:
+  brand_name: Oblique Coffee Roasters
+  website: ''
+  industry: ''
+  market: Portland, OR
+  stage: ''
+positioning:
+  what_you_sell: On-site roasted coffee and community cafe
+  who_you_help: Portland coffee lovers and remote workers
+  how_you_do_it: Roast small batches, serve classic drinks, and host local events
+  positioning: ''
+  differentiator: ''
+voice:
+  tone: direct
+  addressing: informal
+  style: direct, clear, no filler
+  emojis: false
+  slang: false
+visual:
+  colors:
+    primary: '#9B59B6'
+    secondary: '#2A2A2E'
+    accent: '#D4A853'
+    background: '#F7F5F0'
+  typography:
+    display: Cinzel
+    body: Inter
+    mono: JetBrains Mono
+  imagery: Clean photography, no generic stock poses
+audience:
+  primary:
+    role: Portland coffee lovers and remote workers
+    industry: ''
+    size: ''
+    pain: ''
+    outcome: ''
+    objections: []
+  secondary: []
+channels:
+- instagram
+- facebook
+messaging:
+  key_messages: []
+  claims_to_avoid: []
+  proof_points: []
+  cta_matrix:
+    awareness: See how it works
+    consideration: Book a diagnostic call
+    decision: Start this week
+content:
+  pillars: []
+  topics_to_own: []
+  topics_to_avoid: []
+operations:
+  final_approver: Jack Chandler
+  autonomy:
+    draft_copy: true
+    create_calendar: true
+    publish_social: false
+    send_email: false
+    launch_ads: false

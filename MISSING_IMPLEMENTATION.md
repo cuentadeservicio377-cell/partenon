@@ -191,19 +191,81 @@ This document tracks gaps between what the Partenon website and documentation pr
 
 ---
 
-## 7. Suggested priority order
+## 7. Workshop and production-readiness findings
 
-1. Implement a real intent router in `partenon-core`.
-2. Implement the workflow engine runtime.
-3. Wire the eval loop into the router.
-4. Add publishing integrations for Herald and dispatch integrations for Collector/Diplomat.
-5. Add tests for Scribe and core tools.
-6. Standardize `GBRAIN_DATABASE_URL` naming.
-7. Add CI/linting.
+A production-readiness test was run using five real small-business company cards and simulated onboardings (see `workshop/`). The exercise surfaced the following additional gaps:
+
+### 7.1 No reusable company onboarding simulations
+- **Promise:** Partenon can be taught to entrepreneurs and operators through workshops.
+- **Reality:** Before this pass, no company cards, simulations, or facilitator materials existed.
+- **Severity:** MEDIUM
+- **Status:** DONE (added `workshop/companies/`, `workshop/simulations/`, `workshop/guides/HERMES_ONBOARDING.md`, `workshop/README.md`, `workshop/AGENDA.md`, `workshop/SLIDES.md`, `workshop/HANDOUT.md`, `workshop/checklists/PRODUCTION_READINESS.md`).
+
+### 7.2 No Hermes onboarding guide
+- **Promise:** Hermes should guide a new company through setup.
+- **Reality:** No step-by-step guide existed for how Hermes asks questions, selects heroes, runs smoke tests, and hands off to the dashboard.
+- **Severity:** MEDIUM
+- **Status:** DONE (`workshop/guides/HERMES_ONBOARDING.md`).
+
+### 7.3 POS / bank-export to Google Sheets flow missing
+- **Promise:** The Scribe parses expenses and writes them into Google Sheets.
+- **Reality:** `parsers.py` reads Excel/CSV and `google_sheets.py` can create a spreadsheet, but no end-to-end script combines upload → classification → publish.
+- **Severity:** HIGH
+- **Status:** NOT_STARTED
+- **Suggested fix:** Add a script that takes a bank/CSV export path and a sheet title, classifies rows, and appends them via `google_sheets.py`.
+
+### 7.4 Retail platform integrations absent
+- **Promise:** Retail use cases (inventory, Shopify, Klaviyo) are referenced in docs.
+- **Reality:** No Shopify order export, inventory, or email-dispatch integration exists.
+- **Severity:** HIGH
+- **Status:** NOT_STARTED
+- **Suggested fix:** Add MCP stubs or CSV importers for Shopify orders and a simple inventory tracker.
+
+### 7.5 SaaS cost and support integrations absent
+- **Promise:** SaaS startups can track runway and churn.
+- **Reality:** No AWS cost import, support-ticket churn signals, or investor-update generator exists.
+- **Severity:** HIGH
+- **Status:** NOT_STARTED
+- **Suggested fix:** Add AWS cost CSV importer, churn-signal worksheet, and an investor-update template for the Strategist.
+
+### 7.6 Invoice / receipt PDF generation missing
+- **Promise:** The Collector handles invoices and payments.
+- **Reality:** `stripe_tools.py` records invoices but does not generate PDF receipts or invoices.
+- **Severity:** MEDIUM
+- **Status:** NOT_STARTED
+- **Suggested fix:** Add a PDF receipt tool using WeasyPrint or Google Docs templates.
+
+### 7.7 Production support and incident runbooks missing
+- **Promise:** Partenon is production-ready for real companies.
+- **Reality:** No incident-response runbook or public support channel is configured.
+- **Severity:** LOW
+- **Status:** NOT_STARTED
+- **Suggested fix:** Create `docs/RUNBOOK.md` and a public issue tracker or support email.
+
+### 7.8 Workshop package deliverables
+- **Promise:** The workshop package should be reusable for accelerators, universities, and chambers of commerce.
+- **Reality:** Reusable README, agenda, slides, handout, and production-readiness checklist are now included.
+- **Severity:** MEDIUM
+- **Status:** DONE (`workshop/README.md`, `workshop/AGENDA.md`, `workshop/SLIDES.md`, `workshop/HANDOUT.md`, `workshop/checklists/PRODUCTION_READINESS.md`).
 
 ---
 
-## 8. Files changed in this audit/fix pass
+## 8. Suggested priority order
+
+1. Add automated tests for `partenon-core` and hero tools.
+2. Build an end-to-end bank/CSV → classification → Google Sheets script for the Scribe.
+3. Implement the workflow engine runtime so heroes can dispatch to one another.
+4. Add Shopify/order import and inventory tracking for retail.
+5. Add AWS cost import and churn-signal worksheet for SaaS.
+6. Bundle or replace the external `gbrain` binary with a local SQLite/PGLite fallback.
+7. Add invoice/receipt PDF generation to the Collector.
+8. Wire live Google Calendar/Gmail MCP for Strategist and Diplomat.
+9. Standardize `GBRAIN_DATABASE_URL` naming.
+10. Add CI/linting and a production runbook.
+
+---
+
+## 9. Files changed in this audit/fix pass
 
 - `README.md` — updated demo sheet name (Suppliers), badges, install note.
 - `data/tasks.json` — translated mission titles and descriptions to English.
@@ -213,4 +275,11 @@ This document tracks gaps between what the Partenon website and documentation pr
 - `hermes/profiles/partenon-brain/` — SOUL, config, `.brain`, `.env.example`, cron, SKILL.md translated to English.
 - `partenon-core/SKILL.md` and `partenon-core/README.md` — updated to reference 7 heroes and include Brain.
 - `partenon-core/tools/onboarding_flow.py` — added Brain (`.brain`) to `PROFILE_FILES`.
-- `MISSING_IMPLEMENTATION.md` — this file, updated to reflect current state.
+- `workshop/` — new workshop package: five real company cards, five simulated onboardings, `HERMES_ONBOARDING.md`, `README.md`, `AGENDA.md`, `SLIDES.md`, `HANDOUT.md`, and `PRODUCTION_READINESS.md`.
+- `MISSING_IMPLEMENTATION.md` — this file, updated with production-readiness findings.
+- `README.md` — already linked to `workshop/README.md` in the documentation section.
+- `docs/ENTREPRENEUR_PLAYBOOK.md` — already references the workshop simulations in Section 7.
+- Verification run in this pass:
+  - `python3 scripts/demo_tesorero.py` PASS.
+  - `cd dashboard && npm run build` PASS.
+  - `python3 -m py_compile` on all profile Python tools PASS.

@@ -1,0 +1,74 @@
+{
+  "PROJ-001": {
+    "project_id": "PROJ-001",
+    "created_at": "2026-06-26T18:37:20.111066",
+    "phases": {
+      "pre-sale": [
+        {
+          "item": "Verify available inventory",
+          "completed": false,
+          "completed_at": null
+        },
+        {
+          "item": "Confirm current prices",
+          "completed": false,
+          "completed_at": null
+        },
+        {
+          "item": "Prepare quote",
+          "completed": false,
+          "completed_at": null
+        },
+        {
+          "item": "Verify shipping policies",
+          "completed": false,
+          "completed_at": null
+        }
+      ],
+      "during-sale": [
+        {
+          "item": "Confirm payment",
+          "completed": false,
+          "completed_at": null
+        },
+        {
+          "item": "Prepare order",
+          "completed": false,
+          "completed_at": null
+        },
+        {
+          "item": "Coordinate shipping or delivery",
+          "completed": false,
+          "completed_at": null
+        },
+        {
+          "item": "Send confirmation to customer",
+          "completed": false,
+          "completed_at": null
+        }
+      ],
+      "post-sale": [
+        {
+          "item": "Follow up on delivery",
+          "completed": false,
+          "completed_at": null
+        },
+        {
+          "item": "Request feedback",
+          "completed": false,
+          "completed_at": null
+        },
+        {
+          "item": "Manage warranty if applicable",
+          "completed": false,
+          "completed_at": null
+        },
+        {
+          "item": "Customer loyalty",
+          "completed": false,
+          "completed_at": null
+        }
+      ]
+    }
+  }
+}

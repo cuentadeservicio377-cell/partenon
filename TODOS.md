@@ -112,11 +112,34 @@
 - [x] Verify `cd dashboard && npm run build` still succeeds
 - [x] Cross-check internal documentation links and English consistency
 
+## Workshop / Production-Readiness Pass (this session)
+- [x] Research five real small businesses with public data
+- [x] Create `workshop/companies/` cards for coffee shop, agency, construction, retail, SaaS
+- [x] Create `workshop/simulations/coffee-shop.md` with interview, heroes, configs, commands, outputs, gaps
+- [x] Create `workshop/simulations/agency.md` focused on Herald, Diplomat, Scribe, Strategist, Collector
+- [x] Create `workshop/simulations/construction.md` focused on Strategist, Diplomat, Scribe, Guardian
+- [x] Create `workshop/simulations/retail.md` focused on Scribe, Herald, Collector, Strategist, Brain
+- [x] Create `workshop/simulations/saas.md` focused on Guardian, Scribe, Collector, Strategist, Brain
+- [x] Create `workshop/guides/HERMES_ONBOARDING.md` with pre-flight checklist, 5-step flow, prompts, and failure responses
+- [x] Create `workshop/README.md`, `workshop/AGENDA.md`, `workshop/SLIDES.md`, `workshop/HANDOUT.md`
+- [x] Create `workshop/checklists/PRODUCTION_READINESS.md` with PASS/FAIL/PARTIAL evidence
+- [x] Update `MISSING_IMPLEMENTATION.md` with workshop findings and consolidated gaps
+- [x] Update `README.md` to link to `workshop/README.md`
+- [x] Update `docs/ENTREPRENEUR_PLAYBOOK.md` to reference simulations
+- [x] Add generated-artifact patterns to `.gitignore`
+- [x] Verify `python3 scripts/demo_tesorero.py` PASS
+- [x] Verify `cd dashboard && npm run build` PASS
+- [x] Verify simulation tools compile with `python3 -m py_compile`
+
 ## Pending
 - [ ] Standardize `GBRAIN_DATABASE_URL` naming across .env and gbrain server
 - [ ] Add automated tests for translated tools
 - [ ] Implement real intent router and workflow engine runtime
 - [ ] Add publishing/dispatch integrations for Messenger, Collector, and Diplomat
+- [ ] Build end-to-end bank/CSV → classification → Google Sheets script for Scribe
+- [ ] Add Shopify/order import and inventory tracking for retail
+- [ ] Add AWS cost import and churn-signal worksheet for SaaS
+- [ ] Bundle or replace external `gbrain` binary with local fallback
 
 ## Parking Lot
 _Discoveries made during development that are NOT in the current plan_

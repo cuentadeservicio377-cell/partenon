@@ -1,0 +1,5 @@
+company:
+  name: greenlight
+  industry: services
+  currency: USD
+  timezone: America/Los_Angeles

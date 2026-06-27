@@ -1,0 +1,65 @@
+meta:
+  version: 0.1.0
+  profile: partenon-herald
+  updated_at: '2026-06-26T18:37:20.004507'
+brand:
+  brand_name: Greenlight Bookstore
+  website: ''
+  industry: ''
+  market: Brooklyn, NY
+  stage: ''
+positioning:
+  what_you_sell: Curated books, author events, and community space
+  who_you_help: Brooklyn readers and gift shoppers
+  how_you_do_it: Staff picks, events, and local partnerships
+  positioning: ''
+  differentiator: ''
+voice:
+  tone: warm
+  addressing: informal
+  style: direct, clear, no filler
+  emojis: false
+  slang: false
+visual:
+  colors:
+    primary: '#9B59B6'
+    secondary: '#2A2A2E'
+    accent: '#D4A853'
+    background: '#F7F5F0'
+  typography:
+    display: Cinzel
+    body: Inter
+    mono: JetBrains Mono
+  imagery: Clean photography, no generic stock poses
+audience:
+  primary:
+    role: Brooklyn readers and gift shoppers
+    industry: ''
+    size: ''
+    pain: ''
+    outcome: ''
+    objections: []
+  secondary: []
+channels:
+- instagram
+- newsletter
+messaging:
+  key_messages: []
+  claims_to_avoid: []
+  proof_points: []
+  cta_matrix:
+    awareness: See how it works
+    consideration: Book a diagnostic call
+    decision: Start this week
+content:
+  pillars: []
+  topics_to_own: []
+  topics_to_avoid: []
+operations:
+  final_approver: Jessica Stockton-Bagnulo
+  autonomy:
+    draft_copy: true
+    create_calendar: true
+    publish_social: false
+    send_email: false
+    launch_ads: false

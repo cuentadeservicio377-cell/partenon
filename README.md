@@ -177,6 +177,7 @@ partenon/
 - [`docs/API.md`](docs/API.md) — Python core, scripts, example stubs, and G-Brain MCP reference.
 - [`docs/FAQ.md`](docs/FAQ.md) — honest answers to common questions.
 - [`docs/assets/hero-matrix.md`](docs/assets/hero-matrix.md) — one-page capability matrix.
+- [`workshop/README.md`](workshop/README.md) — reusable workshop kit with company cards, simulations, agendas, and handouts.
 - [`MISSING_IMPLEMENTATION.md`](MISSING_IMPLEMENTATION.md) — current gaps and suggested priorities.
 
 ---
@@ -218,4 +219,4 @@ See [`MISSING_IMPLEMENTATION.md`](MISSING_IMPLEMENTATION.md) for the full audit.
 
 - Live site: https://hermespartenon.online/
 - Repository: https://github.com/cuentadeservicio377-cell/partenon
-- Verified: `python3 scripts/demo_tesorero.py` and `cd dashboard && npm run build` pass locally.
+- Verified: `python3 scripts/demo_tesorero.py` and `cd dashboard && npm run build` pass locally (last run 2026-06-27).

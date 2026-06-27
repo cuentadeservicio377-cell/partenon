@@ -1,0 +1,22 @@
+{
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "project_id": "PROJ-001",
+      "title": "Confirm author lineup",
+      "description": "",
+      "assignee": "Maritza",
+      "status": "pending",
+      "priority": "high",
+      "priority_value": 3,
+      "created_at": "2026-06-26T18:37:20.073867",
+      "due_date": "2026-07-08T00:00:00",
+      "completed_at": null,
+      "dependencies": [],
+      "tags": [],
+      "comments": []
+    }
+  ],
+  "next_id": 2,
+  "updated_at": "2026-06-26T18:37:20.073875"
+}

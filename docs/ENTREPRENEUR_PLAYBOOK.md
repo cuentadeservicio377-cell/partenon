@@ -513,6 +513,20 @@ Partenon is an operations system, not a replacement for professional judgment.
 
 ---
 
+## 7. Workshop simulations
+
+For step-by-step onboardings of real small businesses, see the workshop simulations. Each one walks through the interview questions, hero selection, config files, commands, expected outputs, and gaps for a specific business type:
+
+- [`workshop/simulations/coffee-shop.md`](../workshop/simulations/coffee-shop.md)
+- [`workshop/simulations/agency.md`](../workshop/simulations/agency.md)
+- [`workshop/simulations/construction.md`](../workshop/simulations/construction.md)
+- [`workshop/simulations/retail.md`](../workshop/simulations/retail.md)
+- [`workshop/simulations/saas.md`](../workshop/simulations/saas.md)
+
+For a reusable workshop kit, agendas, slides, and handouts, see [`workshop/README.md`](../workshop/README.md).
+
+---
+
 ## See also
 
 - [`docs/QUICKSTART.md`](QUICKSTART.md) — get a demo running in 15 minutes.
@@ -520,3 +534,4 @@ Partenon is an operations system, not a replacement for professional judgment.
 - [`docs/SECURITY.md`](SECURITY.md) — how credentials, rotation, and audit logs work.
 - [`docs/API.md`](API.md) — commands and return values for scripts and core tools.
 - [`docs/FAQ.md`](FAQ.md) — honest answers to common questions.
+- [`workshop/guides/HERMES_ONBOARDING.md`](../workshop/guides/HERMES_ONBOARDING.md) — how Hermes should guide a new company through setup.

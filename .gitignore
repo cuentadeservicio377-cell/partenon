@@ -19,7 +19,12 @@ screenshots/deploy/
 *.log
 logs/
 hermes/data/
+hermes/profiles/*/.payments
 partenon-core/data/goals.json
+partenon-core/data/checklists.json
+partenon-core/data/projects.json
+partenon-core/data/tasks.json
+output/
 data/workspaces/
 *.local.json
 .kimi/

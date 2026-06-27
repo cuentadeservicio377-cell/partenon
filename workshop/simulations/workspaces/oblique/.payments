@@ -1,0 +1,91 @@
+{
+  "metadata": {
+    "currency": "USD"
+  },
+  "products": [
+    {
+      "id": "prod_001",
+      "name": "Catering deposit",
+      "description": "",
+      "active": true
+    },
+    {
+      "id": "prod_002",
+      "name": "Catering deposit",
+      "description": "",
+      "active": true
+    }
+  ],
+  "prices": [
+    {
+      "id": "price_001",
+      "product_id": "prod_001",
+      "amount": 5000,
+      "currency": "usd",
+      "type": "one_time"
+    },
+    {
+      "id": "price_002",
+      "product_id": "prod_002",
+      "amount": 5000,
+      "currency": "usd",
+      "type": "one_time"
+    }
+  ],
+  "links": [
+    {
+      "id": "link_001",
+      "price_id": "price_001",
+      "url": "https://buy.stripe.com/test_link_001",
+      "concept": "Catering deposit",
+      "created": "2026-06-27T00:35:24.927043+00:00",
+      "status": "active"
+    },
+    {
+      "id": "link_002",
+      "price_id": "price_002",
+      "url": "https://buy.stripe.com/test_link_002",
+      "concept": "Catering deposit",
+      "created": "2026-06-27T00:37:18.772462+00:00",
+      "status": "active"
+    }
+  ],
+  "subscriptions": [],
+  "customers": [],
+  "payments": [],
+  "invoices": [
+    {
+      "id": "inv_001",
+      "customer_email": "event@example.com",
+      "items": [
+        {
+          "description": "Event coffee service",
+          "amount": 25000,
+          "currency": "usd"
+        }
+      ],
+      "amount": 25000,
+      "currency": "usd",
+      "status": "open",
+      "created": "2026-06-27T00:35:24.956516+00:00",
+      "due_date": "2026-07-04"
+    },
+    {
+      "id": "inv_002",
+      "customer_email": "event@example.com",
+      "items": [
+        {
+          "description": "Event coffee service",
+          "amount": 25000,
+          "currency": "usd"
+        }
+      ],
+      "amount": 25000,
+      "currency": "usd",
+      "status": "open",
+      "created": "2026-06-27T00:37:18.803332+00:00",
+      "due_date": "2026-07-04"
+    }
+  ],
+  "reminders": []
+}

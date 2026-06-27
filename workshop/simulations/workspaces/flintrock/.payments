@@ -1,0 +1,54 @@
+{
+  "metadata": {
+    "currency": "USD"
+  },
+  "products": [
+    {
+      "id": "prod_001",
+      "name": "Progress draw deposit",
+      "description": "",
+      "active": true
+    }
+  ],
+  "prices": [
+    {
+      "id": "price_001",
+      "product_id": "prod_001",
+      "amount": 35000,
+      "currency": "usd",
+      "type": "one_time"
+    }
+  ],
+  "links": [
+    {
+      "id": "link_001",
+      "price_id": "price_001",
+      "url": "https://buy.stripe.com/test_link_001",
+      "concept": "Progress draw deposit",
+      "created": "2026-06-27T00:37:19.778793+00:00",
+      "status": "active"
+    }
+  ],
+  "subscriptions": [],
+  "customers": [],
+  "payments": [],
+  "invoices": [
+    {
+      "id": "inv_001",
+      "customer_email": "billing@apg.example.com",
+      "items": [
+        {
+          "description": "Milestone 1 invoice",
+          "amount": 87500,
+          "currency": "usd"
+        }
+      ],
+      "amount": 87500,
+      "currency": "usd",
+      "status": "open",
+      "created": "2026-06-27T00:37:19.808504+00:00",
+      "due_date": "2026-07-04"
+    }
+  ],
+  "reminders": []
+}

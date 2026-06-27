@@ -1,0 +1,30 @@
+{
+  "metadata": {
+    "currency": "USD"
+  },
+  "products": [],
+  "prices": [],
+  "links": [],
+  "subscriptions": [],
+  "customers": [],
+  "payments": [],
+  "invoices": [
+    {
+      "id": "inv_001",
+      "customer_email": "billing@eu.example.com",
+      "items": [
+        {
+          "description": "Annual analytics subscription",
+          "amount": 90000,
+          "currency": "usd"
+        }
+      ],
+      "amount": 90000,
+      "currency": "usd",
+      "status": "open",
+      "created": "2026-06-27T00:37:20.718009+00:00",
+      "due_date": "2026-07-04"
+    }
+  ],
+  "reminders": []
+}

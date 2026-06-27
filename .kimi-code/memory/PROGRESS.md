@@ -2,6 +2,21 @@
 
 ## Session History
 
+### 2026-06-27 — Workshop package and production-readiness test
+- Ran a production-readiness test by researching five real small businesses and creating one-page company cards in `workshop/companies/`.
+- Created simulated Partenon onboardings in `workshop/simulations/` for coffee shop, agency, construction, retail, and SaaS.
+- Created `workshop/guides/HERMES_ONBOARDING.md` with a pre-flight checklist, five-step setup flow, example prompts, and failure responses.
+- Created a complete workshop package: `workshop/README.md`, `workshop/AGENDA.md` (90-minute and 3-hour), `workshop/SLIDES.md`, and `workshop/HANDOUT.md`.
+- Created `workshop/checklists/PRODUCTION_READINESS.md` with PASS/FAIL/PARTIAL ratings and consolidated gap priorities.
+- Updated `MISSING_IMPLEMENTATION.md` with workshop findings and a revised priority order.
+- Updated `README.md` and `docs/ENTREPRENEUR_PLAYBOOK.md` to reference the new workshop materials.
+- Added generated-artifact patterns to `.gitignore` to keep demo and tool outputs out of commits.
+- Verified:
+  - `python3 scripts/demo_tesorero.py` PASS.
+  - `cd dashboard && npm run build` PASS.
+  - `python3 -m py_compile` on all simulation-referenced tools PASS.
+- Updated `TODOS.md`.
+
 ### 2026-06-26 — Final python3 normalization and session close
 - Normalized every Python command example from `python` to `python3` across `README.md`, all new docs (`docs/ENTREPRENEUR_PLAYBOOK.md`, `docs/HERO_GUIDE.md`, `docs/QUICKSTART.md`, `docs/SECURITY.md`, `docs/API.md`, `docs/FAQ.md`, `docs/for-developers.md`, `docs/assets/hero-matrix.md`), existing docs (`docs/superpowers/plans/2026-06-26-partenon-system-build.md`), scripts (`scripts/demo_tesorero.py`, `scripts/setup_hermes.py`), examples (`examples/hermes-cli-stub.py`, `examples/mcp-client-example.py`, `examples/README.md`), `install.sh`, `partenon-core/tools/onboarding_engine.py`, `hermes/profiles/partenon-tesorero/SKILL.md`, `web/developers.html`, and `TODOS.md`.
 - Updated Python badge in `README.md` to 3.12+.

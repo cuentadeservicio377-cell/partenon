@@ -21,7 +21,7 @@ class GBrainClient:
         full_args = ["gbrain", command, *args]
         result = subprocess.run(
             full_args,
-            input=stdin.encode() if stdin is not None else None,
+            input=stdin if stdin is not None else None,
             capture_output=True,
             text=True,
             check=False,

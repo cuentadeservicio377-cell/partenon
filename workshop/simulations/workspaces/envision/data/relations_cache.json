@@ -1,0 +1,60 @@
+{
+  "company": "envision",
+  "updated": "2026-06-26T18:37:19.195698",
+  "clients": [
+    {
+      "id": "CLI-001",
+      "name": "Acumen",
+      "main_contact": {
+        "name": "",
+        "email": "contact@acumen.example.com",
+        "phone": ""
+      },
+      "category": "client",
+      "origin": "direct",
+      "status": "active",
+      "rating": "B",
+      "rating_reason": "Initial registration.",
+      "registered_at": "2026-06-26T18:37:19.196333",
+      "last_activity": "2026-06-26T18:37:19.302482",
+      "notes": "",
+      "projects": [],
+      "milestones": [
+        {
+          "id": "MIL-CLI-001-001",
+          "description": "Present creative concepts",
+          "date": "2026-07-20",
+          "status": "proposed",
+          "confirmed_in_writing": false,
+          "responsible": "Diplomat",
+          "next_step": ""
+        }
+      ]
+    }
+  ],
+  "vendors": [
+    {
+      "id": "VEN-001",
+      "name": "Meta Ads",
+      "main_contact": {
+        "name": "",
+        "email": "",
+        "phone": ""
+      },
+      "category": "advertising",
+      "service": "",
+      "origin": "direct",
+      "status": "active",
+      "rating": "B",
+      "rating_reason": "Initial registration.",
+      "registered_at": "2026-06-26T18:37:19.244128",
+      "last_activity": "2026-06-26T18:37:19.244136",
+      "notes": "",
+      "contracts": [],
+      "milestones": []
+    }
+  ],
+  "contracts": [],
+  "communications": [],
+  "reminders": []
+}
