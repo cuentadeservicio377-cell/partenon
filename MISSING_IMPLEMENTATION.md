@@ -275,6 +275,38 @@ A production-readiness test was run using five real small-business company cards
 - **Status:** NOT_STARTED
 - **Suggested fix:** Add `.github/ISSUE_TEMPLATE.md` and a support email to `README.md`.
 
+### 7.12 `install.sh` does not validate the existing venv Python version
+- **Promise:** Running `./install.sh` prepares a working local environment.
+- **Reality:** If an existing `.venv` was created with Python 3.9, the script detects a system Python 3.10+ but still calls `.venv/bin/pip`, which fails to install `mcp>=1.0.0`.
+- **Severity:** HIGH
+- **Status:** NOT_STARTED
+- **Suggested fix:** Before installing packages, compare `.venv/bin/python` version to 3.10. Recreate the venv if it is below the minimum.
+- **Evidence:** `workshop/PRODUCTION_READINESS_RESEARCH.md`, section 2.
+
+### 7.13 `workshop/simulations/sim_runner.py` is missing
+- **Promise:** The workshop has a runnable simulation runner and the checklist marks it green.
+- **Reality:** `sim_runner.py` does not exist. The simulation markdowns also reference CLI flags that the underlying tools do not support.
+- **Severity:** HIGH
+- **Status:** NOT_STARTED
+- **Suggested fix:** Implement `sim_runner.py`, or update the README/checklist to reflect that simulations are documentation-only and add CLI entry points to the Strategist/Scribe tools.
+- **Evidence:** `workshop/PRODUCTION_READINESS_RESEARCH.md`, sections 3 and 4.
+
+### 7.14 Construction checklist template is missing
+- **Promise:** The Strategist can generate industry-specific checklists.
+- **Reality:** `checklists.py` has templates for events, legal, consulting, and retail, but not construction. Construction simulations fall back to consulting.
+- **Severity:** MEDIUM
+- **Status:** NOT_STARTED
+- **Suggested fix:** Add a construction checklist template with phases such as pre-construction, construction, and closeout.
+- **Evidence:** `workshop/PRODUCTION_READINESS_RESEARCH.md`, section 3.
+
+### 7.15 Simulation markdowns link to missing company cards
+- **Promise:** Each simulation points to a matching company card.
+- **Reality:** `construction.md`, `retail.md`, and `saas.md` reference `D&M Construction`, `Brookline Booksmith`, and `WP Umbrella` cards that do not exist. The existing cards are `SpawGlass`, `Tracksmith`, and `Buffer`.
+- **Severity:** LOW
+- **Status:** NOT_STARTED
+- **Suggested fix:** Align the simulation names with the existing company cards, or create the three missing cards.
+- **Evidence:** `workshop/PRODUCTION_READINESS_RESEARCH.md`, section 4.
+
 ---
 
 ## 8. Suggested priority order
@@ -310,7 +342,9 @@ A production-readiness test was run using five real small-business company cards
 - Verification run in this pass:
   - `python3 scripts/demo_tesorero.py` PASS.
   - `cd dashboard && npm run build` PASS.
-  - `bash -n install.sh` PASS.
+  - `bash -n install.sh` PASS (syntax only; runtime fails with a stale Python 3.9 venv).
   - `python3 -m py_compile` on all profile Python tools PASS.
-  - `python3 workshop/simulations/sim_runner.py route/project/checklist/client/payment-link/calendar` PASS.
+  - `python3 partenon-core/tools/router.py` PASS.
+  - `python3 -m unittest discover tests` PASS (4 tests).
+  - `python3 workshop/simulations/sim_runner.py` does not exist; this previous claim was incorrect.
   - Brain `GBrainClient().put_page('test/smoke', ...)` PASS after stdin fix.

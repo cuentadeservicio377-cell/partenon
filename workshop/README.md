@@ -1,107 +1,93 @@
-# Partenon Hermes Onboarding Workshop
+# Partenon Workshop Package
 
-A hands-on workshop package for onboarding real small businesses onto Partenon. It includes five researched case studies, five runnable simulations, a facilitator guide, slides, a handout, and a production-readiness checklist.
-
----
-
-## What is in this package
-
-```
-workshop/
-├── README.md                          # This file
-├── AGENDA.md                          # 90-minute workshop agenda
-├── SLIDES.md                          # Facilitator slide deck
-├── HANDOUT.md                         # One-page participant handout
-├── companies/                         # Real small business case studies
-│   ├── coffee-shop--oblique-coffee-roasters.md
-│   ├── agency--envision-creative.md
-│   ├── construction-company--flintrock-operating.md
-│   ├── retail--greenlight-bookstore.md
-│   └── saas--plausible-analytics.md
-├── simulations/                       # Step-by-step onboarding runs
-│   ├── 01-coffee-shop-onboarding.md
-│   ├── 02-agency-onboarding.md
-│   ├── 03-construction-company-onboarding.md
-│   ├── 04-retail-onboarding.md
-│   ├── 05-saas-onboarding.md
-│   ├── sim_runner.py                  # Standalone runner for all simulations
-│   └── run_all_sims.sh                # Reproduce every simulation
-├── guides/
-│   └── HERMES_ONBOARDING.md           # Complete onboarding guide
-└── checklists/
-    └── PRODUCTION_READINESS.md        # Go-live verification checklist
-```
+A reusable workshop kit for teaching entrepreneurs, developers, and ecosystem partners how to install, configure, and run Partenon for real small businesses.
 
 ---
 
-## Quick start
+## What is included
 
-1. Install and verify Partenon:
-   ```bash
-   ./install.sh
-   python3 scripts/demo_tesorero.py
-   ```
-
-2. Run all five simulations:
-   ```bash
-   bash workshop/simulations/run_all_sims.sh
-   ```
-
-3. Open the matching simulation markdown and walk through the commands.
-
-4. Check production readiness:
-   ```bash
-   cat workshop/checklists/PRODUCTION_READINESS.md
-   ```
+| File | Purpose |
+|------|---------|
+| [`README.md`](README.md) | This overview |
+| [`AGENDA.md`](AGENDA.md) | 90-minute and 3-hour versions |
+| [`SLIDES.md`](SLIDES.md) | Speaker notes and slide content |
+| [`HANDOUT.md`](HANDOUT.md) | One-page attendee handout |
+| [`../docs/HERMES_ONBOARDING.md`](../docs/HERMES_ONBOARDING.md) | Detailed guide for how Hermes should guide a new company through setup |
+| [`guides/facilitator-guide.md`](guides/facilitator-guide.md) | Facilitator notes for running the workshop |
+| [`guides/hero-selection-guide.md`](guides/hero-selection-guide.md) | Deeper guidance on choosing first heroes |
+| [`companies/`](companies/) | Five real-world company cards |
+| [`simulations/`](simulations/) | Simulated onboardings for each company |
+| [`checklists/production-readiness.md`](checklists/production-readiness.md) | PASS/FAIL/PARTIAL production-readiness checklist |
+| [`checklists/business-type-checklists.md`](checklists/business-type-checklists.md) | Per-business-type 30-day onboarding checklists |
+| [`checklists/onboarding-checklist.md`](checklists/onboarding-checklist.md) | Generic onboarding checklist |
 
 ---
 
-## The five businesses
+## Target audience
 
-| # | Business | Type | Why it was chosen |
-|---|---|---|---|
-| 1 | Oblique Coffee Roasters | Coffee shop / roaster | Owner-operated, historic building risk, tight margins |
-| 2 | Envision Creative | Marketing agency | Project/retainer cash flow, scope creep, reporting |
-| 3 | Flintrock Operating L.L.C | Construction contractor | Small commercial GC, job costing, retainage |
-| 4 | Greenlight Bookstore | Independent retail | Unionized staff, thin margins, event-driven sales |
-| 5 | Plausible Analytics | Bootstrapped SaaS | Privacy/security, subscriptions, remote team |
+- **Entrepreneurs and small-business owners** who want to organize operations, finance, sales, communication, collections, security, and administration.
+- **Developers and operators** who want to install Partenon, extend hero profiles, and run onboarding for clients.
+- **Universities, accelerators, chambers of commerce, coworking spaces, and business organizations** that run hands-on workshops and events.
 
 ---
 
-## How the simulations work
+## Learning objectives
 
-The simulations use `sim_runner.py`, a standalone wrapper around the real Partenon hero tools. Each scenario writes its data to `workshop/simulations/workspaces/<business>/` so the main `partenon-core/data/` directory is not affected.
+By the end of the workshop, attendees can:
 
-The runner supports these actions:
-
-```
-route, design, project, task, checklist, client, vendor, milestone,
-followups, payment-link, invoice, keys, briefing, calendar, summary
-```
-
-Example:
-
-```bash
-python3 workshop/simulations/sim_runner.py route "organize my numbers"
-python3 workshop/simulations/sim_runner.py project oblique "Buyout campaign" "John Chandler" 2026-07-31 120000 food
-```
+1. Explain what Partenon is, who Hermes is, and what the seven heroes do.
+2. Install Partenon locally and run the Scribe demo.
+3. Choose the right heroes for a given business type.
+4. Customize `.finance`, `.ops`, `.design`, `.payments`, `.relations`, `.security`, and `.brain` files.
+5. Run hero tools directly and interpret their outputs.
+6. Identify which integrations require real credentials and which work in local mode.
+7. Document gaps honestly and decide whether to build, buy, or wait.
 
 ---
 
-## Scope and known limitations
+## How to use this package
 
-This workshop demonstrates the local, credential-free layer of Partenon. Anything that requires an external integration is documented as a production gap:
+1. **Before the event:**
+   - Read [`../docs/HERMES_ONBOARDING.md`](../docs/HERMES_ONBOARDING.md).
+   - Pick one or two company cards from [`companies/`](companies/) that match your audience.
+   - Run `./install.sh` and `python3 scripts/demo_tesorero.py` on the demo machine.
 
-- Stripe payments need `STRIPE_SECRET_KEY`.
-- Google Sheets/Drive need `GOOGLE_SERVICE_ACCOUNT_JSON`.
-- Gmail/Contacts dispatch is not wired.
-- Social publishing is not wired.
-- G-Brain memory requires a separate `gbrain` service.
+2. **During the event:**
+   - Follow [`AGENDA.md`](AGENDA.md).
+   - Present from [`SLIDES.md`](SLIDES.md).
+   - Distribute [`HANDOUT.md`](HANDOUT.md).
+   - Walk through the matching simulation in [`simulations/`](simulations/).
 
-See `workshop/checklists/PRODUCTION_READINESS.md` and `MISSING_IMPLEMENTATION.md` for the full list.
+3. **After the event:**
+   - Share the repo link: https://github.com/cuentadeservicio377-cell/partenon
+   - Share the live site: https://hermespartenon.online/
+   - Ask attendees to complete the first mission in their own dashboard.
 
 ---
 
-## License and reuse
+## Company cards and matching simulations
 
-The company cards cite public sources. Simulations and guides are part of the Partenon repository and follow the same license as the project.
+| Business type | Company card | Simulation |
+|---------------|--------------|------------|
+| Coffee shop | [`coffee-shop--flora-coffee.md`](companies/coffee-shop--flora-coffee.md) | [`flora-coffee-onboarding.md`](simulations/flora-coffee-onboarding.md) |
+| Marketing agency | [`marketing-agency--mack-media-group.md`](companies/marketing-agency--mack-media-group.md) | [`mack-media-group-onboarding.md`](simulations/mack-media-group-onboarding.md) |
+| Construction company | [`construction-company--boreal-contractors.md`](companies/construction-company--boreal-contractors.md) | [`boreal-contractors-onboarding.md`](simulations/boreal-contractors-onboarding.md) |
+| Retail store | [`retail-store--kick-pleat.md`](companies/retail-store--kick-pleat.md) | [`kick-pleat-onboarding.md`](simulations/kick-pleat-onboarding.md) |
+| SaaS/bootstrapped startup | [`saas-startup--outseta.md`](companies/saas-startup--outseta.md) | [`outseta-onboarding.md`](simulations/outseta-onboarding.md) |
+
+---
+
+## Related documentation
+
+- [`docs/QUICKSTART.md`](../docs/QUICKSTART.md) — 15-minute local demo
+- [`docs/ENTREPRENEUR_PLAYBOOK.md`](../docs/ENTREPRENEUR_PLAYBOOK.md) — hero selection by business type
+- [`docs/HERO_GUIDE.md`](../docs/HERO_GUIDE.md) — every tool, env var, and cron job per hero
+- [`docs/API.md`](../docs/API.md) — commands and return values
+- [`docs/FAQ.md`](../docs/FAQ.md) — honest answers to common questions
+- [`MISSING_IMPLEMENTATION.md`](../MISSING_IMPLEMENTATION.md) — current gaps and suggested priorities
+
+---
+
+## License and attribution
+
+Partenon is an open-source project. The company cards use only public information. See individual cards for sources.

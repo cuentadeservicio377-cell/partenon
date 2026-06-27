@@ -5,6 +5,8 @@
 ## [Unreleased]
 
 ### Added
+- docs(workshop): add `workshop/PRODUCTION_READINESS_RESEARCH.md` with base-system verification, hero smoke tests, five real small-business case studies, and production-readiness scoring for construction/retail/SaaS simulations.
+- docs(workshop): add production-readiness findings to `MISSING_IMPLEMENTATION.md` (stale venv blocker, missing `sim_runner.py`, missing construction checklist, mismatched simulation company cards).
 - feat(profiles): create `partenon-diplomatico` profile with relations skill, CRM and follow-ups.
 - feat(profiles): create `partenon-estratega` profile with ops skill (projects, tasks, checklists, goals, briefings), `.ops` template and morning/midday/planning/retro cron jobs.
 - docs(playbook): add `docs/ENTREPRENEUR_PLAYBOOK.md` with hero selection by business type, prompts, and rollout checklist.

@@ -5,6 +5,10 @@
 - [ ] Validate end-to-end flows with a pilot business
 
 ## Pending
+- [ ] Fix `install.sh` to recreate venv when existing `.venv` Python is below 3.10
+- [ ] Implement or remove `workshop/simulations/sim_runner.py` and align simulation commands with real tool CLIs
+- [ ] Add construction checklist template to Strategist `checklists.py`
+- [ ] Align simulation markdowns with existing company cards or create missing cards
 - [ ] Implement functional eval loop in the Scribe (tests/evals + judge skill + threshold)
 - [ ] Add eval loop to the remaining hero profiles
 - [ ] Install skill ui-ux-pro-max for systematic design reviews
@@ -20,6 +24,7 @@
 - [ ] Add `.github/ISSUE_TEMPLATE.md` and a public support channel
 
 ## Completed
+- [x] Run production-readiness test for construction/retail/SaaS simulations and create `workshop/PRODUCTION_READINESS_RESEARCH.md`
 - [x] Research five real small businesses with public data
 - [x] Create `workshop/companies/` cards for coffee shop, agency, construction, retail, SaaS
 - [x] Create five `workshop/simulations/` scenarios with runnable commands

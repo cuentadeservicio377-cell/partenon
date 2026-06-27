@@ -2,6 +2,20 @@
 
 ## Session History
 
+### 2026-06-27 — Final production-readiness verification and sim_runner restore
+- Restored `workshop/simulations/sim_runner.py` so the workshop docs (`AGENDA.md`, `SLIDES.md`, `HANDOUT.md`) have a working command runner again.
+- Rewrote `workshop/checklists/PRODUCTION_READINESS.md` from green/yellow/red into PASS/FAIL/PARTIAL evidence with a verification log and summary totals.
+- Cleaned duplicate/stray files: removed `docs/HERMES_ONBOARDING.md`, extra company cards, old simulation markdown files, `run_all_sims.sh`, and generated `workspaces/`.
+- Verified the final package:
+  - `python3 scripts/demo_tesorero.py` PASS.
+  - `cd dashboard && npm run build` PASS.
+  - `python3 -m unittest discover tests` PASS (4 tests).
+  - `bash -n install.sh` PASS.
+  - `python3 -m py_compile` on all profile Python tools PASS.
+  - `python3 workshop/simulations/sim_runner.py route/project/checklist/client/payment-link/calendar` PASS.
+  - Brain `GBrainClient().put_page('test/smoke', 'Smoke test page')` PASS.
+- Committed: production-readiness checklist rewrite and restored `sim_runner.py`.
+
 ### 2026-06-27 — Workshop cleanup, onboarding guide rewrite, and final commit
 - Rewrote `workshop/guides/HERMES_ONBOARDING.md` to remove stale `sim_runner.py` and Oblique Coffee Roasters references.
 - Replaced the simulation-runner section with direct Python smoke-test commands for each hero and a pre-flight checklist grounded in actual files.

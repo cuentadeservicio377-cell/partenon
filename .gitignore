@@ -25,6 +25,7 @@ partenon-core/data/checklists.json
 partenon-core/data/projects.json
 partenon-core/data/tasks.json
 output/
+workshop/simulations/workspaces/
 data/workspaces/
 data/catalog.json
 data/checklists.json
