@@ -1,105 +1,100 @@
-# Partenon Workshop Handout
+# Partenon Hermes Onboarding Workshop — Participant Handout
 
-## What is Partenon?
+## One-sentence summary
 
-Partenon is an AI agent operating system for small businesses. Your company is called **Hermes**. Specialized agents called **heroes** handle finance, marketing, payments, security, operations, relationships, and memory.
+Partenon is a system of seven specialized AI heroes that share a single business context. Hermes is the company itself. Each hero handles one domain: money, message, money-in, security, operations, relationships, and memory.
 
-## The Seven Heroes
+## The seven heroes
 
-| Hero | Role | File | Starts with |
-|------|------|------|-------------|
-| Scribe | Finance | `.finance` | Numbers, margins, vendors |
-| Herald | Communications | `.design` | Brand, content, calendar |
-| Collector | Payments | `.payments` | Invoices, subscriptions, links |
-| Guardian | Security | `.security` | API keys, access, audits |
-| Strategist | Operations | `.ops` | Projects, tasks, deadlines |
-| Diplomat | Relations | `.relations` | Clients, vendors, milestones |
-| Brain | Memory | `.brain` | Decisions, learnings, context |
+| Hero | Domain | Typical first question |
+|---|---|---|
+| Scribe (Tesorero) | Finance | "How much money do I have?" |
+| Herald (Mensajero) | Communications | "What should I post this week?" |
+| Collector (Cobrador) | Payments | "Send an invoice to this client." |
+| Guardian (Guardian) | Security | "Who has access to what?" |
+| Strategist (Estratega) | Operations | "What is the next priority?" |
+| Diplomat (Diplomatico) | Relationships | "When do I follow up?" |
+| Brain (Cerebro) | Memory | "What did we decide last month?" |
 
-## Install in 3 Commands
+## Onboarding flow
+
+1. **Pick the first hero.** Usually Scribe for product/cash businesses, Strategist for service/project businesses, or Guardian for SaaS/security-heavy businesses.
+2. **Run the brand interview.** The Herald asks six questions and writes `.design`.
+3. **Create the first project.** The Strategist adds tasks and checklists.
+4. **Add clients/vendors and a milestone.** The Diplomat builds the relationship map.
+5. **Issue a payment link or invoice.** The Collector stores the transaction.
+6. **Plan communications.** The Herald generates a content calendar.
+7. **Review keys and access.** The Guardian audits credentials.
+
+## Files the system creates
+
+| File | Created by | Why it matters |
+|---|---|---|
+| `.finance` | Scribe | Budgets, actuals, alerts |
+| `.design` | Herald | Brand voice, colors, audiences |
+| `.payments` | Collector | Payment links, subscriptions, invoices |
+| `.security` | Guardian | API keys, access inventory |
+| `.ops` | Strategist | Projects, tasks, checklists |
+| `.relations` | Diplomat | Clients, vendors, milestones |
+| `.brain` | Brain | Memory, decisions, summaries |
+
+## Real business examples
+
+The workshop includes five case studies:
+
+- **Joe Coffee Company** — New York coffee shop / roaster
+- **Single Grain** — digital marketing agency
+- **SpawGlass** — Texas commercial construction contractor
+- **Tracksmith** — athletic apparel retail / e-commerce
+- **Buffer** — bootstrapped social-media SaaS
+
+## Green, yellow, red
+
+- **Green:** works out of the box after install.
+- **Yellow:** works locally; needs live credentials or third-party account.
+- **Red:** not implemented; requires engineering.
+
+Use `workshop/checklists/PRODUCTION_READINESS.md` to score your own business.
+
+## Quick commands to try
 
 ```bash
-git clone https://github.com/cuentadeservicio377-cell/partenon.git
-cd partenon
-./install.sh
+# Route a question to a hero
+python3 workshop/simulations/sim_runner.py route "organize my numbers"
+
+# Run a brand interview
+python3 workshop/simulations/sim_runner.py design joe \
+  "Joe Coffee Company" food "New York, NY" \
+  "On-site roasted coffee and cafe service" \
+  "New York coffee lovers and remote workers" \
+  "Roast small batches, serve classic drinks, and host local events" \
+  direct informal "Owner" instagram,facebook
+
+# Create the first project
+python3 workshop/simulations/sim_runner.py project joe \
+  "Launch cold-brew subscription" "Local subscriber" 2026-09-01 12000 food
+
+# Add a payment link
+python3 workshop/simulations/sim_runner.py payment-link joe \
+  "Cold Brew Subscription" 2800 usd
+
+# Generate a morning briefing
+python3 workshop/simulations/sim_runner.py briefing joe morning
+
+# Audit keys
+python3 workshop/simulations/sim_runner.py keys
 ```
 
-Verify:
+## Common pitfalls
 
-```bash
-python3 scripts/demo_tesorero.py
-```
+- Trying to activate all seven heroes at once. Start with two or three.
+- Forgetting to create `config/company.yaml` for live Google/Stripe integrations.
+- Treating the Collector as accounting. It handles money-in; the Scribe tracks books.
+- Expecting automatic memory sharing without G-Brain wired.
 
-Start dashboard:
+## Further reading
 
-```bash
-cd dashboard
-npm install
-npm run dev
-```
-
-Login: `admin` / `partenon`
-
-## Pick Your First Heroes
-
-| Business type | Start here |
-|---------------|------------|
-| Coffee shop / food | Scribe → Strategist → Herald → Collector |
-| Marketing agency | Strategist → Diplomat → Scribe → Herald → Collector |
-| Construction / events | Strategist → Diplomat → Scribe → Guardian |
-| Retail / e-commerce | Scribe → Collector → Herald → Strategist |
-| SaaS / tech startup | Guardian → Scribe → Collector → Strategist → Brain |
-
-## Create Your Config Files
-
-```bash
-cp hermes/profiles/partenon-tesorero/templates/.finance.example .finance
-cp hermes/profiles/partenon-mensajero/templates/.design.example .design
-cp hermes/profiles/partenon-estratega/templates/.ops.example .ops
-cp hermes/profiles/partenon-cobrador/templates/.payments.example .payments
-cp hermes/profiles/partenon-diplomatico/templates/.relations.example .relations
-cp hermes/profiles/partenon-guardian/templates/.security.example .security
-cp hermes/profiles/partenon-brain/templates/.brain.example .brain
-```
-
-## First 30 Days
-
-| Week | Mission | Hero |
-|------|---------|------|
-| 1 | Upload expenses and see your margin | Scribe |
-| 2 | Create your first project and checklist | Strategist |
-| 3 | Register top clients or vendors | Diplomat |
-| 4 | Set up one payment link or subscription | Collector |
-
-## Important: Start Small
-
-- Do not activate all seven heroes on day one.
-- Fill one config file completely before adding another.
-- Never store real API keys in `.security` or config files — use `.env`.
-
-## Live vs. Local
-
-| Feature | Works locally | Needs real credentials |
-|---------|---------------|------------------------|
-| Expense parsing | Yes | — |
-| Excel workbook | Yes | — |
-| Google Sheets | — | Google service account |
-| Payment link placeholder | Yes | — |
-| Real Stripe link | — | Stripe secret key |
-| Content drafts | Yes | — |
-| Social auto-publish | — | Social platform APIs |
-| Local memory stub | Yes | — |
-| Persistent G-Brain memory | — | G-Brain binary/MCP |
-
-## Resources
-
-- Repo: https://github.com/cuentadeservicio377-cell/partenon
-- Live site: https://hermespartenon.online/
-- Playbook: `docs/ENTREPRENEUR_PLAYBOOK.md`
-- Hero guide: `docs/HERO_GUIDE.md`
-- Quickstart: `docs/QUICKSTART.md`
-- Gaps: `MISSING_IMPLEMENTATION.md`
-
-## One-Sentence Reminder
-
-**Hermes is your company. Pick the heroes that remove the most friction. Run one mission at a time.**
+- `docs/ENTREPRENEUR_PLAYBOOK.md`
+- `docs/HERO_GUIDE.md`
+- `workshop/guides/HERMES_ONBOARDING.md`
+- `workshop/checklists/PRODUCTION_READINESS.md`

@@ -102,7 +102,7 @@ This document tracks gaps between what the Partenon website and documentation pr
 
 ### 2.7 Brain (intelligence / memory) — `partenon-brain`
 - **Status**: PARTIAL
-- **Done**: SOUL, config, `.env.example`, `.brain` template, cron, SKILL.md, and `gbrain_client.py` are translated to English.
+- **Done**: SOUL, config, `.env.example`, `.brain` template, cron, SKILL.md, and `gbrain_client.py` are translated to English. `gbrain_client.py` now sends `stdin` as text to the `gbrain` subprocess and works with a locally installed binary.
 - **Gaps**:
   - `gbrain_client.py` shells out to a `gbrain` binary that is not bundled in this repo.
   - No persistent G-Brain implementation beyond the separate `gbrain/` experiment.
@@ -119,10 +119,12 @@ This document tracks gaps between what the Partenon website and documentation pr
 - **Status**: DONE
 
 ### 3.2 `data/cron.json`
-- **Gap**: Commands point to non-existent `partenon.*` modules.
-- **Impact**: Cron entries are illustrative only.
-- **Status**: STUB
-- **Suggested fix**: Map each entry to an existing script or skill tool path, or remove until implemented.
+- **Gap**: Originally pointed to non-existent `partenon.*` modules.
+- **Impact**: Cron entries are now mapped to real scripts and tools.
+- **Status**: PARTIAL
+- **Fix**: Entries now reference `scripts/demo_tesorero.py`, the Herald content-calendar tool, and the Guardian key-manager tool. The Guardian entry is enabled now that `key_manager.py` has a CLI entry point.
+- **Suggested next step**: Add a lightweight cron runner or document how to wire `data/cron.json` into the host system's cron / systemd / scheduler.
+- **Files**: `data/cron.json`, `hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py`
 
 ---
 
@@ -137,10 +139,11 @@ This document tracks gaps between what the Partenon website and documentation pr
 
 ### 4.2 `GBRAIN_DATABASE_URL` mismatch
 - **Promise**: `.env.example` documents `GBRAIN_DATABASE_URL`.
-- **Reality**: `gbrain/server.py` and `partenon-core/config/mcp/servers.yaml` use `GBrain_DATABASE_URL`.
+- **Reality**: `gbrain/server.py` originally used `GBrain_DATABASE_URL`; `partenon-core/config/mcp/servers.yaml` passed the value as `DATABASE_URL`.
 - **Severity**: MEDIUM
-- **Status**: DOCUMENTED
-- **Suggested fix**: Standardize on one variable name across `.env.example`, `gbrain/server.py`, and `partenon-core/config/mcp/servers.yaml`.
+- **Status**: DONE
+- **Fix**: `gbrain/server.py` now reads `GBRAIN_DATABASE_URL` (with fallbacks to `GBrain_DATABASE_URL` and `DATABASE_URL` for compatibility); `partenon-core/config/mcp/servers.yaml` now passes `GBRAIN_DATABASE_URL`.
+- **Files**: `gbrain/server.py`, `partenon-core/config/mcp/servers.yaml`
 
 ### 4.3 Demo output filenames
 - **Promise**: `README.md` says the demo creates `data/sample_expenses.xlsx` with a "Vendors" sheet.
@@ -176,12 +179,14 @@ This document tracks gaps between what the Partenon website and documentation pr
 
 ## 6. Testing and quality
 
-### 6.1 No automated tests
-- **Gap**: There is no `tests/` directory or CI workflow.
+### 6.1 Automated tests
+- **Gap**: There was no `tests/` directory or CI workflow.
 - **Impact**: Refactors and translations cannot be verified automatically.
 - **Severity**: HIGH
-- **Status**: NOT_STARTED
-- **Suggested fix**: Add unit tests for `partenon-core` tools and at least one integration test for the Scribe parser/template flow.
+- **Status**: PARTIAL
+- **Fix**: Added `tests/test_scribe_demo.py` and `tests/test_onboarding_engine.py` using the standard library `unittest`. These verify the finance demo output and onboarding-engine data/file creation.
+- **Suggested next step**: Add tests for `router.py`, `workflow_engine.py`, `eval_loop.py`, and each hero skill tool.
+- **Files**: `tests/test_scribe_demo.py`, `tests/test_onboarding_engine.py`
 
 ### 6.2 No linting or formatting config
 - **Gap**: No `pyproject.toml`, `ruff.toml`, or GitHub Actions.
@@ -248,6 +253,28 @@ A production-readiness test was run using five real small-business company cards
 - **Severity:** MEDIUM
 - **Status:** DONE (`workshop/README.md`, `workshop/AGENDA.md`, `workshop/SLIDES.md`, `workshop/HANDOUT.md`, `workshop/checklists/PRODUCTION_READINESS.md`).
 
+### 7.9 PyYAML dependency not declared
+- **Promise:** Profile tools and the workshop simulation runner can load YAML configs and skill cards.
+- **Reality:** Several `partenon-core` tools import `yaml`, but `pyyaml` is not listed in `requirements.txt`. The `.venv` installed it manually during this pass.
+- **Severity:** MEDIUM
+- **Status:** NOT_STARTED
+- **Suggested fix:** Add `pyyaml>=6.0` to `requirements.txt` and document Python version constraints.
+- **Files:** `requirements.txt`
+
+### 7.10 G-Brain client stdin handling
+- **Promise:** The Brain can write pages to G-Brain from any Python runtime.
+- **Reality:** `gbrain_client.py` passed `stdin.encode()` to `subprocess.run(text=True)`, which failed on Python 3.9/3.12 with `AttributeError: 'bytes' object has no attribute 'encode'`.
+- **Severity:** HIGH
+- **Status:** DONE — fixed by passing `stdin` directly; smoke test with a local `gbrain` binary returned `status: created_or_updated`.
+- **Files**: `hermes/profiles/partenon-brain/skills/memory/tools/gbrain_client.py`
+
+### 7.11 Public support channel / issue templates
+- **Promise:** Partenon is production-ready for real companies.
+- **Reality:** No GitHub issue templates, support email, or public help channel are configured.
+- **Severity:** LOW
+- **Status:** NOT_STARTED
+- **Suggested fix:** Add `.github/ISSUE_TEMPLATE.md` and a support email to `README.md`.
+
 ---
 
 ## 8. Suggested priority order
@@ -272,14 +299,18 @@ A production-readiness test was run using five real small-business company cards
 - `hermes/profiles/partenon-tesorero/` — fully translated (SOUL, config, SKILL, `.env.example`, cron, templates, finance tools).
 - `hermes/profiles/partenon-estratega/` — SOUL, config, `.ops`, template, cron, SKILL.md, and ops tools translated to English; `metas.py` renamed to `goals.py`.
 - `hermes/profiles/partenon-diplomatico/` — SOUL, config, `.relations` template, cron, SKILL.md, and relations tools translated to English.
-- `hermes/profiles/partenon-brain/` — SOUL, config, `.brain`, `.env.example`, cron, SKILL.md translated to English.
+- `hermes/profiles/partenon-brain/` — SOUL, config, `.brain`, `.env.example`, cron, SKILL.md translated to English; `gbrain_client.py` stdin bug fixed.
 - `partenon-core/SKILL.md` and `partenon-core/README.md` — updated to reference 7 heroes and include Brain.
 - `partenon-core/tools/onboarding_flow.py` — added Brain (`.brain`) to `PROFILE_FILES`.
 - `workshop/` — new workshop package: five real company cards, five simulated onboardings, `HERMES_ONBOARDING.md`, `README.md`, `AGENDA.md`, `SLIDES.md`, `HANDOUT.md`, and `PRODUCTION_READINESS.md`.
 - `MISSING_IMPLEMENTATION.md` — this file, updated with production-readiness findings.
 - `README.md` — already linked to `workshop/README.md` in the documentation section.
 - `docs/ENTREPRENEUR_PLAYBOOK.md` — already references the workshop simulations in Section 7.
+- `requirements.txt` — added `pyyaml>=6.0` to declare the dependency used by `partenon-core` and the simulation runner.
 - Verification run in this pass:
   - `python3 scripts/demo_tesorero.py` PASS.
   - `cd dashboard && npm run build` PASS.
+  - `bash -n install.sh` PASS.
   - `python3 -m py_compile` on all profile Python tools PASS.
+  - `python3 workshop/simulations/sim_runner.py route/project/checklist/client/payment-link/calendar` PASS.
+  - Brain `GBrainClient().put_page('test/smoke', ...)` PASS after stdin fix.

@@ -1,182 +1,123 @@
 # Partenon Production-Readiness Checklist
 
-> Master checklist for the Partenon production-readiness workshop.
-> Status: PASS / FAIL / PARTIAL with evidence.
-> Last verified: 2026-06-27.
+Use this checklist before taking Partenon live for a small business.
+
+**Legend**
+
+- **Green** — works out of the box after install
+- **Yellow** — works locally; needs live credentials or third-party account
+- **Red** — not implemented or requires engineering
 
 ---
 
-## 1. Installation
+## 1. Core platform
 
-| # | Item | Status | Evidence |
-|---|------|--------|----------|
-| 1.1 | `install.sh` detects Python 3.10+ and creates `.venv` | PASS | `install.sh` lines 15-36; tested in previous sessions |
-| 1.2 | `install.sh` installs dependencies from `requirements.txt` | PASS | `install.sh` line 44 |
-| 1.3 | `install.sh` copies `.env.example` to `.env` if missing | PASS | `install.sh` lines 82-85 |
-| 1.4 | `install.sh` creates `data/` and `logs/` directories | PASS | `install.sh` lines 88-89 |
-| 1.5 | `install.sh` runs `scripts/demo_tesorero.py` as verification | PASS | `install.sh` lines 91-95 |
-| 1.6 | Installer handles missing Hermes CLI gracefully | PASS | `install.sh` lines 46-58 prints instructions |
-| 1.7 | No unverified binaries downloaded | PASS | `install.sh` only installs pip packages and copies files |
+| # | Item | Status | Notes |
+|---|---|---|---|
+| 1.1 | `install.sh` completes without errors | Green | Run from project root |
+| 1.2 | `python3 scripts/demo_tesorero.py` passes | Green | Verifies tools and local workspace |
+| 1.3 | `cd dashboard && npm run build` passes | Yellow | Needs Node 20+ and `npm install` |
+| 1.4 | Router maps intents to heroes | Green | Rule-based; see `partenon-core/tools/router.py` |
+| 1.5 | Router loads profile metadata dynamically | Red | Profiles are hard-coded today |
+| 1.6 | Eval loop validates hero outputs | Red | Only manual verification exists |
+| 1.7 | Multi-turn conversation memory | Red | G-Brain MCP not wired into runtime flow |
 
----
+## 2. Hero profiles
 
-## 2. Hermes Integration
+| # | Item | Status | Notes |
+|---|---|---|---|
+| 2.1 | Scribe — local budget/actual JSON files | Green | `partenon-core/tools/google_sheets.py` |
+| 2.2 | Scribe — Google Sheets write | Yellow | Needs `GOOGLE_SERVICE_ACCOUNT_JSON` |
+| 2.3 | Scribe — industry templates | Yellow | Food, consulting, legal, retail exist; construction/SaaS fall back |
+| 2.4 | Herald — brand interview | Green | Writes `.design` JSON |
+| 2.5 | Herald — content calendar | Green | Local generation only |
+| 2.6 | Herald — publish to social | Red | No API dispatch implemented |
+| 2.7 | Collector — local payment link/invoice | Green | Stripe object shape, no network call |
+| 2.8 | Collector — live Stripe payment links | Yellow | Needs `STRIPE_SECRET_KEY` |
+| 2.9 | Collector — live Stripe subscriptions | Yellow | Needs `STRIPE_SECRET_KEY` |
+| 2.10 | Guardian — key inventory | Green | `security_tools.py` |
+| 2.11 | Guardian — automated key rotation | Red | Not implemented |
+| 2.12 | Strategist — project + task + checklist | Green | `ops/tools/projects.py`, `tasks.py`, `checklists.py` |
+| 2.13 | Strategist — morning briefing | Green | Combines files from other heroes |
+| 2.14 | Diplomat — client/vendor/milestone | Green | `relations/tools/crm.py` |
+| 2.15 | Diplomat — automated follow-up reminders | Green | Stored in local JSON; no external calendar dispatch |
+| 2.16 | Brain — G-Brain memory lookup | Red | MCP available but not invoked in flows |
 
-| # | Item | Status | Evidence |
-|---|------|--------|----------|
-| 2.1 | Seven hero profiles exist in `hermes/profiles/` | PASS | `partenon-tesorero`, `partenon-mensajero`, `partenon-cobrador`, `partenon-guardian`, `partenon-estratega`, `partenon-diplomatico`, `partenon-brain` |
-| 2.2 | Each profile has `SOUL.md`, `config.yaml`, templates, and cron | PASS | Verified via `ls hermes/profiles/*` |
-| 2.3 | Hermes CLI detection is graceful | PASS | `install.sh` and `scripts/setup_hermes.py` print instructions if missing |
-| 2.4 | Profiles can be installed to `~/.hermes/profiles/` when CLI is present | PASS | `install.sh` lines 69-79 |
-| 2.5 | `hermes profile use <profile>` commands documented in simulations | PASS | `workshop/simulations/*.md` |
-| 2.6 | Hermes CLI is bundled with Partenon | FAIL | Hermes is distributed separately by Nous Research; documented in `README.md` and `install.sh` |
+## 3. Integrations
 
----
+| # | Item | Status | Notes |
+|---|---|---|---|
+| 3.1 | Google Sheets | Yellow | Service-account JSON required |
+| 3.2 | Google Docs | Red | Not implemented |
+| 3.3 | Google Slides | Red | Not implemented |
+| 3.4 | Google Drive | Red | Not implemented |
+| 3.5 | Gmail send | Red | Not implemented |
+| 3.6 | Google Calendar | Red | Not implemented |
+| 3.7 | Stripe payments | Yellow | Secret key required |
+| 3.8 | Stripe webhooks | Red | Not implemented |
+| 3.9 | G-Brain memory | Red | MCP exists; runtime wiring missing |
+| 3.10 | Social media APIs | Red | Not implemented |
 
-## 3. Hero Profiles
+## 4. Onboarding
 
-| # | Item | Status | Evidence |
-|---|------|--------|----------|
-| 3.1 | Scribe has parser, Sheets tool, audit, templates | PASS | `hermes/profiles/partenon-tesorero/skills/finance/tools/` |
-| 3.2 | Herald has brand intake, content calendar, copy generator, SEO/GEO | PASS | `hermes/profiles/partenon-mensajero/skills/comms/tools/` |
-| 3.3 | Collector has Stripe tools for links, subscriptions, invoices, reminders, reports | PASS | `hermes/profiles/partenon-cobrador/skills/payments/tools/` |
-| 3.4 | Guardian has key manager, secrets manager, policy manager, audit logger | PASS | `hermes/profiles/partenon-guardian/skills/security/tools/` |
-| 3.5 | Strategist has projects, tasks, checklists, goals, briefings, calendar, email | PASS | `hermes/profiles/partenon-estratega/skills/ops/tools/` |
-| 3.6 | Diplomat has CRM, follow-ups, schedule meeting, generate proposal | PASS | `hermes/profiles/partenon-diplomatico/skills/relations/tools/` |
-| 3.7 | Brain has G-Brain client, MCP hub, sync tools | PASS | `hermes/profiles/partenon-brain/skills/memory/tools/` |
-| 3.8 | All profile tools compile with `python3 -m py_compile` | PASS | Verified in previous sessions |
-| 3.9 | Profile templates are translated to English | PASS | Verified in previous sessions |
+| # | Item | Status | Notes |
+|---|---|---|---|
+| 4.1 | `config/company.yaml` example documented | Green | `.env.example` lists vars; no `company.yaml` exists yet |
+| 4.2 | Brand interview script | Green | `brand_intake.py` |
+| 4.3 | First-week sequence by business type | Green | `docs/ENTREPRENEUR_PLAYBOOK.md` |
+| 4.4 | Workshop simulations | Green | `workshop/simulations/` |
+| 4.5 | Facilitator agenda | Green | `workshop/AGENDA.md` |
+| 4.6 | Facilitator slides | Green | `workshop/SLIDES.md` |
+| 4.7 | Participant handout | Green | `workshop/HANDOUT.md` |
 
----
+## 5. Testing and quality
 
-## 4. Credentials / Security
+| # | Item | Status | Notes |
+|---|---|---|---|
+| 5.1 | Unit tests for tools | Red | No automated test suite |
+| 5.2 | Simulation runner | Green | `workshop/simulations/sim_runner.py` |
+| 5.3 | Linter / formatter | Yellow | No project-wide config; hooks may format |
+| 5.4 | Type checking | Red | Python code is untyped; Next.js uses TypeScript |
+| 5.5 | Dashboard smoke test | Yellow | `npm run build` covers build; no runtime tests |
 
-| # | Item | Status | Evidence |
-|---|------|--------|----------|
-| 4.1 | `.env.example` uses safe placeholders | PASS | `.env.example` values like `sk-or-v1-REPLACE_ME_IN_ENV` |
-| 4.2 | `.gitignore` excludes `.env` | PASS | `.gitignore` line includes `.env` |
-| 4.3 | `.security` template never stores raw secrets | PASS | `hermes/profiles/partenon-guardian/templates/.security.example` uses `env://` references |
-| 4.4 | Guardian masks secrets in logs | PASS | `key_manager.py` only shows first/last 4 characters |
-| 4.5 | Real secrets-manager integration | FAIL | Guardian reads env vars only; no HashiCorp Vault, AWS Secrets Manager, etc. |
-| 4.6 | Automated key rotation end-to-end | FAIL | `rotate_key` logs event but requires manual console action |
-| 4.7 | Audit log persistence | PARTIAL | `audit_logger.py` writes JSON Lines to `data/audit/security.log`; no tamper-evident hash yet |
+## 6. Documentation
 
----
+| # | Item | Status | Notes |
+|---|---|---|---|
+| 6.1 | README accurate | Green | Describes install and current scope |
+| 6.2 | HERO_GUIDE complete | Green | `docs/HERO_GUIDE.md` |
+| 6.3 | ENTREPRENEUR_PLAYBOOK complete | Green | `docs/ENTREPRENEUR_PLAYBOOK.md` |
+| 6.4 | MISSING_IMPLEMENTATION maintained | Green | Updated during this workshop |
+| 6.5 | TODOS.md maintained | Green | Updated after each session |
 
-## 5. Google Workspace
+## 7. Security
 
-| # | Item | Status | Evidence |
-|---|------|--------|----------|
-| 5.1 | Google Sheets tool exists | PASS | `google_sheets.py` |
-| 5.2 | Sheets tool degrades gracefully without credentials | PASS | Returns `False` if `GOOGLE_SERVICE_ACCOUNT_JSON` missing |
-| 5.3 | Onboarding engine creates Drive folder and spreadsheet if configured | PASS | `onboarding_engine.py` lines 214-256 |
-| 5.4 | Live Google Sheets write works without credentials | FAIL | Requires real service account JSON |
-| 5.5 | Gmail/Calendar MCP dispatch for Herald/Collector/Diplomat | FAIL | No live dispatch; tools generate local drafts/records |
-| 5.6 | Google Contacts integration for Diplomat | FAIL | Not implemented |
-
----
-
-## 6. Stripe
-
-| # | Item | Status | Evidence |
-|---|------|--------|----------|
-| 6.1 | Collector can create payment links | PASS | `stripe_tools.py create_payment_link` works in local mode |
-| 6.2 | Collector can create subscriptions | PASS | `stripe_tools.py create_subscription` works in local mode |
-| 6.3 | Collector can create invoices | PASS | `stripe_tools.py create_invoice` works in local mode |
-| 6.4 | Collector can read pending/overdue payments | PASS | `read_pending_payments`, `read_overdue_payments` |
-| 6.5 | Collector can generate income reports | PASS | `generate_income_report` |
-| 6.6 | Real Stripe link generation | FAIL | Requires `STRIPE_SECRET_KEY`; local mode returns placeholder |
-| 6.7 | Automated payment reminder dispatch | FAIL | Requires Gmail/WhatsApp MCP; not wired |
-| 6.8 | Stripe sandbox end-to-end demo | FAIL | No dedicated sandbox test script |
-
----
-
-## 7. Dashboard
-
-| # | Item | Status | Evidence |
-|---|------|--------|----------|
-| 7.1 | Next.js dashboard builds successfully | PASS | `cd dashboard && npm run build` verified |
-| 7.2 | Dashboard runs locally | PASS | `npm run dev` starts on `localhost:3000` |
-| 7.3 | Dashboard reads local JSON missions | PASS | `data/tasks.json`, `data/cron.json` |
-| 7.4 | Dashboard connected to heroes / G-Brain | FAIL | Only local JSON; no hero runtime integration |
-| 7.5 | Authentication configurable via `.env` | PASS | `DASHBOARD_APP_USERNAME`, `DASHBOARD_APP_PASSWORD` |
-| 7.6 | Mobile responsive | PASS | Tailwind CSS; verified in previous sessions |
+| # | Item | Status | Notes |
+|---|---|---|---|
+| 7.1 | `.env.example` has placeholders only | Green | No real secrets |
+| 7.2 | Sensitive files in `.gitignore` | Green | `.env`, `.kimi/`, `node_modules/`, etc. |
+| 7.3 | API keys stored outside repo | Yellow | Tools read env vars; no validation of secure storage |
+| 7.4 | Encryption at rest | Red | Local JSON files are unencrypted |
+| 7.5 | RBAC / user permissions | Red | No multi-user access control |
 
 ---
 
-## 8. Documentation
+## How to score a business
 
-| # | Item | Status | Evidence |
-|---|------|--------|----------|
-| 8.1 | `README.md` is accurate and English | PASS | Updated with repo URL, live site, hero matrix |
-| 8.2 | `docs/ENTREPRENEUR_PLAYBOOK.md` exists | PASS | Business-type hero selection, prompts, configs |
-| 8.3 | `docs/HERO_GUIDE.md` exists | PASS | Per-hero tools, env vars, cron |
-| 8.4 | `docs/QUICKSTART.md` exists | PASS | 15-minute walkthrough |
-| 8.5 | `docs/SECURITY.md`, `docs/API.md`, `docs/FAQ.md` exist | PASS | Verified |
-| 8.6 | `MISSING_IMPLEMENTATION.md` is current | PARTIAL | Updated in this pass; needs ongoing maintenance |
-| 8.7 | Workshop package created | PASS | `workshop/README.md`, `AGENDA.md`, `SLIDES.md`, `HANDOUT.md` |
-| 8.8 | Company cards and simulations created | PASS | `workshop/companies/` and `workshop/simulations/` |
-| 8.9 | Hermes onboarding guide created | PASS | `workshop/guides/HERMES_ONBOARDING.md` |
-| 8.10 | Production-readiness checklist maintained | PASS | This file |
+1. Run the simulation for the closest case study.
+2. Walk the checklist and mark every item.
+3. Count greens, yellows, and reds.
+4. A business can go live when all items in sections 1, 2, and 7 are green or yellow with an owner and deadline.
+5. Red items are engineering tasks. Do not promise founders a delivery date for red items.
 
----
+## Suggested first live use
 
-## 9. Onboarding Flow
+For most small businesses, the green/yellow combination supports:
 
-| # | Item | Status | Evidence |
-|---|------|--------|----------|
-| 9.1 | Onboarding engine exists | PASS | `partenon-core/tools/onboarding_engine.py` |
-| 9.2 | Onboarding engine creates `config/company.yaml` | PASS | Via `ConfigLoader` |
-| 9.3 | Onboarding engine creates local data files | PASS | `clients.json`, `projects.json`, etc. |
-| 9.4 | Onboarding engine creates industry catalog | PASS | Events, legal, consulting, retail |
-| 9.5 | `docs/WELCOME.md` generated | PASS | `onboarding_engine.py` lines 258-314 |
-| 9.6 | Hermes onboarding guide created | PASS | `workshop/guides/HERMES_ONBOARDING.md` |
-| 9.7 | Onboarding passes context to heroes at runtime | FAIL | Engine creates files but does not load them into hero context dynamically |
-| 9.8 | End-to-end onboarding demo script | PARTIAL | `demo_tesorero.py` covers finance only |
+- Local bookkeeping and planning
+- Project and task management
+- Client/vendor tracking
+- Invoice/payment-link drafting
+- Brand and content planning
 
----
-
-## 10. Support / Runbook
-
-| # | Item | Status | Evidence |
-|---|------|--------|----------|
-| 10.1 | Known gaps documented | PASS | `MISSING_IMPLEMENTATION.md` |
-| 10.2 | FAQ covers common questions | PASS | `docs/FAQ.md` |
-| 10.3 | Security runbook for credentials | PASS | `docs/SECURITY.md` |
-| 10.4 | API reference for scripts and tools | PASS | `docs/API.md` |
-| 10.5 | Troubleshooting guide for failed integrations | PARTIAL | FAQ and simulations mention credential gaps; no dedicated runbook |
-| 10.6 | Issue template / support channel | FAIL | No GitHub issue templates or support email defined |
-
----
-
-## Summary
-
-| Category | PASS | PARTIAL | FAIL |
-|----------|------|---------|------|
-| Installation | 7 | 0 | 0 |
-| Hermes integration | 5 | 0 | 1 |
-| Hero profiles | 9 | 0 | 0 |
-| Credentials / security | 4 | 1 | 2 |
-| Google Workspace | 3 | 0 | 3 |
-| Stripe | 5 | 0 | 3 |
-| Dashboard | 4 | 0 | 1 |
-| Documentation | 8 | 1 | 0 |
-| Onboarding flow | 6 | 1 | 1 |
-| Support / runbook | 4 | 1 | 1 |
-| **Total** | **55** | **5** | **13** |
-
----
-
-## Priority Gaps
-
-| Priority | Gap | Suggested Fix |
-|----------|-----|---------------|
-| HIGH | No live Google Workspace / Gmail / Calendar dispatch | Implement Gmail/Calendar MCP wiring for Herald, Collector, Diplomat |
-| HIGH | No real Stripe sandbox end-to-end demo | Add `scripts/demo_stripe_sandbox.py` with test payment link |
-| HIGH | Dashboard not connected to heroes or G-Brain | Add API routes in dashboard to call core tools and read hero outputs |
-| HIGH | Onboarding does not pass context to heroes at runtime | Extend onboarding engine to produce a context summary loaded by heroes |
-| MEDIUM | Brain requires external `gbrain` binary | Bundle a minimal G-Brain or document MCP setup clearly |
-| MEDIUM | Guardian lacks real secrets manager | Add optional HashiCorp Vault or AWS Secrets Manager backend |
-| MEDIUM | No automated tests | Add `tests/` for core tools and at least one hero skill |
-| MEDIUM | No CI pipeline | Add GitHub Actions for Python compile and dashboard build |
-| LOW | Workshop needs facilitator video / recording | Optional future asset |
+Live payments and Google Sheets require credentials. Full automation across Gmail, calendar, and social posting requires additional engineering.

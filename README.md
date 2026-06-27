@@ -178,6 +178,8 @@ partenon/
 - [`docs/FAQ.md`](docs/FAQ.md) — honest answers to common questions.
 - [`docs/assets/hero-matrix.md`](docs/assets/hero-matrix.md) — one-page capability matrix.
 - [`workshop/README.md`](workshop/README.md) — reusable workshop kit with company cards, simulations, agendas, and handouts.
+- [`workshop/guides/HERMES_ONBOARDING.md`](workshop/guides/HERMES_ONBOARDING.md) — how Hermes should guide a new company through setup.
+- [`workshop/checklists/PRODUCTION_READINESS.md`](workshop/checklists/PRODUCTION_READINESS.md) — PASS/FAIL/PARTIAL evidence from the production-readiness test.
 - [`MISSING_IMPLEMENTATION.md`](MISSING_IMPLEMENTATION.md) — current gaps and suggested priorities.
 
 ---
@@ -188,8 +190,8 @@ partenon/
 - [ ] Live Google Workspace, Stripe, and G-Brain integrations with real credentials.
 - [ ] Real workflow engine dispatch to hero tools instead of local JSON stubs.
 - [ ] Publishing and dispatch integrations for Herald, Collector, and Diplomat.
-- [ ] Automated tests for `partenon-core` and every hero skill.
-- [ ] Standardized `GBRAIN_DATABASE_URL` variable name across `.env` and `gbrain/`.
+- [x] Standardized `GBRAIN_DATABASE_URL` variable name across `.env`, `gbrain/server.py`, and `partenon-core/config/mcp/servers.yaml`.
+- [ ] Automated tests for `partenon-core` and every hero skill (initial tests added in `tests/`).
 - [ ] CI pipeline and linting/formatting config.
 
 ---
@@ -199,8 +201,8 @@ partenon/
 - The eval loop in `partenon-core/tools/eval_loop.py` scores outputs but is not yet wired into mission execution.
 - The workflow engine emits and processes events locally; it does not yet dispatch to external heroes or APIs.
 - Live integrations require real credentials and are not enabled by default.
-- There is no `tests/` directory or CI workflow yet.
-- The `GBRAIN_DATABASE_URL` / `GBrain_DATABASE_URL` naming inconsistency remains.
+- The workflow engine and eval loop are local stubs; they do not yet dispatch to real hero runtimes.
+- A CI pipeline and linting/formatting config are not yet in place.
 
 See [`MISSING_IMPLEMENTATION.md`](MISSING_IMPLEMENTATION.md) for the full audit.
 
@@ -219,4 +221,7 @@ See [`MISSING_IMPLEMENTATION.md`](MISSING_IMPLEMENTATION.md) for the full audit.
 
 - Live site: https://hermespartenon.online/
 - Repository: https://github.com/cuentadeservicio377-cell/partenon
-- Verified: `python3 scripts/demo_tesorero.py` and `cd dashboard && npm run build` pass locally (last run 2026-06-27).
+- Verified locally (2026-06-27):
+  - `python3 scripts/demo_tesorero.py` PASS.
+  - `cd dashboard && npm run build` PASS.
+  - `python3 -m unittest discover tests` PASS (4 tests).

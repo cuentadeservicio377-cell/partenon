@@ -299,3 +299,38 @@ def get_model_recommendation(task: str) -> Dict[str, str]:
         "model": "kimi-k2-6",
         "reason": "Default balanced recommendation.",
     }
+
+
+if __name__ == "__main__":
+    import json
+
+    print("Guardian — Key Manager Audit")
+    print("=" * 40)
+
+    keys = list_keys()
+    pending = [k for k in keys if k["status"] in ("missing", "pending_rotation")]
+    print(f"\nConfigured providers: {len(keys)}")
+    print(f"Pending attention: {len(pending)}")
+    for key in keys:
+        print(f"  {key['provider']}: {key['status']} ({key['fingerprint']})")
+
+    print("\nProfile audits:")
+    profiles = [
+        "partenon-guardian",
+        "partenon-tesorero",
+        "partenon-mensajero",
+        "partenon-cobrador",
+        "partenon-estratega",
+        "partenon-diplomatico",
+        "partenon-brain",
+    ]
+    for profile in profiles:
+        audit = audit_access(profile)
+        print(f"  {profile}: {len(audit['violations'])} violations")
+
+    if pending:
+        print("\nAction required:")
+        for key in pending:
+            print(f"  - {key['provider']} key is {key['status']}")
+    else:
+        print("\nNo keys require immediate attention.")

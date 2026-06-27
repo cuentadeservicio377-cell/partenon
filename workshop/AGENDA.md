@@ -1,60 +1,100 @@
-# Partenon Workshop Agenda
+# Partenon Hermes Onboarding Workshop — Agenda
 
-Two formats: **90-minute** and **3-hour**.
-
----
-
-## 90-Minute Agenda
-
-**Audience:** Small-business owners, entrepreneurs, accelerator cohorts.
-**Goal:** Install Partenon, understand the heroes, and walk through one complete simulation.
-
-| Time | Segment | What happens |
-|------|---------|--------------|
-| 0:00-0:05 | Welcome and framing | Who is Hermes? What are the seven heroes? Why this matters for small business. |
-| 0:05-0:15 | Live install | Clone repo, run `./install.sh`, verify `python3 scripts/demo_tesorero.py`. |
-| 0:15-0:25 | Hero selection matrix | Use the industry table from `docs/ENTREPRENEUR_PLAYBOOK.md` to pick heroes for coffee shop, agency, construction, retail, SaaS. |
-| 0:25-0:50 | Simulation walkthrough | Lead the coffee-shop simulation (`workshop/simulations/coffee-shop.md`): interview, config files, first 3 missions. |
-| 0:50-0:75 | Hands-on onboarding | Participants create their own `config/company.yaml` and `.finance` or `.ops` file. |
-| 0:75-0:85 | Smoke tests and dashboard | Run one hero smoke test and start the Next.js dashboard. |
-| 0:85-0:90 | Next steps and Q&A | 30-day mission plan; review common gaps; share resources. |
+**Duration:** 90 minutes  
+**Audience:** Founders, operators, or technical implementers who want to onboard a small business onto Partenon.
 
 ---
 
-## 3-Hour Agenda
+## 0. Setup (before the session)
 
-**Audience:** University classes, deep-dive accelerator sessions, chambers of commerce.
-**Goal:** Full onboarding experience with two simulations and a personal 30-day plan.
-
-| Time | Segment | What happens |
-|------|---------|--------------|
-| 0:00-0:10 | Welcome and framing | Hermes = company; heroes = specialized agents; Google Workspace/Stripe as delivery surface. |
-| 0:10-0:20 | Architecture overview | Four layers: interface, core, heroes, integrations. Show `web/developers.html` and `docs/architecture.md`. |
-| 0:20-0:30 | Live install + demo | `./install.sh`, `python3 scripts/demo_tesorero.py`, `cd dashboard && npm run dev`. |
-| 0:30-0:45 | Hero selection deep dive | Walk through the industry matrix and the five company cards in `workshop/companies/`. |
-| 0:45-1:10 | Simulation 1: Coffee shop | Full walkthrough of `workshop/simulations/coffee-shop.md`. |
-| 1:10-1:20 | Break | |
-| 1:20-1:45 | Simulation 2: SaaS | Full walkthrough of `workshop/simulations/saas.md`; emphasize Guardian and Brain. |
-| 1:45-2:20 | Hands-on onboarding | Participants run their own company interview, create all config files, and choose heroes. |
-| 2:20-2:45 | Smoke tests and dashboard | Run smoke tests for 3 heroes; verify dashboard login and first project. |
-| 2:45-2:55 | 30-day mission plan | Each participant writes 3 first missions for their business. |
-| 2:55-3:00 | Closing and resources | Share repo, live site, docs, and workshop package files. |
+- [ ] Clone the Partenon repo.
+- [ ] Run `./install.sh` and `python3 scripts/demo_tesorero.py`.
+- [ ] Confirm `python3 workshop/simulations/sim_runner.py route "organize my numbers"` returns `partenon-tesorero`.
 
 ---
 
-## Facilitator Checklist
+## 1. Introduction (10 min)
 
-Before the workshop:
-- [ ] Test `./install.sh` on the venue network.
-- [ ] Have a fallback: pre-cloned USB drive or zip with `.venv` if network is slow.
-- [ ] Prepare projector with `web/developers.html` and one simulation open.
-- [ ] Print `workshop/HANDOUT.md` for each attendee.
+- What Partenon is: seven heroes, one shared context, no single tool does everything.
+- The Hermes relationship: Hermes is the company, not the CEO.
+- Workshop goal: onboard one real business in 90 minutes and know what is production-ready vs. what still needs wiring.
 
-During the workshop:
-- [ ] Keep slides moving; most value is in live demos and hands-on time.
-- [ ] Call out gaps honestly when a tool is local-only or requires credentials.
-- [ ] Help participants choose one hero to activate first rather than all seven.
+---
 
-After the workshop:
-- [ ] Collect questions and add them to the FAQ or `MISSING_IMPLEMENTATION.md`.
-- [ ] Share the workshop package and repo link.
+## 2. The five case studies (15 min)
+
+Present the company cards and ask the room to pick one:
+
+1. Joe Coffee Company — New York coffee shop / roaster
+2. Single Grain — digital marketing agency
+3. SpawGlass — Texas commercial construction contractor
+4. Tracksmith — athletic apparel retail / e-commerce
+5. Buffer — bootstrapped social-media SaaS
+
+For each, discuss:
+
+- What is the most urgent problem in the next 30 days?
+- Which hero should be activated first?
+- Which integrations are real today and which are stubs?
+
+---
+
+## 3. Router and hero selection (10 min)
+
+Live demo:
+
+```bash
+python3 workshop/simulations/sim_runner.py route "organize my numbers"
+python3 workshop/simulations/sim_runner.py route "create a campaign"
+python3 workshop/simulations/sim_runner.py route "invoice a client"
+```
+
+Discuss how Partenon maps natural language to a hero and where the router is still rule-based.
+
+---
+
+## 4. Guided simulation (35 min)
+
+Walk through the selected simulation file (`coffee-shop.md`, `agency.md`, `construction.md`, `retail.md`, or `saas.md`):
+
+1. Brand interview with the Herald (`.design`).
+2. First project and tasks with the Strategist.
+3. Client/vendor milestone with the Diplomat.
+4. Payment link or invoice with the Collector.
+5. Content calendar with the Herald.
+6. Morning briefing with the Strategist.
+7. Key audit with the Guardian.
+
+Pause after each hero to explain what is real and what is a documented gap.
+
+---
+
+## 5. Production-readiness review (15 min)
+
+Open `workshop/checklists/PRODUCTION_READINESS.md` and classify each item:
+
+- **Green:** works out of the box today.
+- **Yellow:** works locally, needs credentials for live use.
+- **Red:** not implemented; requires engineering or a third-party integration.
+
+Update `MISSING_IMPLEMENTATION.md` with any new gaps discovered during the session.
+
+---
+
+## 6. Next steps and closing (5 min)
+
+- Assign owner and deadline for the first three yellow/red items.
+- Point participants to:
+  - `docs/ENTREPRENEUR_PLAYBOOK.md`
+  - `docs/HERO_GUIDE.md`
+  - `workshop/guides/HERMES_ONBOARDING.md`
+- Run `python3 scripts/demo_tesorero.py` and `cd dashboard && npm run build` to verify the base system.
+
+---
+
+## Materials
+
+- Slides: `workshop/SLIDES.md`
+- Participant handout: `workshop/HANDOUT.md`
+- Case studies: `workshop/companies/`
+- Simulations: `workshop/simulations/`

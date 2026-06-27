@@ -26,6 +26,16 @@ partenon-core/data/projects.json
 partenon-core/data/tasks.json
 output/
 data/workspaces/
+data/catalog.json
+data/checklists.json
+data/clients.json
+data/events.json
+data/goals.json
+data/nudges.json
+data/pipeline.json
+data/projects.json
+data/quotes.json
+docs/WELCOME.md
 *.local.json
 .kimi/
 .kimi-code/

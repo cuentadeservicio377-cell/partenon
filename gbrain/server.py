@@ -19,7 +19,11 @@ store: Optional[GBrainStore] = None
 def get_store() -> GBrainStore:
     global store
     if store is None:
-        store = GBrainStore(os.getenv("GBrain_DATABASE_URL"))
+        store = GBrainStore(
+            os.getenv("GBRAIN_DATABASE_URL")
+            or os.getenv("GBrain_DATABASE_URL")
+            or os.getenv("DATABASE_URL")
+        )
     return store
 
 

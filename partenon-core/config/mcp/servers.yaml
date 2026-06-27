@@ -48,7 +48,7 @@ mcp_servers:
     command: python
     args: ["-m", "gbrain.server"]
     env:
-      DATABASE_URL: "${GBRAIN_DATABASE_URL:-postgresql://localhost:5432/gbrain}"
+      GBRAIN_DATABASE_URL: "${GBRAIN_DATABASE_URL:-postgresql://localhost:5432/gbrain}"
     description: "Shared brain of Partenon: profiles, missions, and entities"
     enabled: true
     tags: ["memory", "context"]

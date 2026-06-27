@@ -1,255 +1,141 @@
-# Partenon Workshop Slides
+# Partenon Hermes Onboarding Workshop — Slide Deck
 
-> Speaker notes and slide content. Designed for a 90-minute or 3-hour workshop.
-
----
-
-## Slide 1: Title
-
-**Partenon: An AI Agent Operating System for Small Business**
-
-*Install it. Choose your heroes. Run your first missions.*
-
-Speaker notes:
-- Welcome participants. Set the tone: practical, hands-on, no hype.
-- Mention the live site and GitHub repo.
+A facilitator slide deck in Markdown. Each top-level heading is a slide.
 
 ---
 
-## Slide 2: The Problem
+## Partenon Hermes Onboarding Workshop
 
-**Small businesses drown in operational chaos.**
-
-- Finance: spreadsheets that never reconcile
-- Operations: tasks slip through cracks
-- Marketing: inconsistent posting
-- Payments: late invoices, lost revenue
-- Security: credentials scattered across tools
-- Relationships: no central client/vendor history
-
-Speaker notes:
-- Ask: "Which of these hurts most in your business?" Get a show of hands.
+**Goal:** Onboard a real small business in 90 minutes and leave with a production-readiness scorecard.
 
 ---
 
-## Slide 3: The Idea
+## What Partenon is
 
-**Hermes = your company. The heroes = specialized agents.**
-
-| Hero | Role | Config file |
-|------|------|-------------|
-| Scribe | Finance | `.finance` |
-| Herald | Communications | `.design` |
-| Collector | Payments | `.payments` |
-| Guardian | Security | `.security` |
-| Strategist | Operations | `.ops` |
-| Diplomat | Relations | `.relations` |
-| Brain | Memory | `.brain` |
-
-Speaker notes:
-- Emphasize: Hermes is not a chatbot. It is the company profile that routes missions.
-- Each hero has real Python tools, config files, and cron jobs in `hermes/profiles/`.
+- Seven hero profiles around one shared business context.
+- Hermes is the company, not the CEO.
+- Each hero owns a domain: money, message, money-in, security, operations, relationships, memory.
 
 ---
 
-## Slide 4: Architecture
+## The seven heroes
 
-**Four layers**
-
-1. Interface — static site, Next.js dashboard, Hermes CLI
-2. Core — router, onboarding engine, workflow engine, eval loop
-3. Heroes — seven Hermes Agent distributions
-4. Integrations — Google Workspace, Stripe, G-Brain
-
-Speaker notes:
-- Show `docs/assets/architecture-diagram.mmd` or the SVG on `web/developers.html`.
-- Point to `partenon-core/tools/router.py` as the intent classifier.
-
----
-
-## Slide 5: What You Will Build Today
-
-By the end of this workshop:
-
-1. Partenon installed locally
-2. `config/company.yaml` for your business
-3. Config files for 3+ heroes
-4. First missions assigned
-5. Dashboard running at `http://localhost:3000`
-
-Speaker notes:
-- Set expectations: not everything will be live; some integrations need real credentials.
+| Hero | Spanish name | Domain |
+|---|---|---|
+| Scribe | Tesorero | Finance |
+| Herald | Mensajero | Communications |
+| Collector | Cobrador | Payments |
+| Guardian | Guardian | Security |
+| Strategist | Estratega | Operations |
+| Diplomat | Diplomatico | Relationships |
+| Brain | Cerebro | Memory / G-Brain |
 
 ---
 
-## Slide 6: Live Install
+## Why onboarding matters
+
+- A hero without context generates generic output.
+- Onboarding creates `.finance`, `.design`, `.payments`, `.security`, `.ops`, `.relations`, and `.brain`.
+- These files are the contract between the founder and the agents.
+
+---
+
+## The five case studies
+
+1. **Joe Coffee Company** — New York coffee shop / roaster
+2. **Single Grain** — digital marketing agency
+3. **SpawGlass** — Texas commercial construction contractor
+4. **Tracksmith** — athletic apparel retail / e-commerce
+5. **Buffer** — bootstrapped social-media SaaS
+
+Each card includes real revenue, headcount, pain points, and sources.
+
+---
+
+## Pick a business: what changes?
+
+| Type | First hero | Urgent question |
+|---|---|---|
+| Coffee shop | Scribe | Do we know our margin? |
+| Agency | Strategist | Which client is at risk? |
+| Construction | Strategist | Is the permit on track? |
+| Retail | Scribe | Which category is profitable? |
+| SaaS | Guardian | Are our keys and access clean? |
+
+---
+
+## Router demo
 
 ```bash
-git clone https://github.com/cuentadeservicio377-cell/partenon.git
-cd partenon
-./install.sh
-python3 scripts/demo_tesorero.py
+python3 workshop/simulations/sim_runner.py route "organize my numbers"
+python3 workshop/simulations/sim_runner.py route "create a campaign"
+python3 workshop/simulations/sim_runner.py route "invoice a client"
 ```
 
-Speaker notes:
-- Run this live. Narrate each step.
-- If install is slow, switch to a pre-prepared machine.
+The router is rule-based today. It scores keywords and regex patterns. It will improve when it loads profile metadata dynamically.
 
 ---
 
-## Slide 7: Hero Selection Matrix
+## Simulation flow
 
-| Business type | Activate first |
-|---------------|----------------|
-| Coffee shop | Scribe → Strategist → Herald → Collector |
-| Marketing agency | Strategist → Diplomat → Scribe → Herald → Collector |
-| Construction | Strategist → Diplomat → Scribe → Guardian |
-| Retail | Scribe → Collector → Herald → Strategist |
-| SaaS | Guardian → Scribe → Collector → Strategist → Brain |
+For the chosen business:
 
-Speaker notes:
-- Reference `docs/ENTREPRENEUR_PLAYBOOK.md`.
-- Explain why the order matters: start with the hero that removes the most friction.
+1. Herald — brand interview (`.design`)
+2. Strategist — first project + tasks + checklist
+3. Diplomat — client/vendor + milestone
+4. Collector — payment link or invoice
+5. Herald — content calendar
+6. Strategist — morning briefing
+7. Guardian — key audit
 
 ---
 
-## Slide 8: Company Card Example — Philz Coffee
+## What works today vs. what needs wiring
 
-**Real business, real pain points**
+**Green:** local project, task, checklist, client, vendor, milestone, calendar, briefing, key audit.
 
-- Long wait times, inconsistent speed
-- Labor cost unclear by shift
-- Pricing pressure (non-dairy upcharges)
+**Yellow:** payment links and invoices work locally but need `STRIPE_SECRET_KEY` for live Stripe.
 
-Why Partenon:
-- Scribe parses POS exports
-- Strategist schedules staff
-- Herald promotes mobile ordering
-- Collector handles catering links
-
-Speaker notes:
-- Open `workshop/companies/coffee-shop--philz-coffee.md`.
-- Mention sources are public URLs.
+**Red:** Gmail/Contacts dispatch, social publishing, G-Brain memory, real Google Sheets, and some industry-specific templates are not implemented.
 
 ---
 
-## Slide 9: Simulation Walkthrough
+## Production-readiness scorecard
 
-**Coffee shop onboarding**
+Use `workshop/checklists/PRODUCTION_READINESS.md` to score:
 
-1. Hermes interview → `config/company.yaml`
-2. Copy templates → `.finance`, `.design`, `.ops`, `.payments`
-3. First missions for Scribe, Strategist, Herald, Collector
-4. Expected outputs + documented gaps
+- Core platform (router, workflow, eval loop, onboarding)
+- Hero profiles
+- Integrations (Google, Stripe, G-Brain, Gmail)
+- Testing and quality
 
-Speaker notes:
-- Walk through `workshop/simulations/coffee-shop.md`.
-- Highlight actual CLI commands and Python tool calls.
+Classify each item: green / yellow / red.
 
 ---
 
-## Slide 10: Hands-On — Your Company Interview
+## What to do next
 
-**Questions Hermes asks:**
-
-1. Company name and industry
-2. Currency and timezone
-3. Employees and locations
-4. Top 3 operational pains
-5. Tools already in use
-6. Final approver for brand, finance, operations
-
-Speaker notes:
-- Give participants 5 minutes to answer these for their own business.
-- Then help them write `config/company.yaml`.
+1. Create `config/company.yaml` for your company.
+2. Complete the brand interview.
+3. Activate the first 2–4 heroes.
+4. Connect live credentials for yellow items.
+5. Schedule engineering for red items.
 
 ---
 
-## Slide 11: Config Files
+## Resources
 
-```bash
-cp hermes/profiles/partenon-tesorero/templates/.finance.example .finance
-cp hermes/profiles/partenon-mensajero/templates/.design.example .design
-cp hermes/profiles/partenon-estratega/templates/.ops.example .ops
-```
-
-Speaker notes:
-- Explain that these are real config files the heroes read.
-- Walk through one example, e.g., `.finance` fixed/variable costs.
+- `docs/ENTREPRENEUR_PLAYBOOK.md` — copy-paste prompts
+- `docs/HERO_GUIDE.md` — tool and env reference
+- `workshop/guides/HERMES_ONBOARDING.md` — full onboarding guide
+- `workshop/simulations/` — five runnable simulations
+- `workshop/checklists/PRODUCTION_READINESS.md` — go-live checklist
 
 ---
 
-## Slide 12: Smoke Tests
+## Workshop closing
 
-```bash
-hermes profile use partenon-tesorero
-python3 hermes/profiles/partenon-tesorero/skills/finance/tools/audit.py --weekly
-
-hermes profile use partenon-estratega
-python3 hermes/profiles/partenon-estratega/skills/ops/tools/projects.py create "My first project"
-```
-
-Speaker notes:
-- Run smoke tests live. Celebrate PASS outputs.
-- Explain PARTIAL: some heroes need credentials or external integrations.
-
----
-
-## Slide 13: Dashboard
-
-```bash
-cd dashboard
-npm install
-npm run dev
-```
-
-Open `http://localhost:3000`
-Login: `admin` / `partenon`
-
-Speaker notes:
-- Show the kanban and cron views.
-- Mention the dashboard reads local JSON files today.
-
----
-
-## Slide 14: Gaps and Honest Limits
-
-- Live Google Workspace / Stripe / G-Brain need real credentials.
-- Herald drafts content but does not auto-publish to social platforms yet.
-- Collector creates local payment records; real links need Stripe keys.
-- Brain requires the G-Brain binary/MCP for persistent memory.
-
-Speaker notes:
-- Honesty builds trust. Document gaps; do not oversell.
-- Point to `MISSING_IMPLEMENTATION.md`.
-
----
-
-## Slide 15: Your 30-Day Mission Plan
-
-Template:
-
-| Week | Mission | Hero | Success metric |
-|------|---------|------|----------------|
-| 1 | Upload and classify expenses | Scribe | Margin visible |
-| 2 | Create first project + checklist | Strategist | 3 tasks completed |
-| 3 | Register top clients/vendors | Diplomat | 5 relationships logged |
-| 4 | Set up one payment link | Collector | 1 invoice paid |
-
-Speaker notes:
-- Have participants fill this in for their business.
-- Encourage starting with one hero, not all seven.
-
----
-
-## Slide 16: Resources
-
-- Repo: https://github.com/cuentadeservicio377-cell/partenon
-- Live site: https://hermespartenon.online/
-- Docs: `docs/ENTREPRENEUR_PLAYBOOK.md`, `docs/HERO_GUIDE.md`, `docs/QUICKSTART.md`
-- Workshop package: `workshop/`
-- Gaps: `MISSING_IMPLEMENTATION.md`
-
-Speaker notes:
-- Share these in chat or on a handout.
-- Thank participants and open for Q&A.
+- Verify `python3 scripts/demo_tesorero.py` passes.
+- Verify `cd dashboard && npm run build` passes.
+- Update `MISSING_IMPLEMENTATION.md` and `TODOS.md`.
+- Commit the workshop package.

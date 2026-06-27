@@ -1,167 +1,132 @@
-# Hermes Agent Onboarding Guide
+# Hermes Onboarding Guide
 
-> How Hermes should guide a new company through its first Partenon setup.
-> This guide is grounded in the actual code and profiles in this repository.
+This guide describes how the Hermes Agent should guide a new company through Partenon setup. It is written for workshop facilitators, developers packaging Partenon for clients, and operators running onboarding calls.
 
----
-
-## Pre-Flight Checklist
-
-Before starting onboarding, Hermes verifies the following:
-
-| # | Requirement | How to verify | Gap if missing |
-|---|-------------|---------------|----------------|
-| 1 | Python 3.10+ installed | `python3 --version` or `./install.sh` | Onboarding scripts will fail. |
-| 2 | Hermes CLI available | `hermes --version` | Profiles cannot be loaded into Hermes; Hermes prints install instructions. |
-| 3 | `.env` configured from template | `.env` exists with real keys | Integrations stay in local/demo mode. |
-| 4 | Google service account JSON | `GOOGLE_SERVICE_ACCOUNT_JSON` points to a valid file | Sheets/Drive integration is disabled. |
-| 5 | Stripe test key | `STRIPE_SECRET_KEY=sk_test_...` | Collector runs in local mode only. |
-| 6 | Partenon repo cloned and installed | `./install.sh` ran successfully | `data/`, `logs/`, `.venv/` created; demo ran. |
-| 7 | G-Brain available (optional) | `gbrain` binary in PATH or MCP configured | Brain memory stays local. |
-
-If any required item is missing, Hermes logs it as a gap and continues in local/demo mode rather than blocking the entire onboarding.
+For a 15-minute local demo without Hermes, see [`docs/QUICKSTART.md`](../../docs/QUICKSTART.md). For business-type hero selection, see [`docs/ENTREPRENEUR_PLAYBOOK.md`](../../docs/ENTREPRENEUR_PLAYBOOK.md).
 
 ---
 
-## Step 1: Hermes Asks Business Questions and Writes `client.yaml`
+## Pre-flight checklist
 
-Hermes switches to the onboarding profile and asks a standard set of questions. Answers are written to `config/company.yaml`.
+Before Hermes starts the onboarding conversation, confirm the environment:
 
-### Example prompts
+| Requirement | How to verify | Expected result |
+|-------------|---------------|-----------------|
+| Python 3.10+ | `python3 --version` | `Python 3.10.x` or newer |
+| Hermes CLI | `hermes --version` | Version string returned |
+| Git | `git --version` | Any recent version |
+| `.env` file | `ls -la .env` | File exists after `cp .env.example .env` |
+| Google service account JSON | `cat /path/to/google-service-account.json` | Valid JSON with client_email |
+| Stripe test key (optional) | `echo $STRIPE_SECRET_KEY` | `sk_test_...` if Collector is used |
+| Node.js 20+ (dashboard) | `node --version` | `v20.x` or newer |
 
-**Hermes:**
+> **Note:** Hermes Agent CLI is distributed separately by Nous Research. `install.sh` detects it and prints instructions if it is missing.
+
+---
+
+## Step 1: Hermes asks the business questions and writes `client.yaml`
+
+Hermes opens the onboarding by asking the founder or operations lead the questions below. The answers are written to `config/client.yaml`.
+
+### Interview script
+
 ```text
-Welcome to Partenon. I am Hermes, your company's operating system.
-I need 10 minutes of context to choose the right heroes and configure your workspace.
+Hermes: I will set up Partenon for your company. First, a few questions:
+
+1. What is your company name and industry?
+2. What currency and timezone do you operate in?
+3. How many employees and locations do you have?
+4. Which tools do you already use? (Google Workspace, Stripe, Shopify, Procore, etc.)
+5. What is your biggest operational pain right now? (cash flow, deadlines, marketing, payments, security)
+6. Who should I contact for finance, operations, and marketing decisions?
+7. Do you have a Google service account JSON and Stripe test key ready?
 ```
 
-**Hermes:**
+### Example Hermes response
+
 ```text
-1. What is your company name?
-2. What industry are you in? (food, retail, consulting, saas, construction, legal, events, other)
-3. What currency do you use?
-4. What timezone should I use for daily briefings?
-5. How many employees do you have?
-6. What are your top 3 operational pains right now?
-7. Which tools are you already using? (Google Workspace, Stripe, Square, Shopify, QuickBooks, etc.)
-8. Who is the final approver for brand, finance, and operations decisions?
-9. Do you want to start with a 15-minute Scribe demo?
-10. Which heroes sound most useful today? (If unsure, I will recommend based on your industry.)
+Hermes: Thank you. Based on your answers, I am writing config/client.yaml with
+your company profile, active integrations, and the hero profiles we will activate
+first. I will also copy the corresponding templates to your workspace.
 ```
 
-### Expected Hermes response
-
-Hermes writes `config/company.yaml`:
+### Generated `config/client.yaml`
 
 ```yaml
 company:
-  name: "Example Company"
-  industry: "consulting"
+  name: "Acme Coffee"
+  industry: "food"
   currency: "USD"
-  timezone: "America/Chicago"
-  fiscal_year: 2026
+  timezone: "America/New_York"
   employees: 12
+  locations: 2
+
+contacts:
+  owner: "Owner"
+  finance: "owner@acmecoffee.example.com"
+  operations: "manager@acmecoffee.example.com"
 
 integrations:
   google_workspace: true
   stripe: true
+  gbrain: false
 
-profiles_active:
-  - strategist
-  - diplomat
-  - scribe
-  - collector
+active_profiles:
+  - partenon-tesorero
+  - partenon-estratega
+  - partenon-mensajero
+  - partenon-cobrador
 ```
-
-Then Hermes runs the onboarding engine:
-
-```bash
-python3 partenon-core/tools/onboarding_engine.py
-```
-
-Expected output:
-```text
-[success] Company configured: Example Company
-[success] Created: data/clients.json
-[success] Created: data/projects.json
-[success] Service catalog created for industry: consulting
-[success] Welcome guide created: docs/WELCOME.md
-```
-
-### Gaps
-
-- If the company name is still "My Company", the engine warns and sets `success: false`.
-- Google Workspace setup is skipped if credentials are missing.
 
 ---
 
-## Step 2: Hermes Selects Heroes and Creates Their Config Files
+## Step 2: Hermes selects heroes and creates their config files
 
-Hermes recommends heroes based on industry and pain points, then copies templates from `hermes/profiles/<profile>/templates/`.
+Hermes uses the company's industry and pain points to pick 2–4 heroes first. It copies templates from `hermes/profiles/<profile>/templates/` to the workspace root.
 
-### Industry selection matrix (from `docs/ENTREPRENEUR_PLAYBOOK.md`)
+### Decision rules
 
-| Industry | Recommended first heroes |
-|----------|--------------------------|
-| Coffee shop / food | Scribe → Strategist → Herald → Collector |
-| Marketing agency | Strategist → Diplomat → Scribe → Herald → Collector |
-| Construction / events | Strategist → Diplomat → Scribe → Guardian |
-| SaaS / tech startup | Guardian → Scribe → Collector → Strategist → Brain |
-| Retail / e-commerce | Scribe → Collector → Herald → Strategist |
+| Industry / pain | First heroes | Config files |
+|-----------------|--------------|--------------|
+| Coffee shop, retail, food | Scribe → Strategist → Herald → Collector | `.finance`, `.ops`, `.design`, `.payments` |
+| Agency, consulting, legal | Strategist → Diplomat → Scribe → Herald | `.ops`, `.relations`, `.finance`, `.design` |
+| Construction, events, logistics | Strategist → Diplomat → Scribe → Guardian | `.ops`, `.relations`, `.finance`, `.security` |
+| SaaS, tech startup | Guardian → Scribe → Collector → Strategist | `.security`, `.finance`, `.payments`, `.ops` |
 
-### CLI commands
+### Example Hermes commands
 
 ```bash
-hermes profile use partenon-tesorero    # Scribe
-hermes profile use partenon-mensajero   # Herald
-hermes profile use partenon-cobrador    # Collector
-hermes profile use partenon-guardian    # Guardian
-hermes profile use partenon-estratega   # Strategist
-hermes profile use partenon-diplomatico # Diplomat
-hermes profile use partenon-brain       # Brain
+hermes profile use partenon-tesorero
+hermes profile use partenon-estratega
+hermes profile use partenon-mensajero
+hermes profile use partenon-cobrador
 ```
 
 ### Config files created
 
 ```bash
 cp hermes/profiles/partenon-tesorero/templates/.finance.example .finance
+cp hermes/profiles/partenon-estratega/templates/.ops.example .ops
 cp hermes/profiles/partenon-mensajero/templates/.design.example .design
 cp hermes/profiles/partenon-cobrador/templates/.payments.example .payments
-cp hermes/profiles/partenon-guardian/templates/.security.example .security
-cp hermes/profiles/partenon-estratega/templates/.ops.example .ops
-cp hermes/profiles/partenon-diplomatico/templates/.relations.example .relations
-cp hermes/profiles/partenon-brain/templates/.brain.example .brain
 ```
 
-Hermes then asks follow-up questions to fill the config files:
-- Fixed costs, variable budgets, vendors (Scribe)
-- Brand positioning, voice, channels, claims to avoid (Herald)
-- Products, prices, payment policies (Collector)
-- API keys and rotation policy (Guardian)
-- Project defaults and briefing times (Strategist)
-- Top clients/vendors and milestones (Diplomat)
-- Memory structure and indexing rules (Brain)
-
-### Expected Hermes response
+### Example Hermes response
 
 ```text
-I have created your company files:
-- .finance — fixed/variable costs and vendors
-- .design — brand voice and messaging rules
-- .payments — products, prices, and collection policies
-- .security — API keys and permissions
-- .ops — project defaults and briefing schedule
-- .relations — clients, vendors, and milestones
-- .brain — memory rules
-
-Next I will run the Scribe demo to validate finance access.
+Hermes: For a coffee shop, I am starting with the Scribe (finance), Strategist
+(operations), Herald (marketing), and Collector (payments). I have copied their
+templates to your workspace. Next we will customize each file with your real
+numbers.
 ```
 
 ---
 
-## Step 3: Hermes Runs the Scribe Demo to Validate Finance Access
+## Step 3: Hermes runs the Scribe demo to validate finance access
 
-Hermes runs the Treasurer demo and checks that the workbook is created.
+Hermes runs the Scribe demo to confirm Python dependencies, Excel generation, and audit logic work.
+
+### Command
 
 ```bash
 python3 scripts/demo_tesorero.py
@@ -171,10 +136,10 @@ python3 scripts/demo_tesorero.py
 
 ```text
 === Partenon Scribe Demo ===
-Workbook: /path/to/partenon/data/sample_expenses.xlsx
-Report: /path/to/partenon/data/sample_expenses_report.json
+Workbook: /.../partenon/data/sample_expenses.xlsx
+Report: /.../partenon/data/sample_expenses_report.json
 {
-  "timestamp": "2026-06-27T...",
+  "timestamp": "2026-06-27T00:27:21.122822+00:00Z",
   "income": 4000.0,
   "fixed_expenses": 609.0,
   "variable_expenses": 1030.0,
@@ -184,99 +149,106 @@ Report: /path/to/partenon/data/sample_expenses_report.json
 }
 ```
 
-Hermes explains:
-- The demo created a sample workbook with Income, Fixed Expenses, Variable Expenses, and Suppliers sheets.
-- The margin is healthy; if it were negative, the Scribe would flag it.
-- To publish to Google Sheets, set `GOOGLE_SERVICE_ACCOUNT_JSON` in `.env`.
+### Example Hermes response
 
-### Gaps
-
-- The demo is local-only unless Google credentials are present.
-- The parser's `CATEGORY_KEYWORDS` are English-only.
+```text
+Hermes: The Scribe demo passed. It created a sample workbook and an audit report.
+Now we will replace the sample data with your fixed costs, variable budgets, and
+vendors in .finance.
+```
 
 ---
 
-## Step 4: Hermes Runs a Smoke Test for Each Hero
+## Step 4: Hermes runs a smoke test for each hero
 
-Hermes runs a quick smoke test per active hero and records results.
+Hermes verifies that each activated hero can run its primary tool in local mode before connecting live credentials.
 
 ### Scribe smoke test
 
 ```bash
-hermes profile use partenon-tesorero
 python3 hermes/profiles/partenon-tesorero/skills/finance/tools/templates.py
-python3 hermes/profiles/partenon-tesorero/skills/finance/tools/parsers.py data/sample_expenses.xlsx
-python3 hermes/profiles/partenon-tesorero/skills/finance/tools/audit.py --week 2026-W26
 ```
 
-Expected: templates generated, parser returns categories, audit returns report.
-
-### Herald smoke test
-
-```bash
-hermes profile use partenon-mensajero
-python3 hermes/profiles/partenon-mensajero/skills/comms/tools/brand_intake.py --review .design
-python3 hermes/profiles/partenon-mensajero/skills/comms/tools/copy_generator.py --type post --channel linkedin --offer "Our first week with Partenon"
-```
-
-Expected: `.design` validated; 3 copy variants generated.
-
-### Collector smoke test
-
-```bash
-hermes profile use partenon-cobrador
-python3 hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py create_payment_link --product "Test service" --amount 10000 --currency usd
-python3 hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py read_pending_payments
-```
-
-Expected: local-mode link placeholder and pending payments list.
-
-### Guardian smoke test
-
-```bash
-hermes profile use partenon-guardian
-python3 hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py list_keys
-python3 hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py audit_access --profile partenon-tesorero
-```
-
-Expected: key table and permission audit.
+Expected result: local budget/vendor/cash-flow templates are generated.
 
 ### Strategist smoke test
 
 ```bash
-hermes profile use partenon-estratega
-python3 hermes/profiles/partenon-estratega/skills/ops/tools/projects.py create "Onboarding test project" --type consulting
-python3 hermes/profiles/partenon-estratega/skills/ops/tools/tasks.py create "Confirm onboarding complete" --project "Onboarding test project" --owner owner@example.com --due 2026-07-04
-python3 hermes/profiles/partenon-estratega/skills/ops/tools/briefings.py morning
+python3 - <<'PY'
+import sys
+sys.path.insert(0, "hermes/profiles/partenon-estratega/skills/ops/tools")
+from projects import get_projects
+print(get_projects().create_project(
+    name="Smoke Test Project",
+    delivery_date="2026-12-31"
+))
+PY
 ```
 
-Expected: project, task, and briefing output.
+Expected result: `PROJ-001` created in `partenon-core/data/projects.json`.
+
+### Herald smoke test
+
+```bash
+python3 hermes/profiles/partenon-mensajero/skills/comms/tools/copy_generator.py post "smoke test" linkedin
+```
+
+Expected result: JSON with copy and a `qa` block showing no banned patterns.
+
+### Collector smoke test
+
+```bash
+python3 hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py
+```
+
+Expected result: local-mode payment link, subscription, invoice, and income report.
 
 ### Diplomat smoke test
 
 ```bash
-hermes profile use partenon-diplomatico
-python3 hermes/profiles/partenon-diplomatico/skills/relations/tools/crm.py add_client --name "Test Client" --email "client@example.com" --rating B
-python3 hermes/profiles/partenon-diplomatico/skills/relations/tools/followups.py run_daily
+python3 hermes/profiles/partenon-diplomatico/skills/relations/tools/followups.py
 ```
 
-Expected: client added to `.relations`; follow-up report generated.
+Expected result: daily follow-up report (empty if no `.relations` data yet).
+
+### Guardian smoke test
+
+```bash
+python3 hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py
+```
+
+Expected result: key list and rotation status from `.security`.
 
 ### Brain smoke test
 
 ```bash
-hermes profile use partenon-brain
-python3 hermes/profiles/partenon-brain/skills/memory/tools/gbrain_client.py put_page --slug "example/learnings/onboarding-test" --content "Partenon onboarding completed." --tags ["onboarding"]
-python3 hermes/profiles/partenon-brain/skills/memory/tools/gbrain_client.py search --query "onboarding"
+python3 - <<'PY'
+import sys
+sys.path.insert(0, "hermes/profiles/partenon-brain/skills/memory/tools")
+from gbrain_client import GBrainClient
+c = GBrainClient()
+print(c.put_page("onboarding/smoke-test", "Partenon onboarding smoke test", ["test"]))
+PY
 ```
 
-Expected: page slug returned (or local stub if G-Brain unavailable); search returns matches.
+> **Gap:** If `gbrain` is not running or `GBRAIN_DATABASE_URL` is not set, this step fails. Hermes should explain that G-Brain is optional for local onboarding.
+
+### Example Hermes response
+
+```text
+Hermes: All four heroes passed their smoke tests in local mode. The Scribe can
+build workbooks, the Strategist can create projects, the Herald can generate copy,
+and the Collector can create payment links. Live integrations will be enabled when
+you add real credentials to .env.
+```
 
 ---
 
-## Step 5: Handoff to Dashboard and First Mission
+## Step 5: Handoff to dashboard and first mission
 
-Hermes starts the Next.js dashboard:
+Hermes starts the dashboard and assigns the company's first mission.
+
+### Start the dashboard
 
 ```bash
 cd dashboard
@@ -284,100 +256,132 @@ npm install
 npm run dev
 ```
 
-Default login: `admin` / `partenon` (change in `.env`).
+Open http://localhost:3000 and log in with the credentials from `.env` (default `admin` / `partenon`).
 
-Hermes then publishes the first mission:
+### Create the first mission
+
+Hermes creates a mission card in `data/tasks.json` or via the dashboard:
+
+```json
+{
+  "id": "MISSION-001",
+  "title": "Build the first margin dashboard",
+  "hero": "partenon-tesorero",
+  "status": "todo",
+  "description": "Use the Scribe to create a finance workbook with the company's fixed costs, variable budgets, and vendors."
+}
+```
+
+### Example Hermes response
 
 ```text
-Your Partenon workspace is ready.
-
-Open the dashboard at http://localhost:3000
-Login: admin / partenon
-
-Your first missions:
-1. Scribe: upload last month's expenses and classify them.
-2. Strategist: create your first project and assign 3 tasks.
-3. Diplomat: register your top 3 clients/vendors and set milestones.
-
-Run any time:
-- python3 scripts/demo_tesorero.py
-- python3 partenon-core/tools/router.py
-- hermes profile use <hero>
+Hermes: Your dashboard is running at http://localhost:3000. Your first mission is
+"Build the first margin dashboard" with the Scribe. I will remind you when it is
+due and escalate if it gets blocked.
 ```
 
 ---
 
-## Example Full Onboarding Conversation
+## Day 1–30 checklist
 
-**Owner:**
+- [ ] Choose a business type and read the matching company card.
+- [ ] Run the matching simulation step by step.
+- [ ] Create `config/company.yaml` with name, industry, currency, and timezone.
+- [ ] Complete the brand interview (`.design`).
+- [ ] Create the first project in the Strategist.
+- [ ] Register the top 5 clients/vendors in the Diplomat.
+- [ ] Build a finance template or run `python3 scripts/demo_tesorero.py`.
+- [ ] Run the Guardian key audit and fill missing credentials.
+- [ ] Generate a 7-day content calendar with the Herald.
+
+---
+
+## Day 31–90 checklist
+
+- [ ] Connect live Google Workspace, Stripe, and G-Brain credentials.
+- [ ] Move from local-mode invoices to real Stripe invoicing.
+- [ ] Automate weekly reports from the Scribe and Collector.
+- [ ] Build reusable checklists for the company's industry.
+- [ ] Use the Brain to index validated decisions.
+- [ ] Review the Guardian audit weekly and rotate keys older than 90 days.
+
+---
+
+## Common onboarding mistakes
+
+1. **Turning on all heroes at once.** Start with 2–4. The others add noise before data exists.
+2. **Skipping `.design`.** The Herald refuses to publish without a brand file for good reason.
+3. **Forgetting task owners.** The Strategist rejects tasks without an owner and due date.
+4. **Storing keys in profile files.** Keys belong in `.env` or a secrets manager, never in `.security`.
+5. **Treating local-mode outputs as live.** Payment links, invoices, and calendars are drafts until real credentials are connected.
+
+---
+
+## Example prompt → Hermes response pairs
+
+### Prompt: "Set up Partenon for my coffee shop"
+
 ```text
-Hermes, set up Partenon for my marketing agency.
+Hermes: I will guide you through setup for your coffee shop. I need a few details:
+company name, currency, number of locations, and your top operational pain. Based
+on that, I will activate the Scribe, Strategist, Herald, and Collector.
 ```
 
-**Hermes:**
-```text
-I will guide you through the setup. First, I am checking the pre-flight requirements...
-[PASS] Python 3.12
-[PASS] .env exists
-[WARNING] Hermes CLI not found — I will copy profiles locally.
-[INFO] Google Workspace credentials not configured — Sheets integration disabled.
+### Prompt: "Which heroes should I activate first?"
 
-Let me ask a few questions about your agency.
+```text
+Hermes: For a coffee shop, I recommend Scribe first to see your margins, then
+Strategist for scheduling and checklists, Herald for local social content, and
+Collector for catering payments. We can add Guardian and Diplomat later.
 ```
 
-After questions:
+### Prompt: "The Scribe demo failed"
 
-**Hermes:**
 ```text
-Based on your answers, I recommend starting with these heroes:
-1. Strategist — project deadlines and resource allocation
-2. Diplomat — client milestones and follow-ups
-3. Scribe — project budgets and cash flow
-4. Herald — case-study content and calendar
-5. Collector — retainer invoicing
-
-I will create config/company.yaml and copy the profile templates now.
+Hermes: Let me check. The most common causes are Python older than 3.10 or a
+missing dependency. Please run python3 --version and then ./install.sh. If it
+still fails, share the error message.
 ```
 
-After config creation:
+### Prompt: "How do I add my real Stripe key?"
 
-**Hermes:**
 ```text
-Running the Scribe demo to validate finance access...
-Demo passed. Margin: 59.03%
-
-Running hero smoke tests...
-[PASS] Scribe
-[PASS] Herald
-[PASS] Collector (local mode)
-[PASS] Strategist
-[PASS] Diplomat
-[PARTIAL] Brain — G-Brain not configured, local stub used.
-
-Starting dashboard...
-Your workspace is ready at http://localhost:3000
+Hermes: Open .env and set STRIPE_SECRET_KEY=sk_test_... for test mode or
+sk_live_... for production. Then run the Collector smoke test again. Keep .env out
+of version control; it is already in .gitignore.
 ```
 
 ---
 
-## Onboarding Completion Checklist
+## Common onboarding failures and responses
 
-- [ ] `config/company.yaml` created and valid
-- [ ] `.finance`, `.design`, `.payments`, `.security`, `.ops`, `.relations`, `.brain` created
+| Failure | Likely cause | Hermes response |
+|---------|--------------|-----------------|
+| `hermes: command not found` | Hermes CLI not installed | Print Nous Research install link and offer manual profile copy. |
+| `ModuleNotFoundError: openpyxl` | Virtualenv not activated | Run `./install.sh` to create `.venv` and install dependencies. |
+| `GOOGLE_SERVICE_ACCOUNT_JSON` missing | `.env` not filled | Prompt user to paste the JSON path; do not store the key in chat. |
+| Stripe tools return local mode | `STRIPE_SECRET_KEY` missing or invalid | Explain local-mode fallback and request a test key. |
+| G-Brain smoke test fails | `gbrain` binary or database missing | Mark Brain as inactive until G-Brain is configured. |
+| Copy generator output is generic | `.design` file incomplete | Run `brand_intake.py` interactively to fill brand context. |
+
+---
+
+## Checklist for a complete onboarding
+
+- [ ] `config/client.yaml` created and validated
+- [ ] `.finance`, `.ops`, `.design`, `.payments` (and others) copied and customized
+- [ ] `.env` filled with safe placeholders or real credentials
 - [ ] `python3 scripts/demo_tesorero.py` passes
-- [ ] All active heroes pass smoke tests
-- [ ] Dashboard starts at `http://localhost:3000`
-- [ ] First missions assigned in dashboard or `.ops`
-- [ ] Gaps documented in `MISSING_IMPLEMENTATION.md` or local notes
+- [ ] Each activated hero passes its smoke test
+- [ ] Dashboard starts at http://localhost:3000
+- [ ] First mission created and assigned to the right hero
+- [ ] Guardian audit scheduled if live credentials are used
 
 ---
 
-## Common Onboarding Gaps
+## Where to go next
 
-| Gap | How Hermes handles it |
-|-----|----------------------|
-| Hermes CLI not installed | Copies profiles to `~/.hermes/profiles/` and instructs owner to install Hermes later. |
-| Google service account missing | Skips Drive/Sheets setup; uses local Excel/JSON. |
-| Stripe test key missing | Collector runs in local mode; owner sees placeholder links. |
-| G-Brain missing | Brain uses local stub; memory is not persistent across sessions. |
-| Industry not in catalog | Falls back to `consulting` catalog. |
+- [`docs/ENTREPRENEUR_PLAYBOOK.md`](../../docs/ENTREPRENEUR_PLAYBOOK.md) — copy-paste prompts for each hero.
+- [`docs/HERO_GUIDE.md`](../../docs/HERO_GUIDE.md) — every tool, env var, and cron job per hero.
+- [`workshop/simulations/`](../simulations/) — run the five simulations end to end.
+- [`workshop/checklists/PRODUCTION_READINESS.md`](../checklists/PRODUCTION_READINESS.md) — verify the system is production-ready.

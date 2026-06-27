@@ -1,72 +1,107 @@
-# Partenon Workshop Package
+# Partenon Hermes Onboarding Workshop
 
-This directory contains ready-to-run materials for onboarding real small businesses onto Partenon. It is designed for founders, operators, and facilitators who want to see how the seven heroes apply to concrete business types.
+A hands-on workshop package for onboarding real small businesses onto Partenon. It includes five researched case studies, five runnable simulations, a facilitator guide, slides, a handout, and a production-readiness checklist.
 
-## What's inside
+---
 
-```text
+## What is in this package
+
+```
 workshop/
-├── companies/          # Public company cards by business type
-├── simulations/        # Step-by-step onboarding simulations
-├── guides/             # Facilitator and hero-selection guides
-└── checklists/         # Onboarding checklists by business type
+├── README.md                          # This file
+├── AGENDA.md                          # 90-minute workshop agenda
+├── SLIDES.md                          # Facilitator slide deck
+├── HANDOUT.md                         # One-page participant handout
+├── companies/                         # Real small business case studies
+│   ├── coffee-shop--oblique-coffee-roasters.md
+│   ├── agency--envision-creative.md
+│   ├── construction-company--flintrock-operating.md
+│   ├── retail--greenlight-bookstore.md
+│   └── saas--plausible-analytics.md
+├── simulations/                       # Step-by-step onboarding runs
+│   ├── 01-coffee-shop-onboarding.md
+│   ├── 02-agency-onboarding.md
+│   ├── 03-construction-company-onboarding.md
+│   ├── 04-retail-onboarding.md
+│   ├── 05-saas-onboarding.md
+│   ├── sim_runner.py                  # Standalone runner for all simulations
+│   └── run_all_sims.sh                # Reproduce every simulation
+├── guides/
+│   └── HERMES_ONBOARDING.md           # Complete onboarding guide
+└── checklists/
+    └── PRODUCTION_READINESS.md        # Go-live verification checklist
 ```
 
-## Company cards
+---
 
-Each card profiles a real small business, its public pain points, and why Partenon fits.
+## Quick start
 
-| Business type | Example card |
-|---------------|--------------|
-| Coffee shop | [`companies/coffee-shop--portland-coffee-roasters.md`](companies/coffee-shop--portland-coffee-roasters.md) |
-| Marketing agency | [`companies/marketing-agency--searchbloom.md`](companies/marketing-agency--searchbloom.md) |
-| Construction company | [`companies/construction-company--marsh-bell-construction.md`](companies/construction-company--marsh-bell-construction.md) |
-| Retail store | [`companies/retail-store--brazos-bookstore.md`](companies/retail-store--brazos-bookstore.md) |
-| SaaS / bootstrapped startup | [`companies/saas-startup--chatbase.md`](companies/saas-startup--chatbase.md) |
+1. Install and verify Partenon:
+   ```bash
+   ./install.sh
+   python3 scripts/demo_tesorero.py
+   ```
 
-Additional reference cards are included for comparison:
+2. Run all five simulations:
+   ```bash
+   bash workshop/simulations/run_all_sims.sh
+   ```
 
-- Coffee shop: [`coffee-shop--joe-coffee-company.md`](companies/coffee-shop--joe-coffee-company.md)
-- Agency: [`marketing-agency--single-grain.md`](companies/marketing-agency--single-grain.md)
-- Construction: [`construction-company--greenberg-construction.md`](companies/construction-company--greenberg-construction.md)
-- Retail: [`retail-store--k-and-l-wine-merchants.md`](companies/retail-store--k-and-l-wine-merchants.md)
-- SaaS: [`saas-startup--wp-umbrella.md`](companies/saas-startup--wp-umbrella.md)
+3. Open the matching simulation markdown and walk through the commands.
 
-## Simulations
+4. Check production readiness:
+   ```bash
+   cat workshop/checklists/PRODUCTION_READINESS.md
+   ```
 
-Each simulation walks through a full Partenon onboarding using the real repository:
+---
 
-1. [`simulations/coffee-shop.md`](simulations/coffee-shop.md) — Joe Coffee Company
-2. [`simulations/agency.md`](simulations/agency.md) — Single Grain
-3. [`simulations/construction-company.md`](simulations/construction-company.md) — Marsh Bell Construction
-4. [`simulations/retail-store.md`](simulations/retail-store.md) — Brazos Bookstore
-5. [`simulations/saas-startup.md`](simulations/saas-startup.md) — Chatbase
+## The five businesses
 
-Each simulation includes:
+| # | Business | Type | Why it was chosen |
+|---|---|---|---|
+| 1 | Oblique Coffee Roasters | Coffee shop / roaster | Owner-operated, historic building risk, tight margins |
+| 2 | Envision Creative | Marketing agency | Project/retainer cash flow, scope creep, reporting |
+| 3 | Flintrock Operating L.L.C | Construction contractor | Small commercial GC, job costing, retainage |
+| 4 | Greenlight Bookstore | Independent retail | Unionized staff, thin margins, event-driven sales |
+| 5 | Plausible Analytics | Bootstrapped SaaS | Privacy/security, subscriptions, remote team |
 
-- Business context and Hermes interview questions
-- Recommended hero activation order
-- Example `client.yaml`, `.finance`, `.ops`, `.relations`, `.design`, `.payments`, and `.security` files
-- Copy-paste commands with expected outputs
-- First three missions per hero
-- Gaps found during the simulation
+---
 
-## Guides
+## How the simulations work
 
-- [`guides/facilitator-guide.md`](guides/facilitator-guide.md) — how to run a 90-minute Partenon onboarding workshop
-- [`guides/hero-selection-guide.md`](guides/hero-selection-guide.md) — quick reference for which heroes to activate first by business type
+The simulations use `sim_runner.py`, a standalone wrapper around the real Partenon hero tools. Each scenario writes its data to `workshop/simulations/workspaces/<business>/` so the main `partenon-core/data/` directory is not affected.
 
-## Checklists
+The runner supports these actions:
 
-- [`checklists/onboarding-checklist.md`](checklists/onboarding-checklist.md) — generic day-1 to day-90 checklist
-- [`checklists/business-type-checklists.md`](checklists/business-type-checklists.md) — tailored checklists for coffee shop, agency, construction, retail, and SaaS
+```
+route, design, project, task, checklist, client, vendor, milestone,
+followups, payment-link, invoice, keys, briefing, calendar, summary
+```
 
-## How to use this package
+Example:
 
-1. **Solo founder**: Pick your business-type card and simulation, copy the config files, run the commands, and complete the first three missions per hero.
-2. **Facilitator**: Use the facilitator guide, run the group through the hero-selection exercise, then assign one simulation per breakout group.
-3. **Contributor**: Add a new company card and simulation for a business type that is missing. Follow the existing format and cite public sources.
+```bash
+python3 workshop/simulations/sim_runner.py route "organize my numbers"
+python3 workshop/simulations/sim_runner.py project oblique "Buyout campaign" "John Chandler" 2026-07-31 120000 food
+```
 
-## Production readiness
+---
 
-Before running a live onboarding with a real company, review [`../PRODUCTION_READINESS.md`](../PRODUCTION_READINESS.md) and [`../MISSING_IMPLEMENTATION.md`](../MISSING_IMPLEMENTATION.md).
+## Scope and known limitations
+
+This workshop demonstrates the local, credential-free layer of Partenon. Anything that requires an external integration is documented as a production gap:
+
+- Stripe payments need `STRIPE_SECRET_KEY`.
+- Google Sheets/Drive need `GOOGLE_SERVICE_ACCOUNT_JSON`.
+- Gmail/Contacts dispatch is not wired.
+- Social publishing is not wired.
+- G-Brain memory requires a separate `gbrain` service.
+
+See `workshop/checklists/PRODUCTION_READINESS.md` and `MISSING_IMPLEMENTATION.md` for the full list.
+
+---
+
+## License and reuse
+
+The company cards cite public sources. Simulations and guides are part of the Partenon repository and follow the same license as the project.

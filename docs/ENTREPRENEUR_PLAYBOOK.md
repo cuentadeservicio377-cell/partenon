@@ -525,6 +525,8 @@ For step-by-step onboardings of real small businesses, see the workshop simulati
 
 For a reusable workshop kit, agendas, slides, and handouts, see [`workshop/README.md`](../workshop/README.md).
 
+For the production-readiness checklist and verification evidence, see [`workshop/checklists/PRODUCTION_READINESS.md`](../workshop/checklists/PRODUCTION_READINESS.md).
+
 ---
 
 ## See also
