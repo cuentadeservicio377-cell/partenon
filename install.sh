@@ -65,12 +65,15 @@ if [ -f "$CORE_SRC" ]; then
   cp -R "$CORE_SRC" "$HOME/.hermes/skills/partenon-core/"
 fi
 
-# 5. Install hero profiles (best-effort if Hermes CLI is available)
+# 5. Install hero profiles into Hermes (best-effort if Hermes CLI is available)
+HERMES_PROFILES_DIR="$HOME/.hermes/profiles"
 if command -v hermes &> /dev/null; then
   for profile in tesorero mensajero cobrador guardian estratega diplomatico brain; do
     echo "Installing partenon-${profile}..."
-    hermes profile install "$REPO_ROOT/hermes/profiles/partenon-${profile}" --alias "partenon-${profile}" || true
+    mkdir -p "$HERMES_PROFILES_DIR"
+    cp -R "$REPO_ROOT/hermes/profiles/partenon-${profile}" "$HERMES_PROFILES_DIR/" || true
   done
+  echo "Profiles copied to $HERMES_PROFILES_DIR"
 else
   echo "Skipping Hermes profile install because the CLI is not available."
 fi
