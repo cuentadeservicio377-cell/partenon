@@ -16,7 +16,7 @@
     <img src="https://img.shields.io/badge/repo-github-181717?logo=github" alt="GitHub repo">
   </a>
   <img src="https://img.shields.io/badge/build-passing-00D4FF" alt="Build passing">
-  <img src="https://img.shields.io/badge/python-3.12+-FFB800?logo=python&logoColor=white" alt="Python 3.12+">
+  <img src="https://img.shields.io/badge/python-3.10+-FFB800?logo=python&logoColor=white" alt="Python 3.10+">
   <img src="https://img.shields.io/badge/next.js-15.1.3-000000?logo=next.js&logoColor=white" alt="Next.js 15.1.3">
   <img src="https://img.shields.io/badge/license-TBD-lightgrey" alt="License TBD">
 </p>
@@ -87,7 +87,7 @@ cd partenon
 ./install.sh
 ```
 
-The installer creates a virtualenv, installs Python dependencies, copies `.env.example` to `.env`, and runs the Scribe demo.
+The installer auto-detects Python 3.10+ (it searches `python3.14`, `python3.13`, ..., `python3.10` before falling back to `python3`), creates a virtualenv, installs dependencies, copies `.env.example` to `.env`, and runs the Scribe demo.
 
 Then:
 
