@@ -1,16 +1,16 @@
 # Project Memory: Partenon
 
-> Last session: 2026-06-27T00:36Z
+> Last session: 2026-06-27T00:55Z
 
 ## Current Context
 
 - **Project**: Partenon
 - **Started**: 2026-06-23
-- **Status**: Public GitHub repository translated to English. README rewritten from scratch and a full documentation package created: entrepreneur playbook, hero guide, quickstart, security, API, FAQ, and visual assets. A complete workshop package was added with five real company cards, five simulated onboardings, a Hermes onboarding guide, agendas, slides, handout, and a production-readiness checklist. All docs and simulations are grounded in actual code, in English, and cross-linked. Remaining gaps are tracked in `MISSING_IMPLEMENTATION.md`.
+- **Status**: Public GitHub repository translated to English. README rewritten from scratch and a full documentation package created: entrepreneur playbook, hero guide, quickstart, security, API, FAQ, and visual assets. A complete workshop package was added with five real company cards, five simulated onboardings, a Hermes onboarding guide, agendas, slides, handout, and a production-readiness checklist. The onboarding guide was cleaned up to remove stale `sim_runner.py` references and replace them with direct Python smoke-test commands. All docs and simulations are grounded in actual code, in English, and cross-linked. Remaining gaps are tracked in `MISSING_IMPLEMENTATION.md`.
 - **Live site**: `https://hermespartenon.online/`
 - **Repo**: `https://github.com/cuentadeservicio377-cell/partenon`
 - **Profiles**: Scribe/Treasurer, Herald/Messenger, Collector, Guardian, Strategist, Diplomat, Brain.
-- **Verified**: `python3 scripts/demo_tesorero.py` PASS, `cd dashboard && npm run build` PASS, `python3 -m unittest discover tests` PASS (4 tests), `bash -n install.sh` PASS, `python3 -m py_compile` on all profile tools PASS, `python3 workshop/simulations/sim_runner.py` actions PASS, Brain `GBrainClient().put_page` PASS after stdin fix.
+- **Verified**: `python3 scripts/demo_tesorero.py` PASS, `cd dashboard && npm run build` PASS, `python3 -m unittest discover tests` PASS (4 tests), `bash -n install.sh` PASS, `python3 -m py_compile` on referenced profile tools PASS, `gbrain_client.py` stdin fix committed.
 - **Next**: implement real intent router and workflow engine runtime, add publishing/dispatch integrations for Messenger/Collector/Diplomat, build end-to-end bank/CSV-to-Sheets flow for Scribe, add Shopify/order import and inventory tracking for retail, add AWS cost import and churn-signal worksheet for SaaS, bundle or replace external `gbrain` binary with a local fallback, and add a public support channel/issue template.
 
 ## Braindump

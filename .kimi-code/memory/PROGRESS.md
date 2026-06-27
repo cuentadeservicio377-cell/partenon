@@ -2,6 +2,19 @@
 
 ## Session History
 
+### 2026-06-27 — Workshop cleanup, onboarding guide rewrite, and final commit
+- Rewrote `workshop/guides/HERMES_ONBOARDING.md` to remove stale `sim_runner.py` and Oblique Coffee Roasters references.
+- Replaced the simulation-runner section with direct Python smoke-test commands for each hero and a pre-flight checklist grounded in actual files.
+- Added generated-artifact patterns to `.gitignore` to keep demo workbooks, JSON data files, `docs/WELCOME.md`, and tool outputs out of commits.
+- Committed the production-readiness pass: workshop package, company cards, simulations, onboarding guide, production-readiness checklist, tests, G-Brain URL standardization, Guardian key-manager CLI, and `pyyaml` dependency.
+- Verified:
+  - `python3 scripts/demo_tesorero.py` PASS.
+  - `cd dashboard && npm run build` PASS.
+  - `python3 -m unittest discover tests` PASS (4 tests).
+  - `bash -n install.sh` PASS.
+  - `python3 -m py_compile` on referenced profile Python tools PASS.
+- Commit: `2897ea9 feat(workshop): finalize production-readiness pass, add tests, remove sim_runner`.
+
 ### 2026-06-27 — Final close: G-Brain URL standardization, Guardian cron, tests, and commit
 - Standardized `GBRAIN_DATABASE_URL` across `.env.example`, `gbrain/server.py`, and `partenon-core/config/mcp/servers.yaml`; removed the `GBrain_DATABASE_URL` inconsistency from the README known gaps.
 - Added a runnable CLI entry point to `hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py` and enabled the Guardian cron entry in `data/cron.json`.
