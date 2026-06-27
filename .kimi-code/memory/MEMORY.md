@@ -10,8 +10,8 @@
 - **Live site**: `https://hermespartenon.online/`
 - **Repo**: `https://github.com/cuentadeservicio377-cell/partenon`
 - **Profiles**: Scribe/Treasurer, Herald/Messenger, Collector, Guardian, Strategist, Diplomat, Brain.
-- **Verified**: `python3 scripts/demo_tesorero.py` PASS, `cd dashboard && npm run build` PASS. Workshop simulation tools compile with `python3 -m py_compile` PASS.
-- **Next**: standardize `GBRAIN_DATABASE_URL` naming, add automated tests, implement real intent router and workflow engine runtime, add publishing/dispatch integrations, build end-to-end bank/CSV-to-Sheets flow for Scribe, and add Shopify/AWS importers for retail and SaaS simulations.
+- **Verified**: `python3 scripts/demo_tesorero.py` PASS, `cd dashboard && npm run build` PASS, `python3 -m unittest discover tests` PASS (4 tests), `bash -n install.sh` PASS, `python3 -m py_compile` on all profile tools PASS, `python3 workshop/simulations/sim_runner.py` actions PASS, Brain `GBrainClient().put_page` PASS after stdin fix.
+- **Next**: implement real intent router and workflow engine runtime, add publishing/dispatch integrations for Messenger/Collector/Diplomat, build end-to-end bank/CSV-to-Sheets flow for Scribe, add Shopify/order import and inventory tracking for retail, add AWS cost import and churn-signal worksheet for SaaS, bundle or replace external `gbrain` binary with a local fallback, and add a public support channel/issue template.
 
 ## Braindump
 

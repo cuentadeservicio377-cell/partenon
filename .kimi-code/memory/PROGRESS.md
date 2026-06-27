@@ -2,6 +2,33 @@
 
 ## Session History
 
+### 2026-06-27 — Final close: G-Brain URL standardization, Guardian cron, tests, and commit
+- Standardized `GBRAIN_DATABASE_URL` across `.env.example`, `gbrain/server.py`, and `partenon-core/config/mcp/servers.yaml`; removed the `GBrain_DATABASE_URL` inconsistency from the README known gaps.
+- Added a runnable CLI entry point to `hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py` and enabled the Guardian cron entry in `data/cron.json`.
+- Added initial automated tests in `tests/`: `test_scribe_demo.py` verifies the finance demo output, and `test_onboarding_engine.py` verifies onboarding data-file and welcome-doc creation.
+- Updated `README.md` to mark the `GBRAIN_DATABASE_URL` roadmap item as done, refresh known gaps, and list the new test suite.
+- Updated `TODOS.md` to mark the G-Brain naming, initial tests, and Guardian cron entry as completed.
+- Verified:
+  - `python3 scripts/demo_tesorero.py` PASS.
+  - `cd dashboard && npm run build` PASS.
+  - `python3 -m unittest discover tests` PASS (4 tests).
+- Committed all production-readiness changes locally.
+
+### 2026-06-27 — Production-readiness verification and close
+- Completed the production-readiness test under the `company-research` scope.
+- Updated `workshop/checklists/PRODUCTION_READINESS.md` with the latest verification evidence: all seven heroes smoke-tested, `sim_runner.py` actions verified, Brain `put_page` fixed and working.
+- Fixed `hermes/profiles/partenon-brain/skills/memory/tools/gbrain_client.py` stdin handling so `GBrainClient.put_page` works on Python 3.9/3.12 when a local `gbrain` binary is installed.
+- Updated `MISSING_IMPLEMENTATION.md` with the G-Brain client fix and a new public-support-channel gap.
+- Linked `README.md` and `docs/ENTREPRENEUR_PLAYBOOK.md` to `workshop/guides/HERMES_ONBOARDING.md` and `workshop/checklists/PRODUCTION_READINESS.md`.
+- Verified:
+  - `python3 scripts/demo_tesorero.py` PASS.
+  - `cd dashboard && npm run build` PASS.
+  - `bash -n install.sh` PASS.
+  - `python3 -m py_compile` on all profile Python tools PASS.
+  - `python3 workshop/simulations/sim_runner.py route/project/checklist/client/payment-link/calendar` PASS.
+  - Brain `GBrainClient().put_page('test/smoke', 'Smoke test page')` PASS.
+- Updated `TODOS.md` and committed the production-readiness pass.
+
 ### 2026-06-27 — Workshop package and production-readiness test
 - Ran a production-readiness test by researching five real small businesses and creating one-page company cards in `workshop/companies/`.
 - Created simulated Partenon onboardings in `workshop/simulations/` for coffee shop, agency, construction, retail, and SaaS.
