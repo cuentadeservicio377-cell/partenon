@@ -177,6 +177,7 @@ partenon/
 - [`docs/API.md`](docs/API.md) — Python core, scripts, example stubs, and G-Brain MCP reference.
 - [`docs/FAQ.md`](docs/FAQ.md) — honest answers to common questions.
 - [`docs/assets/hero-matrix.md`](docs/assets/hero-matrix.md) — one-page capability matrix.
+- [`docs/PARTENON_GUIDE.pdf`](docs/PARTENON_GUIDE.pdf) — printable A4 guide with web aesthetic: concept, heroes, install, workshop, simulations, playbook, security, readiness, roadmap.
 - [`workshop/README.md`](workshop/README.md) — reusable workshop kit with company cards, simulations, agendas, and handouts.
 - [`workshop/guides/HERMES_ONBOARDING.md`](workshop/guides/HERMES_ONBOARDING.md) — how Hermes should guide a new company through setup.
 - [`workshop/checklists/PRODUCTION_READINESS.md`](workshop/checklists/PRODUCTION_READINESS.md) — PASS/FAIL/PARTIAL evidence from the production-readiness test.

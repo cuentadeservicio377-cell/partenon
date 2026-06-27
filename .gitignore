@@ -37,6 +37,7 @@ data/pipeline.json
 data/projects.json
 data/quotes.json
 docs/WELCOME.md
+docs/pdf-preview/
 *.local.json
 .kimi/
 .kimi-code/
