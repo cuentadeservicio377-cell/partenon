@@ -1,23 +1,34 @@
-# NOTICES
+# Partenon Third-Party Notices
 
-## Third-party software
+Partenon is built on open-source and third-party components.
 
-Partenon builds on top of the following open-source or third-party projects:
+## Agent runtime
 
-- **Hermes Agent** by Nous Research — Apache-2.0 License.
-- **Next.js** and **React** — MIT License.
-- **Tailwind CSS** — MIT License.
-- **FastAPI** — MIT License.
-- **SQLAlchemy** — MIT License.
-- **openpyxl** — MIT License.
-- **MCP (Model Context Protocol)** — Apache-2.0 License.
+- **Hermes Agent** by Nous Research — Apache-2.0 license.
+  Hermes provides the agent runtime and profile structure used by the Partenon heroes.
 
-See each project's repository for its full license text.
+## Web dashboard
 
-## Fictional data
+- **Next.js** — MIT license
+- **React** — MIT license
+- **Tailwind CSS** — MIT license
+- **TypeScript** — Apache-2.0 license
 
-Company names, contact details, and scenarios used in `workshop/simulations/` and documentation examples are fictional. Any resemblance to real businesses or individuals is coincidental. Example domains use `*.example.com`, `*.example.test`, or `*.local`.
+## Python backend / tools
 
-## Trademarks
+- **FastAPI** — MIT license
+- **SQLAlchemy** — MIT license
+- **openpyxl** — MIT license
+- **MCP (Model Context Protocol)** — Apache-2.0 license
+- **Stripe Python SDK** — MIT license
+- **Google API Client Libraries** — Apache-2.0 license
 
-All product names, logos, and brands mentioned in this repository are property of their respective owners. Their mention does not imply endorsement.
+## Workshop materials
+
+Company names, people, addresses, emails, and phone numbers used in workshop simulations and example data are fictional. Any resemblance to real persons or organizations is coincidental.
+
+## Fonts
+
+- **Space Grotesk**, **Geist**, and **JetBrains Mono** are used under their respective open-font licenses.
+
+For the full license texts, see the repositories of the respective projects.

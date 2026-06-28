@@ -1,39 +1,41 @@
-# Security Policy
+# Partenon Security Policy
 
-This document describes how credentials are handled in Partenon and how to report security issues.
+## Credentials
 
-## Credential storage
+- All secrets live in environment variables or a secrets manager. Start from `.env.example` and never commit `.env`.
+- Rotate API keys (OpenRouter, Stripe, Google service accounts, NVIDIA) at least every 90 days or after personnel changes.
+- The Guardian profile tracks key status and rotation deadlines.
 
-- All secrets live in environment variables or a dedicated secrets manager.
-- `.env` is never committed to version control. See `.env.example` for the required variables.
-- Profile templates (`.finance`, `.design`, `.security`, etc.) must not contain real keys or passwords.
-- API keys and tokens are rotated on suspicion of exposure and logged via the Guardian.
+## Reporting a vulnerability
 
-## Reporting vulnerabilities
-
-If you discover a security issue, please email the maintainers privately. Do not open a public issue until the problem is acknowledged and a fix is available.
-
-**Email template:**
+If you discover a security issue, please email the maintainers:
 
 ```
-To: security@partenon.example.com
-Subject: [Security] Short description of the issue
+To: security@example.com
+Subject: [Partenon] Vulnerability report
 
-Description:
-- What is the issue?
-- Which component or file is affected?
-- Steps to reproduce (if applicable).
-- Potential impact.
-- Suggested fix (optional).
+- Summary:
+- Affected files / components:
+- Steps to reproduce:
+- Possible impact:
+- Suggested fix (optional):
 ```
+
+Do not open a public issue for sensitive vulnerabilities.
 
 ## Guardian responsibilities
 
-The `partenon-guardian` profile owns security hygiene:
+The Guardian hero is responsible for:
 
-- Audit active API keys and flag keys older than 90 days.
-- Validate profile permissions against `.security` templates.
-- Log rotation and access events to `data/audit/security.log`.
-- Alert when a profile requests access outside its least-privilege scope.
+- Auditing profile access and tool permissions.
+- Enforcing key rotation and logging rotation events.
+- Reviewing `.env` and profile env files for leaked secrets.
+- Running weekly security audits and pruning old audit logs.
 
-For operational runbooks, see `workshop/guides/` and `docs/API.md`.
+See `docs/SECURITY.md` and `docs/HERO_GUIDE.md` for the full Guardian runbook.
+
+## Useful references
+
+- `.env.example` — required environment variables and placeholders.
+- `docs/SECURITY.md` — detailed threat model and operational checklist.
+- `hermes/profiles/partenon-guardian/skills/security/tools/` — Guardian tools.
