@@ -2,6 +2,23 @@
 
 ## Session History
 
+### 2026-06-28 — Phase 0 contaminants cleanup
+- Deleted dead code and stale artifacts: `Kimi_Agent_10 Storytelling Web Sites/`, `examples/*-stub.py`, `docs/PARTENON_GUIDE.html`, `docs/HERMES_GATEWAY_AUDIT.md`, and old superpowers plans/specs.
+- Anonymized sample data across `partenon-core/tools/onboarding_engine.py`, profile tools, `data/clients.json`, `docs/HERO_GUIDE.md`, `docs/ENTREPRENEUR_PLAYBOOK.md`, `workshop/simulations/*.md`, and `workshop/simulations/sim_runner.py`.
+- Hardened dashboard auth in `.env.example` and `dashboard/src/lib/auth.ts`: removed default `admin`/`partenon` credentials, added required `DASHBOARD_AUTH_SECRET`, and made missing env vars throw at runtime.
+- Replaced external `gbrain` binary calls in `hermes/profiles/partenon-brain/skills/memory/tools/gbrain_client.py` with direct `GBrainStore` usage.
+- Added legal docs at repo root: `LICENSE` (Apache-2.0), `CONTRIBUTING.md`, `SECURITY.md`, and `NOTICE.md`.
+- Removed temporary `.tmp_anonymize.py` script.
+- Verified:
+  - `cd dashboard && npx tsc --noEmit` PASS.
+  - `cd dashboard && npm run build` PASS.
+  - `python3 -m unittest discover tests` PASS.
+  - `python3 scripts/demo_tesorero.py` PASS.
+  - `bash -n install.sh` PASS.
+  - `python3 -m py_compile` on modified Python tools PASS.
+  - `GBrainClient` import via `importlib` PASS.
+  - Grep verification: no obvious real emails remain in listed files.
+
 ### 2026-06-27 — Final production-readiness verification and sim_runner restore
 - Restored `workshop/simulations/sim_runner.py` so the workshop docs (`AGENDA.md`, `SLIDES.md`, `HANDOUT.md`) have a working command runner again.
 - Rewrote `workshop/checklists/PRODUCTION_READINESS.md` from green/yellow/red into PASS/FAIL/PARTIAL evidence with a verification log and summary totals.
