@@ -1,6 +1,6 @@
 graph TD
     USER[User / Founder] -->|speaks to| HERMES[Hermes<br/>company profile]
-    HERMES -->|routes intent| ROUTER[partenon-core/router.py]
+    HERMES -->|routes intent| ROUTER[partenon_core/router.py]
     ROUTER -->|classifies| ONBOARD[onboarding_engine.py]
     ROUTER -->|orchestrates| WORKFLOW[workflow_engine.py]
     ROUTER -->|evaluates| EVAL[eval_loop.py]

@@ -11,7 +11,7 @@ For a quick overview, see [`docs/assets/hero-matrix.md`](assets/hero-matrix.md).
 - **Profile directory**: where the Hermes Agent distribution lives.
 - **Config file**: the per-company file the hero reads and writes.
 - **Tools**: real Python functions in the repository.
-- **MCP servers**: external context servers declared in `partenon-core/config/mcp/servers.yaml` or the profile `config.yaml`.
+- **MCP servers**: external context servers declared in `partenon_core/config/mcp/servers.yaml` or the profile `config.yaml`.
 - **Cron jobs**: scheduled tasks under `hermes/profiles/<profile>/cron/`.
 - **Commands/prompts**: copy-paste examples. You can run the Python tools directly or ask Hermes to run them.
 

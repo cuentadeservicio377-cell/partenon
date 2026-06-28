@@ -3,7 +3,7 @@
 Partenon Workshop Simulation Runner
 
 Runs hero actions inside isolated per-company workspaces so that
-simulations do not pollute partenon-core/data or profile .files.
+simulations do not pollute partenon_core/data or profile .files.
 
 Usage:
     python3 workshop/simulations/sim_runner.py route "organize my numbers"
@@ -47,7 +47,7 @@ def _load_module(module_name: str, relative_path: str):
 
 
 # Load core and hero tool modules.
-router = _load_module("router", "partenon-core/tools/router.py")
+router = _load_module("router", "partenon_core/tools/router.py")
 brand_intake = _load_module("brand_intake", "hermes/profiles/partenon-herald/skills/comms/tools/brand_intake.py")
 content_calendar = _load_module("content_calendar", "hermes/profiles/partenon-herald/skills/comms/tools/content_calendar.py")
 projects_mod = _load_module("projects", "hermes/profiles/partenon-strategist/skills/ops/tools/projects.py")

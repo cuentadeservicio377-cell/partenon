@@ -14,5 +14,5 @@ Core of Partenon. Adapts `hermes-business-core` from HBOS to route conversations
 ## Usage
 
 ```bash
-python -m py_compile partenon-core/tools/*.py
+python -m py_compile partenon_core/tools/*.py
 ```

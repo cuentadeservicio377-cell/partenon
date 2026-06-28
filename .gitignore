@@ -20,10 +20,10 @@ screenshots/deploy/
 logs/
 hermes/data/
 hermes/profiles/*/.payments
-partenon-core/data/goals.json
-partenon-core/data/checklists.json
-partenon-core/data/projects.json
-partenon-core/data/tasks.json
+partenon_core/data/goals.json
+partenon_core/data/checklists.json
+partenon_core/data/projects.json
+partenon_core/data/tasks.json
 output/
 workshop/simulations/workspaces/
 data/workspaces/

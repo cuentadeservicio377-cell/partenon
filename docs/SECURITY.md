@@ -32,11 +32,11 @@ The global environment file is created from [`.env.example`](../.env.example) by
 | Variable | Used by | File that reads it |
 |----------|---------|-------------------|
 | `OPENROUTER_API_KEY` | All heroes that use LLMs | Every profile `config.yaml` |
-| `GOOGLE_SERVICE_ACCOUNT_JSON` | Google Workspace integrations | `partenon-core/config/mcp/servers.yaml`, Scribe, Strategist, Diplomat, Herald |
+| `GOOGLE_SERVICE_ACCOUNT_JSON` | Google Workspace integrations | `partenon_core/config/mcp/servers.yaml`, Scribe, Strategist, Diplomat, Herald |
 | `STRIPE_SECRET_KEY` | Collector payments | `hermes/profiles/partenon-collector/.env.example`, `stripe_tools.py` |
 | `GBRAIN_DATABASE_URL` / `GBrain_DATABASE_URL` | Brain / G-Brain | `gbrain/server.py` reads `GBrain_DATABASE_URL`; `.env.example` uses `GBRAIN_DATABASE_URL` |
 
-> **Known issue**: the repository has a naming inconsistency. `gbrain/server.py` and `partenon-core/config/mcp/servers.yaml` default to `GBrain_DATABASE_URL`, while `.env.example` documents `GBRAIN_DATABASE_URL`. Set the exact variable name required by the component you run. This is tracked in [`MISSING_IMPLEMENTATION.md`](../MISSING_IMPLEMENTATION.md).
+> **Known issue**: the repository has a naming inconsistency. `gbrain/server.py` and `partenon_core/config/mcp/servers.yaml` default to `GBrain_DATABASE_URL`, while `.env.example` documents `GBRAIN_DATABASE_URL`. Set the exact variable name required by the component you run. This is tracked in [`MISSING_IMPLEMENTATION.md`](../MISSING_IMPLEMENTATION.md).
 
 ### Local profile env files
 
@@ -201,7 +201,7 @@ The Guardian never prints full secrets. `key_manager._fingerprint(value)` return
 _fingerprint("sk_test_1234567890abcdef")  # "sk_t...cdef"
 ```
 
-The eval loop in [`partenon-core/tools/eval_loop.py`](../partenon-core/tools/eval_loop.py) also scans outputs for unsafe patterns and subtracts points if it finds:
+The eval loop in [`partenon_core/tools/eval_loop.py`](../partenon_core/tools/eval_loop.py) also scans outputs for unsafe patterns and subtracts points if it finds:
 
 ```python
 unsafe_patterns = ["sk-", "pk-", "nvapi-", "-----BEGIN", "PRIVATE KEY", "password", "secret", "token"]

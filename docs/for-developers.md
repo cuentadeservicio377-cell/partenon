@@ -11,7 +11,7 @@
 
 - **Frontend pages**: static HTML + Tailwind CSS CDN + vanilla JS (`web/`)
 - **Dashboard**: Next.js 15 + React 19 + TypeScript + Tailwind CSS (`dashboard/`)
-- **Agent core**: Hermes Agent (Nous Research) + Python skills + `partenon-core` (`partenon-core/`)
+- **Agent core**: Hermes Agent (Nous Research) + Python skills + `partenon-core` (`partenon_core/`)
 - **Profiles**: seven Hermes Agent distributions (`hermes/profiles/`)
 - **Sandbox / orchestration**: NVIDIA NemoClaw + OpenShell (alpha / early preview)
 - **Models**: NVIDIA Nemotron 3 Ultra / Super, OpenAI, Kimi / Moonshot
@@ -65,7 +65,7 @@ partenon/
 │   ├── partenon-strategist/
 │   ├── partenon-diplomat/
 │   └── partenon-brain/
-├── partenon-core/          # Core skill: onboarding, router, workflow
+├── partenon_core/          # Core skill: onboarding, router, workflow
 ├── gbrain/                 # Local MCP memory server
 ├── scripts/                # Utilities and demos
 │   ├── demo_scribe.py
@@ -225,6 +225,6 @@ Methods exposed by the `gbrain` MCP server:
 ## Known gaps
 
 - The eval-loop stub in `partenon-core` is not yet implemented.
-- The `GBRAIN_DATABASE_URL` variable name in `.env.example` does not match the `GBrain_DATABASE_URL` default used by `gbrain/server.py` and `partenon-core/config/mcp/servers.yaml`. Use the exact name required by the component you run.
+- The `GBRAIN_DATABASE_URL` variable name in `.env.example` does not match the `GBrain_DATABASE_URL` default used by `gbrain/server.py` and `partenon_core/config/mcp/servers.yaml`. Use the exact name required by the component you run.
 - NVIDIA NemoClaw / OpenShell onboarding is alpha; follow NVIDIA's current instructions.
 - Live Google Workspace, Stripe and G-Brain flows require real credentials and are not enabled by default.

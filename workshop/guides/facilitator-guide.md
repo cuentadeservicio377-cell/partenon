@@ -96,7 +96,7 @@ print(t)
 PY
 ```
 
-Explain: projects and tasks live in `partenon-core/data/` as JSON. The dashboard reads them.
+Explain: projects and tasks live in `partenon_core/data/` as JSON. The dashboard reads them.
 
 ### 3. Show the Collector in local mode
 

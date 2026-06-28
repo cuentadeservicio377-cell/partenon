@@ -13,19 +13,19 @@ from typing import Any, Dict, List, Optional
 
 
 def _resolve_data_dir() -> Path:
-    """Resolve data directory relative to partenon-core."""
+    """Resolve data directory relative to partenon_core."""
     current = Path(__file__).resolve()
     for parent in current.parents:
-        if parent.name == "partenon-core":
+        if parent.name == "partenon_core":
             data_dir = parent / "data"
             data_dir.mkdir(parents=True, exist_ok=True)
             return data_dir
-        candidate = parent / "partenon-core" / "data"
+        candidate = parent / "partenon_core" / "data"
         if candidate.exists() and candidate.is_dir():
             return candidate
     for parent in current.parents:
-        if (parent / "partenon-core").exists():
-            data_dir = parent / "partenon-core" / "data"
+        if (parent / "partenon_core").exists():
+            data_dir = parent / "partenon_core" / "data"
             data_dir.mkdir(parents=True, exist_ok=True)
             return data_dir
     local = Path(__file__).resolve().parent / "data"

@@ -115,7 +115,7 @@ User
 
 **Tasks:**
 - Create root `distribution.yaml` and `pyproject.toml`.
-- Convert `partenon-core/tools/` into Hermes skills:
+- Convert `partenon_core/tools/` into Hermes skills:
   - `partenon-core` — router, onboarding, context loader.
   - `partenon-judge` — eval loop.
   - `partenon-workflows` — mission dispatcher.

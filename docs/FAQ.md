@@ -37,7 +37,7 @@ In `.env` at the project root. Never commit `.env`. Each profile has its own `.e
 
 ## 7. Why is there a `GBRAIN_DATABASE_URL` vs `GBrain_DATABASE_URL` mismatch?
 
-A naming inconsistency in the repository. `.env.example` uses `GBRAIN_DATABASE_URL`, while `gbrain/server.py` and `partenon-core/config/mcp/servers.yaml` read `GBrain_DATABASE_URL`. Set whichever variable the component you are running expects. This is tracked in [`MISSING_IMPLEMENTATION.md`](../MISSING_IMPLEMENTATION.md).
+A naming inconsistency in the repository. `.env.example` uses `GBRAIN_DATABASE_URL`, while `gbrain/server.py` and `partenon_core/config/mcp/servers.yaml` read `GBrain_DATABASE_URL`. Set whichever variable the component you are running expects. This is tracked in [`MISSING_IMPLEMENTATION.md`](../MISSING_IMPLEMENTATION.md).
 
 ## 8. Can I run this in production today?
 
@@ -57,7 +57,7 @@ A hero is a directory under `hermes/profiles/` containing:
 - `templates/.<hero>.example`
 - optional `cron/*.json`
 
-Then add the profile to `partenon-core/tools/router.py` and `data/cron.json` if you want it routed and scheduled.
+Then add the profile to `partenon_core/tools/router.py` and `data/cron.json` if you want it routed and scheduled.
 
 ## 11. Do I need an NVIDIA account?
 

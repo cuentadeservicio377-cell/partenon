@@ -13,34 +13,34 @@ This document tracks gaps between what the Partenon website and documentation pr
 
 ### 1.1 Functional eval loop
 - **Promise**: `web/developers.html` and `docs/architecture.md` describe a quality-measurement loop with a judge skill and configurable threshold.
-- **Reality**: `partenon-core/tools/eval_loop.py` is implemented and can score mission outputs against completeness, format, safety, and context criteria. It is not yet wired into the router or hero runtime.
+- **Reality**: `partenon_core/tools/eval_loop.py` is implemented and can score mission outputs against completeness, format, safety, and context criteria. It is not yet wired into the router or hero runtime.
 - **Severity**: MEDIUM
 - **Status**: PARTIAL
-- **Files**: `partenon-core/tools/eval_loop.py`, `partenon-core/SKILL.md`
+- **Files**: `partenon_core/tools/eval_loop.py`, `partenon_core/SKILL.md`
 - **Suggested fix**: Call `EvalLoop.evaluate()` from the mission router or a post-action hook, and persist scores in G-Brain.
 
 ### 1.2 Mission router
 - **Promise**: `partenon-core` routes user intent to the correct hero.
-- **Reality**: `partenon-core/tools/router.py` is implemented in English with keyword/pattern dictionaries for all 7 profiles, but it does not load profile metadata dynamically and uses simple scoring.
+- **Reality**: `partenon_core/tools/router.py` is implemented in English with keyword/pattern dictionaries for all 7 profiles, but it does not load profile metadata dynamically and uses simple scoring.
 - **Severity**: MEDIUM
 - **Status**: PARTIAL
-- **Files**: `partenon-core/tools/router.py`
+- **Files**: `partenon_core/tools/router.py`
 - **Suggested fix**: Load profile metadata from `hermes/profiles/*/config.yaml` and expose a `classify_intent(text)` API that returns a ranked list of profiles.
 
 ### 1.3 Workflow engine
 - **Promise**: Multi-hero missions are orchestrated by a workflow engine.
-- **Reality**: `partenon-core/tools/workflow_engine.py` contains hard-coded event/action workflows and can emit/process events locally. It does not dispatch to heroes or external systems.
+- **Reality**: `partenon_core/tools/workflow_engine.py` contains hard-coded event/action workflows and can emit/process events locally. It does not dispatch to heroes or external systems.
 - **Severity**: HIGH
 - **Status**: PARTIAL
-- **Files**: `partenon-core/tools/workflow_engine.py`
+- **Files**: `partenon_core/tools/workflow_engine.py`
 - **Suggested fix**: Wire action handlers to the corresponding hero tools and persist workflows in G-Brain.
 
 ### 1.4 Onboarding engine
 - **Promise**: New heroes learn company context from a structured onboarding flow.
-- **Reality**: `partenon-core/tools/onboarding_engine.py` and `onboarding_flow.py` exist and can create local data files, industry catalogs, sample data, and welcome documents. They do not yet read all profile files or pass context to heroes at runtime.
+- **Reality**: `partenon_core/tools/onboarding_engine.py` and `onboarding_flow.py` exist and can create local data files, industry catalogs, sample data, and welcome documents. They do not yet read all profile files or pass context to heroes at runtime.
 - **Severity**: MEDIUM
 - **Status**: PARTIAL
-- **Files**: `partenon-core/tools/onboarding_engine.py`, `partenon-core/tools/onboarding_flow.py`
+- **Files**: `partenon_core/tools/onboarding_engine.py`, `partenon_core/tools/onboarding_flow.py`
 - **Suggested fix**: Read `.brain`, `.finance`, `.design`, `.relations`, `.payments`, and `.security` files and produce a context summary that is passed to the hero at runtime.
 
 ---
@@ -139,11 +139,11 @@ This document tracks gaps between what the Partenon website and documentation pr
 
 ### 4.2 `GBRAIN_DATABASE_URL` mismatch
 - **Promise**: `.env.example` documents `GBRAIN_DATABASE_URL`.
-- **Reality**: `gbrain/server.py` originally used `GBrain_DATABASE_URL`; `partenon-core/config/mcp/servers.yaml` passed the value as `DATABASE_URL`.
+- **Reality**: `gbrain/server.py` originally used `GBrain_DATABASE_URL`; `partenon_core/config/mcp/servers.yaml` passed the value as `DATABASE_URL`.
 - **Severity**: MEDIUM
 - **Status**: DONE
-- **Fix**: `gbrain/server.py` now reads `GBRAIN_DATABASE_URL` (with fallbacks to `GBrain_DATABASE_URL` and `DATABASE_URL` for compatibility); `partenon-core/config/mcp/servers.yaml` now passes `GBRAIN_DATABASE_URL`.
-- **Files**: `gbrain/server.py`, `partenon-core/config/mcp/servers.yaml`
+- **Fix**: `gbrain/server.py` now reads `GBRAIN_DATABASE_URL` (with fallbacks to `GBrain_DATABASE_URL` and `DATABASE_URL` for compatibility); `partenon_core/config/mcp/servers.yaml` now passes `GBRAIN_DATABASE_URL`.
+- **Files**: `gbrain/server.py`, `partenon_core/config/mcp/servers.yaml`
 
 ### 4.3 Demo output filenames
 - **Promise**: `README.md` says the demo creates `data/sample_expenses.xlsx` with a "Vendors" sheet.
@@ -332,8 +332,8 @@ A production-readiness test was run using five real small-business company cards
 - `hermes/profiles/partenon-strategist/` — SOUL, config, `.ops`, template, cron, SKILL.md, and ops tools translated to English; `metas.py` renamed to `goals.py`.
 - `hermes/profiles/partenon-diplomat/` — SOUL, config, `.relations` template, cron, SKILL.md, and relations tools translated to English.
 - `hermes/profiles/partenon-brain/` — SOUL, config, `.brain`, `.env.example`, cron, SKILL.md translated to English; `gbrain_client.py` stdin bug fixed.
-- `partenon-core/SKILL.md` and `partenon-core/README.md` — updated to reference 7 heroes and include Brain.
-- `partenon-core/tools/onboarding_flow.py` — added Brain (`.brain`) to `PROFILE_FILES`.
+- `partenon_core/SKILL.md` and `partenon_core/README.md` — updated to reference 7 heroes and include Brain.
+- `partenon_core/tools/onboarding_flow.py` — added Brain (`.brain`) to `PROFILE_FILES`.
 - `workshop/` — new workshop package: five real company cards, five simulated onboardings, `HERMES_ONBOARDING.md`, `README.md`, `AGENDA.md`, `SLIDES.md`, `HANDOUT.md`, and `PRODUCTION_READINESS.md`.
 - `MISSING_IMPLEMENTATION.md` — this file, updated with production-readiness findings.
 - `README.md` — already linked to `workshop/README.md` in the documentation section.
@@ -344,7 +344,7 @@ A production-readiness test was run using five real small-business company cards
   - `cd dashboard && npm run build` PASS.
   - `bash -n install.sh` PASS (syntax only; runtime fails with a stale Python 3.9 venv).
   - `python3 -m py_compile` on all profile Python tools PASS.
-  - `python3 partenon-core/tools/router.py` PASS.
+  - `python3 partenon_core/tools/router.py` PASS.
   - `python3 -m unittest discover tests` PASS (4 tests).
   - `python3 workshop/simulations/sim_runner.py` does not exist; this previous claim was incorrect.
   - Brain `GBrainClient().put_page('test/smoke', ...)` PASS after stdin fix.

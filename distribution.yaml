@@ -1,0 +1,37 @@
+name: partenon
+version: 1.0.0
+description: "Seven-agent operating system for small businesses on Hermes Agent."
+hermes_requires: ">=0.14.0"
+author: "Partenon Authors"
+license: "MIT"
+
+env_requires:
+  - name: OPENROUTER_API_KEY
+    description: "Default LLM provider key (OpenRouter)."
+    required: true
+  - name: ANTHROPIC_API_KEY
+    description: "Optional Anthropic key."
+    required: false
+  - name: GBRAIN_DATABASE_URL
+    description: "Memory database URL (SQLite or Postgres)."
+    required: false
+    default: "sqlite:///data/gbrain.db"
+  - name: GOOGLE_SERVICE_ACCOUNT_JSON
+    description: "Path to Google Workspace service account JSON."
+    required: false
+  - name: STRIPE_SECRET_KEY
+    description: "Stripe secret key for Collector."
+    required: false
+  - name: SLACK_BOT_TOKEN
+    description: "Slack bot token for Strategist notifications."
+    required: false
+
+distribution_owned:
+  - distribution.yaml
+  - pyproject.toml
+  - partenon_core/
+  - mcp_servers/
+  - hermes/profiles/
+  - skills/
+  - scripts/
+  - tests/

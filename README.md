@@ -128,9 +128,9 @@ For per-hero tools, MCP servers, env vars, cron jobs, and prompts, see [`docs/HE
 Partenon has four layers:
 
 1. **Interface layer** — static marketing/technical pages (`web/`), the Next.js dashboard (`dashboard/`), and the Hermes Agent CLI.
-2. **Core layer** — `partenon-core/tools/` handles routing, onboarding, workflows, evaluation, and config loading.
+2. **Core layer** — `partenon_core/tools/` handles routing, onboarding, workflows, evaluation, and config loading.
 3. **Hero layer** — seven Hermes Agent distributions under `hermes/profiles/`, each with skills, tools, cron jobs, and templates.
-4. **Integration layer** — MCP servers for Google Workspace, Stripe, Gmail, Calendar, and G-Brain, configured in `partenon-core/config/mcp/servers.yaml`.
+4. **Integration layer** — MCP servers for Google Workspace, Stripe, Gmail, Calendar, and G-Brain, configured in `partenon_core/config/mcp/servers.yaml`.
 
 For a detailed Mermaid diagram, see [`docs/assets/architecture-diagram.mmd`](docs/assets/architecture-diagram.mmd). For a concise capability matrix, see [`docs/assets/hero-matrix.md`](docs/assets/hero-matrix.md).
 
@@ -142,7 +142,7 @@ For a detailed Mermaid diagram, see [`docs/assets/architecture-diagram.mmd`](doc
 partenon/
 ├── web/                          # Static site (index, heroes, developers)
 ├── dashboard/                    # Next.js 15 + React 19 operations dashboard
-├── partenon-core/                # Router, onboarding, workflow, eval loop
+├── partenon_core/                # Router, onboarding, workflow, eval loop
 │   ├── tools/router.py
 │   ├── tools/onboarding_engine.py
 │   ├── tools/workflow_engine.py
@@ -191,7 +191,7 @@ partenon/
 - [ ] Live Google Workspace, Stripe, and G-Brain integrations with real credentials.
 - [ ] Real workflow engine dispatch to hero tools instead of local JSON stubs.
 - [ ] Publishing and dispatch integrations for Herald, Collector, and Diplomat.
-- [x] Standardized `GBRAIN_DATABASE_URL` variable name across `.env`, `gbrain/server.py`, and `partenon-core/config/mcp/servers.yaml`.
+- [x] Standardized `GBRAIN_DATABASE_URL` variable name across `.env`, `gbrain/server.py`, and `partenon_core/config/mcp/servers.yaml`.
 - [ ] Automated tests for `partenon-core` and every hero skill (initial tests added in `tests/`).
 - [x] CI pipeline and linting/formatting config.
 
@@ -199,7 +199,7 @@ partenon/
 
 ## Known gaps
 
-- The eval loop in `partenon-core/tools/eval_loop.py` scores outputs but is not yet wired into mission execution.
+- The eval loop in `partenon_core/tools/eval_loop.py` scores outputs but is not yet wired into mission execution.
 - The workflow engine emits and processes events locally; it does not yet dispatch to external heroes or APIs.
 - Live integrations require real credentials and are not enabled by default.
 - The workflow engine and eval loop are local stubs; they do not yet dispatch to real hero runtimes.

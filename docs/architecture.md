@@ -14,7 +14,7 @@ Partenon is an AI agent operating system organized as a pantheon of heroes. Each
 
 ## Components
 
-### 1. Partenon Core (`partenon-core/`)
+### 1. Partenon Core (`partenon_core/`)
 
 - **Onboarding engine**: asks company type, needs and initial context.
 - **Router**: assigns missions to the correct profile by intent and availability.

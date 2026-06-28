@@ -1,0 +1,103 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "partenon"
+version = "1.0.0"
+description = "Hermes Agent distribution for small business operations."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "Partenon Authors" }]
+keywords = ["hermes", "agent", "mcp", "sme", "operations"]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+
+dependencies = [
+    "mcp>=1.0.0",
+    "pyyaml>=6.0",
+    "openpyxl>=3.1.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+workspace = [
+    "google-auth>=2.22.0",
+    "google-auth-oauthlib>=1.0.0",
+    "google-auth-httplib2>=0.2.0",
+    "google-api-python-client>=2.100.0",
+]
+payments = [
+    "stripe>=8.0.0",
+]
+db = [
+    "sqlalchemy>=2.0.0",
+    "psycopg2-binary>=2.9.0",
+]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "ruff>=0.4.0",
+    "mypy>=1.10.0",
+]
+all = [
+    "partenon[workspace,payments,db,dev]",
+]
+
+[project.scripts]
+partenon-router = "partenon_core.tools.router:route_intent"
+partenon-onboard = "partenon_core.tools.onboarding_engine:main"
+partenon-workflow = "partenon_core.tools.workflow_engine:main"
+partenon-eval = "partenon_core.tools.eval_loop:main"
+
+[project.urls]
+Homepage = "https://hermespartenon.online/"
+Repository = "https://github.com/cuentadeservicio377-cell/partenon"
+Documentation = "https://github.com/cuentadeservicio377-cell/partenon#readme"
+Issues = "https://github.com/cuentadeservicio377-cell/partenon/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["partenon_core"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/partenon_core",
+    "/hermes",
+    "/scripts",
+    "/tests",
+    "/README.md",
+    "/LICENSE",
+    "/NOTICE.md",
+    "/CONTRIBUTING.md",
+    "/SECURITY.md",
+    "/CHANGELOG.md",
+    "/requirements.txt",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

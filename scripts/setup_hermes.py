@@ -38,6 +38,8 @@ def ensure_venv() -> Path:
     if requirements.exists():
         print("Installing Python dependencies...")
         run([str(pip), "install", "-q", "-r", str(requirements)])
+    print("Installing Partenon package in editable mode...")
+    run([str(pip), "install", "-q", "-e", str(REPO_ROOT)])
     return venv
 
 
@@ -62,7 +64,7 @@ def install_core_skill() -> None:
     """Install the partenon-core skill reference in Hermes."""
     dest = HERMES_DIR / "skills" / "partenon-core"
     dest.mkdir(parents=True, exist_ok=True)
-    src = REPO_ROOT / "partenon-core" / "SKILL.md"
+    src = REPO_ROOT / "partenon_core" / "SKILL.md"
     if src.exists():
         shutil.copy2(src, dest / "SKILL.md")
         print("partenon-core skill reference installed.")

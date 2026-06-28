@@ -93,7 +93,7 @@ fi
 # ---------------------------------------------------------------------------
 # 4. Install Partenon core skill reference
 # ---------------------------------------------------------------------------
-CORE_SRC="$REPO_ROOT/partenon-core/SKILL.md"
+CORE_SRC="$REPO_ROOT/partenon_core/SKILL.md"
 if [ -f "$CORE_SRC" ]; then
   echo "Installing partenon-core skill reference..."
   mkdir -p "$HOME/.hermes/skills/partenon-core"

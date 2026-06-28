@@ -6,7 +6,7 @@ This document describes the programmable interfaces that exist in the repository
 
 ## 1. `partenon-core` Python tools
 
-All files are under [`partenon-core/tools/`](../partenon-core/tools/).
+All files are under [`partenon_core/tools/`](../partenon_core/tools/).
 
 ### `router.py` — Intent Router
 
@@ -37,7 +37,7 @@ print(profile)  # "partenon-scribe"
 **Example**
 
 ```bash
-python3 partenon-core/tools/router.py
+python3 partenon_core/tools/router.py
 ```
 
 ---
@@ -68,7 +68,7 @@ print(result["errors"])    # list of error strings
 **Example**
 
 ```bash
-python3 partenon-core/tools/onboarding_engine.py
+python3 partenon_core/tools/onboarding_engine.py
 ```
 
 ---
@@ -241,7 +241,7 @@ python3 scripts/setup_hermes.py
 1. Creates `.venv` if missing.
 2. Installs `requirements.txt`.
 3. Checks for `hermes` CLI in PATH.
-4. Copies `partenon-core/SKILL.md` to `~/.hermes/skills/partenon-core`.
+4. Copies `partenon_core/SKILL.md` to `~/.hermes/skills/partenon-core`.
 5. Installs the seven profiles if `hermes` is available.
 6. Copies `.env.example` to `.env`.
 7. Creates `data/` and `logs/`.

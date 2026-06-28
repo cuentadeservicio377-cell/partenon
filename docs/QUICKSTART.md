@@ -46,7 +46,7 @@ Expected result: you are in the `partenon/` directory with `README.md`, `install
 
 1. Creates `.venv` and installs `openpyxl`, `fastmcp`, `python-dotenv`.
 2. Checks for the Hermes CLI (not required for the demo).
-3. Copies `partenon-core/SKILL.md` to `~/.hermes/skills/partenon-core/`.
+3. Copies `partenon_core/SKILL.md` to `~/.hermes/skills/partenon_core/`.
 4. Copies `.env.example` to `.env`.
 5. Creates `data/` and `logs/`.
 6. Runs `scripts/demo_scribe.py`.
@@ -105,7 +105,7 @@ Open `data/sample_expenses_report.json`:
 Test how Partenon routes plain-language messages to heroes.
 
 ```bash
-python3 partenon-core/tools/router.py
+python3 partenon_core/tools/router.py
 ```
 
 Expected output:
@@ -182,7 +182,7 @@ print(t)
 PY
 ```
 
-Expected output: project `PROJ-001` and task `TASK-001` are created in `partenon-core/data/projects.json` and `partenon-core/data/tasks.json`.
+Expected output: project `PROJ-001` and task `TASK-001` are created in `partenon_core/data/projects.json` and `partenon_core/data/tasks.json`.
 
 ---
 
@@ -238,7 +238,7 @@ DASHBOARD_APP_USERNAME=admin
 DASHBOARD_APP_PASSWORD=partenon
 ```
 
-> **Warning:** `gbrain/server.py` and `partenon-core/config/mcp/servers.yaml` read `GBrain_DATABASE_URL` by default. Use the exact variable name required by the component you run.
+> **Warning:** `gbrain/server.py` and `partenon_core/config/mcp/servers.yaml` read `GBrain_DATABASE_URL` by default. Use the exact variable name required by the component you run.
 
 ---
 
@@ -249,7 +249,7 @@ Add your own screenshots here after running the steps above:
 | Step | Suggested filename | What to capture |
 |------|--------------------|-----------------|
 | 3 | `docs/assets/screenshot-scribe-demo.png` | `data/sample_expenses_report.json` output |
-| 4 | `docs/assets/screenshot-router.png` | `python3 partenon-core/tools/router.py` output |
+| 4 | `docs/assets/screenshot-router.png` | `python3 partenon_core/tools/router.py` output |
 | 5 | `docs/assets/screenshot-herald-copy.png` | `copy_generator.py` JSON output |
 | 8 | `docs/assets/screenshot-dashboard.png` | Dashboard at `http://localhost:3000` |
 

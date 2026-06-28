@@ -26,13 +26,13 @@ PROFILE_FILES = {
 
 def load_questions() -> str:
     """Load onboarding questions markdown."""
-    path = REPO_ROOT / "partenon-core" / "templates" / "onboarding_questions.md"
+    path = REPO_ROOT / "partenon_core" / "templates" / "onboarding_questions.md"
     return path.read_text(encoding="utf-8")
 
 
 def load_initial_tasks() -> List[Dict[str, Any]]:
     """Load default mission templates."""
-    path = REPO_ROOT / "partenon-core" / "data" / "initial_tasks.json"
+    path = REPO_ROOT / "partenon_core" / "data" / "initial_tasks.json"
     with open(path, encoding="utf-8") as f:
         return json.load(f)
 

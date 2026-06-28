@@ -126,7 +126,7 @@
 
 | # | Item | Status | Evidence |
 |---|------|--------|----------|
-| 9.1 | Onboarding engine exists | PASS | `partenon-core/tools/onboarding_engine.py` |
+| 9.1 | Onboarding engine exists | PASS | `partenon_core/tools/onboarding_engine.py` |
 | 9.2 | Onboarding engine creates `config/company.yaml` | PASS | Via `ConfigLoader` |
 | 9.3 | Onboarding engine creates local data files | PASS | `clients.json`, `projects.json`, etc. |
 | 9.4 | Onboarding engine creates industry catalog | PASS | Events, legal, consulting, retail |
