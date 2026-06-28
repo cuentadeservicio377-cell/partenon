@@ -2,6 +2,13 @@
 
 from mcp.server.fastmcp import FastMCP
 
+from mcp_servers.security.key_manager import (
+    audit_key_strength,
+    detect_key_provider,
+    recommend_model,
+    rotate_key_live,
+)
+
 mcp = FastMCP("partenon-security")
 
 
@@ -67,3 +74,31 @@ def security_audit_log(event: str, dry_run: bool = True) -> dict:
     if dry_run:
         return {"ok": True, "dry_run": True, "logged": True}
     return {"ok": False, "error": "live execution requires audit store access"}
+
+
+@mcp.tool()
+def security_audit_key_strength(key: str, dry_run: bool = True) -> dict:
+    """Audit the strength of an API key."""
+    result = audit_key_strength(key)
+    return {"ok": True, "dry_run": dry_run, **result}
+
+
+@mcp.tool()
+def security_detect_key_provider(key: str, dry_run: bool = True) -> dict:
+    """Detect the provider of an API key from its prefix."""
+    return {"ok": True, "dry_run": dry_run, "provider": detect_key_provider(key)}
+
+
+@mcp.tool()
+def security_recommend_model(provider: str, budget_tier: str = "standard", latency: str = "normal", dry_run: bool = True) -> dict:
+    """Recommend an AI model for a provider and budget tier."""
+    result = recommend_model(provider, budget_tier, latency)
+    return {"ok": True, "dry_run": dry_run, **result}
+
+
+@mcp.tool()
+def security_rotate_key_live(service: str, dry_run: bool = True) -> dict:
+    """Placeholder for live key rotation. Never rotates without explicit approval."""
+    if dry_run:
+        return {"ok": True, "dry_run": True, "service": service, "rotated": False}
+    return {"ok": True, "dry_run": False, **rotate_key_live(service)}

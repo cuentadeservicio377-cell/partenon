@@ -2,7 +2,14 @@
 
 from mcp.server.fastmcp import FastMCP
 
+from mcp_servers._shared.live_mode import is_live
+from mcp_servers.google_workspace.client import GoogleWorkspaceClient
+
 mcp = FastMCP("partenon-comms")
+
+
+def _workspace_client() -> GoogleWorkspaceClient:
+    return GoogleWorkspaceClient()
 
 
 @mcp.tool()
@@ -15,10 +22,16 @@ def comms_brand_intake(answers: str, dry_run: bool = True) -> dict:
 
 @mcp.tool()
 def comms_plan_content_calendar(topic: str, days: int = 30, dry_run: bool = True) -> dict:
-    """Plan a content calendar."""
+    """Plan a content calendar. In live mode, stores the plan in a Google Doc."""
     if dry_run:
         return {"ok": True, "dry_run": True, "calendar": []}
-    return {"ok": False, "error": "live execution requires provider credentials"}
+    if not is_live("google_workspace"):
+        return {"ok": False, "error": "live execution requires Google Workspace credentials"}
+    try:
+        result = _workspace_client().create_document(f"Content Calendar: {topic}", f"Calendar for {topic} ({days} days)")
+        return {"ok": True, "dry_run": False, **result}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
 
 
 @mcp.tool()
@@ -63,10 +76,16 @@ def comms_analyze_engagement(channel: str, dry_run: bool = True) -> dict:
 
 @mcp.tool()
 def comms_build_presentation(title: str, dry_run: bool = True) -> dict:
-    """Build a presentation outline."""
+    """Build a presentation. In live mode, creates a Google Slides deck."""
     if dry_run:
         return {"ok": True, "dry_run": True, "slides": [{"title": title, "bullets": []}]}
-    return {"ok": False, "error": "live execution requires provider credentials"}
+    if not is_live("google_workspace"):
+        return {"ok": False, "error": "live execution requires Google Workspace credentials"}
+    try:
+        result = _workspace_client().create_presentation(title)
+        return {"ok": True, "dry_run": False, **result}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
 
 
 @mcp.tool()

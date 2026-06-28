@@ -24,16 +24,13 @@ mcp_servers:
   partenon-relations:
     command: python
     args: ["-m", "mcp_servers.relations.server"]
-  google_workspace:
-    command: npx
-    args: ["-y", "@modelcontextprotocol/server-google-workspace"]
+  partenon-google-workspace:
+    command: python
+    args: ["-m", "mcp_servers.google_workspace.server"]
     env:
       GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
-  gmail:
-    command: npx
-    args: ["-y", "@modelcontextprotocol/server-gmail"]
-    env:
-      GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
+      GOOGLE_OAUTH_CLIENT_ID: "${GOOGLE_OAUTH_CLIENT_ID}"
+      GOOGLE_OAUTH_CLIENT_SECRET: "${GOOGLE_OAUTH_CLIENT_SECRET}"
 
 files:
   - .relations
@@ -41,8 +38,7 @@ files:
 permissions:
   - partenon-memory
   - partenon-relations
-  - google_workspace
-  - gmail
+  - partenon-google-workspace
   - file
   - terminal
   - relations_register_client
@@ -55,6 +51,8 @@ permissions:
   - relations_generate_proposal
   - relations_sync_contacts
   - relations_schedule_meeting
+  - workspace_create_calendar_event
+  - workspace_send_email
 
 workflows:
   - name: register_contact

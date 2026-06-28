@@ -29,7 +29,7 @@
 
 ## MCP Tools
 
-The Scribe exposes the `partenon-finance` MCP server. Available tools:
+The Scribe exposes the `partenon-finance` and `partenon-google-workspace` MCP servers. Available tools:
 
 - `finance_parse_expense`
 - `finance_classify_expense`
@@ -39,6 +39,9 @@ The Scribe exposes the `partenon-finance` MCP server. Available tools:
 - `finance_export_report`
 - `finance_write_to_sheets`
 - `finance_create_spreadsheet`
+- `workspace_create_spreadsheet`
+- `workspace_write_to_sheets`
+- `workspace_read_sheet`
 
 ## Dry-run vs live
 

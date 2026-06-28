@@ -39,7 +39,7 @@
 
 ## MCP Tools
 
-The Strategist uses the `partenon-ops` MCP server. Available tools:
+The Strategist uses the `partenon-ops`, `partenon-google-workspace`, and `partenon-slack` MCP servers. Available tools:
 
 - `ops_create_project`
 - `ops_create_task`
@@ -49,6 +49,10 @@ The Strategist uses the `partenon-ops` MCP server. Available tools:
 - `ops_create_calendar_event`
 - `ops_draft_email`
 - `ops_store_note`
+- `workspace_create_calendar_event`
+- `workspace_send_email`
+- `slack_send_message`
+- `slack_notify_task_overdue`
 
 ## Dry-run vs live
 
@@ -60,5 +64,7 @@ The Strategist uses the `partenon-ops` MCP server. Available tools:
 | `ops_define_goal` | Stores the goal in local `data/goals.json`. | None. |
 | `ops_generate_briefing` | Generates the briefing text locally; no external send. | None. |
 | `ops_create_calendar_event` | Simulates the event and returns a preview; no Calendar write. | `GOOGLE_SERVICE_ACCOUNT_JSON` to create a live Google Calendar event. |
-| `ops_draft_email` | Drafts the email locally; no send. | `GMAIL_ACCESS_TOKEN` to send via Gmail. |
+| `ops_draft_email` | Drafts the email locally; no send. | `GOOGLE_SERVICE_ACCOUNT_JSON` to send via Gmail. |
 | `ops_store_note` | Stores the note locally; no external persistence. | None. Optional `GOOGLE_SERVICE_ACCOUNT_JSON` to sync to a connected workspace store. |
+| `workspace_create_calendar_event` | Simulates response. | `GOOGLE_SERVICE_ACCOUNT_JSON`. |
+| `workspace_send_email` | Simulates send. | `GOOGLE_SERVICE_ACCOUNT_JSON`; explicit approval required. |

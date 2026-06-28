@@ -4,6 +4,22 @@ openpyxl>=3.1.0
 mcp>=1.0.0
 python-dotenv>=1.0.0
 pyyaml>=6.0
+fastapi>=0.115.0
+uvicorn>=0.32.0
+
+# Google Workspace integrations
+google-auth>=2.22.0
+google-auth-oauthlib>=1.0.0
+google-auth-httplib2>=0.2.0
+google-api-python-client>=2.100.0
+gspread>=6.0.0
+
+# Payments integrations
+stripe>=8.0.0
+
+# Notifications
+slack-sdk>=3.30.0
 
 # Development dependencies
 pytest>=8.0.0
+httpx>=0.27.0

@@ -2,7 +2,14 @@
 
 from mcp.server.fastmcp import FastMCP
 
+from mcp_servers._shared.live_mode import is_live
+from mcp_servers.google_workspace.client import GoogleWorkspaceClient
+
 mcp = FastMCP("partenon-finance")
+
+
+def _workspace_client() -> GoogleWorkspaceClient:
+    return GoogleWorkspaceClient()
 
 
 @mcp.tool()
@@ -63,11 +70,19 @@ def finance_export_report(format: str = "json", dry_run: bool = True) -> dict:
 
 
 @mcp.tool()
-def finance_write_to_sheets(data: str, dry_run: bool = True) -> dict:
-    """Write data to Google Sheets. Data must be a JSON string."""
+def finance_write_to_sheets(spreadsheet_id: str, range_name: str, values_json: str, dry_run: bool = True) -> dict:
+    """Write data to Google Sheets. values_json must be a JSON string of a 2D list."""
     if dry_run:
         return {"ok": True, "dry_run": True, "rows_written": 0}
-    return {"ok": False, "error": "live execution requires Google Workspace credentials"}
+    if not is_live("google_workspace"):
+        return {"ok": False, "error": "live execution requires Google Workspace credentials"}
+    try:
+        import json
+        values = json.loads(values_json)
+        result = _workspace_client().write_to_sheets(spreadsheet_id, range_name, values)
+        return {"ok": True, "dry_run": False, **result}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
 
 
 @mcp.tool()
@@ -75,4 +90,10 @@ def finance_create_spreadsheet(title: str, dry_run: bool = True) -> dict:
     """Create a Google Sheets spreadsheet."""
     if dry_run:
         return {"ok": True, "dry_run": True, "spreadsheet_id": "spreadsheet_123", "title": title}
-    return {"ok": False, "error": "live execution requires Google Workspace credentials"}
+    if not is_live("google_workspace"):
+        return {"ok": False, "error": "live execution requires Google Workspace credentials"}
+    try:
+        result = _workspace_client().create_spreadsheet(title)
+        return {"ok": True, "dry_run": False, **result}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}

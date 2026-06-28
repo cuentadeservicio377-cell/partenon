@@ -2,7 +2,14 @@
 
 from mcp.server.fastmcp import FastMCP
 
+from mcp_servers._shared.live_mode import is_live
+from mcp_servers.google_workspace.client import GoogleWorkspaceClient
+
 mcp = FastMCP("partenon-relations")
+
+
+def _workspace_client() -> GoogleWorkspaceClient:
+    return GoogleWorkspaceClient()
 
 
 @mcp.tool()
@@ -78,8 +85,19 @@ def relations_sync_contacts(direction: str = "export", dry_run: bool = True) -> 
 
 
 @mcp.tool()
-def relations_schedule_meeting(entity_id: str, title: str, start: str, dry_run: bool = True) -> dict:
-    """Schedule a meeting with a contact."""
+def relations_schedule_meeting(
+    entity_id: str, title: str, start: str, end: str = "", attendees_json: str = "[]", dry_run: bool = True
+) -> dict:
+    """Schedule a meeting with a contact. In live mode, creates a Calendar event."""
     if dry_run:
         return {"ok": True, "dry_run": True, "meeting_id": "MTG-001"}
-    return {"ok": False, "error": "live execution requires calendar credentials"}
+    if not is_live("google_workspace"):
+        return {"ok": False, "error": "live execution requires calendar credentials"}
+    try:
+        import json
+        attendees = json.loads(attendees_json)
+        end_time = end or start
+        result = _workspace_client().create_calendar_event(title, start, end_time, attendees)
+        return {"ok": True, "dry_run": False, **result}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}

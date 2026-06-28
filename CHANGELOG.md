@@ -5,6 +5,14 @@
 ## [Unreleased]
 
 ### Added
+- feat(phase-3): add `mcp_servers/google_workspace/` adapter with Sheets, Docs, Slides, Calendar, and Gmail tools; wire Scribe, Herald, Strategist, and Diplomat to it.
+- feat(phase-3): implement Stripe live mode in `mcp_servers/payments/server.py` (payment links, invoices, subscriptions, charges, income report, fraud, pending/overdue tracking).
+- feat(phase-3): add Stripe webhook handler at `mcp_servers/payments/webhook.py` that emits `payment_confirmed` to the workflow engine.
+- feat(phase-3): add `mcp_servers/notifications/slack.py` adapter and `partenon-slack` MCP server for Strategist notifications.
+- feat(phase-3): add Guardian key audit (`security_audit_key_strength`, `security_detect_key_provider`) and model recommendation (`security_recommend_model`) tools.
+- feat(phase-3): extend workflow engine to notify Slack on `task_overdue` events.
+- test(phase-3): add `tests/test_google_workspace_adapter.py`, `tests/test_stripe_live.py`, `tests/test_stripe_webhook.py`, `tests/test_slack_adapter.py`, `tests/test_guardian_key_manager.py`, and extend `tests/test_handoffs.py` for Slack notification.
+- build(deps): add `fastapi`, `uvicorn`, `gspread`, `google-api-python-client`, `stripe`, `slack-sdk`, and `httpx` to dependencies.
 - feat(phase-2): finalize dry-run/live tool lists for all 7 heroes and rewrite `SOUL.md`/`SKILL.md` with operating modes, MCP catalogs, and dry-run/live tables.
 - feat(phase-2): implement dry-run wrappers in every MCP server (`memory`, `finance`, `payments`, `comms`, `security`, `ops`, `relations`).
 - feat(phase-2): add 6 collaboration handoff workflows to `workflow_engine.py` for payment→scribe, budget→scribe, agreement→ops/strategist, milestone→diplomat, key rotation→all, and learning→target hero.

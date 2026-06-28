@@ -136,6 +136,28 @@ For a detailed Mermaid diagram, see [`docs/assets/architecture-diagram.mmd`](doc
 
 ---
 
+## Live integrations setup
+
+Partenon ships dry-run by default. To enable live calls, set the relevant variables in `.env` and pass `dry_run=false` to the tool.
+
+| Service | Required env vars | Heroes | What becomes live |
+|---|---|---|---|
+| **Google Workspace** | `GOOGLE_SERVICE_ACCOUNT_JSON` (path to service-account JSON) or `GOOGLE_OAUTH_CLIENT_ID` + `GOOGLE_OAUTH_CLIENT_SECRET` | Scribe, Herald, Strategist, Diplomat | Sheets, Docs, Slides, Calendar events, Gmail sends |
+| **Stripe** | `STRIPE_SECRET_KEY` | Collector | Payment links, invoices, subscriptions, charge reports, fraud checks |
+| **Stripe webhooks** | `STRIPE_WEBHOOK_SECRET` (optional, for signature verification) | Collector | `/webhooks/stripe` emits `payment_confirmed` to the workflow engine |
+| **Slack** | `SLACK_BOT_TOKEN`, `SLACK_TEAM_ID` | Strategist | Task-overdue notifications posted to a channel |
+| **G-Brain** | `GBRAIN_DATABASE_URL` | Brain, all heroes | Persistent memory (defaults to local SQLite) |
+
+Start the Stripe webhook handler locally:
+
+```bash
+python3 -m mcp_servers.payments.webhook
+```
+
+Then configure Stripe to send `checkout.session.completed` and `invoice.paid` events to `http://<your-host>:8000/webhooks/stripe`.
+
+---
+
 ## Repository structure
 
 ```text
@@ -191,13 +213,15 @@ partenon/
 ## Roadmap
 
 - [x] Phase 1 — Hermes-native foundation: `distribution.yaml`, `pyproject.toml`, `partenon_core` package, MCP servers, profile install.
+- [x] Phase 2 — Hero final design: dry-run/live tool lists, SOUL/SKILL rewrites, handoff workflows, interaction tests.
+- [x] Phase 3 — Real integrations: Google Workspace, Stripe live + webhook, Slack notifications, Guardian key/model audit.
+- [ ] Phase 4 — Real-time dashboard + API: FastAPI backend, SSE, JWT auth, workspace isolation.
+- [ ] Phase 5 — Gateway messaging: Telegram/Email gateway, command namespace, file routing.
+- [ ] Phase 6 — Deployment world: Docker Compose, CI/CD, structured logging, metrics, release process.
+- [ ] Phase 7 — Website reality: audit marketing claims, capabilities page, screenshots.
 - [ ] Functional eval loop wired into the router and hero runtime.
-- [ ] Live Google Workspace, Stripe, and G-Brain integrations with real credentials.
 - [ ] Real workflow engine dispatch to hero tools instead of local JSON stubs.
 - [ ] Publishing and dispatch integrations for Herald, Collector, and Diplomat.
-- [x] Standardized `GBRAIN_DATABASE_URL` variable name across `.env`, `gbrain/server.py`, and `partenon_core/config/mcp/servers.yaml`.
-- [ ] Automated tests for `partenon-core` and every hero skill (initial tests added in `tests/`).
-- [x] CI pipeline and linting/formatting config.
 
 ---
 
@@ -224,9 +248,9 @@ See [`MISSING_IMPLEMENTATION.md`](MISSING_IMPLEMENTATION.md) for the full audit.
 
 - Live site: https://hermespartenon.online/
 - Repository: https://github.com/cuentadeservicio377-cell/partenon
-- Verified locally (2026-06-28):
+- Verified locally (2026-06-26):
   - `python3 scripts/demo_scribe.py` PASS.
-  - `python3 -m pytest tests/` PASS (4 tests).
+  - `python3 -m pytest tests/` PASS (59 tests).
   - `cd dashboard && npm run lint` PASS.
   - `cd dashboard && npm run build` PASS.
   - `./install.sh` idempotent PASS.

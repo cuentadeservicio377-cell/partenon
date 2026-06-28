@@ -2,6 +2,17 @@
 
 ## Historial de Sesiones
 
+### 2026-06-26 — Fase 3: Real Integrations completada
+- Creado adaptador `mcp_servers/google_workspace/` con cliente y servidor FastMCP para Sheets, Docs, Slides, Calendar y Gmail.
+- Cableados Scribe, Herald, Strategist y Diplomat a `partenon-google-workspace`; actualizados `config.yaml`, `SOUL.md` y `SKILL.md`.
+- Implementado Stripe live mode en `mcp_servers/payments/server.py`: payment links, invoices, subscriptions, charges, income report, pending/overdue, fraud monitoring.
+- Creado `mcp_servers/payments/webhook.py` con endpoint `/webhooks/stripe` que valida firma y emite `payment_confirmed` al workflow engine.
+- Creado adaptador Slack en `mcp_servers/notifications/slack.py` y MCP server `partenon-slack`; añadida acción `notify_slack` al workflow de tareas vencidas.
+- Implementado Guardian key audit y model recommendation en `mcp_servers/security/key_manager.py`.
+- Añadidos tests: `test_google_workspace_adapter.py`, `test_stripe_live.py`, `test_stripe_webhook.py`, `test_slack_adapter.py`, `test_guardian_key_manager.py`; extendido `test_handoffs.py`.
+- Checks PASS: `python -m pytest tests/` (59 tests), `npm run lint`, `npm run build`, secret scan, `bash -n install.sh`.
+- Actualizados `.env.example`, `pyproject.toml`, `requirements.txt`, `README.md`, `CHANGELOG.md`, `TODOS.md`, `MEMORY.md`, brain central y gbrain.
+
 ### 2026-06-26 — Fase 2: Hero Final Design + MCP Wrappers completada
 - Finalizadas listas de herramientas dry-run/live para los 7 héroes.
 - Reescritos `SOUL.md` y `SKILL.md` de cada héroe con modos de operación, catálogo de herramientas MCP y tablas dry-run/live.

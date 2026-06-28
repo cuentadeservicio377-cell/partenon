@@ -24,21 +24,8 @@ mcp_servers:
   partenon-payments:
     command: python
     args: ["-m", "mcp_servers.payments.server"]
-  stripe:
-    command: npx
-    args: ["-y", "@stripe/mcp"]
     env:
       STRIPE_SECRET_KEY: "${STRIPE_SECRET_KEY}"
-  google_workspace:
-    command: npx
-    args: ["-y", "@modelcontextprotocol/server-google-workspace"]
-    env:
-      GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
-  gmail:
-    command: npx
-    args: ["-y", "@modelcontextprotocol/server-gmail"]
-    env:
-      GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
 
 files:
   - .payments
@@ -46,9 +33,6 @@ files:
 permissions:
   - partenon-memory
   - partenon-payments
-  - stripe
-  - google_workspace
-  - gmail
   - file
   - terminal
   - payments_create_payment_link

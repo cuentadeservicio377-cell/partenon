@@ -24,16 +24,19 @@ mcp_servers:
   partenon-ops:
     command: python
     args: ["-m", "mcp_servers.ops.server"]
-  google_workspace:
-    command: npx
-    args: ["-y", "@modelcontextprotocol/server-google-workspace"]
+  partenon-google-workspace:
+    command: python
+    args: ["-m", "mcp_servers.google_workspace.server"]
     env:
       GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
-  gmail:
-    command: npx
-    args: ["-y", "@modelcontextprotocol/server-gmail"]
+      GOOGLE_OAUTH_CLIENT_ID: "${GOOGLE_OAUTH_CLIENT_ID}"
+      GOOGLE_OAUTH_CLIENT_SECRET: "${GOOGLE_OAUTH_CLIENT_SECRET}"
+  partenon-slack:
+    command: python
+    args: ["-m", "mcp_servers.notifications.server"]
     env:
-      GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
+      SLACK_BOT_TOKEN: "${SLACK_BOT_TOKEN}"
+      SLACK_TEAM_ID: "${SLACK_TEAM_ID}"
 
 files:
   - .ops
@@ -41,8 +44,8 @@ files:
 permissions:
   - partenon-memory
   - partenon-ops
-  - google_workspace
-  - gmail
+  - partenon-google-workspace
+  - partenon-slack
   - file
   - terminal
   - ops_create_project
@@ -53,6 +56,10 @@ permissions:
   - ops_create_calendar_event
   - ops_draft_email
   - ops_store_note
+  - workspace_create_calendar_event
+  - workspace_send_email
+  - slack_send_message
+  - slack_notify_task_overdue
 
 workflows:
   - name: morning_briefing

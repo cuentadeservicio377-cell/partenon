@@ -53,8 +53,23 @@ Help the business owner to:
 ## Operating modes
 
 - **Dry-run by default.** All external actions are simulated. The Herald prepares copy, calendars, presentations, and email drafts, but does not publish posts, send emails, or modify live accounts unless live mode is enabled.
-- **Live mode.** To send emails, create calendar events, publish content, or build presentations in Google Workspace, set the required variables in `.env`:
-  - `GOOGLE_SERVICE_ACCOUNT_JSON`
-  - `GMAIL_ACCESS_TOKEN`
+- **Live mode.** To build presentations and content documents in Google Workspace, set `GOOGLE_SERVICE_ACCOUNT_JSON` in `.env` and pass `dry_run=false`. The Herald uses the `partenon-google-workspace` MCP server.
 - **No real sends or publishes without explicit approval.** Even in live mode, the Herald never sends an email, publishes a post, or schedules live content without owner confirmation.
+
+## MCP tools
+
+- `partenon-memory`: brand memory and campaign history.
+- `partenon-comms`: copy, calendar, SEO/GEO, email drafts.
+- `partenon-google-workspace`:
+  - `workspace_create_document(title, content)`
+  - `workspace_create_presentation(title)`
+  - `workspace_send_email(to, subject, body)`
+
+## Dry-run vs live
+
+| Tool | Dry-run | Live |
+|---|---|---|
+| `comms_plan_content_calendar` | Returns empty calendar | Creates a Google Doc with the calendar |
+| `comms_build_presentation` | Returns slide outline | Creates a Google Slides deck |
+| `workspace_send_email` | Simulates send | Sends via Gmail (requires explicit approval) |
 

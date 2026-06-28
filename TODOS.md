@@ -40,13 +40,13 @@ Goal: make the repository safe, clean, and globally distributable before any Her
 - [x] Add example interaction tests for every hero
 
 ### Phase 3 — Real Integrations (6 weeks)
-- [ ] Select and pin one Google Workspace MCP server
-- [ ] Wire Google Workspace to Scribe, Herald, Strategist, Diplomat
-- [ ] Wire Stripe MCP to Collector
-- [ ] Wire Gmail/Calendar MCP
-- [ ] Add Slack MCP for Strategist notifications
-- [ ] Implement Guardian key audit and model recommendations
-- [ ] Add Stripe webhook handler
+- [x] Select and pin one Google Workspace MCP server
+- [x] Wire Google Workspace to Scribe, Herald, Strategist, Diplomat
+- [x] Wire Stripe MCP to Collector
+- [x] Wire Gmail/Calendar MCP
+- [x] Add Slack MCP for Strategist notifications
+- [x] Implement Guardian key audit and model recommendations
+- [x] Add Stripe webhook handler
 
 ### Phase 4 — Real-Time Dashboard + API (4 weeks)
 - [ ] Build FastAPI backend with missions, heroes, cron, integrations, memory search, SSE

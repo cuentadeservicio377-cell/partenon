@@ -54,10 +54,10 @@ class WorkflowEngine:
         },
         {
             "id": "wf_task_overdue",
-            "name": "Task overdue → Alert and reschedule",
+            "name": "Task overdue → Alert, reschedule, and notify Slack",
             "trigger": "task_overdue",
             "condition": None,
-            "actions": ["urgent_nudge", "suggest_reschedule"],
+            "actions": ["urgent_nudge", "suggest_reschedule", "notify_slack"],
         },
         {
             "id": "wf_pipeline_stalled",
@@ -255,6 +255,7 @@ class WorkflowEngine:
             "register_client": self._action_register_client,
             "create_follow_up_task": self._action_create_follow_up_task,
             "welcome_nudge": lambda d: self._action_nudge(event, "low"),
+            "notify_slack": lambda d: self._action_notify_slack(event),
             "notify_scribe_of_payment": lambda d: self._action_handoff_nudge(
                 event, "scribe", "Payment confirmed; record as income."
             ),
@@ -347,6 +348,20 @@ class WorkflowEngine:
 
     def _action_notify(self, event: dict) -> bool:
         return True
+
+    def _action_notify_slack(self, event: dict) -> bool:
+        try:
+            from mcp_servers.notifications.slack import notify_task_overdue
+
+            data = event.get("data", {})
+            result = notify_task_overdue(
+                event.get("entity_id", "unknown"),
+                data.get("title", "Unknown task"),
+                data.get("due_date", "unknown"),
+            )
+            return bool(result.get("ok"))
+        except Exception:
+            return False
 
     def _action_handoff_nudge(self, event: dict, target: str, message: str) -> bool:
         nudges_file = self.data_dir / "nudges.json"

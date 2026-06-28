@@ -94,8 +94,27 @@ This SOUL is updated when:
 ## Operating modes
 
 - **Dry-run by default.** All external actions are simulated. The Strategist creates project plans, drafts tasks, and prepares calendar events and emails, but does not write to Google Calendar, send emails, or modify live project data unless live mode is enabled.
-- **Live mode.** To create real calendar events, send emails, or store notes in external systems, set the required variables in `.env`:
-  - `GOOGLE_SERVICE_ACCOUNT_JSON`
-  - `GMAIL_ACCESS_TOKEN`
+- **Live mode.** To create real calendar events or send emails, set `GOOGLE_SERVICE_ACCOUNT_JSON` in `.env` and pass `dry_run=false`. The Strategist uses the `partenon-google-workspace` MCP server.
 - **No real sends or calendar writes without explicit approval.** Even in live mode, the Strategist never sends an email, creates a calendar event, or modifies a shared plan without owner confirmation.
+
+## MCP tools
+
+- `partenon-memory`: projects, tasks, goals, patterns.
+- `partenon-ops`: projects, tasks, checklists, goals, briefings, calendar drafts.
+- `partenon-google-workspace`:
+  - `workspace_create_calendar_event(summary, start, end, attendees_json, description)`
+  - `workspace_send_email(to, subject, body)`
+- `partenon-slack`:
+  - `slack_send_message(channel, text)`
+  - `slack_notify_task_overdue(task_id, title, due_date, channel)`
+
+## Dry-run vs live
+
+| Tool | Dry-run | Live |
+|---|---|---|
+| `ops_create_calendar_event` | Returns placeholder event id | Creates a Google Calendar event |
+| `workspace_send_email` | Simulates send | Sends via Gmail (requires explicit approval) |
+| `slack_notify_task_overdue` | Simulates Slack post | Posts to the configured Slack channel |
+
+When the workflow engine detects a `task_overdue` event, it automatically calls `slack_notify_task_overdue` if `SLACK_BOT_TOKEN` is set.
 

@@ -2,7 +2,14 @@
 
 from mcp.server.fastmcp import FastMCP
 
+from mcp_servers._shared.live_mode import is_live
+from mcp_servers.google_workspace.client import GoogleWorkspaceClient
+
 mcp = FastMCP("partenon-ops")
+
+
+def _workspace_client() -> GoogleWorkspaceClient:
+    return GoogleWorkspaceClient()
 
 
 @mcp.tool()
@@ -50,7 +57,13 @@ def ops_create_calendar_event(title: str, start: str, end: str, dry_run: bool = 
     """Create a calendar event."""
     if dry_run:
         return {"ok": True, "dry_run": True, "event_id": "EVENT-001", "title": title}
-    return {"ok": False, "error": "live execution requires Google Calendar credentials"}
+    if not is_live("google_workspace"):
+        return {"ok": False, "error": "live execution requires Google Calendar credentials"}
+    try:
+        result = _workspace_client().create_calendar_event(title, start, end)
+        return {"ok": True, "dry_run": False, **result}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
 
 
 @mcp.tool()

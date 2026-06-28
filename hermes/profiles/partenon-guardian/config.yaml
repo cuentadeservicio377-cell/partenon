@@ -41,6 +41,10 @@ permissions:
   - security_allocate_gpu
   - security_set_policy
   - security_audit_log
+  - security_audit_key_strength
+  - security_detect_key_provider
+  - security_recommend_model
+  - security_rotate_key_live
 
 workflows:
   - name: key_rotation

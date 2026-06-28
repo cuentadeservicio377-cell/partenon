@@ -32,7 +32,7 @@
 
 ## MCP Tools
 
-The Diplomat uses the `partenon-relations` MCP server. Available tools:
+The Diplomat uses the `partenon-relations` and `partenon-google-workspace` MCP servers. Available tools:
 
 - `relations_register_client` — Create a client record.
 - `relations_register_vendor` — Create a vendor record.
@@ -44,6 +44,8 @@ The Diplomat uses the `partenon-relations` MCP server. Available tools:
 - `relations_generate_proposal` — Draft a proposal from context.
 - `relations_sync_contacts` — Prepare a CRM sync payload.
 - `relations_schedule_meeting` — Schedule a meeting and optional calendar event.
+- `workspace_create_calendar_event`
+- `workspace_send_email`
 
 ## Dry-run vs live
 

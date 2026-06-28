@@ -6,7 +6,7 @@
 
 - **Proyecto**: Partenon
 - **Iniciado**: 2026-06-23
-- **Estado**: Fase 2 — Hero Final Design + MCP Wrappers completada. MCP servers implementan dry-run wrappers para memory/finance/payments/comms/security/ops/relations; perfiles actualizan SOUL.md/SKILL.md con modos de operación, herramientas MCP y tablas dry-run/live; workflow engine define eventos de handoff entre héroes; tests de interacción añadidos (`tests/test_mcp_servers.py`, `tests/test_handoffs.py`) con 27 tests pasando. Listo para Phase 3 — Real Integrations.
+- **Estado**: Fase 3 — Real Integrations completada. Adaptador de Google Workspace implementado con Sheets/Docs/Slides/Calendar/Gmail y cableado a Scribe, Herald, Strategist y Diplomat; Collector habilitado para Stripe live (payment links, invoices, subscriptions, charges, reports, fraud) con webhook handler que emite `payment_confirmed`; Strategist con notificaciones Slack para tareas vencidas; Guardian con auditoría de fuerza de keys y recomendación de modelos; 59 tests pasando. Listo para Phase 4 — Real-Time Dashboard + API.
 - **Propósito**: Sistema de agentes IA para empresas, presentado como un panteón de héroes griegos al servicio de Hermes. Destinado a hackathon.
 
 ## Braindump

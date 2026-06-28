@@ -92,6 +92,16 @@ class HandoffWorkflowTestCase(unittest.TestCase):
         self.assertIn("wf_handoff_learning_recorded.notify_relevant_hero_of_learning", event["actions_executed"])
         self.assertTrue(self._nudges_for("scribe"))
 
+    def test_task_overdue_notifies_slack(self):
+        event = self.engine.emit_event(
+            type="task_overdue",
+            source="partenon-strategist",
+            entity_id="TASK-001",
+            entity_type="task",
+            data={"title": "Invoice client", "due_date": "2026-06-25"},
+        )
+        self.assertIn("wf_task_overdue.notify_slack", event["actions_executed"])
+
 
 class CoreWorkflowTestCase(unittest.TestCase):
     def setUp(self):

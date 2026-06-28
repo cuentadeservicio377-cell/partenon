@@ -24,16 +24,13 @@ mcp_servers:
   partenon-comms:
     command: python
     args: ["-m", "mcp_servers.comms.server"]
-  google_workspace:
-    command: npx
-    args: ["-y", "@modelcontextprotocol/server-google-workspace"]
+  partenon-google-workspace:
+    command: python
+    args: ["-m", "mcp_servers.google_workspace.server"]
     env:
       GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
-  gmail:
-    command: npx
-    args: ["-y", "@modelcontextprotocol/server-gmail"]
-    env:
-      GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
+      GOOGLE_OAUTH_CLIENT_ID: "${GOOGLE_OAUTH_CLIENT_ID}"
+      GOOGLE_OAUTH_CLIENT_SECRET: "${GOOGLE_OAUTH_CLIENT_SECRET}"
 
 files:
   - .design
@@ -41,8 +38,7 @@ files:
 permissions:
   - partenon-memory
   - partenon-comms
-  - google_workspace
-  - gmail
+  - partenon-google-workspace
   - file
   - terminal
   - comms_brand_intake
@@ -54,6 +50,9 @@ permissions:
   - comms_analyze_engagement
   - comms_build_presentation
   - comms_draft_email
+  - workspace_create_document
+  - workspace_create_presentation
+  - workspace_send_email
 
 workflows:
   - name: brand_interview
