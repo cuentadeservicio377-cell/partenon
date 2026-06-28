@@ -33,8 +33,8 @@ Goal: make the repository safe, clean, and globally distributable before any Her
 - [x] Verify `hermes profile install` end-to-end
 
 ### Phase 2 — Hero Final Design + MCP Wrappers (4 weeks)
-- [ ] Finalize tool lists and dry-run/live behavior for all 7 heroes
-- [ ] Rewrite `SOUL.md` and `SKILL.md` for each hero
+- [x] Finalize tool lists and dry-run/live behavior for all 7 heroes
+- [x] Update `SOUL.md` and `SKILL.md` for each hero with operating modes, MCP tools, and dry-run/live tables
 - [ ] Implement dry-run wrappers in every MCP server
 - [ ] Define collaboration handoff events
 - [ ] Add example interaction tests for every hero

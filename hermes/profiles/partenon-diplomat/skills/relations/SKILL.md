@@ -27,7 +27,7 @@ I activate when:
 - The owner asks to rate a relationship.
 - A meeting needs to be scheduled with a stakeholder.
 - A proposal needs to be generated for a client.
-- Contacts need to be synced with an external CRM.
+- Contacts need to be synced with an external CRM. *(roadmap; no MCP connector available yet)*
 
 ## Python tools
 
@@ -54,7 +54,7 @@ I activate when:
 - `run_daily_followups()` — Daily cron entry point that returns a structured report.
 
 ### `tools/sync_contacts.py`
-- `sync_contacts()` — Export `.relations` contacts to a CRM-ready payload and import external contacts into `.relations`.
+- `sync_contacts()` — Export `.relations` contacts to a CRM-ready payload and import external contacts into `.relations`. HubSpot and Salesforce push/pull are on the roadmap and not yet backed by an MCP tool.
 
 ### `tools/schedule_meeting.py`
 - `schedule_meeting()` — Create a meeting record with attendees, time, and a generated meet link placeholder.
@@ -137,6 +137,8 @@ Criteria:
 - `sync_contacts.py::sync_contacts()` — Converts `.relations` clients and vendors into a CRM sync payload.
 - Supports `hubspot` and `salesforce` providers and imports external contacts back into `.relations`.
 
+> Roadmap: HubSpot and Salesforce sync are conceptual wrappers. The current MCP tool is `relations_sync_contacts`, which only prepares a CRM-ready payload; no external CRM connector is available yet. *(roadmap; no MCP connector available yet)*
+
 ## Relationship states
 
 ```
@@ -164,7 +166,7 @@ Cancelled    Rescheduled  Blocked    Closed
 - `/rate [name] [A/B/C/D]` — Rate relationship.
 - `/meet [attendees] [date]` — Schedule meeting.
 - `/propose [client]` — Generate proposal draft.
-- `/sync [crm]` — Sync contacts with CRM.
+- `/sync [crm]` — Sync contacts with CRM. *(roadmap; no MCP connector available yet)*
 
 ## Rules
 
@@ -175,3 +177,35 @@ Cancelled    Rescheduled  Blocked    Closed
 - Keep `.relations` as the single source of truth.
 - Document communications with date and next step.
 - Never sign contracts alone; draft and request approval.
+
+## MCP Tools
+
+The Diplomat exposes relations operations through the `partenon-relations` MCP server. Available tools:
+
+- `relations_register_client` — Create a client record.
+- `relations_register_vendor` — Create a vendor record.
+- `relations_log_interaction` — Record a call, email, meeting, or message.
+- `relations_track_milestone` — Add or update a milestone.
+- `relations_track_deliverable` — Add or update a deliverable.
+- `relations_rate_relationship` — Assign a relationship rating with reason.
+- `relations_run_followups` — Generate the daily follow-up report.
+- `relations_generate_proposal` — Draft a proposal from context.
+- `relations_sync_contacts` — Prepare a CRM sync payload.
+- `relations_schedule_meeting` — Schedule a meeting and optional calendar event.
+
+## Dry-run vs live
+
+| Tool | Dry-run behavior | Live requirement |
+|------|------------------|------------------|
+| `relations_register_client` | Writes the client to `.relations` only. | `GOOGLE_SERVICE_ACCOUNT_JSON` to sync to Sheets. |
+| `relations_register_vendor` | Writes the vendor to `.relations` only. | `GOOGLE_SERVICE_ACCOUNT_JSON` to sync to Sheets. |
+| `relations_log_interaction` | Appends the interaction to `.relations` only. | `GOOGLE_SERVICE_ACCOUNT_JSON` to append to Sheets. |
+| `relations_track_milestone` | Updates `.relations`; no calendar event created. | `GOOGLE_SERVICE_ACCOUNT_JSON` to create/update Calendar events. |
+| `relations_track_deliverable` | Updates `.relations`; no calendar event created. | `GOOGLE_SERVICE_ACCOUNT_JSON` to create/update Calendar events. |
+| `relations_rate_relationship` | Stores the rating in `.relations` only. | `GOOGLE_SERVICE_ACCOUNT_JSON` to sync to Sheets. |
+| `relations_run_followups` | Returns a structured report; no messages sent. | `GMAIL_ACCESS_TOKEN` to send reminder emails. |
+| `relations_generate_proposal` | Drafts a local markdown proposal. | `GOOGLE_SERVICE_ACCOUNT_JSON` to create a Doc or Slide. |
+| `relations_sync_contacts` | Returns a CRM-ready payload; no external push. | External CRM connector (roadmap). |
+| `relations_schedule_meeting` | Creates a local meeting record only. | `GOOGLE_SERVICE_ACCOUNT_JSON` to create a Calendar event. |
+
+Live mode is opt-in via `.env`. The default dry-run mode never sends emails, creates calendar events, or pushes data to external systems.

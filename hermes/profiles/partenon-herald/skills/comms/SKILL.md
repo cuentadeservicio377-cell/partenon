@@ -26,7 +26,7 @@ I activate when the owner asks for something related to:
 - Presentations or proposals.
 - SEO/GEO optimization.
 - Social publishing or scheduling.
-- WordPress publishing.
+- WordPress publishing (roadmap: no WordPress MCP server available yet).
 
 ## Prerequisites
 
@@ -201,3 +201,33 @@ Supported types:
 - Always reference `.design`.
 - Keep a copy of every deliverable in `output/`.
 - Register missions in G-Brain.
+
+## MCP Tools
+
+This skill uses the `partenon-comms` MCP server. Available tools:
+
+- `comms_brand_intake` — Run the brand interview and update `.design`.
+- `comms_plan_content_calendar` — Generate a content calendar.
+- `comms_generate_copy` — Create copy for ads, emails, posts, or landing pages.
+- `comms_seo_geo_optimize` — Optimize content for search and generative engines.
+- `comms_publish_post` — Publish content to a connected channel.
+- `comms_schedule_content` — Schedule content for later publication.
+- `comms_analyze_engagement` — Review engagement metrics.
+- `comms_build_presentation` — Build a Google Slides presentation.
+- `comms_draft_email` — Draft an email.
+
+> **Roadmap:** Direct publishing to Instagram, Twitter/X, LinkedIn, Mailchimp, WordPress, and Open Design integrations are not available in the current MCP server. Use `comms_generate_copy` and export the result manually until those channels are added.
+
+## Dry-run vs live
+
+| Tool | Dry-run behavior | Live requirement |
+|------|------------------|------------------|
+| `comms_brand_intake` | Updates local `.design`; does not write to external systems | None |
+| `comms_plan_content_calendar` | Returns calendar payload; does not publish | None |
+| `comms_generate_copy` | Returns copy variants locally | None |
+| `comms_seo_geo_optimize` | Returns recommendations locally | None |
+| `comms_publish_post` | Simulates publish and returns preview URL | `GOOGLE_SERVICE_ACCOUNT_JSON` or `GMAIL_ACCESS_TOKEN` depending on channel |
+| `comms_schedule_content` | Simulates schedule; no external call | `GOOGLE_SERVICE_ACCOUNT_JSON` or `GMAIL_ACCESS_TOKEN` depending on channel |
+| `comms_analyze_engagement` | Returns analysis from provided metrics file | None |
+| `comms_build_presentation` | Simulates slide creation; returns preview | `GOOGLE_SERVICE_ACCOUNT_JSON` |
+| `comms_draft_email` | Returns draft locally; does not send | `GMAIL_ACCESS_TOKEN` (to send) |

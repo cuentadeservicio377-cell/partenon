@@ -115,3 +115,35 @@ I activate when:
 - Maintain backlinks for navigability.
 - Synthesize, do not replace reports.
 - Only expose shared context to the access list.
+
+## MCP Tools
+
+This skill uses the `partenon-memory` MCP server. Available tools:
+
+- `gbrain_read_profile` — Read a company or hero profile.
+- `gbrain_write_profile` — Write a company or hero profile.
+- `gbrain_write_mission` — Write a mission record.
+- `gbrain_search_missions` — Search missions.
+- `gbrain_search_entities` — Search entities.
+- `gbrain_store_learning` — Store a learning.
+- `memory_put_page` — Save a memory page.
+- `memory_get_page` — Retrieve a memory page.
+- `memory_search` — Search memory pages.
+- `memory_link` — Create a link between pages.
+- `memory_conflicts` — Detect conflicts.
+
+## Dry-run vs live
+
+| Tool | Dry-run behavior | Live requirement |
+|------|------------------|------------------|
+| `gbrain_read_profile` | Reads from local cache if available | `GBRAIN_DATABASE_URL` |
+| `gbrain_write_profile` | Simulates write; returns preview | `GBRAIN_DATABASE_URL` |
+| `gbrain_write_mission` | Simulates write; returns preview | `GBRAIN_DATABASE_URL` |
+| `gbrain_search_missions` | Searches local cache | `GBRAIN_DATABASE_URL` |
+| `gbrain_search_entities` | Searches local cache | `GBRAIN_DATABASE_URL` |
+| `gbrain_store_learning` | Simulates write; returns preview | `GBRAIN_DATABASE_URL` |
+| `memory_put_page` | Simulates write; returns preview | `GBRAIN_DATABASE_URL` |
+| `memory_get_page` | Reads from local cache | `GBRAIN_DATABASE_URL` |
+| `memory_search` | Searches local cache | `GBRAIN_DATABASE_URL` |
+| `memory_link` | Simulates link creation | `GBRAIN_DATABASE_URL` |
+| `memory_conflicts` | Runs conflict detection on local cache | `GBRAIN_DATABASE_URL` |

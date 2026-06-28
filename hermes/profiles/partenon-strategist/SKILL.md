@@ -36,3 +36,29 @@
 - Blocked tasks are escalated after 48 hours.
 - Completed projects are archived; nothing is deleted.
 - Calendar and email actions require explicit confirmation before external send.
+
+## MCP Tools
+
+The Strategist uses the `partenon-ops` MCP server. Available tools:
+
+- `ops_create_project`
+- `ops_create_task`
+- `ops_generate_checklist`
+- `ops_define_goal`
+- `ops_generate_briefing`
+- `ops_create_calendar_event`
+- `ops_draft_email`
+- `ops_store_note`
+
+## Dry-run vs live
+
+| Tool | Dry-run behavior | Live requirement |
+|---|---|---|
+| `ops_create_project` | Creates the project in local `data/projects.json`. | None. |
+| `ops_create_task` | Creates the task in local `data/tasks.json`. | None. |
+| `ops_generate_checklist` | Generates the checklist locally; no external write. | None. |
+| `ops_define_goal` | Stores the goal in local `data/goals.json`. | None. |
+| `ops_generate_briefing` | Generates the briefing text locally; no external send. | None. |
+| `ops_create_calendar_event` | Simulates the event and returns a preview; no Calendar write. | `GOOGLE_SERVICE_ACCOUNT_JSON` to create a live Google Calendar event. |
+| `ops_draft_email` | Drafts the email locally; no send. | `GMAIL_ACCESS_TOKEN` to send via Gmail. |
+| `ops_store_note` | Stores the note locally; no external persistence. | None. Optional `GOOGLE_SERVICE_ACCOUNT_JSON` to sync to a connected workspace store. |

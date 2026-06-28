@@ -120,3 +120,29 @@ The master dashboard includes these sheets:
 - Maintain consistent currency and rounding.
 - Alert due dates 3 days in advance.
 - Connect with the Messenger for campaign budgets.
+
+## MCP Tools
+
+This skill uses the `partenon-finance` MCP server. Available tools:
+
+- `finance_parse_expense` — Extract expense data from files or text.
+- `finance_classify_expense` — Categorize an expense and tag it as fixed or variable.
+- `finance_generate_dashboard` — Build or update the financial dashboard.
+- `finance_detect_anomaly` — Flag duplicates, outliers, and budget overruns.
+- `finance_compare_budget` — Compare actual spending against budget.
+- `finance_export_report` — Export a structured JSON or sheet report.
+- `finance_write_to_sheets` — Write records to Google Sheets.
+- `finance_create_spreadsheet` — Create a new spreadsheet.
+
+## Dry-run vs live
+
+| Tool | Dry-run behavior | Live requirement |
+|------|------------------|------------------|
+| `finance_parse_expense` | Parses input without external calls | None |
+| `finance_classify_expense` | Returns suggested category and cost type | None |
+| `finance_generate_dashboard` | Returns simulated dashboard payload | `GOOGLE_SERVICE_ACCOUNT_JSON` |
+| `finance_detect_anomaly` | Returns flagged items from local data | None |
+| `finance_compare_budget` | Returns variance analysis from local data | None |
+| `finance_export_report` | Returns report payload; does not write | `GOOGLE_SERVICE_ACCOUNT_JSON` (for Sheets export) |
+| `finance_write_to_sheets` | Simulates write and returns preview | `GOOGLE_SERVICE_ACCOUNT_JSON` |
+| `finance_create_spreadsheet` | Simulates creation and returns placeholder URL | `GOOGLE_SERVICE_ACCOUNT_JSON` |

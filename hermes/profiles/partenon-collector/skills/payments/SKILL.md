@@ -182,6 +182,46 @@ Failed → Retry method → Cancel subscription
 - **NEVER** create a subscription without documented customer consent.
 - **NEVER** ignore a failed subscription; review the payment method before the next attempt.
 
+## MCP Tools
+
+All operations are exposed through the `partenon-payments` MCP server:
+
+- `payments_create_payment_link`
+- `payments_create_subscription`
+- `payments_create_invoice`
+- `payments_send_payment_reminder`
+- `payments_record_payment`
+- `payments_list_charges`
+- `payments_generate_income_report`
+- `payments_read_pending_payments`
+- `payments_read_overdue_payments`
+- `payments_classify_risk`
+- `payments_schedule_followup`
+- `payments_monitor_fraud`
+- `payments_get_upcoming_payments`
+- `payments_get_failed_subscriptions`
+
+> Roadmap: `notify` is currently a local helper, not an MCP tool. It will be replaced by `partenon-comms` or `partenon-herald` publishing/notification tools when available.
+
+## Dry-run vs live
+
+| Tool | Dry-run behavior | Live requirement |
+|------|------------------|------------------|
+| `payments_create_payment_link` | Simulates link creation and logs payload. | `STRIPE_SECRET_KEY` |
+| `payments_create_subscription` | Simulates subscription creation and logs payload. | `STRIPE_SECRET_KEY` |
+| `payments_create_invoice` | Simulates invoice creation and logs payload. | `STRIPE_SECRET_KEY` |
+| `payments_send_payment_reminder` | Generates draft reminder; does not send email. | `GMAIL_ACCESS_TOKEN` |
+| `payments_record_payment` | Writes to local `.payments` file; does not call Stripe. | `GOOGLE_SERVICE_ACCOUNT_JSON` (for Sheets sync) |
+| `payments_list_charges` | Returns simulated or locally cached charges. | `STRIPE_SECRET_KEY` |
+| `payments_generate_income_report` | Generates report from local data. | `GOOGLE_SERVICE_ACCOUNT_JSON` (to write to Sheets) |
+| `payments_read_pending_payments` | Reads from local `.payments` file. | None (local read) |
+| `payments_read_overdue_payments` | Reads from local `.payments` file. | None (local read) |
+| `payments_classify_risk` | Classifies from local overdue data. | None (local analysis) |
+| `payments_schedule_followup` | Schedules next contact in local cron file. | `GMAIL_ACCESS_TOKEN` (when live send is enabled) |
+| `payments_monitor_fraud` | Flags suspicious patterns from local charge data. | None (local analysis) |
+| `payments_get_upcoming_payments` | Reads from local `.payments` file. | None (local read) |
+| `payments_get_failed_subscriptions` | Reads from local `.payments` file or simulated cache. | `STRIPE_SECRET_KEY` |
+
 ## Files
 
 - `.payments`: master file of products, prices, links, subscriptions, customers, invoices, payments, and reminders.
@@ -191,6 +231,7 @@ Failed → Retry method → Cancel subscription
 
 ## Dependencies
 
-- `stripe_tools.py`: implementation of the main functions.
-- `google_workspace` MCP: sending reminders and recording in Sheets.
-- `gbrain` MCP: recording missions and client context.
+- `partenon-payments` MCP server: source of truth for all payment, subscription, invoice, reminder, report, and fraud-monitoring tools.
+- `partenon-brain` MCP server: records collection missions and client context.
+- `stripe_tools.py`: local implementation helpers used by the MCP server.
+- `google_workspace` integration (via MCP): sends reminders and records collections in Sheets when live mode is enabled.

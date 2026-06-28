@@ -147,3 +147,31 @@ Rules:
 - `skills/security/tools/gpu_allocator.py`: NVIDIA GPU allocation and quota helpers.
 - `skills/security/tools/policy_manager.py`: role-based access policy management.
 - `skills/security/tools/audit_logger.py`: tamper-evident security event logging.
+
+## MCP Tools
+
+This skill exposes the `partenon-security` MCP server with the following tools:
+
+- `security_list_keys`
+- `security_rotate_key`
+- `security_audit_access`
+- `security_validate_access`
+- `security_manage_secrets`
+- `security_allocate_gpu`
+- `security_set_policy`
+- `security_audit_log`
+
+## Dry-run vs live
+
+| Tool | Dry-run behavior | Live requirement |
+|---|---|---|
+| `security_list_keys` | Reads keys from local environment or config and returns masked fingerprints; no provider APIs are called. | None for read-only inspection. |
+| `security_rotate_key` | Simulates provider rotation, returns a synthetic new fingerprint, leaves real keys untouched, and writes a simulated event to the local audit log. | Provider API credentials (e.g., `NVIDIA_API_KEY`, `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, or Twitter/X tokens) and explicit operator approval. |
+| `security_audit_access` | Scans profile definitions and local policy files, comparing them against canonical role templates in the repo. | None by default. Optional G-Brain sync requires `GBRAIN_DATABASE_URL`. |
+| `security_validate_access` | Evaluates the request against local RBAC policy and returns `allowed` or `denied`. | None by default. |
+| `security_manage_secrets` | Operates on a local stub vault; stores, rotates, or deletes references in memory or a local file without touching a real secrets backend. | An integrated secrets manager (e.g., HashiCorp Vault, AWS Secrets Manager, 1Password) configured via its own environment variables. |
+| `security_allocate_gpu` | Returns a deterministic allocation object with placeholder quotas and zero cost; no GPU is provisioned. | Valid `NVIDIA_API_KEY` and an NVIDIA cloud account with available quota. |
+| `security_set_policy` | Writes the policy to a local JSON file and flags violations without applying it to the orchestrator. | Orchestrator policy API endpoint configured; otherwise remains local. |
+| `security_audit_log` | Appends the event to `data/audit/security.log`. | None by default. Optional G-Brain mirroring requires `GBRAIN_DATABASE_URL`. |
+
+No tool in this skill performs payments, dispatches, or other external side effects in dry-run mode. Live mutations require explicit approval.
