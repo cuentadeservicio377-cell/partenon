@@ -6,7 +6,7 @@
 
 - **Proyecto**: Partenon
 - **Iniciado**: 2026-06-23
-- **Estado**: Fase 1 — Hermes-Native Foundation completada. `partenon_core` empaquetado con `pyproject.toml`, MCP servers creados (memory/finance/payments/comms/security/ops/relations), perfiles cableados vía `config.yaml`, y `hermes profile install` verificado end-to-end para los 7 héroes. Listo para Phase 2 — Hero Final Design + MCP Wrappers.
+- **Estado**: Fase 2 — Hero Final Design + MCP Wrappers completada. MCP servers implementan dry-run wrappers para memory/finance/payments/comms/security/ops/relations; perfiles actualizan SOUL.md/SKILL.md con modos de operación, herramientas MCP y tablas dry-run/live; workflow engine define eventos de handoff entre héroes; tests de interacción añadidos (`tests/test_mcp_servers.py`, `tests/test_handoffs.py`) con 27 tests pasando. Listo para Phase 3 — Real Integrations.
 - **Propósito**: Sistema de agentes IA para empresas, presentado como un panteón de héroes griegos al servicio de Hermes. Destinado a hackathon.
 
 ## Braindump

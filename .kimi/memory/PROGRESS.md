@@ -2,6 +2,15 @@
 
 ## Historial de Sesiones
 
+### 2026-06-26 — Fase 2: Hero Final Design + MCP Wrappers completada
+- Finalizadas listas de herramientas dry-run/live para los 7 héroes.
+- Reescritos `SOUL.md` y `SKILL.md` de cada héroe con modos de operación, catálogo de herramientas MCP y tablas dry-run/live.
+- Implementados wrappers dry-run en cada MCP server: `memory`, `finance`, `payments`, `comms`, `security`, `ops`, `relations`.
+- Agregados 6 workflows de handoff de colaboración a `workflow_engine.py`: pago→scribe, presupuesto→scribe, acuerdo→ops/estratega, hito→diplomático, rotación de llaves→todos, aprendizaje→héroe objetivo.
+- Creados `tests/test_mcp_servers.py` y `tests/test_handoffs.py` con 27 tests pasando.
+- Checks PASS: `python -m pytest tests/` (31 tests), `npm run lint`, `npm run build`, secret scan, `bash -n install.sh`.
+- Actualizados `TODOS.md`, `MEMORY.md`, brain central y este archivo.
+
 ### 2026-06-28 — Fase 1: Hermes-Native Foundation completada
 - Renombrado `partenon-core/` a `partenon_core/` y convertido en paquete Python instalable con `pyproject.toml`.
 - Creado `distribution.yaml` raíz y `distribution.yaml` dentro de cada uno de los 7 perfiles.

@@ -91,6 +91,48 @@ class WorkflowEngine:
             "condition": None,
             "actions": ["register_client", "create_follow_up_task", "welcome_nudge"],
         },
+        {
+            "id": "wf_handoff_payment_confirmed",
+            "name": "Collector confirms payment → Notify Scribe",
+            "trigger": "payment_confirmed",
+            "condition": None,
+            "actions": ["notify_scribe_of_payment"],
+        },
+        {
+            "id": "wf_handoff_budget_requested",
+            "name": "Herald requests campaign budget → Notify Scribe",
+            "trigger": "campaign_budget_requested",
+            "condition": None,
+            "actions": ["notify_scribe_of_budget_request"],
+        },
+        {
+            "id": "wf_handoff_agreement_reached",
+            "name": "Diplomat reaches agreement → Create project in Ops",
+            "trigger": "agreement_reached",
+            "condition": None,
+            "actions": ["create_operations_project", "notify_strategist_of_deal"],
+        },
+        {
+            "id": "wf_handoff_milestone_due",
+            "name": "Strategist milestone due soon → Notify Diplomat",
+            "trigger": "milestone_due_soon",
+            "condition": None,
+            "actions": ["notify_diplomat_of_milestone"],
+        },
+        {
+            "id": "wf_handoff_key_rotation",
+            "name": "Guardian flags key rotation → Notify affected profiles",
+            "trigger": "key_rotation_required",
+            "condition": None,
+            "actions": ["notify_profiles_of_key_rotation"],
+        },
+        {
+            "id": "wf_handoff_learning_recorded",
+            "name": "Brain records learning → Suggest actions to relevant hero",
+            "trigger": "learning_recorded",
+            "condition": None,
+            "actions": ["notify_relevant_hero_of_learning"],
+        },
     ]
 
     def __init__(self, data_dir: Optional[str] = None):
@@ -213,6 +255,24 @@ class WorkflowEngine:
             "register_client": self._action_register_client,
             "create_follow_up_task": self._action_create_follow_up_task,
             "welcome_nudge": lambda d: self._action_nudge(event, "low"),
+            "notify_scribe_of_payment": lambda d: self._action_handoff_nudge(
+                event, "scribe", "Payment confirmed; record as income."
+            ),
+            "notify_scribe_of_budget_request": lambda d: self._action_handoff_nudge(
+                event, "scribe", "Herald requested campaign budget validation."
+            ),
+            "notify_strategist_of_deal": lambda d: self._action_handoff_nudge(
+                event, "strategist", "Diplomat closed an agreement; create project and tasks."
+            ),
+            "notify_diplomat_of_milestone": lambda d: self._action_handoff_nudge(
+                event, "diplomat", "Client milestone is due soon; confirm with the client."
+            ),
+            "notify_profiles_of_key_rotation": lambda d: self._action_handoff_nudge(
+                event, "all", "Guardian flagged a key rotation; review affected integrations."
+            ),
+            "notify_relevant_hero_of_learning": lambda d: self._action_handoff_nudge(
+                event, data.get("target_profile", "all"), "Brain recorded a learning relevant to your domain."
+            ),
         }
         handler = handlers.get(action)
         return handler(data) if handler else False
@@ -286,6 +346,25 @@ class WorkflowEngine:
         return True
 
     def _action_notify(self, event: dict) -> bool:
+        return True
+
+    def _action_handoff_nudge(self, event: dict, target: str, message: str) -> bool:
+        nudges_file = self.data_dir / "nudges.json"
+        nudges_data = self._load_json("nudges.json")
+        nudges = nudges_data.get("nudges", [])
+        nudge = {
+            "id": f"NUD-{len(nudges) + 1:03d}",
+            "event_id": event.get("id"),
+            "type": "handoff",
+            "target_profile": target,
+            "urgency": "medium",
+            "message": message,
+            "created_at": datetime.now().isoformat(),
+        }
+        nudges.append(nudge)
+        nudges_data["nudges"] = nudges
+        with open(nudges_file, "w", encoding="utf-8") as f:
+            json.dump(nudges_data, f, indent=2, ensure_ascii=False)
         return True
 
     def _action_nudge(self, event: dict, urgency: str) -> bool:

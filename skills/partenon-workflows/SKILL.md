@@ -45,6 +45,21 @@ print(event["actions_executed"])
 | `project_progress_50` | Review deadlines + alert if behind. |
 | `new_client` | Register client, create follow-up task, welcome nudge. |
 
+## Collaboration handoffs
+
+The following events route context from one hero to another:
+
+| Event | Source | Target | Purpose |
+|-------|--------|--------|---------|
+| `payment_confirmed` | Collector | Scribe | Record income and update dashboards. |
+| `campaign_budget_requested` | Herald | Scribe | Validate campaign budget against financial plan. |
+| `agreement_reached` | Diplomat | Strategist | Create project, tasks, and kickoff checklist. |
+| `milestone_due_soon` | Strategist | Diplomat | Confirm milestone with the client or vendor. |
+| `key_rotation_required` | Guardian | All affected heroes | Rotate credentials before they expire. |
+| `learning_recorded` | Brain | Relevant hero | Surface historical context for a new decision. |
+
+Each handoff creates a `handoff` nudge in `data/nudges.json` with `target_profile` and a message describing the required next step.
+
 ## Rules
 
 - Workflows run in dry-run mode by default when no external credentials are configured.

@@ -5,6 +5,10 @@
 ## [Unreleased]
 
 ### Added
+- feat(phase-2): finalize dry-run/live tool lists for all 7 heroes and rewrite `SOUL.md`/`SKILL.md` with operating modes, MCP catalogs, and dry-run/live tables.
+- feat(phase-2): implement dry-run wrappers in every MCP server (`memory`, `finance`, `payments`, `comms`, `security`, `ops`, `relations`).
+- feat(phase-2): add 6 collaboration handoff workflows to `workflow_engine.py` for payment→scribe, budget→scribe, agreement→ops/strategist, milestone→diplomat, key rotation→all, and learning→target hero.
+- test(phase-2): add `tests/test_mcp_servers.py` and `tests/test_handoffs.py` covering all domain tools and handoff events (27 tests).
 - feat(phase-1): add root `distribution.yaml` and `pyproject.toml`; package `partenon_core` with `partenon-core`, `partenon-judge`, and `partenon-workflows` skills.
 - feat(phase-1): create `mcp_servers/` wrappers for memory, finance, payments, comms, security, ops, and relations (dry-run defaults).
 - feat(phase-1): bundle G-Brain as `mcp_servers.memory` (`partenon-memory`) and wire all profiles to it.
