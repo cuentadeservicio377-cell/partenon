@@ -255,7 +255,7 @@ Actual Python equivalent:
 python3 hermes/profiles/partenon-tesorero/skills/finance/tools/parsers.py \
   --input data/example-q2-pos.xlsx \
   --by-category "books,gifts,events" \
-  --output data/brookline-margin-by-line.json
+  --output data/example-margin-by-line.json
 ```
 
 **Expected output:**

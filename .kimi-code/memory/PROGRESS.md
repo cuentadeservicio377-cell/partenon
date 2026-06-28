@@ -360,3 +360,12 @@
 
 ## Remaining Gaps
 - The profile directory remains named `partenon-mensajero` because external files (e.g., `data/cron.json`, `scripts/setup_hermes.py`) reference that path. Only internal file contents were translated.
+
+### 2026-06-28 — Phase 0 contaminants cleanup
+- Removed dead code: `Kimi_Agent_10 Storytelling Web Sites/`, `examples/*-stub.py`, `docs/PARTENON_GUIDE.html`, `docs/HERMES_GATEWAY_AUDIT.md`, and stale `docs/superpowers/plans/specs` files.
+- Replaced `examples/README.md` with a note that the directory is reserved for real examples.
+- Anonymized sample data across `partenon-core/tools/onboarding_engine.py`, Diplomat and Treasurer tools, `data/clients.json`, `docs/HERO_GUIDE.md`, `docs/ENTREPRENEUR_PLAYBOOK.md`, and all `workshop/simulations/*.md` files.
+- Hardened dashboard auth: removed fallback credentials/secret in `.env.example` and `dashboard/src/lib/auth.ts`; missing env vars now throw.
+- Replaced external `gbrain` binary dependency in `gbrain_client.py` with direct `GBrainStore` usage.
+- Added `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, and `NOTICE.md`.
+- Verified: `npx tsc --noEmit` PASS, `npm run build` PASS, `python3 -m py_compile` on Brain tools PASS, `GBrainClient` import and functional smoke test PASS.
