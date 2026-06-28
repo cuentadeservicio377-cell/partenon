@@ -1,14 +1,11 @@
 """Tests for the Partenon onboarding engine."""
 
-import json
-import sys
-import tempfile
 import unittest
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
-
 from partenon_core.tools.onboarding_engine import OnboardingEngine
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 class OnboardingEngineTestCase(unittest.TestCase):

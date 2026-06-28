@@ -1,20 +1,13 @@
 """Tests for the Stripe webhook handler."""
 
-import json
-import tempfile
-from pathlib import Path
-
 from fastapi.testclient import TestClient
 
 from mcp_servers.payments.webhook import app
-from partenon_core.tools.workflow_engine import WorkflowEngine
-
 
 client = TestClient(app)
 
 
 def test_stripe_webhook_emits_payment_confirmed(monkeypatch):
-    tmpdir = tempfile.TemporaryDirectory()
     monkeypatch.setattr(
         "partenon_core.tools.workflow_engine.WorkflowEngine.__init__",
         lambda self, data_dir=None: None,

@@ -10,12 +10,12 @@ function isPublicPath(pathname: string) {
   );
 }
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   if (isPublicPath(pathname)) return NextResponse.next();
 
   const token = req.cookies.get(AUTH_COOKIE_NAME)?.value;
-  const session = verifySessionToken(token);
+  const session = await verifySessionToken(token);
   if (session.ok) return NextResponse.next();
 
   const url = req.nextUrl.clone();

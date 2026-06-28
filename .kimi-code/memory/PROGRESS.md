@@ -397,3 +397,16 @@
 - Created `scripts/validate_profiles.py` to enforce directory existence, YAML validity, required keys, cron file references, and template existence.
 - Verified: `python3 -c "import yaml; yaml.safe_load(...)"` for each config PASS; `python3 scripts/validate_profiles.py` PASS (7/7 profiles valid).
 - Committed changes: `803551d`.
+
+### 2026-06-28 — Phase 4: Real-Time Dashboard + API
+- Created `partenon_api/` FastAPI backend as the single source of truth for missions, cron jobs, hero status, workflow events, and integrations.
+- Added atomic JSON store (`partenon_api/store.py`) with advisory locking and migration from legacy `data/tasks.json` to `data/missions.json`.
+- Implemented JWT auth shared between dashboard and API; login endpoint `/api/v1/auth/token` issues tokens signed with `PARTENON_API_SECRET`/`DASHBOARD_AUTH_SECRET`.
+- Built domain routes: `/api/v1/missions`, `/api/v1/cron`, `/api/v1/heroes`, `/api/v1/events`, `/api/v1/integrations`, plus `/api/v1/memory/search`.
+- Added Server-Sent Events endpoint `/api/v1/stream` with in-memory broadcast bus; dashboard `LiveEvents` component reconnects and refreshes on mission/cron/event changes.
+- Refactored Next.js dashboard to consume the API via server actions (`dashboard/src/lib/api.ts`, `dashboard/src/lib/data.ts`, `dashboard/src/lib/auth.ts`).
+- Added workspace isolation foundation: every entity carries `workspace_id` and API routes filter by the JWT workspace.
+- Added integration bridge over existing MCP servers (Google Workspace, Slack, Payments, Memory).
+- Added 23 new tests covering auth, missions, cron, events, and store; total suite now 82 tests.
+- Updated `.env.example`, `README.md`, `install.sh`, `TODOS.md`, and `PLAN.md` for the new API backend.
+- Verified: `pytest tests/` PASS (82), `ruff check` PASS, `cd dashboard && npm run lint` PASS, `cd dashboard && npm run build` PASS, `bash -n install.sh` PASS, `python3 .github/scripts/secret_scan.py` PASS.

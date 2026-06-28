@@ -23,7 +23,7 @@ export default async function LoginPage({
       redirect('/login?error=1');
     }
 
-    await setSessionCookie(username);
+    await setSessionCookie(username, password);
     redirect(next);
   }
 

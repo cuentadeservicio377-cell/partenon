@@ -1,17 +1,17 @@
 # Project Memory: Partenon
 
-> Last session: 2026-06-28T03:35Z
+> Last session: 2026-06-28T08:20Z
 
 ## Current Context
 
 - **Project**: Partenon
 - **Started**: 2026-06-23
-- **Status**: Phase 0 contaminants cleanup completed. Removed legacy React source (`Kimi_Agent_10 Storytelling Web Sites/`), stub examples, stale docs, and old superpowers plans/specs. Anonymized sample data across onboarding engine, profile tools, `data/clients.json`, docs, and workshop simulations. Hardened Next.js dashboard auth by removing default credentials and requiring `DASHBOARD_AUTH_SECRET`. Replaced the external `gbrain` binary dependency in the Brain client with direct `GBrainStore` usage. Added Apache-2.0 `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, and `NOTICE.md` at the repo root. Remaining Phase 0 gaps (`install.sh` idempotency, canonical profile directory names, unified `config.yaml` schema, full CI) are tracked in `TODOS.md` and `MISSING_IMPLEMENTATION.md`.
+- **Status**: Phase 4 Real-Time Dashboard + API completed. Added `partenon_api/` FastAPI backend with missions, cron jobs, hero status, workflow events, integrations, JWT auth, workspace isolation, and Server-Sent Events. Refactored Next.js dashboard to consume the API via server actions. Migrated `data/tasks.json` to `data/missions.json` with `workspace_id`. Workflow engine now writes follow-up missions to `missions.json`. Total test suite: 82 tests.
 - **Live site**: `https://hermespartenon.online/`
 - **Repo**: `https://github.com/cuentadeservicio377-cell/partenon`
 - **Profiles**: Scribe/Treasurer, Herald/Messenger, Collector, Guardian, Strategist, Diplomat, Brain.
-- **Verified**: `python3 scripts/demo_tesorero.py` PASS, `cd dashboard && npm run build` PASS, `python3 -m unittest discover tests` PASS (4 tests), `bash -n install.sh` PASS, `python3 -m py_compile` on modified profile tools PASS, `python3 workshop/simulations/sim_runner.py` actions PASS, Brain `GBrainClient` import via `importlib` PASS, dashboard auth throws on missing env vars PASS.
-- **Next**: complete remaining Phase 0 items (`install.sh` idempotency, canonical English profile directory names, unified Hermes-compatible `config.yaml` schema, lint/secret-scan CI), then implement real intent router and workflow engine runtime, add publishing/dispatch integrations for Messenger/Collector/Diplomat, build end-to-end bank/CSV-to-Sheets flow for Scribe, add Shopify/order import and inventory tracking for retail, add cloud cost import and churn-signal worksheet for SaaS, and add a public support channel/issue template.
+- **Verified**: `python3 scripts/demo_scribe.py` PASS, `pytest tests/` PASS (82 tests), `ruff check partenon_api tests partenon_core/tools/workflow_engine.py` PASS, `cd dashboard && npm run lint` PASS, `cd dashboard && npm run build` PASS, `bash -n install.sh` PASS, `python3 .github/scripts/secret_scan.py` PASS, `hermes profile install hermes/profiles/partenon-*` PASS for all 7 heroes.
+- **Next**: Phase 5 Gateway Messaging (Telegram/Email gateway, command namespace, file routing, group-chat rules, progressive onboarding conversation).
 
 ## Braindump
 
@@ -41,8 +41,9 @@ The brand narrative uses archetypes (not mythology cosplay) to give personality 
 - **Native skills**: Hermes Business OS (HBOS) — 6 base skills
 - **Payments**: Stripe API + Stripe Skills (`stripe-link-cli`, `mpp-agent`, `stripe-projects`)
 - **Dashboard**: Next.js 15 + React 19 + TypeScript + Tailwind CSS
+- **API backend**: FastAPI + JWT + Server-Sent Events
 - **Document Engine**: Python + WeasyPrint (Kami v3)
-- **Data**: Google Sheets (master data) + local JSON
+- **Data**: Google Sheets (master data) + local JSON (`data/missions.json`, `data/cron.json`, etc.)
 - **Communication**: Hermes messaging gateway (Telegram, WhatsApp, Slack, Discord, Email, LINE, etc.)
 - **Integrations**: Google Workspace, Stripe, G-Brain via MCP
 - **Infrastructure**: Docker / Docker Compose, optional AWS EC2

@@ -9,7 +9,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.demo_scribe import main as demo_main
+from scripts.demo_scribe import main as demo_main  # noqa: E402
 
 
 class ScribeDemoTestCase(unittest.TestCase):
@@ -28,6 +28,7 @@ class ScribeDemoTestCase(unittest.TestCase):
         self.assertIn("variable_expenses", report)
         self.assertIn("margin", report)
         self.assertIn("margin_pct", report)
+        self.assertIn("alerts", report)
 
         self.assertEqual(report["income"], 4000.0)
         self.assertEqual(report["fixed_expenses"], 609.0)

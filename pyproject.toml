@@ -31,6 +31,7 @@ dependencies = [
     "python-dotenv>=1.0.0",
     "fastapi>=0.115.0",
     "uvicorn>=0.32.0",
+    "pyjwt>=2.8.0",
 ]
 
 [project.optional-dependencies]
@@ -75,7 +76,7 @@ Documentation = "https://github.com/cuentadeservicio377-cell/partenon#readme"
 Issues = "https://github.com/cuentadeservicio377-cell/partenon/issues"
 
 [tool.hatch.build.targets.wheel]
-packages = ["partenon_core", "mcp_servers"]
+packages = ["partenon_core", "mcp_servers", "partenon_api"]
 
 [tool.hatch.build.targets.sdist]
 include = [

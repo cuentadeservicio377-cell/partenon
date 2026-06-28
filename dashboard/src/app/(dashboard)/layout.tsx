@@ -1,10 +1,14 @@
 import { Suspense } from 'react';
+import { LiveEvents } from '@/components/LiveEvents';
 import { TopNav } from '@/components/TopNav';
+import { getApiUrl } from '@/lib/api';
 import { PROFILES } from '@/lib/env';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const apiUrl = getApiUrl();
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 md:px-6 md:py-8">
+      <LiveEvents apiUrl={apiUrl} />
       <header className="mb-8">
         <h1 className="font-display text-3xl font-medium tracking-tight text-partenon-text md:text-4xl">
           Partenon Mission Control

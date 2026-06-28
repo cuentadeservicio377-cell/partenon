@@ -95,13 +95,19 @@ Then:
 # Verify the finance demo
 python3 scripts/demo_scribe.py
 
-# Start the operations dashboard
+# Start the API backend
+. .venv/bin/activate
+uvicorn partenon_api.main:app --reload --port 8000
+
+# In another terminal, start the operations dashboard
 cd dashboard
 npm install
 npm run dev
 ```
 
 Open http://localhost:3000 and log in with the credentials generated in `.env` (`DASHBOARD_APP_USERNAME` and `DASHBOARD_APP_PASSWORD`). If `.env` does not exist, run `./install.sh` first.
+
+The dashboard talks to the FastAPI backend at `PARTENON_API_URL` (default `http://127.0.0.1:8000`) using JWT sessions signed with `PARTENON_API_SECRET` (or `DASHBOARD_AUTH_SECRET` as a fallback).
 
 For a full 15-minute walkthrough, see [`docs/QUICKSTART.md`](docs/QUICKSTART.md).
 
@@ -164,6 +170,12 @@ Then configure Stripe to send `checkout.session.completed` and `invoice.paid` ev
 partenon/
 ├── web/                          # Static site (index, heroes, developers)
 ├── dashboard/                    # Next.js 15 + React 19 operations dashboard
+├── partenon_api/                 # FastAPI backend: missions, cron, heroes, events, SSE
+│   ├── main.py
+│   ├── auth.py
+│   ├── store.py
+│   ├── events.py
+│   └── routers/
 ├── partenon_core/                # Router, onboarding, workflow, eval loop
 │   ├── tools/router.py
 │   ├── tools/onboarding_engine.py
@@ -215,7 +227,7 @@ partenon/
 - [x] Phase 1 — Hermes-native foundation: `distribution.yaml`, `pyproject.toml`, `partenon_core` package, MCP servers, profile install.
 - [x] Phase 2 — Hero final design: dry-run/live tool lists, SOUL/SKILL rewrites, handoff workflows, interaction tests.
 - [x] Phase 3 — Real integrations: Google Workspace, Stripe live + webhook, Slack notifications, Guardian key/model audit.
-- [ ] Phase 4 — Real-time dashboard + API: FastAPI backend, SSE, JWT auth, workspace isolation.
+- [x] Phase 4 — Real-time dashboard + API: FastAPI backend, SSE, JWT auth, workspace isolation.
 - [ ] Phase 5 — Gateway messaging: Telegram/Email gateway, command namespace, file routing.
 - [ ] Phase 6 — Deployment world: Docker Compose, CI/CD, structured logging, metrics, release process.
 - [ ] Phase 7 — Website reality: audit marketing claims, capabilities page, screenshots.
@@ -248,9 +260,10 @@ See [`MISSING_IMPLEMENTATION.md`](MISSING_IMPLEMENTATION.md) for the full audit.
 
 - Live site: https://hermespartenon.online/
 - Repository: https://github.com/cuentadeservicio377-cell/partenon
-- Verified locally (2026-06-26):
+- Verified locally (2026-06-28):
   - `python3 scripts/demo_scribe.py` PASS.
-  - `python3 -m pytest tests/` PASS (59 tests).
+  - `python3 -m pytest tests/` PASS (82 tests).
+  - `ruff check partenon_api tests partenon_core/tools/workflow_engine.py` PASS.
   - `cd dashboard && npm run lint` PASS.
   - `cd dashboard && npm run build` PASS.
   - `./install.sh` idempotent PASS.

@@ -7,10 +7,10 @@ This is the nervous system that makes departments talk to each other.
 
 import json
 import sys
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Optional, Dict, List
+from typing import List, Optional
 
 # Add paths for imports from other skills
 PROJECT_ROOT = Path(__file__).parent.parent.parent.parent
@@ -437,27 +437,34 @@ class WorkflowEngine:
             json.dump(clients_data, f, indent=2, ensure_ascii=False)
         return True
 
+    def _load_list(self, filename: str) -> list:
+        try:
+            with open(self.data_dir / filename, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                return data if isinstance(data, list) else []
+        except (FileNotFoundError, json.JSONDecodeError):
+            return []
+
+    def _save_list(self, filename: str, items: list) -> None:
+        with open(self.data_dir / filename, "w", encoding="utf-8") as f:
+            json.dump(items, f, indent=2, ensure_ascii=False)
+
     def _action_create_follow_up_task(self, data: dict) -> bool:
-        tasks_file = self.data_dir / "tasks.json"
-        tasks_data = self._load_json("tasks.json")
-        tasks = tasks_data.get("tasks", [])
-        next_id = tasks_data.get("next_id", len(tasks) + 1)
-        task = {
-            "id": f"TASK-{next_id:03d}",
+        missions = self._load_list("missions.json")
+        mission = {
+            "id": f"MISSION-{datetime.now().strftime('%Y%m%d%H%M%S')}",
+            "profile": "partenon-diplomat",
             "title": f"Follow up with {data.get('name', 'new lead')}",
-            "status": "pending",
+            "status": "to_do",
             "priority": "high",
-            "owner": "To be assigned",
+            "description": "Auto-generated follow-up from workflow engine.",
             "due_date": (datetime.now() + timedelta(days=2)).strftime("%Y-%m-%d"),
-            "created": datetime.now().strftime("%Y-%m-%d"),
-            "project_id": "",
-            "kanban_column": "to_do",
+            "created_at": datetime.now().isoformat(),
+            "updated_at": datetime.now().isoformat(),
+            "workspace_id": "default",
         }
-        tasks.append(task)
-        tasks_data["tasks"] = tasks
-        tasks_data["next_id"] = next_id + 1
-        with open(tasks_file, "w", encoding="utf-8") as f:
-            json.dump(tasks_data, f, indent=2, ensure_ascii=False)
+        missions.append(mission)
+        self._save_list("missions.json", missions)
         return True
 
     def detect_automatic_events(self) -> List[dict]:
@@ -465,9 +472,9 @@ class WorkflowEngine:
         detected_events = []
         today = datetime.now()
 
-        tasks_data = self._load_json("tasks.json")
-        for task in tasks_data.get("tasks", []):
-            if task.get("status") in ["pending", "in_progress", "blocked"]:
+        missions = self._load_list("missions.json")
+        for task in missions:
+            if task.get("status") in ["pending", "in_progress", "blocked", "to_do", "backlog"]:
                 due_date = task.get("due_date")
                 if due_date and due_date < today.strftime("%Y-%m-%d"):
                     detected_events.append(

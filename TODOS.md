@@ -49,11 +49,11 @@ Goal: make the repository safe, clean, and globally distributable before any Her
 - [x] Add Stripe webhook handler
 
 ### Phase 4 — Real-Time Dashboard + API (4 weeks)
-- [ ] Build FastAPI backend with missions, heroes, cron, integrations, memory search, SSE
-- [ ] Refactor Next.js dashboard to consume API
-- [ ] Implement Server-Sent Events for mission updates
-- [ ] Add JWT auth with generated secret
-- [ ] Add workspace/company isolation foundation
+- [x] Build FastAPI backend with missions, heroes, cron, integrations, memory search, SSE
+- [x] Refactor Next.js dashboard to consume API
+- [x] Implement Server-Sent Events for mission updates
+- [x] Add JWT auth with generated secret
+- [x] Add workspace/company isolation foundation
 
 ### Phase 5 — Gateway Messaging (3 weeks)
 - [ ] Configure Hermes gateway for Telegram and Email

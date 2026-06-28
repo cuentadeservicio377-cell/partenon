@@ -41,6 +41,8 @@ docs/pdf-preview/
 *.local.json
 *.tsbuildinfo
 data/gbrain.db
+data/sample_expenses.xlsx
+data/sample_expenses_report.json
 .kimi/
 .kimi-code/
 !.kimi-code/AGENTS.md
