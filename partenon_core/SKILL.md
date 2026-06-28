@@ -1,7 +1,7 @@
 ---
 name: partenon-core
 description: Core of Partenon. Loads company configuration, routes conversations to the 7 hero profiles, maintains business context, integrates with Google Workspace and G-Brain, coordinates handoffs, and guides general onboarding. Always active.
-version: 0.1.0
+version: 1.0.0
 metadata:
   hermes:
     tags: [partenon, core, business, enterprise]
@@ -27,6 +27,16 @@ I am the core of Partenon. My job is to:
 
 This skill is ALWAYS active. It loads before all others.
 
+## Python package
+
+Partenon Core is shipped as the `partenon_core` Python package:
+
+```bash
+pip install -e .
+python -m partenon_core.tools.router
+python -m partenon_core.tools.onboarding_engine
+```
+
 ## Company configuration
 
 I read configuration from `config/company.yaml` in the project directory.
@@ -51,12 +61,13 @@ branding:
   email_signature: null
 
 profiles:
-  treasurer: { active: true, file: ".finance" }
-  messenger: { active: true, file: ".design" }
+  scribe: { active: true, file: ".finance" }
+  herald: { active: true, file: ".design" }
   collector: { active: true, file: ".payments" }
   guardian: { active: true, file: ".security" }
   strategist: { active: true, file: ".ops" }
   diplomat: { active: true, file: ".relations" }
+  brain: { active: true, file: ".brain" }
 
 integrations:
   google_workspace:
@@ -65,7 +76,7 @@ integrations:
     drive_folder: "Partenon"
     master_spreadsheet: "Project Index"
   telegram: { active: true }
-  gbrain: { active: true, mcp: "gbrain" }
+  gbrain: { active: true, mcp: "partenon-memory" }
 ```
 
 ## Conversation routing
@@ -74,8 +85,8 @@ When the business owner sends a message, I analyze intent and route:
 
 | Detected intent | Target profile | Example message |
 |---------------------|----------------|--------------------|
-| Finance, costs, budgets, expenses | Treasurer | "Organize my numbers" |
-| Brand, social, content, campaigns | Messenger | "Create a campaign" |
+| Finance, costs, budgets, expenses | Scribe | "Organize my numbers" |
+| Brand, social, content, campaigns | Herald | "Create a campaign" |
 | Collections, payments, subscriptions, Stripe | Collector | "Generate a payment link" |
 | API keys, models, permissions, security | Guardian | "Rotate the OpenAI API key" |
 | Projects, tasks, calendar, goals | Strategist | "What do I have this week" |

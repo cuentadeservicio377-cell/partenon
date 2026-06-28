@@ -11,6 +11,8 @@ model:
 skills:
   auto_load:
     - partenon-core
+    - partenon-judge
+    - partenon-workflows
     - payments
 
 mcp_servers:

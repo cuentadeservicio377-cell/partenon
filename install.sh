@@ -91,14 +91,16 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# 4. Install Partenon core skill reference
+# 4. Install Partenon core skills
 # ---------------------------------------------------------------------------
-CORE_SRC="$REPO_ROOT/partenon_core/SKILL.md"
-if [ -f "$CORE_SRC" ]; then
-  echo "Installing partenon-core skill reference..."
-  mkdir -p "$HOME/.hermes/skills/partenon-core"
-  cp -R "$CORE_SRC" "$HOME/.hermes/skills/partenon-core/"
-fi
+for skill in partenon-core partenon-judge partenon-workflows; do
+  SKILL_SRC="$REPO_ROOT/skills/$skill/SKILL.md"
+  if [ -f "$SKILL_SRC" ]; then
+    echo "Installing $skill skill reference..."
+    mkdir -p "$HOME/.hermes/skills/$skill"
+    cp -R "$SKILL_SRC" "$HOME/.hermes/skills/$skill/"
+  fi
+done
 
 # ---------------------------------------------------------------------------
 # 5. Install hero profiles into Hermes (best-effort if Hermes CLI is available)

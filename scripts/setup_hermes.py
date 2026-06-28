@@ -60,14 +60,16 @@ def check_hermes_cli() -> bool:
     return False
 
 
-def install_core_skill() -> None:
-    """Install the partenon-core skill reference in Hermes."""
-    dest = HERMES_DIR / "skills" / "partenon-core"
-    dest.mkdir(parents=True, exist_ok=True)
-    src = REPO_ROOT / "partenon_core" / "SKILL.md"
-    if src.exists():
-        shutil.copy2(src, dest / "SKILL.md")
-        print("partenon-core skill reference installed.")
+def install_core_skills() -> None:
+    """Install Partenon core skill references in Hermes."""
+    skills = ["partenon-core", "partenon-judge", "partenon-workflows"]
+    for skill in skills:
+        dest = HERMES_DIR / "skills" / skill
+        dest.mkdir(parents=True, exist_ok=True)
+        src = REPO_ROOT / "skills" / skill / "SKILL.md"
+        if src.exists():
+            shutil.copy2(src, dest / "SKILL.md")
+            print(f"{skill} skill reference installed.")
 
 
 def install_profiles() -> None:
@@ -119,7 +121,7 @@ def main() -> int:
 
     ensure_venv()
     has_hermes = check_hermes_cli()
-    install_core_skill()
+    install_core_skills()
     if has_hermes:
         install_profiles()
     else:
