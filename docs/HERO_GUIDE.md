@@ -52,9 +52,9 @@ For a quick overview, see [`docs/assets/hero-matrix.md`](assets/hero-matrix.md).
 
 ### Example prompts
 
-1. `Scribe, create a finance dashboard called "Acme Finances" and seed the headers.`
+1. `Scribe, create a finance dashboard called "Example Finances" and seed the headers.`
 2. `Parse last month's expenses from data/june_expenses.xlsx and classify them.`
-3. `Record a $450 fixed cost for office rent paid to WeWork on 2026-06-01.`
+3. `Record a $450 fixed cost for office rent paid to Example Coworking on 2026-06-01.`
 4. `Run the weekly budget review and export it to output/weekly_review.json.`
 5. `Which variable expenses are over budget this month?`
 
@@ -149,8 +149,8 @@ For a quick overview, see [`docs/assets/hero-matrix.md`](assets/hero-matrix.md).
 ### Example prompts
 
 1. `Collector, create a payment link for "Initial consultation" priced at $1,500 MXN.`
-2. `Create a monthly subscription for ana@example.com at $500 MXN/month.`
-3. `Invoice jane@client.com for two line items: strategy $25,000, implementation $40,000.`
+2. `Create a monthly subscription for user1@example.test at $500 MXN/month.`
+3. `Invoice client@example.test for two line items: strategy $25,000, implementation $40,000.`
 4. `Generate the income report for 2026-06-01 to 2026-06-30.`
 5. `Review recent charges for fraud flags and alert the Guardian if needed.`
 
@@ -297,9 +297,9 @@ For a quick overview, see [`docs/assets/hero-matrix.md`](assets/hero-matrix.md).
 
 ### Example prompts
 
-1. `Diplomat, register client "Acme Inc" with contact ana@acme.com and rating B.`
-2. `Add a milestone "Proposal delivery" for Acme Inc on 2026-06-30.`
-3. `Log yesterday's call with Acme: scope adjusted, new version due June 28.`
+1. `Diplomat, register client "Example Inc" with contact contact@example.test and rating B.`
+2. `Add a milestone "Proposal delivery" for Example Inc on 2026-06-30.`
+3. `Log yesterday's call with Example Inc: scope adjusted, new version due June 28.`
 4. `Run daily follow-ups and draft reminder emails for anyone with a milestone in 3 days.`
 5. `Generate a proposal for CLI-001 including strategy and implementation.`
 

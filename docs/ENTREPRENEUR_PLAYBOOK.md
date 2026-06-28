@@ -213,8 +213,8 @@ These are trimmed, realistic versions of the profile files. Copy the full templa
 
 ```toml
 [company]
-name = "Acme Coffee"
-tax_id = "XAXX010101000"
+name = "Example Coffee"
+tax_id = "XX-XXXXXXX"
 currency = "USD"
 fiscal_year = 2026
 responsible = "Scribe"
@@ -242,10 +242,10 @@ category = "materials"
 monthly_budget = 3000.00
 
 [[variable_costs.item]]
-name = "Meta ads"
+name = "Social ads"
 category = "marketing"
 monthly_budget = 1200.00
-default_vendor = "Meta"
+default_vendor = "Social Ads Platform"
 
 [budgets]
 [[budgets.area]]
@@ -257,10 +257,10 @@ responsible = "Messenger"
 [vendors]
 [[vendors.item]]
 id = "P001"
-name = "Roasters United"
-contact = "Sam Bean"
+name = "Example Roaster"
+contact = "A. Contact"
 phone = "555-0101"
-email = "sam@roastersunited.example.com"
+email = "contact@example.test"
 payment_terms = "net 15"
 lead_time = "3 days"
 rating = 5
@@ -282,10 +282,10 @@ meta:
   profile: partenon-herald
 
 brand:
-  brand_name: "Acme Coffee"
-  website: "https://acmecoffee.example.com"
+  brand_name: "Example Coffee"
+  website: "https://examplecoffee.example.com"
   industry: "food"
-  market: "Portland, OR"
+  market: "Example City, EX"
   stage: "growth"
 
 positioning:
@@ -437,15 +437,15 @@ goals:
 
 ```json
 {
-  "company": "Acme Coffee",
+  "company": "Example Coffee",
   "updated": "2026-06-26T00:00:00",
   "clients": [
     {
       "id": "CLI-001",
-      "name": "Roasters United",
+      "name": "Example Roaster",
       "main_contact": {
-        "name": "Sam Bean",
-        "email": "sam@roastersunited.example.com"
+        "name": "A. Contact",
+        "email": "contact@example.test"
       },
       "category": "supplier",
       "status": "active",

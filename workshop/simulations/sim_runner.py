@@ -7,19 +7,19 @@ simulations do not pollute partenon-core/data or profile .files.
 
 Usage:
     python3 workshop/simulations/sim_runner.py route "organize my numbers"
-    python3 workshop/simulations/sim_runner.py design --name "Oblique" --industry coffee
-    python3 workshop/simulations/sim_runner.py project --company oblique --title "Launch cold brew"
-    python3 workshop/simulations/sim_runner.py task --company oblique --project-id PROJ-001 --title "Call roaster"
-    python3 workshop/simulations/sim_runner.py checklist --company oblique --project-id PROJ-001 --industry food
-    python3 workshop/simulations/sim_runner.py client --company oblique --name "Acme" --email a@a.test
-    python3 workshop/simulations/sim_runner.py vendor --company oblique --name "Paper" --service packaging
-    python3 workshop/simulations/sim_runner.py milestone --company oblique --entity-id CLI-001 --description "Sign deal"
-    python3 workshop/simulations/sim_runner.py followups --company oblique
-    python3 workshop/simulations/sim_runner.py payment-link --company oblique --product "Sub" --amount 2800
-    python3 workshop/simulations/sim_runner.py invoice --company oblique --email "c@c.test" --items '[{"description":"X","amount":1000}]'
-    python3 workshop/simulations/sim_runner.py keys --company oblique
-    python3 workshop/simulations/sim_runner.py briefing --company oblique
-    python3 workshop/simulations/sim_runner.py calendar --company oblique --topic "automation"
+    python3 workshop/simulations/sim_runner.py design --name "Example Coffee" --industry coffee
+    python3 workshop/simulations/sim_runner.py project --company example --title "Launch cold brew"
+    python3 workshop/simulations/sim_runner.py task --company example --project-id PROJ-001 --title "Call roaster"
+    python3 workshop/simulations/sim_runner.py checklist --company example --project-id PROJ-001 --industry food
+    python3 workshop/simulations/sim_runner.py client --company example --name "Example Client" --email contact@example.test
+    python3 workshop/simulations/sim_runner.py vendor --company example --name "Example Vendor" --service packaging
+    python3 workshop/simulations/sim_runner.py milestone --company example --entity-id CLI-001 --description "Sign deal"
+    python3 workshop/simulations/sim_runner.py followups --company example
+    python3 workshop/simulations/sim_runner.py payment-link --company example --product "Sub" --amount 2800
+    python3 workshop/simulations/sim_runner.py invoice --company example --email "client@example.test" --items '[{"description":"X","amount":1000}]'
+    python3 workshop/simulations/sim_runner.py keys --company example
+    python3 workshop/simulations/sim_runner.py briefing --company example
+    python3 workshop/simulations/sim_runner.py calendar --company example --topic "automation"
 """
 
 import argparse

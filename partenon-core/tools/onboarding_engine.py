@@ -170,8 +170,8 @@ class OnboardingEngine:
         sample_client = {
             "id": "CLI-001",
             "name": "Example Client",
-            "email": "example@email.com",
-            "phone": "+1 000 000 0000",
+            "email": "client@example.test",
+            "phone": "+1 555 0100 0001",
             "project_type": "example project",
             "source": "onboarding",
             "status": "prospect",

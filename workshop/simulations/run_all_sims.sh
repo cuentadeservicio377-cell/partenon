@@ -68,10 +68,10 @@ run_sim() {
   echo "Output: ${out}"
 }
 
-run_sim oblique "Oblique Coffee Roasters" coffee "Portland, OR" consulting "Cold Brew Subscription" 2800 "cold brew subscription"
-run_sim envision "Envision Creative" consulting "Austin, TX" consulting "Brand Sprint" 5000 "brand sprint campaign"
-run_sim flintrock "Flintrock Operating L.L.C" construction "Austin, TX" consulting "Mobilization Fee" 25000 "construction mobilization"
-run_sim greenlight "Greenlight Bookstore" retail "Brooklyn, NY" retail "Book Subscription" 3500 "book subscription"
-run_sim plausible "Plausible Analytics" saas "Tallinn, Estonia" consulting "Annual Plan" 9000 "privacy-first analytics"
+run_sim example "Example Coffee Roasters" coffee "Example City, EX" consulting "Cold Brew Subscription" 2800 "cold brew subscription"
+run_sim envision "Example Creative Agency" consulting "Example City, EX" consulting "Brand Sprint" 5000 "brand sprint campaign"
+run_sim flintrock "Example Construction LLC" construction "Example City, EX" consulting "Mobilization Fee" 25000 "construction mobilization"
+run_sim greenlight "Example Bookstore" retail "Example City, EX" retail "Book Subscription" 3500 "book subscription"
+run_sim plausible "Example SaaS" saas "Example City, EX" consulting "Annual Plan" 9000 "privacy-first analytics"
 
 echo "All simulations completed."

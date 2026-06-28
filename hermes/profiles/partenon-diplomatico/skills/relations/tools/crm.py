@@ -762,5 +762,5 @@ def get_relations_crm(relations_file: Optional[Path] = None) -> RelationsCRM:
 
 if __name__ == "__main__":
     crm = get_relations_crm()
-    print(crm.add_client("Acme Corp", email="hello@acme.test"))
-    print(crm.add_vendor("Paper Central", category="stationery"))
+    print(crm.add_client("Example Corp", email="hello@example.test"))
+    print(crm.add_vendor("Example Vendor", category="stationery"))

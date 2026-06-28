@@ -1,19 +1,19 @@
-# Retail Simulation — Brookline Booksmith
+# Retail Simulation — Example Bookstore
 
-This document walks through a simulated Partenon onboarding for Brookline Booksmith, an independent bookstore in Brookline, Massachusetts. See the company card in [`workshop/companies/retail--brookline-booksmith.md`](../companies/retail--brookline-booksmith.md).
+This document walks through a simulated Partenon onboarding for Example Bookstore, an independent bookstore in Example City, Example State. See the company card in [`workshop/companies/retail--example-bookstore.md`](../companies/retail--example-bookstore.md).
 
 ## 1. Company interview
 
 | Question | Answer |
 |----------|--------|
-| Company name | Brookline Booksmith |
+| Company name | Example Bookstore |
 | Industry | Independent bookstore / retail |
-| Location | 279 Harvard Street, Brookline, MA |
+| Location | 123 Example Street, Example City, EX |
 | Team size | ~20–30 employees plus event staff |
 | Currency and fiscal year | USD, calendar year |
 | Annual revenue | Estimated $3M–$8M (private company) |
 | Biggest operational pain | Razor-thin margins, rising rent, inventory management across books/gifts/events |
-| Tools already in use | Square POS, Google Workspace, Shopify (online orders), Mailchimp, Instagram, Eventbrite |
+| Tools already in use | Example POS, Google Workspace, Example Store Platform (online orders), Example Email Platform, Instagram, Example Events Platform |
 | Who approves events and promotions | Co-owner / events director |
 | Who manages inventory | Buyer / head book buyer |
 
@@ -33,14 +33,14 @@ Following the Entrepreneur Playbook priority for retail / e-commerce, Hermes rec
 
 ```toml
 [company]
-name = "Brookline Booksmith"
+name = "Example Bookstore"
 currency = "USD"
 fiscal_year = 2026
 responsible = "Scribe"
 
 [fixed_costs]
 [[fixed_costs.item]]
-name = "Harvard Street rent"
+name = "Example Street rent"
 amount = 22000.00
 frequency = "monthly"
 category = "office"
@@ -84,7 +84,7 @@ monthly_budget = 4000.00
 [vendors]
 [[vendors.item]]
 id = "P001"
-name = "Penguin Random House"
+name = "Example Publisher"
 contact = "Sales rep"
 payment_terms = "net 30"
 lead_time = "1-2 weeks"
@@ -92,7 +92,7 @@ rating = 5
 
 [[vendors.item]]
 id = "P002"
-name = "HarperCollins"
+name = "Publisher B"
 contact = "Sales rep"
 payment_terms = "net 30"
 lead_time = "1-2 weeks"
@@ -160,10 +160,10 @@ meta:
   profile: partenon-herald
 
 brand:
-  brand_name: "Brookline Booksmith"
-  website: "https://www.brooklinebooksmith.com"
+  brand_name: "Example Bookstore"
+  website: "https://www.harborbooks.example.com"
   industry: "retail"
-  market: "Brookline, Greater Boston, and online customers"
+  market: "Example City, Example Region, and online customers"
   stage: "established"
 
 positioning:
@@ -188,7 +188,7 @@ messaging:
     - "Staff picks you can trust"
     - "Meet authors where ideas live"
   claims_to_avoid:
-    - "Largest selection in Boston"
+    - "Largest selection in Example City"
     - "Cheapest prices guaranteed"
 
 operations:
@@ -253,7 +253,7 @@ Actual Python equivalent:
 
 ```bash
 python3 hermes/profiles/partenon-tesorero/skills/finance/tools/parsers.py \
-  --input data/brookline-q2-pos.xlsx \
+  --input data/example-q2-pos.xlsx \
   --by-category "books,gifts,events" \
   --output data/brookline-margin-by-line.json
 ```
@@ -314,7 +314,7 @@ python3 hermes/profiles/partenon-mensajero/skills/comms/tools/content_calendar.p
 }
 ```
 
-**Actual gap:** Calendar output is JSON only; no direct Mailchimp or Instagram scheduling integration.
+**Actual gap:** Calendar output is JSON only; no direct Example Email Platform or Instagram scheduling integration.
 
 ### Mission 3 — Strategist: restocking and event coordination
 
@@ -379,6 +379,6 @@ python3 hermes/profiles/partenon-estratega/skills/ops/tools/checklists.py \
 
 - **No POS sales-to-margin mapping.** The Scribe parses expenses but does not automatically pull revenue categories from Square.
 - **No inventory-level tracking.** Partenon tracks budgets but not SKU-level stock or reorder points.
-- **No event platform integration.** Eventbrite or Shopify event ticket links must be created manually.
+- **No event platform integration.** Example Events Platform or Example Store Platform event ticket links must be created manually.
 - **No retail checklist template.** The Strategist checklist tool needs a retail/events template.
 - **No publisher API integration.** The Diplomat cannot sync with publisher portals or author contacts.

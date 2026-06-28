@@ -39,6 +39,8 @@ data/quotes.json
 docs/WELCOME.md
 docs/pdf-preview/
 *.local.json
+*.tsbuildinfo
+data/gbrain.db
 .kimi/
 .kimi-code/
 !.kimi-code/AGENTS.md

@@ -1,18 +1,18 @@
-# Construction Simulation — D&M Construction
+# Construction Simulation — Example Construction
 
-This document walks through a simulated Partenon onboarding for D&M Construction, a residential and commercial contractor in Hoover, Alabama. See the company card in [`workshop/companies/construction--dm-construction.md`](../companies/construction--dm-construction.md).
+This document walks through a simulated Partenon onboarding for Example Construction, a residential and commercial contractor in Example City, Example State. See the company card in [`workshop/companies/construction--dm-construction.md`](../companies/construction--dm-construction.md).
 
 ## 1. Company interview
 
 | Question | Answer |
 |----------|--------|
-| Company name | D&M Construction |
+| Company name | Example Construction |
 | Industry | Residential and commercial construction / remodeling |
 | Team size | Small local team plus subcontractors |
 | Currency and fiscal year | USD, calendar year |
 | Annual revenue | $6.3M+ (advertised) |
 | Biggest operational pain | Project scheduling, subcontractor coordination, and change-order tracking |
-| Tools already in use | QuickBooks, Google Workspace, iPhone/email for site communication, company website lead form |
+| Tools already in use | Example Accounting, Google Workspace, iPhone/email for site communication, company website lead form |
 | Payment terms | Deposits + progress draws; final payment on completion |
 | Who approves quotes and change orders | Owner |
 
@@ -66,13 +66,13 @@ goals:
 
 ```json
 {
-  "company": "D&M Construction",
+  "company": "Example Construction",
   "updated": "2026-06-26T00:00:00",
   "clients": [
     {
       "id": "CLI-001",
-      "name": "Johnson Residence",
-      "main_contact": { "name": "Mark Johnson", "email": "mark@example.com", "phone": "+1 205 555 0100" },
+      "name": "Example Residence",
+      "main_contact": { "name": "A. Homeowner", "email": "homeowner@example.test", "phone": "+1 555 0100" },
       "category": "residential",
       "status": "active",
       "rating": "A",
@@ -99,15 +99,15 @@ goals:
   "vendors": [
     {
       "id": "VEN-001",
-      "name": "Cabinets Direct",
-      "main_contact": { "name": "Sarah Lee", "email": "sarah@cabinetsdirect.example.com", "phone": "+1 205 555 0200" },
+      "name": "Example Cabinets",
+      "main_contact": { "name": "B. Supplier", "email": "supplier-b@example.test", "phone": "+1 555 0101" },
       "category": "cabinetry",
       "status": "active",
       "rating": "B",
       "milestones": [
         {
           "id": "MIL-VEN-001",
-          "description": "Confirm cabinet lead time for Johnson Residence",
+          "description": "Confirm cabinet lead time for Example Residence",
           "date": "2026-06-30",
           "status": "proposed",
           "confirmed_in_writing": false,
@@ -126,7 +126,7 @@ goals:
 
 ```toml
 [company]
-name = "D&M Construction"
+name = "Example Construction"
 currency = "USD"
 fiscal_year = 2026
 responsible = "Scribe"
@@ -172,16 +172,16 @@ monthly_budget = 8000.00
 [vendors]
 [[vendors.item]]
 id = "P001"
-name = "Cabinets Direct"
-contact = "Sarah Lee"
+name = "Example Cabinets"
+contact = "B. Supplier"
 payment_terms = "net 30"
 lead_time = "3-4 weeks"
 rating = 4
 
 [[vendors.item]]
 id = "P002"
-name = "Hoover Lumber"
-contact = "Mike Ross"
+name = "Example Lumber"
+contact = "C. Supplier"
 payment_terms = "net 15"
 lead_time = "1 week"
 rating = 5
@@ -243,8 +243,8 @@ hermes profile use partenon-estratega
 Prompt:
 
 ```text
-Strategist, create a project "Johnson Residence kitchen remodel" for client
-Johnson Residence with delivery 2026-08-15 and amount $45,000. Generate a
+Strategist, create a project "Example Residence kitchen remodel" for client
+Example Residence with delivery 2026-08-15 and amount $45,000. Generate a
 construction checklist with phases pre-construction, construction, and closeout.
 ```
 
@@ -252,13 +252,13 @@ Actual Python equivalent:
 
 ```bash
 python3 hermes/profiles/partenon-estratega/skills/ops/tools/projects.py \
-  --create "Johnson Residence kitchen remodel" \
-  --client "Johnson Residence" \
+  --create "Example Residence kitchen remodel" \
+  --client "Example Residence" \
   --amount 45000 \
   --due 2026-08-15
 
 python3 hermes/profiles/partenon-estratega/skills/ops/tools/checklists.py \
-  --project "Johnson Residence kitchen remodel" \
+  --project "Example Residence kitchen remodel" \
   --type construction
 ```
 
@@ -267,8 +267,8 @@ python3 hermes/profiles/partenon-estratega/skills/ops/tools/checklists.py \
 ```json
 {
   "project_id": "PROJ-001",
-  "title": "Johnson Residence kitchen remodel",
-  "client": "Johnson Residence",
+  "title": "Example Residence kitchen remodel",
+  "client": "Example Residence",
   "amount": 45000,
   "checklist": {
     "pre-construction": [
@@ -306,8 +306,8 @@ hermes profile use partenon-diplomatico
 Prompt:
 
 ```text
-Diplomat, update vendor Cabinets Direct with milestone "Confirm cabinet lead
-time for Johnson Residence" due 2026-06-30, and run follow-ups for any vendor
+Diplomat, update vendor Example Cabinets with milestone "Confirm cabinet lead
+time for Example Residence" due 2026-06-30, and run follow-ups for any vendor
 milestone in the next 3 days.
 ```
 
@@ -315,8 +315,8 @@ Actual Python equivalent:
 
 ```bash
 python3 hermes/profiles/partenon-diplomatico/skills/relations/tools/crm.py \
-  --add-vendor "Cabinets Direct" \
-  --email "sarah@cabinetsdirect.example.com" \
+  --add-vendor "Example Cabinets" \
+  --email "supplier-b@example.test" \
   --category cabinetry
 
 python3 hermes/profiles/partenon-diplomatico/skills/relations/tools/followups.py \
@@ -327,13 +327,13 @@ python3 hermes/profiles/partenon-diplomatico/skills/relations/tools/followups.py
 
 ```json
 {
-  "vendors_with_upcoming_milestones": ["Cabinets Direct"],
+  "vendors_with_upcoming_milestones": ["Example Cabinets"],
   "drafts": [
     {
-      "vendor": "Cabinets Direct",
-      "milestone": "Confirm cabinet lead time for Johnson Residence",
-      "draft_subject": "Confirming cabinet lead time — Johnson Residence",
-      "draft_body": "Hi Sarah, can you confirm the lead time and delivery date for the Johnson Residence cabinets? We need to lock the install schedule by July 3."
+      "vendor": "Example Cabinets",
+      "milestone": "Confirm cabinet lead time for Example Residence",
+      "draft_subject": "Confirming cabinet lead time — Example Residence",
+      "draft_body": "Hi there, can you confirm the lead time and delivery date for the Example Residence cabinets? We need to lock the install schedule by July 3."
     }
   ],
   "status": "drafts_ready_for_review"
@@ -351,7 +351,7 @@ hermes profile use partenon-tesorero
 Prompt:
 
 ```text
-Scribe, create a project cost sheet for "Johnson Residence kitchen remodel"
+Scribe, create a project cost sheet for "Example Residence kitchen remodel"
 with budget categories materials $18,000, subcontractor labor $15,000, permits
 $2,000, and overhead $3,000. Flag if total estimated cost exceeds 75% of the
 $45,000 contract.
@@ -361,10 +361,10 @@ Actual Python equivalent:
 
 ```bash
 python3 hermes/profiles/partenon-tesorero/skills/finance/tools/templates.py \
-  --project "Johnson Residence kitchen remodel"
+  --project "Example Residence kitchen remodel"
 
 python3 hermes/profiles/partenon-tesorero/skills/finance/tools/audit.py \
-  --project "Johnson Residence kitchen remodel" \
+  --project "Example Residence kitchen remodel" \
   --budget 45000 \
   --breakdown "materials=18000,labor=15000,permits=2000,overhead=3000"
 ```
@@ -373,7 +373,7 @@ python3 hermes/profiles/partenon-tesorero/skills/finance/tools/audit.py \
 
 ```json
 {
-  "project": "Johnson Residence kitchen remodel",
+  "project": "Example Residence kitchen remodel",
   "contract": 45000,
   "estimated_cost": 38000,
   "estimated_margin": 7000,
@@ -402,4 +402,4 @@ python3 hermes/profiles/partenon-tesorero/skills/finance/tools/audit.py \
 - **No permit deadline tracking.** The Strategist tracks tasks but does not integrate with municipal permit APIs or calendars.
 - **No change-order workflow.** Scope changes must be logged manually in `.relations` and `.finance`.
 - **No subcontractor portal integration.** The Diplomat cannot automatically sync with subcontractor scheduling tools.
-- **No live QuickBooks sync.** The Scribe must import/export CSV or Excel from QuickBooks.
+- **No live Example Accounting sync.** The Scribe must import/export CSV or Excel from Example Accounting.

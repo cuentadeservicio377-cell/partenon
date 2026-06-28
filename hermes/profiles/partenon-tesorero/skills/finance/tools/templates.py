@@ -198,11 +198,11 @@ class Templates:
             _style_header(cell)
 
         examples = [
-            ["P001", "Central Stationery", "Alice Johnson", "555-0104", "alice@centralstationery.example.com",
+            ["P001", "Example Stationery", "Sample Vendor A", "555-0104", "contact@examplestationery.example.com",
              "Commerce St 321", "Stationery and supplies", "Cash", "1-2 business days", 5, 0, "Fast delivery"],
-            ["P002", "Cloud Services Inc.", "Bob Smith", "555-0201", "bob@cloudservices.example.com",
+            ["P002", "Example Cloud Services", "Sample Vendor B", "555-0201", "contact@examplecloud.example.com",
              "Digital Ave 100", "Cloud and hosting", "30 days", "Immediate", 4, 0, "Annual contract"],
-            ["P003", "Northern Transport", "Charlie Brown", "555-0301", "charlie@northerntransport.example.com",
+            ["P003", "Example Transport", "Sample Vendor C", "555-0301", "contact@exampletransport.example.com",
              "Industrial Blvd 50", "Freight and courier", "15 days", "24-48 hours", 4, 0, ""],
         ]
 

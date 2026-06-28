@@ -1,56 +1,7 @@
-# Partenon Web Promise Examples
+# Partenon Examples
 
-This directory contains placeholder implementations that demonstrate the interfaces described on the public website (`web/index.html`, `web/heroes.html`, `web/developers.html`). They are intended to close the gap between marketing copy and repository reality until production implementations are ready.
+This directory is reserved for real, runnable examples that demonstrate Partenon integrations and hero workflows.
 
-## Files
+The previous stub files (`hermes-cli-stub.py`, `api-server-stub.py`, and `mcp-client-example.py`) have been removed. When you add a new example, place it here and update this README with a short description and how to run it.
 
-- `hermes-cli-stub.py` — Stub for the `hermes` command-line interface.
-- `api-server-stub.py` — Stub REST API server matching the documented endpoints.
-- `mcp-client-example.py` — Example client for the G-Brain MCP server.
-
-## Running the stubs
-
-### Hermes CLI stub
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python3 examples/hermes-cli-stub.py init --name "Cafe Central"
-python3 examples/hermes-cli-stub.py activate scribe
-python3 examples/hermes-cli-stub.py mission scribe --type financial-model
-python3 examples/hermes-cli-stub.py status --verbose
-```
-
-### API server stub
-
-```bash
-pip install fastapi uvicorn
-uvicorn examples.api-server-stub:app --reload --port 8000
-```
-
-Then test with curl:
-
-```bash
-curl http://localhost:8000/api/v1/heroes
-curl http://localhost:8000/api/v1/mcp/tools
-curl -X POST http://localhost:8000/api/v1/missions \
-  -H "Content-Type: application/json" \
-  -d '{"hero": "scribe", "type": "financial-model"}'
-```
-
-### MCP client example
-
-```bash
-pip install mcp
-python3 examples/mcp-client-example.py
-```
-
-## Important note
-
-These files are **stubs**. They do not perform real Stripe charges, send real emails, or modify real Google Workspace documents. They exist to:
-
-1. Show the intended command and API shapes.
-2. Help front-end and integration development proceed in parallel.
-3. Serve as acceptance criteria for the production implementations.
-
-See `MISSING_IMPLEMENTATION.md` for the full audit and recommended production fixes.
+See `MISSING_IMPLEMENTATION.md` for the current production gaps and recommended fixes.

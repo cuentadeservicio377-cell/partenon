@@ -5,7 +5,11 @@ const COOKIE_NAME = 'partenon_dashboard_session';
 const SESSION_TTL_MS = 1000 * 60 * 60 * 12;
 
 function getSecret() {
-  return process.env.DASHBOARD_AUTH_SECRET || 'partenon-change-me';
+  const secret = process.env.DASHBOARD_AUTH_SECRET;
+  if (!secret) {
+    throw new Error('DASHBOARD_AUTH_SECRET is not set');
+  }
+  return secret;
 }
 
 function nowMs() {
@@ -21,10 +25,12 @@ function sign(value: string) {
 }
 
 function getExpectedCreds() {
-  return {
-    username: process.env.DASHBOARD_APP_USERNAME || 'admin',
-    password: process.env.DASHBOARD_APP_PASSWORD || 'partenon',
-  };
+  const username = process.env.DASHBOARD_APP_USERNAME;
+  const password = process.env.DASHBOARD_APP_PASSWORD;
+  if (!username || !password) {
+    throw new Error('DASHBOARD_APP_USERNAME and DASHBOARD_APP_PASSWORD must be set');
+  }
+  return { username, password };
 }
 
 export function verifyCredentials(username: string, password: string) {

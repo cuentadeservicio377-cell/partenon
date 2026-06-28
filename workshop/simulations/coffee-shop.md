@@ -1,10 +1,10 @@
-# Simulated Partenon Onboarding: Coffee By Design
+# Simulated Partenon Onboarding: Example Coffee Roasters
 
-This simulation walks Coffee By Design (Portland, Maine) through a first-week Partenon setup. All commands use the actual Hermes profiles and Python tools in this repository.
+This simulation walks Example Coffee Roasters (Example City, Example State) through a first-week Partenon setup. All commands use the actual Hermes profiles and Python tools in this repository.
 
 ## Company snapshot
 - **Business**: Independent coffee roaster and cafe chain
-- **Locations**: Four coffeehouses + one roastery in Greater Portland, Maine
+- **Locations**: Four coffeehouses + one roastery in Greater Example City, Example State
 - **Team**: ~55 employees
 - **Channels**: Cafes, wholesale (~600 accounts), online store, events
 - **Top pain points**: labor scheduling, multi-channel margins, inventory coordination, founder dependency
@@ -17,10 +17,10 @@ Hermes asks the founder or operations manager the following questions. Answers a
 
 ```yaml
 company:
-  name: "Coffee By Design"
+  name: "Example Coffee Roasters"
   industry: "food and beverage"
   sub_industry: "coffee roaster and cafe chain"
-  location: "Portland, Maine, USA"
+  location: "Example City, Example State, USA"
   employees: 55
   currency: "USD"
   fiscal_year: 2026
@@ -31,19 +31,19 @@ company:
     - online_store
     - events
   current_tools:
-    - "Square POS"
-    - "QuickBooks"
+    - "Example POS"
+    - "Example Accounting"
     - "Google Workspace"
-    - "Instagram / Facebook"
+    - "Example Social Platforms"
   top_pain_points:
     - "Do not know true margin by channel"
     - "Scheduling is manual and reactive"
     - "Wholesale orders and green-coffee lead times live in spreadsheets"
     - "Marketing depends on the founder"
   compliance_needs:
-    - "Sales tax by Maine jurisdiction"
+    - "Sales tax by Example State jurisdiction"
     - "Food safety logs"
-    - "B Corp reporting"
+    - "Example Standard reporting"
 ```
 
 ## Step 2: Hero selection
@@ -72,11 +72,11 @@ cp hermes/profiles/partenon-cobrador/templates/.payments.example .payments
 
 ### `.finance` — Scribe
 
-Trimmed to Coffee By Design's fixed and variable costs:
+Trimmed to Example Coffee Roasters's fixed and variable costs:
 
 ```toml
 [company]
-name = "Coffee By Design"
+name = "Example Coffee Roasters"
 tax_id = "XX-XXXXXXX"
 currency = "USD"
 fiscal_year = 2026
@@ -85,14 +85,14 @@ master_spreadsheet = ""
 
 [fixed_costs]
 [[fixed_costs.item]]
-name = "Diamond Street roastery rent"
+name = "Example Street roastery rent"
 amount = 8500.00
 frequency = "monthly"
 category = "office"
 due_day = 1
 
 [[fixed_costs.item]]
-name = "Congress Street cafe rent"
+name = "Example Avenue cafe rent"
 amount = 5200.00
 frequency = "monthly"
 category = "office"
@@ -117,13 +117,13 @@ due_day = 20
 name = "Green coffee beans"
 category = "materials"
 monthly_budget = 18000.00
-default_vendor = "Importer A"
+default_vendor = "Example Importer"
 
 [[variable_costs.item]]
-name = "Meta and Instagram ads"
+name = "Example Ads Platform"
 category = "marketing"
 monthly_budget = 2500.00
-default_vendor = "Meta"
+default_vendor = "Example Ads Platform"
 
 [[variable_costs.item]]
 name = "Local delivery"
@@ -162,7 +162,7 @@ connect_with_messenger = true
 
 ```yaml
 profile: partenon-estratega
-owner: "Mary Allen Lindemann"
+owner: "Owner"
 assistant_name: "Strategist"
 
 calendar:
@@ -203,18 +203,18 @@ meta:
   profile: partenon-herald
 
 brand:
-  brand_name: "Coffee By Design"
-  website: "https://coffeebydesign.com"
+  brand_name: "Example Coffee Roasters"
+  website: "https://examplecoffee.example.com"
   industry: "food and beverage"
-  market: "Greater Portland, Maine + online"
+  market: "Greater Example City, Example State + online"
   stage: "growth"
 
 positioning:
   what_you_sell: "Handcrafted coffee, in-house roasting, and community cafes"
   who_you_help: "Local coffee drinkers, wholesale accounts, and online buyers who care about ethical sourcing"
-  how_you_do_it: "We roast in small batches in Portland and reinvest in local arts and coffee-farming communities"
-  positioning: "For Portland-area coffee lovers who want quality without pretension, Coffee By Design offers fresh, ethical coffee that supports the local community"
-  differentiator: "30-year local track record, B Corp certification, direct relationships with coffee farmers"
+  how_you_do_it: "We roast in small batches in Example City and reinvest in local arts and coffee-farming communities"
+  positioning: "For Example City-area coffee lovers who want quality without pretension, Example Coffee Roasters offers fresh, ethical coffee that supports the local community"
+  differentiator: "30-year local track record, Example Certification, direct relationships with coffee farmers"
 
 voice:
   tone: "direct"
@@ -232,13 +232,13 @@ channels:
 messaging:
   key_messages:
     - "Great coffee changes lives when the whole chain is treated fairly"
-    - "Roasted in Portland, enjoyed everywhere"
+    - "Roasted in Example City, enjoyed everywhere"
   claims_to_avoid:
     - "Best coffee in the world"
     - "100% sustainable"
 
 operations:
-  final_approver: "Mary Allen Lindemann"
+  final_approver: "Owner"
   autonomy:
     draft_copy: true
     create_calendar: true
@@ -263,7 +263,7 @@ products:
     active: true
   - id: prod_merch
     name: "Branded mug"
-    description: "Ceramic mug with Coffee By Design logo"
+    description: "Ceramic mug with Example Coffee Roasters logo"
     active: true
 
 prices:
@@ -322,12 +322,12 @@ Expected output:
 Next, Scribe reads `.finance` and proposes a real Google Sheet:
 
 ```text
-Scribe, create a master spreadsheet "Coffee By Design — Finances" with sheets:
+Scribe, create a master spreadsheet "Example Coffee Roasters — Finances" with sheets:
 Income by Channel, Fixed Costs, Variable Costs, Vendors, Budget vs Actual.
 Populate Fixed Costs and Variable Costs from .finance.
 ```
 
-**Gap found**: `google_sheets.py` can create a spreadsheet and seed headers, but it does not yet parse an uploaded Square/QuickBooks export and write it to Sheets end-to-end. The user must export data manually or connect the Google Workspace MCP.
+**Gap found**: `google_sheets.py` can create a spreadsheet and seed headers, but it does not yet parse an uploaded Square/Example Accounting export and write it to Sheets end-to-end. The user must export data manually or connect the Google Workspace MCP.
 
 ### Mission 2 — Strategist: weekly schedule and supplier deadlines
 
@@ -445,10 +445,10 @@ Expected output (local mode, because Stripe MCP is not configured):
 
 ---
 
-## Consolidated gaps for Coffee By Design
+## Consolidated gaps for Example Coffee Roasters
 
 1. **No live Google Sheets write**. Scribe builds local templates only until `GOOGLE_SERVICE_ACCOUNT_JSON` is configured.
-2. **No POS integration**. Square/QuickBooks exports are not parsed automatically.
+2. **No POS integration**. Square/Example Accounting exports are not parsed automatically.
 3. **No social publishing**. Herald drafts content but cannot post to Instagram/Facebook.
 4. **No real Stripe link**. Collector runs in local mode without `STRIPE_SECRET_KEY`.
 5. **No calendar/email dispatch**. Strategist stores tasks locally but does not send calendar invites or reminders.

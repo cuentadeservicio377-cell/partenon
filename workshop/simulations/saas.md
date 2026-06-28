@@ -1,7 +1,7 @@
 # Simulated Partenon Onboarding: SaaS / Bootstrapped Startup
 
-> Company: **WP Umbrella** (bootstrapped WordPress management SaaS, remote, 7 employees, ~$1.3M ARR)
-> Based on public profile card: `workshop/companies/saas-startup--wp-umbrella.md`
+> Company: **Example SaaS** (bootstrapped Example CMS management SaaS, remote, 7 employees, ~$1.3M ARR)
+> Based on public profile card: `workshop/companies/saas-startup--example-saas.md`
 
 ---
 
@@ -9,23 +9,23 @@
 
 | Question | Answer |
 |----------|--------|
-| Company name | WP Umbrella |
+| Company name | Example SaaS |
 | Industry | SaaS / software |
 | Location | Remote (team across US and Europe) |
 | Employees | 7 |
 | Currency | USD (also EUR revenue) |
-| Primary revenue streams | Monthly/annual subscriptions for WordPress site management |
+| Primary revenue streams | Monthly/annual subscriptions for Example CMS site management |
 | MRR / ARR | ~$110K MRR / ~$1.3M ARR |
-| Biggest operational pain | Multi-currency revenue reconciliation, Stripe fee visibility, subscription failures, security hygiene |
-| Tools already in use | Stripe, AWS/Vercel, Notion, Slack, GitHub, Google Workspace |
-| Payment processor | Stripe |
+| Biggest operational pain | Multi-currency revenue reconciliation, payment processor fee visibility, subscription failures, security hygiene |
+| Tools already in use | Payment Processor, Cloud Provider A / Cloud Provider B, Example Wiki, Example Chat, Example Git Host, Google Workspace |
+| Payment processor | Payment Processor |
 | Top vendors | Cloud hosting, payment processor, email service, security monitoring |
 
 Hermes writes `config/company.yaml`:
 
 ```yaml
 company:
-  name: "WP Umbrella"
+  name: "Example SaaS"
   industry: "saas"
   currency: "USD"
   timezone: "UTC"
@@ -53,11 +53,11 @@ profiles_active:
 | Priority | Hero | Why first |
 |----------|------|-----------|
 | 1 | **Guardian** | API keys, server credentials, and access hygiene are non-negotiable when managing thousands of client sites. |
-| 2 | **Scribe** | Cloud costs, contractor spend, Stripe fees, and runway must be visible. |
+| 2 | **Scribe** | Cloud costs, contractor spend, payment processor fees, and runway must be visible. |
 | 3 | **Collector** | Subscriptions, failed payments, refunds, and churn signals are the revenue engine. |
 | 4 | **Strategist** | Sprints, incidents, hiring, and investor updates keep the team aligned. |
 | 5 | **Brain** | Pricing, positioning, and architecture decisions must be indexed as the team grows. |
-| 6 | **Herald** | Founder updates, changelog, and community content for WordCamps/meetups. |
+| 6 | **Herald** | Founder updates, changelog, and community content for Example Conferences/meetups. |
 
 ---
 
@@ -67,7 +67,7 @@ profiles_active:
 
 ```toml
 [company]
-name = "WP Umbrella"
+name = "Example SaaS"
 tax_id = "XX-XXXXXXX"
 currency = "USD"
 fiscal_year = 2026
@@ -83,14 +83,14 @@ category = "payroll"
 due_day = 15
 
 [[fixed_costs.item]]
-name = "Cloud infrastructure (AWS/Vercel)"
+name = "Cloud infrastructure (Cloud Provider A / Cloud Provider B)"
 amount = 4500.00
 frequency = "monthly"
 category = "technology"
 due_day = 5
 
 [[fixed_costs.item]]
-name = "Software stack (GitHub, Notion, Slack, email)"
+name = "Software stack (Example Git Host, Example Wiki, Example Chat, email)"
 amount = 2200.00
 frequency = "monthly"
 category = "technology"
@@ -98,7 +98,7 @@ due_day = 10
 
 [variable_costs]
 [[variable_costs.item]]
-name = "Stripe fees"
+name = "Payment processor fees"
 category = "services"
 monthly_budget = 3500.00
 
@@ -115,18 +115,18 @@ monthly_budget = 2500.00
 [vendors]
 [[vendors.item]]
 id = "P001"
-name = "Stripe"
+name = "Payment Processor"
 contact = "Support"
-email = "support@stripe.example.com"
+email = "support@payment.example.com"
 payment_terms = "collected per transaction"
 lead_time = "immediate"
 rating = 5
 
 [[vendors.item]]
 id = "P002"
-name = "AWS"
+name = "Cloud Provider A"
 contact = "Billing"
-email = "billing@aws.example.com"
+email = "billing@cloud.example.com"
 payment_terms = "monthly card"
 lead_time = "immediate"
 rating = 4
@@ -275,7 +275,7 @@ goals:
 ### `.brain` (Brain)
 
 ```text
-# Brain — WP Umbrella
+# Brain — Example SaaS
 
 ## Decisions
 - 2026-01-10: Annual plan priced at $990/year (2 months free vs monthly).
@@ -300,13 +300,13 @@ goals:
 1. **List all keys and flag age.**
    - Command: `hermes profile use partenon-guardian`
    - Tool: `python3 hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py list_keys`
-   - Expected output: Keys for Stripe, OpenAI, AWS with status; flags older than 90 days as `pending_rotation`.
+   - Expected output: Keys for Payment Processor, Model Provider, Cloud Provider A with status; flags older than 90 days as `pending_rotation`.
 
 2. **Audit profile permissions.**
    - Tool: `python3 hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py audit_access --profile partenon-cobrador`
    - Expected output: Permissions match canonical role; any violation flagged.
 
-3. **Rotate Stripe secret key.**
+3. **Rotate payment processor secret key.**
    - Tool: `python3 hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py rotate_key --provider stripe`
    - Expected output: Rotation event logged; manual console step required to generate new key.
    - Gap: No real secrets-manager integration; rotation is semi-manual.
@@ -315,23 +315,23 @@ goals:
 
 1. **Create runway dashboard.**
    - Command: `hermes profile use partenon-tesorero`
-   - Tool: `python3 hermes/profiles/partenon-tesorero/skills/finance/tools/google_sheets.py --create "WP Umbrella Runway"`
-   - Expected output: Workbook with MRR, expenses, Stripe fees, runway tabs.
+   - Tool: `python3 hermes/profiles/partenon-tesorero/skills/finance/tools/google_sheets.py --create "Example SaaS Runway"`
+   - Expected output: Workbook with MRR, expenses, payment processor fees, runway tabs.
 
-2. **Track Stripe fees vs. budget.**
+2. **Track payment processor fees vs. budget.**
    - Tool: `python3 hermes/profiles/partenon-tesorero/skills/finance/tools/audit.py --category services --budget 3500`
    - Expected output: Alert if fees exceed budget by >10%.
 
-3. **Parse AWS cost export.**
-   - Tool: `python3 hermes/profiles/partenon-tesorero/skills/finance/tools/parsers.py data/wpumbrella_aws_costs_2026-05.csv`
+3. **Parse Cloud Provider A cost export.**
+   - Tool: `python3 hermes/profiles/partenon-tesorero/skills/finance/tools/parsers.py data/example-saas_cloud_costs_2026-05.csv`
    - Expected output: Classified infrastructure spend.
 
 ### Collector
 
-1. **List recent Stripe charges.**
+1. **List recent payment charges.**
    - Command: `hermes profile use partenon-cobrador`
    - Tool: `python3 hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py list_charges --start 2026-06-01 --end 2026-06-30`
-   - Expected output: Local-mode list or real Stripe charges if key is live.
+   - Expected output: Local-mode list or real payment charges if key is live.
 
 2. **Get failed subscriptions.**
    - Tool: `python3 hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py get_failed_subscriptions`
@@ -349,7 +349,7 @@ goals:
    - Expected output: Project with engineering checklist.
 
 2. **Assign incident post-mortem task.**
-   - Tool: `python3 hermes/profiles/partenon-estratega/skills/ops/tools/tasks.py create "Write backup incident post-mortem" --project "Backup reliability sprint" --owner engineer@wpumbrella.example.com --due 2026-07-02 --priority high`
+   - Tool: `python3 hermes/profiles/partenon-estratega/skills/ops/tools/tasks.py create "Write backup incident post-mortem" --project "Backup reliability sprint" --owner engineer@example-saas.example.test --due 2026-07-02 --priority high`
    - Expected output: Task stored.
 
 3. **Weekly retro.**
@@ -360,7 +360,7 @@ goals:
 
 1. **Index pricing decision.**
    - Command: `hermes profile use partenon-brain`
-   - Tool: `python3 hermes/profiles/partenon-brain/skills/memory/tools/gbrain_client.py put_page --slug "wp-umbrella/decisions/2026-01-10-agency-plan-pricing" --content "Annual agency plan set at $990/year (2 months free vs monthly)." --tags ["pricing","subscriptions"]`
+   - Tool: `python3 hermes/profiles/partenon-brain/skills/memory/tools/gbrain_client.py put_page --slug "example-saas/decisions/2026-01-10-agency-plan-pricing" --content "Annual agency plan set at $990/year (2 months free vs monthly)." --tags ["pricing","subscriptions"]`
    - Expected output: Page slug or local stub if `gbrain` binary missing.
 
 2. **Search learnings on churn.**
@@ -383,8 +383,8 @@ goals:
    - Tool: `python3 hermes/profiles/partenon-mensajero/skills/comms/tools/copy_generator.py --type post --channel blog --offer "Backup retention increase"`
    - Expected output: Draft changelog post.
 
-3. **Build content calendar for WordCamp season.**
-   - Tool: `python3 hermes/profiles/partenon-mensajero/skills/comms/tools/content_calendar.py --topic "WordPress agency reliability" --channels blog,newsletter`
+3. **Build content calendar for Example Conference season.**
+   - Tool: `python3 hermes/profiles/partenon-mensajero/skills/comms/tools/content_calendar.py --topic "Example CMS agency reliability" --channels blog,newsletter`
    - Expected output: 30-day calendar.
 
 ---
@@ -404,8 +404,8 @@ goals:
 
 | Gap | Severity | Evidence |
 |-----|----------|----------|
-| G-Brain requires external `gbrain` binary. | MEDIUM | `gbrain_client.py` shells out to `gbrain`. |
+| G-Brain local store has limited semantic search. | MEDIUM | `gbrain_client.py` now uses the bundled `GBrainStore`; full-text ranking and link graph are not implemented. |
 | Multi-currency reconciliation is not automated. | MEDIUM | `.finance` supports single currency; EUR revenue requires manual conversion. |
 | Guardian rotation is semi-manual. | MEDIUM | `rotate_key` logs event but requires console action. |
-| No CI/CD or infrastructure audit integration. | LOW | Guardian covers API keys, not AWS IAM or Vercel deployments. |
+| No CI/CD or infrastructure audit integration. | LOW | Guardian covers API keys, not Cloud Provider A IAM or Cloud Provider B deployments. |
 | Herald cannot auto-publish blog or newsletter. | MEDIUM | Drafts only. |

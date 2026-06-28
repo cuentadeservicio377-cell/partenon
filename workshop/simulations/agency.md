@@ -1,10 +1,10 @@
-# Simulated Partenon Onboarding: Clickers 2 Clients
+# Simulated Partenon Onboarding: Example Marketing Agency
 
-This simulation walks Clickers 2 Clients (The Dalles / Central Oregon) through a first-week Partenon setup. The agency's core pain points are project deadlines, client follow-ups, scope control, and proof of ROI.
+This simulation walks Example Marketing Agency (Example City / Example Region) through a first-week Partenon setup. The agency's core pain points are project deadlines, client follow-ups, scope control, and proof of ROI.
 
 ## Company snapshot
 - **Business**: Small digital marketing agency
-- **Location**: The Dalles / Central Oregon, USA
+- **Location**: Example City / Example Region, USA
 - **Team**: ~3–5 people plus an automated virtual assistant
 - **Services**: SEO, websites, social media, email, video editing, Google Business Profile
 - **Top pain points**: juggling delivery and operations, client follow-ups, manual reporting, scope creep
@@ -15,10 +15,10 @@ This simulation walks Clickers 2 Clients (The Dalles / Central Oregon) through a
 
 ```yaml
 company:
-  name: "Clickers 2 Clients"
+  name: "Example Marketing Agency"
   industry: "professional services"
   sub_industry: "digital marketing agency"
-  location: "The Dalles, Oregon, USA"
+  location: "Example City, Example State, USA"
   employees: 5
   currency: "USD"
   fiscal_year: 2026
@@ -32,9 +32,9 @@ company:
     - google_business_profile
   current_tools:
     - "Google Workspace"
-    - "WordPress"
-    - "Meta Business Suite"
-    - "Canva"
+    - "Example CMS"
+    - "Example Social Manager"
+    - "Example Design Tool"
     - "Stripe"
   top_pain_points:
     - "No dedicated project manager; owner does sales + delivery"
@@ -72,7 +72,7 @@ cp hermes/profiles/partenon-cobrador/templates/.payments.example .payments
 
 ```yaml
 profile: partenon-estratega
-owner: "Rebecca Van Diest"
+owner: "Owner"
 assistant_name: "Strategist"
 
 calendar:
@@ -107,15 +107,15 @@ goals:
 
 ```json
 {
-  "company": "Clickers 2 Clients",
+  "company": "Example Marketing Agency",
   "updated": "2026-06-27T00:00:00",
   "clients": [
     {
       "id": "CLI-001",
-      "name": "Local Roofer LLC",
+      "name": "Example Roofer LLC",
       "main_contact": {
-        "name": "Pat Readyhough",
-        "email": "pat@localroofer.example.com",
+        "name": "Property Manager",
+        "email": "client@example.test",
         "phone": "+1 555 0101"
       },
       "category": "home services",
@@ -145,8 +145,8 @@ goals:
       "id": "VEN-001",
       "name": "Freelance Video Editor",
       "main_contact": {
-        "name": "Jordan",
-        "email": "jordan@freelance.example.com"
+        "name": "Freelancer",
+        "email": "freelancer@example.test"
       },
       "category": "creative",
       "service": "Video editing",
@@ -170,7 +170,7 @@ goals:
 
 ```toml
 [company]
-name = "Clickers 2 Clients"
+name = "Example Marketing Agency"
 currency = "USD"
 fiscal_year = 2026
 responsible = "Scribe"
@@ -228,10 +228,10 @@ meta:
   profile: partenon-herald
 
 brand:
-  brand_name: "Clickers 2 Clients"
-  website: "https://clickers2clients.com"
+  brand_name: "Example Marketing Agency"
+  website: "https://exampleagency.example.com"
   industry: "professional services"
-  market: "The Dalles / Columbia River Gorge + remote small businesses"
+  market: "Example City / Example Region + remote small businesses"
   stage: "growth"
 
 positioning:
@@ -261,7 +261,7 @@ messaging:
     - "Instant results"
 
 operations:
-  final_approver: "Rebecca Van Diest"
+  final_approver: "Owner"
   autonomy:
     draft_copy: true
     create_calendar: true
@@ -327,7 +327,7 @@ Command:
 ```bash
 hermes profile use partenon-estratega
 python3 hermes/profiles/partenon-estratega/skills/ops/tools/projects.py \
-  --create "Local Roofer LLC — June SEO + GBP" \
+  --create "Example Roofer LLC — June SEO + GBP" \
   --client CLI-001 \
   --delivery 2026-06-30 \
   --amount 1500
@@ -340,12 +340,12 @@ Expected output:
   "success": true,
   "project": {
     "id": "PROJ-001",
-    "name": "Local Roofer LLC — June SEO + GBP",
+    "name": "Example Roofer LLC — June SEO + GBP",
     "client_id": "CLI-001",
     "delivery_date": "2026-06-30T...",
     "amount": 1500
   },
-  "message": "Project created: Local Roofer LLC — June SEO + GBP (PROJ-001)"
+  "message": "Project created: Example Roofer LLC — June SEO + GBP (PROJ-001)"
 }
 ```
 
@@ -357,7 +357,7 @@ from hermes.profiles.partenon-estratega.skills.ops.tools.tasks import get_tasks
 tasks = get_tasks()
 tasks.create_task("PROJ-001", "Run SEO audit", "SEO lead", "2026-06-28", "high", tags=["seo"])
 tasks.create_task("PROJ-001", "Update Google Business Profile posts", "Social lead", "2026-06-29", "medium", tags=["gbp"])
-tasks.create_task("PROJ-001", "Deliver monthly report", "Rebecca", "2026-06-30", "high", tags=["reporting"])
+tasks.create_task("PROJ-001", "Deliver monthly report", "Owner", "2026-06-30", "high", tags=["reporting"])
 ```
 
 ### Mission 2 — Diplomat: client milestone and follow-up
@@ -369,7 +369,7 @@ hermes profile use partenon-diplomatico
 python3 -c "
 from hermes.profiles.partenon-diplomatico.skills.relations.tools.crm import get_relations_crm
 crm = get_relations_crm()
-print(crm.add_client('Mountain View Dental', email='hello@mountainviewdental.example.com', category='healthcare', rating='B'))
+print(crm.add_client('Example Dental Clinic', email='contact@example.test', category='healthcare', rating='B'))
 print(crm.add_milestone('CLI-002', 'Send proposal for website refresh', '2026-07-03', responsible='Diplomat', next_step='Draft proposal'))
 "
 ```
@@ -379,8 +379,8 @@ Expected output:
 ```json
 {
   "success": true,
-  "entity": { "id": "CLI-002", "name": "Mountain View Dental", ... },
-  "message": "Client registered: Mountain View Dental (CLI-002)"
+  "entity": { "id": "CLI-002", "name": "Example Dental Clinic", ... },
+  "message": "Client registered: Example Dental Clinic (CLI-002)"
 }
 {
   "success": true,
@@ -424,7 +424,7 @@ hermes profile use partenon-cobrador
 python3 -c "
 from hermes.profiles.partenon-cobrador.skills.payments.tools.stripe_tools import create_invoice
 print(create_invoice(
-    {'email': 'pat@localroofer.example.com', 'name': 'Pat Readyhough'},
+    {'email': 'client@example.test', 'name': 'Property Manager'},
     [{'description': 'June SEO + GBP retainer', 'amount': 150000, 'currency': 'usd'}]
 ))
 "
@@ -457,7 +457,7 @@ Expected output (local mode):
 
 ---
 
-## Consolidated gaps for Clickers 2 Clients
+## Consolidated gaps for Example Marketing Agency
 
 1. **No live CRM sync**. Diplomat writes local JSON; HubSpot/Salesforce sync is a documented stub.
 2. **No email dispatch**. Follow-up reminders are drafted but not sent.

@@ -157,7 +157,7 @@ if __name__ == "__main__":
         title="Project Kickoff",
         date="2026-07-15T10:00:00",
         attendees=[
-            {"name": "Jane Smith", "email": "jane@acme.test", "role": "client"},
+            {"name": "Sample Contact", "email": "contact@example.test", "role": "client"},
         ],
         description="Review scope and next steps.",
         entity_id="CLI-001",
