@@ -197,6 +197,10 @@ Profiles map directly to existing or proposed HBOS skills:
 - Hackathon stack explicit on the three pages: Hermes Agent + NVIDIA NemoClaw/OpenShell/Nemotron 3 Ultra + Stripe Skills.
 - Nous Research / open-source manual aesthetic: background `#050505`, cyan accent `#00D4FF`, monospace hero font, no emojis or em-dashes.
 - Anti-AI-slop copy: concrete verbs, claim + proof, no intensifiers or dramatic transition phrases.
+- All 7 hero profiles use a canonical Hermes-compatible `config.yaml` schema with `profile`, `model`, `skills.auto_load`, `mcp_servers`, `files`, `permissions`, `workflows`, `handoffs`, `cron`, and `behavior` sections.
+- Every profile includes the `partenon-memory` MCP server (`python -m gbrain.server`).
+- `google_workspace`, `gmail`, and `stripe` MCP servers are only declared for profiles that already referenced them.
+- `scripts/validate_profiles.py` enforces the canonical schema, YAML validity, required keys, cron file references, and template existence.
 
 ## APIs / Integrations
 

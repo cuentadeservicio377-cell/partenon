@@ -12,8 +12,8 @@ Goal: make the repository safe, clean, and globally distributable before any Her
 - [x] Run secret/PII scan and fix findings
 - [x] Delete dead code and stubs (`examples/*-stub.py`, legacy React source, research caches)
 - [x] Anonymize workshop company cards and sample data
-- [ ] Rename profile directories to English canonical names
-- [ ] Standardize all `config.yaml` files to one Hermes-compatible schema
+- [x] Rename profile directories to English canonical names
+- [x] Standardize all `config.yaml` files to one Hermes-compatible schema
 - [x] Remove default dashboard credentials (`admin`/`partenon`)
 - [x] Replace external `gbrain` binary calls with bundled MCP server
 - [x] Add `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, `NOTICE.md`

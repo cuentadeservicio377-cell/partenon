@@ -386,3 +386,14 @@
 - Replaced external `gbrain` binary dependency in `gbrain_client.py` with direct `GBrainStore` usage.
 - Added `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, and `NOTICE.md`.
 - Verified: `npx tsc --noEmit` PASS, `npm run build` PASS, `python3 -m py_compile` on Brain tools PASS, `GBrainClient` import and functional smoke test PASS.
+
+### 2026-06-28 — Standardize hero profile configs to canonical schema
+- Rewrote `config.yaml` for all 7 profiles: `partenon-scribe`, `partenon-herald`, `partenon-collector`, `partenon-guardian`, `partenon-strategist`, `partenon-diplomat`, `partenon-brain`.
+- Applied canonical schema: `profile`, `model`, `skills.auto_load`, `mcp_servers`, `files`, `permissions`, `workflows`, `handoffs`, `cron`, `behavior`.
+- Added `partenon-memory` MCP server (`python -m gbrain.server`) to every profile.
+- Added `google_workspace`, `gmail`, and `stripe` MCP servers only for profiles that already referenced them in config or SKILL.md.
+- Preserved meaningful existing data: descriptions, models, permissions, workflows, handoffs, and cron jobs.
+- Removed non-canonical fields: `alias`, `role`, `hermes_agent`, `metadata.partenon`, `logging`, `agent.max_iterations`, `memory`, `tools`.
+- Created `scripts/validate_profiles.py` to enforce directory existence, YAML validity, required keys, cron file references, and template existence.
+- Verified: `python3 -c "import yaml; yaml.safe_load(...)"` for each config PASS; `python3 scripts/validate_profiles.py` PASS (7/7 profiles valid).
+- Committed changes: `803551d`.
