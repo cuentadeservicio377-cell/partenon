@@ -2,6 +2,17 @@
 
 ## Historial de Sesiones
 
+### 2026-06-28 — Fase 1: Hermes-Native Foundation completada
+- Renombrado `partenon-core/` a `partenon_core/` y convertido en paquete Python instalable con `pyproject.toml`.
+- Creado `distribution.yaml` raíz y `distribution.yaml` dentro de cada uno de los 7 perfiles.
+- Agregados skills Hermes `partenon-core`, `partenon-judge`, `partenon-workflows` bajo `skills/`.
+- Movido `gbrain/` a `mcp_servers/memory/` como `partenon-memory`; creados wrappers dry-run para `finance`, `payments`, `comms`, `security`, `ops`, `relations`.
+- Cableados todos los perfiles a los MCP servers de dominio vía `config.yaml` canónico.
+- Verificado `hermes profile install hermes/profiles/partenon-*` para los 7 héroes.
+- Actualizado `install.sh`, `scripts/setup_hermes.py`, `README.md`, `CHANGELOG.md`, `TODOS.md`.
+- Todos los checks PASS: pytest (4), dashboard lint/build, secret scan, `bash -n install.sh`, py_compile de Python, importación de todos los MCP servers.
+- Commit final de Fase 1: `fa491c3`.
+
 ### 2026-06-28 — Fase 0: install.sh seguro + CI
 - Reescrito `install.sh` para que sea idempotente, seguro y robusto a paths con espacios.
 - El instalador ahora detecta Python 3.10+, recrea `.venv` si usa Python obsoleto, genera `DASHBOARD_AUTH_SECRET`, `DASHBOARD_APP_USERNAME` y `DASHBOARD_APP_PASSWORD` en `.env` solo la primera vez, e instala perfiles canónicos en inglés en `$HOME/.hermes/profiles`.

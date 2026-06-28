@@ -6,7 +6,7 @@
 
 - **Proyecto**: Partenon
 - **Iniciado**: 2026-06-23
-- **Estado**: Fase 0 contaminants cleanup completada. Instalador idempotente y seguro, CI local verificada (pytest, lint, build, secret scan), workflow de GitHub Actions creado. Listo para iniciar Phase 1 — Hermes-Native Foundation.
+- **Estado**: Fase 1 — Hermes-Native Foundation completada. `partenon_core` empaquetado con `pyproject.toml`, MCP servers creados (memory/finance/payments/comms/security/ops/relations), perfiles cableados vía `config.yaml`, y `hermes profile install` verificado end-to-end para los 7 héroes. Listo para Phase 2 — Hero Final Design + MCP Wrappers.
 - **Propósito**: Sistema de agentes IA para empresas, presentado como un panteón de héroes griegos al servicio de Hermes. Destinado a hackathon.
 
 ## Braindump

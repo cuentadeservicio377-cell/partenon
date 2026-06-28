@@ -5,6 +5,10 @@
 ## [Unreleased]
 
 ### Added
+- feat(phase-1): add root `distribution.yaml` and `pyproject.toml`; package `partenon_core` with `partenon-core`, `partenon-judge`, and `partenon-workflows` skills.
+- feat(phase-1): create `mcp_servers/` wrappers for memory, finance, payments, comms, security, ops, and relations (dry-run defaults).
+- feat(phase-1): bundle G-Brain as `mcp_servers.memory` (`partenon-memory`) and wire all profiles to it.
+- feat(phase-1): add per-profile `distribution.yaml` files and verify `hermes profile install` end-to-end for all 7 heroes.
 - ci(github): add `.github/workflows/ci.yml` with Python tests, dashboard lint/build, and secret scan jobs.
 - ci(scripts): add `.github/scripts/secret_scan.py` for lightweight hardcoded-secret detection in CI.
 - build(dashboard): configure ESLint with `eslint-config-next` and add lint script.

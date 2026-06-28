@@ -23,7 +23,7 @@ mcp_servers:
       GBRAIN_DATABASE_URL: "${GBRAIN_DATABASE_URL:-sqlite:///data/gbrain.db}"
   partenon-finance:
     command: python
-    args: [\"-m\", \"mcp_servers.finance.server\"]
+    args: ["-m", "mcp_servers.finance.server"]
   google_workspace:
     command: npx
     args: ["-y", "@modelcontextprotocol/server-google-workspace"]

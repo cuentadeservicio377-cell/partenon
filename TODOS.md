@@ -30,7 +30,7 @@ Goal: make the repository safe, clean, and globally distributable before any Her
 - [x] Build `mcp_servers/` wrappers for each domain
 - [x] Bundle G-Brain as `partenon-memory` MCP server
 - [x] Wire profiles to MCP servers via canonical `config.yaml`
-- [ ] Verify `hermes profile install` end-to-end
+- [x] Verify `hermes profile install` end-to-end
 
 ### Phase 2 — Hero Final Design + MCP Wrappers (4 weeks)
 - [ ] Finalize tool lists and dry-run/live behavior for all 7 heroes

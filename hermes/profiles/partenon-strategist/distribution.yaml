@@ -1,0 +1,15 @@
+name: partenon-strategist
+version: 1.0.0
+description: Operations agent. Manages projects, tasks, checklists, goals, briefings,
+  and calendar.
+hermes_requires: '>=0.14.0'
+author: Partenon Authors
+license: MIT
+env_requires:
+- name: OPENROUTER_API_KEY
+  description: OpenRouter API key for model access
+  required: true
+- name: GBRAIN_DATABASE_URL
+  description: Partenon memory database URL
+  required: false
+  default: sqlite:///data/gbrain.db

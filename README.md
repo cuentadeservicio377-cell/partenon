@@ -156,13 +156,16 @@ partenon/
 │   ├── partenon-strategist/       # Strategist
 │   ├── partenon-diplomat/     # Diplomat
 │   └── partenon-brain/           # Brain
-├── gbrain/                       # Local MCP memory server
+├── mcp_servers/                  # MCP servers: memory, finance, payments, comms, security, ops, relations
+├── skills/                       # Hermes skills: partenon-core, partenon-judge, partenon-workflows
 ├── scripts/                      # demo_scribe.py, setup_hermes.py, capture.py
 ├── examples/                     # API stub, CLI stub, MCP client stub
 ├── templates/google-sheet-base/  # Finance spreadsheet generator
 ├── docs/                         # Documentation
 ├── install.sh
 ├── docker-compose.yml
+├── pyproject.toml
+├── distribution.yaml
 └── requirements.txt
 ```
 
@@ -187,6 +190,7 @@ partenon/
 
 ## Roadmap
 
+- [x] Phase 1 — Hermes-native foundation: `distribution.yaml`, `pyproject.toml`, `partenon_core` package, MCP servers, profile install.
 - [ ] Functional eval loop wired into the router and hero runtime.
 - [ ] Live Google Workspace, Stripe, and G-Brain integrations with real credentials.
 - [ ] Real workflow engine dispatch to hero tools instead of local JSON stubs.
@@ -227,3 +231,5 @@ See [`MISSING_IMPLEMENTATION.md`](MISSING_IMPLEMENTATION.md) for the full audit.
   - `cd dashboard && npm run build` PASS.
   - `./install.sh` idempotent PASS.
   - `.github/scripts/secret_scan.py` PASS.
+  - `hermes profile install hermes/profiles/partenon-*` PASS for all 7 heroes.
+  - `pip install -e .` and `python -m partenon_core.tools.router` PASS.
