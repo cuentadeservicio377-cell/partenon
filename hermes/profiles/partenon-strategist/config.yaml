@@ -1,0 +1,129 @@
+profile:
+  name: partenon-strategist
+  display_name: Strategist
+  description: Operations, project management, Google Calendar, Gmail, tasks, reminders, goals, and briefings.
+  version: 1.0.0
+
+model:
+  default: openrouter/anthropic/claude-opus-4
+  fallback: openrouter/anthropic/claude-sonnet-4
+
+skills:
+  auto_load:
+    - partenon-core
+    - ops
+
+mcp_servers:
+  partenon-memory:
+    command: python
+    args: ["-m", "gbrain.server"]
+    env:
+      GBRAIN_DATABASE_URL: "${GBRAIN_DATABASE_URL:-sqlite:///data/gbrain.db}"
+  google_workspace:
+    command: npx
+    args: ["-y", "@modelcontextprotocol/server-google-workspace"]
+    env:
+      GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
+  gmail:
+    command: npx
+    args: ["-y", "@modelcontextprotocol/server-gmail"]
+    env:
+      GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
+
+files:
+  - .ops
+
+permissions:
+  - google_workspace
+  - gbrain
+  - file
+  - terminal
+  - create_project
+  - assign_task
+  - generate_checklist
+  - define_goal
+  - generate_briefing
+  - manage_calendar
+  - draft_email
+  - store_note
+
+workflows:
+  - name: morning_briefing
+    steps:
+      - collect_priorities
+      - check_due_dates
+      - generate_summary
+      - deliver_briefing
+  - name: midday_pulse
+    steps:
+      - review_morning_progress
+      - flag_blockers
+      - suggest_adjustments
+  - name: weekly_planning
+    steps:
+      - review_goals
+      - propose_projects
+      - assign_owners
+      - publish_plan
+  - name: weekly_retro
+    steps:
+      - collect_completed_tasks
+      - detect_patterns
+      - identify_blockers
+      - write_retro_report
+  - name: project_creation
+    steps:
+      - define_goal
+      - create_project
+      - generate_checklist
+      - assign_tasks
+  - name: task_assignment
+    steps:
+      - clarify_task
+      - assign_owner
+      - set_due_date
+      - save_task
+  - name: calendar_management
+    steps:
+      - parse_event_request
+      - check_availability
+      - schedule_event
+      - send_invite
+  - name: email_drafting
+    steps:
+      - summarize_thread
+      - draft_reply
+      - request_approval
+      - send_email
+
+handoffs:
+  to:
+    - partenon-diplomat: when a customer milestone or external communication is involved.
+    - partenon-herald: when campaign dates or content delivery need coordination.
+    - partenon-scribe: when project budgets deviate or require financial tracking.
+    - partenon-collector: when project milestones align with payments or collections.
+    - partenon-guardian: when a security risk or permission issue is detected.
+  from:
+    - partenon-diplomat: when an agreement creates new tasks or deadlines.
+    - partenon-scribe: when financial constraints affect project scope.
+    - partenon-brain: when a conflict with past decisions is detected.
+
+cron:
+  - id: morning-briefing
+    schedule: "0 8 * * 1-5"
+    file: cron/morning-briefing.json
+  - id: midday-pulse
+    schedule: "0 14 * * 1-5"
+    file: cron/midday-pulse.json
+  - id: weekly-planning
+    schedule: "0 9 * * 1"
+    file: cron/weekly-planning.json
+  - id: weekly-retro
+    schedule: "0 20 * * 0"
+    file: cron/weekly-retro.json
+
+behavior:
+  dry_run_by_default: true
+  require_approval_for:
+    - external_send
+    - calendar_write

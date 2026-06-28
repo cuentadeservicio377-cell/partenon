@@ -1,31 +1,95 @@
-# Profile: partenon-guardian
-# Role: Security, models, API keys, profile permissions, and audit.
-
 profile:
   name: partenon-guardian
   display_name: Guardian
   description: Security, model access, API keys, profile permissions, and audit for Partenon.
-  version: 0.1.0
-  hermes_agent: true
+  version: 1.0.0
 
 model:
-  provider: openrouter
-  model: openrouter/anthropic/claude-opus-4
-
-agent:
-  max_iterations: 40
-  enabled_toolsets:
-    - terminal
-    - file
-    - gbrain
-
-mcp:
-  servers:
-    - gbrain
-
-memory:
-  memory_enabled: true
+  default: openrouter/anthropic/claude-opus-4
+  fallback: openrouter/anthropic/claude-sonnet-4
 
 skills:
   auto_load:
+    - partenon-core
     - security
+
+mcp_servers:
+  partenon-memory:
+    command: python
+    args: ["-m", "gbrain.server"]
+    env:
+      GBRAIN_DATABASE_URL: "${GBRAIN_DATABASE_URL:-sqlite:///data/gbrain.db}"
+
+files:
+  - .security
+
+permissions:
+  - terminal
+  - file
+  - gbrain
+  - list_keys
+  - rotate_key
+  - audit_access
+  - validate_access
+  - manage_secrets
+  - allocate_gpu
+  - set_policies
+  - audit_log
+
+workflows:
+  - name: key_rotation
+    steps:
+      - validate_provider
+      - generate_new_key
+      - update_reference
+      - revoke_previous_key
+      - log_rotation
+  - name: access_audit
+    steps:
+      - load_profile
+      - compare_with_canonical_role
+      - flag_violations
+      - write_audit_report
+  - name: access_validation
+    steps:
+      - receive_request
+      - check_policy
+      - allow_or_deny
+      - log_decision
+  - name: secret_management
+    steps:
+      - validate_action
+      - manage_reference
+      - mask_value
+      - update_metadata
+  - name: gpu_allocation
+    steps:
+      - verify_api_key
+      - check_quota
+      - allocate_or_deny
+      - return_configuration
+  - name: policy_update
+    steps:
+      - receive_policy_request
+      - validate_against_role
+      - persist_policy
+      - flag_violations
+
+handoffs:
+  to:
+    - partenon-strategist: when a security risk or access conflict requires operational coordination.
+    - partenon-scribe: when an audit finding affects financial records or budgets.
+  from:
+    - partenon-collector: when fraud or suspicious payment activity is detected.
+    - partenon-strategist: when a profile requests permissions beyond its role.
+    - partenon-brain: when a contradiction in security policy is found.
+
+cron:
+  - id: weekly-audit
+    schedule: "0 20 * * 0"
+    file: cron/weekly-audit.json
+
+behavior:
+  dry_run_by_default: true
+  require_approval_for:
+    - key_rotation

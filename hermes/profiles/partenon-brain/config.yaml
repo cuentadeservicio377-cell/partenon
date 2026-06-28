@@ -2,32 +2,116 @@ profile:
   name: partenon-brain
   display_name: Brain
   description: Memory and collective intelligence agent for Partenon. Indexes learnings, resolves context conflicts, and feeds onboarding for the other heroes.
-  version: 0.2.0
+  version: 1.0.0
 
 model:
   default: openrouter/anthropic/claude-opus-4
   fallback: openrouter/anthropic/claude-sonnet-4
 
-tools:
-  enabled:
-    - gbrain
-    - file
-    - terminal
+skills:
+  auto_load:
+    - partenon-core
+    - memory
 
 mcp_servers:
-  - name: gbrain
-    command: gbrain
-    args:
-      - serve
-      - --stdio
+  partenon-memory:
+    command: python
+    args: ["-m", "gbrain.server"]
+    env:
+      GBRAIN_DATABASE_URL: "${GBRAIN_DATABASE_URL:-sqlite:///data/gbrain.db}"
 
 files:
-  profile_config: ".brain"
-  env_example: ".env.example"
+  - .brain
+
+permissions:
+  - gbrain
+  - file
+  - terminal
+  - put_page
+  - get_page
+  - search
+  - link
+  - conflicts
+  - share_context
+  - find_patterns
+  - orchestrate_agents
+  - generate_insight
+  - collect_learnings
+  - collect_decisions
+  - index_in_gbrain
+  - notify
+
+workflows:
+  - name: index_learning
+    steps:
+      - receive_mission_summary
+      - generate_slug
+      - save_page_with_tags
+      - notify_related_heroes
+  - name: retrieve_context
+    steps:
+      - receive_question
+      - search_gbrain
+      - synthesize_response
+      - return_summary_with_sources
+  - name: detect_conflicts
+    steps:
+      - iterate_recent_decisions
+      - compare_with_past
+      - flag_contradictions
+      - notify_strategist
+  - name: onboard_hero
+    steps:
+      - receive_profile
+      - gather_decisions_and_learnings
+      - generate_summary
+      - save_onboarding_context
+  - name: share_context
+    steps:
+      - receive_context_type
+      - store_page_with_access
+      - return_slug
+  - name: find_patterns
+    steps:
+      - receive_pattern
+      - search_sources
+      - aggregate_matches
+      - return_analysis
+  - name: orchestrate_agents
+    steps:
+      - receive_task_and_agents
+      - save_orchestration_plan
+      - return_plan_slug
+  - name: generate_insight
+    steps:
+      - receive_pattern_and_sources
+      - run_analysis
+      - produce_report
+      - save_to_gbrain
+  - name: daily_memory_sync
+    steps:
+      - collect_learnings
+      - collect_decisions
+      - index_in_gbrain
+      - report_status
+
+handoffs:
+  to:
+    - partenon-strategist: when a contradiction between past decisions and current proposals is detected.
+  from:
+    - partenon-scribe: when a finance mission concludes with conclusions to save.
+    - partenon-herald: when a communications mission concludes with conclusions to save.
+    - partenon-collector: when a payment mission concludes with conclusions to save.
+    - partenon-guardian: when a security audit or rotation event must be logged.
+    - partenon-strategist: when an operations mission concludes with conclusions to save.
+    - partenon-diplomat: when a relationship mission concludes with conclusions to save.
+
+cron:
+  - id: daily-memory-sync
+    schedule: "0 2 * * *"
+    file: cron/daily-memory-sync.json
 
 behavior:
-  always_search_before_decision: true
-  tag_every_memory_page: true
-  link_related_decisions: true
-  daily_memory_sync_enabled: true
-  expose_no_credentials: true
+  dry_run_by_default: true
+  require_approval_for:
+    - external_send

@@ -1,0 +1,122 @@
+profile:
+  name: partenon-diplomat
+  display_name: Diplomat
+  description: Client and vendor relationships, CRM operations, meeting scheduling, follow-ups, proposals, and external communications.
+  version: 1.0.0
+
+model:
+  default: openrouter/google/gemini-2.5-flash-preview
+  fallback: openrouter/anthropic/claude-sonnet-4
+
+skills:
+  auto_load:
+    - partenon-core
+    - relations
+
+mcp_servers:
+  partenon-memory:
+    command: python
+    args: ["-m", "gbrain.server"]
+    env:
+      GBRAIN_DATABASE_URL: "${GBRAIN_DATABASE_URL:-sqlite:///data/gbrain.db}"
+  google_workspace:
+    command: npx
+    args: ["-y", "@modelcontextprotocol/server-google-workspace"]
+    env:
+      GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
+  gmail:
+    command: npx
+    args: ["-y", "@modelcontextprotocol/server-gmail"]
+    env:
+      GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
+
+files:
+  - .relations
+
+permissions:
+  - file
+  - google_workspace
+  - gbrain
+  - web_search
+  - terminal
+  - register_client
+  - register_vendor
+  - log_interaction
+  - track_milestone
+  - track_deliverable
+  - rate_relationship
+  - run_followups
+  - generate_proposal
+  - sync_contacts
+  - schedule_meeting
+
+workflows:
+  - name: register_contact
+    steps:
+      - collect_contact_details
+      - validate_information
+      - save_to_relations
+      - sync_with_calendar
+  - name: log_interaction
+    steps:
+      - identify_contact
+      - capture_date_channel_subject
+      - write_summary
+      - set_next_step
+  - name: track_milestone
+    steps:
+      - load_contact
+      - update_milestone_status
+      - confirm_in_writing
+      - notify_strategist
+  - name: rate_relationship
+    steps:
+      - review_interactions
+      - assign_rating
+      - record_reason
+      - flag_risks
+  - name: daily_followups
+    steps:
+      - identify_pending_followups
+      - personalize_message
+      - request_approval
+      - send_reminder
+  - name: generate_proposal
+    steps:
+      - read_contact_context
+      - draft_proposal
+      - request_approval
+      - save_to_output
+  - name: sync_contacts
+    steps:
+      - read_relations
+      - push_to_crm
+      - resolve_conflicts
+      - log_sync
+  - name: schedule_meeting
+    steps:
+      - read_availability
+      - propose_slots
+      - confirm_with_contact
+      - create_calendar_event
+
+handoffs:
+  to:
+    - partenon-strategist: when an agreement involves new tasks, deadlines, or assignments.
+    - partenon-scribe: when a negotiation affects prices, payments, or financial terms.
+    - partenon-herald: when communication requires brand copy or campaign messaging.
+    - partenon-collector: when formal payment reminders need to be issued.
+  from:
+    - partenon-strategist: when customer milestones need confirmation or negotiation.
+    - partenon-collector: when a payment plan is agreed with a client.
+    - partenon-herald: when client-facing messaging needs relationship context.
+
+cron:
+  - id: daily-followups
+    schedule: "0 9 * * 1-5"
+    file: cron/daily-followups.json
+
+behavior:
+  dry_run_by_default: true
+  require_approval_for:
+    - external_send

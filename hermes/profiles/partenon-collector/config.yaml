@@ -1,0 +1,118 @@
+profile:
+  name: partenon-collector
+  display_name: Collector
+  description: Payments, collections, Stripe, payment links, subscriptions, invoices, revenue tracking, and fraud monitoring.
+  version: 1.0.0
+
+model:
+  default: openrouter/deepseek/deepseek-chat
+  fallback: openrouter/anthropic/claude-3.5-sonnet
+
+skills:
+  auto_load:
+    - partenon-core
+    - payments
+
+mcp_servers:
+  partenon-memory:
+    command: python
+    args: ["-m", "gbrain.server"]
+    env:
+      GBRAIN_DATABASE_URL: "${GBRAIN_DATABASE_URL:-sqlite:///data/gbrain.db}"
+  stripe:
+    command: npx
+    args: ["-y", "@stripe/mcp"]
+    env:
+      STRIPE_SECRET_KEY: "${STRIPE_SECRET_KEY}"
+  google_workspace:
+    command: npx
+    args: ["-y", "@modelcontextprotocol/server-google-workspace"]
+    env:
+      GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
+  gmail:
+    command: npx
+    args: ["-y", "@modelcontextprotocol/server-gmail"]
+    env:
+      GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
+
+files:
+  - .payments
+
+permissions:
+  - stripe
+  - google_workspace
+  - gbrain
+  - create_payment_link
+  - create_subscription
+  - create_invoice
+  - send_payment_reminder
+  - record_payment
+  - list_charges
+  - generate_income_report
+  - monitor_fraud
+  - read_pending_payments
+  - read_overdue_payments
+  - classify_risk
+  - schedule_followup
+  - read_payments_file
+  - write_payments_file
+
+workflows:
+  - name: collect_by_link
+    steps:
+      - validate_payment_in_system
+      - create_payment_link
+      - send_link_to_client
+      - register_mission_in_gbrain
+  - name: subscription
+    steps:
+      - validate_client
+      - create_subscription
+      - save_to_payments_file
+      - notify_treasurer
+  - name: invoice
+    steps:
+      - validate_client
+      - create_invoice
+      - send_invoice_to_client
+      - save_to_payments_file
+  - name: reminder
+    steps:
+      - identify_overdue_payments
+      - personalize_message
+      - send_reminder
+      - update_collection_status
+  - name: payment_confirmed
+    steps:
+      - confirm_payment_in_stripe
+      - record_payment
+      - sync_with_treasurer
+      - update_client_status
+  - name: fraud_review
+    steps:
+      - list_recent_charges
+      - monitor_fraud
+      - alert_operator_on_flags
+
+handoffs:
+  to:
+    - partenon-scribe: when the payment requires accounting record or reconciliation.
+    - partenon-diplomat: when the client does not respond or there is a dispute.
+    - partenon-guardian: when fraud or an invalid payment attempt is detected.
+  from:
+    - partenon-scribe: when an account receivable is identified.
+    - partenon-diplomat: when a payment plan is agreed.
+
+cron:
+  - id: daily-collection
+    schedule: "0 8 * * 1-5"
+    file: cron/daily-collection.json
+  - id: daily-followups
+    schedule: "0 14 * * 1-5"
+    file: cron/daily-followups.json
+
+behavior:
+  dry_run_by_default: true
+  require_approval_for:
+    - external_send
+    - payment

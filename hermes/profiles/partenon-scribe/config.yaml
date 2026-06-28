@@ -1,0 +1,94 @@
+profile:
+  name: partenon-scribe
+  display_name: Scribe
+  description: Finance agent for small businesses. Controls costs, budgets, vendors, and dashboards in Google Sheets.
+  version: 1.0.0
+
+model:
+  default: openrouter/anthropic/claude-opus-4
+  fallback: openrouter/anthropic/claude-sonnet-4
+
+skills:
+  auto_load:
+    - partenon-core
+    - finance
+
+mcp_servers:
+  partenon-memory:
+    command: python
+    args: ["-m", "gbrain.server"]
+    env:
+      GBRAIN_DATABASE_URL: "${GBRAIN_DATABASE_URL:-sqlite:///data/gbrain.db}"
+  google_workspace:
+    command: npx
+    args: ["-y", "@modelcontextprotocol/server-google-workspace"]
+    env:
+      GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
+
+files:
+  - .finance
+
+permissions:
+  - google_workspace
+  - gbrain
+  - file
+  - terminal
+  - parse_expense
+  - classify_expense
+  - generate_dashboard
+  - detect_anomaly
+  - compare_budget
+  - export_report
+  - write_to_sheets
+  - create_spreadsheet
+
+workflows:
+  - name: expense_classification
+    steps:
+      - read_receipt
+      - parse_expense
+      - classify_by_category
+      - flag_anomalies
+      - write_to_sheets
+  - name: daily_report
+    steps:
+      - collect_transactions
+      - detect_duplicates
+      - summarize_spending
+      - publish_dashboard
+  - name: weekly_budget_review
+    steps:
+      - compare_budget_vs_actual
+      - identify_deviations
+      - alert_on_overruns
+      - update_forecast
+  - name: campaign_budget_sync
+    steps:
+      - read_campaign_budget
+      - validate_against_financial_plan
+      - notify_herald
+      - update_sheets
+
+handoffs:
+  to:
+    - partenon-herald: when the task involves campaign budgets or marketing expenses.
+    - partenon-collector: when a payment is confirmed and must be recorded as income.
+    - partenon-strategist: when a project budget needs task or deadline alignment.
+  from:
+    - partenon-herald: when a campaign requires budget validation.
+    - partenon-collector: when a payment needs accounting reconciliation.
+    - partenon-strategist: when project costs need classification or tracking.
+
+cron:
+  - id: daily-report
+    schedule: "0 8 * * 1-5"
+    file: cron/daily-report.json
+  - id: weekly-content
+    schedule: "0 9 * * 1"
+    file: cron/weekly-content.json
+
+behavior:
+  dry_run_by_default: true
+  require_approval_for:
+    - external_send
+    - payment

@@ -1,0 +1,129 @@
+profile:
+  name: partenon-herald
+  display_name: Herald
+  description: Communications, brand, content, editorial calendar, SEO/GEO, presentations, email, and WordPress agent.
+  version: 1.0.0
+
+model:
+  default: openrouter/google/gemini-2.5-flash-preview-05-20
+  fallback: openrouter/anthropic/claude-sonnet-4-20250514
+
+skills:
+  auto_load:
+    - partenon-core
+    - comms
+
+mcp_servers:
+  partenon-memory:
+    command: python
+    args: ["-m", "gbrain.server"]
+    env:
+      GBRAIN_DATABASE_URL: "${GBRAIN_DATABASE_URL:-sqlite:///data/gbrain.db}"
+  google_workspace:
+    command: npx
+    args: ["-y", "@modelcontextprotocol/server-google-workspace"]
+    env:
+      GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
+  gmail:
+    command: npx
+    args: ["-y", "@modelcontextprotocol/server-gmail"]
+    env:
+      GOOGLE_SERVICE_ACCOUNT_JSON: "${GOOGLE_SERVICE_ACCOUNT_JSON}"
+
+files:
+  - .design
+
+permissions:
+  - file
+  - terminal
+  - google_workspace
+  - gbrain
+  - social_media
+  - open_design
+  - web_search
+  - wordpress
+  - ssh
+  - mailchimp
+  - brand_intake
+  - content_calendar
+  - copy_generator
+  - seo_geo_optimizer
+  - publish_post
+  - schedule_content
+  - analyze_engagement
+  - presentation_builder
+
+workflows:
+  - name: brand_interview
+    steps:
+      - read_existing_design
+      - run_brand_intake
+      - write_design
+      - register_mission
+  - name: content_calendar
+    steps:
+      - read_design
+      - collect_topics
+      - generate_calendar
+      - save_to_output
+  - name: campaign_copy
+    steps:
+      - read_design
+      - define_piece_and_channel
+      - generate_variants
+      - save_to_output
+  - name: seo_geo
+    steps:
+      - read_design
+      - analyze_keywords
+      - optimize_content
+      - export_recommendations
+  - name: social_publishing
+    steps:
+      - read_design
+      - prepare_copy_and_media
+      - request_approval
+      - publish_or_schedule
+  - name: engagement_analysis
+    steps:
+      - read_metrics
+      - identify_opportunities
+      - recommend_replies
+      - report_to_owner
+  - name: presentations
+    steps:
+      - read_design
+      - build_slide_structure
+      - populate_pitch_deck
+      - deliver_presentation
+  - name: emails
+    steps:
+      - read_design
+      - draft_email
+      - request_approval
+      - send_via_gmail
+
+handoffs:
+  to:
+    - partenon-scribe: when a campaign budget needs validation.
+    - partenon-diplomat: when client-facing messaging or negotiation is required.
+  from:
+    - partenon-strategist: when campaign dates must align with operations.
+    - partenon-scribe: when financial constraints affect messaging.
+    - partenon-diplomat: when brand copy is needed for external communication.
+
+cron:
+  - id: morning-briefing
+    schedule: "0 8 * * 1-5"
+    file: cron/morning-briefing.json
+  - id: midday-pulse
+    schedule: "0 14 * * 1-5"
+    file: cron/midday-pulse.json
+  - id: weekly-content
+    schedule: "0 9 * * 1"
+    file: cron/weekly-content.json
+
+behavior:
+  dry_run_by_default: true
+  require_approval_for:
+    - external_send
