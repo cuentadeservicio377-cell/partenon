@@ -68,7 +68,7 @@ Documentation = "https://github.com/cuentadeservicio377-cell/partenon#readme"
 Issues = "https://github.com/cuentadeservicio377-cell/partenon/issues"
 
 [tool.hatch.build.targets.wheel]
-packages = ["partenon_core"]
+packages = ["partenon_core", "mcp_servers"]
 
 [tool.hatch.build.targets.sdist]
 include = [

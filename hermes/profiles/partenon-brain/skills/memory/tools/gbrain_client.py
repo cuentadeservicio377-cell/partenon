@@ -10,13 +10,13 @@ from pathlib import Path
 from typing import Any, Optional
 
 try:
-    from gbrain.tools import GBrainStore
+    from mcp_servers.memory.tools import GBrainStore
 except ImportError:  # pragma: no cover - fallback when repo root is not on sys.path
     import importlib.util
 
     _REPO_ROOT = Path(__file__).resolve().parents[6]
-    _TOOLS_PATH = _REPO_ROOT / "gbrain" / "tools.py"
-    _spec = importlib.util.spec_from_file_location("gbrain.tools", _TOOLS_PATH)
+    _TOOLS_PATH = _REPO_ROOT / "mcp_servers" / "memory" / "tools.py"
+    _spec = importlib.util.spec_from_file_location("mcp_servers.memory.tools", _TOOLS_PATH)
     _module = importlib.util.module_from_spec(_spec)
     _spec.loader.exec_module(_module)
     GBrainStore = _module.GBrainStore  # type: ignore[misc]

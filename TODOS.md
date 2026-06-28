@@ -27,8 +27,8 @@ Goal: make the repository safe, clean, and globally distributable before any Her
 ### Phase 1 — Hermes-Native Foundation (3 weeks)
 - [x] Create root `distribution.yaml` and `pyproject.toml`
 - [x] Convert `partenon_core/tools/` into Hermes skills
-- [ ] Build `mcp_servers/` wrappers for each domain
-- [ ] Bundle G-Brain as `partenon-memory` MCP server
+- [x] Build `mcp_servers/` wrappers for each domain
+- [x] Bundle G-Brain as `partenon-memory` MCP server
 - [ ] Wire profiles to MCP servers via canonical `config.yaml`
 - [ ] Verify `hermes profile install` end-to-end
 

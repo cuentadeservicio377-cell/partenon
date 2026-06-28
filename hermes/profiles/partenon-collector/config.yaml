@@ -18,7 +18,7 @@ skills:
 mcp_servers:
   partenon-memory:
     command: python
-    args: ["-m", "gbrain.server"]
+    args: ["-m", "mcp_servers.memory.server"]
     env:
       GBRAIN_DATABASE_URL: "${GBRAIN_DATABASE_URL:-sqlite:///data/gbrain.db}"
   stripe:
