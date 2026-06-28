@@ -5,10 +5,14 @@
 ## [Unreleased]
 
 ### Added
+- ci(github): add `.github/workflows/ci.yml` with Python tests, dashboard lint/build, and secret scan jobs.
+- ci(scripts): add `.github/scripts/secret_scan.py` for lightweight hardcoded-secret detection in CI.
+- build(dashboard): configure ESLint with `eslint-config-next` and add lint script.
+- build(installer): make `install.sh` idempotent, space-safe, and secret-generating on first run.
 - docs(workshop): add `workshop/PRODUCTION_READINESS_RESEARCH.md` with base-system verification, hero smoke tests, five real small-business case studies, and production-readiness scoring for construction/retail/SaaS simulations.
 - docs(workshop): add production-readiness findings to `MISSING_IMPLEMENTATION.md` (stale venv blocker, missing `sim_runner.py`, missing construction checklist, mismatched simulation company cards).
-- feat(profiles): create `partenon-diplomatico` profile with relations skill, CRM and follow-ups.
-- feat(profiles): create `partenon-estratega` profile with ops skill (projects, tasks, checklists, goals, briefings), `.ops` template and morning/midday/planning/retro cron jobs.
+- feat(profiles): create `partenon-diplomat` profile with relations skill, CRM and follow-ups.
+- feat(profiles): create `partenon-strategist` profile with ops skill (projects, tasks, checklists, goals, briefings), `.ops` template and morning/midday/planning/retro cron jobs.
 - docs(playbook): add `docs/ENTREPRENEUR_PLAYBOOK.md` with hero selection by business type, prompts, and rollout checklist.
 - docs(guides): add `docs/HERO_GUIDE.md` and `docs/QUICKSTART.md`.
 - docs(reference): add `docs/SECURITY.md`, `docs/API.md`, and `docs/FAQ.md`.

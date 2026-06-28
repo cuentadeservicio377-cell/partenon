@@ -172,35 +172,35 @@ def audit_access(profile: str) -> Dict[str, Any]:
             "skills": {"security"},
             "files": {"hermes/profiles/partenon-guardian/**"},
         },
-        "partenon-tesorero": {
+        "partenon-scribe": {
             "tools": {"terminal", "file"},
             "mcp_servers": set(),
             "skills": {"finance"},
-            "files": {"hermes/profiles/partenon-tesorero/**"},
+            "files": {"hermes/profiles/partenon-scribe/**"},
         },
-        "partenon-mensajero": {
+        "partenon-herald": {
             "tools": {"terminal", "file"},
             "mcp_servers": set(),
             "skills": {"comms"},
-            "files": {"hermes/profiles/partenon-mensajero/**"},
+            "files": {"hermes/profiles/partenon-herald/**"},
         },
-        "partenon-cobrador": {
+        "partenon-collector": {
             "tools": {"terminal", "file"},
             "mcp_servers": set(),
             "skills": {"payments"},
-            "files": {"hermes/profiles/partenon-cobrador/**"},
+            "files": {"hermes/profiles/partenon-collector/**"},
         },
-        "partenon-estratega": {
+        "partenon-strategist": {
             "tools": {"terminal", "file"},
             "mcp_servers": set(),
             "skills": {"ops"},
-            "files": {"hermes/profiles/partenon-estratega/**"},
+            "files": {"hermes/profiles/partenon-strategist/**"},
         },
-        "partenon-diplomatico": {
+        "partenon-diplomat": {
             "tools": {"terminal", "file"},
             "mcp_servers": set(),
             "skills": {"relations"},
-            "files": {"hermes/profiles/partenon-diplomatico/**"},
+            "files": {"hermes/profiles/partenon-diplomat/**"},
         },
         "partenon-brain": {
             "tools": {"terminal", "file"},
@@ -317,11 +317,11 @@ if __name__ == "__main__":
     print("\nProfile audits:")
     profiles = [
         "partenon-guardian",
-        "partenon-tesorero",
-        "partenon-mensajero",
-        "partenon-cobrador",
-        "partenon-estratega",
-        "partenon-diplomatico",
+        "partenon-scribe",
+        "partenon-herald",
+        "partenon-collector",
+        "partenon-strategist",
+        "partenon-diplomat",
         "partenon-brain",
     ]
     for profile in profiles:

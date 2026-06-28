@@ -59,7 +59,7 @@ permissions_by_profile:
       - set_policies
       - audit_log
 
-  partenon-tesorero:
+  partenon-scribe:
     tools:
       - terminal
       - file
@@ -67,11 +67,11 @@ permissions_by_profile:
     skills:
       - finance
     files:
-      - hermes/profiles/partenon-tesorero/**
+      - hermes/profiles/partenon-scribe/**
     actions:
       - read_financial_data
 
-  partenon-mensajero:
+  partenon-herald:
     tools:
       - terminal
       - file
@@ -79,11 +79,11 @@ permissions_by_profile:
     skills:
       - comms
     files:
-      - hermes/profiles/partenon-mensajero/**
+      - hermes/profiles/partenon-herald/**
     actions:
       - send_message
 
-  partenon-cobrador:
+  partenon-collector:
     tools:
       - terminal
       - file
@@ -91,11 +91,11 @@ permissions_by_profile:
     skills:
       - payments
     files:
-      - hermes/profiles/partenon-cobrador/**
+      - hermes/profiles/partenon-collector/**
     actions:
       - manage_payments
 
-  partenon-estratega:
+  partenon-strategist:
     tools:
       - terminal
       - file
@@ -103,11 +103,11 @@ permissions_by_profile:
     skills:
       - ops
     files:
-      - hermes/profiles/partenon-estratega/**
+      - hermes/profiles/partenon-strategist/**
     actions:
       - manage_operations
 
-  partenon-diplomatico:
+  partenon-diplomat:
     tools:
       - terminal
       - file
@@ -115,7 +115,7 @@ permissions_by_profile:
     skills:
       - relations
     files:
-      - hermes/profiles/partenon-diplomatico/**
+      - hermes/profiles/partenon-diplomat/**
     actions:
       - manage_relations
 

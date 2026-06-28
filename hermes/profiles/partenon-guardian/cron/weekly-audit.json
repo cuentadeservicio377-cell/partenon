@@ -18,11 +18,11 @@
       "args": {
         "profiles": [
           "partenon-guardian",
-          "partenon-tesorero",
-          "partenon-mensajero",
-          "partenon-cobrador",
-          "partenon-estratega",
-          "partenon-diplomatico",
+          "partenon-scribe",
+          "partenon-herald",
+          "partenon-collector",
+          "partenon-strategist",
+          "partenon-diplomat",
           "partenon-brain"
         ]
       },

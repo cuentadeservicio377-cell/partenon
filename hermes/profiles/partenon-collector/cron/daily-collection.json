@@ -1,0 +1,43 @@
+{
+  "id": "collector-daily-collection",
+  "name": "Collector — Daily collection review",
+  "description": "Reviews pending payments, sends reminders, and reports failed collections.",
+  "schedule": {
+    "frequency": "daily",
+    "time": "09:00",
+    "timezone": "America/Mexico_City"
+  },
+  "enabled": true,
+  "steps": [
+    {
+      "order": 1,
+      "tool": "read_pending_payments",
+      "description": "Lists pending invoices and subscriptions"
+    },
+    {
+      "order": 2,
+      "tool": "get_upcoming_payments",
+      "description": "Selects invoices due today or in the next three days"
+    },
+    {
+      "order": 3,
+      "tool": "get_failed_subscriptions",
+      "description": "Lists subscriptions with failed charge attempts"
+    },
+    {
+      "order": 4,
+      "tool": "send_payment_reminder",
+      "description": "Sends a reminder via the configured channel (email or WhatsApp)"
+    },
+    {
+      "order": 5,
+      "tool": "generate_income_report",
+      "description": "Generates the daily collection summary"
+    },
+    {
+      "order": 6,
+      "tool": "notify",
+      "description": "Reports sent reminders and uncollectible cases to the operator"
+    }
+  ]
+}

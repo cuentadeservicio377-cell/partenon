@@ -61,17 +61,17 @@ Recommended first heroes for an agency: **Strategist → Diplomat → Scribe →
 ## Step 3: Profile config files
 
 ```bash
-cp hermes/profiles/partenon-estratega/templates/.ops.example .ops
-cp hermes/profiles/partenon-diplomatico/templates/.relations.example .relations
-cp hermes/profiles/partenon-tesorero/templates/.finance.example .finance
-cp hermes/profiles/partenon-mensajero/templates/.design.example .design
-cp hermes/profiles/partenon-cobrador/templates/.payments.example .payments
+cp hermes/profiles/partenon-strategist/templates/.ops.example .ops
+cp hermes/profiles/partenon-diplomat/templates/.relations.example .relations
+cp hermes/profiles/partenon-scribe/templates/.finance.example .finance
+cp hermes/profiles/partenon-herald/templates/.design.example .design
+cp hermes/profiles/partenon-collector/templates/.payments.example .payments
 ```
 
 ### `.ops` — Strategist
 
 ```yaml
-profile: partenon-estratega
+profile: partenon-strategist
 owner: "Owner"
 assistant_name: "Strategist"
 
@@ -275,7 +275,7 @@ operations:
 ```yaml
 metadata:
   version: "0.1.0"
-  profile: partenon-cobrador
+  profile: partenon-collector
   currency: USD
   timezone: America/Los_Angeles
 
@@ -325,8 +325,8 @@ policies:
 Command:
 
 ```bash
-hermes profile use partenon-estratega
-python3 hermes/profiles/partenon-estratega/skills/ops/tools/projects.py \
+hermes profile use partenon-strategist
+python3 hermes/profiles/partenon-strategist/skills/ops/tools/projects.py \
   --create "Example Roofer LLC — June SEO + GBP" \
   --client CLI-001 \
   --delivery 2026-06-30 \
@@ -352,7 +352,7 @@ Expected output:
 Add tasks:
 
 ```python
-from hermes.profiles.partenon-estratega.skills.ops.tools.tasks import get_tasks
+from hermes.profiles.partenon-strategist.skills.ops.tools.tasks import get_tasks
 
 tasks = get_tasks()
 tasks.create_task("PROJ-001", "Run SEO audit", "SEO lead", "2026-06-28", "high", tags=["seo"])
@@ -365,9 +365,9 @@ tasks.create_task("PROJ-001", "Deliver monthly report", "Owner", "2026-06-30", "
 Commands:
 
 ```bash
-hermes profile use partenon-diplomatico
+hermes profile use partenon-diplomat
 python3 -c "
-from hermes.profiles.partenon-diplomatico.skills.relations.tools.crm import get_relations_crm
+from hermes.profiles.partenon-diplomat.skills.relations.tools.crm import get_relations_crm
 crm = get_relations_crm()
 print(crm.add_client('Example Dental Clinic', email='contact@example.test', category='healthcare', rating='B'))
 print(crm.add_milestone('CLI-002', 'Send proposal for website refresh', '2026-07-03', responsible='Diplomat', next_step='Draft proposal'))
@@ -392,7 +392,7 @@ Expected output:
 Run daily follow-ups:
 
 ```bash
-python3 hermes/profiles/partenon-diplomatico/skills/relations/tools/followups.py
+python3 hermes/profiles/partenon-diplomat/skills/relations/tools/followups.py
 ```
 
 Expected output: a list of milestones due in the next 3 days with draft reminder copy.
@@ -404,8 +404,8 @@ Expected output: a list of milestones due in the next 3 days with draft reminder
 Herald generates proposal copy:
 
 ```bash
-hermes profile use partenon-mensajero
-python3 hermes/profiles/partenon-mensajero/skills/comms/tools/copy_generator.py \
+hermes profile use partenon-herald
+python3 hermes/profiles/partenon-herald/skills/comms/tools/copy_generator.py \
   "website refresh for a dental practice"
 ```
 
@@ -420,9 +420,9 @@ Scribe, compare the budget for "SEO retainers" against actual freelancer spend a
 Collector invoices the retainer:
 
 ```bash
-hermes profile use partenon-cobrador
+hermes profile use partenon-collector
 python3 -c "
-from hermes.profiles.partenon-cobrador.skills.payments.tools.stripe_tools import create_invoice
+from hermes.profiles.partenon-collector.skills.payments.tools.stripe_tools import create_invoice
 print(create_invoice(
     {'email': 'client@example.test', 'name': 'Property Manager'},
     [{'description': 'June SEO + GBP retainer', 'amount': 150000, 'currency': 'usd'}]
@@ -451,7 +451,7 @@ Expected output (local mode):
 |------|--------------|-----------------|--------|
 | Strategist | `python3 .../projects.py --create ...` | Project JSON created | PASS |
 | Diplomat | `python3 -c "...crm.add_client..."` | Client + milestone added | PASS |
-| Scribe | `python3 scripts/demo_tesorero.py` | Local workbook + report | PASS |
+| Scribe | `python3 scripts/demo_scribe.py` | Local workbook + report | PASS |
 | Herald | `python3 .../copy_generator.py ...` | Draft copy generated | PASS |
 | Collector | `python3 -c "...create_invoice..."` | Local invoice record | PASS (local mode) |
 

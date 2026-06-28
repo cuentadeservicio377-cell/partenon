@@ -31,39 +31,39 @@ _CANONICAL_ROLES: Dict[str, Dict[str, Any]] = {
             "audit_log",
         ],
     },
-    "partenon-tesorero": {
+    "partenon-scribe": {
         "tools": ["terminal", "file"],
         "mcp_servers": [],
         "skills": ["finance"],
-        "files": ["hermes/profiles/partenon-tesorero/**"],
+        "files": ["hermes/profiles/partenon-scribe/**"],
         "actions": ["read_financial_data"],
     },
-    "partenon-mensajero": {
+    "partenon-herald": {
         "tools": ["terminal", "file"],
         "mcp_servers": [],
         "skills": ["comms"],
-        "files": ["hermes/profiles/partenon-mensajero/**"],
+        "files": ["hermes/profiles/partenon-herald/**"],
         "actions": ["send_message"],
     },
-    "partenon-cobrador": {
+    "partenon-collector": {
         "tools": ["terminal", "file"],
         "mcp_servers": [],
         "skills": ["payments"],
-        "files": ["hermes/profiles/partenon-cobrador/**"],
+        "files": ["hermes/profiles/partenon-collector/**"],
         "actions": ["manage_payments"],
     },
-    "partenon-estratega": {
+    "partenon-strategist": {
         "tools": ["terminal", "file"],
         "mcp_servers": [],
         "skills": ["ops"],
-        "files": ["hermes/profiles/partenon-estratega/**"],
+        "files": ["hermes/profiles/partenon-strategist/**"],
         "actions": ["manage_operations"],
     },
-    "partenon-diplomatico": {
+    "partenon-diplomat": {
         "tools": ["terminal", "file"],
         "mcp_servers": [],
         "skills": ["relations"],
-        "files": ["hermes/profiles/partenon-diplomatico/**"],
+        "files": ["hermes/profiles/partenon-diplomat/**"],
         "actions": ["manage_relations"],
     },
     "partenon-brain": {

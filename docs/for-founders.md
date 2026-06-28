@@ -16,11 +16,11 @@ Partenon is an AI agent system that works inside the tools you already use: Goog
 
 | Hero | Role | What it does for your company |
 |------|------|------------------------------|
-| **The Scribe** (Tesorero) | Finance | Spreadsheets, financial models, dashboards, fixed/variable costs, vendors. |
-| **The Herald** (Mensajero) | Communication / Marketing | Brand voice, content, social media, SEO/GEO, editorial calendar. |
-| **The Collector** (Cobrador) | Payments / Stripe | Collections, subscriptions, invoices, expense tracking, recurring payments. |
+| **The Scribe** (Scribe) | Finance | Spreadsheets, financial models, dashboards, fixed/variable costs, vendors. |
+| **The Herald** (Herald) | Communication / Marketing | Brand voice, content, social media, SEO/GEO, editorial calendar. |
+| **The Collector** (Collector) | Payments / Stripe | Collections, subscriptions, invoices, expense tracking, recurring payments. |
 | **The Guardian** | Security / NVIDIA | API keys, policies, sandbox, model routing, security audit. |
-| **The Strategist** (Estratega) | Operations / PM | Calendar, tasks, reminders, briefings, cron jobs. |
+| **The Strategist** (Strategist) | Operations / PM | Calendar, tasks, reminders, briefings, cron jobs. |
 | **The Diplomat** | Relations | Clients, vendors, contracts, follow-ups, CRM. |
 | **The Brain** | Intelligence | G-Brain, collective memory, knowledge orchestration. |
 

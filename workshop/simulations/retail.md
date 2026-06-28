@@ -108,7 +108,7 @@ alert_days_before_due = 3
 ```yaml
 metadata:
   version: "0.1.0"
-  profile: partenon-cobrador
+  profile: partenon-collector
   currency: USD
   timezone: America/New_York
 
@@ -203,7 +203,7 @@ operations:
 ### `.ops` (Strategist)
 
 ```yaml
-profile: partenon-estratega
+profile: partenon-strategist
 owner: "Co-owner"
 assistant_name: "Strategist"
 
@@ -238,7 +238,7 @@ goals:
 ### Mission 1 — Scribe: margin by product line
 
 ```bash
-hermes profile use partenon-tesorero
+hermes profile use partenon-scribe
 ```
 
 Prompt:
@@ -252,7 +252,7 @@ below the 5% minimum margin.
 Actual Python equivalent:
 
 ```bash
-python3 hermes/profiles/partenon-tesorero/skills/finance/tools/parsers.py \
+python3 hermes/profiles/partenon-scribe/skills/finance/tools/parsers.py \
   --input data/example-q2-pos.xlsx \
   --by-category "books,gifts,events" \
   --output data/example-margin-by-line.json
@@ -277,7 +277,7 @@ python3 hermes/profiles/partenon-tesorero/skills/finance/tools/parsers.py \
 ### Mission 2 — Herald: monthly event and promotion calendar
 
 ```bash
-hermes profile use partenon-mensajero
+hermes profile use partenon-herald
 ```
 
 Prompt:
@@ -291,7 +291,7 @@ output/campaigns/july-2026/content-calendar.json.
 Actual Python equivalent:
 
 ```bash
-python3 hermes/profiles/partenon-mensajero/skills/comms/tools/content_calendar.py \
+python3 hermes/profiles/partenon-herald/skills/comms/tools/content_calendar.py \
   --topic "July author events, book club, and summer sidelines promotion" \
   --channels instagram,newsletter \
   --days 31 \
@@ -319,7 +319,7 @@ python3 hermes/profiles/partenon-mensajero/skills/comms/tools/content_calendar.p
 ### Mission 3 — Strategist: restocking and event coordination
 
 ```bash
-hermes profile use partenon-estratega
+hermes profile use partenon-strategist
 ```
 
 Prompt:
@@ -333,11 +333,11 @@ and scheduling staff. Generate a retail checklist.
 Actual Python equivalent:
 
 ```bash
-python3 hermes/profiles/partenon-estratega/skills/ops/tools/projects.py \
+python3 hermes/profiles/partenon-strategist/skills/ops/tools/projects.py \
   --create "July 2026 events and restock" \
   --due 2026-07-31
 
-python3 hermes/profiles/partenon-estratega/skills/ops/tools/checklists.py \
+python3 hermes/profiles/partenon-strategist/skills/ops/tools/checklists.py \
   --project "July 2026 events and restock" \
   --type retail
 ```

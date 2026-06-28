@@ -17,13 +17,13 @@ For a quick overview, see [`docs/assets/hero-matrix.md`](assets/hero-matrix.md).
 
 ---
 
-## 1. Scribe (Treasurer) — `partenon-tesorero`
+## 1. Scribe (Treasurer) — `partenon-scribe`
 
 **Role**: finance, budgets, vendors, dashboards.
 
-**Profile directory**: [`hermes/profiles/partenon-tesorero`](../hermes/profiles/partenon-tesorero)  
-**Config file**: `.finance` (see [`templates/.finance.example`](../hermes/profiles/partenon-tesorero/templates/.finance.example))  
-**Skill docs**: [`skills/finance/SKILL.md`](../hermes/profiles/partenon-tesorero/skills/finance/SKILL.md)
+**Profile directory**: [`hermes/profiles/partenon-scribe`](../hermes/profiles/partenon-scribe)  
+**Config file**: `.finance` (see [`templates/.finance.example`](../hermes/profiles/partenon-scribe/templates/.finance.example))  
+**Skill docs**: [`skills/finance/SKILL.md`](../hermes/profiles/partenon-scribe/skills/finance/SKILL.md)
 
 ### Real tools
 
@@ -66,13 +66,13 @@ For a quick overview, see [`docs/assets/hero-matrix.md`](assets/hero-matrix.md).
 
 ---
 
-## 2. Herald (Messenger) — `partenon-mensajero`
+## 2. Herald (Messenger) — `partenon-herald`
 
 **Role**: brand voice, content, campaigns, copy, SEO/GEO, presentations.
 
-**Profile directory**: [`hermes/profiles/partenon-mensajero`](../hermes/profiles/partenon-mensajero)  
-**Config file**: `.design` (see [`templates/.design.example`](../hermes/profiles/partenon-mensajero/templates/.design.example))  
-**Skill docs**: [`skills/comms/SKILL.md`](../hermes/profiles/partenon-mensajero/skills/comms/SKILL.md)
+**Profile directory**: [`hermes/profiles/partenon-herald`](../hermes/profiles/partenon-herald)  
+**Config file**: `.design` (see [`templates/.design.example`](../hermes/profiles/partenon-herald/templates/.design.example))  
+**Skill docs**: [`skills/comms/SKILL.md`](../hermes/profiles/partenon-herald/skills/comms/SKILL.md)
 
 ### Real tools
 
@@ -114,13 +114,13 @@ For a quick overview, see [`docs/assets/hero-matrix.md`](assets/hero-matrix.md).
 
 ---
 
-## 3. Collector — `partenon-cobrador`
+## 3. Collector — `partenon-collector`
 
 **Role**: payments, subscriptions, invoices, reminders, revenue tracking, fraud monitoring.
 
-**Profile directory**: [`hermes/profiles/partenon-cobrador`](../hermes/profiles/partenon-cobrador)  
-**Config file**: `.payments` (see [`templates/.payments.example`](../hermes/profiles/partenon-cobrador/templates/.payments.example))  
-**Skill docs**: [`skills/payments/SKILL.md`](../hermes/profiles/partenon-cobrador/skills/payments/SKILL.md)
+**Profile directory**: [`hermes/profiles/partenon-collector`](../hermes/profiles/partenon-collector)  
+**Config file**: `.payments` (see [`templates/.payments.example`](../hermes/profiles/partenon-collector/templates/.payments.example))  
+**Skill docs**: [`skills/payments/SKILL.md`](../hermes/profiles/partenon-collector/skills/payments/SKILL.md)
 
 ### Real tools
 
@@ -198,7 +198,7 @@ For a quick overview, see [`docs/assets/hero-matrix.md`](assets/hero-matrix.md).
 ### Example prompts
 
 1. `Guardian, list all API keys and flag any that need rotation.`
-2. `Audit the permissions for partenon-cobrador and tell me if anything is excessive.`
+2. `Audit the permissions for partenon-collector and tell me if anything is excessive.`
 3. `Rotate the Stripe secret key and log the rotation event.`
 4. `Recommend a model for a security audit task.`
 5. `Show the last 50 audit log entries for the Collector profile.`
@@ -211,13 +211,13 @@ For a quick overview, see [`docs/assets/hero-matrix.md`](assets/hero-matrix.md).
 
 ---
 
-## 5. Strategist — `partenon-estratega`
+## 5. Strategist — `partenon-strategist`
 
 **Role**: projects, tasks, calendar, goals, briefings, operations.
 
-**Profile directory**: [`hermes/profiles/partenon-estratega`](../hermes/profiles/partenon-estratega)  
-**Config file**: `.ops` (see [`templates/.ops.example`](../hermes/profiles/partenon-estratega/templates/.ops.example))  
-**Skill docs**: [`skills/ops/SKILL.md`](../hermes/profiles/partenon-estratega/skills/ops/SKILL.md)
+**Profile directory**: [`hermes/profiles/partenon-strategist`](../hermes/profiles/partenon-strategist)  
+**Config file**: `.ops` (see [`templates/.ops.example`](../hermes/profiles/partenon-strategist/templates/.ops.example))  
+**Skill docs**: [`skills/ops/SKILL.md`](../hermes/profiles/partenon-strategist/skills/ops/SKILL.md)
 
 ### Real tools
 
@@ -262,13 +262,13 @@ For a quick overview, see [`docs/assets/hero-matrix.md`](assets/hero-matrix.md).
 
 ---
 
-## 6. Diplomat — `partenon-diplomatico`
+## 6. Diplomat — `partenon-diplomat`
 
 **Role**: clients, vendors, contracts, follow-ups, proposals, CRM.
 
-**Profile directory**: [`hermes/profiles/partenon-diplomatico`](../hermes/profiles/partenon-diplomatico)  
-**Config file**: `.relations` (see [`templates/.relations.example`](../hermes/profiles/partenon-diplomatico/templates/.relations.example))  
-**Skill docs**: [`skills/relations/SKILL.md`](../hermes/profiles/partenon-diplomatico/skills/relations/SKILL.md)
+**Profile directory**: [`hermes/profiles/partenon-diplomat`](../hermes/profiles/partenon-diplomat)  
+**Config file**: `.relations` (see [`templates/.relations.example`](../hermes/profiles/partenon-diplomat/templates/.relations.example))  
+**Skill docs**: [`skills/relations/SKILL.md`](../hermes/profiles/partenon-diplomat/skills/relations/SKILL.md)
 
 ### Real tools
 
@@ -364,11 +364,11 @@ For a quick overview, see [`docs/assets/hero-matrix.md`](assets/hero-matrix.md).
 Most tools have a `main()` entry point so you can test them without Hermes:
 
 ```bash
-python3 hermes/profiles/partenon-tesorero/skills/finance/tools/templates.py
-python3 hermes/profiles/partenon-mensajero/skills/comms/tools/content_calendar.py "automation for SMEs" linkedin,instagram 7
-python3 hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py
-python3 hermes/profiles/partenon-estratega/skills/ops/tools/briefings.py
-python3 hermes/profiles/partenon-diplomatico/skills/relations/tools/crm.py
+python3 hermes/profiles/partenon-scribe/skills/finance/tools/templates.py
+python3 hermes/profiles/partenon-herald/skills/comms/tools/content_calendar.py "automation for SMEs" linkedin,instagram 7
+python3 hermes/profiles/partenon-collector/skills/payments/tools/stripe_tools.py
+python3 hermes/profiles/partenon-strategist/skills/ops/tools/briefings.py
+python3 hermes/profiles/partenon-diplomat/skills/relations/tools/crm.py
 python3 hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py
 ```
 

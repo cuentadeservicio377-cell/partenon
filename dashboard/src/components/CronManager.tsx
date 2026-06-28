@@ -107,7 +107,7 @@ export function CronManager({ jobs, selectedProfile }: CronManagerProps) {
             <input
               value={command}
               onChange={(e) => setCommand(e.target.value)}
-              placeholder="python -m partenon.tesorero weekly_report"
+              placeholder="python -m partenon.scribe weekly_report"
               className="rounded-lg border border-partenon-border bg-partenon-surface px-3 py-2 text-sm text-partenon-text"
             />
           </div>

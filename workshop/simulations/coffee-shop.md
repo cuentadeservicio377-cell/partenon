@@ -64,10 +64,10 @@ Guardian and Diplomat are added in week two after the first four are running.
 Copy the templates from each profile:
 
 ```bash
-cp hermes/profiles/partenon-tesorero/templates/.finance.example .finance
-cp hermes/profiles/partenon-estratega/templates/.ops.example .ops
-cp hermes/profiles/partenon-mensajero/templates/.design.example .design
-cp hermes/profiles/partenon-cobrador/templates/.payments.example .payments
+cp hermes/profiles/partenon-scribe/templates/.finance.example .finance
+cp hermes/profiles/partenon-strategist/templates/.ops.example .ops
+cp hermes/profiles/partenon-herald/templates/.design.example .design
+cp hermes/profiles/partenon-collector/templates/.payments.example .payments
 ```
 
 ### `.finance` — Scribe
@@ -161,7 +161,7 @@ connect_with_messenger = true
 ### `.ops` — Strategist
 
 ```yaml
-profile: partenon-estratega
+profile: partenon-strategist
 owner: "Owner"
 assistant_name: "Strategist"
 
@@ -252,7 +252,7 @@ operations:
 ```yaml
 metadata:
   version: "0.1.0"
-  profile: partenon-cobrador
+  profile: partenon-collector
   currency: USD
   timezone: America/New_York
 
@@ -301,8 +301,8 @@ policies:
 Command:
 
 ```bash
-hermes profile use partenon-tesorero
-python3 scripts/demo_tesorero.py
+hermes profile use partenon-scribe
+python3 scripts/demo_scribe.py
 ```
 
 Expected output:
@@ -334,8 +334,8 @@ Populate Fixed Costs and Variable Costs from .finance.
 Commands:
 
 ```bash
-hermes profile use partenon-estratega
-python3 hermes/profiles/partenon-estratega/skills/ops/tools/projects.py \
+hermes profile use partenon-strategist
+python3 hermes/profiles/partenon-strategist/skills/ops/tools/projects.py \
   --create "Wholesale order cycle — week of 2026-07-06" \
   --delivery 2026-07-10
 ```
@@ -358,7 +358,7 @@ Expected output:
 Add tasks:
 
 ```python
-from hermes.profiles.partenon-estratega.skills.ops.tools.tasks import get_tasks
+from hermes.profiles.partenon-strategist.skills.ops.tools.tasks import get_tasks
 
 tasks = get_tasks()
 tasks.create_task(
@@ -386,8 +386,8 @@ tasks.create_task(
 Herald generates the calendar:
 
 ```bash
-hermes profile use partenon-mensajero
-python3 hermes/profiles/partenon-mensajero/skills/comms/tools/content_calendar.py \
+hermes profile use partenon-herald
+python3 hermes/profiles/partenon-herald/skills/comms/tools/content_calendar.py \
   "summer cold brew and community events" \
   instagram,newsletter \
   7
@@ -408,9 +408,9 @@ Expected output:
 Collector creates a catering payment link:
 
 ```bash
-hermes profile use partenon-cobrador
+hermes profile use partenon-collector
 python3 -c "
-from hermes.profiles.partenon-cobrador.skills.payments.tools.stripe_tools import create_payment_link
+from hermes.profiles.partenon-collector.skills.payments.tools.stripe_tools import create_payment_link
 print(create_payment_link(
     {'name': 'Catering package — 50 cups'},
     {'amount': 17500, 'currency': 'usd'}
@@ -437,7 +437,7 @@ Expected output (local mode, because Stripe MCP is not configured):
 
 | Hero | Test command | Expected result | Status |
 |------|--------------|-----------------|--------|
-| Scribe | `python3 scripts/demo_tesorero.py` | Workbook + JSON report created | PASS (with local data) |
+| Scribe | `python3 scripts/demo_scribe.py` | Workbook + JSON report created | PASS (with local data) |
 | Strategist | `python3 .../projects.py --create ...` | Project JSON created | PASS |
 | Herald | `python3 .../content_calendar.py ...` | Calendar JSON created | PASS |
 | Collector | `python3 -c "...create_payment_link..."` | Local payment link record created | PASS (local mode) |

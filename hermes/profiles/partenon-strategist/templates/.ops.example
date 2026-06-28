@@ -1,0 +1,100 @@
+# .ops — Partenon Strategist profile
+# Copy this file as .ops in the workspace root and adjust it for your business.
+
+profile: partenon-strategist
+owner: "Owner name"
+assistant_name: "Strategist"
+
+calendar:
+  morning_briefing: "08:00"
+  midday_pulse: "14:00"
+  evening_wrap: "18:00"
+  weekly_planning: "monday 09:00"
+  weekly_retro: "sunday 20:00"
+  timezone: "America/Mexico_City"
+
+nudges:
+  max_per_day: 3
+  max_repeat: 3
+  quiet_hours:
+    start: "22:00"
+    end: "07:00"
+
+projects:
+  default_duration_days: 30
+  auto_checklist: true
+  notify_diplomat_on_milestones: true
+
+tasks:
+  default_priority: medium
+  default_duration_days: 7
+  escalate_blocked_after_hours: 48
+
+goals:
+  review_day: sunday
+  default_type: weekly
+  departments:
+    - general
+    - sales
+    - operations
+    - finance
+
+# Example project
+checklist_example:
+  project: "ACME corporate event"
+  client: "ACME"
+  type: events
+  phases:
+    pre-event:
+      - Confirm date and venue with client
+      - Hire suppliers
+      - Prepare furniture and decoration
+      - Coordinate logistics
+      - Team briefing
+    during-event:
+      - Venue setup
+      - Guest reception
+      - Real-time coordination
+      - Handle unexpected issues
+    post-event:
+      - Tear-down and collection
+      - Final invoicing
+      - Client evaluation
+
+# Example tasks
+task_examples:
+  - title: "Confirm catering"
+    project: "ACME corporate event"
+    responsible: "Strategist"
+    due: "2026-07-01"
+    priority: high
+  - title: "Call furniture supplier"
+    project: "ACME corporate event"
+    responsible: "Diplomat"
+    due: "2026-07-02"
+    priority: medium
+
+# Example goals
+goal_examples:
+  - title: "Close 2 contracts"
+    type: weekly
+    department: sales
+    target: 2
+    unit: contracts
+    kpi_source: pipeline.contracted
+  - title: "Complete 5 pending tasks"
+    type: weekly
+    department: operations
+    target: 5
+    unit: tasks
+    kpi_source: tasks.completed
+
+# Example calendar / reminders
+calendar_examples:
+  - title: "ACME kickoff"
+    date: "2026-06-30T10:00:00"
+    attendees: ["client@acme.com"]
+    reminder_minutes: 60
+  - title: "Weekly review"
+    date: "2026-07-03T16:00:00"
+    recurrence: weekly

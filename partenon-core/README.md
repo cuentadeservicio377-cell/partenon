@@ -4,7 +4,7 @@ Core of Partenon. Adapts `hermes-business-core` from HBOS to route conversations
 
 ## Responsibilities
 
-- `router.py`: Routes user intents to `partenon-tesorero`, `partenon-mensajero`, `partenon-cobrador`, `partenon-guardian`, `partenon-estratega`, `partenon-diplomatico`, or `partenon-brain`.
+- `router.py`: Routes user intents to `partenon-scribe`, `partenon-herald`, `partenon-collector`, `partenon-guardian`, `partenon-strategist`, `partenon-diplomat`, or `partenon-brain`.
 - `onboarding_engine.py`: Installation wizard that creates profile files and generates initial missions.
 - `onboarding_flow.py`: Lightweight onboarding flow that creates `.finance`, `.design`, `.payments`, `.security`, `.ops`, `.relations` files and initial tasks.
 - `workflow_engine.py`: Handoffs between profiles and mission logging in G-Brain.

@@ -62,7 +62,7 @@ Run these commands from the repo root and narrate what is happening.
 ### 1. Verify the install
 
 ```bash
-python3 scripts/demo_tesorero.py
+python3 scripts/demo_scribe.py
 ```
 
 Explain: this is the finance demo. It creates a sample workbook and a JSON report.
@@ -72,7 +72,7 @@ Explain: this is the finance demo. It creates a sample workbook and a JSON repor
 ```bash
 python3 - <<'PY'
 import sys
-sys.path.insert(0, "hermes/profiles/partenon-estratega/skills/ops/tools")
+sys.path.insert(0, "hermes/profiles/partenon-strategist/skills/ops/tools")
 from projects import get_projects
 from tasks import get_tasks
 
@@ -101,7 +101,7 @@ Explain: projects and tasks live in `partenon-core/data/` as JSON. The dashboard
 ### 3. Show the Collector in local mode
 
 ```bash
-python3 hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py
+python3 hermes/profiles/partenon-collector/skills/payments/tools/stripe_tools.py
 ```
 
 Explain: this runs without real Stripe credentials. In production, set `STRIPE_SECRET_KEY` in `.env`.

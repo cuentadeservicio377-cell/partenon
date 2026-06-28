@@ -32,7 +32,7 @@ Collector and Herald are added after the first two projects are stabilized.
 ### `.ops` (Strategist)
 
 ```yaml
-profile: partenon-estratega
+profile: partenon-strategist
 owner: "Owner"
 assistant_name: "Strategist"
 
@@ -213,12 +213,12 @@ providers:
     rotation_days: 365
 
 permissions_by_profile:
-  partenon-estratega:
+  partenon-strategist:
     tools: [terminal, file, google_workspace]
     skills: [ops]
     files: [".ops", "projects/*"]
 
-  partenon-diplomatico:
+  partenon-diplomat:
     tools: [file, google_workspace]
     skills: [relations]
     files: [".relations"]
@@ -237,7 +237,7 @@ policies:
 ### Mission 1 — Strategist: kitchen remodel project checklist
 
 ```bash
-hermes profile use partenon-estratega
+hermes profile use partenon-strategist
 ```
 
 Prompt:
@@ -251,13 +251,13 @@ construction checklist with phases pre-construction, construction, and closeout.
 Actual Python equivalent:
 
 ```bash
-python3 hermes/profiles/partenon-estratega/skills/ops/tools/projects.py \
+python3 hermes/profiles/partenon-strategist/skills/ops/tools/projects.py \
   --create "Example Residence kitchen remodel" \
   --client "Example Residence" \
   --amount 45000 \
   --due 2026-08-15
 
-python3 hermes/profiles/partenon-estratega/skills/ops/tools/checklists.py \
+python3 hermes/profiles/partenon-strategist/skills/ops/tools/checklists.py \
   --project "Example Residence kitchen remodel" \
   --type construction
 ```
@@ -300,7 +300,7 @@ python3 hermes/profiles/partenon-estratega/skills/ops/tools/checklists.py \
 ### Mission 2 — Diplomat: confirm cabinet lead time
 
 ```bash
-hermes profile use partenon-diplomatico
+hermes profile use partenon-diplomat
 ```
 
 Prompt:
@@ -314,12 +314,12 @@ milestone in the next 3 days.
 Actual Python equivalent:
 
 ```bash
-python3 hermes/profiles/partenon-diplomatico/skills/relations/tools/crm.py \
+python3 hermes/profiles/partenon-diplomat/skills/relations/tools/crm.py \
   --add-vendor "Example Cabinets" \
   --email "supplier-b@example.test" \
   --category cabinetry
 
-python3 hermes/profiles/partenon-diplomatico/skills/relations/tools/followups.py \
+python3 hermes/profiles/partenon-diplomat/skills/relations/tools/followups.py \
   --window-days 3
 ```
 
@@ -345,7 +345,7 @@ python3 hermes/profiles/partenon-diplomatico/skills/relations/tools/followups.py
 ### Mission 3 — Scribe: per-project cost tracking
 
 ```bash
-hermes profile use partenon-tesorero
+hermes profile use partenon-scribe
 ```
 
 Prompt:
@@ -360,10 +360,10 @@ $45,000 contract.
 Actual Python equivalent:
 
 ```bash
-python3 hermes/profiles/partenon-tesorero/skills/finance/tools/templates.py \
+python3 hermes/profiles/partenon-scribe/skills/finance/tools/templates.py \
   --project "Example Residence kitchen remodel"
 
-python3 hermes/profiles/partenon-tesorero/skills/finance/tools/audit.py \
+python3 hermes/profiles/partenon-scribe/skills/finance/tools/audit.py \
   --project "Example Residence kitchen remodel" \
   --budget 45000 \
   --breakdown "materials=18000,labor=15000,permits=2000,overhead=3000"

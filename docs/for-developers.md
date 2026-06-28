@@ -58,17 +58,17 @@ partenon/
 │   └── developers.html     # Technical documentation
 ├── dashboard/              # Operations dashboard (Next.js)
 ├── hermes/profiles/        # Hermes Agent profiles
-│   ├── partenon-tesorero/
-│   ├── partenon-mensajero/
-│   ├── partenon-cobrador/
+│   ├── partenon-scribe/
+│   ├── partenon-herald/
+│   ├── partenon-collector/
 │   ├── partenon-guardian/
-│   ├── partenon-estratega/
-│   ├── partenon-diplomatico/
+│   ├── partenon-strategist/
+│   ├── partenon-diplomat/
 │   └── partenon-brain/
 ├── partenon-core/          # Core skill: onboarding, router, workflow
 ├── gbrain/                 # Local MCP memory server
 ├── scripts/                # Utilities and demos
-│   ├── demo_tesorero.py
+│   ├── demo_scribe.py
 │   └── setup_hermes.py
 ├── templates/              # Google Sheets templates
 ├── docs/                   # Documentation
@@ -147,7 +147,7 @@ Each profile is a Hermes Agent distribution with:
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python3 scripts/demo_tesorero.py
+python3 scripts/demo_scribe.py
 ```
 
 This generates:
@@ -183,8 +183,8 @@ docker-compose up --build
 ### Hermes CLI
 
 ```bash
-hermes profile use partenon-tesorero
-hermes profile use partenon-mensajero
+hermes profile use partenon-scribe
+hermes profile use partenon-herald
 hermes run "Record a $500 advertising expense"
 ```
 

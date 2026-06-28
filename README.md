@@ -93,7 +93,7 @@ Then:
 
 ```bash
 # Verify the finance demo
-python3 scripts/demo_tesorero.py
+python3 scripts/demo_scribe.py
 
 # Start the operations dashboard
 cd dashboard
@@ -101,7 +101,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000 and log in with `admin` / `partenon` (change these in `.env` via `DASHBOARD_APP_USERNAME` and `DASHBOARD_APP_PASSWORD`).
+Open http://localhost:3000 and log in with the credentials generated in `.env` (`DASHBOARD_APP_USERNAME` and `DASHBOARD_APP_PASSWORD`). If `.env` does not exist, run `./install.sh` first.
 
 For a full 15-minute walkthrough, see [`docs/QUICKSTART.md`](docs/QUICKSTART.md).
 
@@ -149,15 +149,15 @@ partenon/
 │   ├── tools/eval_loop.py
 │   └── config/mcp/servers.yaml
 ├── hermes/profiles/              # Seven hero profiles
-│   ├── partenon-tesorero/        # Scribe
-│   ├── partenon-mensajero/       # Herald
-│   ├── partenon-cobrador/        # Collector
+│   ├── partenon-scribe/        # Scribe
+│   ├── partenon-herald/       # Herald
+│   ├── partenon-collector/        # Collector
 │   ├── partenon-guardian/        # Guardian
-│   ├── partenon-estratega/       # Strategist
-│   ├── partenon-diplomatico/     # Diplomat
+│   ├── partenon-strategist/       # Strategist
+│   ├── partenon-diplomat/     # Diplomat
 │   └── partenon-brain/           # Brain
 ├── gbrain/                       # Local MCP memory server
-├── scripts/                      # demo_tesorero.py, setup_hermes.py, capture.py
+├── scripts/                      # demo_scribe.py, setup_hermes.py, capture.py
 ├── examples/                     # API stub, CLI stub, MCP client stub
 ├── templates/google-sheet-base/  # Finance spreadsheet generator
 ├── docs/                         # Documentation
@@ -193,7 +193,7 @@ partenon/
 - [ ] Publishing and dispatch integrations for Herald, Collector, and Diplomat.
 - [x] Standardized `GBRAIN_DATABASE_URL` variable name across `.env`, `gbrain/server.py`, and `partenon-core/config/mcp/servers.yaml`.
 - [ ] Automated tests for `partenon-core` and every hero skill (initial tests added in `tests/`).
-- [ ] CI pipeline and linting/formatting config.
+- [x] CI pipeline and linting/formatting config.
 
 ---
 
@@ -203,8 +203,6 @@ partenon/
 - The workflow engine emits and processes events locally; it does not yet dispatch to external heroes or APIs.
 - Live integrations require real credentials and are not enabled by default.
 - The workflow engine and eval loop are local stubs; they do not yet dispatch to real hero runtimes.
-- A CI pipeline and linting/formatting config are not yet in place.
-
 See [`MISSING_IMPLEMENTATION.md`](MISSING_IMPLEMENTATION.md) for the full audit.
 
 ---
@@ -222,7 +220,10 @@ See [`MISSING_IMPLEMENTATION.md`](MISSING_IMPLEMENTATION.md) for the full audit.
 
 - Live site: https://hermespartenon.online/
 - Repository: https://github.com/cuentadeservicio377-cell/partenon
-- Verified locally (2026-06-27):
-  - `python3 scripts/demo_tesorero.py` PASS.
+- Verified locally (2026-06-28):
+  - `python3 scripts/demo_scribe.py` PASS.
+  - `python3 -m pytest tests/` PASS (4 tests).
+  - `cd dashboard && npm run lint` PASS.
   - `cd dashboard && npm run build` PASS.
-  - `python3 -m unittest discover tests` PASS (4 tests).
+  - `./install.sh` idempotent PASS.
+  - `.github/scripts/secret_scan.py` PASS.

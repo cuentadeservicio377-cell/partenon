@@ -50,7 +50,7 @@ By the end of the workshop, attendees can:
 1. **Before the event:**
    - Read [`../docs/HERMES_ONBOARDING.md`](../docs/HERMES_ONBOARDING.md).
    - Pick one or two company cards from [`companies/`](companies/) that match your audience.
-   - Run `./install.sh` and `python3 scripts/demo_tesorero.py` on the demo machine.
+   - Run `./install.sh` and `python3 scripts/demo_scribe.py` on the demo machine.
 
 2. **During the event:**
    - Follow [`AGENDA.md`](AGENDA.md).

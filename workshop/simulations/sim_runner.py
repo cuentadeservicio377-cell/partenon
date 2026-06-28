@@ -48,15 +48,15 @@ def _load_module(module_name: str, relative_path: str):
 
 # Load core and hero tool modules.
 router = _load_module("router", "partenon-core/tools/router.py")
-brand_intake = _load_module("brand_intake", "hermes/profiles/partenon-mensajero/skills/comms/tools/brand_intake.py")
-content_calendar = _load_module("content_calendar", "hermes/profiles/partenon-mensajero/skills/comms/tools/content_calendar.py")
-projects_mod = _load_module("projects", "hermes/profiles/partenon-estratega/skills/ops/tools/projects.py")
-tasks_mod = _load_module("tasks", "hermes/profiles/partenon-estratega/skills/ops/tools/tasks.py")
-checklists_mod = _load_module("checklists", "hermes/profiles/partenon-estratega/skills/ops/tools/checklists.py")
-briefings_mod = _load_module("briefings", "hermes/profiles/partenon-estratega/skills/ops/tools/briefings.py")
-crm_mod = _load_module("crm", "hermes/profiles/partenon-diplomatico/skills/relations/tools/crm.py")
-followups_mod = _load_module("followups", "hermes/profiles/partenon-diplomatico/skills/relations/tools/followups.py")
-stripe_mod = _load_module("stripe_tools", "hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py")
+brand_intake = _load_module("brand_intake", "hermes/profiles/partenon-herald/skills/comms/tools/brand_intake.py")
+content_calendar = _load_module("content_calendar", "hermes/profiles/partenon-herald/skills/comms/tools/content_calendar.py")
+projects_mod = _load_module("projects", "hermes/profiles/partenon-strategist/skills/ops/tools/projects.py")
+tasks_mod = _load_module("tasks", "hermes/profiles/partenon-strategist/skills/ops/tools/tasks.py")
+checklists_mod = _load_module("checklists", "hermes/profiles/partenon-strategist/skills/ops/tools/checklists.py")
+briefings_mod = _load_module("briefings", "hermes/profiles/partenon-strategist/skills/ops/tools/briefings.py")
+crm_mod = _load_module("crm", "hermes/profiles/partenon-diplomat/skills/relations/tools/crm.py")
+followups_mod = _load_module("followups", "hermes/profiles/partenon-diplomat/skills/relations/tools/followups.py")
+stripe_mod = _load_module("stripe_tools", "hermes/profiles/partenon-collector/skills/payments/tools/stripe_tools.py")
 key_manager = _load_module("key_manager", "hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py")
 
 
@@ -245,11 +245,11 @@ def action_keys(args):
     keys = key_manager.list_keys()
     profiles = [
         "partenon-guardian",
-        "partenon-tesorero",
-        "partenon-mensajero",
-        "partenon-cobrador",
-        "partenon-estratega",
-        "partenon-diplomatico",
+        "partenon-scribe",
+        "partenon-herald",
+        "partenon-collector",
+        "partenon-strategist",
+        "partenon-diplomat",
         "partenon-brain",
     ]
     audits = {p: key_manager.audit_access(p) for p in profiles}

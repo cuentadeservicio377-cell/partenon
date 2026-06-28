@@ -88,7 +88,7 @@ No. The counter on `web/index.html` is a design projection of adoption milestone
 
 ## 16. How do I report a bug or contribute?
 
-The repository is at `https://github.com/cuentadeservicio377-cell/partenon`. For now, open an issue with a reproducible command, expected output, and actual output. There is no CI yet, so include the result of `python3 scripts/demo_tesorero.py` and `cd dashboard && npm run build`.
+The repository is at `https://github.com/cuentadeservicio377-cell/partenon`. For now, open an issue with a reproducible command, expected output, and actual output. There is no CI yet, so include the result of `python3 scripts/demo_scribe.py` and `cd dashboard && npm run build`.
 
 ## 17. What is the difference between Hermes and the heroes?
 

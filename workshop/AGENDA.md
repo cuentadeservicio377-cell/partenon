@@ -8,8 +8,8 @@
 ## 0. Setup (before the session)
 
 - [ ] Clone the Partenon repo.
-- [ ] Run `./install.sh` and `python3 scripts/demo_tesorero.py`.
-- [ ] Confirm `python3 workshop/simulations/sim_runner.py route "organize my numbers"` returns `partenon-tesorero`.
+- [ ] Run `./install.sh` and `python3 scripts/demo_scribe.py`.
+- [ ] Confirm `python3 workshop/simulations/sim_runner.py route "organize my numbers"` returns `partenon-scribe`.
 
 ---
 
@@ -88,7 +88,7 @@ Update `MISSING_IMPLEMENTATION.md` with any new gaps discovered during the sessi
   - `docs/ENTREPRENEUR_PLAYBOOK.md`
   - `docs/HERO_GUIDE.md`
   - `workshop/guides/HERMES_ONBOARDING.md`
-- Run `python3 scripts/demo_tesorero.py` and `cd dashboard && npm run build` to verify the base system.
+- Run `python3 scripts/demo_scribe.py` and `cd dashboard && npm run build` to verify the base system.
 
 ---
 

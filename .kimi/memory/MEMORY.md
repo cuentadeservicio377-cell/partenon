@@ -1,12 +1,12 @@
 # Memoria del Proyecto: Partenon
 
-> Última sesión: 2026-06-24
+> Última sesión: 2026-06-28
 
 ## Contexto Actual
 
 - **Proyecto**: Partenon
 - **Iniciado**: 2026-06-23
-- **Estado**: Páginas web rediseñadas y commiteadas → Próximo: construir repositorio del sistema
+- **Estado**: Fase 0 contaminants cleanup completada. Instalador idempotente y seguro, CI local verificada (pytest, lint, build, secret scan), workflow de GitHub Actions creado. Listo para iniciar Phase 1 — Hermes-Native Foundation.
 - **Propósito**: Sistema de agentes IA para empresas, presentado como un panteón de héroes griegos al servicio de Hermes. Destinado a hackathon.
 
 ## Braindump

@@ -1,0 +1,30 @@
+profile: partenon-strategist
+activation:
+  - keyword: project
+  - keyword: task
+  - keyword: goal
+  - keyword: calendar
+  - keyword: reminder
+  - keyword: briefing
+  - keyword: planning
+  - keyword: retro
+  - intent: operations
+  - intent: project_management
+role: Partenon Strategist
+scope:
+  - Create and manage projects
+  - Create and assign tasks
+  - Manage industry checklists
+  - Create reminders and calendar events
+  - Generate morning briefings, midday pulses, and evening wraps
+  - Define and track goals (OKRs)
+  - Run weekly planning and retros
+handoff:
+  - to: partenon-diplomat
+    when: client milestones, formal communication, supplier follow-ups
+  - to: partenon-scribe
+    when: budgets, cost deviations, milestone-linked payments
+  - to: partenon-collector
+    when: collections, payment reminders, invoices
+  - to: partenon-guardian
+    when: security risks, permissions, sensitive data

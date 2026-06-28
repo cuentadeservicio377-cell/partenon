@@ -1597,7 +1597,7 @@ $ source .venv/bin/activate
 $ pip install -r requirements.txt
 
 # Run the finance demo to verify the install
-$ python3 scripts/demo_tesorero.py
+$ python3 scripts/demo_scribe.py
 
 # Try the Hermes CLI stub
 $ python3 examples/hermes-cli-stub.py status --verbose</pre>
@@ -1620,7 +1620,7 @@ $ cp .env.example .env
 # Edit .env with GOOGLE_SERVICE_ACCOUNT_JSON, STRIPE_SECRET_KEY, NVIDIA_API_KEY, etc.
 
 # Run the local demo
-$ python3 scripts/demo_tesorero.py
+$ python3 scripts/demo_scribe.py
 
 # Start the dashboard (requires Node.js 20+)
 $ cd dashboard
@@ -1658,16 +1658,16 @@ $ docker compose up -d
 │   └── developers.html
 ├── 📁 dashboard/            # Next.js 15 admin dashboard
 ├── 📁 hermes/profiles/      # 7 hero profiles (SOUL.md, config.yaml, skills/)
-│   ├── partenon-tesorero/   # The Scribe — finance
-│   ├── partenon-mensajero/  # The Herald — brand / comms
-│   ├── partenon-cobrador/   # The Collector — Stripe payments
+│   ├── partenon-scribe/   # The Scribe — finance
+│   ├── partenon-herald/  # The Herald — brand / comms
+│   ├── partenon-collector/   # The Collector — Stripe payments
 │   ├── partenon-guardian/   # The Guardian — security / NVIDIA
-│   ├── partenon-estratega/  # The Strategist — operations
-│   ├── partenon-diplomatico/# The Diplomat — CRM / relations
+│   ├── partenon-strategist/  # The Strategist — operations
+│   ├── partenon-diplomat/# The Diplomat — CRM / relations
 │   └── partenon-brain/      # The Brain — G-Brain MCP
 ├── 📁 partenon-core/        # Router, onboarding, workflow engine
 ├── 📁 gbrain/               # G-Brain MCP server + storage
-├── 📁 scripts/              # setup_hermes.py, demo_tesorero.py
+├── 📁 scripts/              # setup_hermes.py, demo_scribe.py
 ├── 📁 examples/             # CLI/API/MCP stubs documented on this page
 ├── 📁 docs/                 # Founder, developer, architecture docs
 ├── 📄 README.md

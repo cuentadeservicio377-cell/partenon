@@ -9,7 +9,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.demo_tesorero import main as demo_main
+from scripts.demo_scribe import main as demo_main
 
 
 class ScribeDemoTestCase(unittest.TestCase):

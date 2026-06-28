@@ -49,7 +49,7 @@ Expected result: you are in the `partenon/` directory with `README.md`, `install
 3. Copies `partenon-core/SKILL.md` to `~/.hermes/skills/partenon-core/`.
 4. Copies `.env.example` to `.env`.
 5. Creates `data/` and `logs/`.
-6. Runs `scripts/demo_tesorero.py`.
+6. Runs `scripts/demo_scribe.py`.
 
 Expected output:
 
@@ -111,12 +111,12 @@ python3 partenon-core/tools/router.py
 Expected output:
 
 ```text
-'Organize my numbers'                         -> partenon-tesorero
-'Create a campaign for next week'              -> partenon-mensajero
-'Generate a payment link'                      -> partenon-cobrador
+'Organize my numbers'                         -> partenon-scribe
+'Create a campaign for next week'              -> partenon-herald
+'Generate a payment link'                      -> partenon-collector
 'Rotate my OpenAI API key'                     -> partenon-guardian
-'What do I have this week?'                    -> partenon-estratega
-'Follow up with client Acme Inc'               -> partenon-diplomatico
+'What do I have this week?'                    -> partenon-strategist
+'Follow up with client Acme Inc'               -> partenon-diplomat
 'What did we decide last month?'               -> partenon-brain
 ```
 
@@ -128,7 +128,7 @@ Try the Herald's copy generator without any API credentials:
 
 ```bash
 # Create a minimal .design first
-python3 hermes/profiles/partenon-mensajero/skills/comms/tools/brand_intake.py
+python3 hermes/profiles/partenon-herald/skills/comms/tools/brand_intake.py
 ```
 
 Answer the prompts, or press Enter to accept defaults. It writes `.design` in the current directory.
@@ -136,7 +136,7 @@ Answer the prompts, or press Enter to accept defaults. It writes `.design` in th
 Then generate a post:
 
 ```bash
-python3 hermes/profiles/partenon-mensajero/skills/comms/tools/copy_generator.py post "payment automation" linkedin
+python3 hermes/profiles/partenon-herald/skills/comms/tools/copy_generator.py post "payment automation" linkedin
 ```
 
 Expected output: a JSON object with three ad variants and a `qa` block showing whether any banned patterns were found.
@@ -148,7 +148,7 @@ Expected output: a JSON object with three ad variants and a `qa` block showing w
 No Stripe key is required. The Collector falls back to local `.payments` records.
 
 ```bash
-python3 hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py
+python3 hermes/profiles/partenon-collector/skills/payments/tools/stripe_tools.py
 ```
 
 Expected output: several JSON objects showing a test payment link, subscription, invoice, reminder, and payment record.
@@ -160,7 +160,7 @@ Expected output: several JSON objects showing a test payment link, subscription,
 ```bash
 python - <<'PY'
 import sys
-sys.path.insert(0, "hermes/profiles/partenon-estratega/skills/ops/tools")
+sys.path.insert(0, "hermes/profiles/partenon-strategist/skills/ops/tools")
 from projects import get_projects
 from tasks import get_tasks
 

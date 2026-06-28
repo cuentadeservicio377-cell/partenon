@@ -174,11 +174,11 @@ permissions_by_profile:
     tools: [terminal, file, gbrain]
     skills: [security]
     actions: [list_keys, rotate_key, audit_access, audit_log]
-  partenon-tesorero:
+  partenon-scribe:
     tools: [terminal, file]
     skills: [finance]
     actions: [read_financial_data]
-  partenon-cobrador:
+  partenon-collector:
     tools: [terminal, file]
     skills: [payments]
     actions: [manage_payments]
@@ -197,7 +197,7 @@ policies:
 ```yaml
 metadata:
   version: "0.1.0"
-  profile: partenon-cobrador
+  profile: partenon-collector
   currency: USD
   timezone: UTC
 
@@ -244,7 +244,7 @@ policies:
 ### `.ops` (Strategist) — excerpt
 
 ```yaml
-profile: partenon-estratega
+profile: partenon-strategist
 owner: "Founder / CEO"
 assistant_name: "Strategist"
 
@@ -303,7 +303,7 @@ goals:
    - Expected output: Keys for Payment Processor, Model Provider, Cloud Provider A with status; flags older than 90 days as `pending_rotation`.
 
 2. **Audit profile permissions.**
-   - Tool: `python3 hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py audit_access --profile partenon-cobrador`
+   - Tool: `python3 hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py audit_access --profile partenon-collector`
    - Expected output: Permissions match canonical role; any violation flagged.
 
 3. **Rotate payment processor secret key.**
@@ -314,46 +314,46 @@ goals:
 ### Scribe
 
 1. **Create runway dashboard.**
-   - Command: `hermes profile use partenon-tesorero`
-   - Tool: `python3 hermes/profiles/partenon-tesorero/skills/finance/tools/google_sheets.py --create "Example SaaS Runway"`
+   - Command: `hermes profile use partenon-scribe`
+   - Tool: `python3 hermes/profiles/partenon-scribe/skills/finance/tools/google_sheets.py --create "Example SaaS Runway"`
    - Expected output: Workbook with MRR, expenses, payment processor fees, runway tabs.
 
 2. **Track payment processor fees vs. budget.**
-   - Tool: `python3 hermes/profiles/partenon-tesorero/skills/finance/tools/audit.py --category services --budget 3500`
+   - Tool: `python3 hermes/profiles/partenon-scribe/skills/finance/tools/audit.py --category services --budget 3500`
    - Expected output: Alert if fees exceed budget by >10%.
 
 3. **Parse Cloud Provider A cost export.**
-   - Tool: `python3 hermes/profiles/partenon-tesorero/skills/finance/tools/parsers.py data/example-saas_cloud_costs_2026-05.csv`
+   - Tool: `python3 hermes/profiles/partenon-scribe/skills/finance/tools/parsers.py data/example-saas_cloud_costs_2026-05.csv`
    - Expected output: Classified infrastructure spend.
 
 ### Collector
 
 1. **List recent payment charges.**
-   - Command: `hermes profile use partenon-cobrador`
-   - Tool: `python3 hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py list_charges --start 2026-06-01 --end 2026-06-30`
+   - Command: `hermes profile use partenon-collector`
+   - Tool: `python3 hermes/profiles/partenon-collector/skills/payments/tools/stripe_tools.py list_charges --start 2026-06-01 --end 2026-06-30`
    - Expected output: Local-mode list or real payment charges if key is live.
 
 2. **Get failed subscriptions.**
-   - Tool: `python3 hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py get_failed_subscriptions`
+   - Tool: `python3 hermes/profiles/partenon-collector/skills/payments/tools/stripe_tools.py get_failed_subscriptions`
    - Expected output: Failed charge list for retry.
 
 3. **Generate monthly income report.**
-   - Tool: `python3 hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py generate_income_report --start 2026-06-01 --end 2026-06-30`
+   - Tool: `python3 hermes/profiles/partenon-collector/skills/payments/tools/stripe_tools.py generate_income_report --start 2026-06-01 --end 2026-06-30`
    - Expected output: Total collected, pending, overdue, by-product and by-customer.
 
 ### Strategist
 
 1. **Create "Backup reliability sprint" project.**
-   - Command: `hermes profile use partenon-estratega`
-   - Tool: `python3 hermes/profiles/partenon-estratega/skills/ops/tools/projects.py create "Backup reliability sprint" --type saas`
+   - Command: `hermes profile use partenon-strategist`
+   - Tool: `python3 hermes/profiles/partenon-strategist/skills/ops/tools/projects.py create "Backup reliability sprint" --type saas`
    - Expected output: Project with engineering checklist.
 
 2. **Assign incident post-mortem task.**
-   - Tool: `python3 hermes/profiles/partenon-estratega/skills/ops/tools/tasks.py create "Write backup incident post-mortem" --project "Backup reliability sprint" --owner engineer@example-saas.example.test --due 2026-07-02 --priority high`
+   - Tool: `python3 hermes/profiles/partenon-strategist/skills/ops/tools/tasks.py create "Write backup incident post-mortem" --project "Backup reliability sprint" --owner engineer@example-saas.example.test --due 2026-07-02 --priority high`
    - Expected output: Task stored.
 
 3. **Weekly retro.**
-   - Tool: `python3 hermes/profiles/partenon-estratega/skills/ops/tools/briefings.py weekly_retro`
+   - Tool: `python3 hermes/profiles/partenon-strategist/skills/ops/tools/briefings.py weekly_retro`
    - Expected output: Completed tasks, blockers, goals status.
 
 ### Brain
@@ -375,16 +375,16 @@ goals:
 ### Herald
 
 1. **Draft founder update.**
-   - Command: `hermes profile use partenon-mensajero`
-   - Tool: `python3 hermes/profiles/partenon-mensajero/skills/comms/tools/copy_generator.py --type email --channel newsletter --offer "June founder update"`
+   - Command: `hermes profile use partenon-herald`
+   - Tool: `python3 hermes/profiles/partenon-herald/skills/comms/tools/copy_generator.py --type email --channel newsletter --offer "June founder update"`
    - Expected output: Draft email.
 
 2. **Create changelog post.**
-   - Tool: `python3 hermes/profiles/partenon-mensajero/skills/comms/tools/copy_generator.py --type post --channel blog --offer "Backup retention increase"`
+   - Tool: `python3 hermes/profiles/partenon-herald/skills/comms/tools/copy_generator.py --type post --channel blog --offer "Backup retention increase"`
    - Expected output: Draft changelog post.
 
 3. **Build content calendar for Example Conference season.**
-   - Tool: `python3 hermes/profiles/partenon-mensajero/skills/comms/tools/content_calendar.py --topic "Example CMS agency reliability" --channels blog,newsletter`
+   - Tool: `python3 hermes/profiles/partenon-herald/skills/comms/tools/content_calendar.py --topic "Example CMS agency reliability" --channels blog,newsletter`
    - Expected output: 30-day calendar.
 
 ---

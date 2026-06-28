@@ -175,7 +175,7 @@ if __name__ == "__main__":
     loop = EvalLoop()
     sample_output = {
         "mission_id": "mission-001",
-        "profile": "partenon-tesorero",
+        "profile": "partenon-scribe",
         "status": "completed",
         "output": {
             "fixed_expenses": 609.0,
@@ -187,7 +187,7 @@ if __name__ == "__main__":
     company = {"name": "Aurora Coffee", "industry": "food", "currency": "USD"}
     result = loop.evaluate(
         mission_id="mission-001",
-        profile="partenon-tesorero",
+        profile="partenon-scribe",
         output=sample_output,
         company_context=company,
     )

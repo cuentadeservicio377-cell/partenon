@@ -1,0 +1,17 @@
+{
+  "id": "weekly-retro",
+  "name": "Weekly Retro",
+  "profile": "partenon-strategist",
+  "schedule": "0 20 * * 0",
+  "timezone": "America/Mexico_City",
+  "tool": "skills.ops.tools.briefings",
+  "method": "generate_weekly_retro",
+  "args": {
+    "user_name": "{{owner.name}}"
+  },
+  "output": {
+    "channel": "gmail",
+    "subject": "Weekly retro — {{date}}"
+  },
+  "enabled": true
+}

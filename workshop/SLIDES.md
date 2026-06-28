@@ -22,12 +22,12 @@ A facilitator slide deck in Markdown. Each top-level heading is a slide.
 
 | Hero | Spanish name | Domain |
 |---|---|---|
-| Scribe | Tesorero | Finance |
-| Herald | Mensajero | Communications |
-| Collector | Cobrador | Payments |
+| Scribe | Scribe | Finance |
+| Herald | Herald | Communications |
+| Collector | Collector | Payments |
 | Guardian | Guardian | Security |
-| Strategist | Estratega | Operations |
-| Diplomat | Diplomatico | Relationships |
+| Strategist | Strategist | Operations |
+| Diplomat | Diplomat | Relationships |
 | Brain | Cerebro | Memory / G-Brain |
 
 ---
@@ -135,7 +135,7 @@ Classify each item: green / yellow / red.
 
 ## Workshop closing
 
-- Verify `python3 scripts/demo_tesorero.py` passes.
+- Verify `python3 scripts/demo_scribe.py` passes.
 - Verify `cd dashboard && npm run build` passes.
 - Update `MISSING_IMPLEMENTATION.md` and `TODOS.md`.
 - Commit the workshop package.

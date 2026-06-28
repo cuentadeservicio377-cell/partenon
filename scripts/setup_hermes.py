@@ -11,12 +11,12 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 HERMES_DIR = Path.home() / ".hermes"
 PROFILES_DIR = REPO_ROOT / "hermes" / "profiles"
 PROFILES = [
-    "partenon-tesorero",
-    "partenon-mensajero",
-    "partenon-cobrador",
+    "partenon-scribe",
+    "partenon-herald",
+    "partenon-collector",
     "partenon-guardian",
-    "partenon-estratega",
-    "partenon-diplomatico",
+    "partenon-strategist",
+    "partenon-diplomat",
     "partenon-brain",
 ]
 
@@ -101,14 +101,14 @@ def ensure_directories() -> None:
 
 
 def verify_demo() -> None:
-    """Run the Tesorero demo to verify the local setup."""
+    """Run the Scribe demo to verify the local setup."""
     print("")
-    print("Running Tesorero demo to verify the install...")
+    print("Running Scribe demo to verify the install...")
     venv_python = REPO_ROOT / ".venv" / "bin" / "python"
     if venv_python.exists():
-        subprocess.run([str(venv_python), "scripts/demo_tesorero.py"], cwd=REPO_ROOT)
+        subprocess.run([str(venv_python), "scripts/demo_scribe.py"], cwd=REPO_ROOT)
     else:
-        subprocess.run([sys.executable, "scripts/demo_tesorero.py"], cwd=REPO_ROOT)
+        subprocess.run([sys.executable, "scripts/demo_scribe.py"], cwd=REPO_ROOT)
 
 
 def main() -> int:
@@ -130,8 +130,8 @@ def main() -> int:
     print("Next steps:")
     print(f"1. cd {REPO_ROOT}")
     print("2. Edit .env with your credentials.")
-    print("3. If you have Hermes CLI: hermes profile use partenon-tesorero")
-    print("4. Run: python3 scripts/demo_tesorero.py")
+    print("3. If you have Hermes CLI: hermes profile use partenon-scribe")
+    print("4. Run: python3 scripts/demo_scribe.py")
     print("5. Start the dashboard: cd dashboard && npm install && npm run dev")
     return 0
 

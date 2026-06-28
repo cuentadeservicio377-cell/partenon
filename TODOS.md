@@ -17,8 +17,8 @@ Goal: make the repository safe, clean, and globally distributable before any Her
 - [x] Remove default dashboard credentials (`admin`/`partenon`)
 - [x] Replace external `gbrain` binary calls with bundled MCP server
 - [x] Add `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, `NOTICE.md`
-- [ ] Make `install.sh` idempotent and safe
-- [ ] Verify CI passes: lint, tests, build, secret scan
+- [x] Make `install.sh` idempotent and safe
+- [x] Verify CI passes: lint, tests, build, secret scan
 
 ---
 

@@ -14,7 +14,7 @@
 | 1.2 | `install.sh` installs dependencies from `requirements.txt` | PASS | `install.sh` line 44 |
 | 1.3 | `install.sh` copies `.env.example` to `.env` if missing | PASS | `install.sh` lines 82-85 |
 | 1.4 | `install.sh` creates `data/` and `logs/` directories | PASS | `install.sh` lines 88-89 |
-| 1.5 | `install.sh` runs `scripts/demo_tesorero.py` as verification | PASS | `install.sh` lines 91-95 |
+| 1.5 | `install.sh` runs `scripts/demo_scribe.py` as verification | PASS | `install.sh` lines 91-95 |
 | 1.6 | Installer handles missing Hermes CLI gracefully | PASS | `install.sh` lines 46-58 print instructions |
 | 1.7 | No unverified binaries downloaded | PASS | `install.sh` only installs pip packages and copies files |
 
@@ -24,7 +24,7 @@
 
 | # | Item | Status | Evidence |
 |---|------|--------|----------|
-| 2.1 | Seven hero profiles exist in `hermes/profiles/` | PASS | `partenon-tesorero`, `partenon-mensajero`, `partenon-cobrador`, `partenon-guardian`, `partenon-estratega`, `partenon-diplomatico`, `partenon-brain` |
+| 2.1 | Seven hero profiles exist in `hermes/profiles/` | PASS | `partenon-scribe`, `partenon-herald`, `partenon-collector`, `partenon-guardian`, `partenon-strategist`, `partenon-diplomat`, `partenon-brain` |
 | 2.2 | Each profile has `SOUL.md`, `config.yaml`, templates, and cron | PASS | Verified via `ls hermes/profiles/*` |
 | 2.3 | Hermes CLI detection is graceful | PASS | `install.sh` and `scripts/setup_hermes.py` print instructions if missing |
 | 2.4 | Profiles can be installed to `~/.hermes/profiles/` when CLI is present | PASS | `install.sh` lines 69-79 |
@@ -37,12 +37,12 @@
 
 | # | Item | Status | Evidence |
 |---|------|--------|----------|
-| 3.1 | Scribe has parser, Sheets tool, audit, templates | PASS | `hermes/profiles/partenon-tesorero/skills/finance/tools/` |
-| 3.2 | Herald has brand intake, content calendar, copy generator, SEO/GEO | PASS | `hermes/profiles/partenon-mensajero/skills/comms/tools/` |
-| 3.3 | Collector has Stripe tools for links, subscriptions, invoices, reminders, reports | PASS | `hermes/profiles/partenon-cobrador/skills/payments/tools/` |
+| 3.1 | Scribe has parser, Sheets tool, audit, templates | PASS | `hermes/profiles/partenon-scribe/skills/finance/tools/` |
+| 3.2 | Herald has brand intake, content calendar, copy generator, SEO/GEO | PASS | `hermes/profiles/partenon-herald/skills/comms/tools/` |
+| 3.3 | Collector has Stripe tools for links, subscriptions, invoices, reminders, reports | PASS | `hermes/profiles/partenon-collector/skills/payments/tools/` |
 | 3.4 | Guardian has key manager, secrets manager, policy manager, audit logger | PASS | `hermes/profiles/partenon-guardian/skills/security/tools/` |
-| 3.5 | Strategist has projects, tasks, checklists, goals, briefings, calendar, email | PASS | `hermes/profiles/partenon-estratega/skills/ops/tools/` |
-| 3.6 | Diplomat has CRM, follow-ups, schedule meeting, generate proposal | PASS | `hermes/profiles/partenon-diplomatico/skills/relations/tools/` |
+| 3.5 | Strategist has projects, tasks, checklists, goals, briefings, calendar, email | PASS | `hermes/profiles/partenon-strategist/skills/ops/tools/` |
+| 3.6 | Diplomat has CRM, follow-ups, schedule meeting, generate proposal | PASS | `hermes/profiles/partenon-diplomat/skills/relations/tools/` |
 | 3.7 | Brain has G-Brain client, MCP hub, sync tools | PASS | `hermes/profiles/partenon-brain/skills/memory/tools/` |
 | 3.8 | All profile tools compile with `python3 -m py_compile` | PASS | `for f in hermes/profiles/*/skills/*/*/*.py; do python3 -m py_compile "$f"; done` PASS |
 | 3.9 | Profile templates are translated to English | PASS | Verified in previous sessions |
@@ -134,7 +134,7 @@
 | 9.6 | Hermes onboarding guide created | PASS | `workshop/guides/HERMES_ONBOARDING.md` |
 | 9.7 | Simulation runner executes onboarding-like actions | PASS | `workshop/simulations/sim_runner.py route/project/checklist/client/payment-link/calendar` PASS |
 | 9.8 | Onboarding passes context to heroes at runtime | FAIL | Engine creates files but does not load them into hero context dynamically |
-| 9.9 | End-to-end onboarding demo script | PARTIAL | `demo_tesorero.py` covers finance only; `sim_runner.py` covers the other heroes |
+| 9.9 | End-to-end onboarding demo script | PARTIAL | `demo_scribe.py` covers finance only; `sim_runner.py` covers the other heroes |
 
 ---
 
@@ -200,11 +200,11 @@
 
 ## Verification Log
 
-- `python3 scripts/demo_tesorero.py` PASS — generated `data/sample_expenses.xlsx` and `data/sample_expenses_report.json`.
+- `python3 scripts/demo_scribe.py` PASS — generated `data/sample_expenses.xlsx` and `data/sample_expenses_report.json`.
 - `cd dashboard && npm run build` PASS — static export generated with all routes.
 - `bash -n install.sh` PASS.
 - `for f in hermes/profiles/*/skills/*/*/*.py; do python3 -m py_compile "$f"; done` PASS.
-- `python3 workshop/simulations/sim_runner.py route "send a payment reminder to Acme"` → `partenon-cobrador`.
+- `python3 workshop/simulations/sim_runner.py route "send a payment reminder to Acme"` → `partenon-collector`.
 - `python3 workshop/simulations/sim_runner.py project test-ws ...` → `PROJ-001` created.
 - `python3 workshop/simulations/sim_runner.py checklist test-ws PROJ-001` → 15-item consulting checklist created.
 - Brain smoke test: `GBrainClient().put_page('test/smoke', 'Smoke test page')` → `status: created_or_updated`.

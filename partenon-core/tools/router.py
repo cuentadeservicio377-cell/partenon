@@ -11,7 +11,7 @@ class IntentRouter:
     """Routes natural language intents to Partenon hero profiles."""
 
     INTENT_PATTERNS = {
-        "partenon-tesorero": {
+        "partenon-scribe": {
             "keywords": [
                 "finance", "finances", "budget", "expense", "expenses", "income",
                 "cost", "costs", "excel", "sheet", "spreadsheet", "dashboard", "number",
@@ -25,7 +25,7 @@ class IntentRouter:
                 r"\b(how\s+much\s+(did\s+we\s+(invoice|earn|spend)|do\s+we\s+owe))\b",
             ]
         },
-        "partenon-mensajero": {
+        "partenon-herald": {
             "keywords": [
                 "brand", "branding", "communication", "marketing", "social", "content",
                 "campaign", "calendar", "seo", "geo", "post", "copy", "message",
@@ -38,7 +38,7 @@ class IntentRouter:
                 r"\b(brand\s+voice|brand\s+message)\b",
             ]
         },
-        "partenon-cobrador": {
+        "partenon-collector": {
             "keywords": [
                 "collect", "collection", "collections", "payment", "payments", "stripe",
                 "payment link", "subscription", "invoice", "bill", "card", "customer owes",
@@ -62,7 +62,7 @@ class IntentRouter:
                 r"\b(permissions\s+of\s+(treasurer|messenger|collector|guardian|strategist|diplomat))\b",
             ]
         },
-        "partenon-estratega": {
+        "partenon-strategist": {
             "keywords": [
                 "project", "projects", "task", "tasks", "pending", "backlog",
                 "checklist", "milestone", "milestones", "deadline", "date", "calendar", "agenda",
@@ -76,7 +76,7 @@ class IntentRouter:
                 r"\b(briefing|weekly\s+plan|weekly\s+review)\b",
             ]
         },
-        "partenon-diplomatico": {
+        "partenon-diplomat": {
             "keywords": [
                 "client", "clients", "vendor", "vendors", "partner", "partners",
                 "relationship", "relationships", "follow-up", "follow up", "contract", "contracts",

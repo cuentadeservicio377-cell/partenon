@@ -33,7 +33,7 @@ The global environment file is created from [`.env.example`](../.env.example) by
 |----------|---------|-------------------|
 | `OPENROUTER_API_KEY` | All heroes that use LLMs | Every profile `config.yaml` |
 | `GOOGLE_SERVICE_ACCOUNT_JSON` | Google Workspace integrations | `partenon-core/config/mcp/servers.yaml`, Scribe, Strategist, Diplomat, Herald |
-| `STRIPE_SECRET_KEY` | Collector payments | `hermes/profiles/partenon-cobrador/.env.example`, `stripe_tools.py` |
+| `STRIPE_SECRET_KEY` | Collector payments | `hermes/profiles/partenon-collector/.env.example`, `stripe_tools.py` |
 | `GBRAIN_DATABASE_URL` / `GBrain_DATABASE_URL` | Brain / G-Brain | `gbrain/server.py` reads `GBrain_DATABASE_URL`; `.env.example` uses `GBRAIN_DATABASE_URL` |
 
 > **Known issue**: the repository has a naming inconsistency. `gbrain/server.py` and `partenon-core/config/mcp/servers.yaml` default to `GBrain_DATABASE_URL`, while `.env.example` documents `GBRAIN_DATABASE_URL`. Set the exact variable name required by the component you run. This is tracked in [`MISSING_IMPLEMENTATION.md`](../MISSING_IMPLEMENTATION.md).
@@ -58,7 +58,7 @@ Partenon uses a Google Cloud service account JSON to access Sheets, Docs, Slides
 
 ### Recommended scopes
 
-The Scribe's [`google_sheets.py`](../hermes/profiles/partenon-tesorero/skills/finance/tools/google_sheets.py) requests:
+The Scribe's [`google_sheets.py`](../hermes/profiles/partenon-scribe/skills/finance/tools/google_sheets.py) requests:
 
 ```python
 SCOPES = [
@@ -77,7 +77,7 @@ The service account JSON is a credential. Treat it like a private key: keep it o
 
 ## 4. Stripe key rotation
 
-The Collector handles Stripe via [`stripe_tools.py`](../hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py). The Guardian is responsible for rotating the key.
+The Collector handles Stripe via [`stripe_tools.py`](../hermes/profiles/partenon-collector/skills/payments/tools/stripe_tools.py). The Guardian is responsible for rotating the key.
 
 ### What the Guardian does
 
@@ -129,7 +129,7 @@ Example:
 
 ```python
 from hermes.profiles.partenon-guardian.skills.security.tools.key_manager import audit_access
-print(audit_access("partenon-cobrador"))
+print(audit_access("partenon-collector"))
 ```
 
 ### Policy management
@@ -138,11 +138,11 @@ print(audit_access("partenon-cobrador"))
 
 ```python
 from hermes.profiles.partenon-guardian.skills.security.tools.policy_manager import set_policies
-set_policies("partenon-tesorero", permissions={
+set_policies("partenon-scribe", permissions={
     "tools": ["terminal", "file"],
     "mcp_servers": ["google_workspace", "gbrain"],
     "skills": ["finance"],
-    "files": ["hermes/profiles/partenon-tesorero/**"],
+    "files": ["hermes/profiles/partenon-scribe/**"],
     "actions": ["read_financial_data"],
 })
 ```
@@ -184,7 +184,7 @@ Read logs with:
 
 ```python
 from hermes.profiles.partenon-guardian.skills.security.tools.audit_logger import get_audit_logs
-print(get_audit_logs(profile="partenon-cobrador", limit=10))
+print(get_audit_logs(profile="partenon-collector", limit=10))
 ```
 
 ### GPU allocation

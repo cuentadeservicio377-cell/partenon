@@ -6,12 +6,12 @@ graph TD
     ROUTER -->|evaluates| EVAL[eval_loop.py]
     ROUTER -->|reads config| CONFIG[config_loader.py]
 
-    ROUTER --> SCRIBE[partenon-tesorero<br/>Scribe]
-    ROUTER --> HERALD[partenon-mensajero<br/>Herald]
-    ROUTER --> COLLECTOR[partenon-cobrador<br/>Collector]
+    ROUTER --> SCRIBE[partenon-scribe<br/>Scribe]
+    ROUTER --> HERALD[partenon-herald<br/>Herald]
+    ROUTER --> COLLECTOR[partenon-collector<br/>Collector]
     ROUTER --> GUARDIAN[partenon-guardian<br/>Guardian]
-    ROUTER --> STRATEGIST[partenon-estratega<br/>Strategist]
-    ROUTER --> DIPLOMAT[partenon-diplomatico<br/>Diplomat]
+    ROUTER --> STRATEGIST[partenon-strategist<br/>Strategist]
+    ROUTER --> DIPLOMAT[partenon-diplomat<br/>Diplomat]
     ROUTER --> BRAIN[partenon-brain<br/>Brain]
 
     SCRIBE -->|tools| FIN[finance/tools/<br/>google_sheets, parsers,<br/>templates, audit]

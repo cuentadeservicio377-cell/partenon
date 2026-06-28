@@ -5,7 +5,7 @@ version: 0.1.0
 metadata:
   hermes:
     tags: [partenon, core, business, enterprise]
-    related_skills: [partenon-tesorero, partenon-mensajero, partenon-cobrador, partenon-guardian, partenon-estratega, partenon-diplomatico, partenon-brain]
+    related_skills: [partenon-scribe, partenon-herald, partenon-collector, partenon-guardian, partenon-strategist, partenon-diplomat, partenon-brain]
     auto_load: true
     priority: 1
 ---

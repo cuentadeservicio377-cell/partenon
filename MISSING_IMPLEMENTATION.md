@@ -47,32 +47,32 @@ This document tracks gaps between what the Partenon website and documentation pr
 
 ## 2. Hero profiles
 
-### 2.1 Scribe (finance) — `partenon-tesorero`
+### 2.1 Scribe (finance) — `partenon-scribe`
 - **Status**: PARTIAL
 - **Done**: SOUL, config, SKILL, templates, cron, and finance tools translated to English. `google_sheets.py` can create a spreadsheet and seed headers. `parsers.py` can read Excel/CSV expenses. `templates.py` generates local Excel templates.
 - **Gaps**:
   - No end-to-end demo that parses an uploaded file and writes to Google Sheets.
   - `CATEGORY_KEYWORDS` in `parsers.py` are English-only; historic Spanish transaction descriptions are accepted as aliases but inferred categories will be English words. This is intentional but must be documented.
   - No automated tests.
-- **Files**: `hermes/profiles/partenon-tesorero/skills/finance/tools/*.py`
+- **Files**: `hermes/profiles/partenon-scribe/skills/finance/tools/*.py`
 
-### 2.2 Herald (communications) — `partenon-mensajero`
+### 2.2 Herald (communications) — `partenon-herald`
 - **Status**: PARTIAL
 - **Done**: SOUL, config, SKILL, `.design` template, `.env.example`, cron, and comms tools are in English. `brand_intake.py`, `copy_generator.py`, and `content_calendar.py` are functional.
 - **Gaps**:
   - No actual publishing integration (LinkedIn, Instagram, WordPress, etc.).
   - `config.yaml` references `wordpress` and `ssh` tools but no implementation exists.
   - No Gmail MCP integration for sending newsletters.
-- **Files**: `hermes/profiles/partenon-mensajero/`
+- **Files**: `hermes/profiles/partenon-herald/`
 
-### 2.3 Collector (payments) — `partenon-cobrador`
+### 2.3 Collector (payments) — `partenon-collector`
 - **Status**: PARTIAL
 - **Done**: SOUL, config, SKILL, `.env.example`, `.payments` template, cron, and Stripe tools are in English. `stripe_tools.py` can create payment links, subscriptions, reminders, and record payments in local mode or via the Stripe library.
 - **Gaps**:
   - No end-to-end Stripe MCP wiring.
   - No invoice generation or PDF receipt creation.
   - Collections rely on local JSON; no real Gmail/WhatsApp reminder dispatch.
-- **Files**: `hermes/profiles/partenon-cobrador/`
+- **Files**: `hermes/profiles/partenon-collector/`
 
 ### 2.4 Guardian (security / NVIDIA) — `partenon-guardian`
 - **Status**: PARTIAL
@@ -83,22 +83,22 @@ This document tracks gaps between what the Partenon website and documentation pr
   - No automated audit log persistence.
 - **Files**: `hermes/profiles/partenon-guardian/`
 
-### 2.5 Strategist (operations) — `partenon-estratega`
+### 2.5 Strategist (operations) — `partenon-strategist`
 - **Status**: PARTIAL
 - **Done**: SOUL, config, `.ops`, template, cron, SKILL.md, and ops tools translated to English. `projects.py`, `tasks.py`, `checklists.py`, `goals.py`, and `briefings.py` are functional with English field names.
 - **Gaps**:
   - No Google Calendar or Gmail MCP integration is wired; tools read local JSON only.
   - No automated tests.
-- **Files**: `hermes/profiles/partenon-estratega/skills/ops/tools/*.py`
+- **Files**: `hermes/profiles/partenon-strategist/skills/ops/tools/*.py`
 
-### 2.6 Diplomat (relations) — `partenon-diplomatico`
+### 2.6 Diplomat (relations) — `partenon-diplomat`
 - **Status**: PARTIAL
 - **Done**: SOUL, config, `.relations` template, cron, SKILL.md, and relations tools translated to English. `crm.py` and `followups.py` use English field names and match the translated `.relations` template.
 - **Gaps**:
   - No actual Google Contacts or Gmail integration.
   - No handoff automation with Strategist beyond documentation.
   - No automated tests.
-- **Files**: `hermes/profiles/partenon-diplomatico/skills/relations/tools/*.py`
+- **Files**: `hermes/profiles/partenon-diplomat/skills/relations/tools/*.py`
 
 ### 2.7 Brain (intelligence / memory) — `partenon-brain`
 - **Status**: PARTIAL
@@ -122,7 +122,7 @@ This document tracks gaps between what the Partenon website and documentation pr
 - **Gap**: Originally pointed to non-existent `partenon.*` modules.
 - **Impact**: Cron entries are now mapped to real scripts and tools.
 - **Status**: PARTIAL
-- **Fix**: Entries now reference `scripts/demo_tesorero.py`, the Herald content-calendar tool, and the Guardian key-manager tool. The Guardian entry is enabled now that `key_manager.py` has a CLI entry point.
+- **Fix**: Entries now reference `scripts/demo_scribe.py`, the Herald content-calendar tool, and the Guardian key-manager tool. The Guardian entry is enabled now that `key_manager.py` has a CLI entry point.
 - **Suggested next step**: Add a lightweight cron runner or document how to wire `data/cron.json` into the host system's cron / systemd / scheduler.
 - **Files**: `data/cron.json`, `hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py`
 
@@ -328,9 +328,9 @@ A production-readiness test was run using five real small-business company cards
 
 - `README.md` — updated demo sheet name (Suppliers), badges, install note.
 - `data/tasks.json` — translated mission titles and descriptions to English.
-- `hermes/profiles/partenon-tesorero/` — fully translated (SOUL, config, SKILL, `.env.example`, cron, templates, finance tools).
-- `hermes/profiles/partenon-estratega/` — SOUL, config, `.ops`, template, cron, SKILL.md, and ops tools translated to English; `metas.py` renamed to `goals.py`.
-- `hermes/profiles/partenon-diplomatico/` — SOUL, config, `.relations` template, cron, SKILL.md, and relations tools translated to English.
+- `hermes/profiles/partenon-scribe/` — fully translated (SOUL, config, SKILL, `.env.example`, cron, templates, finance tools).
+- `hermes/profiles/partenon-strategist/` — SOUL, config, `.ops`, template, cron, SKILL.md, and ops tools translated to English; `metas.py` renamed to `goals.py`.
+- `hermes/profiles/partenon-diplomat/` — SOUL, config, `.relations` template, cron, SKILL.md, and relations tools translated to English.
 - `hermes/profiles/partenon-brain/` — SOUL, config, `.brain`, `.env.example`, cron, SKILL.md translated to English; `gbrain_client.py` stdin bug fixed.
 - `partenon-core/SKILL.md` and `partenon-core/README.md` — updated to reference 7 heroes and include Brain.
 - `partenon-core/tools/onboarding_flow.py` — added Brain (`.brain`) to `PROFILE_FILES`.
@@ -340,7 +340,7 @@ A production-readiness test was run using five real small-business company cards
 - `docs/ENTREPRENEUR_PLAYBOOK.md` — already references the workshop simulations in Section 7.
 - `requirements.txt` — added `pyyaml>=6.0` to declare the dependency used by `partenon-core` and the simulation runner.
 - Verification run in this pass:
-  - `python3 scripts/demo_tesorero.py` PASS.
+  - `python3 scripts/demo_scribe.py` PASS.
   - `cd dashboard && npm run build` PASS.
   - `bash -n install.sh` PASS (syntax only; runtime fails with a stale Python 3.9 venv).
   - `python3 -m py_compile` on all profile Python tools PASS.

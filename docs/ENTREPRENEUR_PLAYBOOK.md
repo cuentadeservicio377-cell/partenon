@@ -173,16 +173,16 @@ Brain, search for all learnings about customer churn and generate an insight rep
 - [ ] Create `config/company.yaml` with your company name, industry, currency, and timezone.
 - [ ] Copy the profile templates you need:
   ```bash
-  cp hermes/profiles/partenon-tesorero/templates/.finance.example .finance
-  cp hermes/profiles/partenon-mensajero/templates/.design.example .design
-  cp hermes/profiles/partenon-estratega/templates/.ops.example .ops
-  cp hermes/profiles/partenon-diplomatico/templates/.relations.example .relations
+  cp hermes/profiles/partenon-scribe/templates/.finance.example .finance
+  cp hermes/profiles/partenon-herald/templates/.design.example .design
+  cp hermes/profiles/partenon-strategist/templates/.ops.example .ops
+  cp hermes/profiles/partenon-diplomat/templates/.relations.example .relations
   cp hermes/profiles/partenon-guardian/templates/.security.example .security
-  cp hermes/profiles/partenon-cobrador/templates/.payments.example .payments
+  cp hermes/profiles/partenon-collector/templates/.payments.example .payments
   cp hermes/profiles/partenon-brain/templates/.brain.example .brain
   ```
 - [ ] Customize `.finance` with your fixed costs, variable budgets, and vendors.
-- [ ] Run `python3 scripts/demo_tesorero.py` and verify the workbook.
+- [ ] Run `python3 scripts/demo_scribe.py` and verify the workbook.
 - [ ] Start the dashboard (`cd dashboard && npm install && npm run dev`).
 
 ### Days 31-60: Operations
@@ -326,7 +326,7 @@ operations:
 ```yaml
 metadata:
   version: "0.1.0"
-  profile: partenon-cobrador
+  profile: partenon-collector
   currency: USD
   timezone: America/Los_Angeles
 
@@ -384,7 +384,7 @@ permissions_by_profile:
     mcp_servers: [gbrain]
     skills: [security]
     actions: [list_keys, rotate_key, audit_access, audit_log]
-  partenon-tesorero:
+  partenon-scribe:
     tools: [terminal, file]
     skills: [finance]
     actions: [read_financial_data]
@@ -401,7 +401,7 @@ policies:
 ### `.ops` — Strategist
 
 ```yaml
-profile: partenon-estratega
+profile: partenon-strategist
 owner: "Owner"
 assistant_name: "Strategist"
 

@@ -1,0 +1,17 @@
+{
+  "id": "midday-pulse",
+  "name": "Midday Pulse",
+  "profile": "partenon-strategist",
+  "schedule": "0 14 * * 1-5",
+  "timezone": "America/Mexico_City",
+  "tool": "skills.ops.tools.briefings",
+  "method": "generate_midday_pulse",
+  "args": {
+    "user_name": "{{owner.name}}"
+  },
+  "output": {
+    "channel": "gmail",
+    "subject": "Midday pulse — {{date}}"
+  },
+  "enabled": true
+}

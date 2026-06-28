@@ -8,12 +8,12 @@ Partenon is a system of seven specialized AI heroes that share a single business
 
 | Hero | Domain | Typical first question |
 |---|---|---|
-| Scribe (Tesorero) | Finance | "How much money do I have?" |
-| Herald (Mensajero) | Communications | "What should I post this week?" |
-| Collector (Cobrador) | Payments | "Send an invoice to this client." |
+| Scribe (Scribe) | Finance | "How much money do I have?" |
+| Herald (Herald) | Communications | "What should I post this week?" |
+| Collector (Collector) | Payments | "Send an invoice to this client." |
 | Guardian (Guardian) | Security | "Who has access to what?" |
-| Strategist (Estratega) | Operations | "What is the next priority?" |
-| Diplomat (Diplomatico) | Relationships | "When do I follow up?" |
+| Strategist (Strategist) | Operations | "What is the next priority?" |
+| Diplomat (Diplomat) | Relationships | "When do I follow up?" |
 | Brain (Cerebro) | Memory | "What did we decide last month?" |
 
 ## Onboarding flow

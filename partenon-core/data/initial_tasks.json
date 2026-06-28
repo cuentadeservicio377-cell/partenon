@@ -1,7 +1,7 @@
 [
   {
     "id": "mission-001",
-    "profile": "partenon-tesorero",
+    "profile": "partenon-scribe",
     "title": "Organize company fixed and variable costs",
     "status": "backlog",
     "priority": "high",
@@ -9,7 +9,7 @@
   },
   {
     "id": "mission-002",
-    "profile": "partenon-mensajero",
+    "profile": "partenon-herald",
     "title": "Define brand voice and key messages",
     "status": "backlog",
     "priority": "high",
@@ -17,7 +17,7 @@
   },
   {
     "id": "mission-003",
-    "profile": "partenon-cobrador",
+    "profile": "partenon-collector",
     "title": "Configure Stripe products and payment links",
     "status": "backlog",
     "priority": "medium",
@@ -33,7 +33,7 @@
   },
   {
     "id": "mission-005",
-    "profile": "partenon-estratega",
+    "profile": "partenon-strategist",
     "title": "Create the first project and operations calendar",
     "status": "backlog",
     "priority": "high",
@@ -41,7 +41,7 @@
   },
   {
     "id": "mission-006",
-    "profile": "partenon-diplomatico",
+    "profile": "partenon-diplomat",
     "title": "Register key clients and suppliers",
     "status": "backlog",
     "priority": "medium",

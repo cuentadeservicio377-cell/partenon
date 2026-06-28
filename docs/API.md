@@ -16,7 +16,7 @@ Routes natural-language messages to the correct hero profile.
 from partenon_core.tools.router import route_intent, get_router
 
 profile = route_intent("Organize my numbers")
-print(profile)  # "partenon-tesorero"
+print(profile)  # "partenon-scribe"
 ```
 
 **Functions**
@@ -129,10 +129,10 @@ from partenon_core.tools.eval_loop import EvalLoop
 loop = EvalLoop()
 result = loop.evaluate(
     mission_id="mission-001",
-    profile="partenon-tesorero",
+    profile="partenon-scribe",
     output={
         "mission_id": "mission-001",
-        "profile": "partenon-tesorero",
+        "profile": "partenon-scribe",
         "status": "completed",
         "output": {"income": 4000, "margin": 2361},
     },
@@ -199,12 +199,12 @@ print(config.department_active("treasurer"))
 
 All scripts are under [`scripts/`](../scripts/).
 
-### `demo_tesorero.py`
+### `demo_scribe.py`
 
 Generates a sample finance workbook and JSON report.
 
 ```bash
-python3 scripts/demo_tesorero.py
+python3 scripts/demo_scribe.py
 ```
 
 **Outputs**
@@ -245,7 +245,7 @@ python3 scripts/setup_hermes.py
 5. Installs the seven profiles if `hermes` is available.
 6. Copies `.env.example` to `.env`.
 7. Creates `data/` and `logs/`.
-8. Runs `scripts/demo_tesorero.py`.
+8. Runs `scripts/demo_scribe.py`.
 
 **Return code**: `0` on success.
 
@@ -369,7 +369,7 @@ The local MCP server is [`gbrain/server.py`](../gbrain/server.py). Tools are def
 Each hero exposes Python tools under `hermes/profiles/<profile>/skills/<skill>/tools/`. They are documented per hero in [`docs/HERO_GUIDE.md`](HERO_GUIDE.md) and can be run directly when they include a `main()` function.
 
 ```bash
-python3 hermes/profiles/partenon-mensajero/skills/comms/tools/content_calendar.py "topic" linkedin 7
-python3 hermes/profiles/partenon-cobrador/skills/payments/tools/stripe_tools.py
+python3 hermes/profiles/partenon-herald/skills/comms/tools/content_calendar.py "topic" linkedin 7
+python3 hermes/profiles/partenon-collector/skills/payments/tools/stripe_tools.py
 python3 hermes/profiles/partenon-guardian/skills/security/tools/key_manager.py
 ```
