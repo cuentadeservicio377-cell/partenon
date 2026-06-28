@@ -26,22 +26,20 @@ files:
   - .brain
 
 permissions:
-  - gbrain
+  - partenon-memory
   - file
   - terminal
-  - put_page
-  - get_page
-  - search
-  - link
-  - conflicts
-  - share_context
-  - find_patterns
-  - orchestrate_agents
-  - generate_insight
-  - collect_learnings
-  - collect_decisions
-  - index_in_gbrain
-  - notify
+  - gbrain_read_profile
+  - gbrain_write_profile
+  - gbrain_write_mission
+  - gbrain_search_missions
+  - gbrain_search_entities
+  - gbrain_store_learning
+  - memory_put_page
+  - memory_get_page
+  - memory_search
+  - memory_link
+  - memory_conflicts
 
 workflows:
   - name: index_learning

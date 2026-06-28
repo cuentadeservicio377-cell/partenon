@@ -38,5 +38,41 @@ def finance_generate_dashboard(period: str, dry_run: bool = True) -> dict:
     return {"ok": False, "error": "live execution requires credentials"}
 
 
-if __name__ == "__main__":
-    mcp.run()
+@mcp.tool()
+def finance_detect_anomaly(dry_run: bool = True) -> dict:
+    """Detect anomalies, duplicates, or budget overruns."""
+    if dry_run:
+        return {"ok": True, "dry_run": True, "anomalies": []}
+    return {"ok": False, "error": "live execution requires credentials"}
+
+
+@mcp.tool()
+def finance_compare_budget(dry_run: bool = True) -> dict:
+    """Compare budget vs actual spending."""
+    if dry_run:
+        return {"ok": True, "dry_run": True, "variances": []}
+    return {"ok": False, "error": "live execution requires credentials"}
+
+
+@mcp.tool()
+def finance_export_report(format: str = "json", dry_run: bool = True) -> dict:
+    """Export a finance report."""
+    if dry_run:
+        return {"ok": True, "dry_run": True, "format": format, "path": "data/reports/finance_report.json"}
+    return {"ok": False, "error": "live execution requires credentials"}
+
+
+@mcp.tool()
+def finance_write_to_sheets(data: str, dry_run: bool = True) -> dict:
+    """Write data to Google Sheets. Data must be a JSON string."""
+    if dry_run:
+        return {"ok": True, "dry_run": True, "rows_written": 0}
+    return {"ok": False, "error": "live execution requires Google Workspace credentials"}
+
+
+@mcp.tool()
+def finance_create_spreadsheet(title: str, dry_run: bool = True) -> dict:
+    """Create a Google Sheets spreadsheet."""
+    if dry_run:
+        return {"ok": True, "dry_run": True, "spreadsheet_id": "spreadsheet_123", "title": title}
+    return {"ok": False, "error": "live execution requires Google Workspace credentials"}

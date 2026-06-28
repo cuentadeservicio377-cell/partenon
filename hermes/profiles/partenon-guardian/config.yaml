@@ -29,17 +29,18 @@ files:
   - .security
 
 permissions:
-  - terminal
+  - partenon-memory
+  - partenon-security
   - file
-  - gbrain
-  - list_keys
-  - rotate_key
-  - audit_access
-  - validate_access
-  - manage_secrets
-  - allocate_gpu
-  - set_policies
-  - audit_log
+  - terminal
+  - security_list_keys
+  - security_rotate_key
+  - security_audit_access
+  - security_validate_access
+  - security_manage_secrets
+  - security_allocate_gpu
+  - security_set_policy
+  - security_audit_log
 
 workflows:
   - name: key_rotation

@@ -39,18 +39,20 @@ files:
   - .ops
 
 permissions:
+  - partenon-memory
+  - partenon-ops
   - google_workspace
-  - gbrain
+  - gmail
   - file
   - terminal
-  - create_project
-  - assign_task
-  - generate_checklist
-  - define_goal
-  - generate_briefing
-  - manage_calendar
-  - draft_email
-  - store_note
+  - ops_create_project
+  - ops_create_task
+  - ops_generate_checklist
+  - ops_define_goal
+  - ops_generate_briefing
+  - ops_create_calendar_event
+  - ops_draft_email
+  - ops_store_note
 
 workflows:
   - name: morning_briefing

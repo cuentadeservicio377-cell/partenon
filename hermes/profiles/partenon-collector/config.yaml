@@ -44,23 +44,27 @@ files:
   - .payments
 
 permissions:
+  - partenon-memory
+  - partenon-payments
   - stripe
   - google_workspace
-  - gbrain
-  - create_payment_link
-  - create_subscription
-  - create_invoice
-  - send_payment_reminder
-  - record_payment
-  - list_charges
-  - generate_income_report
-  - monitor_fraud
-  - read_pending_payments
-  - read_overdue_payments
-  - classify_risk
-  - schedule_followup
-  - read_payments_file
-  - write_payments_file
+  - gmail
+  - file
+  - terminal
+  - payments_create_payment_link
+  - payments_create_subscription
+  - payments_create_invoice
+  - payments_send_payment_reminder
+  - payments_record_payment
+  - payments_list_charges
+  - payments_generate_income_report
+  - payments_read_pending_payments
+  - payments_read_overdue_payments
+  - payments_classify_risk
+  - payments_schedule_followup
+  - payments_monitor_fraud
+  - payments_get_upcoming_payments
+  - payments_get_failed_subscriptions
 
 workflows:
   - name: collect_by_link

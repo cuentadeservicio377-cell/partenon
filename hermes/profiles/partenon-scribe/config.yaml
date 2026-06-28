@@ -34,18 +34,19 @@ files:
   - .finance
 
 permissions:
+  - partenon-memory
+  - partenon-finance
   - google_workspace
-  - gbrain
   - file
   - terminal
-  - parse_expense
-  - classify_expense
-  - generate_dashboard
-  - detect_anomaly
-  - compare_budget
-  - export_report
-  - write_to_sheets
-  - create_spreadsheet
+  - finance_parse_expense
+  - finance_classify_expense
+  - finance_generate_dashboard
+  - finance_detect_anomaly
+  - finance_compare_budget
+  - finance_export_report
+  - finance_write_to_sheets
+  - finance_create_spreadsheet
 
 workflows:
   - name: expense_classification

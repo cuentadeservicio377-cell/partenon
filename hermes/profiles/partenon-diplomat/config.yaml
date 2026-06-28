@@ -39,21 +39,22 @@ files:
   - .relations
 
 permissions:
-  - file
+  - partenon-memory
+  - partenon-relations
   - google_workspace
-  - gbrain
-  - web_search
+  - gmail
+  - file
   - terminal
-  - register_client
-  - register_vendor
-  - log_interaction
-  - track_milestone
-  - track_deliverable
-  - rate_relationship
-  - run_followups
-  - generate_proposal
-  - sync_contacts
-  - schedule_meeting
+  - relations_register_client
+  - relations_register_vendor
+  - relations_log_interaction
+  - relations_track_milestone
+  - relations_track_deliverable
+  - relations_rate_relationship
+  - relations_run_followups
+  - relations_generate_proposal
+  - relations_sync_contacts
+  - relations_schedule_meeting
 
 workflows:
   - name: register_contact

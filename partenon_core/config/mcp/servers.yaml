@@ -106,18 +106,19 @@ mcp_servers:
     tags: ["communication", "team"]
 
 # === MCP filters by Partenon profile ===
+# Each list must match the `mcp_servers` block in the corresponding profile config.yaml.
 mcp_filters:
   scribe:
     allow: ["partenon-memory", "partenon-finance", "google_workspace", "stripe"]
   herald:
-    allow: ["partenon-memory", "partenon-comms", "google_workspace", "gmail", "calendly"]
+    allow: ["partenon-memory", "partenon-comms", "google_workspace", "gmail"]
   collector:
     allow: ["partenon-memory", "partenon-payments", "google_workspace", "stripe", "gmail"]
   guardian:
     allow: ["partenon-memory", "partenon-security"]
   strategist:
-    allow: ["partenon-memory", "partenon-ops", "google_workspace", "gmail", "calendly", "slack"]
+    allow: ["partenon-memory", "partenon-ops", "google_workspace", "gmail"]
   diplomat:
-    allow: ["partenon-memory", "partenon-relations", "google_workspace", "gmail", "calendly"]
+    allow: ["partenon-memory", "partenon-relations", "google_workspace", "gmail"]
   brain:
     allow: ["partenon-memory"]

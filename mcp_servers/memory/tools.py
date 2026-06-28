@@ -163,3 +163,117 @@ class GBrainStore:
             status="done",
             learnings=insight,
         )
+
+    def put_page(self, slug: str, content: str, tags: Optional[List[str]] = None) -> str:
+        """Save or update a page in the entities table."""
+        if self.conn is None:
+            return "ok"
+        now = datetime.now(timezone.utc).isoformat()
+        data = json.dumps({"content": content, "tags": tags or []}, ensure_ascii=False)
+        with self.conn:
+            self.conn.execute(
+                """
+                INSERT INTO entities (entity_id, kind, name, data, updated_at)
+                VALUES (?, 'page', ?, ?, ?)
+                ON CONFLICT(entity_id) DO UPDATE SET
+                    kind=excluded.kind,
+                    name=excluded.name,
+                    data=excluded.data,
+                    updated_at=excluded.updated_at
+                """,
+                (slug, slug, data, now),
+            )
+        return "ok"
+
+    def get_page(self, slug: str) -> Dict[str, Any]:
+        """Retrieve a page by slug."""
+        if self.conn is None:
+            return {}
+        cur = self.conn.execute(
+            "SELECT entity_id, data FROM entities WHERE entity_id = ? AND kind = 'page'",
+            (slug,),
+        )
+        row = cur.fetchone()
+        if row is None:
+            return {}
+        parsed = json.loads(row["data"])
+        return {
+            "slug": row["entity_id"],
+            "content": parsed.get("content", ""),
+            "tags": parsed.get("tags", []),
+        }
+
+    def search_pages(self, query: str, limit: int = 5) -> List[Dict[str, Any]]:
+        """Hybrid text search over stored pages."""
+        if self.conn is None:
+            return []
+        pattern = f"%{query}%"
+        cur = self.conn.execute(
+            """
+            SELECT entity_id, name, data FROM entities
+            WHERE kind = 'page' AND (name LIKE ? OR data LIKE ?)
+            ORDER BY updated_at DESC
+            LIMIT ?
+            """,
+            (pattern, pattern, limit),
+        )
+        rows = cur.fetchall()
+        results = []
+        for row in rows:
+            parsed = json.loads(row["data"])
+            results.append(
+                {
+                    "slug": row["entity_id"],
+                    "name": row["name"],
+                    "content": parsed.get("content", "")[:500],
+                    "tags": parsed.get("tags", []),
+                }
+            )
+        return results
+
+    def link_pages(self, from_slug: str, to_slug: str, type_: str = "related") -> str:
+        """Create a typed link between two pages by storing a link record."""
+        if self.conn is None:
+            return "ok"
+        now = datetime.now(timezone.utc).isoformat()
+        link_slug = f"link:{from_slug}:{to_slug}:{type_}"
+        data = json.dumps({"from": from_slug, "to": to_slug, "type": type_}, ensure_ascii=False)
+        with self.conn:
+            self.conn.execute(
+                """
+                INSERT INTO entities (entity_id, kind, name, data, updated_at)
+                VALUES (?, 'link', ?, ?, ?)
+                ON CONFLICT(entity_id) DO UPDATE SET
+                    data=excluded.data,
+                    updated_at=excluded.updated_at
+                """,
+                (link_slug, link_slug, data, now),
+            )
+        return "ok"
+
+    def conflicts(self, profile: Optional[str] = None) -> List[Dict[str, Any]]:
+        """Detect pages marked as conflicting."""
+        if self.conn is None:
+            return []
+        pattern = "%conflict:true%"
+        sql = "SELECT entity_id, name, data FROM entities WHERE kind = 'page' AND data LIKE ?"
+        params: List[Any] = [pattern]
+        if profile:
+            sql += " AND (name LIKE ? OR data LIKE ?)"
+            profile_pattern = f"%{profile}%"
+            params.extend([profile_pattern, profile_pattern])
+        sql += " ORDER BY updated_at DESC LIMIT 20"
+        cur = self.conn.execute(sql, params)
+        rows = cur.fetchall()
+        results = []
+        for row in rows:
+            parsed = json.loads(row["data"])
+            results.append(
+                {
+                    "slug": row["entity_id"],
+                    "name": row["name"],
+                    "content": parsed.get("content", ""),
+                    "tags": parsed.get("tags", []),
+                }
+            )
+        return results

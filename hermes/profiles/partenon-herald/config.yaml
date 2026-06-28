@@ -39,24 +39,21 @@ files:
   - .design
 
 permissions:
+  - partenon-memory
+  - partenon-comms
+  - google_workspace
+  - gmail
   - file
   - terminal
-  - google_workspace
-  - gbrain
-  - social_media
-  - open_design
-  - web_search
-  - wordpress
-  - ssh
-  - mailchimp
-  - brand_intake
-  - content_calendar
-  - copy_generator
-  - seo_geo_optimizer
-  - publish_post
-  - schedule_content
-  - analyze_engagement
-  - presentation_builder
+  - comms_brand_intake
+  - comms_plan_content_calendar
+  - comms_generate_copy
+  - comms_seo_geo_optimize
+  - comms_publish_post
+  - comms_schedule_content
+  - comms_analyze_engagement
+  - comms_build_presentation
+  - comms_draft_email
 
 workflows:
   - name: brand_interview

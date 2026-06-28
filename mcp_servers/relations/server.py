@@ -7,27 +7,79 @@ mcp = FastMCP("partenon-relations")
 
 @mcp.tool()
 def relations_register_client(name: str, email: str = "", dry_run: bool = True) -> dict:
-    """Register a client or vendor."""
+    """Register a client."""
     if dry_run:
         return {"ok": True, "dry_run": True, "client_id": "CLI-001", "name": name}
     return {"ok": False, "error": "live execution requires CRM credentials"}
 
 
 @mcp.tool()
-def relations_schedule_followup(client_id: str, days: int = 2, dry_run: bool = True) -> dict:
-    """Schedule a follow-up with a contact."""
+def relations_register_vendor(name: str, email: str = "", dry_run: bool = True) -> dict:
+    """Register a vendor."""
     if dry_run:
-        return {"ok": True, "dry_run": True, "client_id": client_id, "due_in_days": days}
+        return {"ok": True, "dry_run": True, "vendor_id": "VEN-001", "name": name}
     return {"ok": False, "error": "live execution requires CRM credentials"}
 
 
 @mcp.tool()
-def relations_generate_proposal(client_id: str, amount: float, dry_run: bool = True) -> dict:
-    """Generate a proposal for a client."""
+def relations_log_interaction(entity_id: str, text: str, dry_run: bool = True) -> dict:
+    """Log an interaction with a client or vendor."""
     if dry_run:
-        return {"ok": True, "dry_run": True, "client_id": client_id, "amount": amount}
+        return {"ok": True, "dry_run": True, "entity_id": entity_id}
     return {"ok": False, "error": "live execution requires CRM credentials"}
 
 
-if __name__ == "__main__":
-    mcp.run()
+@mcp.tool()
+def relations_track_milestone(entity_id: str, title: str, due_date: str, dry_run: bool = True) -> dict:
+    """Track a milestone for a relationship."""
+    if dry_run:
+        return {"ok": True, "dry_run": True, "milestone_id": "MIL-001"}
+    return {"ok": False, "error": "live execution requires CRM credentials"}
+
+
+@mcp.tool()
+def relations_track_deliverable(entity_id: str, title: str, status: str = "pending", dry_run: bool = True) -> dict:
+    """Track a deliverable for a relationship."""
+    if dry_run:
+        return {"ok": True, "dry_run": True, "deliverable_id": "DEL-001"}
+    return {"ok": False, "error": "live execution requires CRM credentials"}
+
+
+@mcp.tool()
+def relations_rate_relationship(entity_id: str, rating: str, reason: str = "", dry_run: bool = True) -> dict:
+    """Rate a relationship A/B/C/D with a reason."""
+    if dry_run:
+        return {"ok": True, "dry_run": True, "entity_id": entity_id, "rating": rating}
+    return {"ok": False, "error": "live execution requires CRM credentials"}
+
+
+@mcp.tool()
+def relations_run_followups(dry_run: bool = True) -> dict:
+    """Run daily follow-up report."""
+    if dry_run:
+        return {"ok": True, "dry_run": True, "actions": []}
+    return {"ok": False, "error": "live execution requires CRM credentials"}
+
+
+@mcp.tool()
+def relations_generate_proposal(entity_id: str, amount: float, dry_run: bool = True) -> dict:
+    """Generate a proposal for a client."""
+    if dry_run:
+        return {"ok": True, "dry_run": True, "entity_id": entity_id, "amount": amount}
+    return {"ok": False, "error": "live execution requires CRM credentials"}
+
+
+@mcp.tool()
+def relations_sync_contacts(direction: str = "export", dry_run: bool = True) -> dict:
+    """Sync contacts with an external CRM."""
+    if dry_run:
+        return {"ok": True, "dry_run": True, "direction": direction, "synced": 0}
+    return {"ok": False, "error": "live execution requires CRM credentials"}
+
+
+@mcp.tool()
+def relations_schedule_meeting(entity_id: str, title: str, start: str, dry_run: bool = True) -> dict:
+    """Schedule a meeting with a contact."""
+    if dry_run:
+        return {"ok": True, "dry_run": True, "meeting_id": "MTG-001"}
+    return {"ok": False, "error": "live execution requires calendar credentials"}
