@@ -1,8 +1,60 @@
 # MCP Servers Configuration for Partenon
-# Model Context Protocol — connects Partenon hero profiles to external tools.
+# Model Context Protocol — connects Partenon hero profiles to tools.
 # Copy this block into ~/.hermes/config.yaml under mcp_servers or use `hermes mcp add <server>`.
 
 mcp_servers:
+  # === Partenon domain wrappers (dry-run by default) ===
+  partenon-memory:
+    command: python
+    args: ["-m", "mcp_servers.memory.server"]
+    env:
+      GBRAIN_DATABASE_URL: "${GBRAIN_DATABASE_URL:-sqlite:///data/gbrain.db}"
+    description: "Shared brain of Partenon: profiles, missions, and entities"
+    enabled: true
+    tags: ["memory", "context"]
+
+  partenon-finance:
+    command: python
+    args: ["-m", "mcp_servers.finance.server"]
+    description: "Dry-run finance tools: parse, classify, dashboard"
+    enabled: true
+    tags: ["finance", "dry-run"]
+
+  partenon-payments:
+    command: python
+    args: ["-m", "mcp_servers.payments.server"]
+    description: "Dry-run payment tools: links, invoices, overdue"
+    enabled: true
+    tags: ["payments", "dry-run"]
+
+  partenon-comms:
+    command: python
+    args: ["-m", "mcp_servers.comms.server"]
+    description: "Dry-run communication tools: copy, calendar, presentations"
+    enabled: true
+    tags: ["communication", "dry-run"]
+
+  partenon-security:
+    command: python
+    args: ["-m", "mcp_servers.security.server"]
+    description: "Dry-run security tools: key audit, rotation, policies"
+    enabled: true
+    tags: ["security", "dry-run"]
+
+  partenon-ops:
+    command: python
+    args: ["-m", "mcp_servers.ops.server"]
+    description: "Dry-run operations tools: projects, tasks, briefings"
+    enabled: true
+    tags: ["operations", "dry-run"]
+
+  partenon-relations:
+    command: python
+    args: ["-m", "mcp_servers.relations.server"]
+    description: "Dry-run relations tools: clients, follow-ups, proposals"
+    enabled: true
+    tags: ["relations", "dry-run"]
+
   # === Google Workspace (Sheets, Docs, Slides, Drive, Calendar, Gmail) ===
   google_workspace:
     command: npx
@@ -43,16 +95,6 @@ mcp_servers:
     enabled: false
     tags: ["sales", "operations", "calendar"]
 
-  # === Shared memory ===
-  gbrain:
-    command: python
-    args: ["-m", "mcp_servers.memory.server"]
-    env:
-      GBRAIN_DATABASE_URL: "${GBRAIN_DATABASE_URL:-postgresql://localhost:5432/gbrain}"
-    description: "Shared brain of Partenon: profiles, missions, and entities"
-    enabled: true
-    tags: ["memory", "context"]
-
   # === Team notifications ===
   slack:
     command: npx
@@ -66,16 +108,16 @@ mcp_servers:
 # === MCP filters by Partenon profile ===
 mcp_filters:
   scribe:
-    allow: ["google_workspace", "stripe", "gbrain"]
+    allow: ["partenon-memory", "partenon-finance", "google_workspace", "stripe"]
   herald:
-    allow: ["google_workspace", "gmail", "calendly", "gbrain"]
+    allow: ["partenon-memory", "partenon-comms", "google_workspace", "gmail", "calendly"]
   collector:
-    allow: ["google_workspace", "stripe", "gmail", "gbrain"]
+    allow: ["partenon-memory", "partenon-payments", "google_workspace", "stripe", "gmail"]
   guardian:
-    allow: ["gbrain"]
+    allow: ["partenon-memory", "partenon-security"]
   strategist:
-    allow: ["google_workspace", "gmail", "calendly", "slack", "gbrain"]
+    allow: ["partenon-memory", "partenon-ops", "google_workspace", "gmail", "calendly", "slack"]
   diplomat:
-    allow: ["google_workspace", "gmail", "calendly", "gbrain"]
+    allow: ["partenon-memory", "partenon-relations", "google_workspace", "gmail", "calendly"]
   brain:
-    allow: ["gbrain"]
+    allow: ["partenon-memory"]

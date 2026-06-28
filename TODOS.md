@@ -29,7 +29,7 @@ Goal: make the repository safe, clean, and globally distributable before any Her
 - [x] Convert `partenon_core/tools/` into Hermes skills
 - [x] Build `mcp_servers/` wrappers for each domain
 - [x] Bundle G-Brain as `partenon-memory` MCP server
-- [ ] Wire profiles to MCP servers via canonical `config.yaml`
+- [x] Wire profiles to MCP servers via canonical `config.yaml`
 - [ ] Verify `hermes profile install` end-to-end
 
 ### Phase 2 — Hero Final Design + MCP Wrappers (4 weeks)
