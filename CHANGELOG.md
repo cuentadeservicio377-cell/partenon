@@ -5,6 +5,23 @@
 ## [Unreleased]
 
 ### Added
+- feat(deploy): add production `Dockerfile` for the FastAPI backend with multi-stage build, non-root user, and health check.
+- feat(deploy): rewrite `docker-compose.yml` with `gbrain` Postgres, `api`, and `dashboard` services plus `docker-compose.override.yml` for live-reload dev.
+- feat(deploy): add `.dockerignore` to keep images small and avoid leaking secrets.
+- feat(deploy): add structured logging (`structlog`) and Prometheus metrics (`prometheus-fastapi-instrumentator`) with `/metrics` endpoint.
+- feat(deploy): extend health endpoints to `/health/live` (liveness) and `/health/ready` (readiness probe against the memory store).
+- feat(deploy): add `partenon_api/observability.py` shared helpers for logs and metrics.
+- feat(deploy): add `scripts/bump_version.py` and `docs/RELEASE.md` for SemVer releases and git tagging.
+- ci(github): expand `.github/workflows/ci.yml` with Docker image build, Python lint, install-script syntax check, and Docker Compose integration smoke tests.
+- ci(github): add `.github/workflows/release.yml` to build and push `api` and `dashboard` images to GHCR on version tags.
+- test(deploy): add `tests/test_config.py`, `tests/test_observability.py`, and `tests/test_mcp_client.py` (26 new tests; total now 184).
+- docs(deploy): add `docs/DEPLOYMENT.md` and Docker section in `README.md`.
+
+### Changed
+- build(deps): add `prometheus-fastapi-instrumentator` and `structlog` to `pyproject.toml` and `requirements.txt`.
+- docs(readme): update roadmap to mark Phase 5 and Phase 6 as complete.
+
+### Added
 - feat(phase-3): add `mcp_servers/google_workspace/` adapter with Sheets, Docs, Slides, Calendar, and Gmail tools; wire Scribe, Herald, Strategist, and Diplomat to it.
 - feat(phase-3): implement Stripe live mode in `mcp_servers/payments/server.py` (payment links, invoices, subscriptions, charges, income report, fraud, pending/overdue tracking).
 - feat(phase-3): add Stripe webhook handler at `mcp_servers/payments/webhook.py` that emits `payment_confirmed` to the workflow engine.

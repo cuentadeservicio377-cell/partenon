@@ -2,6 +2,29 @@
 
 ## Session History
 
+### 2026-06-29 — Phase 6 Deployment World: production Docker stack, CI/CD, metrics, and release process
+- Added production `Dockerfile` for the FastAPI backend with multi-stage build, non-root `partenon` user, and health check.
+- Added `.dockerignore` to keep images small and avoid leaking secrets.
+- Rewrote `docker-compose.yml` to run `gbrain` Postgres, `api`, and `dashboard` services with health checks and shared network.
+- Added `docker-compose.override.yml` for live-reload local development.
+- Updated `dashboard/Dockerfile` with curl and a health check.
+- Added `prometheus-fastapi-instrumentator` and `structlog` dependencies; created `partenon_api/observability.py`.
+- Extended health endpoints in `partenon_api/main.py` to `/health/live` and `/health/ready`; `/metrics` exposes Prometheus metrics.
+- Expanded test suite with `tests/test_config.py`, `tests/test_observability.py`, and `tests/test_mcp_client.py` (26 new tests).
+- Expanded `.github/workflows/ci.yml` with Python lint, install-script syntax check, Docker image builds, and Docker Compose integration smoke tests.
+- Added `.github/workflows/release.yml` to publish `api` and `dashboard` images to GHCR on version tags.
+- Added `scripts/bump_version.py` and `docs/RELEASE.md` for SemVer releases.
+- Added `docs/DEPLOYMENT.md` and Docker section in `README.md`; updated `CHANGELOG.md`.
+- Verified:
+  - `pytest tests/` PASS (184 passed, target ≥180).
+  - `ruff check partenon_api tests partenon_core/tools/intent_router.py partenon_core/tools/router.py` PASS.
+  - `cd dashboard && npm run build` PASS.
+  - `bash -n install.sh` PASS.
+  - `python3 -m py_compile scripts/bump_version.py` PASS.
+  - `python3 .github/scripts/secret_scan.py` PASS.
+  - `docker build` could not run locally because the Docker daemon is not active, but the Dockerfile syntax and build steps were validated.
+- Phase 6 closed; repository is ready for Phase 7 — Website Reality.
+
 ### 2026-06-29 — Phase 5 Gateway Messaging: closure and functional verification
 - Finalized Phase 5 implementation after the gateway skill swarm:
   - Added FastAPI smoke-test router `partenon_api/routers/gateway.py` with `POST /api/v1/gateway/dry_run`.

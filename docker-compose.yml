@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.8"
 
 services:
   gbrain:
@@ -8,30 +8,63 @@ services:
       POSTGRES_USER: gbrain
       POSTGRES_PASSWORD: gbrain
       POSTGRES_DB: gbrain
-    ports:
-      - "5432:5432"
     volumes:
       - gbrain_data:/var/lib/postgresql/data
+    networks:
+      - partenon
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U gbrain -d gbrain"]
       interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 10
+      start_period: 5s
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: partenon-api
+    env_file:
+      - .env
+    environment:
+      - PARTENON_ENV=production
+      - GBRAIN_DATABASE_URL=postgresql://gbrain:gbrain@gbrain:5432/gbrain
+      - PARTENON_API_HOST=0.0.0.0
+      - PARTENON_API_PORT=8000
+      - PARTENON_DATA_DIR=/app/data
+      - DASHBOARD_ORIGIN=http://localhost:3000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data:rw
+    networks:
+      - partenon
+    depends_on:
+      gbrain:
+        condition: service_healthy
 
   dashboard:
     build:
       context: ./dashboard
       dockerfile: Dockerfile
     container_name: partenon-dashboard
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - PARTENON_API_URL=http://api:8000
+      - DASHBOARD_ORIGIN=http://localhost:3000
     ports:
       - "3000:3000"
-    environment:
-      - DATABASE_URL=postgresql://gbrain:gbrain@gbrain:5432/gbrain
+    networks:
+      - partenon
     depends_on:
-      gbrain:
+      api:
         condition: service_healthy
-    volumes:
-      - ./data:/app/data:rw
 
 volumes:
   gbrain_data:
+
+networks:
+  partenon:
+    driver: bridge

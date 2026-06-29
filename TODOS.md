@@ -86,13 +86,22 @@ Verification:
 - `bash -n install.sh` PASS
 - `python3 .github/scripts/secret_scan.py` PASS
 
-### Phase 6 — Deployment World (4 weeks)
-- [ ] Rewrite `docker-compose.yml` with all services
-- [ ] Dockerfiles with non-root users and health checks
-- [ ] GitHub Actions CI/CD
-- [ ] Expand test suite (unit, integration, E2E)
-- [ ] Structured logging, Prometheus metrics, health endpoints
-- [ ] Release process: SemVer, changelog, signed tags
+### Phase 6 — Deployment World (4 weeks) ✅ CLOSED
+- [x] Rewrite `docker-compose.yml` with all services
+- [x] Dockerfiles with non-root users and health checks
+- [x] GitHub Actions CI/CD
+- [x] Expand test suite (unit, integration, E2E)
+- [x] Structured logging, Prometheus metrics, health endpoints
+- [x] Release process: SemVer, changelog, signed tags
+
+Verification:
+- `pytest tests/` PASS (184 passed)
+- `ruff check partenon_api tests partenon_core/tools/intent_router.py partenon_core/tools/router.py` PASS
+- `cd dashboard && npm run build` PASS
+- `bash -n install.sh` PASS
+- `python3 -m py_compile scripts/bump_version.py` PASS
+- `python3 .github/scripts/secret_scan.py` PASS
+- `docker build -t partenon-api .` Dockerfile validated (daemon not running locally)
 
 ### Phase 7 — Website Reality (2 weeks)
 - [ ] Audit every claim on marketing pages

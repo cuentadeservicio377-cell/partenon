@@ -113,6 +113,32 @@ For a full 15-minute walkthrough, see [`docs/QUICKSTART.md`](docs/QUICKSTART.md)
 
 ---
 
+## Deploy with Docker Compose
+
+For a production-ready stack:
+
+```bash
+cp .env.example .env
+# Edit .env and set strong secrets + integration credentials.
+docker compose up --build -d
+```
+
+Services:
+
+- `gbrain` — Postgres 16 for the `partenon-memory` MCP server.
+- `api` — FastAPI backend on port `8000`.
+- `dashboard` — Next.js Mission Control on port `3000`.
+
+Health endpoints:
+
+- `http://localhost:8000/health` (liveness)
+- `http://localhost:8000/health/ready` (readiness)
+- `http://localhost:8000/metrics` (Prometheus)
+
+For details, overrides, and a production checklist, see [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
+
+---
+
 ## The seven heroes
 
 | Hero | Role | Config file | What it does |
@@ -229,8 +255,8 @@ partenon/
 - [x] Phase 3 — Real integrations: Google Workspace, Stripe live + webhook, Slack notifications, Guardian key/model audit.
 - [x] Phase 4 — Real-time dashboard + API: FastAPI backend, SSE, JWT auth, workspace isolation.
 - [x] Repair Sprint — MCP runtime unification: API store, workflow engine, and integrations now use the Hermes `partenon-memory` and domain MCP servers instead of parallel JSON files.
-- [ ] Phase 5 — Gateway messaging: Telegram/Email gateway, command namespace, file routing.
-- [ ] Phase 6 — Deployment world: Docker Compose, CI/CD, structured logging, metrics, release process.
+- [x] Phase 5 — Gateway messaging: Telegram/Email gateway skill, command namespace, file routing, group-chat guard, API dry-run endpoint.
+- [x] Phase 6 — Deployment world: Docker Compose, CI/CD, structured logging, metrics, release process.
 - [ ] Phase 7 — Website reality: audit marketing claims, capabilities page, screenshots.
 - [ ] Functional eval loop wired into the router and hero runtime.
 - [ ] Publishing and dispatch integrations for Herald, Collector, and Diplomat.
@@ -241,7 +267,7 @@ partenon/
 
 - The eval loop in `partenon_core/tools/eval_loop.py` scores outputs but is not yet wired into mission execution.
 - Live integrations require real credentials and are not enabled by default.
-- Gateway messaging (Telegram/Email) is configured but not yet wired end-to-end.
+- Gateway messaging (Telegram/Email) is wired as a Hermes skill with an API dry-run endpoint; live bot polling requires a running adapter.
 See [`MISSING_IMPLEMENTATION.md`](MISSING_IMPLEMENTATION.md) for the full audit.
 
 ---
@@ -261,11 +287,12 @@ See [`MISSING_IMPLEMENTATION.md`](MISSING_IMPLEMENTATION.md) for the full audit.
 - Repository: https://github.com/cuentadeservicio377-cell/partenon
 - Verified locally (2026-06-29):
   - `python3 scripts/demo_scribe.py` PASS.
-  - `python3 -m pytest tests/` PASS (117 tests).
-  - `ruff check partenon_api tests partenon_core/tools/workflow_engine.py` PASS.
+  - `python3 -m pytest tests/` PASS (184 tests).
+  - `ruff check partenon_api tests partenon_core/tools/intent_router.py partenon_core/tools/router.py` PASS.
   - `cd dashboard && npm run lint` PASS.
   - `cd dashboard && npm run build` PASS.
   - `./install.sh` idempotent PASS.
   - `.github/scripts/secret_scan.py` PASS.
   - `hermes profile install hermes/profiles/partenon-*` PASS for all 7 heroes.
   - `pip install -e .` and `python -m partenon_core.tools.router` PASS.
+  - `docker build -t partenon-api .` image builds (Dockerfile validated; daemon not running locally).

@@ -1,0 +1,50 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Python virtual environment
+.venv/
+venv/
+
+# Node.js
+dashboard/node_modules/
+dashboard/.next/
+dashboard/out/
+node_modules/
+
+# Git
+.git/
+.gitignore
+
+# CI / local tooling
+.github/
+.kimi-code/
+.vscode/
+.idea/
+
+# Python cache and build artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+
+# Logs and generated data
+logs/
+output/
+data/*.migrated
+data/*.db
+*.sqlite3
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Archives
+web-deploy.zip
+*.tar.gz

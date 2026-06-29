@@ -1,0 +1,21 @@
+# Local development override.
+# Bind-mounts source code into the API container and enables auto-reload.
+# Usage: docker compose -f docker-compose.yml -f docker-compose.override.yml up --build
+
+services:
+  api:
+    command:
+      - uvicorn
+      - partenon_api.main:app
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8000"
+      - --reload
+    volumes:
+      - ./partenon_api:/app/partenon_api:ro
+      - ./partenon_core:/app/partenon_core:ro
+      - ./mcp_servers:/app/mcp_servers:ro
+      - ./hermes:/app/hermes:ro
+      - ./skills:/app/skills:ro
+      - ./config:/app/config:ro
