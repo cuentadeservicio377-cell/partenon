@@ -1,12 +1,12 @@
 """Mission routes."""
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
 
 from partenon_api.auth import WorkspaceContext, get_current_workspace
 from partenon_api.events import get_bus
 from partenon_api.models import Mission, MissionCreate, MissionUpdate
 from partenon_api.store import get_mission_store
-from partenon_api.utils import filter_by_workspace, new_id, now_iso
+from partenon_api.utils import now_iso
 
 router = APIRouter(prefix="/missions", tags=["missions"])
 
@@ -17,67 +17,57 @@ def _serialize(items: list) -> list:
 
 @router.get("")
 async def list_missions(
+    request: Request,
     profile: str | None = Query(None),
     ctx: WorkspaceContext = Depends(get_current_workspace),
 ) -> dict:
-    store = get_mission_store()
-    missions = filter_by_workspace(store.read_list(), ctx.workspace_id)
-    if profile:
-        missions = [m for m in missions if m.get("profile") == profile]
+    store = get_mission_store(request.app.state.memory_client)
+    missions = await store.list_missions(ctx.workspace_id, profile=profile)
     return {"missions": _serialize(missions)}
 
 
 @router.post("", status_code=status.HTTP_201_CREATED)
 async def create_mission(
+    request: Request,
     body: MissionCreate,
     ctx: WorkspaceContext = Depends(get_current_workspace),
 ) -> dict:
-    store = get_mission_store()
+    store = get_mission_store(request.app.state.memory_client)
     mission = body.model_dump()
-    mission["id"] = new_id("mission")
     mission["workspace_id"] = ctx.workspace_id
     mission["created_at"] = now_iso()
     mission["updated_at"] = now_iso()
-    items = store.read_list()
-    items.append(mission)
-    store.write_list(items)
+    mission = await store.create_mission(ctx.workspace_id, mission)
     await get_bus().broadcast("mission.created", Mission(**mission).model_dump())
     return {"mission": Mission(**mission).model_dump()}
 
 
 @router.patch("/{mission_id}")
 async def update_mission(
+    request: Request,
     mission_id: str,
     body: MissionUpdate,
     ctx: WorkspaceContext = Depends(get_current_workspace),
 ) -> dict:
-    store = get_mission_store()
-    missions = filter_by_workspace(store.read_list(), ctx.workspace_id)
-    for i, item in enumerate(missions):
-        if item["id"] == mission_id:
-            patch = body.model_dump(exclude_unset=True)
-            patch["updated_at"] = now_iso()
-            missions[i] = {**item, **patch}
-            all_items = store.read_list()
-            for j, raw in enumerate(all_items):
-                if raw.get("id") == mission_id:
-                    all_items[j] = missions[i]
-                    break
-            store.write_list(all_items)
-            await get_bus().broadcast("mission.updated", Mission(**missions[i]).model_dump())
-            return {"mission": Mission(**missions[i]).model_dump()}
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Mission not found")
+    store = get_mission_store(request.app.state.memory_client)
+    patch = body.model_dump(exclude_unset=True)
+    patch["updated_at"] = now_iso()
+    updated = await store.update_mission(ctx.workspace_id, mission_id, patch)
+    if updated is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Mission not found")
+    await get_bus().broadcast("mission.updated", Mission(**updated).model_dump())
+    return {"mission": Mission(**updated).model_dump()}
 
 
 @router.delete("/{mission_id}")
 async def delete_mission(
+    request: Request,
     mission_id: str,
     ctx: WorkspaceContext = Depends(get_current_workspace),
 ) -> dict:
-    store = get_mission_store()
-    missions = filter_by_workspace(store.read_list(), ctx.workspace_id)
-    if not any(m["id"] == mission_id for m in missions):
+    store = get_mission_store(request.app.state.memory_client)
+    deleted = await store.delete_mission(ctx.workspace_id, mission_id)
+    if not deleted:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Mission not found")
-    store.delete_from_list(mission_id)
     await get_bus().broadcast("mission.deleted", {"id": mission_id})
     return {"deleted": True}

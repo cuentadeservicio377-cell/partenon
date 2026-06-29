@@ -6,6 +6,7 @@ This is the nervous system that makes departments talk to each other.
 """
 
 import json
+import os
 import sys
 from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta
@@ -15,6 +16,8 @@ from typing import List, Optional
 # Add paths for imports from other skills
 PROJECT_ROOT = Path(__file__).parent.parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
+
+from partenon_api.mcp_client import sync_call  # noqa: E402
 
 DATA_DIR = PROJECT_ROOT / "data"
 
@@ -138,6 +141,7 @@ class WorkflowEngine:
     def __init__(self, data_dir: Optional[str] = None):
         self.data_dir = Path(data_dir) if data_dir else DATA_DIR
         self.events_file = self.data_dir / "events.json"
+        self.store_mode = os.environ.get("PARTENON_STORE_MODE", "mcp")
         self._ensure_data_dir()
 
     def _ensure_data_dir(self):
@@ -351,52 +355,73 @@ class WorkflowEngine:
 
     def _action_notify_slack(self, event: dict) -> bool:
         try:
-            from mcp_servers.notifications.slack import notify_task_overdue
-
             data = event.get("data", {})
-            result = notify_task_overdue(
-                event.get("entity_id", "unknown"),
-                data.get("title", "Unknown task"),
-                data.get("due_date", "unknown"),
+            result = sync_call(
+                "slack_notify_task_overdue",
+                server_module="mcp_servers.notifications.server",
+                task_id=event.get("entity_id", "unknown"),
+                title=data.get("title", "Unknown task"),
+                due_date=data.get("due_date", "unknown"),
+                channel=data.get("channel", "#general"),
             )
             return bool(result.get("ok"))
         except Exception:
             return False
 
     def _action_handoff_nudge(self, event: dict, target: str, message: str) -> bool:
-        nudges_file = self.data_dir / "nudges.json"
-        nudges_data = self._load_json("nudges.json")
-        nudges = nudges_data.get("nudges", [])
+        nudge_id = f"NUD-{datetime.now().strftime('%Y%m%d%H%M%S')}"
         nudge = {
-            "id": f"NUD-{len(nudges) + 1:03d}",
+            "id": nudge_id,
             "event_id": event.get("id"),
             "type": "handoff",
             "target_profile": target,
             "urgency": "medium",
             "message": message,
             "created_at": datetime.now().isoformat(),
+            "workspace_id": "default",
         }
-        nudges.append(nudge)
-        nudges_data["nudges"] = nudges
-        with open(nudges_file, "w", encoding="utf-8") as f:
-            json.dump(nudges_data, f, indent=2, ensure_ascii=False)
+        if self.store_mode == "json":
+            nudges_file = self.data_dir / "nudges.json"
+            nudges_data = self._load_json("nudges.json")
+            nudges = nudges_data.get("nudges", [])
+            nudges.append(nudge)
+            nudges_data["nudges"] = nudges
+            with open(nudges_file, "w", encoding="utf-8") as f:
+                json.dump(nudges_data, f, indent=2, ensure_ascii=False)
+        else:
+            sync_call(
+                "memory_put_page",
+                slug=f"workspace/default/nudges/{nudge_id}",
+                content=json.dumps(nudge, ensure_ascii=False),
+                tags="nudge,workspace:default",
+            )
         return True
 
     def _action_nudge(self, event: dict, urgency: str) -> bool:
-        nudges_file = self.data_dir / "nudges.json"
-        nudges_data = self._load_json("nudges.json")
-        nudges = nudges_data.get("nudges", [])
+        nudge_id = f"NUD-{datetime.now().strftime('%Y%m%d%H%M%S')}"
         nudge = {
-            "id": f"NUD-{len(nudges) + 1:03d}",
+            "id": nudge_id,
             "event_id": event.get("id"),
             "urgency": urgency,
             "message": f"Nudge for {event.get('entity_id')}",
             "created_at": datetime.now().isoformat(),
+            "workspace_id": "default",
         }
-        nudges.append(nudge)
-        nudges_data["nudges"] = nudges
-        with open(nudges_file, "w", encoding="utf-8") as f:
-            json.dump(nudges_data, f, indent=2, ensure_ascii=False)
+        if self.store_mode == "json":
+            nudges_file = self.data_dir / "nudges.json"
+            nudges_data = self._load_json("nudges.json")
+            nudges = nudges_data.get("nudges", [])
+            nudges.append(nudge)
+            nudges_data["nudges"] = nudges
+            with open(nudges_file, "w", encoding="utf-8") as f:
+                json.dump(nudges_data, f, indent=2, ensure_ascii=False)
+        else:
+            sync_call(
+                "memory_put_page",
+                slug=f"workspace/default/nudges/{nudge_id}",
+                content=json.dumps(nudge, ensure_ascii=False),
+                tags="nudge,workspace:default",
+            )
         return True
 
     def _action_suggest_reschedule(self, data: dict) -> bool:
@@ -450,9 +475,9 @@ class WorkflowEngine:
             json.dump(items, f, indent=2, ensure_ascii=False)
 
     def _action_create_follow_up_task(self, data: dict) -> bool:
-        missions = self._load_list("missions.json")
+        mission_id = f"MISSION-{datetime.now().strftime('%Y%m%d%H%M%S')}"
         mission = {
-            "id": f"MISSION-{datetime.now().strftime('%Y%m%d%H%M%S')}",
+            "id": mission_id,
             "profile": "partenon-diplomat",
             "title": f"Follow up with {data.get('name', 'new lead')}",
             "status": "to_do",
@@ -463,8 +488,17 @@ class WorkflowEngine:
             "updated_at": datetime.now().isoformat(),
             "workspace_id": "default",
         }
-        missions.append(mission)
-        self._save_list("missions.json", missions)
+        if self.store_mode == "json":
+            missions = self._load_list("missions.json")
+            missions.append(mission)
+            self._save_list("missions.json", missions)
+        else:
+            sync_call(
+                "memory_put_page",
+                slug=f"workspace/default/missions/{mission_id}",
+                content=json.dumps(mission, ensure_ascii=False),
+                tags="mission,workspace:default,follow-up",
+            )
         return True
 
     def detect_automatic_events(self) -> List[dict]:

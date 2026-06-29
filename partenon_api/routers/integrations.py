@@ -1,11 +1,13 @@
 """Integration routes — thin wrappers over MCP servers."""
 
+import json
 import os
 from typing import Any, Dict
 
 from fastapi import APIRouter, Depends, HTTPException, status
 
 from partenon_api.auth import WorkspaceContext, get_current_workspace
+from partenon_api.mcp_client import AsyncDomainClient
 from partenon_api.models import IntegrationStatus
 
 router = APIRouter(prefix="/integrations", tags=["integrations"])
@@ -13,6 +15,27 @@ router = APIRouter(prefix="/integrations", tags=["integrations"])
 
 # Re-export type alias for OpenAPI schema clarity
 Payload = Dict[str, Any]
+
+
+# Domain server configuration: module path and tool name prefix.
+_DOMAIN_CONFIG: Dict[str, Dict[str, str]] = {
+    "google_workspace": {
+        "module": "mcp_servers.google_workspace.server",
+        "tool_prefix": "workspace_",
+    },
+    "payments": {
+        "module": "mcp_servers.payments.server",
+        "tool_prefix": "payments_",
+    },
+    "slack": {
+        "module": "mcp_servers.notifications.server",
+        "tool_prefix": "slack_",
+    },
+    "memory": {
+        "module": "mcp_servers.memory.server",
+        "tool_prefix": "memory_",
+    },
+}
 
 
 def _is_configured(domain: str) -> bool:
@@ -26,11 +49,22 @@ def _is_configured(domain: str) -> bool:
     return checks.get(domain, False)
 
 
+def _dry_run_response(domain: str, action: str) -> dict:
+    """Return a short-circuit dry-run response for unconfigured domains."""
+    return {
+        "ok": True,
+        "dry_run": True,
+        "domain": domain,
+        "action": action,
+        "reason": "no live credentials configured",
+    }
+
+
 @router.get("")
 async def list_integrations(
     ctx: WorkspaceContext = Depends(get_current_workspace),
 ) -> dict:
-    domains = ["google_workspace", "payments", "slack", "memory"]
+    domains = list(_DOMAIN_CONFIG.keys())
     items = []
     for domain in domains:
         connected = _is_configured(domain)
@@ -51,70 +85,51 @@ async def invoke_integration(
     payload: Dict[str, Any],
     ctx: WorkspaceContext = Depends(get_current_workspace),
 ) -> dict:
+    config = _DOMAIN_CONFIG.get(domain)
+    if config is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Unknown integration domain")
+
     dry_run = payload.get("dry_run", True)
+
+    # Short-circuit unconfigured domains to avoid spawning subprocesses when no
+    # live credentials are present. Memory is a local dependency and is always
+    # invoked. For non-memory domains with dry_run=False and no credentials,
+    # return the same live-mode error the MCP server would produce.
+    if domain != "memory" and not _is_configured(domain):
+        if dry_run:
+            return _dry_run_response(domain, action)
+        return {
+            "ok": False,
+            "error": f"live execution requires {domain.replace('_', ' ')} credentials",
+        }
+
+    tool_name = f"{config['tool_prefix']}{action}"
+    kwargs = dict(payload)
+    kwargs.pop("dry_run", None)
+
+    # Payments tools expect an explicit dry_run flag; other domain servers
+    # handle dry-run internally based on environment variables.
+    if domain == "payments":
+        kwargs["dry_run"] = dry_run
+
     try:
-        if domain == "google_workspace":
-            return _invoke_google_workspace(action, payload)
-        if domain == "slack":
-            return _invoke_slack(action, payload)
-        if domain == "payments":
-            return _invoke_payments(action, payload, dry_run)
-        if domain == "memory":
-            return _invoke_memory(action, payload)
+        async with AsyncDomainClient(config["module"]) as client:
+            result = await client.call_tool(tool_name, **kwargs)
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_502_BAD_GATEWAY,
             detail=f"Integration error: {e}",
         ) from e
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Unknown integration domain")
 
-
-def _invoke_google_workspace(action: str, payload: Dict[str, Any]) -> dict:
-    from mcp_servers.google_workspace.client import GoogleWorkspaceClient
-
-    client = GoogleWorkspaceClient()
-    method = getattr(client, action, None)
-    if not method:
-        raise ValueError(f"Unknown Google Workspace action: {action}")
-    return method(**payload)
-
-
-def _invoke_slack(action: str, payload: Dict[str, Any]) -> dict:
-    from mcp_servers.notifications.slack import notify_task_overdue, send_message
-
-    if action == "send_message":
-        return send_message(payload.get("channel", "#general"), payload.get("text", ""))
-    if action == "notify_task_overdue":
-        return notify_task_overdue(
-            payload.get("task_id", ""),
-            payload.get("title", ""),
-            payload.get("due_date", ""),
-            payload.get("channel", "#general"),
-        )
-    raise ValueError(f"Unknown Slack action: {action}")
-
-
-def _invoke_payments(action: str, payload: Dict[str, Any], dry_run: bool) -> dict:
-    import mcp_servers.payments.server as payments
-
-    func = getattr(payments, f"payments_{action}", None)
-    if not func:
-        raise ValueError(f"Unknown payments action: {action}")
-    kwargs = dict(payload)
-    kwargs["dry_run"] = dry_run
-    return func(**kwargs)
-
-
-def _invoke_memory(action: str, payload: Dict[str, Any]) -> dict:
-    import json
-
-    import mcp_servers.memory.server as memory
-
-    func = getattr(memory, action, None)
-    if not func:
-        raise ValueError(f"Unknown memory action: {action}")
-    result = func(**payload)
-    try:
-        return json.loads(result) if isinstance(result, str) else result
-    except json.JSONDecodeError:
-        return {"result": result}
+    # Domain MCP servers may return a plain string (e.g. memory_put_page).
+    # Normalize to a dict for a consistent JSON response shape.
+    if isinstance(result, dict):
+        return result
+    if isinstance(result, str):
+        try:
+            return json.loads(result)
+        except json.JSONDecodeError:
+            return {"result": result}
+    if result is None:
+        return {"ok": True}
+    return {"result": result}

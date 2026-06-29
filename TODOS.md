@@ -22,6 +22,17 @@ Goal: make the repository safe, clean, and globally distributable before any Her
 
 ---
 
+## Repair Sprint — MCP Runtime Migration
+
+- [x] Update `partenon_core/tools/workflow_engine.py` to write follow-up missions and nudges via `partenon-memory` MCP (`sync_call`)
+- [x] Replace direct `mcp_servers.notifications.slack` import in workflow engine with MCP call
+- [x] Add `AsyncDomainClient` to `partenon_api/mcp_client.py` for generic domain MCP servers
+- [x] Rewrite `partenon_api/routers/integrations.py` to route all domains through MCP with dry-run short-circuit
+- [x] Add `tests/test_api_integrations.py` covering list, unknown domain, dry-run, memory, and live-error paths
+- [x] Verify full suite: `pytest tests/`, `ruff check`, `npm run build`
+
+---
+
 ## Pending Phases
 
 ### Phase 1 — Hermes-Native Foundation (3 weeks)

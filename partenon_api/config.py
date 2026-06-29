@@ -10,6 +10,7 @@ DEFAULT_WORKSPACE_ID = "default"
 DEFAULT_API_HOST = "127.0.0.1"
 DEFAULT_API_PORT = 8000
 DEFAULT_DASHBOARD_ORIGIN = "http://localhost:3000"
+DEFAULT_GBRAIN_DATABASE_URL = "sqlite:///data/gbrain.db"
 
 
 def get_secret() -> str:
@@ -43,3 +44,12 @@ def get_data_dir() -> Path:
     path = Path(os.environ.get("PARTENON_DATA_DIR", DATA_DIR))
     path.mkdir(parents=True, exist_ok=True)
     return path
+
+
+def get_gbrain_database_url() -> str:
+    """Return the G-Brain database URL used by the partenon-memory MCP server."""
+    return (
+        os.environ.get("GBRAIN_DATABASE_URL")
+        or os.environ.get("GBrain_DATABASE_URL")
+        or DEFAULT_GBRAIN_DATABASE_URL
+    )

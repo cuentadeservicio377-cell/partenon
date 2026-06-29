@@ -2,6 +2,30 @@
 
 ## Session History
 
+### 2026-06-29 — Repair sprint: workflow engine + integrations MCP runtime
+- Migrated `partenon_core/tools/workflow_engine.py` from direct JSON writes and Python imports to the Hermes MCP runtime:
+  - `_action_create_follow_up_task` now writes to `partenon-memory` via `sync_call("memory_put_page", slug="workspace/default/missions/{id}", tags="mission,workspace:default,follow-up")`.
+  - `_action_handoff_nudge` and `_action_nudge` now write to `partenon-memory` via `sync_call("memory_put_page", slug="workspace/default/nudges/{id}", tags="nudge,workspace:default")`.
+  - `_action_notify_slack` now calls `mcp_servers.notifications.server` via `sync_call("slack_notify_task_overdue", server_module=...)` instead of importing the Slack module directly.
+  - JSON fallback is preserved when `PARTENON_STORE_MODE=json` is set (tests).
+- Extended `partenon_api/mcp_client.py`:
+  - Added `AsyncDomainClient(module_path, env=None)` context manager for arbitrary domain MCP servers.
+  - Promoted `_call_tool` to public `call_tool` on both `AsyncMemoryClient` and `AsyncDomainClient`.
+  - Extended `sync_call(..., server_module=None)` so synchronous callers can target domain servers.
+- Rewrote `partenon_api/routers/integrations.py`:
+  - Removed all direct `mcp_servers.*` Python imports.
+  - `GET /api/v1/integrations` remains status-based.
+  - `POST /api/v1/integrations/{domain}/{action}` maps domains to MCP server modules and tool name prefixes, short-circuits unconfigured domains to dry-run/live-error responses, and invokes the tool via `AsyncDomainClient`.
+  - Normalizes non-dict MCP results to a consistent JSON shape.
+- Added `tests/test_api_integrations.py` with coverage for list, unknown domain, dry-run short-circuit, memory invocation, and forced-live error paths.
+- Added a session-scoped `PARTENON_STORE_MODE=json` fixture in `tests/conftest.py` so all tests (including unittest-based `test_handoffs.py`) use the JSON fallback by default.
+- Updated `TODOS.md` (repo root and `.kimi-code/memory/`) with the repair sprint tasks.
+- Verified:
+  - `pytest tests/` PASS (117 passed).
+  - `ruff check partenon_api tests partenon_core/tools/workflow_engine.py` PASS.
+  - `cd dashboard && npm run build` PASS.
+  - Manual smoke test: `python -m partenon_core.tools.workflow_engine` and `new_client` event emit with MCP-backed follow-up mission and nudge creation PASS.
+
 ### 2026-06-28 — Phase 0 contaminants cleanup
 - Deleted dead code and stale artifacts: `Kimi_Agent_10 Storytelling Web Sites/`, `examples/*-stub.py`, `docs/PARTENON_GUIDE.html`, `docs/HERMES_GATEWAY_AUDIT.md`, and old superpowers plans/specs.
 - Anonymized sample data across `partenon-core/tools/onboarding_engine.py`, profile tools, `data/clients.json`, `docs/HERO_GUIDE.md`, `docs/ENTREPRENEUR_PLAYBOOK.md`, `workshop/simulations/*.md`, and `workshop/simulations/sim_runner.py`.
@@ -410,3 +434,21 @@
 - Added 23 new tests covering auth, missions, cron, events, and store; total suite now 82 tests.
 - Updated `.env.example`, `README.md`, `install.sh`, `TODOS.md`, and `PLAN.md` for the new API backend.
 - Verified: `pytest tests/` PASS (82), `ruff check` PASS, `cd dashboard && npm run lint` PASS, `cd dashboard && npm run build` PASS, `bash -n install.sh` PASS, `python3 .github/scripts/secret_scan.py` PASS.
+
+### 2026-06-29 — Repair sprint: migrate API store to partenon-memory MCP server
+- Created `partenon_api/mcp_client.py` with `AsyncMemoryClient` (stdio MCP context manager) and `sync_call` helper for non-async callers.
+- Rewrote `partenon_api/store.py`: replaced direct JSON file access with `MemoryStore` backed by the `partenon-memory` MCP server.
+- Entities stored as G-Brain pages with slugs like `workspace/{workspace_id}/missions/{id}` and tags (`mission`, `workspace:default`, profile).
+- Implemented async CRUD methods for missions, cron jobs, events, and nudges; deletes use tombstone pages because the MCP server has no delete tool.
+- Added `migrate_legacy_json_to_memory()` one-time helper that imports existing `data/missions.json`, `data/cron.json`, and `data/nudges.json` into G-Brain pages and renames the JSON files to `*.migrated`.
+- Updated `partenon_api/main.py` lifespan to open `AsyncMemoryClient`, store it in `app.state.memory_client`, run migration, and close on shutdown.
+- Updated `partenon_api/routers/missions.py`, `cron.py`, `heroes.py`, and `events.py` to read/write via `MemoryStore(request.app.state.memory_client)`.
+- Added `get_gbrain_database_url()` to `partenon_api/config.py`.
+- Added a synchronous JSON-file fallback in `MemoryStore` selected by `PARTENON_STORE_MODE=json` so tests can run without spawning an MCP subprocess.
+- Updated `tests/conftest.py` to use the JSON fallback and point `GBRAIN_DATABASE_URL` to a temporary SQLite file per test.
+- Verified:
+  - `pytest tests/test_api_missions.py tests/test_api_cron.py tests/test_api_events.py tests/test_store.py -q` PASS (17 tests).
+  - `pytest tests/` PASS (110 tests).
+  - `ruff check partenon_api tests partenon_core/tools/workflow_engine.py` PASS.
+  - `cd dashboard && npm run build` PASS.
+  - Manual MCP smoke test (create/list missions and heroes) PASS.

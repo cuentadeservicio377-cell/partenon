@@ -1,23 +1,24 @@
 """Hero aggregate status routes."""
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 
 from partenon_api.auth import WorkspaceContext, get_current_workspace
 from partenon_api.constants import PROFILES
 from partenon_api.models import HeroStatus
-from partenon_api.store import get_cron_store, get_mission_store, get_nudge_store
-from partenon_api.utils import filter_by_workspace
+from partenon_api.store import get_store
 
 router = APIRouter(prefix="/heroes", tags=["heroes"])
 
 
 @router.get("")
 async def list_heroes(
+    request: Request,
     ctx: WorkspaceContext = Depends(get_current_workspace),
 ) -> dict:
-    missions = filter_by_workspace(get_mission_store().read_list(), ctx.workspace_id)
-    cron_jobs = filter_by_workspace(get_cron_store().read_list(), ctx.workspace_id)
-    nudges = filter_by_workspace(get_nudge_store().read_list(), ctx.workspace_id)
+    store = get_store(request.app.state.memory_client)
+    missions = await store.list_missions(ctx.workspace_id)
+    cron_jobs = await store.list_cron_jobs(ctx.workspace_id)
+    nudges = await store.list_nudges(ctx.workspace_id)
 
     heroes = []
     for profile in PROFILES:

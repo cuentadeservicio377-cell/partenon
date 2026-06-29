@@ -1,16 +1,16 @@
 # Project Memory: Partenon
 
-> Last session: 2026-06-28T08:20Z
+> Last session: 2026-06-29T04:20Z
 
 ## Current Context
 
 - **Project**: Partenon
 - **Started**: 2026-06-23
-- **Status**: Phase 4 Real-Time Dashboard + API completed. Added `partenon_api/` FastAPI backend with missions, cron jobs, hero status, workflow events, integrations, JWT auth, workspace isolation, and Server-Sent Events. Refactored Next.js dashboard to consume the API via server actions. Migrated `data/tasks.json` to `data/missions.json` with `workspace_id`. Workflow engine now writes follow-up missions to `missions.json`. Total test suite: 82 tests.
+- **Status**: Repair sprint completed. Migrated workflow engine and API integration routes to the Hermes MCP runtime. `partenon_core/tools/workflow_engine.py` now writes follow-up missions and nudges to `partenon-memory` via `sync_call`, and calls the Slack notification server via MCP. `partenon_api/routers/integrations.py` no longer imports `mcp_servers.*` directly; it routes `google_workspace`, `payments`, `slack`, and `memory` actions through `AsyncDomainClient` with dry-run short-circuit. `partenon_api/mcp_client.py` gained `AsyncDomainClient` and an extended `sync_call` with `server_module`. Test suite expanded with `tests/test_api_integrations.py`. Total test suite: 117 tests.
 - **Live site**: `https://hermespartenon.online/`
 - **Repo**: `https://github.com/cuentadeservicio377-cell/partenon`
 - **Profiles**: Scribe/Treasurer, Herald/Messenger, Collector, Guardian, Strategist, Diplomat, Brain.
-- **Verified**: `python3 scripts/demo_scribe.py` PASS, `pytest tests/` PASS (82 tests), `ruff check partenon_api tests partenon_core/tools/workflow_engine.py` PASS, `cd dashboard && npm run lint` PASS, `cd dashboard && npm run build` PASS, `bash -n install.sh` PASS, `python3 .github/scripts/secret_scan.py` PASS, `hermes profile install hermes/profiles/partenon-*` PASS for all 7 heroes.
+- **Verified**: `pytest tests/` PASS (117 tests), `ruff check partenon_api tests partenon_core/tools/workflow_engine.py` PASS, `cd dashboard && npm run build` PASS.
 - **Next**: Phase 5 Gateway Messaging (Telegram/Email gateway, command namespace, file routing, group-chat rules, progressive onboarding conversation).
 
 ## Braindump
@@ -202,6 +202,7 @@ Profiles map directly to existing or proposed HBOS skills:
 - Every profile includes the `partenon-memory` MCP server (`python -m gbrain.server`).
 - `google_workspace`, `gmail`, and `stripe` MCP servers are only declared for profiles that already referenced them.
 - `scripts/validate_profiles.py` enforces the canonical schema, YAML validity, required keys, cron file references, and template existence.
+- FastAPI backend (`partenon_api/`) now persists missions, cron jobs, events, and nudges through the `partenon-memory` MCP server (`mcp_servers/memory/server.py`) instead of parallel JSON files; a JSON fallback is kept for tests/local scripts.
 
 ## APIs / Integrations
 
