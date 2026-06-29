@@ -5,6 +5,7 @@ export const PROFILES = [
   { id: 'partenon-guardian', name: 'Guardian', color: '#EF4444' },
   { id: 'partenon-strategist', name: 'Strategist', color: '#A855F7' },
   { id: 'partenon-diplomat', name: 'Diplomat', color: '#EC4899' },
+  { id: 'partenon-brain', name: 'Brain', color: '#F97316' },
 ] as const;
 
 export type ProfileId = (typeof PROFILES)[number]['id'];

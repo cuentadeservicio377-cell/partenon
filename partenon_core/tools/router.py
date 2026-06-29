@@ -4,7 +4,7 @@ Routes user messages to the appropriate hero profile.
 """
 
 import re
-from typing import Optional, Dict, Any
+from typing import Any, Dict, Optional
 
 
 class IntentRouter:
@@ -177,7 +177,16 @@ def route_intent(message: str) -> Optional[str]:
     return get_router().route(message)
 
 
-if __name__ == "__main__":
+def main(argv: list[str] | None = None) -> int:
+    """CLI entry point for the intent router."""
+    import sys
+
+    args = argv if argv is not None else sys.argv[1:]
+    if args:
+        message = " ".join(args)
+        print(route_intent(message))
+        return 0
+
     samples = [
         "Organize my numbers",
         "Create a campaign for next week",
@@ -190,3 +199,8 @@ if __name__ == "__main__":
     router = get_router()
     for s in samples:
         print(f"{s!r:45} -> {router.route(s)}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

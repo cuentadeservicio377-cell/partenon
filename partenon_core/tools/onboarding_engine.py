@@ -9,7 +9,7 @@ import json
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 sys.path.insert(0, str(Path(__file__).parent))
 
@@ -110,7 +110,6 @@ class OnboardingEngine:
         """Create service catalog based on industry."""
         catalog_file = self.data_dir / "catalog.json"
         industry = self.config.industry
-        currency = self.config.currency
         catalogs = {
             "events": {
                 "services": [
@@ -311,7 +310,7 @@ Partenon comes preconfigured with:
 """
         with open(welcome_file, "w", encoding="utf-8") as f:
             f.write(welcome_content)
-        self._log_step(f"Welcome guide created: docs/WELCOME.md", "success")
+        self._log_step("Welcome guide created: docs/WELCOME.md", "success")
 
     def get_onboarding_status(self) -> Dict[str, Any]:
         """Get current onboarding status."""
@@ -340,7 +339,8 @@ def get_onboarding_engine() -> OnboardingEngine:
     return _onboarding_instance
 
 
-if __name__ == "__main__":
+def main() -> int:
+    """CLI entry point for the onboarding engine."""
     engine = OnboardingEngine()
     result = engine.run_full_onboarding()
     print("\n" + "=" * 50)
@@ -352,3 +352,8 @@ if __name__ == "__main__":
         print("\nErrors:")
         for err in result["errors"]:
             print(f"  - {err}")
+    return 0 if result["success"] else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

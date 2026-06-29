@@ -31,7 +31,11 @@ distribution_owned:
   - pyproject.toml
   - partenon_core/
   - mcp_servers/
+  - partenon_api/
   - hermes/profiles/
   - skills/
   - scripts/
   - tests/
+  - data/
+  - web/
+  - dashboard/

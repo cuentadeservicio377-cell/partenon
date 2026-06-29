@@ -64,7 +64,7 @@ all = [
 ]
 
 [project.scripts]
-partenon-router = "partenon_core.tools.router:route_intent"
+partenon-router = "partenon_core.tools.router:main"
 partenon-onboard = "partenon_core.tools.onboarding_engine:main"
 partenon-workflow = "partenon_core.tools.workflow_engine:main"
 partenon-eval = "partenon_core.tools.eval_loop:main"
@@ -78,12 +78,39 @@ Issues = "https://github.com/cuentadeservicio377-cell/partenon/issues"
 [tool.hatch.build.targets.wheel]
 packages = ["partenon_core", "mcp_servers", "partenon_api"]
 
+[tool.hatch.build.targets.wheel.force-include]
+"hermes" = "hermes"
+"skills" = "skills"
+"scripts" = "scripts"
+"tests" = "tests"
+"data" = "data"
+"web" = "web"
+"distribution.yaml" = "distribution.yaml"
+"dashboard/package.json" = "dashboard/package.json"
+"dashboard/package-lock.json" = "dashboard/package-lock.json"
+"dashboard/tsconfig.json" = "dashboard/tsconfig.json"
+"dashboard/tailwind.config.ts" = "dashboard/tailwind.config.ts"
+"dashboard/postcss.config.js" = "dashboard/postcss.config.js"
+"dashboard/next.config.ts" = "dashboard/next.config.ts"
+"dashboard/middleware.ts" = "dashboard/middleware.ts"
+"dashboard/.eslintrc.json" = "dashboard/.eslintrc.json"
+"dashboard/next-env.d.ts" = "dashboard/next-env.d.ts"
+"dashboard/Dockerfile" = "dashboard/Dockerfile"
+"dashboard/src" = "dashboard/src"
+
 [tool.hatch.build.targets.sdist]
 include = [
     "/partenon_core",
+    "/mcp_servers",
+    "/partenon_api",
     "/hermes",
+    "/skills",
     "/scripts",
     "/tests",
+    "/data",
+    "/web",
+    "/dashboard",
+    "/distribution.yaml",
     "/README.md",
     "/LICENSE",
     "/NOTICE.md",

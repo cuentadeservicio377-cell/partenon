@@ -1,5 +1,5 @@
 ---
-name: partenon-herald-comms
+name: comms
 description: Communications skill for the Herald. Brand interview, content calendar, campaign copy, SEO/GEO, presentations, social publishing, and emails. Always reads .design before creating.
 version: 0.1.0
 metadata:

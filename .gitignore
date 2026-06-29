@@ -43,6 +43,7 @@ docs/pdf-preview/
 data/gbrain.db
 data/sample_expenses.xlsx
 data/sample_expenses_report.json
+data/evals/
 .kimi/
 .kimi-code/
 !.kimi-code/AGENTS.md

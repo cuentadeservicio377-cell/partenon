@@ -1,5 +1,5 @@
 ---
-name: partenon-strategist-ops
+name: ops
 description: Operations skill for the Partenon Strategist. Manages projects, tasks, checklists, calendar, reminders, morning briefings, goals, and weekly retros.
 version: 0.1.0
 metadata:

@@ -15,6 +15,7 @@ ProfileId = Literal[
     "partenon-guardian",
     "partenon-strategist",
     "partenon-diplomat",
+    "partenon-brain",
 ]
 
 

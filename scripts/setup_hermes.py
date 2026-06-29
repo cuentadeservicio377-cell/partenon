@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Setup helper to install Partenon locally."""
 
-import os
 import shutil
 import subprocess
 import sys

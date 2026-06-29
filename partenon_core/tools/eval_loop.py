@@ -6,11 +6,10 @@ Scores missions against defined criteria and stores evaluation records.
 """
 
 import json
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
-
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = REPO_ROOT / "data"
@@ -171,7 +170,8 @@ class EvalLoop:
         }
 
 
-if __name__ == "__main__":
+def main() -> int:
+    """CLI entry point for the evaluation loop."""
     loop = EvalLoop()
     sample_output = {
         "mission_id": "mission-001",
@@ -193,3 +193,10 @@ if __name__ == "__main__":
     )
     print(json.dumps(asdict(result), indent=2))
     print("Summary:", loop.summary())
+    return 0
+
+
+if __name__ == "__main__":
+    import sys
+
+    sys.exit(main())

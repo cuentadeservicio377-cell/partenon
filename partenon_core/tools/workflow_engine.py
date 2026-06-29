@@ -514,7 +514,8 @@ class WorkflowEngine:
         return detected_events
 
 
-if __name__ == "__main__":
+def main() -> int:
+    """CLI entry point for the workflow engine."""
     engine = WorkflowEngine()
     event = engine.emit_event(
         type="client_contracted",
@@ -531,3 +532,8 @@ if __name__ == "__main__":
     )
     print(f"Event emitted: {event['id']}")
     print(f"Actions executed: {event.get('actions_executed', [])}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
