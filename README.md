@@ -228,11 +228,11 @@ partenon/
 - [x] Phase 2 — Hero final design: dry-run/live tool lists, SOUL/SKILL rewrites, handoff workflows, interaction tests.
 - [x] Phase 3 — Real integrations: Google Workspace, Stripe live + webhook, Slack notifications, Guardian key/model audit.
 - [x] Phase 4 — Real-time dashboard + API: FastAPI backend, SSE, JWT auth, workspace isolation.
+- [x] Repair Sprint — MCP runtime unification: API store, workflow engine, and integrations now use the Hermes `partenon-memory` and domain MCP servers instead of parallel JSON files.
 - [ ] Phase 5 — Gateway messaging: Telegram/Email gateway, command namespace, file routing.
 - [ ] Phase 6 — Deployment world: Docker Compose, CI/CD, structured logging, metrics, release process.
 - [ ] Phase 7 — Website reality: audit marketing claims, capabilities page, screenshots.
 - [ ] Functional eval loop wired into the router and hero runtime.
-- [ ] Real workflow engine dispatch to hero tools instead of local JSON stubs.
 - [ ] Publishing and dispatch integrations for Herald, Collector, and Diplomat.
 
 ---
@@ -240,9 +240,8 @@ partenon/
 ## Known gaps
 
 - The eval loop in `partenon_core/tools/eval_loop.py` scores outputs but is not yet wired into mission execution.
-- The workflow engine emits and processes events locally; it does not yet dispatch to external heroes or APIs.
 - Live integrations require real credentials and are not enabled by default.
-- The workflow engine and eval loop are local stubs; they do not yet dispatch to real hero runtimes.
+- Gateway messaging (Telegram/Email) is configured but not yet wired end-to-end.
 See [`MISSING_IMPLEMENTATION.md`](MISSING_IMPLEMENTATION.md) for the full audit.
 
 ---
@@ -260,9 +259,9 @@ See [`MISSING_IMPLEMENTATION.md`](MISSING_IMPLEMENTATION.md) for the full audit.
 
 - Live site: https://hermespartenon.online/
 - Repository: https://github.com/cuentadeservicio377-cell/partenon
-- Verified locally (2026-06-28):
+- Verified locally (2026-06-29):
   - `python3 scripts/demo_scribe.py` PASS.
-  - `python3 -m pytest tests/` PASS (82 tests).
+  - `python3 -m pytest tests/` PASS (117 tests).
   - `ruff check partenon_api tests partenon_core/tools/workflow_engine.py` PASS.
   - `cd dashboard && npm run lint` PASS.
   - `cd dashboard && npm run build` PASS.
