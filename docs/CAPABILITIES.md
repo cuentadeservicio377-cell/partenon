@@ -2,7 +2,7 @@
 
 > Single source of truth for what Partenon can do today, what requires credentials, and what is on the roadmap.
 
-Last updated: 2026-06-28
+Last updated: 2026-06-29
 
 ---
 
@@ -102,7 +102,7 @@ Last updated: 2026-06-28
 ## How to Update This File
 
 1. Change status in this markdown file.
-2. Run `python scripts/generate_status.py` to regenerate `web/capabilities.html`.
+2. Update `web/capabilities.html` manually once it exists (planned in Phase 7).
 3. Commit both files together.
 
-This file is the source of truth. The website status page is generated from it.
+This file is the source of truth until the website status page is generated from it.

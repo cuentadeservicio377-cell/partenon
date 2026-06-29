@@ -6,7 +6,10 @@
 
 ## Current Phase
 
-**Phase 0 — Contaminants Cleanup**  
+**Phase 7 — Website Reality** (pending)  
+Goal: align `web/` marketing copy and screenshots with the real capabilities documented in `docs/CAPABILITIES.md`.
+
+### Phase 0 — Contaminants Cleanup ✅ CLOSED
 Goal: make the repository safe, clean, and globally distributable before any Hermes-native work begins.
 
 - [x] Run secret/PII scan and fix findings

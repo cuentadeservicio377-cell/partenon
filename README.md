@@ -243,7 +243,7 @@ partenon/
 - [`docs/PARTENON_GUIDE.pdf`](docs/PARTENON_GUIDE.pdf) — printable A4 guide with web aesthetic: concept, heroes, install, workshop, simulations, playbook, security, readiness, roadmap.
 - [`workshop/README.md`](workshop/README.md) — reusable workshop kit with company cards, simulations, agendas, and handouts.
 - [`workshop/guides/HERMES_ONBOARDING.md`](workshop/guides/HERMES_ONBOARDING.md) — how Hermes should guide a new company through setup.
-- [`workshop/checklists/PRODUCTION_READINESS.md`](workshop/checklists/PRODUCTION_READINESS.md) — PASS/FAIL/PARTIAL evidence from the production-readiness test.
+- [`workshop/checklists/production-readiness.md`](workshop/checklists/production-readiness.md) — PASS/FAIL/PARTIAL evidence from the production-readiness test.
 - [`MISSING_IMPLEMENTATION.md`](MISSING_IMPLEMENTATION.md) — current gaps and suggested priorities.
 
 ---
