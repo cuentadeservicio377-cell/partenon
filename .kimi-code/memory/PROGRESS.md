@@ -2,6 +2,19 @@
 
 ## Session History
 
+### 2026-06-30 — Phase 7 Website Reality: workshop landing page
+- Created `web/workshop.html` as the third main page of the site.
+- Wrote and committed the design spec (`docs/superpowers/specs/2026-06-30-workshop-landing-design.md`) and implementation plan (`docs/superpowers/plans/2026-06-30-workshop-landing-phase1.md`).
+- Sections built: hero with 1M-installation storytelling and impact counters, value bento, Local/VPS install tabs, 90-minute agenda, per-hero preparation accordions with AI prompts, Brain and automations, custom workshops, Workshop 2.0 follow-up.
+- Updated navigation in `web/index.html`, `web/heroes.html`, and `web/developers.html` to include the Workshop page.
+- Applied `kimi-design-system` anti-slop rules: asymmetric bento, direct copy, one `<h1>`, no emojis, no em-dashes, no filler verbs.
+- Verified:
+  - `pytest tests/` PASS (184 passed).
+  - `bash -n install.sh` PASS.
+  - `cd dashboard && npm run build` PASS.
+  - HTML parse check PASS for all four pages.
+  - Chrome opened for visual review at `http://localhost:8080/workshop.html`.
+
 ### 2026-06-30 — Phase 7 Website Reality: copy rewrite and honest capability labels
 - Reframed `web/index.html` foundation, process steps, `1 → 1M` counter, hackathon-partner framing, and "Install the Partenon" CTA.
 - Updated `web/heroes.html` per-hero status tags (live / connect / roadmap), reworked remaining hero profiles, and rewrote the workflow timeline to four steps: Install → Assemble → Operate → Orchestrate.

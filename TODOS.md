@@ -109,6 +109,7 @@ Verification:
 ### Phase 7 — Website Reality (2 weeks)
 - [x] Audit every claim on marketing pages
 - [x] Rewrite copy to distinguish live/credentials/roadmap
+- [x] Create `web/workshop.html` landing for the installation workshop
 - [ ] Create `web/capabilities.html` from `docs/CAPABILITIES.md`
 - [ ] Update screenshots and README
 
@@ -116,7 +117,7 @@ Verification:
 - `pytest tests/` PASS (184 passed)
 - `bash -n install.sh` PASS
 - `cd dashboard && npm run build` PASS
-- HTML parse check PASS for `web/index.html`, `web/heroes.html`, `web/developers.html`
+- HTML parse check PASS for `web/index.html`, `web/heroes.html`, `web/developers.html`, `web/workshop.html`
 - Chrome opened for visual review at `http://localhost:8080`
 
 ---

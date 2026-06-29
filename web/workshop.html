@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop — The Partenon</title>
+  <meta name="description" content="Install The Partenon in 90 minutes. Live biweekly workshop for founders, operators, and technical implementers." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,300,0,0" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'marble-white': '#F7F5F0',
+            'parchment': '#EDE8DF',
+            'deep-stone': '#2A2A2E',
+            'midnight': '#1A1A1E',
+            'stripe-indigo': '#635BFF',
+            'nvidia-green': '#76B900',
+            'glow-amber': '#FFB800',
+            'myth-gold': '#D4A853',
+            'hero-scribe': '#4A90A4',
+            'hero-herald': '#9B59B6',
+            'hero-collector': '#635BFF',
+            'hero-guardian': '#76B900',
+            'hero-strategist': '#FFB800',
+            'hero-diplomat': '#E74C3C',
+            'hero-brain': '#D4A853',
+            'text-secondary': '#6B6B73',
+          },
+          fontFamily: {
+            'cinzel': ['Cinzel', 'Georgia', 'serif'],
+            'inter': ['Inter', 'system-ui', 'sans-serif'],
+            'mono': ['JetBrains Mono', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    :root {
+      --marble-white: #F7F5F0;
+      --parchment: #EDE8DF;
+      --deep-stone: #2A2A2E;
+      --midnight: #1A1A1E;
+      --stripe-indigo: #635BFF;
+      --nvidia-green: #76B900;
+      --glow-amber: #FFB800;
+      --myth-gold: #D4A853;
+      --container-max: 1280px;
+      --container-narrow: 800px;
+      --radius-pill: 9999px;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--deep-stone);
+      background-color: var(--marble-white);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::selection {
+      background-color: var(--stripe-indigo);
+      color: var(--marble-white);
+    }
+
+    h1, h2, h3, .font-cinzel { font-family: 'Cinzel', Georgia, serif; text-transform: uppercase; }
+    code, pre, .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+    .material-symbols-sharp {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      font-size: 1em;
+      line-height: 1;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      height: 72px;
+      transition: height 0.5s var(--ease-out-expo), background-color 0.4s ease, color 0.4s ease, backdrop-filter 0.4s ease;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .navbar.scrolled { height: 60px; }
+    .navbar.light {
+      background-color: rgba(247, 245, 240, 0.9);
+      color: #2A2A2E;
+    }
+    .navbar.dark {
+      background-color: rgba(26, 26, 30, 0.9);
+      color: #F7F5F0;
+    }
+
+    .wordmark {
+      overflow: hidden;
+      white-space: nowrap;
+      transition: opacity 0.3s ease, width 0.3s ease;
+    }
+    .navbar.scrolled .wordmark { opacity: 0; width: 0; }
+
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--stripe-indigo);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s var(--ease-out-expo);
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after { transform: scaleX(1); }
+
+    /* Mobile nav */
+    .mobile-nav {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      padding-top: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .mobile-nav.open { opacity: 1; pointer-events: auto; }
+    .mobile-nav.light { background-color: var(--marble-white); color: var(--deep-stone); }
+    .mobile-nav.dark { background-color: var(--midnight); color: var(--marble-white); }
+
+    /* Animations */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+    }
+    .animate-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .animate-on-scroll.delay-1 { transition-delay: 0.08s; }
+    .animate-on-scroll.delay-2 { transition-delay: 0.16s; }
+    .animate-on-scroll.delay-3 { transition-delay: 0.24s; }
+    .animate-on-scroll.delay-4 { transition-delay: 0.32s; }
+    .animate-on-scroll.delay-5 { transition-delay: 0.40s; }
+    .animate-on-scroll.delay-6 { transition-delay: 0.48s; }
+
+    .animate-scale-on-scroll {
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.5s var(--ease-spring), transform 0.5s var(--ease-spring);
+    }
+    .animate-scale-on-scroll.is-visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Install tabs */
+    .install-tab {
+      position: relative; padding: 0.75rem 1.25rem;
+      font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 500;
+      color: #6B6B73; background: transparent; border: none;
+      cursor: pointer; transition: color 0.2s;
+    }
+    .install-tab:hover { color: #2A2A2E; }
+    .install-tab.active { color: #2A2A2E; }
+    .install-tab.active::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: var(--stripe-indigo);
+    }
+    .install-panel { display: none; animation: fadeIn 0.35s var(--ease-out-expo); }
+    .install-panel.active { display: block; }
+
+    /* Accordions */
+    .accordion-body { display: none; }
+    .accordion-body.open { display: block; animation: fadeIn 0.35s var(--ease-out-expo); }
+    .accordion-icon { transition: transform 0.2s var(--ease-out-expo); }
+    .accordion-toggle[aria-expanded="true"] .accordion-icon { transform: rotate(180deg); }
+
+    /* Copy button */
+    .copy-btn {
+      position: absolute; top: 0.75rem; right: 0.75rem;
+      padding: 0.5rem; border-radius: 0.375rem;
+      background-color: rgba(255,255,255,0.05);
+      opacity: 0; transition: opacity 0.2s ease, background-color 0.2s ease;
+    }
+    .cb-wrap:hover .copy-btn { opacity: 1; }
+    .copy-btn:hover { background-color: rgba(255,255,255,0.12); }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 2rem; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      opacity: 0; pointer-events: none;
+      transition: transform 0.3s var(--ease-out-expo), opacity 0.3s ease;
+      z-index: 100;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .animate-on-scroll, .animate-scale-on-scroll {
+        opacity: 1; transform: none; transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar light" id="navbar" aria-label="Main navigation">
+    <div class="mx-auto flex h-full items-center justify-between px-6" style="max-width: var(--container-max);">
+      <a href="index.html" class="flex items-center gap-3">
+        <svg viewBox="0 0 32 32" fill="none" class="h-8 w-8" aria-hidden="true">
+          <path d="M2 28h28M4 28V12h3v16M12 28V8h3v20M20 28V8h3v20M25 28V12h3v16M2 12l14-8 14 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span class="wordmark font-cinzel text-sm tracking-[0.12em]">THE PARTENON</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html#myth" class="nav-link text-xs font-medium tracking-[0.08em] hover:text-stripe-indigo transition-colors">THE MYTH</a>
+        <a href="heroes.html" class="nav-link text-xs font-medium tracking-[0.08em] hover:text-stripe-indigo transition-colors">THE HEROES</a>
+        <a href="workshop.html" class="nav-link active text-xs font-medium tracking-[0.08em] hover:text-stripe-indigo transition-colors">WORKSHOP</a>
+        <a href="developers.html" class="nav-link text-xs font-medium tracking-[0.08em] hover:text-stripe-indigo transition-colors">FOR DEVELOPERS</a>
+      </div>
+
+      <a href="developers.html#install" class="hidden md:inline-flex items-center rounded-full px-6 py-2.5 text-sm font-semibold tracking-[0.04em] transition-all duration-200 hover:scale-[1.02] bg-stripe-indigo text-marble-white hover:shadow-[0_0_30px_rgba(99,91,255,0.3)]">
+        INSTALL THE PARTENON
+      </a>
+
+      <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Toggle menu" aria-expanded="false">
+        <span class="block h-0.5 w-6 bg-current transition-transform duration-300 origin-center" id="menu-bar-1"></span>
+        <span class="block h-0.5 w-6 bg-current transition-opacity duration-300" id="menu-bar-2"></span>
+        <span class="block h-0.5 w-6 bg-current transition-transform duration-300 origin-center" id="menu-bar-3"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile nav overlay -->
+  <div class="mobile-nav light" id="mobile-nav" aria-hidden="true">
+    <a href="index.html#myth" class="font-cinzel text-lg tracking-[0.08em] hover:text-stripe-indigo transition-colors">THE MYTH</a>
+    <a href="heroes.html" class="font-cinzel text-lg tracking-[0.08em] hover:text-stripe-indigo transition-colors">THE HEROES</a>
+    <a href="workshop.html" class="font-cinzel text-lg tracking-[0.08em] text-stripe-indigo">WORKSHOP</a>
+    <a href="developers.html" class="font-cinzel text-lg tracking-[0.08em] hover:text-stripe-indigo transition-colors">FOR DEVELOPERS</a>
+    <a href="developers.html#install" class="mt-4 inline-flex items-center rounded-full px-8 py-3 text-sm font-semibold tracking-[0.04em] bg-stripe-indigo text-marble-white">INSTALL THE PARTENON</a>
+  </div>
+
+  <main>
+    <!-- HERO -->
+    <section data-dark-section class="relative w-full overflow-hidden" style="min-height: 85vh; background-color: #2A2A2E;">
+      <div class="absolute inset-0 opacity-20 pointer-events-none">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="hero-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+              <circle cx="30" cy="30" r="1.5" fill="#D4A853" opacity="0.5" />
+              <line x1="30" y1="30" x2="90" y2="30" stroke="#D4A853" stroke-width="0.5" opacity="0.2" />
+              <line x1="30" y1="30" x2="30" y2="90" stroke="#D4A853" stroke-width="0.5" opacity="0.2" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#hero-grid)" />
+        </svg>
+      </div>
+
+      <div class="relative z-10 mx-auto px-6 flex flex-col items-center justify-center text-center" style="max-width: var(--container-narrow); min-height: 85vh; padding-top: 120px; padding-bottom: 4rem;">
+        <span class="animate-on-scroll inline-block text-xs font-semibold tracking-[0.16em] mb-6" style="color: #FFB800;">INSTALLATION WORKSHOP</span>
+
+        <h1 class="animate-on-scroll delay-1 font-cinzel text-[clamp(2.5rem,6vw,5rem)] font-normal leading-[1.05] tracking-[0.06em] mb-6" style="color: #F7F5F0;">
+          Install The Partenon in 90 Minutes
+        </h1>
+
+        <p class="animate-on-scroll delay-2 text-lg leading-relaxed mb-8 max-w-[640px]" style="color: rgba(247,245,240,0.6);">
+          A live, hands-on session every 15 days. You will leave with Partenon running on your machine and your first three heroes configured for your business.
+        </p>
+
+        <div class="animate-on-scroll delay-3 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="mailto:workshop@partenon.dev?subject=Register%20for%20Partenon%20Workshop" class="inline-flex items-center gap-2 rounded-full px-8 py-4 text-base font-semibold tracking-wide transition-all duration-200 hover:scale-[1.02]" style="background-color: #635BFF; color: #F7F5F0; box-shadow: 0 0 30px rgba(99,91,255,0.3);">
+            REGISTER FOR NEXT SESSION
+            <span class="material-symbols-sharp">arrow_forward</span>
+          </a>
+          <a href="#prepare" class="inline-flex items-center gap-2 text-sm font-medium transition-colors duration-200 hover:text-[#635BFF]" style="color: rgba(247,245,240,0.6);">
+            SEE WHAT TO PREPARE
+            <span class="material-symbols-sharp">expand_more</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPACT STRIP -->
+    <section data-dark-section class="w-full" style="background-color: #1A1A1E; padding: 4rem 0;">
+      <div class="mx-auto px-6" style="max-width: var(--container-max);">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          <div class="animate-on-scroll text-center p-6 rounded-lg" style="background-color: rgba(247,245,240,0.03); border: 1px solid rgba(247,245,240,0.06);">
+            <div class="font-cinzel text-[clamp(2rem,5vw,3.5rem)] leading-none mb-2" style="color: #F7F5F0; font-variant-numeric: tabular-nums;">
+              <span class="counter" data-target="1000000">0</span>
+            </div>
+            <p class="text-xs font-semibold tracking-[0.12em] uppercase" style="color: rgba(247,245,240,0.5);">Installations Goal</p>
+          </div>
+          <div class="animate-on-scroll delay-1 text-center p-6 rounded-lg" style="background-color: rgba(247,245,240,0.03); border: 1px solid rgba(247,245,240,0.06);">
+            <div class="font-cinzel text-[clamp(2rem,5vw,3.5rem)] leading-none mb-2" style="color: #F7F5F0; font-variant-numeric: tabular-nums;">
+              $<span class="counter" data-target="1000000000">0</span>+
+            </div>
+            <p class="text-xs font-semibold tracking-[0.12em] uppercase" style="color: rgba(247,245,240,0.5);">Revenue Organized</p>
+          </div>
+          <div class="animate-on-scroll delay-2 text-center p-6 rounded-lg" style="background-color: rgba(247,245,240,0.03); border: 1px solid rgba(247,245,240,0.06);">
+            <div class="font-cinzel text-[clamp(2rem,5vw,3.5rem)] leading-none mb-2" style="color: #F7F5F0; font-variant-numeric: tabular-nums;">
+              <span class="counter" data-target="10000000">0</span>+
+            </div>
+            <p class="text-xs font-semibold tracking-[0.12em] uppercase" style="color: rgba(247,245,240,0.5);">Stripe Payments Processed</p>
+          </div>
+          <div class="animate-on-scroll delay-3 text-center p-6 rounded-lg" style="background-color: rgba(247,245,240,0.03); border: 1px solid rgba(247,245,240,0.06);">
+            <div class="font-cinzel text-[clamp(2rem,5vw,3.5rem)] leading-none mb-2" style="color: #F7F5F0; font-variant-numeric: tabular-nums;">
+              <span class="counter" data-target="1000000">0</span>+
+            </div>
+            <p class="text-xs font-semibold tracking-[0.12em] uppercase" style="color: rgba(247,245,240,0.5);">Security Audits Run</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT YOU GET -->
+    <section class="w-full" style="background-color: #F7F5F0; padding: clamp(4rem, 8vh, 8rem) 0;">
+      <div class="mx-auto px-6" style="max-width: var(--container-max);">
+        <div class="text-center mb-12">
+          <span class="animate-on-scroll text-xs font-semibold tracking-[0.16em] mb-4 block" style="color: #635BFF;">WHAT YOU GET</span>
+          <h2 class="animate-on-scroll delay-1 font-cinzel text-[clamp(1.75rem,4vw,3rem)] font-normal tracking-[0.06em] mb-4" style="color: #2A2A2E;">Leave With a Working System</h2>
+          <p class="animate-on-scroll delay-2 text-base max-w-[640px] mx-auto" style="color: #6B6B73;">The workshop is not a demo. You install, configure, and run Partenon on your own machine or server.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="animate-on-scroll lg:col-span-2 p-6 md:p-8 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(42,42,46,0.08);">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-sharp text-2xl" style="color: #635BFF;">terminal</span>
+              <h3 class="font-cinzel text-lg tracking-[0.04em]" style="color: #2A2A2E;">A Working Local Install</h3>
+            </div>
+            <p class="text-sm leading-relaxed mb-4" style="color: #6B6B73;">Partenon runs from <code class="font-mono text-xs" style="color: #635BFF;">./install.sh</code>. The base system works without live credentials. You get a local dashboard, the Scribe demo, and a clear <code class="font-mono text-xs">.env</code> file ready for your keys.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs font-mono px-3 py-1 rounded-full" style="background-color: rgba(99,91,255,0.08); color: #635BFF;">Python backend</span>
+              <span class="text-xs font-mono px-3 py-1 rounded-full" style="background-color: rgba(99,91,255,0.08); color: #635BFF;">Next.js dashboard</span>
+              <span class="text-xs font-mono px-3 py-1 rounded-full" style="background-color: rgba(99,91,255,0.08); color: #635BFF;">SQLite memory</span>
+            </div>
+          </div>
+
+          <div class="animate-on-scroll delay-1 p-6 md:p-8 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(42,42,46,0.08);">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-sharp text-2xl" style="color: #76B900;">groups</span>
+              <h3 class="font-cinzel text-lg tracking-[0.04em]" style="color: #2A2A2E;">Three Heroes Configured</h3>
+            </div>
+            <p class="text-sm leading-relaxed" style="color: #6B6B73;">Choose Scribe, Strategist, and one domain hero based on your operation. We load your documents and set the first missions.</p>
+          </div>
+
+          <div class="animate-on-scroll delay-2 lg:col-span-3 p-6 md:p-8 rounded-lg" style="background-color: #1A1A1E; border: 1px solid rgba(247,245,240,0.08);">
+            <div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-sharp text-2xl" style="color: #D4A853;">map</span>
+                <h3 class="font-cinzel text-lg tracking-[0.04em]" style="color: #F7F5F0;">A Clear Live / Connect / Roadmap Map</h3>
+              </div>
+              <p class="text-sm leading-relaxed flex-1" style="color: rgba(247,245,240,0.6);">You will know exactly what works today, what needs your API keys or accounts, and what is still being built. No surprises after the session.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs font-semibold px-3 py-1 rounded-full" style="background-color: #76B900; color: #fff;">LIVE</span>
+                <span class="text-xs font-semibold px-3 py-1 rounded-full" style="background-color: #635BFF; color: #fff;">CONNECT</span>
+                <span class="text-xs font-semibold px-3 py-1 rounded-full" style="background-color: #D4A853; color: #1A1A1E;">ROADMAP</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INSTALLATION PATHS -->
+    <section class="w-full" style="background-color: #EDE8DF; padding: clamp(4rem, 8vh, 8rem) 0;">
+      <div class="mx-auto px-6" style="max-width: var(--container-max);">
+        <div class="text-center mb-12">
+          <span class="animate-on-scroll text-xs font-semibold tracking-[0.16em] mb-4 block" style="color: #4A90A4;">BEFORE THE WORKSHOP</span>
+          <h2 class="animate-on-scroll delay-1 font-cinzel text-[clamp(1.75rem,4vw,3rem)] font-normal tracking-[0.06em] mb-4" style="color: #2A2A2E;">Choose Your Install</h2>
+          <p class="animate-on-scroll delay-2 text-base max-w-[640px] mx-auto" style="color: #6B6B73;">Two supported paths. Both use the same public repository and the same installer.</p>
+        </div>
+
+        <div class="animate-on-scroll max-w-[800px] mx-auto">
+          <div class="flex gap-0 mb-6 border-b" style="border-color: rgba(42,42,46,0.12);">
+            <button class="install-tab active" data-tab="install-local">Local Machine</button>
+            <button class="install-tab" data-tab="install-vps">VPS / Server</button>
+          </div>
+
+          <div class="install-panel active" id="install-local">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div class="p-5 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(42,42,46,0.08);">
+                <h4 class="font-cinzel text-sm tracking-[0.08em] mb-3" style="color: #2A2A2E;">Prerequisites</h4>
+                <ul class="space-y-2 text-sm" style="color: #6B6B73;">
+                  <li class="flex items-center gap-2"><span class="material-symbols-sharp" style="color: #76B900;">check</span> Python 3.10 or newer</li>
+                  <li class="flex items-center gap-2"><span class="material-symbols-sharp" style="color: #76B900;">check</span> Node.js 20 or newer</li>
+                  <li class="flex items-center gap-2"><span class="material-symbols-sharp" style="color: #76B900;">check</span> npm</li>
+                  <li class="flex items-center gap-2"><span class="material-symbols-sharp" style="color: #76B900;">check</span> Git</li>
+                </ul>
+              </div>
+              <div class="p-5 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(42,42,46,0.08);">
+                <h4 class="font-cinzel text-sm tracking-[0.08em] mb-3" style="color: #2A2A2E;">What happens</h4>
+                <ul class="space-y-2 text-sm" style="color: #6B6B73;">
+                  <li class="flex items-center gap-2"><span class="material-symbols-sharp" style="color: #635BFF;">arrow_forward</span> Creates <code class="font-mono text-xs">.venv</code></li>
+                  <li class="flex items-center gap-2"><span class="material-symbols-sharp" style="color: #635BFF;">arrow_forward</span> Copies <code class="font-mono text-xs">.env.example</code></li>
+                  <li class="flex items-center gap-2"><span class="material-symbols-sharp" style="color: #635BFF;">arrow_forward</span> Runs Scribe demo</li>
+                  <li class="flex items-center gap-2"><span class="material-symbols-sharp" style="color: #635BFF;">arrow_forward</span> Hermes CLI is optional</li>
+                </ul>
+              </div>
+            </div>
+            <div class="relative group cb-wrap mb-4">
+              <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color: #1A1A1E; color: #F7F5F0; letter-spacing: 0.02em;">git clone https://github.com/cuentadeservicio377-cell/partenon.git
+cd partenon
+./install.sh</pre>
+              <button class="copy-btn" data-target="local-code" title="Copy to clipboard">
+                <span class="material-symbols-sharp" style="color: #F7F5F0;">content_copy</span>
+              </button>
+            </div>
+            <p class="text-xs" style="color: #6B6B73;">No live credentials required. The dashboard opens on <code class="font-mono text-xs">http://localhost:3000</code>.</p>
+          </div>
+
+          <div class="install-panel" id="install-vps">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div class="p-5 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(42,42,46,0.08);">
+                <h4 class="font-cinzel text-sm tracking-[0.08em] mb-3" style="color: #2A2A2E;">Prerequisites</h4>
+                <ul class="space-y-2 text-sm" style="color: #6B6B73;">
+                  <li class="flex items-center gap-2"><span class="material-symbols-sharp" style="color: #76B900;">check</span> Ubuntu 22.04 or newer</li>
+                  <li class="flex items-center gap-2"><span class="material-symbols-sharp" style="color: #76B900;">check</span> Docker & Docker Compose</li>
+                  <li class="flex items-center gap-2"><span class="material-symbols-sharp" style="color: #76B900;">check</span> SSH access</li>
+                  <li class="flex items-center gap-2"><span class="material-symbols-sharp" style="color: #76B900;">check</span> Firewall access to ports 3000 and 8000</li>
+                </ul>
+              </div>
+              <div class="p-5 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(42,42,46,0.08);">
+                <h4 class="font-cinzel text-sm tracking-[0.08em] mb-3" style="color: #2A2A2E;">What happens</h4>
+                <ul class="space-y-2 text-sm" style="color: #6B6B73;">
+                  <li class="flex items-center gap-2"><span class="material-symbols-sharp" style="color: #635BFF;">arrow_forward</span> Builds API, dashboard, and Postgres</li>
+                  <li class="flex items-center gap-2"><span class="material-symbols-sharp" style="color: #635BFF;">arrow_forward</span> Exposes dashboard on port 3000</li>
+                  <li class="flex items-center gap-2"><span class="material-symbols-sharp" style="color: #635BFF;">arrow_forward</span> Exposes API on port 8000</li>
+                  <li class="flex items-center gap-2"><span class="material-symbols-sharp" style="color: #635BFF;">arrow_forward</span> Add a reverse proxy for production</li>
+                </ul>
+              </div>
+            </div>
+            <div class="relative group cb-wrap mb-4">
+              <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color: #1A1A1E; color: #F7F5F0; letter-spacing: 0.02em;">git clone https://github.com/cuentadeservicio377-cell/partenon.git
+cd partenon
+docker compose up --build -d</pre>
+              <button class="copy-btn" data-target="vps-code" title="Copy to clipboard">
+                <span class="material-symbols-sharp" style="color: #F7F5F0;">content_copy</span>
+              </button>
+            </div>
+            <p class="text-xs" style="color: #6B6B73;">Use a reverse proxy with TLS for any shared or production deployment.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AGENDA -->
+    <section class="w-full" style="background-color: #F7F5F0; padding: clamp(4rem, 8vh, 8rem) 0;">
+      <div class="mx-auto px-6" style="max-width: var(--container-max);">
+        <div class="text-center mb-16">
+          <span class="animate-on-scroll text-xs font-semibold tracking-[0.16em] mb-4 block" style="color: #FFB800;">AGENDA</span>
+          <h2 class="animate-on-scroll delay-1 font-cinzel text-[clamp(1.75rem,4vw,3rem)] font-normal tracking-[0.06em] mb-4" style="color: #2A2A2E;">What We Do in 90 Minutes</h2>
+          <p class="animate-on-scroll delay-2 text-base max-w-[640px] mx-auto" style="color: #6B6B73;">Four focused blocks. Each one moves from installation to real business use.</p>
+        </div>
+
+        <div class="relative max-w-[800px] mx-auto">
+          <div class="workflow-line absolute left-6 md:left-8 top-0 bottom-0 w-0.5" style="background: linear-gradient(to bottom, #635BFF, #4A90A4, #FFB800, #D4A853);"></div>
+
+          <div class="space-y-8">
+            <div class="workflow-step animate-on-scroll relative flex gap-4 md:gap-6 items-start pl-0">
+              <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #635BFF; box-shadow: 0 0 20px rgba(99,91,255,0.25);">
+                <span class="font-cinzel text-lg md:text-xl font-bold" style="color: #F7F5F0;">1</span>
+              </div>
+              <div class="flex-1 p-5 md:p-6 rounded-lg" style="background-color: #EDE8DF; box-shadow: 0 2px 12px rgba(42,42,46,0.06); border: 1px solid rgba(99,91,255,0.08);">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xs font-semibold tracking-[0.12em]" style="color: #635BFF;">20 MIN</span>
+                  <span class="text-xs" style="color: #6B6B73;">— Install & Verify</span>
+                </div>
+                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Clone, Install, and Run the Demo</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Clone the repo, run <code class="font-mono text-xs">./install.sh</code>, and confirm the Scribe demo output. We fix environment issues live.</p>
+              </div>
+            </div>
+
+            <div class="workflow-step animate-on-scroll delay-1 relative flex gap-4 md:gap-6 items-start pl-0">
+              <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #4A90A4; box-shadow: 0 0 20px rgba(74,144,164,0.25);">
+                <span class="font-cinzel text-lg md:text-xl font-bold" style="color: #F7F5F0;">2</span>
+              </div>
+              <div class="flex-1 p-5 md:p-6 rounded-lg" style="background-color: #EDE8DF; box-shadow: 0 2px 12px rgba(42,42,46,0.06); border: 1px solid rgba(74,144,164,0.08);">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xs font-semibold tracking-[0.12em]" style="color: #4A90A4;">35 MIN</span>
+                  <span class="text-xs" style="color: #6B6B73;">— Configure Heroes</span>
+                </div>
+                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Load Documents Into Your First Three Heroes</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Pick Scribe, Strategist, and one domain hero. We load your files, run the first tools, and label what is live versus what needs credentials.</p>
+              </div>
+            </div>
+
+            <div class="workflow-step animate-on-scroll delay-2 relative flex gap-4 md:gap-6 items-start pl-0">
+              <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #FFB800; box-shadow: 0 0 20px rgba(255,184,0,0.25);">
+                <span class="font-cinzel text-lg md:text-xl font-bold" style="color: #2A2A2E;">3</span>
+              </div>
+              <div class="flex-1 p-5 md:p-6 rounded-lg" style="background-color: #EDE8DF; box-shadow: 0 2px 12px rgba(42,42,46,0.06); border: 1px solid rgba(255,184,0,0.08);">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xs font-semibold tracking-[0.12em]" style="color: #FFB800;">20 MIN</span>
+                  <span class="text-xs" style="color: #6B6B73;">— Connect Hermes</span>
+                </div>
+                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Build Your First Automation</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Set optional credentials and run a routing command. See how a plain-language request maps to the right hero and what the output looks like.</p>
+              </div>
+            </div>
+
+            <div class="workflow-step animate-on-scroll delay-3 relative flex gap-4 md:gap-6 items-start pl-0">
+              <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #D4A853; box-shadow: 0 0 20px rgba(212,168,83,0.25);">
+                <span class="font-cinzel text-lg md:text-xl font-bold" style="color: #1A1A1E;">4</span>
+              </div>
+              <div class="flex-1 p-5 md:p-6 rounded-lg" style="background-color: #EDE8DF; box-shadow: 0 2px 12px rgba(42,42,46,0.06); border: 1px solid rgba(212,168,83,0.08);">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xs font-semibold tracking-[0.12em]" style="color: #D4A853;">15 MIN</span>
+                  <span class="text-xs" style="color: #6B6B73;">— Brain Setup</span>
+                </div>
+                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Weekly Reviews and CRONs</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Configure the Brain to run a weekly review, track objectives, and generate a morning briefing. We set realistic CRONs you can refine later.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PREPARE -->
+    <section id="prepare" class="w-full" style="background-color: #EDE8DF; padding: clamp(4rem, 8vh, 8rem) 0;">
+      <div class="mx-auto px-6" style="max-width: var(--container-max);">
+        <div class="text-center mb-16">
+          <span class="animate-on-scroll text-xs font-semibold tracking-[0.16em] mb-4 block" style="color: #E74C3C;">PREPARE</span>
+          <h2 class="animate-on-scroll delay-1 font-cinzel text-[clamp(1.75rem,4vw,3rem)] font-normal tracking-[0.06em] mb-4" style="color: #2A2A2E;">Bring Your Business Context</h2>
+          <p class="animate-on-scroll delay-2 text-base max-w-[640px] mx-auto" style="color: #6B6B73;">The more context you bring, the more we configure during the session. If you do not have a document ready, use the prompt with any AI assistant to extract it.</p>
+        </div>
+
+        <div class="animate-on-scroll max-w-[800px] mx-auto mb-12 p-5 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(99,91,255,0.12);">
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-sharp text-xl mt-0.5" style="color: #635BFF;">chat</span>
+            <div>
+              <h4 class="font-inter text-sm font-semibold mb-1" style="color: #2A2A2E;">No documents? Use an AI assistant first.</h4>
+              <p class="text-sm leading-relaxed" style="color: #6B6B73;">Paste the prompt for each hero into Kimi Code, ChatGPT, Claude, or any assistant you already use. Answer its questions. Save the output and bring it to the workshop.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="max-w-[800px] mx-auto space-y-4">
+          <!-- Scribe -->
+          <div class="animate-on-scroll rounded-lg overflow-hidden" style="background-color: #F7F5F0; border: 1px solid rgba(74,144,164,0.12);">
+            <button class="accordion-toggle w-full flex items-center justify-between p-5 text-left" aria-expanded="false" data-target="prep-scribe">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-sharp" style="color: #4A90A4;">book</span>
+                <span class="font-cinzel text-sm tracking-[0.08em]" style="color: #2A2A2E;">The Scribe — Finance</span>
+              </div>
+              <span class="material-symbols-sharp accordion-icon" style="color: #6B6B73;">expand_more</span>
+            </button>
+            <div class="accordion-body px-5 pb-5" id="prep-scribe">
+              <div class="pt-2 border-t" style="border-color: rgba(42,42,46,0.06);">
+                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">Bring bank statements, expense receipts, income spreadsheets, and a supplier list. The Scribe turns them into a .finance dashboard.</p>
+                <ul class="list-disc list-inside text-sm mb-4 space-y-1" style="color: #6B6B73;">
+                  <li>Last 3 months of bank statements</li>
+                  <li>Receipts or invoices for fixed and variable expenses</li>
+                  <li>Income source list</li>
+                  <li>Supplier or vendor names</li>
+                </ul>
+                <div class="relative group cb-wrap">
+                  <pre class="font-mono text-xs leading-relaxed overflow-x-auto p-4 rounded-md whitespace-pre" style="background-color: #1A1A1E; color: #F7F5F0;">Ask me questions one at a time about my business finances. Then output a structured list with: income sources, fixed expenses, variable expenses, suppliers, and any financial documents I should gather for my bookkeeper.</pre>
+                  <button class="copy-btn" data-target="scribe-prompt"><span class="material-symbols-sharp" style="color: #F7F5F0;">content_copy</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Herald -->
+          <div class="animate-on-scroll delay-1 rounded-lg overflow-hidden" style="background-color: #F7F5F0; border: 1px solid rgba(155,89,182,0.12);">
+            <button class="accordion-toggle w-full flex items-center justify-between p-5 text-left" aria-expanded="false" data-target="prep-herald">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-sharp" style="color: #9B59B6;">campaign</span>
+                <span class="font-cinzel text-sm tracking-[0.08em]" style="color: #2A2A2E;">The Herald — Brand & Communications</span>
+              </div>
+              <span class="material-symbols-sharp accordion-icon" style="color: #6B6B73;">expand_more</span>
+            </button>
+            <div class="accordion-body px-5 pb-5" id="prep-herald">
+              <div class="pt-2 border-t" style="border-color: rgba(42,42,46,0.06);">
+                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">Bring a short brand description, logo files, social handles, and any existing posts or ads. The Herald writes a .design file.</p>
+                <ul class="list-disc list-inside text-sm mb-4 space-y-1" style="color: #6B6B73;">
+                  <li>One-paragraph description of what you sell</li>
+                  <li>Logo files or brand colors</li>
+                  <li>Social media handles</li>
+                  <li>Recent posts, ads, or emails you liked</li>
+                </ul>
+                <div class="relative group cb-wrap">
+                  <pre class="font-mono text-xs leading-relaxed overflow-x-auto p-4 rounded-md whitespace-pre" style="background-color: #1A1A1E; color: #F7F5F0;">Ask me questions one at a time about my brand. Then write a concise .design file with: brand voice, target audiences, key messages, visual notes, and a 4-week content starter plan.</pre>
+                  <button class="copy-btn" data-target="herald-prompt"><span class="material-symbols-sharp" style="color: #F7F5F0;">content_copy</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Collector -->
+          <div class="animate-on-scroll delay-2 rounded-lg overflow-hidden" style="background-color: #F7F5F0; border: 1px solid rgba(99,91,255,0.12);">
+            <button class="accordion-toggle w-full flex items-center justify-between p-5 text-left" aria-expanded="false" data-target="prep-collector">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-sharp" style="color: #635BFF;">payments</span>
+                <span class="font-cinzel text-sm tracking-[0.08em]" style="color: #2A2A2E;">The Collector — Payments</span>
+              </div>
+              <span class="material-symbols-sharp accordion-icon" style="color: #6B6B73;">expand_more</span>
+            </button>
+            <div class="accordion-body px-5 pb-5" id="prep-collector">
+              <div class="pt-2 border-t" style="border-color: rgba(42,42,46,0.06);">
+                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">Bring a Stripe account in test mode, a product or service list, and prices. The Collector creates payment links and invoices.</p>
+                <ul class="list-disc list-inside text-sm mb-4 space-y-1" style="color: #6B6B73;">
+                  <li>Stripe account (test mode is enough)</li>
+                  <li>Product or service names</li>
+                  <li>Prices and currencies</li>
+                  <li>Common invoice terms</li>
+                </ul>
+                <div class="relative group cb-wrap">
+                  <pre class="font-mono text-xs leading-relaxed overflow-x-auto p-4 rounded-md whitespace-pre" style="background-color: #1A1A1E; color: #F7F5F0;">Ask me questions one at a time about what I sell. Then output a structured list with: products or services, prices, currencies, and the payment terms I should set up in Stripe.</pre>
+                  <button class="copy-btn" data-target="collector-prompt"><span class="material-symbols-sharp" style="color: #F7F5F0;">content_copy</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Guardian -->
+          <div class="animate-on-scroll delay-3 rounded-lg overflow-hidden" style="background-color: #F7F5F0; border: 1px solid rgba(118,185,0,0.12);">
+            <button class="accordion-toggle w-full flex items-center justify-between p-5 text-left" aria-expanded="false" data-target="prep-guardian">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-sharp" style="color: #76B900;">security</span>
+                <span class="font-cinzel text-sm tracking-[0.08em]" style="color: #2A2A2E;">The Guardian — Security</span>
+              </div>
+              <span class="material-symbols-sharp accordion-icon" style="color: #6B6B73;">expand_more</span>
+            </button>
+            <div class="accordion-body px-5 pb-5" id="prep-guardian">
+              <div class="pt-2 border-t" style="border-color: rgba(42,42,46,0.06);">
+                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">Bring a list of services and API keys you use and who has access to them. The Guardian audits key strength and access.</p>
+                <ul class="list-disc list-inside text-sm mb-4 space-y-1" style="color: #6B6B73;">
+                  <li>Services with API keys (OpenAI, Stripe, Google, etc.)</li>
+                  <li>Who has admin access to each service</li>
+                  <li>Shared passwords or vaults you currently use</li>
+                </ul>
+                <div class="relative group cb-wrap">
+                  <pre class="font-mono text-xs leading-relaxed overflow-x-auto p-4 rounded-md whitespace-pre" style="background-color: #1A1A1E; color: #F7F5F0;">Ask me questions one at a time about the services and accounts my business uses. Then output a security inventory with: service name, purpose, who has access, and what type of credential it uses.</pre>
+                  <button class="copy-btn" data-target="guardian-prompt"><span class="material-symbols-sharp" style="color: #F7F5F0;">content_copy</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Strategist -->
+          <div class="animate-on-scroll delay-4 rounded-lg overflow-hidden" style="background-color: #F7F5F0; border: 1px solid rgba(255,184,0,0.12);">
+            <button class="accordion-toggle w-full flex items-center justify-between p-5 text-left" aria-expanded="false" data-target="prep-strategist">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-sharp" style="color: #FFB800;">event_note</span>
+                <span class="font-cinzel text-sm tracking-[0.08em]" style="color: #2A2A2E;">The Strategist — Operations</span>
+              </div>
+              <span class="material-symbols-sharp accordion-icon" style="color: #6B6B73;">expand_more</span>
+            </button>
+            <div class="accordion-body px-5 pb-5" id="prep-strategist">
+              <div class="pt-2 border-t" style="border-color: rgba(42,42,46,0.06);">
+                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">Bring your current project list, calendar tool, and top three priorities. The Strategist builds projects and checklists.</p>
+                <ul class="list-disc list-inside text-sm mb-4 space-y-1" style="color: #6B6B73;">
+                  <li>Open projects or initiatives</li>
+                  <li>Calendar tool you use</li>
+                  <li>Top 3 priorities for the next 30 days</li>
+                  <li>Recurring meetings or deadlines</li>
+                </ul>
+                <div class="relative group cb-wrap">
+                  <pre class="font-mono text-xs leading-relaxed overflow-x-auto p-4 rounded-md whitespace-pre" style="background-color: #1A1A1E; color: #F7F5F0;">Ask me questions one at a time about how my business operates. Then output a project list with: project name, deadline, owner, and the first three tasks for each.</pre>
+                  <button class="copy-btn" data-target="strategist-prompt"><span class="material-symbols-sharp" style="color: #F7F5F0;">content_copy</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Diplomat -->
+          <div class="animate-on-scroll delay-5 rounded-lg overflow-hidden" style="background-color: #F7F5F0; border: 1px solid rgba(231,76,60,0.12);">
+            <button class="accordion-toggle w-full flex items-center justify-between p-5 text-left" aria-expanded="false" data-target="prep-diplomat">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-sharp" style="color: #E74C3C;">handshake</span>
+                <span class="font-cinzel text-sm tracking-[0.08em]" style="color: #2A2A2E;">The Diplomat — Relationships</span>
+              </div>
+              <span class="material-symbols-sharp accordion-icon" style="color: #6B6B73;">expand_more</span>
+            </button>
+            <div class="accordion-body px-5 pb-5" id="prep-diplomat">
+              <div class="pt-2 border-t" style="border-color: rgba(42,42,46,0.06);">
+                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">Bring a client or vendor list and any messages you need to follow up on. The Diplomat maps relationships and drafts follow-ups.</p>
+                <ul class="list-disc list-inside text-sm mb-4 space-y-1" style="color: #6B6B73;">
+                  <li>Client and vendor names</li>
+                  <li>Status of each relationship</li>
+                  <li>Recent emails or messages pending reply</li>
+                  <li>Key dates or promises made</li>
+                </ul>
+                <div class="relative group cb-wrap">
+                  <pre class="font-mono text-xs leading-relaxed overflow-x-auto p-4 rounded-md whitespace-pre" style="background-color: #1A1A1E; color: #F7F5F0;">Ask me questions one at a time about my clients and vendors. Then output a relationship map with: name, status, last contact, next follow-up, and any pending promise.</pre>
+                  <button class="copy-btn" data-target="diplomat-prompt"><span class="material-symbols-sharp" style="color: #F7F5F0;">content_copy</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Brain -->
+          <div class="animate-on-scroll delay-6 rounded-lg overflow-hidden" style="background-color: #F7F5F0; border: 1px solid rgba(212,168,83,0.12);">
+            <button class="accordion-toggle w-full flex items-center justify-between p-5 text-left" aria-expanded="false" data-target="prep-brain">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-sharp" style="color: #D4A853;">memory</span>
+                <span class="font-cinzel text-sm tracking-[0.08em]" style="color: #2A2A2E;">The Brain — Memory</span>
+              </div>
+              <span class="material-symbols-sharp accordion-icon" style="color: #6B6B73;">expand_more</span>
+            </button>
+            <div class="accordion-body px-5 pb-5" id="prep-brain">
+              <div class="pt-2 border-t" style="border-color: rgba(42,42,46,0.06);">
+                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">Bring previous decisions, notes, or company objectives. The Brain stores memory and detects conflicts across heroes.</p>
+                <ul class="list-disc list-inside text-sm mb-4 space-y-1" style="color: #6B6B73;">
+                  <li>Company objectives or annual goals</li>
+                  <li>Important decisions made in the last quarter</li>
+                  <li>Notes from recurring meetings</li>
+                </ul>
+                <div class="relative group cb-wrap">
+                  <pre class="font-mono text-xs leading-relaxed overflow-x-auto p-4 rounded-md whitespace-pre" style="background-color: #1A1A1E; color: #F7F5F0;">Ask me questions one at a time about what my business has decided and where it is headed. Then output a memory summary with: objectives, key decisions, open questions, and any contradictions I should resolve.</pre>
+                  <button class="copy-btn" data-target="brain-prompt"><span class="material-symbols-sharp" style="color: #F7F5F0;">content_copy</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BRAIN & AUTOMATIONS -->
+    <section data-dark-section class="w-full" style="background-color: #2A2A2E; padding: clamp(4rem, 8vh, 8rem) 0;">
+      <div class="mx-auto px-6" style="max-width: var(--container-max);">
+        <div class="text-center mb-16">
+          <span class="animate-on-scroll text-xs font-semibold tracking-[0.16em] mb-4 block" style="color: #D4A853;">THE BRAIN</span>
+          <h2 class="animate-on-scroll delay-1 font-cinzel text-[clamp(1.75rem,4vw,3rem)] font-normal tracking-[0.06em] mb-4" style="color: #F7F5F0;">Automations That Run After the Session</h2>
+          <p class="animate-on-scroll delay-2 text-base max-w-[640px] mx-auto" style="color: rgba(247,245,240,0.6);">During the workshop we configure the Brain to keep the system moving between sessions. Full autonomy grows as you connect more integrations.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div class="animate-on-scroll p-6 rounded-lg" style="background-color: rgba(247,245,240,0.03); border: 1px solid rgba(247,245,240,0.06);">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center mb-4" style="background-color: rgba(212,168,83,0.12);">
+              <span class="material-symbols-sharp" style="color: #D4A853;">calendar_today</span>
+            </div>
+            <h3 class="font-cinzel text-sm tracking-[0.08em] mb-2" style="color: #F7F5F0;">Weekly Review</h3>
+            <p class="text-sm leading-relaxed" style="color: rgba(247,245,240,0.6);">Every Sunday at 20:00 the Brain scans active projects, objectives, and follow-ups, then flags what needs attention.</p>
+          </div>
+          <div class="animate-on-scroll delay-1 p-6 rounded-lg" style="background-color: rgba(247,245,240,0.03); border: 1px solid rgba(247,245,240,0.06);">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center mb-4" style="background-color: rgba(212,168,83,0.12);">
+              <span class="material-symbols-sharp" style="color: #D4A853;">wb_sunny</span>
+            </div>
+            <h3 class="font-cinzel text-sm tracking-[0.08em] mb-2" style="color: #F7F5F0;">Morning Briefing</h3>
+            <p class="text-sm leading-relaxed" style="color: rgba(247,245,240,0.6);">A short daily summary with today's priorities, pending follow-ups, and any deadline approaching in the next 48 hours.</p>
+          </div>
+          <div class="animate-on-scroll delay-2 p-6 rounded-lg" style="background-color: rgba(247,245,240,0.03); border: 1px solid rgba(247,245,240,0.06);">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center mb-4" style="background-color: rgba(212,168,83,0.12);">
+              <span class="material-symbols-sharp" style="color: #D4A853;">track_changes</span>
+            </div>
+            <h3 class="font-cinzel text-sm tracking-[0.08em] mb-2" style="color: #F7F5F0;">Objective Nudges</h3>
+            <p class="text-sm leading-relaxed" style="color: rgba(247,245,240,0.6);">When an objective deadline is near, the Brain reminds the assigned owner and suggests the next concrete action.</p>
+          </div>
+        </div>
+
+        <div class="animate-on-scroll delay-3 max-w-[640px] mx-auto text-center p-6 rounded-lg" style="background-color: rgba(247,245,240,0.03); border: 1px solid rgba(247,245,240,0.06);">
+          <p class="text-sm leading-relaxed" style="color: rgba(247,245,240,0.6);">The Brain uses SQLite by default and can scale to Postgres for team memory. We configure the first CRONs in the workshop; you refine them as your operation grows.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CUSTOM WORKSHOPS -->
+    <section data-dark-section class="w-full" style="background-color: #1A1A1E; padding: clamp(4rem, 8vh, 8rem) 0;">
+      <div class="mx-auto px-6" style="max-width: var(--container-max);">
+        <div class="text-center mb-16">
+          <span class="animate-on-scroll text-xs font-semibold tracking-[0.16em] mb-4 block" style="color: #76B900;">CUSTOM WORKSHOPS</span>
+          <h2 class="animate-on-scroll delay-1 font-cinzel text-[clamp(1.75rem,4vw,3rem)] font-normal tracking-[0.06em] mb-4" style="color: #F7F5F0;">Built for Your Organization</h2>
+          <p class="animate-on-scroll delay-2 text-base max-w-[640px] mx-auto" style="color: rgba(247,245,240,0.6);">We adapt the install session for the audience, the tools, and the pace of your group.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-12">
+          <div class="animate-on-scroll p-5 rounded-lg text-center" style="background-color: rgba(247,245,240,0.03); border: 1px solid rgba(247,245,240,0.06);">
+            <span class="material-symbols-sharp text-2xl mb-3" style="color: #76B900;">apartment</span>
+            <h3 class="font-cinzel text-xs tracking-[0.08em] mb-1" style="color: #F7F5F0;">Coworking Spaces</h3>
+            <p class="text-xs" style="color: rgba(247,245,240,0.5);">Group installs for members</p>
+          </div>
+          <div class="animate-on-scroll delay-1 p-5 rounded-lg text-center" style="background-color: rgba(247,245,240,0.03); border: 1px solid rgba(247,245,240,0.06);">
+            <span class="material-symbols-sharp text-2xl mb-3" style="color: #76B900;">school</span>
+            <h3 class="font-cinzel text-xs tracking-[0.08em] mb-1" style="color: #F7F5F0;">Universities</h3>
+            <p class="text-xs" style="color: rgba(247,245,240,0.5);">Curriculum-aligned sessions</p>
+          </div>
+          <div class="animate-on-scroll delay-2 p-5 rounded-lg text-center" style="background-color: rgba(247,245,240,0.03); border: 1px solid rgba(247,245,240,0.06);">
+            <span class="material-symbols-sharp text-2xl mb-3" style="color: #76B900;">badge</span>
+            <h3 class="font-cinzel text-xs tracking-[0.08em] mb-1" style="color: #F7F5F0;">Professional Associations</h3>
+            <p class="text-xs" style="color: rgba(247,245,240,0.5);">Industry-specific examples</p>
+          </div>
+          <div class="animate-on-scroll delay-3 p-5 rounded-lg text-center" style="background-color: rgba(247,245,240,0.03); border: 1px solid rgba(247,245,240,0.06);">
+            <span class="material-symbols-sharp text-2xl mb-3" style="color: #76B900;">diversity_3</span>
+            <h3 class="font-cinzel text-xs tracking-[0.08em] mb-1" style="color: #F7F5F0;">Networking Groups</h3>
+            <p class="text-xs" style="color: rgba(247,245,240,0.5);">Founder cohorts</p>
+          </div>
+          <div class="animate-on-scroll delay-4 p-5 rounded-lg text-center" style="background-color: rgba(247,245,240,0.03); border: 1px solid rgba(247,245,240,0.06);">
+            <span class="material-symbols-sharp text-2xl mb-3" style="color: #76B900;">corporate_fare</span>
+            <h3 class="font-cinzel text-xs tracking-[0.08em] mb-1" style="color: #F7F5F0;">Enterprise Teams</h3>
+            <p class="text-xs" style="color: rgba(247,245,240,0.5);">Private VPC deployments</p>
+          </div>
+        </div>
+
+        <div class="animate-on-scroll delay-5 text-center">
+          <a href="mailto:workshop@partenon.dev?subject=Custom%20Workshop%20Request" class="inline-flex items-center gap-2 rounded-full px-8 py-4 text-base font-semibold tracking-wide transition-all duration-200 hover:scale-[1.02]" style="background-color: #76B900; color: #F7F5F0;">
+            REQUEST A CUSTOM WORKSHOP
+            <span class="material-symbols-sharp">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORKSHOP 2.0 -->
+    <section class="w-full" style="background-color: #F7F5F0; padding: clamp(4rem, 8vh, 8rem) 0;">
+      <div class="mx-auto px-6 text-center" style="max-width: var(--container-narrow);">
+        <span class="animate-on-scroll text-xs font-semibold tracking-[0.16em] mb-4 block" style="color: #635BFF;">FOLLOW-UP</span>
+        <h2 class="animate-on-scroll delay-1 font-cinzel text-[clamp(1.75rem,4vw,3rem)] font-normal tracking-[0.06em] mb-4" style="color: #2A2A2E;">Workshop 2.0</h2>
+        <p class="animate-on-scroll delay-2 text-base mb-8" style="color: #6B6B73;">One month after the first session, we open a follow-up workshop. We review what is not working, fix integrations, add more heroes, and tune your automations. Attendees from the first session get the link automatically.</p>
+        <a href="mailto:workshop@partenon.dev?subject=Workshop%202.0%20Waitlist" class="animate-on-scroll delay-3 inline-flex items-center gap-2 rounded-full px-8 py-4 text-base font-semibold tracking-wide transition-all duration-200 hover:scale-[1.02]" style="background-color: #635BFF; color: #F7F5F0;">
+          JOIN THE WAITLIST
+          <span class="material-symbols-sharp">arrow_forward</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer data-dark-section class="w-full" style="background-color: #1A1A1E; padding: 5rem 0 3rem;">
+    <div class="mx-auto px-6" style="max-width: var(--container-max);">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-3 mb-4">
+            <svg viewBox="0 0 32 32" fill="none" class="h-8 w-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 28h28M4 28V12h3v16M12 28V8h3v20M20 28V8h3v20M25 28V12h3v16M2 12l14-8 14 8"/>
+            </svg>
+            <span class="font-cinzel text-sm tracking-[0.12em]" style="color: #F7F5F0;">THE PARTENON</span>
+          </div>
+          <p class="text-sm leading-relaxed max-w-[320px]" style="color: rgba(247,245,240,0.6);">Seven Hermes profiles. One shared context. Built for businesses that outgrow single-tool workflows.</p>
+        </div>
+        <div>
+          <h4 class="font-inter text-xs font-semibold tracking-[0.12em] mb-4" style="color: #6B6B73;">PAGES</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-sm transition-colors duration-200 hover:text-[#635BFF]" style="color: rgba(247,245,240,0.6);">The Myth</a></li>
+            <li><a href="heroes.html" class="text-sm transition-colors duration-200 hover:text-[#635BFF]" style="color: rgba(247,245,240,0.6);">The Heroes</a></li>
+            <li><a href="workshop.html" class="text-sm transition-colors duration-200 hover:text-[#635BFF]" style="color: rgba(247,245,240,0.6);">Workshop</a></li>
+            <li><a href="developers.html" class="text-sm transition-colors duration-200 hover:text-[#635BFF]" style="color: rgba(247,245,240,0.6);">For Developers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-inter text-xs font-semibold tracking-[0.12em] mb-4" style="color: #6B6B73;">RESOURCES</h4>
+          <ul class="space-y-2">
+            <li><a href="https://github.com/cuentadeservicio377-cell/partenon" target="_blank" rel="noopener noreferrer" class="text-sm transition-colors duration-200 hover:text-[#635BFF]" style="color: rgba(247,245,240,0.6);">GitHub Repository</a></li>
+            <li><a href="docs/QUICKSTART.md" class="text-sm transition-colors duration-200 hover:text-[#635BFF]" style="color: rgba(247,245,240,0.6);">Quickstart Guide</a></li>
+            <li><a href="docs/ENTREPRENEUR_PLAYBOOK.md" class="text-sm transition-colors duration-200 hover:text-[#635BFF]" style="color: rgba(247,245,240,0.6);">Entrepreneur Playbook</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="h-px w-full mb-8" style="background: linear-gradient(to right, transparent, var(--myth-gold), transparent);"></div>
+
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-center md:text-left" style="color: rgba(247,245,240,0.4);">
+          &copy; 2025 The Partenon. Built for the Nous Research &times; NVIDIA &times; Stripe Hackathon.
+        </p>
+        <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium" style="background: rgba(118,185,0,0.15); color: #76B900;">
+          Open Source
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <div class="rounded-full px-5 py-2.5 text-sm font-medium shadow-lg" style="background-color: #1A1A1E; color: #F7F5F0; border: 1px solid rgba(247,245,240,0.15);">
+      <span id="toast-message">Copied to clipboard</span>
+    </div>
+  </div>
+
+  <script>
+    // Mobile nav toggle
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileNav = document.getElementById('mobile-nav');
+    const bar1 = document.getElementById('menu-bar-1');
+    const bar2 = document.getElementById('menu-bar-2');
+    const bar3 = document.getElementById('menu-bar-3');
+    let menuOpen = false;
+
+    menuBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileNav.classList.toggle('open', menuOpen);
+      mobileNav.setAttribute('aria-hidden', String(!menuOpen));
+      menuBtn.setAttribute('aria-expanded', String(menuOpen));
+
+      if (menuOpen) {
+        bar1.style.transform = 'translateY(6px) rotate(45deg)';
+        bar2.style.opacity = '0';
+        bar3.style.transform = 'translateY(-6px) rotate(-45deg)';
+      } else {
+        bar1.style.transform = '';
+        bar2.style.opacity = '1';
+        bar3.style.transform = '';
+      }
+    });
+
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuOpen = false;
+        mobileNav.classList.remove('open');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        bar1.style.transform = '';
+        bar2.style.opacity = '1';
+        bar3.style.transform = '';
+      });
+    });
+
+    // Navbar dark/light detection
+    const navbar = document.getElementById('navbar');
+    const darkSections = document.querySelectorAll('[data-dark-section]');
+
+    function updateNavbar() {
+      const navRect = navbar.getBoundingClientRect();
+      const navMid = navRect.top + navRect.height / 2;
+      let inDark = false;
+      darkSections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= navMid && rect.bottom >= navMid) {
+          inDark = true;
+        }
+      });
+      navbar.classList.toggle('dark', inDark);
+      navbar.classList.toggle('light', !inDark);
+      mobileNav.classList.toggle('dark', inDark);
+      mobileNav.classList.toggle('light', !inDark);
+    }
+
+    function onScroll() {
+      const y = window.scrollY;
+      navbar.classList.toggle('scrolled', y > 50);
+      updateNavbar();
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // IntersectionObserver for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+
+    document.querySelectorAll('.animate-on-scroll, .animate-scale-on-scroll').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Counter animation
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.target, 10);
+      const duration = 2000;
+      const start = performance.now();
+      const format = (n) => {
+        if (n >= 1000000000) return (n / 1000000000).toFixed(0) + 'B';
+        if (n >= 1000000) return (n / 1000000).toFixed(0) + 'M';
+        if (n >= 1000) return (n / 1000).toFixed(0) + 'K';
+        return n.toString();
+      };
+      function step(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(eased * target);
+        el.textContent = format(current);
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = format(target);
+      }
+      requestAnimationFrame(step);
+    }
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+    // Install tabs
+    document.querySelectorAll('.install-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.install-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.install-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Accordions
+    document.querySelectorAll('.accordion-toggle').forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const target = document.getElementById(toggle.dataset.target);
+        const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!isOpen));
+        target.classList.toggle('open', !isOpen);
+      });
+    });
+
+    // Copy to clipboard
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Copied to clipboard');
+      }).catch(() => {
+        showToast('Press Cmd/Ctrl+C to copy');
+      });
+    }
+
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pre = btn.previousElementSibling;
+        if (pre && pre.tagName === 'PRE') {
+          copyText(pre.textContent);
+        }
+      });
+    });
+
+    // Toast
+    let toastTimeout;
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toast-message');
+      toastMessage.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
