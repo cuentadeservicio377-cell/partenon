@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Heroes — The Partenon</title>
-  <meta name="description" content="Meet the seven specialized agents that power The Partenon: Scribe, Herald, Collector, Guardian, Strategist, Diplomat, and Brain." />
+  <meta name="description" content="Meet the seven Hermes profiles that power The Partenon: Scribe, Herald, Collector, Guardian, Strategist, Diplomat, and Brain." />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -220,6 +220,23 @@
     }
     .tool-badge:hover { transform: translateY(-2px); }
 
+    /* Status tags */
+    .status-tag {
+      display: inline-flex;
+      align-items: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.5rem;
+      border-radius: 9999px;
+      line-height: 1;
+    }
+    .tag-live { background-color: #76B900; color: #fff; }
+    .tag-connect { background-color: #635BFF; color: #fff; }
+    .tag-roadmap { background-color: #D4A853; color: #1A1A1E; }
+
     /* Matrix row */
     .matrix-row {
       transition: background-color 0.2s ease;
@@ -285,7 +302,7 @@
       </div>
 
       <a href="developers.html" class="hidden md:inline-flex items-center rounded-full px-6 py-2.5 text-sm font-semibold tracking-[0.04em] transition-all duration-200 hover:scale-[1.02] bg-stripe-indigo text-marble-white hover:shadow-[0_0_30px_rgba(99,91,255,0.3)]">
-        INSTALL HERMES
+        INSTALL THE PARTENON
       </a>
 
       <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Toggle menu" aria-expanded="false">
@@ -302,7 +319,7 @@
     <a href="heroes.html" class="font-cinzel text-lg tracking-[0.08em] text-stripe-indigo">THE HEROES</a>
     <a href="index.html#vision" class="font-cinzel text-lg tracking-[0.08em] hover:text-stripe-indigo transition-colors">THE VISION</a>
     <a href="developers.html" class="font-cinzel text-lg tracking-[0.08em] hover:text-stripe-indigo transition-colors">FOR DEVELOPERS</a>
-    <a href="developers.html" class="mt-4 inline-flex items-center rounded-full px-8 py-3 text-sm font-semibold tracking-[0.04em] bg-stripe-indigo text-marble-white">INSTALL HERMES</a>
+    <a href="developers.html" class="mt-4 inline-flex items-center rounded-full px-8 py-3 text-sm font-semibold tracking-[0.04em] bg-stripe-indigo text-marble-white">INSTALL THE PARTENON</a>
   </div>
 
   <main>
@@ -333,7 +350,7 @@
         <div class="hero-divider w-12 h-0.5 mb-6" style="background-color: #FFB800;"></div>
 
         <p class="animate-on-scroll delay-2 text-base md:text-lg leading-relaxed mb-10 max-w-[640px]" style="color: rgba(247,245,240,0.6);">
-          Seven specialized agents. One unified purpose. Each hero brings a unique archetype, skillset, and personality to your enterprise — working together through The Partenon to transform how you operate.
+          Each hero is a Hermes profile. Install the ones you need; they share memory through the Brain.
         </p>
 
         <div class="heroes-quick-nav flex items-center justify-center gap-4 md:gap-5 flex-wrap">
@@ -399,35 +416,40 @@
             <span class="animate-on-scroll text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #4A90A4;">HERO PROFILE</span>
             <h2 class="animate-on-scroll delay-1 font-cinzel text-[clamp(1.75rem,3.5vw,3rem)] font-normal tracking-[0.06em] mb-3" style="color: #2A2A2E;">THE SCRIBE</h2>
             <div class="animate-on-scroll delay-1 w-12 h-0.5 mb-5" style="background-color: #4A90A4;"></div>
+            <div class="animate-on-scroll delay-2 flex flex-wrap gap-2 mb-6">
+              <span class="status-tag tag-live">Live</span>
+              <span class="status-tag tag-connect">Connect</span>
+              <span class="status-tag tag-roadmap">Roadmap</span>
+            </div>
             <p class="animate-on-scroll delay-2 text-base leading-relaxed mb-8" style="color: #6B6B73;">
-              The Scribe embodies the archetype of the meticulous record-keeper — the one who sees order in chaos and transforms raw data into strategic clarity. Every number tells a story, and The Scribe is the storyteller.
+              The Scribe is the finance and records profile. It parses finance data, classifies expenses, and builds local dashboards and .finance files. Google Sheets and Workspace writes need credentials; Google Drive operations are roadmap.
             </p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
               <div class="capability-card animate-on-scroll delay-3 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(74,144,164,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #4A90A4;">Financial Modeling</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Builds complete financial models from scratch. Tracks fixed costs, variable costs, margins, and projections. Creates .finance files — standardized financial blueprints for any business type.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #4A90A4;">Parse &amp; classify finance data</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Reads uploaded spreadsheets or CSVs, classifies fixed and variable costs, and outputs structured .finance files.</p>
               </div>
               <div class="capability-card animate-on-scroll delay-4 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(74,144,164,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #4A90A4;">Dashboard Creation</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Designs real-time dashboards in Google Sheets that update automatically. Visual charts, KPI trackers, and executive summaries that evolve as your business grows.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #4A90A4;">Local dashboards</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Builds break-even, margin, and KPI dashboards from local data without external credentials.</p>
               </div>
               <div class="capability-card animate-on-scroll delay-5 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(74,144,164,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #4A90A4;">Data Analysis</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Analyzes business data to identify trends, anomalies, and opportunities. From sales patterns to cost inefficiencies — The Scribe finds what others miss.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #4A90A4;">Google Workspace writes</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Creates and updates Google Sheets when a service account or OAuth credentials are configured.</p>
               </div>
             </div>
 
             <div class="mb-8">
               <span class="text-xs font-semibold tracking-[0.12em] mb-3 block" style="color: #6B6B73;">TOOLS</span>
               <div class="flex flex-wrap gap-2">
-                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(74,144,164,0.25); color: #4A90A4; background-color: rgba(74,144,164,0.03);">Google Sheets</span>
-                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(74,144,164,0.25); color: #4A90A4; background-color: rgba(74,144,164,0.03);">Google Drive</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(74,144,164,0.25); color: #4A90A4; background-color: rgba(74,144,164,0.03);">Local files</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(74,144,164,0.25); color: #4A90A4; background-color: rgba(74,144,164,0.03);">.finance Files</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(74,144,164,0.25); color: #4A90A4; background-color: rgba(74,144,164,0.03);">Pivot Tables</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(74,144,164,0.25); color: #4A90A4; background-color: rgba(74,144,164,0.03);">Query Functions</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(74,144,164,0.25); color: #4A90A4; background-color: rgba(74,144,164,0.03);">Data Visualization</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(74,144,164,0.25); color: #4A90A4; background-color: rgba(74,144,164,0.03);">Forecasting</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(74,144,164,0.25); color: #4A90A4; background-color: rgba(74,144,164,0.03);">Google Sheets</span>
               </div>
             </div>
 
@@ -453,7 +475,7 @@
               <span class="text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #6B6B73;">MCP CONNECTIONS</span>
               <span class="inline-flex items-center gap-1.5 text-sm font-mono" style="color: #4A90A4;">
                 <span class="material-symbols-sharp">bolt</span>
-                Google Workspace integration
+                Google Workspace integration (connect)
               </span>
             </div>
 
@@ -481,47 +503,43 @@
             <span class="animate-on-scroll text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #9B59B6;">HERO PROFILE</span>
             <h2 class="animate-on-scroll delay-1 font-cinzel text-[clamp(1.75rem,3.5vw,3rem)] font-normal tracking-[0.06em] mb-3" style="color: #2A2A2E;">THE HERALD</h2>
             <div class="animate-on-scroll delay-1 w-12 h-0.5 mb-5" style="background-color: #9B59B6;"></div>
+            <div class="animate-on-scroll delay-2 flex flex-wrap gap-2 mb-6">
+              <span class="status-tag tag-live">Live</span>
+              <span class="status-tag tag-connect">Connect</span>
+              <span class="status-tag tag-roadmap">Roadmap</span>
+            </div>
             <p class="animate-on-scroll delay-2 text-base leading-relaxed mb-8" style="color: #6B6B73;">
-              The Herald is the voice of your brand — the communicator who ensures your message reaches the right people at the right time. Persuasive, creative, and relentlessly focused on growth.
+              The Herald is the brand and communications profile. It drafts copy, builds content calendars, and creates presentation outlines. Google Docs and Slides creation works when connected; publishing to Instagram, Twitter, LinkedIn, and Mailchimp is roadmap.
             </p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
               <div class="capability-card animate-on-scroll delay-3 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(155,89,182,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #9B59B6;">Brand Strategy</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Develops complete brand identities — voice, tone, visual guidelines, messaging frameworks. Creates .design files that serve as the brand bible for all other heroes.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #9B59B6;">Copy drafts</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Writes brand copy, ad variations, and messaging frameworks from a brief or .design file.</p>
               </div>
               <div class="capability-card animate-on-scroll delay-4 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(155,89,182,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #9B59B6;">Social Media Management</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Plans, creates, and schedules content across all platforms. Monitors engagement, responds to trends, and builds community — all aligned with your brand strategy.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #9B59B6;">Content calendar</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Plans campaigns and editorial calendars with publishing dates and channels.</p>
               </div>
               <div class="capability-card animate-on-scroll delay-5 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(155,89,182,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #9B59B6;">SEO &amp; GEO</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Optimizes for both traditional search (SEO) and generative engine optimization (GEO). Ensures your business is found whether customers search on Google or ask AI assistants.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #9B59B6;">Google Docs / Slides</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Generates documents and deck outlines when Google Workspace is connected.</p>
               </div>
               <div class="capability-card animate-on-scroll delay-6 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(155,89,182,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #9B59B6;">Campaign Management</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Designs and executes marketing campaigns — from product launches to seasonal promotions. Tracks ROI, A/B tests messaging, and scales what works.</p>
-              </div>
-              <div class="capability-card animate-on-scroll delay-7 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(155,89,182,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #9B59B6;">Content Calendar</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Maintains a living content calendar that coordinates all marketing activities. Ensures no opportunity is missed and no message conflicts.</p>
-              </div>
-              <div class="capability-card animate-on-scroll delay-7 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(155,89,182,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #9B59B6;">Client Presentations</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Creates pitch decks, proposals, and presentations that win business. Professional, on-brand, and persuasive.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #9B59B6;">Social publishing</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Prepares posts for review; direct publishing to social platforms is roadmap.</p>
               </div>
             </div>
 
             <div class="mb-8">
               <span class="text-xs font-semibold tracking-[0.12em] mb-3 block" style="color: #6B6B73;">TOOLS</span>
               <div class="flex flex-wrap gap-2">
-                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(155,89,182,0.25); color: #9B59B6; background-color: rgba(155,89,182,0.03);">Instagram</span>
-                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(155,89,182,0.25); color: #9B59B6; background-color: rgba(155,89,182,0.03);">Twitter</span>
-                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(155,89,182,0.25); color: #9B59B6; background-color: rgba(155,89,182,0.03);">LinkedIn</span>
-                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(155,89,182,0.25); color: #9B59B6; background-color: rgba(155,89,182,0.03);">Mailchimp</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(155,89,182,0.25); color: #9B59B6; background-color: rgba(155,89,182,0.03);">.design Files</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(155,89,182,0.25); color: #9B59B6; background-color: rgba(155,89,182,0.03);">SEO Tools</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(155,89,182,0.25); color: #9B59B6; background-color: rgba(155,89,182,0.03);">Content Calendar</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(155,89,182,0.25); color: #9B59B6; background-color: rgba(155,89,182,0.03);">Google Docs</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(155,89,182,0.25); color: #9B59B6; background-color: rgba(155,89,182,0.03);">Google Slides</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(155,89,182,0.25); color: #9B59B6; background-color: rgba(155,89,182,0.03);">Social APIs (roadmap)</span>
               </div>
             </div>
 
@@ -547,7 +565,7 @@
               <span class="text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #6B6B73;">MCP CONNECTIONS</span>
               <span class="inline-flex items-center gap-1.5 text-sm font-mono" style="color: #9B59B6;">
                 <span class="material-symbols-sharp">bolt</span>
-                Social media APIs, Open Design
+                Google Workspace / Docs (connect); Social APIs (roadmap)
               </span>
             </div>
 
@@ -575,34 +593,31 @@
             <span class="animate-on-scroll text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #635BFF;">HERO PROFILE</span>
             <h2 class="animate-on-scroll delay-1 font-cinzel text-[clamp(1.75rem,3.5vw,3rem)] font-normal tracking-[0.06em] mb-3" style="color: #2A2A2E;">THE COLLECTOR</h2>
             <div class="animate-on-scroll delay-1 w-12 h-0.5 mb-5" style="background-color: #635BFF;"></div>
+            <div class="animate-on-scroll delay-2 flex flex-wrap gap-2 mb-6">
+              <span class="status-tag tag-live">Live</span>
+              <span class="status-tag tag-connect">Connect</span>
+              <span class="status-tag tag-roadmap">Roadmap</span>
+            </div>
             <p class="animate-on-scroll delay-2 text-base leading-relaxed mb-8" style="color: #6B6B73;">
-              The Collector is the financial gatekeeper — ensuring every transaction is processed, every invoice is sent, and every dollar is accounted for. Built on Stripe, trusted by businesses worldwide.
+              The Collector is the payments profile. It runs dry-run invoices, subscriptions, and revenue reports, and creates Stripe payment links. Live charges require a Stripe secret key; Stripe Connect is roadmap.
             </p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
               <div class="capability-card animate-on-scroll delay-3 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(99,91,255,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #635BFF;">Payment Processing</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Handles all Stripe payment flows — one-time purchases, subscriptions, installments. Configures payment methods, currencies, and checkout experiences.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #635BFF;">Dry-run invoicing</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Creates invoice drafts and subscription schedules locally before any live charge.</p>
               </div>
               <div class="capability-card animate-on-scroll delay-4 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(99,91,255,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #635BFF;">Invoicing</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Generates and sends professional invoices automatically. Tracks payment status, sends reminders, and reconciles received payments.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #635BFF;">Revenue reports</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Builds MRR, ARR, and churn reports from Stripe data or mock data.</p>
               </div>
               <div class="capability-card animate-on-scroll delay-5 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(99,91,255,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #635BFF;">Subscription Management</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Manages recurring billing, plan changes, prorations, and cancellations. Handles free trials, upgrades, and downgrades seamlessly.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #635BFF;">Payment links</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Generates Stripe Checkout and payment-link URLs.</p>
               </div>
               <div class="capability-card animate-on-scroll delay-6 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(99,91,255,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #635BFF;">Revenue Tracking</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Real-time revenue dashboards connected to your Stripe account. MRR, ARR, churn rate, LTV — all tracked and reported.</p>
-              </div>
-              <div class="capability-card animate-on-scroll delay-7 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(99,91,255,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #635BFF;">Financial Reconciliation</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Reconciles Stripe transactions with your accounting system. Catches discrepancies and ensures your books are always accurate.</p>
-              </div>
-              <div class="capability-card animate-on-scroll delay-7 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(99,91,255,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #635BFF;">Fraud Monitoring</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Monitors transactions for suspicious patterns. Alerts on unusual activity and implements Stripe fraud prevention tools.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #635BFF;">Live Stripe execution</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Processes real charges, invoices, and webhooks when STRIPE_SECRET_KEY is set.</p>
               </div>
             </div>
 
@@ -610,12 +625,11 @@
               <span class="text-xs font-semibold tracking-[0.12em] mb-3 block" style="color: #6B6B73;">TOOLS</span>
               <div class="flex flex-wrap gap-2">
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(99,91,255,0.25); color: #635BFF; background-color: rgba(99,91,255,0.03);">Stripe API</span>
-                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(99,91,255,0.25); color: #635BFF; background-color: rgba(99,91,255,0.03);">Stripe Dashboard</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(99,91,255,0.25); color: #635BFF; background-color: rgba(99,91,255,0.03);">Payment Links</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(99,91,255,0.25); color: #635BFF; background-color: rgba(99,91,255,0.03);">Checkout</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(99,91,255,0.25); color: #635BFF; background-color: rgba(99,91,255,0.03);">Billing</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(99,91,255,0.25); color: #635BFF; background-color: rgba(99,91,255,0.03);">Invoicing</span>
-                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(99,91,255,0.25); color: #635BFF; background-color: rgba(99,91,255,0.03);">Connect</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(99,91,255,0.25); color: #635BFF; background-color: rgba(99,91,255,0.03);">Stripe Connect (roadmap)</span>
               </div>
             </div>
 
@@ -641,7 +655,7 @@
               <span class="text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #6B6B73;">MCP CONNECTIONS</span>
               <span class="inline-flex items-center gap-1.5 text-sm font-mono" style="color: #635BFF;">
                 <span class="material-symbols-sharp">bolt</span>
-                Stripe integration
+                Stripe integration (connect)
               </span>
             </div>
 
@@ -669,47 +683,37 @@
             <span class="animate-on-scroll text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #76B900;">HERO PROFILE</span>
             <h2 class="animate-on-scroll delay-1 font-cinzel text-[clamp(1.75rem,3.5vw,3rem)] font-normal tracking-[0.06em] mb-3" style="color: #2A2A2E;">THE GUARDIAN</h2>
             <div class="animate-on-scroll delay-1 w-12 h-0.5 mb-5" style="background-color: #76B900;"></div>
+            <div class="animate-on-scroll delay-2 flex flex-wrap gap-2 mb-6">
+              <span class="status-tag tag-live">Live</span>
+              <span class="status-tag tag-connect">Connect</span>
+              <span class="status-tag tag-roadmap">Roadmap</span>
+            </div>
             <p class="animate-on-scroll delay-2 text-base leading-relaxed mb-8" style="color: #6B6B73;">
-              The Guardian protects your digital realm. From API keys to model access, from security protocols to system integrity — nothing enters or leaves The Partenon without The Guardian's watch.
+              The Guardian is the security and policy profile. It audits key strength, detects providers, and logs policy checks. NVIDIA GPU allocation and NemoClaw integration are roadmap.
             </p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
               <div class="capability-card animate-on-scroll delay-3 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(118,185,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #76B900;">API Key Management</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Securely stores and manages all API keys — NVIDIA, OpenAI, social platforms, and custom integrations. Rotates keys, monitors usage, and prevents exposure.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #76B900;">Key-strength audit</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Scans configured keys for length, entropy, and exposure patterns.</p>
               </div>
               <div class="capability-card animate-on-scroll delay-4 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(118,185,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #76B900;">Model Administration</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Manages access to AI models across the system. Configures which heroes use which models, optimizes for cost and performance, and tracks token usage.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #76B900;">Provider detection</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Identifies which service each key belongs to and surfaces unused credentials.</p>
               </div>
               <div class="capability-card animate-on-scroll delay-5 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(118,185,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #76B900;">Security Protocols</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Implements security best practices — encryption, access control, audit logging. Ensures The Partenon meets enterprise security standards.</p>
-              </div>
-              <div class="capability-card animate-on-scroll delay-6 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(118,185,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #76B900;">NVIDIA Integration</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Manages NVIDIA API connections, GPU allocation for model inference, and security configurations specific to NVIDIA services.</p>
-              </div>
-              <div class="capability-card animate-on-scroll delay-7 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(118,185,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #76B900;">Access Control</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Defines permissions for each hero and user. Role-based access ensures heroes can only reach the data and tools they need.</p>
-              </div>
-              <div class="capability-card animate-on-scroll delay-7 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(118,185,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #76B900;">Audit &amp; Compliance</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Maintains logs of all actions across The Partenon. Generates compliance reports and identifies security anomalies.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #76B900;">Policy logging</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Records access decisions and security checks for review.</p>
               </div>
             </div>
 
             <div class="mb-8">
               <span class="text-xs font-semibold tracking-[0.12em] mb-3 block" style="color: #6B6B73;">TOOLS</span>
               <div class="flex flex-wrap gap-2">
-                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(118,185,0,0.25); color: #76B900; background-color: rgba(118,185,0,0.03);">NVIDIA Platform</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(118,185,0,0.25); color: #76B900; background-color: rgba(118,185,0,0.03);">API Key Manager</span>
-                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(118,185,0,0.25); color: #76B900; background-color: rgba(118,185,0,0.03);">Security Dashboard</span>
-                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(118,185,0,0.25); color: #76B900; background-color: rgba(118,185,0,0.03);">Encryption</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(118,185,0,0.25); color: #76B900; background-color: rgba(118,185,0,0.03);">Access Control</span>
-                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(118,185,0,0.25); color: #76B900; background-color: rgba(118,185,0,0.03);">MCP Security</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(118,185,0,0.25); color: #76B900; background-color: rgba(118,185,0,0.03);">Audit Logs</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(118,185,0,0.25); color: #76B900; background-color: rgba(118,185,0,0.03);">NVIDIA Platform (roadmap)</span>
               </div>
             </div>
 
@@ -733,7 +737,7 @@
               <span class="text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #6B6B73;">MCP CONNECTIONS</span>
               <span class="inline-flex items-center gap-1.5 text-sm font-mono" style="color: #76B900;">
                 <span class="material-symbols-sharp">bolt</span>
-                NVIDIA integration
+                Security checks (live); NVIDIA (roadmap)
               </span>
             </div>
 
@@ -761,34 +765,31 @@
             <span class="animate-on-scroll text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #FFB800;">HERO PROFILE</span>
             <h2 class="animate-on-scroll delay-1 font-cinzel text-[clamp(1.75rem,3.5vw,3rem)] font-normal tracking-[0.06em] mb-3" style="color: #2A2A2E;">THE STRATEGIST</h2>
             <div class="animate-on-scroll delay-1 w-12 h-0.5 mb-5" style="background-color: #FFB800;"></div>
+            <div class="animate-on-scroll delay-2 flex flex-wrap gap-2 mb-6">
+              <span class="status-tag tag-live">Live</span>
+              <span class="status-tag tag-connect">Connect</span>
+              <span class="status-tag tag-roadmap">Roadmap</span>
+            </div>
             <p class="animate-on-scroll delay-2 text-base leading-relaxed mb-8" style="color: #6B6B73;">
-              The Strategist is the operational mind — the one who sees the big picture while tracking every detail. Project manager, calendar wizard, and the hero who ensures nothing falls through the cracks.
+              The Strategist is the operations profile. It plans projects, tasks, and checklists locally and coordinates via Google Calendar, Gmail, and Slack when connected. Notion and a Google Tasks PM suite are roadmap.
             </p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
               <div class="capability-card animate-on-scroll delay-3 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(255,184,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #FFB800;">Project Management</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Orchestrates complex projects across multiple heroes. Creates timelines, assigns tasks, tracks progress, and ensures deadlines are met.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #FFB800;">Project planning</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Breaks goals into milestones, tasks, and checklists.</p>
               </div>
               <div class="capability-card animate-on-scroll delay-4 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(255,184,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #FFB800;">Calendar Management</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Manages Google Calendar for the entire team — scheduling meetings, blocking focus time, coordinating across time zones, and sending reminders.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #FFB800;">Calendar management</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Schedules events and reminders through Google Calendar when connected.</p>
               </div>
               <div class="capability-card animate-on-scroll delay-5 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(255,184,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #FFB800;">Task Orchestration</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Breaks down high-level goals into actionable tasks, assigns them to the right heroes, and monitors completion. The central coordination hub.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #FFB800;">Email &amp; Slack</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Sends briefings and reminders via Gmail and a Slack bot when tokens are set.</p>
               </div>
               <div class="capability-card animate-on-scroll delay-6 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(255,184,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #FFB800;">Email Management</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Organizes inbox, drafts responses, flags priorities, and ensures important communications are never missed.</p>
-              </div>
-              <div class="capability-card animate-on-scroll delay-7 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(255,184,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #FFB800;">Operations Oversight</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Monitors the health of all business operations. Identifies bottlenecks, suggests process improvements, and maintains operational standards.</p>
-              </div>
-              <div class="capability-card animate-on-scroll delay-7 p-4 rounded-lg" style="background-color: #EDE8DF; border: 1px solid rgba(255,184,0,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #FFB800;">Note &amp; Detail Tracking</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Remembers the details that matter — client preferences, project nuances, follow-up items. Ask "What did we discuss with Client X?" and The Strategist knows.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #FFB800;">External PM tools</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Notion and Google Tasks PM suite integration is roadmap.</p>
               </div>
             </div>
 
@@ -797,9 +798,8 @@
               <div class="flex flex-wrap gap-2">
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(255,184,0,0.25); color: #FFB800; background-color: rgba(255,184,0,0.03);">Google Calendar</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(255,184,0,0.25); color: #FFB800; background-color: rgba(255,184,0,0.03);">Google Tasks</span>
-                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(255,184,0,0.25); color: #FFB800; background-color: rgba(255,184,0,0.03);">Notion</span>
-                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(255,184,0,0.25); color: #FFB800; background-color: rgba(255,184,0,0.03);">Project Management Suite</span>
-                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(255,184,0,0.25); color: #FFB800; background-color: rgba(255,184,0,0.03);">Email</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(255,184,0,0.25); color: #FFB800; background-color: rgba(255,184,0,0.03);">Gmail</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(255,184,0,0.25); color: #FFB800; background-color: rgba(255,184,0,0.03);">Slack</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(255,184,0,0.25); color: #FFB800; background-color: rgba(255,184,0,0.03);">Notes</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(255,184,0,0.25); color: #FFB800; background-color: rgba(255,184,0,0.03);">Reminders</span>
               </div>
@@ -829,7 +829,7 @@
               <span class="text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #6B6B73;">MCP CONNECTIONS</span>
               <span class="inline-flex items-center gap-1.5 text-sm font-mono" style="color: #FFB800;">
                 <span class="material-symbols-sharp">bolt</span>
-                Google Workspace integration, Calendar integration
+                Google Calendar, Gmail, Slack (connect); Notion / Google Tasks (roadmap)
               </span>
             </div>
 
@@ -857,46 +857,44 @@
             <span class="animate-on-scroll text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #E74C3C;">HERO PROFILE</span>
             <h2 class="animate-on-scroll delay-1 font-cinzel text-[clamp(1.75rem,3.5vw,3rem)] font-normal tracking-[0.06em] mb-3" style="color: #2A2A2E;">THE DIPLOMAT</h2>
             <div class="animate-on-scroll delay-1 w-12 h-0.5 mb-5" style="background-color: #E74C3C;"></div>
+            <div class="animate-on-scroll delay-2 flex flex-wrap gap-2 mb-6">
+              <span class="status-tag tag-live">Live</span>
+              <span class="status-tag tag-connect">Connect</span>
+              <span class="status-tag tag-roadmap">Roadmap</span>
+            </div>
             <p class="animate-on-scroll delay-2 text-base leading-relaxed mb-8" style="color: #6B6B73;">
-              The Diplomat has two faces — one for your clients, one for your team — and both are committed to harmony. The bridge between worlds who ensures everyone is heard, aligned, and moving forward together.
+              The Diplomat is the relationships profile. It tracks clients and vendors, drafts follow-ups, and uses Google Workspace and Gmail when connected. HubSpot and Salesforce CRM sync is roadmap.
             </p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
               <div class="capability-card animate-on-scroll delay-3 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(231,76,60,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #E74C3C;">Client Relationship Management</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Maintains detailed client profiles, tracks all interactions, manages follow-ups, and ensures no client feels forgotten.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #E74C3C;">Contact tracking</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Maintains client and vendor records with status and history.</p>
               </div>
               <div class="capability-card animate-on-scroll delay-4 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(231,76,60,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #E74C3C;">Vendor Coordination</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Manages relationships with suppliers, contractors, and service providers. Tracks deliverables, handles disputes, and maintains vendor scorecards.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #E74C3C;">Follow-up drafts</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Writes personalized follow-up messages from context.</p>
               </div>
               <div class="capability-card animate-on-scroll delay-5 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(231,76,60,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #E74C3C;">Communication Bridge</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Translates between internal teams and external stakeholders. Ensures client expectations align with operational capabilities.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #E74C3C;">Google Workspace / Gmail</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Reads thread context and drafts replies when connected.</p>
               </div>
               <div class="capability-card animate-on-scroll delay-6 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(231,76,60,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #E74C3C;">Meeting Facilitation</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Prepares agendas, takes notes, assigns action items, and follows up after every meeting — internal or external.</p>
-              </div>
-              <div class="capability-card animate-on-scroll delay-7 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(231,76,60,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #E74C3C;">Conflict Resolution</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Identifies misalignments between client needs and team capacity. Proposes solutions that satisfy both sides.</p>
-              </div>
-              <div class="capability-card animate-on-scroll delay-7 p-4 rounded-lg" style="background-color: #F7F5F0; border: 1px solid rgba(231,76,60,0.08); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #E74C3C;">Partnership Management</h4>
-                <p class="text-sm leading-relaxed" style="color: #6B6B73;">Manages strategic partnerships and collaborations. Tracks partnership health and identifies expansion opportunities.</p>
+                <h4 class="font-inter text-sm font-semibold mb-1.5" style="color: #E74C3C;">CRM sync</h4>
+                <p class="text-sm leading-relaxed" style="color: #6B6B73;">HubSpot and Salesforce integration is roadmap.</p>
               </div>
             </div>
 
             <div class="mb-8">
               <span class="text-xs font-semibold tracking-[0.12em] mb-3 block" style="color: #6B6B73;">TOOLS</span>
               <div class="flex flex-wrap gap-2">
-                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(231,76,60,0.25); color: #E74C3C; background-color: rgba(231,76,60,0.03);">CRM Systems</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(231,76,60,0.25); color: #E74C3C; background-color: rgba(231,76,60,0.03);">Email</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(231,76,60,0.25); color: #E74C3C; background-color: rgba(231,76,60,0.03);">Calendar</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(231,76,60,0.25); color: #E74C3C; background-color: rgba(231,76,60,0.03);">Meeting Notes</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(231,76,60,0.25); color: #E74C3C; background-color: rgba(231,76,60,0.03);">Follow-up System</span>
                 <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(231,76,60,0.25); color: #E74C3C; background-color: rgba(231,76,60,0.03);">Communication Log</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(231,76,60,0.25); color: #E74C3C; background-color: rgba(231,76,60,0.03);">Google Workspace</span>
+                <span class="tool-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-mono" style="border: 1px solid rgba(231,76,60,0.25); color: #E74C3C; background-color: rgba(231,76,60,0.03);">HubSpot / Salesforce (roadmap)</span>
               </div>
             </div>
 
@@ -922,7 +920,7 @@
               <span class="text-xs font-semibold tracking-[0.12em] mb-2 block" style="color: #6B6B73;">MCP CONNECTIONS</span>
               <span class="inline-flex items-center gap-1.5 text-sm font-mono" style="color: #E74C3C;">
                 <span class="material-symbols-sharp">bolt</span>
-                CRM integration, Email integration
+                Google Workspace / Gmail (connect); CRM (roadmap)
               </span>
             </div>
 
@@ -946,26 +944,31 @@
           <h2 class="brain-animate animate-on-scroll delay-1 font-cinzel text-[clamp(2rem,4vw,3.5rem)] font-normal tracking-[0.06em] mb-2" style="color: #2A2A2E;">THE BRAIN</h2>
           <h3 class="brain-animate animate-on-scroll delay-2 font-cinzel text-[clamp(1.2rem,2vw,1.75rem)] tracking-[0.04em] mb-4" style="color: #D4A853;">G-BRAIN OF GARRY TAN</h3>
           <div class="brain-animate animate-on-scroll delay-2 w-16 h-0.5 mb-6" style="background-color: #D4A853;"></div>
+          <div class="brain-animate animate-on-scroll delay-2 flex flex-wrap gap-2 mb-6 justify-center">
+            <span class="status-tag tag-live">Live</span>
+            <span class="status-tag tag-connect">Connect</span>
+            <span class="status-tag tag-roadmap">Roadmap</span>
+          </div>
           <p class="brain-animate animate-on-scroll delay-3 text-base leading-relaxed mb-10 max-w-[640px]" style="color: #6B6B73;">
-            The Brain is the central intelligence of The Partenon — the connective tissue that transforms individual hero capabilities into a unified, self-improving system. Through MCP, The Brain gives every hero access to shared knowledge, cross-domain insights, and collective intelligence.
+            The Brain is shared memory. It stores memory pages and profiles, runs semantic search, and detects conflicts. It uses SQLite by default and can scale to Postgres when connected.
           </p>
 
           <div class="brain-animate animate-on-scroll delay-4 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mb-10">
-            <div class="brain-cap-card capability-card p-5 rounded-lg text-left" style="background-color: #EDE8DF; border: 1px solid rgba(212,168,83,0.12); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-              <h4 class="font-inter text-sm font-semibold mb-2" style="color: #D4A853;">Cross-Agent Analysis</h4>
-              <p class="text-sm leading-relaxed" style="color: #6B6B73;">Analyzes data from all heroes simultaneously. Identifies patterns that no single hero could see — like marketing spend correlating with payment delays.</p>
+            <div class="brain-cap-card capability-card p-5 rounded-lg text-left animate-on-scroll delay-3" style="background-color: #EDE8DF; border: 1px solid rgba(212,168,83,0.12); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+              <h4 class="font-inter text-sm font-semibold mb-2" style="color: #D4A853;">Memory pages</h4>
+              <p class="text-sm leading-relaxed" style="color: #6B6B73;">Stores structured notes, decisions, and context across sessions.</p>
             </div>
-            <div class="brain-cap-card capability-card p-5 rounded-lg text-left" style="background-color: #EDE8DF; border: 1px solid rgba(212,168,83,0.12); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-              <h4 class="font-inter text-sm font-semibold mb-2" style="color: #D4A853;">Pattern Recognition</h4>
-              <p class="text-sm leading-relaxed" style="color: #6B6B73;">Learns from every interaction, every mission, every outcome. Recognizes recurring business patterns and suggests proactive optimizations.</p>
+            <div class="brain-cap-card capability-card p-5 rounded-lg text-left animate-on-scroll delay-4" style="background-color: #EDE8DF; border: 1px solid rgba(212,168,83,0.12); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+              <h4 class="font-inter text-sm font-semibold mb-2" style="color: #D4A853;">Profile storage</h4>
+              <p class="text-sm leading-relaxed" style="color: #6B6B73;">Keeps hero and enterprise profile data consistent.</p>
             </div>
-            <div class="brain-cap-card capability-card p-5 rounded-lg text-left" style="background-color: #EDE8DF; border: 1px solid rgba(212,168,83,0.12); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-              <h4 class="font-inter text-sm font-semibold mb-2" style="color: #D4A853;">MCP Orchestration</h4>
-              <p class="text-sm leading-relaxed" style="color: #6B6B73;">Manages the Model Context Protocol layer that connects all heroes to shared tools, data sources, and external APIs. Ensures seamless interoperability.</p>
+            <div class="brain-cap-card capability-card p-5 rounded-lg text-left animate-on-scroll delay-5" style="background-color: #EDE8DF; border: 1px solid rgba(212,168,83,0.12); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+              <h4 class="font-inter text-sm font-semibold mb-2" style="color: #D4A853;">Conflict detection</h4>
+              <p class="text-sm leading-relaxed" style="color: #6B6B73;">Flags contradictions and duplicates in shared memory.</p>
             </div>
-            <div class="brain-cap-card capability-card p-5 rounded-lg text-left" style="background-color: #EDE8DF; border: 1px solid rgba(212,168,83,0.12); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
-              <h4 class="font-inter text-sm font-semibold mb-2" style="color: #D4A853;">Strategic Insights</h4>
-              <p class="text-sm leading-relaxed" style="color: #6B6B73;">Generates executive-level insights and recommendations. Not just data — but actionable intelligence that helps founders make better decisions.</p>
+            <div class="brain-cap-card capability-card p-5 rounded-lg text-left animate-on-scroll delay-6" style="background-color: #EDE8DF; border: 1px solid rgba(212,168,83,0.12); box-shadow: 0 2px 8px rgba(42,42,46,0.04);">
+              <h4 class="font-inter text-sm font-semibold mb-2" style="color: #D4A853;">SQLite / Postgres</h4>
+              <p class="text-sm leading-relaxed" style="color: #6B6B73;">Runs locally on SQLite; connect GBRAIN_DATABASE_URL for team Postgres.</p>
             </div>
           </div>
 
@@ -1045,7 +1048,7 @@
                   </div>
                 </td>
                 <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Security Sentinel</td>
-                <td class="px-4 py-4 text-sm font-mono" style="color: rgba(247,245,240,0.7);">NVIDIA APIs, MCP Security</td>
+                <td class="px-4 py-4 text-sm font-mono" style="color: rgba(247,245,240,0.7);">Key audits, policy logs</td>
                 <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">All Heroes, Brain</td>
                 <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Securing systems &amp; managing AI models</td>
               </tr>
@@ -1057,7 +1060,7 @@
                   </div>
                 </td>
                 <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Operations Master</td>
-                <td class="px-4 py-4 text-sm font-mono" style="color: rgba(247,245,240,0.7);">Google Calendar, PM</td>
+                <td class="px-4 py-4 text-sm font-mono" style="color: rgba(247,245,240,0.7);">Google Calendar, tasks/checklists</td>
                 <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">All Heroes, Diplomat</td>
                 <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Project management &amp; coordination</td>
               </tr>
@@ -1069,7 +1072,7 @@
                   </div>
                 </td>
                 <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Relations Bridge</td>
-                <td class="px-4 py-4 text-sm font-mono" style="color: rgba(247,245,240,0.7);">CRM, Email</td>
+                <td class="px-4 py-4 text-sm font-mono" style="color: rgba(247,245,240,0.7);">Gmail, relations (CRM roadmap)</td>
                 <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Herald, Strategist, Brain</td>
                 <td class="px-4 py-4 text-sm" style="color: rgba(247,245,240,0.7);">Client &amp; vendor relationship management</td>
               </tr>
@@ -1091,42 +1094,42 @@
       </div>
     </section>
 
-    <!-- INTERCONNECTED WORKFLOW -->
+        <!-- HOW THE PARTENON RUNS -->
     <section class="w-full" style="background-color: #EDE8DF; padding: clamp(4rem, 8vh, 8rem) 0;">
       <div class="mx-auto px-6" style="max-width: var(--container-max);">
         <div class="text-center mb-16">
-          <h2 class="animate-on-scroll font-cinzel text-[clamp(1.75rem,4vw,3rem)] font-normal tracking-[0.06em] mb-4" style="color: #2A2A2E;">HOW HEROES WORK TOGETHER</h2>
+          <h2 class="animate-on-scroll font-cinzel text-[clamp(1.75rem,4vw,3rem)] font-normal tracking-[0.06em] mb-4" style="color: #2A2A2E;">HOW THE PARTENON RUNS</h2>
           <p class="animate-on-scroll delay-1 text-base max-w-[640px] mx-auto" style="color: #6B6B73;">
-            The real power of The Partenon is not individual heroes — it is how they collaborate. Here is a real-world example of heroes coordinating on a single business mission.
+            Four steps from installation to autonomous operation. Everything starts in dry-run mode; connect credentials only when you are ready for live integrations.
           </p>
         </div>
 
         <div class="text-center mb-12">
           <span class="animate-on-scroll inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold tracking-wide" style="background-color: #635BFF; color: #F7F5F0;">
-            <span class="material-symbols-sharp">target</span>
-            PRODUCT LAUNCH MISSION
+            <span class="material-symbols-sharp">route</span>
+            FROM INSTALL TO AUTONOMY
           </span>
         </div>
 
         <div class="relative max-w-[800px] mx-auto">
-          <div class="workflow-line absolute left-6 md:left-8 top-0 bottom-0 w-0.5" style="background: linear-gradient(to bottom, #FFB800, #4A90A4, #9B59B6, #635BFF, #E74C3C, #76B900, #D4A853);"></div>
+          <div class="workflow-line absolute left-6 md:left-8 top-0 bottom-0 w-0.5" style="background: linear-gradient(to bottom, #635BFF, #4A90A4, #FFB800, #D4A853);"></div>
 
           <div class="space-y-8">
             <!-- Step 1 -->
             <div class="workflow-step animate-on-scroll relative flex gap-4 md:gap-6 items-start pl-0">
-              <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #FFB800; box-shadow: 0 0 20px rgba(255,184,0,0.25);">
-                <img src="assets/hero-strategist-icon.png" alt="The Strategist" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+              <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #635BFF; box-shadow: 0 0 20px rgba(99,91,255,0.25);">
+                <span class="material-symbols-sharp text-2xl md:text-3xl" style="color: #F7F5F0;">download</span>
               </div>
-              <div class="flex-1 p-5 md:p-6 rounded-lg" style="background-color: #F7F5F0; box-shadow: 0 2px 12px rgba(42,42,46,0.06); border: 1px solid rgba(255,184,0,0.08);">
+              <div class="flex-1 p-5 md:p-6 rounded-lg" style="background-color: #F7F5F0; box-shadow: 0 2px 12px rgba(42,42,46,0.06); border: 1px solid rgba(99,91,255,0.08);">
                 <div class="flex items-center gap-2 mb-2">
-                  <span class="text-xs font-semibold tracking-[0.12em]" style="color: #FFB800;">STEP 1</span>
-                  <span class="text-xs" style="color: #6B6B73;">— The Strategist</span>
+                  <span class="text-xs font-semibold tracking-[0.12em]" style="color: #635BFF;">STEP 1</span>
+                  <span class="text-xs" style="color: #6B6B73;">— Install</span>
                 </div>
-                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Product Launch Project Created</h4>
-                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">The Strategist creates a project timeline, assigns deadlines, and schedules kickoff meetings with all relevant heroes.</p>
+                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Download the Partenon</h4>
+                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">Clone the repository and run <code class="font-mono text-xs" style="color: #635BFF;">./install.sh</code>. The FastAPI backend, local memory store, and dashboard start immediately. Hermes is an optional dependency for the CLI profile experience.</p>
                 <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-sharp" style="color: #FFB800; font-size: 0.875rem;">check_circle</span>
-                  <span class="text-xs font-mono" style="color: #FFB800;">Google Calendar events, task assignments</span>
+                  <span class="material-symbols-sharp" style="color: #76B900; font-size: 0.875rem;">check_circle</span>
+                  <span class="text-xs font-mono" style="color: #76B900;">No credentials required to start</span>
                 </div>
               </div>
             </div>
@@ -1134,122 +1137,81 @@
             <!-- Step 2 -->
             <div class="workflow-step animate-on-scroll delay-1 relative flex gap-4 md:gap-6 items-start pl-0">
               <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #4A90A4; box-shadow: 0 0 20px rgba(74,144,164,0.25);">
-                <img src="assets/hero-scribe-icon.png" alt="The Scribe" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                <div class="flex flex-wrap items-center justify-center gap-0.5 px-1">
+                  <img src="assets/hero-scribe-icon.png" alt="" class="w-4 h-4 md:w-5 md:h-5 object-contain rounded-full" />
+                  <img src="assets/hero-herald-icon.png" alt="" class="w-4 h-4 md:w-5 md:h-5 object-contain rounded-full" />
+                  <img src="assets/hero-collector-icon.png" alt="" class="w-4 h-4 md:w-5 md:h-5 object-contain rounded-full" />
+                  <img src="assets/hero-guardian-icon.png" alt="" class="w-4 h-4 md:w-5 md:h-5 object-contain rounded-full" />
+                  <img src="assets/hero-strategist-icon.png" alt="" class="w-4 h-4 md:w-5 md:h-5 object-contain rounded-full" />
+                  <img src="assets/hero-diplomat-icon.png" alt="" class="w-4 h-4 md:w-5 md:h-5 object-contain rounded-full" />
+                </div>
               </div>
               <div class="flex-1 p-5 md:p-6 rounded-lg" style="background-color: #F7F5F0; box-shadow: 0 2px 12px rgba(42,42,46,0.06); border: 1px solid rgba(74,144,164,0.08);">
                 <div class="flex items-center gap-2 mb-2">
                   <span class="text-xs font-semibold tracking-[0.12em]" style="color: #4A90A4;">STEP 2</span>
-                  <span class="text-xs" style="color: #6B6B73;">— The Scribe</span>
+                  <span class="text-xs" style="color: #6B6B73;">— Configure</span>
                 </div>
-                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Financial Model &amp; Pricing Built</h4>
-                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">The Scribe creates a .finance file with product cost analysis, pricing tiers, and revenue projections.</p>
+                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Assemble Your Hero Ensemble</h4>
+                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">Pick the profiles your enterprise needs. Each one runs locally out of the box. Add API keys or service accounts only for the integrations you want to activate.</p>
                 <div class="flex items-center gap-1.5">
                   <span class="material-symbols-sharp" style="color: #4A90A4; font-size: 0.875rem;">check_circle</span>
-                  <span class="text-xs font-mono" style="color: #4A90A4;">.finance file, pricing dashboard</span>
+                  <span class="text-xs font-mono" style="color: #4A90A4;">Mix live, connect, and roadmap profiles</span>
                 </div>
               </div>
             </div>
 
             <!-- Step 3 -->
             <div class="workflow-step animate-on-scroll delay-2 relative flex gap-4 md:gap-6 items-start pl-0">
-              <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #9B59B6; box-shadow: 0 0 20px rgba(155,89,182,0.25);">
-                <img src="assets/hero-herald-icon.png" alt="The Herald" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+              <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #FFB800; box-shadow: 0 0 20px rgba(255,184,0,0.25);">
+                <img src="assets/hero-strategist-icon.png" alt="Missions" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
               </div>
-              <div class="flex-1 p-5 md:p-6 rounded-lg" style="background-color: #F7F5F0; box-shadow: 0 2px 12px rgba(42,42,46,0.06); border: 1px solid rgba(155,89,182,0.08);">
+              <div class="flex-1 p-5 md:p-6 rounded-lg" style="background-color: #F7F5F0; box-shadow: 0 2px 12px rgba(42,42,46,0.06); border: 1px solid rgba(255,184,0,0.08);">
                 <div class="flex items-center gap-2 mb-2">
-                  <span class="text-xs font-semibold tracking-[0.12em]" style="color: #9B59B6;">STEP 3</span>
-                  <span class="text-xs" style="color: #6B6B73;">— The Herald</span>
+                  <span class="text-xs font-semibold tracking-[0.12em]" style="color: #FFB800;">STEP 3</span>
+                  <span class="text-xs" style="color: #6B6B73;">— Operate</span>
                 </div>
-                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Marketing Campaign Designed</h4>
-                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">The Herald references the .design file, creates campaign assets, schedules social content, and sets up SEO.</p>
+                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Missions in Motion</h4>
+                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">The Strategist routes tasks; each hero executes its domain. Every integration defaults to dry-run until you explicitly set <code class="font-mono text-xs" style="color: #FFB800;">dry_run: false</code> and supply valid credentials.</p>
                 <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-sharp" style="color: #9B59B6; font-size: 0.875rem;">check_circle</span>
-                  <span class="text-xs font-mono" style="color: #9B59B6;">Content calendar, ad campaigns, social posts</span>
+                  <span class="material-symbols-sharp" style="color: #FFB800; font-size: 0.875rem;">check_circle</span>
+                  <span class="text-xs font-mono" style="color: #FFB800;">Safe by default, live on demand</span>
                 </div>
               </div>
             </div>
 
             <!-- Step 4 -->
             <div class="workflow-step animate-on-scroll delay-3 relative flex gap-4 md:gap-6 items-start pl-0">
-              <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #635BFF; box-shadow: 0 0 20px rgba(99,91,255,0.25);">
-                <img src="assets/hero-collector-icon.png" alt="The Collector" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-              </div>
-              <div class="flex-1 p-5 md:p-6 rounded-lg" style="background-color: #F7F5F0; box-shadow: 0 2px 12px rgba(42,42,46,0.06); border: 1px solid rgba(99,91,255,0.08);">
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="text-xs font-semibold tracking-[0.12em]" style="color: #635BFF;">STEP 4</span>
-                  <span class="text-xs" style="color: #6B6B73;">— The Collector</span>
-                </div>
-                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Stripe Products &amp; Checkout Live</h4>
-                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">The Collector sets up product listings in Stripe, configures checkout flows, and tests the complete purchase journey.</p>
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-sharp" style="color: #635BFF; font-size: 0.875rem;">check_circle</span>
-                  <span class="text-xs font-mono" style="color: #635BFF;">Live payment processing</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Step 5 -->
-            <div class="workflow-step animate-on-scroll delay-4 relative flex gap-4 md:gap-6 items-start pl-0">
-              <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #E74C3C; box-shadow: 0 0 20px rgba(231,76,60,0.25);">
-                <img src="assets/hero-diplomat-icon.png" alt="The Diplomat" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-              </div>
-              <div class="flex-1 p-5 md:p-6 rounded-lg" style="background-color: #F7F5F0; box-shadow: 0 2px 12px rgba(42,42,46,0.06); border: 1px solid rgba(231,76,60,0.08);">
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="text-xs font-semibold tracking-[0.12em]" style="color: #E74C3C;">STEP 5</span>
-                  <span class="text-xs" style="color: #6B6B73;">— The Diplomat</span>
-                </div>
-                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Client Outreach &amp; Follow-ups</h4>
-                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">The Diplomat reaches out to existing clients about the new product, schedules demos, and tracks conversations.</p>
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-sharp" style="color: #E74C3C; font-size: 0.875rem;">check_circle</span>
-                  <span class="text-xs font-mono" style="color: #E74C3C;">CRM updates, meeting bookings</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Step 6 -->
-            <div class="workflow-step animate-on-scroll delay-5 relative flex gap-4 md:gap-6 items-start pl-0">
-              <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #76B900; box-shadow: 0 0 20px rgba(118,185,0,0.25);">
-                <img src="assets/hero-guardian-icon.png" alt="The Guardian" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-              </div>
-              <div class="flex-1 p-5 md:p-6 rounded-lg" style="background-color: #F7F5F0; box-shadow: 0 2px 12px rgba(42,42,46,0.06); border: 1px solid rgba(118,185,0,0.08);">
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="text-xs font-semibold tracking-[0.12em]" style="color: #76B900;">STEP 6</span>
-                  <span class="text-xs" style="color: #6B6B73;">— The Guardian</span>
-                </div>
-                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Security &amp; Access Verified</h4>
-                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">The Guardian audits all new integrations, verifies API security, and ensures the launch meets security standards.</p>
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-sharp" style="color: #76B900; font-size: 0.875rem;">check_circle</span>
-                  <span class="text-xs font-mono" style="color: #76B900;">Security report, access logs</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Step 7 -->
-            <div class="workflow-step animate-on-scroll delay-6 relative flex gap-4 md:gap-6 items-start pl-0">
               <div class="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #D4A853; box-shadow: 0 0 20px rgba(212,168,83,0.25);">
                 <img src="assets/hero-brain-icon.png" alt="The Brain" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
               </div>
               <div class="flex-1 p-5 md:p-6 rounded-lg" style="background-color: #F7F5F0; box-shadow: 0 2px 12px rgba(42,42,46,0.06); border: 1px solid rgba(212,168,83,0.08);">
                 <div class="flex items-center gap-2 mb-2">
-                  <span class="text-xs font-semibold tracking-[0.12em]" style="color: #D4A853;">STEP 7</span>
-                  <span class="text-xs" style="color: #6B6B73;">— The Brain</span>
+                  <span class="text-xs font-semibold tracking-[0.12em]" style="color: #D4A853;">STEP 4</span>
+                  <span class="text-xs" style="color: #6B6B73;">— Orchestrate</span>
                 </div>
-                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">Cross-Agent Analysis &amp; Insights</h4>
-                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">The Brain analyzes performance across all heroes — campaign ROI, conversion rates, operational efficiency.</p>
+                <h4 class="font-inter text-base font-semibold mb-2" style="color: #2A2A2E;">The Partenon Drives</h4>
+                <p class="text-sm leading-relaxed mb-3" style="color: #6B6B73;">The Brain stores shared memory, detects conflicts, and keeps every hero aligned. As more integrations connect, the ensemble becomes increasingly autonomous.</p>
                 <div class="flex items-center gap-1.5">
                   <span class="material-symbols-sharp" style="color: #D4A853; font-size: 0.875rem;">check_circle</span>
-                  <span class="text-xs font-mono" style="color: #D4A853;">Strategic insights report</span>
+                  <span class="text-xs font-mono" style="color: #D4A853;">Cross-agent memory and continuity</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        <div class="mt-12 flex flex-wrap items-center justify-center gap-3">
+          <span class="status-tag tag-live">live</span>
+          <span class="text-xs" style="color: #6B6B73;">= works without credentials</span>
+          <span class="status-tag tag-connect">connect</span>
+          <span class="text-xs" style="color: #6B6B73;">= needs your API key or account</span>
+          <span class="status-tag tag-roadmap">roadmap</span>
+          <span class="text-xs" style="color: #6B6B73;">= not yet implemented</span>
+        </div>
       </div>
     </section>
 
-    <!-- CTA -->
+<!-- CTA -->
     <section data-dark-section class="w-full" style="background-color: #2A2A2E; padding: 5rem 0;">
       <div class="mx-auto px-6 text-center" style="max-width: var(--container-narrow);">
         <h2 class="cta-headline animate-on-scroll font-cinzel text-[clamp(2rem,5vw,3.5rem)] font-normal tracking-[0.06em] mb-4" style="color: #F7F5F0;">
@@ -1270,7 +1232,7 @@
 
         <div class="animate-on-scroll delay-3 flex flex-col sm:flex-row items-center justify-center gap-4">
           <a href="developers.html" class="cta-primary inline-flex items-center gap-2 rounded-full px-8 py-4 text-base font-semibold tracking-wide" style="background-color: #635BFF; color: #F7F5F0; border-radius: var(--radius-pill); box-shadow: 0 0 30px rgba(99,91,255,0.3);">
-            INSTALL HERMES NOW
+            INSTALL THE PARTENON NOW
             <span class="material-symbols-sharp">arrow_forward</span>
           </a>
           <a href="developers.html" class="animate-on-scroll delay-4 inline-flex items-center gap-2 text-sm font-medium transition-colors duration-200 hover:text-stripe-indigo" style="color: rgba(247,245,240,0.6);">

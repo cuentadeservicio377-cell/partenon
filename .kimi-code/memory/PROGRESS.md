@@ -2,6 +2,35 @@
 
 ## Session History
 
+### 2026-06-30 — Phase 7 Website Reality: copy rewrite and honest capability labels
+- Reframed `web/index.html` foundation, process steps, `1 → 1M` counter, hackathon-partner framing, and "Install the Partenon" CTA.
+- Updated `web/heroes.html` per-hero status tags (live / connect / roadmap), reworked remaining hero profiles, and rewrote the workflow timeline to four steps: Install → Assemble → Operate → Orchestrate.
+- Repositioned `web/developers.html` as a judge-facing technical brief for Nous Research, NVIDIA, and Stripe teams; replaced per-hero config accordions with "Capabilities / Live now / To connect" tabs; fixed live-vs-roadmap MCP labels; corrected SVG structure and tab JavaScript.
+- Synced `docs/CAPABILITIES.md` with website claims: install from source, optional Hermes CLI, Guardian live/roadmap tools, OpenRouter and NVIDIA status.
+- Verified:
+  - `pytest tests/` PASS (184 passed).
+  - `bash -n install.sh` PASS.
+  - `cd dashboard && npm run build` PASS.
+  - HTML parse check PASS for `web/index.html`, `web/heroes.html`, `web/developers.html`.
+  - Chrome opened for visual review at `http://localhost:8080`.
+
+### 2026-06-29 — Pre-push audit and blocker fixes
+- Ran a 5-agent swarm to audit release readiness.
+- Fixed `TODOS.md` stale "Current Phase: Phase 0" header to reflect Phase 6 closed / Phase 7 pending.
+- Fixed broken `workshop/checklists/PRODUCTION_READINESS.md` links to the real `workshop/checklists/production-readiness.md` in `README.md`.
+- Updated `docs/CAPABILITIES.md` date and removed references to non-existent `scripts/generate_status.py` and `web/capabilities.html`.
+- Reverted demo-generated `data/sample_expenses.xlsx` and `data/sample_expenses_report.json` artifacts before committing.
+- Created `audits/AUDIT_INDEX.md` consolidating all website-claims and release-readiness reports.
+- Verified:
+  - `pytest tests/` PASS (184 passed).
+  - `ruff check` PASS.
+  - `cd dashboard && npm run build` PASS.
+  - `bash -n install.sh` PASS.
+  - `python3 -m py_compile scripts/bump_version.py` PASS.
+  - `python3 .github/scripts/secret_scan.py` PASS.
+  - Working tree clean and ready for push.
+- Committed as `c88accb`.
+
 ### 2026-06-29 — Phase 6 Deployment World: production Docker stack, CI/CD, metrics, and release process
 - Added production `Dockerfile` for the FastAPI backend with multi-stage build, non-root `partenon` user, and health check.
 - Added `.dockerignore` to keep images small and avoid leaking secrets.

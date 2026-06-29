@@ -107,10 +107,17 @@ Verification:
 - `docker build -t partenon-api .` Dockerfile validated (daemon not running locally)
 
 ### Phase 7 — Website Reality (2 weeks)
-- [ ] Audit every claim on marketing pages
-- [ ] Rewrite copy to distinguish live/credentials/roadmap
+- [x] Audit every claim on marketing pages
+- [x] Rewrite copy to distinguish live/credentials/roadmap
 - [ ] Create `web/capabilities.html` from `docs/CAPABILITIES.md`
 - [ ] Update screenshots and README
+
+Verification:
+- `pytest tests/` PASS (184 passed)
+- `bash -n install.sh` PASS
+- `cd dashboard && npm run build` PASS
+- HTML parse check PASS for `web/index.html`, `web/heroes.html`, `web/developers.html`
+- Chrome opened for visual review at `http://localhost:8080`
 
 ---
 

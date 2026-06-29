@@ -144,6 +144,36 @@
       content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
       background: var(--stripe-indigo);
     }
+
+    /* Status tags */
+    .status-tag {
+      display: inline-flex; align-items: center;
+      font-family: 'Inter', sans-serif; font-size: 0.625rem;
+      font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.25rem 0.5rem;
+      border-radius: 9999px; line-height: 1;
+    }
+    .tag-live { background-color: #76B900; color: #fff; }
+    .tag-connect { background-color: #635BFF; color: #fff; }
+    .tag-roadmap { background-color: #D4A853; color: #1A1A1E; }
+
+    /* Hero spec tabs */
+    .spec-tabs {
+      display: flex; gap: 0;
+      border-bottom: 1px solid rgba(42,42,46,0.12);
+      margin-bottom: 1.5rem;
+    }
+    .spec-tab {
+      padding: 0.75rem 1.25rem;
+      font-family: 'Inter', sans-serif; font-size: 0.875rem;
+      font-weight: 500; color: #6B6B73;
+      background: transparent; border: none;
+      cursor: pointer; transition: color 0.2s;
+    }
+    .spec-tab:hover { color: #2A2A2E; }
+    .spec-tab.active { color: #2A2A2E; border-bottom: 2px solid #2A2A2E; }
+    .spec-panel { display: none; animation: fadeIn 0.35s var(--ease-out-expo); }
+    .spec-panel.active { display: block; }
     .install-panel { display: none; animation: fadeIn 0.35s var(--ease-out-expo); }
     .install-panel.active { display: block; }
 
@@ -193,7 +223,7 @@
         <a href="index.html#vision" class="nav-link">THE VISION</a>
         <a href="developers.html" class="nav-link text-[#635BFF]">FOR DEVELOPERS</a>
       </div>
-      <a href="#install" class="hidden md:inline-flex btn-primary">INSTALL HERMES</a>
+      <a href="#install" class="hidden md:inline-flex btn-primary">INSTALL THE PARTENON</a>
       <button id="menuBtn" class="md:hidden w-10 h-10 inline-flex items-center justify-center" aria-label="Open menu">
         <span class="material-symbols-sharp">menu</span>
       </button>
@@ -222,10 +252,16 @@
       <span class="dev-hero-eyebrow inline-block font-mono text-sm mb-6" style="color:var(--nvidia-green);letter-spacing:0.08em;">TECHNICAL DOCUMENTATION / v1.0.0</span>
       <h1 class="dev-hero-headline font-cinzel mb-6" style="font-size:clamp(3rem,8vw,7rem);letter-spacing:0.08em;line-height:1.05;color:var(--marble-white);">THE ARCHITECTURE<br>OF HEROES</h1>
       <p class="dev-hero-subtitle font-inter text-lg leading-relaxed mb-8" style="color:rgba(247,245,240,0.6);max-width:600px;margin:0 auto 2rem;">
-        A comprehensive technical reference for The Partenón system — Model Context Protocol design, agent specifications, integration patterns, and deployment guides.
+        Technical Brief — Built for the Nous Research, NVIDIA, and Stripe teams.
       </p>
       <div class="flex flex-wrap justify-center gap-3 mb-8">
         <span class="dev-hero-badge font-mono text-xs px-4 py-2 rounded-full" style="border:1px solid #4A90A460;color:var(--marble-white);">TypeScript</span><span class="dev-hero-badge font-mono text-xs px-4 py-2 rounded-full" style="border:1px solid #D4A85360;color:var(--marble-white);">MCP Protocol</span><span class="dev-hero-badge font-mono text-xs px-4 py-2 rounded-full" style="border:1px solid #635BFF60;color:var(--marble-white);">Stripe API</span><span class="dev-hero-badge font-mono text-xs px-4 py-2 rounded-full" style="border:1px solid #76B90060;color:var(--marble-white);">NVIDIA</span><span class="dev-hero-badge font-mono text-xs px-4 py-2 rounded-full" style="border:1px solid #FFB80060;color:var(--marble-white);">Google Workspace</span>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3 mb-8">
+        <span class="dev-hero-badge font-mono text-xs px-4 py-2 rounded-full" style="border:1px solid #4285F460;color:var(--marble-white);">Google Workspace</span>
+        <span class="dev-hero-badge font-mono text-xs px-4 py-2 rounded-full" style="border:1px solid #635BFF60;color:var(--marble-white);">Hermes Agent</span>
+        <span class="dev-hero-badge font-mono text-xs px-4 py-2 rounded-full" style="border:1px solid #D4A85360;color:var(--marble-white);">NVIDIA Cloud <span class="opacity-70">(roadmap)</span></span>
+        <span class="dev-hero-badge font-mono text-xs px-4 py-2 rounded-full" style="border:1px solid #635BFF60;color:var(--marble-white);">Stripe Platform</span>
       </div>
       <div class="dev-hero-links">
         <span class="font-inter text-xs" style="color:rgba(247,245,240,0.4);">JUMP TO: 
@@ -243,7 +279,9 @@
   <span class="font-inter text-xs font-semibold tracking-[0.12em] uppercase block mb-4" style="color:#635BFF;">ARCHITECTURE</span>
   <h2 class="font-cinzel mb-4" style="font-size:clamp(2rem,5vw,4rem);letter-spacing:0.06em;line-height:1.1;color:#2A2A2E;">HOW THE PARTENÓN IS BUILT</h2>
   <div class="mx-auto mb-4" style="width:48px;height:2px;background-color:#635BFF;"></div>
-  <p class="font-inter text-lg leading-relaxed" style="color:#6B6B73;max-width:600px;margin:0 auto;">A layered architecture connecting intelligent agents through the Model Context Protocol, unified by G-Brain and deployed on enterprise-grade infrastructure.</p>
+  <p class="font-inter text-lg leading-relaxed" style="color:#6B6B73;max-width:600px;margin:0 auto;">
+    Four building blocks — Google Workspace, Hermes Agent, NVIDIA Cloud (roadmap), and Stripe Platform — connected through live MCP servers: memory, finance, payments, google_workspace, comms, security, ops, and relations. Roadmap servers: social APIs, CRM, and NVIDIA.
+  </p>
 </div>
       </div>
       <div class="reveal">
@@ -274,31 +312,31 @@
     </g><g class="arch-node" onmouseenter="setHover('hero-scribe')" onmouseleave="setHover(null)">
           <rect x="344.99919189487724" y="72.00000000148418" width="110" height="56" rx="8" fill="#4A90A4" opacity="0.08" stroke="#4A90A4" stroke-width="2" />
           <text x="399.99919189487724" y="96.00000000148418" fill="#4A90A4" font-size="10" font-family="Cinzel, serif" font-weight="600" text-anchor="middle" letter-spacing="0.06em">THE SCRIBE</text>
-          <text x="399.99919189487724" y="114.00000000148418" fill="#6B6B73" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">Google Workspace MCP</text>
+          <text x="399.99919189487724" y="114.00000000148418" fill="#6B6B73" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">Google Workspace (connect)</text>
         </g><g class="arch-node" onmouseenter="setHover('hero-herald')" onmouseleave="setHover(null)">
           <rect x="517.0027102090522" y="154.8319728189517" width="110" height="56" rx="8" fill="#9B59B6" opacity="0.08" stroke="#9B59B6" stroke-width="2" />
           <text x="572.0027102090522" y="178.8319728189517" fill="#9B59B6" font-size="10" font-family="Cinzel, serif" font-weight="600" text-anchor="middle" letter-spacing="0.06em">THE HERALD</text>
-          <text x="572.0027102090522" y="196.8319728189517" fill="#6B6B73" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">Social APIs MCP</text>
+          <text x="572.0027102090522" y="196.8319728189517" fill="#6B6B73" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">Content &amp; comms (social roadmap)</text>
         </g><g class="arch-node" onmouseenter="setHover('hero-collector')" onmouseleave="setHover(null)">
           <rect x="559.4841149913565" y="340.95471801955955" width="110" height="56" rx="8" fill="#635BFF" opacity="0.08" stroke="#635BFF" stroke-width="2" />
           <text x="614.4841149913565" y="364.95471801955955" fill="#635BFF" font-size="10" font-family="Cinzel, serif" font-weight="600" text-anchor="middle" letter-spacing="0.06em">THE COLLECTOR</text>
-          <text x="614.4841149913565" y="382.95471801955955" fill="#6B6B73" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">Stripe MCP</text>
+          <text x="614.4841149913565" y="382.95471801955955" fill="#6B6B73" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">Stripe (connect)</text>
         </g><g class="arch-node" onmouseenter="setHover('hero-guardian')" onmouseleave="setHover(null)">
           <rect x="440.45390255013604" y="490.21340138333017" width="110" height="56" rx="8" fill="#76B900" opacity="0.08" stroke="#76B900" stroke-width="2" />
           <text x="495.45390255013604" y="514.2134013833302" fill="#76B900" font-size="10" font-family="Cinzel, serif" font-weight="600" text-anchor="middle" letter-spacing="0.06em">THE GUARDIAN</text>
-          <text x="495.45390255013604" y="532.2134013833302" fill="#6B6B73" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">Security MCP</text>
+          <text x="495.45390255013604" y="532.2134013833302" fill="#6B6B73" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">Security / NVIDIA (roadmap)</text>
         </g><g class="arch-node" onmouseenter="setHover('hero-strategist')" onmouseleave="setHover(null)">
           <rect x="249.5446412954849" y="490.21270013445746" width="110" height="56" rx="8" fill="#FFB800" opacity="0.08" stroke="#FFB800" stroke-width="2" />
           <text x="304.5446412954849" y="514.2127001344575" fill="#FFB800" font-size="10" font-family="Cinzel, serif" font-weight="600" text-anchor="middle" letter-spacing="0.06em">THE STRATEGIST</text>
-          <text x="304.5446412954849" y="532.2127001344575" fill="#6B6B73" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">Google Workspace MCP</text>
+          <text x="304.5446412954849" y="532.2127001344575" fill="#6B6B73" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">Google Workspace (connect)</text>
         </g><g class="arch-node" onmouseenter="setHover('hero-diplomat')" onmouseleave="setHover(null)">
           <rect x="130.51552537299125" y="340.95314232994696" width="110" height="56" rx="8" fill="#E74C3C" opacity="0.08" stroke="#E74C3C" stroke-width="2" />
           <text x="185.51552537299125" y="364.95314232994696" fill="#E74C3C" font-size="10" font-family="Cinzel, serif" font-weight="600" text-anchor="middle" letter-spacing="0.06em">THE DIPLOMAT</text>
-          <text x="185.51552537299125" y="382.95314232994696" fill="#6B6B73" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">CRM MCP</text>
+          <text x="185.51552537299125" y="382.95314232994696" fill="#6B6B73" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">CRM / HubSpot, Salesforce (roadmap)</text>
         </g><g class="arch-node" onmouseenter="setHover('hero-brain')" onmouseleave="setHover(null)">
           <rect x="172.99829748818405" y="154.83070922018743" width="110" height="56" rx="8" fill="#D4A853" opacity="0.08" stroke="#D4A853" stroke-width="2" />
           <text x="227.99829748818405" y="178.83070922018743" fill="#D4A853" font-size="10" font-family="Cinzel, serif" font-weight="600" text-anchor="middle" letter-spacing="0.06em">THE BRAIN</text>
-          <text x="227.99829748818405" y="196.83070922018743" fill="#6B6B73" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">G-Brain MCP</text>
+          <text x="227.99829748818405" y="196.83070922018743" fill="#6B6B73" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">Memory MCP (live)</text>
         </g><g class="arch-node" onmouseenter="setHover('hermes')" onmouseleave="setHover(null)">
       <polygon points="400,270 445,295 445,345 400,370 355,345 355,295" fill="#635BFF" opacity="0.12" stroke="#635BFF" stroke-width="2.5" />
       <text x="400" y="315" fill="#635BFF" font-size="14" font-family="Cinzel, serif" font-weight="600" text-anchor="middle" letter-spacing="0.1em">HERMES</text>
@@ -319,12 +357,12 @@
   <span class="font-inter text-xs font-semibold tracking-[0.12em] uppercase block mb-4" style="color:#76B900;">AGENT SPECIFICATIONS</span>
   <h2 class="font-cinzel mb-4" style="font-size:clamp(2rem,5vw,4rem);letter-spacing:0.06em;line-height:1.1;color:#2A2A2E;">HERO TECHNICAL PROFILES</h2>
   <div class="mx-auto mb-4" style="width:48px;height:2px;background-color:#76B900;"></div>
-  <p class="font-inter text-lg leading-relaxed" style="color:#6B6B73;max-width:600px;margin:0 auto;">Each hero is a specialized agent with defined capabilities, MCP tools, API integrations, and file format handlers.</p>
+  <p class="font-inter text-lg leading-relaxed" style="color:#6B6B73;max-width:600px;margin:0 auto;">Each profile exposes live tools, credential-gated integrations, and roadmap items — with the real install steps and API endpoints below.</p>
 </div>
         </div>
       </div>
     </div>
-    <section class="hero-spec-section" id="hero-scribe" style="background-color:#F7F5F0;padding:clamp(2rem,5vh,4rem) 0;">
+<section class="hero-spec-section" id="hero-scribe" style="background-color:#F7F5F0;padding:clamp(2rem,5vh,4rem) 0;">
   <div class="mx-auto px-6" style="max-width:var(--container-max);">
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
       <div class="lg:col-span-3">
@@ -334,95 +372,103 @@
           </div>
           <div>
             <h3 class="font-cinzel text-xl" style="color:#2A2A2E;letter-spacing:0.04em;">THE SCRIBE</h3>
-            <span class="font-mono text-xs" style="color:#4A90A4;">MCP Server: Google Workspace MCP</span>
+            <span class="font-mono text-xs" style="color:#4A90A4;">Hermes profile — finance</span>
           </div>
         </div>
-        <p class="font-inter text-base leading-relaxed mb-6 spec-animate" style="color:#6B6B73;">Financial data agent. Handles Google Sheets operations, financial modeling, dashboard creation, and the .finance file format. Built on Google Sheets API with custom query functions and visualization.</p>
-        <div class="mb-6 spec-animate">
-          <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#2A2A2E;">Capabilities</h4>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left" style="min-width:500px;">
-              <thead>
-                <tr style="border-bottom:2px solid #4A90A430;">
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#4A90A4;">Capability</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#4A90A4;">MCP Tool</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#4A90A4;">API/Integration</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#4A90A4;">Output</th>
+        <p class="font-inter text-base leading-relaxed mb-6 spec-animate" style="color:#6B6B73;">Financial records profile. Parses and classifies finance data, builds local dashboards and .finance files, and writes to Google Sheets when connected.</p>
+        <div class="spec-tabs" data-tabs="scribe">
+          <button class="spec-tab active" data-tab="scribe-cap">Capabilities</button>
+          <button class="spec-tab" data-tab="scribe-live">Live now</button>
+          <button class="spec-tab" data-tab="scribe-connect">To connect</button>
+        </div>
+        <div class="spec-panels" data-panels="scribe">
+          <div class="spec-panel active" id="scribe-cap">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left" style="min-width:420px;">
+                <thead>
+                  <tr style="border-bottom:2px solid rgba(74,144,164,0.3);">
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#4A90A4;">Capability</th>
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#4A90A4;">Tool</th>
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#4A90A4;">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Parse &amp; classify finance data</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">local parser</td>
+                  <td class="py-2"><span class="status-tag tag-live">live</span></td>
                 </tr>
-              </thead>
-              <tbody><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Financial Modeling</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">create_spreadsheet / append_rows</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:#6B6B73;">Google Sheets API</td>
-          <td class="font-mono text-xs py-2" style="color:#4A90A4;">.finance file</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Dashboard Creation</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">update_cells / add_chart</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:#6B6B73;">Google Sheets API, Chart.js</td>
-          <td class="font-mono text-xs py-2" style="color:#4A90A4;">Live dashboard URL</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Data Analysis</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">read_range / pivot analysis</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:#6B6B73;">Google Sheets API</td>
-          <td class="font-mono text-xs py-2" style="color:#4A90A4;">Analysis report</td>
-        </tr></tbody>
-            </table>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Build local dashboards</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">.finance / local</td>
+                  <td class="py-2"><span class="status-tag tag-live">live</span></td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Write to Google Sheets</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">Google Workspace API</td>
+                  <td class="py-2"><span class="status-tag tag-connect">connect</span></td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Google Drive operations</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">Google Drive API</td>
+                  <td class="py-2"><span class="status-tag tag-roadmap">roadmap</span></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-        <div class="mb-4 spec-animate">
-          <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-2" style="color:#2A2A2E;">MCP Tools</h4>
-          <div class="flex flex-wrap gap-2"><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#4A90A415;color:#4A90A4;border:1px solid #4A90A430;">create_spreadsheet</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#4A90A415;color:#4A90A4;border:1px solid #4A90A430;">append_rows</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#4A90A415;color:#4A90A4;border:1px solid #4A90A430;">read_range</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#4A90A415;color:#4A90A4;border:1px solid #4A90A430;">update_cells</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#4A90A415;color:#4A90A4;border:1px solid #4A90A430;">export_report</span></div>
-        </div>
-        <div class="spec-animate">
-          <button class="accordion-toggle flex items-center gap-2 font-inter text-sm font-medium transition-colors duration-200 hover:opacity-80" style="color:#4A90A4;" data-target="config-scribe">
-            <span class="material-symbols-sharp text-base accordion-icon transition-transform duration-200">expand_more</span>
-            <span class="toggle-label">Show Configuration</span>
-          </button>
-          <div class="accordion-body hidden mt-3" id="config-scribe">
-            <div class="relative group cb-wrap" id="cfg-scribe">
-  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class="sh-keyword">interface</span> ScribeConfig {
-  googleSheets: {
-    credentials: <span class="sh-type">string</span>;
-    spreadsheetId: <span class="sh-type">string</span>;
-    range: <span class="sh-type">string</span>;
-  };
-  financeFile: {
-    format: <span class="sh-string">&quot;.finance&quot;</span>;
-    schema: <span class="sh-string">&quot;v1.0&quot;</span>;
-    fields: [<span class="sh-string">&quot;cost_fixed&quot;</span>, <span class="sh-string">&quot;cost_variable&quot;</span>, <span class="sh-string">&quot;revenue&quot;</span>, <span class="sh-string">&quot;tax_rate&quot;</span>];
-  };
-  dashboard: {
-    enabled: <span class="sh-type">boolean</span>;
-    template: <span class="sh-string">&quot;financial_overview&quot;</span> | <span class="sh-string">&quot;cash_flow&quot;</span> | <span class="sh-string">&quot;custom&quot;</span>;
-    refreshInterval: <span class="sh-type">number</span>;
-  };
-}</pre>
-  <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="cfg-scribe" title="Copy to clipboard">
-    <span class="material-symbols-sharp text-base copy-icon" style="color:#F7F5F0;">content_copy</span>
-    <span class="material-symbols-sharp text-base check-icon hidden" style="color:#76B900;">check</span>
-  </button>
-</div>
+          <div class="spec-panel" id="scribe-live">
+            <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#2A2A2E;">Implemented tools</h4>
+            <ul class="list-disc list-inside mb-4">
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Local file parsing</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">.finance files</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Local dashboard builder</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Google Sheets writes (with credentials)</li>            </ul>
+            <div class="relative group cb-wrap">
+              <pre class="font-mono text-[0.75rem] leading-[1.7] overflow-x-auto p-4 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;">$ python3 scripts/demo_scribe.py</pre>
+            </div>
+          </div>
+          <div class="spec-panel" id="scribe-connect">
+            <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#2A2A2E;">Credentials &amp; roadmap</h4>
+            <ul class="list-disc list-inside">
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">GOOGLE_SERVICE_ACCOUNT_JSON or OAuth client for Workspace writes.</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Roadmap: Google Drive operations.</li>            </ul>
           </div>
         </div>
       </div>
       <div class="lg:col-span-2 spec-animate">
-        <div class="rounded-lg p-5 h-full" style="background-color:#1A1A1E;border:1px solid #4A90A430;">
+        <div class="rounded-lg p-5 h-full" style="background-color:#1A1A1E;border:1px solid rgba(74,144,164,0.3);">
           <div class="flex items-center gap-2 mb-3">
-            <span class="material-symbols-sharp text-base" style="color:#4A90A4;">terminal</span>
-            <span class="font-mono text-xs" style="color:#4A90A4;">CLI Example</span>
+            <span class="material-symbols-sharp text-base" style="color:#4A90A4;">info</span>
+            <span class="font-mono text-xs" style="color:#4A90A4;">Status</span>
           </div>
-          <pre class="font-mono text-[0.75rem] leading-[1.7] overflow-x-auto whitespace-pre" style="color:#F7F5F0;">$ hermes activate scribe
-✓ The Scribe initialized
-✓ Google Sheets API connected
-✓ .finance parser loaded
-
-$ hermes mission scribe --type financial-model \
-  --business &quot;Café Central&quot; --industry cafe
-
-📋 Mission: Build Financial Model
-✓ Fixed costs: 4 items
-✓ Variable costs: 7 items
-✓ Break-even calculation complete</pre>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="status-tag tag-live">Live</span>
+            <span class="status-tag tag-connect">Connect</span>
+            <span class="status-tag tag-roadmap">Roadmap</span>
+          </div>
+          <p class="font-inter text-sm mb-4" style="color:rgba(247,245,240,0.7);">Live tools run locally. Connect credentials to unlock integrations. Roadmap items are not yet implemented.</p>
+          <div class="mb-4">
+            <span class="font-mono text-xs block mb-2" style="color:rgba(247,245,240,0.5);">WORKS CLOSELY WITH</span>
+            <div class="flex items-center gap-4 flex-wrap">
+                  <div class="flex items-center gap-2">
+                    <img src="assets/hero-herald-icon.png" alt="The Herald" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid #9B59B640;" />
+                    <span class="text-sm" style="color: rgba(247,245,240,0.7);">The Herald</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <img src="assets/hero-collector-icon.png" alt="The Collector" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid #635BFF40;" />
+                    <span class="text-sm" style="color: rgba(247,245,240,0.7);">The Collector</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <img src="assets/hero-brain-icon.png" alt="The Brain" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid #D4A85340;" />
+                    <span class="text-sm" style="color: rgba(247,245,240,0.7);">The Brain</span>
+                  </div>
+            </div>
+          </div>
+          <div>
+            <span class="font-mono text-xs block mb-2" style="color:rgba(247,245,240,0.5);">MCP CONNECTIONS</span>
+            <span class="text-sm font-mono" style="color:#4A90A4;">Google Workspace integration (connect)</span>
+          </div>
         </div>
       </div>
     </div>
@@ -438,91 +484,103 @@ $ hermes mission scribe --type financial-model \
           </div>
           <div>
             <h3 class="font-cinzel text-xl" style="color:#2A2A2E;letter-spacing:0.04em;">THE HERALD</h3>
-            <span class="font-mono text-xs" style="color:#9B59B6;">MCP Server: Social APIs MCP</span>
+            <span class="font-mono text-xs" style="color:#9B59B6;">Hermes profile — brand / comms</span>
           </div>
         </div>
-        <p class="font-inter text-base leading-relaxed mb-6 spec-animate" style="color:#6B6B73;">Communication and marketing agent. Manages social media APIs, brand strategy, SEO/GEO optimization, and the .design file format. Integrates with major social platforms and analytics tools.</p>
-        <div class="mb-6 spec-animate">
-          <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#2A2A2E;">Capabilities</h4>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left" style="min-width:500px;">
-              <thead>
-                <tr style="border-bottom:2px solid #9B59B630;">
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#9B59B6;">Capability</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#9B59B6;">MCP Tool</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#9B59B6;">API/Integration</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#9B59B6;">Output</th>
+        <p class="font-inter text-base leading-relaxed mb-6 spec-animate" style="color:#6B6B73;">Brand and communications profile. Drafts copy, builds content calendars and presentation outlines, and creates Google Docs and Slides when connected.</p>
+        <div class="spec-tabs" data-tabs="herald">
+          <button class="spec-tab active" data-tab="herald-cap">Capabilities</button>
+          <button class="spec-tab" data-tab="herald-live">Live now</button>
+          <button class="spec-tab" data-tab="herald-connect">To connect</button>
+        </div>
+        <div class="spec-panels" data-panels="herald">
+          <div class="spec-panel active" id="herald-cap">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left" style="min-width:420px;">
+                <thead>
+                  <tr style="border-bottom:2px solid rgba(155,89,182,0.3);">
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#9B59B6;">Capability</th>
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#9B59B6;">Tool</th>
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#9B59B6;">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Copy drafts</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">.design / local</td>
+                  <td class="py-2"><span class="status-tag tag-live">live</span></td>
                 </tr>
-              </thead>
-              <tbody><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Social Media Mgmt</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">publish_post / schedule_content</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:#6B6B73;">Instagram, Twitter, LinkedIn APIs</td>
-          <td class="font-mono text-xs py-2" style="color:#9B59B6;">Published content</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Brand Strategy</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">generate_brand_guide</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:#6B6B73;">Internal ML</td>
-          <td class="font-mono text-xs py-2" style="color:#9B59B6;">.design file</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">SEO/GEO Optimizer</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">analyze_keywords / optimize_content</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:#6B6B73;">Google Analytics</td>
-          <td class="font-mono text-xs py-2" style="color:#9B59B6;">SEO report</td>
-        </tr></tbody>
-            </table>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Content calendar</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">local calendar</td>
+                  <td class="py-2"><span class="status-tag tag-live">live</span></td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Google Docs / Slides</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">Google Workspace API</td>
+                  <td class="py-2"><span class="status-tag tag-connect">connect</span></td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Social publishing</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">Instagram, Twitter, LinkedIn, Mailchimp</td>
+                  <td class="py-2"><span class="status-tag tag-roadmap">roadmap</span></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-        <div class="mb-4 spec-animate">
-          <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-2" style="color:#2A2A2E;">MCP Tools</h4>
-          <div class="flex flex-wrap gap-2"><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#9B59B615;color:#9B59B6;border:1px solid #9B59B630;">publish_post</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#9B59B615;color:#9B59B6;border:1px solid #9B59B630;">generate_brand_guide</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#9B59B615;color:#9B59B6;border:1px solid #9B59B630;">analyze_keywords</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#9B59B615;color:#9B59B6;border:1px solid #9B59B630;">analyze_engagement</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#9B59B615;color:#9B59B6;border:1px solid #9B59B630;">schedule_content</span></div>
-        </div>
-        <div class="spec-animate">
-          <button class="accordion-toggle flex items-center gap-2 font-inter text-sm font-medium transition-colors duration-200 hover:opacity-80" style="color:#9B59B6;" data-target="config-herald">
-            <span class="material-symbols-sharp text-base accordion-icon transition-transform duration-200">expand_more</span>
-            <span class="toggle-label">Show Configuration</span>
-          </button>
-          <div class="accordion-body hidden mt-3" id="config-herald">
-            <div class="relative group cb-wrap" id="cfg-herald">
-  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class="sh-keyword">interface</span> HeraldConfig {
-  brandFile: {
-    format: <span class="sh-string">&quot;.design&quot;</span>;
-    schema: <span class="sh-string">&quot;v1.0&quot;</span>;
-    sections: [<span class="sh-string">&quot;voice&quot;</span>, <span class="sh-string">&quot;visual&quot;</span>, <span class="sh-string">&quot;messaging&quot;</span>, <span class="sh-string">&quot;audience&quot;</span>];
-  };
-  socialAccounts: <span class="sh-type">string</span>[];
-  contentStrategy: {
-    seoEnabled: <span class="sh-type">boolean</span>;
-    geoTargeting: <span class="sh-type">boolean</span>;
-    calendarIntegration: <span class="sh-type">boolean</span>;
-  };
-}</pre>
-  <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="cfg-herald" title="Copy to clipboard">
-    <span class="material-symbols-sharp text-base copy-icon" style="color:#F7F5F0;">content_copy</span>
-    <span class="material-symbols-sharp text-base check-icon hidden" style="color:#76B900;">check</span>
-  </button>
-</div>
+          <div class="spec-panel" id="herald-live">
+            <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#2A2A2E;">Implemented tools</h4>
+            <ul class="list-disc list-inside mb-4">
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Brand copy drafts</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">.design files</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Content calendars</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Presentation outlines</li>            </ul>
+            <div class="relative group cb-wrap">
+              <pre class="font-mono text-[0.75rem] leading-[1.7] overflow-x-auto p-4 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;">$ python3 scripts/demo_scribe.py</pre>
+            </div>
+          </div>
+          <div class="spec-panel" id="herald-connect">
+            <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#2A2A2E;">Credentials &amp; roadmap</h4>
+            <ul class="list-disc list-inside">
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Google Workspace credentials for Docs/Slides creation.</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Roadmap: Instagram, Twitter, LinkedIn, Mailchimp publishing.</li>            </ul>
           </div>
         </div>
       </div>
       <div class="lg:col-span-2 spec-animate">
-        <div class="rounded-lg p-5 h-full" style="background-color:#1A1A1E;border:1px solid #9B59B630;">
+        <div class="rounded-lg p-5 h-full" style="background-color:#1A1A1E;border:1px solid rgba(155,89,182,0.3);">
           <div class="flex items-center gap-2 mb-3">
-            <span class="material-symbols-sharp text-base" style="color:#9B59B6;">terminal</span>
-            <span class="font-mono text-xs" style="color:#9B59B6;">CLI Example</span>
+            <span class="material-symbols-sharp text-base" style="color:#9B59B6;">info</span>
+            <span class="font-mono text-xs" style="color:#9B59B6;">Status</span>
           </div>
-          <pre class="font-mono text-[0.75rem] leading-[1.7] overflow-x-auto whitespace-pre" style="color:#F7F5F0;">$ hermes activate herald
-✓ The Herald initialized
-✓ Social APIs connected
-✓ .design parser loaded
-
-$ hermes mission herald --type brand-strategy \
-  --audience &quot;young professionals&quot;
-
-📢 Mission: Build Brand Strategy
-✓ Voice profile generated
-✓ Visual identity mapped
-✓ Messaging framework created</pre>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="status-tag tag-live">Live</span>
+            <span class="status-tag tag-connect">Connect</span>
+            <span class="status-tag tag-roadmap">Roadmap</span>
+          </div>
+          <p class="font-inter text-sm mb-4" style="color:rgba(247,245,240,0.7);">Live tools run locally. Connect credentials to unlock integrations. Roadmap items are not yet implemented.</p>
+          <div class="mb-4">
+            <span class="font-mono text-xs block mb-2" style="color:rgba(247,245,240,0.5);">WORKS CLOSELY WITH</span>
+            <div class="flex items-center gap-4 flex-wrap">
+                  <div class="flex items-center gap-2">
+                    <img src="assets/hero-scribe-icon.png" alt="The Scribe" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid #4A90A440;" />
+                    <span class="text-sm" style="color: rgba(247,245,240,0.7);">The Scribe</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <img src="assets/hero-diplomat-icon.png" alt="The Diplomat" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid #E74C3C40;" />
+                    <span class="text-sm" style="color: rgba(247,245,240,0.7);">The Diplomat</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <img src="assets/hero-brain-icon.png" alt="The Brain" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid #D4A85340;" />
+                    <span class="text-sm" style="color: rgba(247,245,240,0.7);">The Brain</span>
+                  </div>
+            </div>
+          </div>
+          <div>
+            <span class="font-mono text-xs block mb-2" style="color:rgba(247,245,240,0.5);">MCP CONNECTIONS</span>
+            <span class="text-sm font-mono" style="color:#9B59B6;">Google Workspace / Docs (connect); Social APIs (roadmap)</span>
+          </div>
         </div>
       </div>
     </div>
@@ -538,92 +596,103 @@ $ hermes mission herald --type brand-strategy \
           </div>
           <div>
             <h3 class="font-cinzel text-xl" style="color:#2A2A2E;letter-spacing:0.04em;">THE COLLECTOR</h3>
-            <span class="font-mono text-xs" style="color:#635BFF;">MCP Server: Stripe MCP</span>
+            <span class="font-mono text-xs" style="color:#635BFF;">Hermes profile — payments</span>
           </div>
         </div>
-        <p class="font-inter text-base leading-relaxed mb-6 spec-animate" style="color:#6B6B73;">Payment processing agent. Stripe SDK integration — payments, subscriptions, invoicing, revenue tracking, and fraud monitoring. Handles financial transactions for the enterprise.</p>
-        <div class="mb-6 spec-animate">
-          <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#2A2A2E;">Capabilities</h4>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left" style="min-width:500px;">
-              <thead>
-                <tr style="border-bottom:2px solid #635BFF30;">
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#635BFF;">Capability</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#635BFF;">MCP Tool</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#635BFF;">API/Integration</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#635BFF;">Output</th>
+        <p class="font-inter text-base leading-relaxed mb-6 spec-animate" style="color:#6B6B73;">Payments profile. Runs dry-run invoices, subscriptions, and revenue reports, and creates Stripe payment links. Live charges require a Stripe secret key.</p>
+        <div class="spec-tabs" data-tabs="collector">
+          <button class="spec-tab active" data-tab="collector-cap">Capabilities</button>
+          <button class="spec-tab" data-tab="collector-live">Live now</button>
+          <button class="spec-tab" data-tab="collector-connect">To connect</button>
+        </div>
+        <div class="spec-panels" data-panels="collector">
+          <div class="spec-panel active" id="collector-cap">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left" style="min-width:420px;">
+                <thead>
+                  <tr style="border-bottom:2px solid rgba(99,91,255,0.3);">
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#635BFF;">Capability</th>
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#635BFF;">Tool</th>
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#635BFF;">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Dry-run invoices</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">payments MCP</td>
+                  <td class="py-2"><span class="status-tag tag-live">live</span></td>
                 </tr>
-              </thead>
-              <tbody><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Payment Processing</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">create_payment_link</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:#6B6B73;">Stripe API</td>
-          <td class="font-mono text-xs py-2" style="color:#635BFF;">Payment confirmation</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Subscription Mgmt</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">create_subscription</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:#6B6B73;">Stripe Billing</td>
-          <td class="font-mono text-xs py-2" style="color:#635BFF;">Subscription state</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Revenue Tracking</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">list_charges / reporting</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:#6B6B73;">Stripe Sigma</td>
-          <td class="font-mono text-xs py-2" style="color:#635BFF;">Revenue report</td>
-        </tr></tbody>
-            </table>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Subscription schedules</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">payments MCP</td>
+                  <td class="py-2"><span class="status-tag tag-live">live</span></td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Revenue reports</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">Stripe API</td>
+                  <td class="py-2"><span class="status-tag tag-connect">connect</span></td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Stripe Connect</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">Stripe Connect</td>
+                  <td class="py-2"><span class="status-tag tag-roadmap">roadmap</span></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-        <div class="mb-4 spec-animate">
-          <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-2" style="color:#2A2A2E;">MCP Tools</h4>
-          <div class="flex flex-wrap gap-2"><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#635BFF15;color:#635BFF;border:1px solid #635BFF30;">create_payment_link</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#635BFF15;color:#635BFF;border:1px solid #635BFF30;">create_invoice</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#635BFF15;color:#635BFF;border:1px solid #635BFF30;">create_subscription</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#635BFF15;color:#635BFF;border:1px solid #635BFF30;">list_charges</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#635BFF15;color:#635BFF;border:1px solid #635BFF30;">monitor_fraud</span></div>
-        </div>
-        <div class="spec-animate">
-          <button class="accordion-toggle flex items-center gap-2 font-inter text-sm font-medium transition-colors duration-200 hover:opacity-80" style="color:#635BFF;" data-target="config-collector">
-            <span class="material-symbols-sharp text-base accordion-icon transition-transform duration-200">expand_more</span>
-            <span class="toggle-label">Show Configuration</span>
-          </button>
-          <div class="accordion-body hidden mt-3" id="config-collector">
-            <div class="relative group cb-wrap" id="cfg-collector">
-  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class="sh-keyword">interface</span> CollectorConfig {
-  stripe: {
-    apiKey: <span class="sh-type">string</span>;
-    webhookSecret: <span class="sh-type">string</span>;
-    products: <span class="sh-type">string</span>[];
-    subscriptions: <span class="sh-type">boolean</span>;
-  };
-  paymentMethods: [<span class="sh-string">&quot;card&quot;</span>, <span class="sh-string">&quot;bank_transfer&quot;</span>, <span class="sh-string">&quot;digital_wallet&quot;</span>];
-  invoicing: {
-    autoGenerate: <span class="sh-type">boolean</span>;
-    template: <span class="sh-type">string</span>;
-    reminderDays: <span class="sh-type">number</span>[];
-  };
-}</pre>
-  <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="cfg-collector" title="Copy to clipboard">
-    <span class="material-symbols-sharp text-base copy-icon" style="color:#F7F5F0;">content_copy</span>
-    <span class="material-symbols-sharp text-base check-icon hidden" style="color:#76B900;">check</span>
-  </button>
-</div>
+          <div class="spec-panel" id="collector-live">
+            <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#2A2A2E;">Implemented tools</h4>
+            <ul class="list-disc list-inside mb-4">
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Dry-run invoices</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Subscription schedules</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Revenue reports</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Payment links</li>            </ul>
+            <div class="relative group cb-wrap">
+              <pre class="font-mono text-[0.75rem] leading-[1.7] overflow-x-auto p-4 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;">$ python3 scripts/demo_scribe.py</pre>
+            </div>
+          </div>
+          <div class="spec-panel" id="collector-connect">
+            <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#2A2A2E;">Credentials &amp; roadmap</h4>
+            <ul class="list-disc list-inside">
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">STRIPE_SECRET_KEY for live charges and revenue data.</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Roadmap: Stripe Connect.</li>            </ul>
           </div>
         </div>
       </div>
       <div class="lg:col-span-2 spec-animate">
-        <div class="rounded-lg p-5 h-full" style="background-color:#1A1A1E;border:1px solid #635BFF30;">
+        <div class="rounded-lg p-5 h-full" style="background-color:#1A1A1E;border:1px solid rgba(99,91,255,0.3);">
           <div class="flex items-center gap-2 mb-3">
-            <span class="material-symbols-sharp text-base" style="color:#635BFF;">terminal</span>
-            <span class="font-mono text-xs" style="color:#635BFF;">CLI Example</span>
+            <span class="material-symbols-sharp text-base" style="color:#635BFF;">info</span>
+            <span class="font-mono text-xs" style="color:#635BFF;">Status</span>
           </div>
-          <pre class="font-mono text-[0.75rem] leading-[1.7] overflow-x-auto whitespace-pre" style="color:#F7F5F0;">$ hermes activate collector
-✓ The Collector initialized
-✓ Stripe SDK connected
-✓ .revenue parser loaded
-
-$ hermes mission collector --type payment-setup \
-  --business &quot;Café Central&quot;
-
-💳 Mission: Setup Payments
-✓ Product catalog created
-✓ Payment methods configured
-✓ Webhook endpoints registered</pre>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="status-tag tag-live">Live</span>
+            <span class="status-tag tag-connect">Connect</span>
+            <span class="status-tag tag-roadmap">Roadmap</span>
+          </div>
+          <p class="font-inter text-sm mb-4" style="color:rgba(247,245,240,0.7);">Live tools run locally. Connect credentials to unlock integrations. Roadmap items are not yet implemented.</p>
+          <div class="mb-4">
+            <span class="font-mono text-xs block mb-2" style="color:rgba(247,245,240,0.5);">WORKS CLOSELY WITH</span>
+            <div class="flex items-center gap-4 flex-wrap">
+                  <div class="flex items-center gap-2">
+                    <img src="assets/hero-scribe-icon.png" alt="The Scribe" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid #4A90A440;" />
+                    <span class="text-sm" style="color: rgba(247,245,240,0.7);">The Scribe</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <img src="assets/hero-strategist-icon.png" alt="The Strategist" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid #FFB80040;" />
+                    <span class="text-sm" style="color: rgba(247,245,240,0.7);">The Strategist</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <img src="assets/hero-brain-icon.png" alt="The Brain" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid #D4A85340;" />
+                    <span class="text-sm" style="color: rgba(247,245,240,0.7);">The Brain</span>
+                  </div>
+            </div>
+          </div>
+          <div>
+            <span class="font-mono text-xs block mb-2" style="color:rgba(247,245,240,0.5);">MCP CONNECTIONS</span>
+            <span class="text-sm font-mono" style="color:#635BFF;">Stripe integration (connect)</span>
+          </div>
         </div>
       </div>
     </div>
@@ -639,96 +708,94 @@ $ hermes mission collector --type payment-setup \
           </div>
           <div>
             <h3 class="font-cinzel text-xl" style="color:#2A2A2E;letter-spacing:0.04em;">THE GUARDIAN</h3>
-            <span class="font-mono text-xs" style="color:#76B900;">MCP Server: Security MCP</span>
+            <span class="font-mono text-xs" style="color:#76B900;">Hermes profile — security</span>
           </div>
         </div>
-        <p class="font-inter text-base leading-relaxed mb-6 spec-animate" style="color:#6B6B73;">Security and AI model management agent. Manages API keys through encrypted vault, NVIDIA GPU allocation, access control policies, and audit logging. Ensures enterprise-grade security across all hero operations.</p>
-        <div class="mb-6 spec-animate">
-          <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#2A2A2E;">Capabilities</h4>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left" style="min-width:500px;">
-              <thead>
-                <tr style="border-bottom:2px solid #76B90030;">
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#76B900;">Capability</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#76B900;">MCP Tool</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#76B900;">API/Integration</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#76B900;">Output</th>
+        <p class="font-inter text-base leading-relaxed mb-6 spec-animate" style="color:#6B6B73;">Security and policy profile. Audits key strength, detects providers, and logs policy checks. NVIDIA GPU allocation is roadmap.</p>
+        <div class="spec-tabs" data-tabs="guardian">
+          <button class="spec-tab active" data-tab="guardian-cap">Capabilities</button>
+          <button class="spec-tab" data-tab="guardian-live">Live now</button>
+          <button class="spec-tab" data-tab="guardian-connect">To connect</button>
+        </div>
+        <div class="spec-panels" data-panels="guardian">
+          <div class="spec-panel active" id="guardian-cap">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left" style="min-width:420px;">
+                <thead>
+                  <tr style="border-bottom:2px solid rgba(118,185,0,0.3);">
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#76B900;">Capability</th>
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#76B900;">Tool</th>
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#76B900;">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Key-strength audit</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">security MCP</td>
+                  <td class="py-2"><span class="status-tag tag-live">live</span></td>
                 </tr>
-              </thead>
-              <tbody><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">API Key Vault</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">manage_secrets</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:#6B6B73;">HashiCorp Vault</td>
-          <td class="font-mono text-xs py-2" style="color:#76B900;">Key policy</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">GPU Allocation</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">allocate_gpu</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:#6B6B73;">NVIDIA API</td>
-          <td class="font-mono text-xs py-2" style="color:#76B900;">GPU config</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Access Control</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">set_policies</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:#6B6B73;">Internal RBAC</td>
-          <td class="font-mono text-xs py-2" style="color:#76B900;">Policy file</td>
-        </tr></tbody>
-            </table>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Provider detection</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">security MCP</td>
+                  <td class="py-2"><span class="status-tag tag-live">live</span></td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Policy logging</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">security MCP</td>
+                  <td class="py-2"><span class="status-tag tag-live">live</span></td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">NVIDIA GPU allocation</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">NVIDIA API</td>
+                  <td class="py-2"><span class="status-tag tag-roadmap">roadmap</span></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-        <div class="mb-4 spec-animate">
-          <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-2" style="color:#2A2A2E;">MCP Tools</h4>
-          <div class="flex flex-wrap gap-2"><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#76B90015;color:#76B900;border:1px solid #76B90030;">manage_secrets</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#76B90015;color:#76B900;border:1px solid #76B90030;">allocate_gpu</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#76B90015;color:#76B900;border:1px solid #76B90030;">set_policies</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#76B90015;color:#76B900;border:1px solid #76B90030;">audit_log</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#76B90015;color:#76B900;border:1px solid #76B90030;">rotate_keys</span></div>
-        </div>
-        <div class="spec-animate">
-          <button class="accordion-toggle flex items-center gap-2 font-inter text-sm font-medium transition-colors duration-200 hover:opacity-80" style="color:#76B900;" data-target="config-guardian">
-            <span class="material-symbols-sharp text-base accordion-icon transition-transform duration-200">expand_more</span>
-            <span class="toggle-label">Show Configuration</span>
-          </button>
-          <div class="accordion-body hidden mt-3" id="config-guardian">
-            <div class="relative group cb-wrap" id="cfg-guardian">
-  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class="sh-keyword">interface</span> GuardianConfig {
-  nvidia: {
-    apiKey: <span class="sh-type">string</span>;
-    models: <span class="sh-type">string</span>[];
-    rateLimits: {
-      requestsPerMinute: <span class="sh-type">number</span>;
-      tokensPerDay: <span class="sh-type">number</span>;
-    };
-  };
-  apiKeyManager: {
-    rotationPolicy: <span class="sh-string">&quot;daily&quot;</span> | <span class="sh-string">&quot;weekly&quot;</span> | <span class="sh-string">&quot;monthly&quot;</span>;
-    alertOnExposure: <span class="sh-type">boolean</span>;
-  };
-  accessControl: {
-    rbac: <span class="sh-type">boolean</span>;
-    auditLog: <span class="sh-type">boolean</span>;
-  };
-}</pre>
-  <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="cfg-guardian" title="Copy to clipboard">
-    <span class="material-symbols-sharp text-base copy-icon" style="color:#F7F5F0;">content_copy</span>
-    <span class="material-symbols-sharp text-base check-icon hidden" style="color:#76B900;">check</span>
-  </button>
-</div>
+          <div class="spec-panel" id="guardian-live">
+            <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#2A2A2E;">Implemented tools</h4>
+            <ul class="list-disc list-inside mb-4">
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Key-strength audit</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Provider detection</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Policy logging</li>            </ul>
+            <div class="relative group cb-wrap">
+              <pre class="font-mono text-[0.75rem] leading-[1.7] overflow-x-auto p-4 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;">$ python3 scripts/demo_scribe.py</pre>
+            </div>
+          </div>
+          <div class="spec-panel" id="guardian-connect">
+            <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#2A2A2E;">Credentials &amp; roadmap</h4>
+            <ul class="list-disc list-inside">
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Optional secrets manager for credential rotation.</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Roadmap: NVIDIA GPU allocation / NemoClaw integration.</li>            </ul>
           </div>
         </div>
       </div>
       <div class="lg:col-span-2 spec-animate">
-        <div class="rounded-lg p-5 h-full" style="background-color:#1A1A1E;border:1px solid #76B90030;">
+        <div class="rounded-lg p-5 h-full" style="background-color:#1A1A1E;border:1px solid rgba(118,185,0,0.3);">
           <div class="flex items-center gap-2 mb-3">
-            <span class="material-symbols-sharp text-base" style="color:#76B900;">terminal</span>
-            <span class="font-mono text-xs" style="color:#76B900;">CLI Example</span>
+            <span class="material-symbols-sharp text-base" style="color:#76B900;">info</span>
+            <span class="font-mono text-xs" style="color:#76B900;">Status</span>
           </div>
-          <pre class="font-mono text-[0.75rem] leading-[1.7] overflow-x-auto whitespace-pre" style="color:#F7F5F0;">$ hermes activate guardian
-✓ The Guardian initialized
-✓ NVIDIA API connected
-✓ Key vault mounted
-
-$ hermes mission guardian --type security-audit \
-  --scope &quot;all heroes&quot;
-
-🛡️ Mission: Security Audit
-✓ All API keys verified
-✓ Access policies updated
-✓ Audit log enabled</pre>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="status-tag tag-live">Live</span>
+            <span class="status-tag tag-connect">Connect</span>
+            <span class="status-tag tag-roadmap">Roadmap</span>
+          </div>
+          <p class="font-inter text-sm mb-4" style="color:rgba(247,245,240,0.7);">Live tools run locally. Connect credentials to unlock integrations. Roadmap items are not yet implemented.</p>
+          <div class="mb-4">
+            <span class="font-mono text-xs block mb-2" style="color:rgba(247,245,240,0.5);">WORKS CLOSELY WITH</span>
+            <div class="flex items-center gap-4 flex-wrap">
+                  <div class="flex items-center gap-2">
+                    <img src="assets/hero-brain-icon.png" alt="The Brain" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid #D4A85340;" />
+                    <span class="text-sm" style="color: rgba(247,245,240,0.7);">The Brain</span>
+                  </div>
+            </div>
+          </div>
+          <div>
+            <span class="font-mono text-xs block mb-2" style="color:rgba(247,245,240,0.5);">MCP CONNECTIONS</span>
+            <span class="text-sm font-mono" style="color:#76B900;">Security checks (live); NVIDIA (roadmap)</span>
+          </div>
         </div>
       </div>
     </div>
@@ -744,93 +811,99 @@ $ hermes mission guardian --type security-audit \
           </div>
           <div>
             <h3 class="font-cinzel text-xl" style="color:#2A2A2E;letter-spacing:0.04em;">THE STRATEGIST</h3>
-            <span class="font-mono text-xs" style="color:#FFB800;">MCP Server: Google Workspace MCP</span>
+            <span class="font-mono text-xs" style="color:#FFB800;">Hermes profile — operations</span>
           </div>
         </div>
-        <p class="font-inter text-base leading-relaxed mb-6 spec-animate" style="color:#6B6B73;">Operations and project management agent. Orchestrates Google Calendar, task queues, email processing, and internal coordination. The central nervous system of project execution.</p>
-        <div class="mb-6 spec-animate">
-          <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#2A2A2E;">Capabilities</h4>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left" style="min-width:500px;">
-              <thead>
-                <tr style="border-bottom:2px solid #FFB80030;">
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#FFB800;">Capability</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#FFB800;">MCP Tool</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#FFB800;">API/Integration</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#FFB800;">Output</th>
+        <p class="font-inter text-base leading-relaxed mb-6 spec-animate" style="color:#6B6B73;">Operations profile. Plans projects, tasks, and checklists locally and coordinates via Google Calendar, Gmail, and Slack when connected.</p>
+        <div class="spec-tabs" data-tabs="strategist">
+          <button class="spec-tab active" data-tab="strategist-cap">Capabilities</button>
+          <button class="spec-tab" data-tab="strategist-live">Live now</button>
+          <button class="spec-tab" data-tab="strategist-connect">To connect</button>
+        </div>
+        <div class="spec-panels" data-panels="strategist">
+          <div class="spec-panel active" id="strategist-cap">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left" style="min-width:420px;">
+                <thead>
+                  <tr style="border-bottom:2px solid rgba(255,184,0,0.3);">
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#FFB800;">Capability</th>
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#FFB800;">Tool</th>
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#FFB800;">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Project / task planning</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">local ops</td>
+                  <td class="py-2"><span class="status-tag tag-live">live</span></td>
                 </tr>
-              </thead>
-              <tbody><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Calendar Sync</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">create_event / list_events</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:#6B6B73;">Google Calendar API</td>
-          <td class="font-mono text-xs py-2" style="color:#FFB800;">Sync state</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Task Management</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">manage_tasks</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:#6B6B73;">Bull/BullMQ</td>
-          <td class="font-mono text-xs py-2" style="color:#FFB800;">Task queue</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Email Processing</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">send_email / parse_threads</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:#6B6B73;">Gmail API</td>
-          <td class="font-mono text-xs py-2" style="color:#FFB800;">Parsed actions</td>
-        </tr></tbody>
-            </table>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Calendar events</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">Google Calendar API</td>
+                  <td class="py-2"><span class="status-tag tag-connect">connect</span></td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Email &amp; Slack briefings</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">Gmail / Slack API</td>
+                  <td class="py-2"><span class="status-tag tag-connect">connect</span></td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Notion / Google Tasks PM</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">external PM APIs</td>
+                  <td class="py-2"><span class="status-tag tag-roadmap">roadmap</span></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-        <div class="mb-4 spec-animate">
-          <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-2" style="color:#2A2A2E;">MCP Tools</h4>
-          <div class="flex flex-wrap gap-2"><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#FFB80015;color:#FFB800;border:1px solid #FFB80030;">create_event</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#FFB80015;color:#FFB800;border:1px solid #FFB80030;">manage_tasks</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#FFB80015;color:#FFB800;border:1px solid #FFB80030;">send_email</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#FFB80015;color:#FFB800;border:1px solid #FFB80030;">schedule_meeting</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#FFB80015;color:#FFB800;border:1px solid #FFB80030;">send_reminder</span></div>
-        </div>
-        <div class="spec-animate">
-          <button class="accordion-toggle flex items-center gap-2 font-inter text-sm font-medium transition-colors duration-200 hover:opacity-80" style="color:#FFB800;" data-target="config-strategist">
-            <span class="material-symbols-sharp text-base accordion-icon transition-transform duration-200">expand_more</span>
-            <span class="toggle-label">Show Configuration</span>
-          </button>
-          <div class="accordion-body hidden mt-3" id="config-strategist">
-            <div class="relative group cb-wrap" id="cfg-strategist">
-  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class="sh-keyword">interface</span> StrategistConfig {
-  googleCalendar: {
-    credentials: <span class="sh-type">string</span>;
-    calendarId: <span class="sh-type">string</span>;
-    syncDirection: <span class="sh-string">&quot;bidirectional&quot;</span> | <span class="sh-string">&quot;push&quot;</span> | <span class="sh-string">&quot;pull&quot;</span>;
-  };
-  projectManagement: {
-    methodology: <span class="sh-string">&quot;agile&quot;</span> | <span class="sh-string">&quot;waterfall&quot;</span> | <span class="sh-string">&quot;hybrid&quot;</span>;
-    autoAssign: <span class="sh-type">boolean</span>;
-    reminderSettings: {
-      beforeHours: <span class="sh-type">number</span>[];
-      channels: [<span class="sh-string">&quot;email&quot;</span>, <span class="sh-string">&quot;slack&quot;</span>, <span class="sh-string">&quot;in_app&quot;</span>];
-    };
-  };
-}</pre>
-  <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="cfg-strategist" title="Copy to clipboard">
-    <span class="material-symbols-sharp text-base copy-icon" style="color:#F7F5F0;">content_copy</span>
-    <span class="material-symbols-sharp text-base check-icon hidden" style="color:#76B900;">check</span>
-  </button>
-</div>
+          <div class="spec-panel" id="strategist-live">
+            <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#2A2A2E;">Implemented tools</h4>
+            <ul class="list-disc list-inside mb-4">
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Project planning</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Task and checklist tracking</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Local operations</li>            </ul>
+            <div class="relative group cb-wrap">
+              <pre class="font-mono text-[0.75rem] leading-[1.7] overflow-x-auto p-4 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;">$ python3 scripts/demo_scribe.py</pre>
+            </div>
+          </div>
+          <div class="spec-panel" id="strategist-connect">
+            <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#2A2A2E;">Credentials &amp; roadmap</h4>
+            <ul class="list-disc list-inside">
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Google Calendar / Gmail credentials.</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">SLACK_BOT_TOKEN for Slack briefings.</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Roadmap: Notion, Google Tasks PM suite.</li>            </ul>
           </div>
         </div>
       </div>
       <div class="lg:col-span-2 spec-animate">
-        <div class="rounded-lg p-5 h-full" style="background-color:#1A1A1E;border:1px solid #FFB80030;">
+        <div class="rounded-lg p-5 h-full" style="background-color:#1A1A1E;border:1px solid rgba(255,184,0,0.3);">
           <div class="flex items-center gap-2 mb-3">
-            <span class="material-symbols-sharp text-base" style="color:#FFB800;">terminal</span>
-            <span class="font-mono text-xs" style="color:#FFB800;">CLI Example</span>
+            <span class="material-symbols-sharp text-base" style="color:#FFB800;">info</span>
+            <span class="font-mono text-xs" style="color:#FFB800;">Status</span>
           </div>
-          <pre class="font-mono text-[0.75rem] leading-[1.7] overflow-x-auto whitespace-pre" style="color:#F7F5F0;">$ hermes activate strategist
-✓ The Strategist initialized
-✓ Google Calendar connected
-✓ Task queues ready
-
-$ hermes mission strategist --type project-setup \
-  --methodology agile
-
-📅 Mission: Setup Project Mgmt
-✓ Calendar synchronized
-✓ Task boards created
-✓ Reminder system active</pre>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="status-tag tag-live">Live</span>
+            <span class="status-tag tag-connect">Connect</span>
+            <span class="status-tag tag-roadmap">Roadmap</span>
+          </div>
+          <p class="font-inter text-sm mb-4" style="color:rgba(247,245,240,0.7);">Live tools run locally. Connect credentials to unlock integrations. Roadmap items are not yet implemented.</p>
+          <div class="mb-4">
+            <span class="font-mono text-xs block mb-2" style="color:rgba(247,245,240,0.5);">WORKS CLOSELY WITH</span>
+            <div class="flex items-center gap-4 flex-wrap">
+                  <div class="flex items-center gap-2">
+                    <img src="assets/hero-diplomat-icon.png" alt="The Diplomat" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid #E74C3C40;" />
+                    <span class="text-sm" style="color: rgba(247,245,240,0.7);">The Diplomat</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <img src="assets/hero-collector-icon.png" alt="The Collector" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid #635BFF40;" />
+                    <span class="text-sm" style="color: rgba(247,245,240,0.7);">The Collector</span>
+                  </div>
+            </div>
+          </div>
+          <div>
+            <span class="font-mono text-xs block mb-2" style="color:rgba(247,245,240,0.5);">MCP CONNECTIONS</span>
+            <span class="text-sm font-mono" style="color:#FFB800;">Google Calendar, Gmail, Slack (connect); Notion / Google Tasks (roadmap)</span>
+          </div>
         </div>
       </div>
     </div>
@@ -846,94 +919,102 @@ $ hermes mission strategist --type project-setup \
           </div>
           <div>
             <h3 class="font-cinzel text-xl" style="color:#2A2A2E;letter-spacing:0.04em;">THE DIPLOMAT</h3>
-            <span class="font-mono text-xs" style="color:#E74C3C;">MCP Server: CRM MCP</span>
+            <span class="font-mono text-xs" style="color:#E74C3C;">Hermes profile — relations</span>
           </div>
         </div>
-        <p class="font-inter text-base leading-relaxed mb-6 spec-animate" style="color:#6B6B73;">Client relationship management agent. Handles CRM operations, external communications, meeting scheduling, and partnership management. The bridge between internal operations and external stakeholders.</p>
-        <div class="mb-6 spec-animate">
-          <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#2A2A2E;">Capabilities</h4>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left" style="min-width:500px;">
-              <thead>
-                <tr style="border-bottom:2px solid #E74C3C30;">
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#E74C3C;">Capability</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#E74C3C;">MCP Tool</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#E74C3C;">API/Integration</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#E74C3C;">Output</th>
+        <p class="font-inter text-base leading-relaxed mb-6 spec-animate" style="color:#6B6B73;">Relationships profile. Tracks clients and vendors, drafts follow-ups, and uses Google Workspace and Gmail when connected. CRM sync is roadmap.</p>
+        <div class="spec-tabs" data-tabs="diplomat">
+          <button class="spec-tab active" data-tab="diplomat-cap">Capabilities</button>
+          <button class="spec-tab" data-tab="diplomat-live">Live now</button>
+          <button class="spec-tab" data-tab="diplomat-connect">To connect</button>
+        </div>
+        <div class="spec-panels" data-panels="diplomat">
+          <div class="spec-panel active" id="diplomat-cap">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left" style="min-width:420px;">
+                <thead>
+                  <tr style="border-bottom:2px solid rgba(231,76,60,0.3);">
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#E74C3C;">Capability</th>
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#E74C3C;">Tool</th>
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#E74C3C;">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Client / vendor tracking</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">relations MCP</td>
+                  <td class="py-2"><span class="status-tag tag-live">live</span></td>
                 </tr>
-              </thead>
-              <tbody><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">CRM Operations</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">sync_contacts</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:#6B6B73;">HubSpot / Salesforce</td>
-          <td class="font-mono text-xs py-2" style="color:#E74C3C;">CRM state</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Meeting Scheduler</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">schedule_meeting</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:#6B6B73;">Google Meet API</td>
-          <td class="font-mono text-xs py-2" style="color:#E74C3C;">Meeting link</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Follow-up Engine</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">auto_followup</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:#6B6B73;">Email APIs</td>
-          <td class="font-mono text-xs py-2" style="color:#E74C3C;">Sent messages</td>
-        </tr></tbody>
-            </table>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Follow-up drafts</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">relations MCP</td>
+                  <td class="py-2"><span class="status-tag tag-live">live</span></td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">Google Workspace / Gmail</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">Google Workspace API</td>
+                  <td class="py-2"><span class="status-tag tag-connect">connect</span></td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#2A2A2E;">HubSpot / Salesforce sync</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:#6B6B73;">CRM APIs</td>
+                  <td class="py-2"><span class="status-tag tag-roadmap">roadmap</span></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-        <div class="mb-4 spec-animate">
-          <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-2" style="color:#2A2A2E;">MCP Tools</h4>
-          <div class="flex flex-wrap gap-2"><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#E74C3C15;color:#E74C3C;border:1px solid #E74C3C30;">sync_contacts</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#E74C3C15;color:#E74C3C;border:1px solid #E74C3C30;">schedule_meeting</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#E74C3C15;color:#E74C3C;border:1px solid #E74C3C30;">auto_followup</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#E74C3C15;color:#E74C3C;border:1px solid #E74C3C30;">log_interaction</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#E74C3C15;color:#E74C3C;border:1px solid #E74C3C30;">generate_proposal</span></div>
-        </div>
-        <div class="spec-animate">
-          <button class="accordion-toggle flex items-center gap-2 font-inter text-sm font-medium transition-colors duration-200 hover:opacity-80" style="color:#E74C3C;" data-target="config-diplomat">
-            <span class="material-symbols-sharp text-base accordion-icon transition-transform duration-200">expand_more</span>
-            <span class="toggle-label">Show Configuration</span>
-          </button>
-          <div class="accordion-body hidden mt-3" id="config-diplomat">
-            <div class="relative group cb-wrap" id="cfg-diplomat">
-  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"><span class="sh-keyword">interface</span> DiplomatConfig {
-  crm: {
-    provider: <span class="sh-string">&quot;salesforce&quot;</span> | <span class="sh-string">&quot;hubspot&quot;</span> | <span class="sh-string">&quot;custom&quot;</span>;
-    apiKey: <span class="sh-type">string</span>;
-    syncInterval: <span class="sh-type">number</span>;
-  };
-  clientPortal: {
-    enabled: <span class="sh-type">boolean</span>;
-    whiteLabel: <span class="sh-type">boolean</span>;
-    notificationChannels: <span class="sh-type">string</span>[];
-  };
-  followUp: {
-    autoReminders: <span class="sh-type">boolean</span>;
-    escalationRules: EscalationRule[];
-  };
-}</pre>
-  <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="cfg-diplomat" title="Copy to clipboard">
-    <span class="material-symbols-sharp text-base copy-icon" style="color:#F7F5F0;">content_copy</span>
-    <span class="material-symbols-sharp text-base check-icon hidden" style="color:#76B900;">check</span>
-  </button>
-</div>
+          <div class="spec-panel" id="diplomat-live">
+            <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#2A2A2E;">Implemented tools</h4>
+            <ul class="list-disc list-inside mb-4">
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Contact tracking</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Follow-up drafts</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Communication log</li>            </ul>
+            <div class="relative group cb-wrap">
+              <pre class="font-mono text-[0.75rem] leading-[1.7] overflow-x-auto p-4 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;">$ python3 scripts/demo_scribe.py</pre>
+            </div>
+          </div>
+          <div class="spec-panel" id="diplomat-connect">
+            <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#2A2A2E;">Credentials &amp; roadmap</h4>
+            <ul class="list-disc list-inside">
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Google Workspace / Gmail credentials.</li>
+                <li class="font-inter text-sm py-1" style="color:#6B6B73;">Roadmap: HubSpot / Salesforce CRM sync.</li>            </ul>
           </div>
         </div>
       </div>
       <div class="lg:col-span-2 spec-animate">
-        <div class="rounded-lg p-5 h-full" style="background-color:#1A1A1E;border:1px solid #E74C3C30;">
+        <div class="rounded-lg p-5 h-full" style="background-color:#1A1A1E;border:1px solid rgba(231,76,60,0.3);">
           <div class="flex items-center gap-2 mb-3">
-            <span class="material-symbols-sharp text-base" style="color:#E74C3C;">terminal</span>
-            <span class="font-mono text-xs" style="color:#E74C3C;">CLI Example</span>
+            <span class="material-symbols-sharp text-base" style="color:#E74C3C;">info</span>
+            <span class="font-mono text-xs" style="color:#E74C3C;">Status</span>
           </div>
-          <pre class="font-mono text-[0.75rem] leading-[1.7] overflow-x-auto whitespace-pre" style="color:#F7F5F0;">$ hermes activate diplomat
-✓ The Diplomat initialized
-✓ CRM connected
-✓ .relations parser loaded
-
-$ hermes mission diplomat --type client-onboard \
-  --client &quot;Acme Corp&quot;
-
-🤝 Mission: Onboard Client
-✓ CRM profile created
-✓ Welcome sequence sent
-✓ Meeting scheduled</pre>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="status-tag tag-live">Live</span>
+            <span class="status-tag tag-connect">Connect</span>
+            <span class="status-tag tag-roadmap">Roadmap</span>
+          </div>
+          <p class="font-inter text-sm mb-4" style="color:rgba(247,245,240,0.7);">Live tools run locally. Connect credentials to unlock integrations. Roadmap items are not yet implemented.</p>
+          <div class="mb-4">
+            <span class="font-mono text-xs block mb-2" style="color:rgba(247,245,240,0.5);">WORKS CLOSELY WITH</span>
+            <div class="flex items-center gap-4 flex-wrap">
+                  <div class="flex items-center gap-2">
+                    <img src="assets/hero-herald-icon.png" alt="The Herald" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid #9B59B640;" />
+                    <span class="text-sm" style="color: rgba(247,245,240,0.7);">The Herald</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <img src="assets/hero-strategist-icon.png" alt="The Strategist" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid #FFB80040;" />
+                    <span class="text-sm" style="color: rgba(247,245,240,0.7);">The Strategist</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <img src="assets/hero-scribe-icon.png" alt="The Scribe" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid #4A90A440;" />
+                    <span class="text-sm" style="color: rgba(247,245,240,0.7);">The Scribe</span>
+                  </div>
+            </div>
+          </div>
+          <div>
+            <span class="font-mono text-xs block mb-2" style="color:rgba(247,245,240,0.5);">MCP CONNECTIONS</span>
+            <span class="text-sm font-mono" style="color:#E74C3C;">Google Workspace / Gmail (connect); CRM (roadmap)</span>
+          </div>
         </div>
       </div>
     </div>
@@ -949,89 +1030,108 @@ $ hermes mission diplomat --type client-onboard \
           </div>
           <div>
             <h3 class="font-cinzel text-xl" style="color:#F7F5F0;letter-spacing:0.04em;">THE BRAIN</h3>
-            <span class="font-mono text-xs" style="color:#D4A853;">MCP Server: G-Brain MCP</span>
+            <span class="font-mono text-xs" style="color:#D4A853;">Hermes profile — memory</span>
           </div>
         </div>
-        <p class="font-inter text-base leading-relaxed mb-6 spec-animate" style="color:rgba(247,245,240,0.7);">Central intelligence orchestrator. Manages the MCP protocol layer, cross-agent context sharing, pattern recognition, and strategic insight generation. The meta-agent that makes The Partenón greater than the sum of its parts.</p>
-        <div class="mb-6 spec-animate">
-          <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#F7F5F0;">Capabilities</h4>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left" style="min-width:500px;">
-              <thead>
-                <tr style="border-bottom:2px solid #D4A85330;">
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#D4A853;">Capability</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#D4A853;">MCP Tool</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#D4A853;">API/Integration</th>
-                  <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#D4A853;">Output</th>
+        <p class="font-inter text-base leading-relaxed mb-6 spec-animate" style="color:rgba(247,245,240,0.7);">Shared memory profile. Stores memory pages and profiles, detects conflicts, and runs on SQLite by default or Postgres for team scale.</p>
+        <div class="spec-tabs" data-tabs="brain">
+          <button class="spec-tab active" data-tab="brain-cap">Capabilities</button>
+          <button class="spec-tab" data-tab="brain-live">Live now</button>
+          <button class="spec-tab" data-tab="brain-connect">To connect</button>
+        </div>
+        <div class="spec-panels" data-panels="brain">
+          <div class="spec-panel active" id="brain-cap">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left" style="min-width:420px;">
+                <thead>
+                  <tr style="border-bottom:2px solid rgba(212,168,83,0.3);">
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#D4A853;">Capability</th>
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#D4A853;">Tool</th>
+                    <th class="font-inter text-xs font-semibold tracking-wide uppercase py-2 pr-4" style="color:#D4A853;">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#F7F5F0;">Memory pages</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:rgba(247,245,240,0.7);">memory MCP</td>
+                  <td class="py-2"><span class="status-tag tag-live">live</span></td>
                 </tr>
-              </thead>
-              <tbody><tr style="border-bottom:1px solid rgba(247,245,240,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#F7F5F0;">Context Sharing</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:rgba(247,245,240,0.7);">share_context</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:rgba(247,245,240,0.7);">MCP Protocol</td>
-          <td class="font-mono text-xs py-2" style="color:#D4A853;">Shared context</td>
-        </tr><tr style="border-bottom:1px solid rgba(247,245,240,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#F7F5F0;">Pattern Analysis</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:rgba(247,245,240,0.7);">find_patterns</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:rgba(247,245,240,0.7);">Internal ML</td>
-          <td class="font-mono text-xs py-2" style="color:#D4A853;">Insight report</td>
-        </tr><tr style="border-bottom:1px solid rgba(247,245,240,0.08);">
-          <td class="font-inter text-sm py-2 pr-4" style="color:#F7F5F0;">MCP Orchestration</td>
-          <td class="font-mono text-xs py-2 pr-4" style="color:rgba(247,245,240,0.7);">orchestrate_agents</td>
-          <td class="font-inter text-xs py-2 pr-4" style="color:rgba(247,245,240,0.7);">MCP SDK</td>
-          <td class="font-mono text-xs py-2" style="color:#D4A853;">Agent mesh</td>
-        </tr></tbody>
-            </table>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#F7F5F0;">Profile storage</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:rgba(247,245,240,0.7);">memory MCP</td>
+                  <td class="py-2"><span class="status-tag tag-live">live</span></td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#F7F5F0;">Conflict detection</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:rgba(247,245,240,0.7);">memory MCP</td>
+                  <td class="py-2"><span class="status-tag tag-live">live</span></td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#F7F5F0;">Team-scale Postgres</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:rgba(247,245,240,0.7);">Postgres</td>
+                  <td class="py-2"><span class="status-tag tag-connect">connect</span></td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+                  <td class="font-inter text-sm py-2 pr-4" style="color:#F7F5F0;">Cross-agent optimization</td>
+                  <td class="font-mono text-xs py-2 pr-4" style="color:rgba(247,245,240,0.7);">advanced memory</td>
+                  <td class="py-2"><span class="status-tag tag-roadmap">roadmap</span></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-        <div class="mb-4 spec-animate">
-          <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-2" style="color:#F7F5F0;">MCP Tools</h4>
-          <div class="flex flex-wrap gap-2"><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#D4A85315;color:#D4A853;border:1px solid #D4A85330;">share_context</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#D4A85315;color:#D4A853;border:1px solid #D4A85330;">find_patterns</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#D4A85315;color:#D4A853;border:1px solid #D4A85330;">orchestrate_agents</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#D4A85315;color:#D4A853;border:1px solid #D4A85330;">register_agent</span><span class="font-mono text-xs px-3 py-1 rounded-full" style="background-color:#D4A85315;color:#D4A853;border:1px solid #D4A85330;">generate_insight</span></div>
-        </div>
-        <div class="spec-animate">
-          <button class="accordion-toggle flex items-center gap-2 font-inter text-sm font-medium transition-colors duration-200 hover:opacity-80" style="color:#D4A853;" data-target="config-brain">
-            <span class="material-symbols-sharp text-base accordion-icon transition-transform duration-200">expand_more</span>
-            <span class="toggle-label">Show Configuration</span>
-          </button>
-          <div class="accordion-body hidden mt-3" id="config-brain">
-            <div class="relative group cb-wrap" id="cfg-brain">
-  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#F0EDE6;color:#2A2A2E;letter-spacing:0.02em;"><span class="sh-keyword">interface</span> BrainConfig {
-  mcpHub: {
-    version: <span class="sh-string">&quot;1.0&quot;</span>;
-    protocol: <span class="sh-string">&quot;model_context_protocol&quot;</span>;
-    transports: [<span class="sh-string">&quot;stdio&quot;</span>, <span class="sh-string">&quot;http&quot;</span>, <span class="sh-string">&quot;websocket&quot;</span>];
-  };
-  orchestration: {
-    loadBalancing: <span class="sh-string">&quot;round_robin&quot;</span> | <span class="sh-string">&quot;least_loaded&quot;</span> | <span class="sh-string">&quot;priority&quot;</span>;
-    failover: <span class="sh-type">boolean</span>;
-    healthCheckInterval: <span class="sh-type">number</span>;
-  };
-}</pre>
-  <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="cfg-brain" title="Copy to clipboard">
-    <span class="material-symbols-sharp text-base copy-icon" style="color:#2A2A2E;">content_copy</span>
-    <span class="material-symbols-sharp text-base check-icon hidden" style="color:#76B900;">check</span>
-  </button>
-</div>
+          <div class="spec-panel" id="brain-live">
+            <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#F7F5F0;">Implemented tools</h4>
+            <ul class="list-disc list-inside mb-4">
+                <li class="font-inter text-sm py-1" style="color:rgba(247,245,240,0.7);">SQLite memory</li>
+                <li class="font-inter text-sm py-1" style="color:rgba(247,245,240,0.7);">Memory pages</li>
+                <li class="font-inter text-sm py-1" style="color:rgba(247,245,240,0.7);">Profile storage</li>
+                <li class="font-inter text-sm py-1" style="color:rgba(247,245,240,0.7);">Conflict detection</li>            </ul>
+            <div class="relative group cb-wrap">
+              <pre class="font-mono text-[0.75rem] leading-[1.7] overflow-x-auto p-4 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;">$ python3 scripts/demo_scribe.py</pre>
+            </div>
+          </div>
+          <div class="spec-panel" id="brain-connect">
+            <h4 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-3" style="color:#F7F5F0;">Credentials &amp; roadmap</h4>
+            <ul class="list-disc list-inside">
+                <li class="font-inter text-sm py-1" style="color:rgba(247,245,240,0.7);">GBRAIN_DATABASE_URL for Postgres team memory.</li>
+                <li class="font-inter text-sm py-1" style="color:rgba(247,245,240,0.7);">Roadmap: advanced cross-agent optimization.</li>            </ul>
           </div>
         </div>
       </div>
       <div class="lg:col-span-2 spec-animate">
-        <div class="rounded-lg p-5 h-full" style="background-color:#1A1A1E;border:1px solid #D4A85330;">
+        <div class="rounded-lg p-5 h-full" style="background-color:#1A1A1E;border:1px solid rgba(212,168,83,0.3);">
           <div class="flex items-center gap-2 mb-3">
-            <span class="material-symbols-sharp text-base" style="color:#D4A853;">terminal</span>
-            <span class="font-mono text-xs" style="color:#D4A853;">CLI Example</span>
+            <span class="material-symbols-sharp text-base" style="color:#D4A853;">info</span>
+            <span class="font-mono text-xs" style="color:#D4A853;">Status</span>
           </div>
-          <pre class="font-mono text-[0.75rem] leading-[1.7] overflow-x-auto whitespace-pre" style="color:#F7F5F0;">$ hermes activate brain
-✓ G-Brain initialized
-✓ MCP Hub started
-
-$ hermes mission brain --type cross-agent-analysis \
-  --scope &quot;all heroes&quot; --pattern &quot;revenue&quot;
-
-🧠 Mission: Cross-Agent Analysis
-✓ All contexts indexed
-✓ Pattern correlation complete
-✓ 3 strategic insights generated</pre>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="status-tag tag-live">Live</span>
+            <span class="status-tag tag-connect">Connect</span>
+            <span class="status-tag tag-roadmap">Roadmap</span>
+          </div>
+          <p class="font-inter text-sm mb-4" style="color:rgba(247,245,240,0.7);">Live tools run locally. Connect credentials to unlock integrations. Roadmap items are not yet implemented.</p>
+          <div class="mb-4">
+            <span class="font-mono text-xs block mb-2" style="color:rgba(247,245,240,0.5);">WORKS CLOSELY WITH</span>
+            <div class="flex items-center gap-4 flex-wrap">
+                  <div class="flex items-center gap-2">
+                    <img src="assets/hero-scribe-icon.png" alt="The Scribe" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid #4A90A440;" />
+                    <span class="text-sm" style="color: rgba(247,245,240,0.7);">The Scribe</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <img src="assets/hero-collector-icon.png" alt="The Collector" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid #635BFF40;" />
+                    <span class="text-sm" style="color: rgba(247,245,240,0.7);">The Collector</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <img src="assets/hero-strategist-icon.png" alt="The Strategist" class="w-8 h-8 rounded-full object-cover" style="border: 2px solid #FFB80040;" />
+                    <span class="text-sm" style="color: rgba(247,245,240,0.7);">The Strategist</span>
+                  </div>
+            </div>
+          </div>
+          <div>
+            <span class="font-mono text-xs block mb-2" style="color:rgba(247,245,240,0.5);">MCP CONNECTIONS</span>
+            <span class="text-sm font-mono" style="color:#D4A853;">Memory MCP (live); Postgres (connect)</span>
+          </div>
         </div>
       </div>
     </div>
@@ -1060,35 +1160,33 @@ $ hermes mission brain --type cross-agent-analysis \
     <line class="mcp-line" x1="400" y1="220" x2="399.99926535897936" y2="20.000000001349264" stroke="#4285F4" stroke-width="1.5" opacity="0.5" /><text x="399.99963267948965" y="116.00000000067463" fill="rgba(247,245,240,0.4)" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">mcp.call()</text><line class="mcp-line" x1="400" y1="220" x2="573.2049583165877" y2="119.99978792747943" stroke="#635BFF" stroke-width="1.5" opacity="0.5" /><text x="486.6024791582939" y="165.9998939637397" fill="rgba(247,245,240,0.4)" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">mcp.call()</text><line class="mcp-line" x1="400" y1="220" x2="573.2049583165879" y2="320.0002120725205" stroke="#76B900" stroke-width="1.5" opacity="0.5" /><text x="486.60247915829393" y="266.00010603626026" fill="rgba(247,245,240,0.4)" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">mcp.call()</text><line class="mcp-line" x1="400" y1="220" x2="399.99926535897936" y2="419.99999999865076" stroke="#9B59B6" stroke-width="1.5" opacity="0.5" /><text x="399.99963267948965" y="315.9999999993254" fill="rgba(247,245,240,0.4)" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">mcp.call()</text><line class="mcp-line" x1="400" y1="220" x2="226.79430704550754" y2="319.99893963514853" stroke="#E74C3C" stroke-width="1.5" opacity="0.5" /><text x="313.3971535227538" y="265.99946981757427" fill="rgba(247,245,240,0.4)" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">mcp.call()</text><line class="mcp-line" x1="400" y1="220" x2="226.79577633066472" y2="119.99851549550438" stroke="#D4A853" stroke-width="1.5" opacity="0.5" /><text x="313.39788816533235" y="165.99925774775218" fill="rgba(247,245,240,0.4)" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">mcp.call()</text>
     <g class="mcp-node">
           <rect x="334.99926535897936" y="-3.999999998650736" width="130" height="48" rx="8" fill="#4285F4" opacity="0.1" stroke="#4285F4" stroke-width="1.5" />
-          <text x="399.99926535897936" y="16.000000001349264" fill="#4285F4" font-size="10" font-family="Inter, sans-serif" font-weight="600" text-anchor="middle">Google Workspace MCP</text>
-          <text x="399.99926535897936" y="32.000000001349264" fill="rgba(247,245,240,0.4)" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">Sheets, Calendar, Gmail, Drive</text>
-        </g><g class="mcp-node">
+          <text x="399.99926535897936" y="16.000000001349264" fill="#4285F4" font-size="10" font-family="Inter, sans-serif" font-weight="600" text-anchor="middle">google_workspace</text>
+          <text x="399.99926535897936" y="32.000000001349264" fill="rgba(247,245,240,0.4)" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">Sheets, Calendar, Gmail (connect)</text>        </g><g class="mcp-node">
           <rect x="508.20495831658775" y="95.99978792747943" width="130" height="48" rx="8" fill="#635BFF" opacity="0.1" stroke="#635BFF" stroke-width="1.5" />
-          <text x="573.2049583165877" y="115.99978792747943" fill="#635BFF" font-size="10" font-family="Inter, sans-serif" font-weight="600" text-anchor="middle">Stripe MCP</text>
-          <text x="573.2049583165877" y="131.99978792747942" fill="rgba(247,245,240,0.4)" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">Payments, Billing, Connect</text>
-        </g><g class="mcp-node">
+          <text x="573.2049583165877" y="115.99978792747943" fill="#635BFF" font-size="10" font-family="Inter, sans-serif" font-weight="600" text-anchor="middle">payments</text>
+          <text x="573.2049583165877" y="131.99978792747942" fill="rgba(247,245,240,0.4)" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">Stripe (connect)</text>        </g><g class="mcp-node">
           <rect x="508.20495831658786" y="296.0002120725205" width="130" height="48" rx="8" fill="#76B900" opacity="0.1" stroke="#76B900" stroke-width="1.5" />
-          <text x="573.2049583165879" y="316.0002120725205" fill="#76B900" font-size="10" font-family="Inter, sans-serif" font-weight="600" text-anchor="middle">NVIDIA MCP</text>
-          <text x="573.2049583165879" y="332.0002120725205" fill="rgba(247,245,240,0.4)" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">GPU, Models, Security</text>
-        </g><g class="mcp-node">
+          <text x="573.2049583165879" y="316.0002120725205" fill="#76B900" font-size="10" font-family="Inter, sans-serif" font-weight="600" text-anchor="middle">NVIDIA Cloud</text>
+          <text x="573.2049583165879" y="332.0002120725205" fill="rgba(247,245,240,0.4)" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">GPU / models (roadmap)</text>        </g><g class="mcp-node">
           <rect x="334.99926535897936" y="395.99999999865076" width="130" height="48" rx="8" fill="#9B59B6" opacity="0.1" stroke="#9B59B6" stroke-width="1.5" />
-          <text x="399.99926535897936" y="415.99999999865076" fill="#9B59B6" font-size="10" font-family="Inter, sans-serif" font-weight="600" text-anchor="middle">Social APIs MCP</text>
-          <text x="399.99926535897936" y="431.99999999865076" fill="rgba(247,245,240,0.4)" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">Instagram, Twitter, LinkedIn</text>
-        </g><g class="mcp-node">
+          <text x="399.99926535897936" y="415.99999999865076" fill="#9B59B6" font-size="10" font-family="Inter, sans-serif" font-weight="600" text-anchor="middle">social APIs</text>
+          <text x="399.99926535897936" y="431.99999999865076" fill="rgba(247,245,240,0.4)" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">Instagram, Twitter, LinkedIn (roadmap)</text>        </g><g class="mcp-node">
           <rect x="161.79430704550754" y="295.99893963514853" width="130" height="48" rx="8" fill="#E74C3C" opacity="0.1" stroke="#E74C3C" stroke-width="1.5" />
           <text x="226.79430704550754" y="315.99893963514853" fill="#E74C3C" font-size="10" font-family="Inter, sans-serif" font-weight="600" text-anchor="middle">CRM MCP</text>
           <text x="226.79430704550754" y="331.99893963514853" fill="rgba(247,245,240,0.4)" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">HubSpot, Salesforce</text>
         </g><g class="mcp-node">
           <rect x="161.79577633066472" y="95.99851549550438" width="130" height="48" rx="8" fill="#D4A853" opacity="0.1" stroke="#D4A853" stroke-width="1.5" />
-          <text x="226.79577633066472" y="115.99851549550438" fill="#D4A853" font-size="10" font-family="Inter, sans-serif" font-weight="600" text-anchor="middle">Hero Agent Pool</text>
-          <text x="226.79577633066472" y="131.99851549550436" fill="rgba(247,245,240,0.4)" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">scribe, herald, collector...</text>
-        </g><g class="mcp-node">
+          <text x="226.79577633066472" y="115.99851549550438" fill="#D4A853" font-size="10" font-family="Inter, sans-serif" font-weight="600" text-anchor="middle">relations / ops / comms / finance</text>
+          <text x="226.79577633066472" y="131.99851549550436" fill="rgba(247,245,240,0.4)" font-size="8" font-family="JetBrains Mono, monospace" text-anchor="middle">live MCP servers</text>        </g><g class="mcp-node">
       <circle cx="400" cy="220" r="48" fill="#D4A853" opacity="0.15" stroke="#D4A853" stroke-width="2.5" />
       <text x="400" y="214" fill="#D4A853" font-size="12" font-family="Cinzel, serif" font-weight="600" text-anchor="middle" letter-spacing="0.08em">G-BRAIN</text>
       <text x="400" y="230" fill="rgba(247,245,240,0.6)" font-size="9" font-family="JetBrains Mono, monospace" text-anchor="middle">MCP Server</text>
     </g>
   </svg>
 </div>
+      <p class="font-inter text-xs text-center mt-4" style="color:rgba(247,245,240,0.5);">
+        Live MCP servers: memory, finance, payments, google_workspace, comms, security, ops, relations. Roadmap: social APIs, CRM, NVIDIA.
+      </p>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16 reveal">
         <div class="rounded-lg overflow-hidden" style="background-color:var(--midnight);border:1px solid #4A90A425;"><div class="px-5 py-3 flex items-center gap-3" style="border-bottom:1px solid #4A90A420;"><span class="font-mono text-lg font-bold" style="color:#4A90A4;">01</span><span class="font-inter text-sm font-semibold" style="color:var(--marble-white);">Context Registration</span></div><div class="p-4"><div class="relative group cb-wrap" id="mcp-01">
@@ -1574,72 +1672,51 @@ $ hermes configure --interactive</pre>
       <div class="reveal">
         <div class="text-center mb-16" style="max-width:var(--container-narrow);margin:0 auto 4rem;">
   <span class="font-inter text-xs font-semibold tracking-[0.12em] uppercase block mb-4" style="color:#635BFF;">GET STARTED</span>
-  <h2 class="font-cinzel mb-4" style="font-size:clamp(2rem,5vw,4rem);letter-spacing:0.06em;line-height:1.1;color:#F7F5F0;">INSTALL HERMES FROM SOURCE</h2>
+          <h2 class="font-cinzel mb-4" style="font-size:clamp(2rem,5vw,4rem);letter-spacing:0.06em;line-height:1.1;color:#F7F5F0;">INSTALL THE PARTENON</h2>
   <div class="mx-auto mb-4" style="width:48px;height:2px;background-color:#635BFF;"></div>
-  <p class="font-inter text-sm leading-relaxed" style="color:rgba(247,245,240,0.6);">The npm one-liner and Docker image are planned but not yet published. Use the local Python setup below to run the current implementation and stubs.</p>
+          <p class="font-inter text-sm leading-relaxed" style="color:rgba(247,245,240,0.6);">Clone the repo, run the installer, and add credentials to .env when you want live mode.</p>
 </div>
       </div>
       <div class="reveal mb-16">
         <div>
   <div class="flex gap-0 mb-6 border-b" style="border-color:rgba(247,245,240,0.1);">
-    <button class="install-tab active" data-tab="install-panel-0">Local Setup</button><button class="install-tab" data-tab="install-panel-1">Manual Setup</button><button class="install-tab" data-tab="install-panel-2">Docker</button>
+    <button class="install-tab active" data-tab="install-panel-0">Quick Start</button>
+    <button class="install-tab" data-tab="install-panel-1">Hermes</button>
+    <button class="install-tab" data-tab="install-panel-2">Docker</button>
   </div>
   <div class="install-panel active" id="install-panel-0"><div class="relative group cb-wrap" id="install-code-0">
   <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"># Clone the public repository
 $ git clone https://github.com/cuentadeservicio377-cell/partenon.git
 $ cd partenon
 
-# Create a Python virtual environment
-$ python3 -m venv .venv
-$ source .venv/bin/activate
+# Run the installer
+$ ./install.sh
 
-# Install Python dependencies
-$ pip install -r requirements.txt
-
-# Run the finance demo to verify the install
-$ python3 scripts/demo_scribe.py
-
-# Try the Hermes CLI stub
-$ python3 examples/hermes-cli-stub.py status --verbose</pre>
+# Add credentials to .env when you want live mode
+$ cp .env.example .env
+# Edit .env with GOOGLE_SERVICE_ACCOUNT_JSON, STRIPE_SECRET_KEY, etc.</pre>
   <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="install-code-0" title="Copy to clipboard">
     <span class="material-symbols-sharp text-base copy-icon" style="color:#F7F5F0;">content_copy</span>
     <span class="material-symbols-sharp text-base check-icon hidden" style="color:#76B900;">check</span>
   </button>
-</div></div><div class="install-panel" id="install-panel-1"><div class="relative group cb-wrap" id="install-code-1">
-  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"># Clone the public repository
-$ git clone https://github.com/cuentadeservicio377-cell/partenon.git
-$ cd partenon
+</div></div>
+<div class="install-panel" id="install-panel-1"><div class="relative group cb-wrap" id="install-code-1">
+  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"># Hermes Agent is distributed separately by Nous Research.
+# Install it if you want the CLI profile experience.
+# https://hermes-agent.nousresearch.com/
 
-# Install Python dependencies
-$ python3 -m venv .venv
-$ source .venv/bin/activate
-$ pip install -r requirements.txt
-
-# Copy environment template and add your keys
-$ cp .env.example .env
-# Edit .env with GOOGLE_SERVICE_ACCOUNT_JSON, STRIPE_SECRET_KEY, NVIDIA_API_KEY, etc.
-
-# Run the local demo
-$ python3 scripts/demo_scribe.py
-
-# Start the dashboard (requires Node.js 20+)
-$ cd dashboard
-$ npm install
-$ npm run dev</pre>
+# Partenon profiles are copied to ~/.hermes/profiles during ./install.sh
+$ hermes profile use partenon-scribe</pre>
   <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="install-code-1" title="Copy to clipboard">
     <span class="material-symbols-sharp text-base copy-icon" style="color:#F7F5F0;">content_copy</span>
     <span class="material-symbols-sharp text-base check-icon hidden" style="color:#76B900;">check</span>
   </button>
-</div></div><div class="install-panel" id="install-panel-2"><div class="relative group cb-wrap" id="install-code-2">
-  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"># Docker support is planned. For now, use Docker Compose to run only G-Brain + dashboard:
-$ docker compose up -d
+</div></div>
+<div class="install-panel" id="install-panel-2"><div class="relative group cb-wrap" id="install-code-2">
+  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#1A1A1E;color:#F7F5F0;letter-spacing:0.02em;"># Run the full stack with Docker Compose
+$ docker compose up --build -d
 
-# The compose file starts:
-#   - PostgreSQL for G-Brain on port 5432
-#   - Next.js dashboard on port 3000
-
-# A pre-built Hermes image is not yet published on GHCR.
-# Track progress in MISSING_IMPLEMENTATION.md.</pre>
+# Services include the FastAPI backend, dashboard, and G-Brain database.</pre>
   <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="install-code-2" title="Copy to clipboard">
     <span class="material-symbols-sharp text-base copy-icon" style="color:#F7F5F0;">content_copy</span>
     <span class="material-symbols-sharp text-base check-icon hidden" style="color:#76B900;">check</span>
@@ -1688,52 +1765,68 @@ $ docker compose up -d
         <th class="font-inter text-xs font-semibold tracking-wide uppercase py-3 pr-4" style="color:#635BFF;">Example</th>
       </tr>
     </thead>
-    <tbody><tr style="border-bottom:1px solid rgba(247,245,240,0.06);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#F7F5F0;">GOOGLE_CLIENT_ID</td>
-          <td class="font-inter text-xs py-3 pr-4" style="color:#76B900">Yes</td>
-          <td class="font-inter text-sm py-3 pr-4" style="color:rgba(247,245,240,0.7);">Google OAuth client ID</td>
-          <td class="font-mono text-xs py-3" style="color:rgba(247,245,240,0.4);">123-abc.apps.googleusercontent.com</td>
-        </tr><tr style="border-bottom:1px solid rgba(247,245,240,0.06);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#F7F5F0;">GOOGLE_CLIENT_SECRET</td>
-          <td class="font-inter text-xs py-3 pr-4" style="color:#76B900">Yes</td>
-          <td class="font-inter text-sm py-3 pr-4" style="color:rgba(247,245,240,0.7);">Google OAuth secret</td>
-          <td class="font-mono text-xs py-3" style="color:rgba(247,245,240,0.4);">GOCSPX-...</td>
-        </tr><tr style="border-bottom:1px solid rgba(247,245,240,0.06);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#F7F5F0;">STRIPE_SECRET_KEY</td>
-          <td class="font-inter text-xs py-3 pr-4" style="color:#76B900">Yes</td>
-          <td class="font-inter text-sm py-3 pr-4" style="color:rgba(247,245,240,0.7);">Stripe API key</td>
-          <td class="font-mono text-xs py-3" style="color:rgba(247,245,240,0.4);">sk_test_...</td>
-        </tr><tr style="border-bottom:1px solid rgba(247,245,240,0.06);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#F7F5F0;">STRIPE_WEBHOOK_SECRET</td>
-          <td class="font-inter text-xs py-3 pr-4" style="color:#76B900">Yes</td>
-          <td class="font-inter text-sm py-3 pr-4" style="color:rgba(247,245,240,0.7);">Stripe webhook endpoint secret</td>
-          <td class="font-mono text-xs py-3" style="color:rgba(247,245,240,0.4);">whsec_...</td>
-        </tr><tr style="border-bottom:1px solid rgba(247,245,240,0.06);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#F7F5F0;">NVIDIA_API_KEY</td>
-          <td class="font-inter text-xs py-3 pr-4" style="color:#76B900">Yes</td>
-          <td class="font-inter text-sm py-3 pr-4" style="color:rgba(247,245,240,0.7);">NVIDIA platform API key</td>
-          <td class="font-mono text-xs py-3" style="color:rgba(247,245,240,0.4);">nv-...</td>
-        </tr><tr style="border-bottom:1px solid rgba(247,245,240,0.06);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#F7F5F0;">OPENAI_API_KEY</td>
-          <td class="font-inter text-xs py-3 pr-4" style="color:rgba(247,245,240,0.5)">Optional</td>
-          <td class="font-inter text-sm py-3 pr-4" style="color:rgba(247,245,240,0.7);">OpenAI for advanced features</td>
-          <td class="font-mono text-xs py-3" style="color:rgba(247,245,240,0.4);">sk-...</td>
-        </tr><tr style="border-bottom:1px solid rgba(247,245,240,0.06);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#F7F5F0;">KIMI_API_KEY</td>
-          <td class="font-inter text-xs py-3 pr-4" style="color:rgba(247,245,240,0.5)">Optional</td>
-          <td class="font-inter text-sm py-3 pr-4" style="color:rgba(247,245,240,0.7);">Kimi / Moonshot API key</td>
-          <td class="font-mono text-xs py-3" style="color:rgba(247,245,240,0.4);">sk-...</td>
-        </tr><tr style="border-bottom:1px solid rgba(247,245,240,0.06);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#F7F5F0;">MCP_PORT</td>
-          <td class="font-inter text-xs py-3 pr-4" style="color:rgba(247,245,240,0.5)">No</td>
-          <td class="font-inter text-sm py-3 pr-4" style="color:rgba(247,245,240,0.7);">MCP server port (default: 3001)</td>
-          <td class="font-mono text-xs py-3" style="color:rgba(247,245,240,0.4);">3001</td>
-        </tr><tr style="border-bottom:1px solid rgba(247,245,240,0.06);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#F7F5F0;">HERMES_ENV</td>
-          <td class="font-inter text-xs py-3 pr-4" style="color:rgba(247,245,240,0.5)">No</td>
-          <td class="font-inter text-sm py-3 pr-4" style="color:rgba(247,245,240,0.7);">Environment (dev/staging/prod)</td>
-          <td class="font-mono text-xs py-3" style="color:rgba(247,245,240,0.4);">development</td>
-        </tr></tbody>
+    <tbody>
+      <tr style="border-bottom:1px solid rgba(247,245,240,0.06);">
+        <td class="font-mono text-sm py-3 pr-4" style="color:#F7F5F0;">PARTENON_API_SECRET</td>
+        <td class="font-inter text-xs py-3 pr-4" style="color:#76B900">Yes</td>
+        <td class="font-inter text-sm py-3 pr-4" style="color:rgba(247,245,240,0.7);">JWT/session secret (>=32 chars)</td>
+        <td class="font-mono text-xs py-3" style="color:rgba(247,245,240,0.4);">generated by install.sh</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(247,245,240,0.06);">
+        <td class="font-mono text-sm py-3 pr-4" style="color:#F7F5F0;">DASHBOARD_AUTH_SECRET</td>
+        <td class="font-inter text-xs py-3 pr-4" style="color:#76B900">Yes</td>
+        <td class="font-inter text-sm py-3 pr-4" style="color:rgba(247,245,240,0.7);">Dashboard session cookie secret</td>
+        <td class="font-mono text-xs py-3" style="color:rgba(247,245,240,0.4);">generated by install.sh</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(247,245,240,0.06);">
+        <td class="font-mono text-sm py-3 pr-4" style="color:#F7F5F0;">DASHBOARD_APP_USERNAME</td>
+        <td class="font-inter text-xs py-3 pr-4" style="color:#76B900">Yes</td>
+        <td class="font-inter text-sm py-3 pr-4" style="color:rgba(247,245,240,0.7);">Dashboard login username</td>
+        <td class="font-mono text-xs py-3" style="color:rgba(247,245,240,0.4);">admin</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(247,245,240,0.06);">
+        <td class="font-mono text-sm py-3 pr-4" style="color:#F7F5F0;">DASHBOARD_APP_PASSWORD</td>
+        <td class="font-inter text-xs py-3 pr-4" style="color:#76B900">Yes</td>
+        <td class="font-inter text-sm py-3 pr-4" style="color:rgba(247,245,240,0.7);">Dashboard login password</td>
+        <td class="font-mono text-xs py-3" style="color:rgba(247,245,240,0.4);">generated by install.sh</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(247,245,240,0.06);">
+        <td class="font-mono text-sm py-3 pr-4" style="color:#F7F5F0;">GOOGLE_SERVICE_ACCOUNT_JSON</td>
+        <td class="font-inter text-xs py-3 pr-4" style="color:#635BFF">Live mode</td>
+        <td class="font-inter text-sm py-3 pr-4" style="color:rgba(247,245,240,0.7);">Google Workspace service account</td>
+        <td class="font-mono text-xs py-3" style="color:rgba(247,245,240,0.4);">/path/to/google-service-account.json</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(247,245,240,0.06);">
+        <td class="font-mono text-sm py-3 pr-4" style="color:#F7F5F0;">STRIPE_SECRET_KEY</td>
+        <td class="font-inter text-xs py-3 pr-4" style="color:#635BFF">Live mode</td>
+        <td class="font-inter text-sm py-3 pr-4" style="color:rgba(247,245,240,0.7);">Stripe API key</td>
+        <td class="font-mono text-xs py-3" style="color:rgba(247,245,240,0.4);">sk_test_...</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(247,245,240,0.06);">
+        <td class="font-mono text-sm py-3 pr-4" style="color:#F7F5F0;">SLACK_BOT_TOKEN</td>
+        <td class="font-inter text-xs py-3 pr-4" style="color:#635BFF">Live mode</td>
+        <td class="font-inter text-sm py-3 pr-4" style="color:rgba(247,245,240,0.7);">Slack bot token for Strategist</td>
+        <td class="font-mono text-xs py-3" style="color:rgba(247,245,240,0.4);">xoxb-...</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(247,245,240,0.06);">
+        <td class="font-mono text-sm py-3 pr-4" style="color:#F7F5F0;">NVIDIA_API_KEY</td>
+        <td class="font-inter text-xs py-3 pr-4" style="color:#D4A853">Roadmap</td>
+        <td class="font-inter text-sm py-3 pr-4" style="color:rgba(247,245,240,0.7);">NVIDIA platform key (roadmap features)</td>
+        <td class="font-mono text-xs py-3" style="color:rgba(247,245,240,0.4);">nvapi-...</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(247,245,240,0.06);">
+        <td class="font-mono text-sm py-3 pr-4" style="color:#F7F5F0;">GBRAIN_DATABASE_URL</td>
+        <td class="font-inter text-xs py-3 pr-4" style="color:rgba(247,245,240,0.5)">Optional</td>
+        <td class="font-inter text-sm py-3 pr-4" style="color:rgba(247,245,240,0.7);">Postgres for team memory (defaults to SQLite)</td>
+        <td class="font-mono text-xs py-3" style="color:rgba(247,245,240,0.4);">sqlite:///data/gbrain.db</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(247,245,240,0.06);">
+        <td class="font-mono text-sm py-3 pr-4" style="color:#F7F5F0;">OPENROUTER_API_KEY</td>
+        <td class="font-inter text-xs py-3 pr-4" style="color:rgba(247,245,240,0.5)">Optional</td>
+        <td class="font-inter text-sm py-3 pr-4" style="color:rgba(247,245,240,0.7);">LLM routing (OpenRouter)</td>
+        <td class="font-mono text-xs py-3" style="color:rgba(247,245,240,0.4);">sk-or-v1-...</td>
+      </tr>
+    </tbody>
   </table>
 </div>
       </div>
@@ -1754,127 +1847,95 @@ $ docker compose up -d
       <div class="reveal mb-16">
         <h3 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-4" style="color:var(--deep-stone);">CLI Commands</h3>
         <div class="overflow-x-auto">
-  <table class="w-full text-left" style="min-width:600px;">
-    <thead>
-      <tr style="border-bottom:2px solid rgba(118,185,0,0.3);">
-        <th class="font-inter text-xs font-semibold tracking-wide uppercase py-3 pr-4" style="color:#76B900;">Command</th>
-        <th class="font-inter text-xs font-semibold tracking-wide uppercase py-3 pr-4" style="color:#76B900;">Description</th>
-        <th class="font-inter text-xs font-semibold tracking-wide uppercase py-3 pr-4" style="color:#76B900;">Example</th>
-      </tr>
-    </thead>
-    <tbody><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">hermes init</td>
-          <td class="font-inter text-sm py-3 pr-4" style="color:#6B6B73;">Initialize new enterprise</td>
-          <td class="font-mono text-xs py-3" style="color:#635BFF;">hermes init --name &quot;Cafe Central&quot;</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">hermes activate</td>
-          <td class="font-inter text-sm py-3 pr-4" style="color:#6B6B73;">Activate a hero</td>
-          <td class="font-mono text-xs py-3" style="color:#635BFF;">hermes activate scribe</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">hermes deactivate</td>
-          <td class="font-inter text-sm py-3 pr-4" style="color:#6B6B73;">Deactivate a hero</td>
-          <td class="font-mono text-xs py-3" style="color:#635BFF;">hermes deactivate herald</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">hermes mission</td>
-          <td class="font-inter text-sm py-3 pr-4" style="color:#6B6B73;">Start a hero mission</td>
-          <td class="font-mono text-xs py-3" style="color:#635BFF;">hermes mission scribe --type financial-model</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">hermes status</td>
-          <td class="font-inter text-sm py-3 pr-4" style="color:#6B6B73;">Check system status</td>
-          <td class="font-mono text-xs py-3" style="color:#635BFF;">hermes status --verbose</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">hermes dashboard</td>
-          <td class="font-inter text-sm py-3 pr-4" style="color:#6B6B73;">Open web dashboard</td>
-          <td class="font-mono text-xs py-3" style="color:#635BFF;">hermes dashboard --port 3000</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">hermes test</td>
-          <td class="font-inter text-sm py-3 pr-4" style="color:#6B6B73;">Run integration tests</td>
-          <td class="font-mono text-xs py-3" style="color:#635BFF;">hermes test --all</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">hermes deploy</td>
-          <td class="font-inter text-sm py-3 pr-4" style="color:#6B6B73;">Deploy to production</td>
-          <td class="font-mono text-xs py-3" style="color:#635BFF;">hermes deploy --target vercel</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">hermes logs</td>
-          <td class="font-inter text-sm py-3 pr-4" style="color:#6B6B73;">View system logs</td>
-          <td class="font-mono text-xs py-3" style="color:#635BFF;">hermes logs --follow --hero scribe</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">hermes config</td>
-          <td class="font-inter text-sm py-3 pr-4" style="color:#6B6B73;">Edit configuration</td>
-          <td class="font-mono text-xs py-3" style="color:#635BFF;">hermes config --edit</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">hermes backup</td>
-          <td class="font-inter text-sm py-3 pr-4" style="color:#6B6B73;">Backup enterprise data</td>
-          <td class="font-mono text-xs py-3" style="color:#635BFF;">hermes backup --to google-drive</td>
-        </tr></tbody>
-  </table>
+<table class="w-full text-left" style="min-width:600px;">
+  <thead>
+    <tr style="border-bottom:2px solid rgba(118,185,0,0.3);">
+      <th class="font-inter text-xs font-semibold tracking-wide uppercase py-3 pr-4" style="color:#76B900;">Command</th>
+      <th class="font-inter text-xs font-semibold tracking-wide uppercase py-3 pr-4" style="color:#76B900;">Description</th>
+      <th class="font-inter text-xs font-semibold tracking-wide uppercase py-3 pr-4" style="color:#76B900;">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+      <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">./install.sh</td>
+      <td class="font-inter text-sm py-3 pr-4" style="color:#6B6B73;">Run the local installer</td>
+      <td class="font-mono text-xs py-3" style="color:#635BFF;">./install.sh</td>
+    </tr>
+    <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+      <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">python3 scripts/demo_scribe.py</td>
+      <td class="font-inter text-sm py-3 pr-4" style="color:#6B6B73;">Verify the Scribe finance demo</td>
+      <td class="font-mono text-xs py-3" style="color:#635BFF;">python3 scripts/demo_scribe.py</td>
+    </tr>
+    <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+      <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">uvicorn partenon_api.main:app</td>
+      <td class="font-inter text-sm py-3 pr-4" style="color:#6B6B73;">Start the FastAPI server</td>
+      <td class="font-mono text-xs py-3" style="color:#635BFF;">uvicorn partenon_api.main:app --reload --port 8000</td>
+    </tr>
+    <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+      <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">pytest tests/</td>
+      <td class="font-inter text-sm py-3 pr-4" style="color:#6B6B73;">Run the test suite</td>
+      <td class="font-mono text-xs py-3" style="color:#635BFF;">pytest tests/</td>
+    </tr>
+    <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+      <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">docker compose up --build -d</td>
+      <td class="font-inter text-sm py-3 pr-4" style="color:#6B6B73;">Run the full stack</td>
+      <td class="font-mono text-xs py-3" style="color:#635BFF;">docker compose up --build -d</td>
+    </tr>
+  </tbody>
+</table>
 </div>
       </div>
       <div class="reveal mb-16">
         <h3 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-4" style="color:var(--deep-stone);">REST API Endpoints</h3>
         <div class="overflow-x-auto">
-  <table class="w-full text-left" style="min-width:600px;">
-    <thead>
-      <tr style="border-bottom:2px solid rgba(99,91,255,0.3);">
-        <th class="font-inter text-xs font-semibold tracking-wide uppercase py-3 pr-4" style="color:#635BFF;">Endpoint</th>
-        <th class="font-inter text-xs font-semibold tracking-wide uppercase py-3 pr-4" style="color:#635BFF;">Method</th>
-        <th class="font-inter text-xs font-semibold tracking-wide uppercase py-3 pr-4" style="color:#635BFF;">Description</th>
-      </tr>
-    </thead>
-    <tbody><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">/api/v1/heroes</td>
-          <td class="font-mono text-xs py-3 pr-4"><span class="px-2 py-0.5 rounded" style="background-color:#4A90A420;color:#4A90A4;">GET</span></td>
-          <td class="font-inter text-sm py-3" style="color:#6B6B73;">List all heroes</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">/api/v1/heroes/:id</td>
-          <td class="font-mono text-xs py-3 pr-4"><span class="px-2 py-0.5 rounded" style="background-color:#4A90A420;color:#4A90A4;">GET</span></td>
-          <td class="font-inter text-sm py-3" style="color:#6B6B73;">Get hero details</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">/api/v1/missions</td>
-          <td class="font-mono text-xs py-3 pr-4"><span class="px-2 py-0.5 rounded" style="background-color:#635BFF20;color:#635BFF;">POST</span></td>
-          <td class="font-inter text-sm py-3" style="color:#6B6B73;">Create new mission</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">/api/v1/missions/:id</td>
-          <td class="font-mono text-xs py-3 pr-4"><span class="px-2 py-0.5 rounded" style="background-color:#4A90A420;color:#4A90A4;">GET</span></td>
-          <td class="font-inter text-sm py-3" style="color:#6B6B73;">Get mission status</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">/api/v1/mcp/tools</td>
-          <td class="font-mono text-xs py-3 pr-4"><span class="px-2 py-0.5 rounded" style="background-color:#4A90A420;color:#4A90A4;">GET</span></td>
-          <td class="font-inter text-sm py-3" style="color:#6B6B73;">List available MCP tools</td>
-        </tr><tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
-          <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">/api/v1/mcp/call</td>
-          <td class="font-mono text-xs py-3 pr-4"><span class="px-2 py-0.5 rounded" style="background-color:#635BFF20;color:#635BFF;">POST</span></td>
-          <td class="font-inter text-sm py-3" style="color:#6B6B73;">Call MCP tool</td>
-        </tr></tbody>
-  </table>
+<table class="w-full text-left" style="min-width:600px;">
+  <thead>
+    <tr style="border-bottom:2px solid rgba(99,91,255,0.3);">
+      <th class="font-inter text-xs font-semibold tracking-wide uppercase py-3 pr-4" style="color:#635BFF;">Endpoint</th>
+      <th class="font-inter text-xs font-semibold tracking-wide uppercase py-3 pr-4" style="color:#635BFF;">Method</th>
+      <th class="font-inter text-xs font-semibold tracking-wide uppercase py-3 pr-4" style="color:#635BFF;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+      <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">/api/v1/integrations</td>
+      <td class="font-mono text-xs py-3 pr-4"><span class="px-2 py-0.5 rounded" style="background-color:#4A90A420;color:#4A90A4;">GET</span></td>
+      <td class="font-inter text-sm py-3" style="color:#6B6B73;">List integration domains and their live/dry-run mode</td>
+    </tr>
+    <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+      <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">/api/v1/integrations/{domain}/{action}</td>
+      <td class="font-mono text-xs py-3 pr-4"><span class="px-2 py-0.5 rounded" style="background-color:#635BFF20;color:#635BFF;">POST</span></td>
+      <td class="font-inter text-sm py-3" style="color:#6B6B73;">Invoke a domain action (set dry_run:false for live mode)</td>
+    </tr>
+    <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+      <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">/api/v1/health/ready</td>
+      <td class="font-mono text-xs py-3 pr-4"><span class="px-2 py-0.5 rounded" style="background-color:#4A90A420;color:#4A90A4;">GET</span></td>
+      <td class="font-inter text-sm py-3" style="color:#6B6B73;">Readiness probe; checks the memory store</td>
+    </tr>
+    <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+      <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">/api/v1/metrics</td>
+      <td class="font-mono text-xs py-3 pr-4"><span class="px-2 py-0.5 rounded" style="background-color:#4A90A420;color:#4A90A4;">GET</span></td>
+      <td class="font-inter text-sm py-3" style="color:#6B6B73;">Prometheus metrics (served at /metrics)</td>
+    </tr>
+    <tr style="border-bottom:1px solid rgba(42,42,46,0.08);">
+      <td class="font-mono text-sm py-3 pr-4" style="color:#2A2A2E;">/api/v1/gateway/dry_run</td>
+      <td class="font-mono text-xs py-3 pr-4"><span class="px-2 py-0.5 rounded" style="background-color:#635BFF20;color:#635BFF;">POST</span></td>
+      <td class="font-inter text-sm py-3" style="color:#6B6B73;">Parse and guard a gateway message</td>
+    </tr>
+  </tbody>
+</table>
 </div>
       </div>
       <div class="reveal mb-16">
         <h3 class="font-inter text-sm font-semibold tracking-[0.08em] uppercase mb-4 text-center" style="color:var(--deep-stone);">System Status Response</h3>
         <div class="mx-auto" style="max-width:600px;">
           <div class="relative group cb-wrap" id="status-response">
-  <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#F0EDE6;color:#2A2A2E;letter-spacing:0.02em;">{
-  <span class="sh-string">&quot;status&quot;</span>: <span class="sh-string">&quot;healthy&quot;</span>,
-  <span class="sh-string">&quot;version&quot;</span>: <span class="sh-string">&quot;1.0.0&quot;</span>,
-  <span class="sh-string">&quot;heroes&quot;</span>: {
-    <span class="sh-string">&quot;scribe&quot;</span>: { <span class="sh-string">&quot;status&quot;</span>: <span class="sh-string">&quot;active&quot;</span>, <span class="sh-string">&quot;lastMission&quot;</span>: <span class="sh-string">&quot;2025-01-15T10:30:00Z&quot;</span> },
-    <span class="sh-string">&quot;herald&quot;</span>: { <span class="sh-string">&quot;status&quot;</span>: <span class="sh-string">&quot;active&quot;</span>, <span class="sh-string">&quot;lastMission&quot;</span>: <span class="sh-string">&quot;2025-01-15T09:15:00Z&quot;</span> },
-    <span class="sh-string">&quot;collector&quot;</span>: { <span class="sh-string">&quot;status&quot;</span>: <span class="sh-string">&quot;active&quot;</span>, <span class="sh-string">&quot;lastMission&quot;</span>: <span class="sh-string">&quot;2025-01-15T08:45:00Z&quot;</span> },
-    <span class="sh-string">&quot;guardian&quot;</span>: { <span class="sh-string">&quot;status&quot;</span>: <span class="sh-string">&quot;active&quot;</span>, <span class="sh-string">&quot;lastCheck&quot;</span>: <span class="sh-string">&quot;2025-01-15T11:00:00Z&quot;</span> },
-    <span class="sh-string">&quot;strategist&quot;</span>: { <span class="sh-string">&quot;status&quot;</span>: <span class="sh-string">&quot;active&quot;</span>, <span class="sh-string">&quot;lastMission&quot;</span>: <span class="sh-string">&quot;2025-01-15T10:00:00Z&quot;</span> },
-    <span class="sh-string">&quot;diplomat&quot;</span>: { <span class="sh-string">&quot;status&quot;</span>: <span class="sh-string">&quot;active&quot;</span>, <span class="sh-string">&quot;lastMission&quot;</span>: <span class="sh-string">&quot;2025-01-14T16:30:00Z&quot;</span> },
-    <span class="sh-string">&quot;brain&quot;</span>: { <span class="sh-string">&quot;status&quot;</span>: <span class="sh-string">&quot;active&quot;</span>, <span class="sh-string">&quot;insightsGenerated&quot;</span>: <span class="sh-number">147</span> }
-  },
-  <span class="sh-string">&quot;mcp&quot;</span>: {
-    <span class="sh-string">&quot;connectedAgents&quot;</span>: <span class="sh-number">7</span>,
-    <span class="sh-string">&quot;contextObjects&quot;</span>: <span class="sh-number">23</span>,
-    <span class="sh-string">&quot;lastInsight&quot;</span>: <span class="sh-string">&quot;2025-01-15T10:55:00Z&quot;</span>
-  },
-  <span class="sh-string">&quot;integrations&quot;</span>: {
-    <span class="sh-string">&quot;google_workspace&quot;</span>: <span class="sh-string">&quot;connected&quot;</span>,
-    <span class="sh-string">&quot;stripe&quot;</span>: <span class="sh-string">&quot;connected&quot;</span>,
-    <span class="sh-string">&quot;nvidia&quot;</span>: <span class="sh-string">&quot;connected&quot;</span>
-  }
+          <p class="font-inter text-xs text-center mb-3" style="color:#6B6B73;">Illustrative /health/ready response shape.</p>
+          <pre class="font-mono text-[0.8125rem] leading-[1.6] overflow-x-auto p-5 rounded-md whitespace-pre" style="background-color:#F0EDE6;color:#2A2A2E;letter-spacing:0.02em;">{
+  <span class="sh-string">"status"</span>: <span class="sh-string">"ok"</span>,
+  <span class="sh-string">"service"</span>: <span class="sh-string">"partenon-api"</span>,
+  <span class="sh-string">"ready"</span>: <span class="sh-boolean">true</span>,
+  <span class="sh-string">"store"</span>: <span class="sh-string">"mcp"</span>
 }</pre>
   <button class="copy-btn absolute top-3 right-3 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-white/10" style="background-color:rgba(255,255,255,0.05);" data-target="status-response" title="Copy to clipboard">
     <span class="material-symbols-sharp text-base copy-icon" style="color:#2A2A2E;">content_copy</span>
@@ -1885,7 +1946,7 @@ $ docker compose up -d
       </div>
       <div class="reveal text-center">
         <h3 class="font-cinzel text-2xl mb-4" style="color:var(--deep-stone);letter-spacing:0.04em;">READY TO BUILD?</h3>
-        <a href="#install" class="btn-primary mb-4">INSTALL HERMES <span class="material-symbols-sharp text-base">arrow_forward</span></a>
+        <a href="#install" class="btn-primary mb-4">INSTALL THE PARTENON <span class="material-symbols-sharp text-base">arrow_forward</span></a>
         <p class="font-inter text-sm" style="color:var(--text-secondary);">
           <a href="https://github.com/cuentadeservicio377-cell/partenon" target="_blank" rel="noopener noreferrer" class="transition-colors duration-200 hover:text-[#635BFF]" style="color:var(--text-secondary);">View Repository on GitHub →</a>
         </p>
@@ -1989,6 +2050,21 @@ $ docker compose up -d
       });
     });
 
+
+    // Hero spec tabs
+    document.querySelectorAll('.spec-tabs').forEach(tabs => {
+      const panels = tabs.nextElementSibling;
+      tabs.querySelectorAll('.spec-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.querySelectorAll('.spec-tab').forEach(t => t.classList.remove('active'));
+          panels.querySelectorAll('.spec-panel').forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          const target = tab.getAttribute('data-tab');
+          const panel = panels.querySelector('#' + target);
+          if (panel) panel.classList.add('active');
+        });
+      });
+    });
     // Install tabs
     document.querySelectorAll('.install-tab').forEach(tab => {
       tab.addEventListener('click', () => {

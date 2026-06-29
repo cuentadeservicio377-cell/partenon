@@ -2,7 +2,7 @@
 
 > Single source of truth for what Partenon can do today, what requires credentials, and what is on the roadmap.
 
-Last updated: 2026-06-29
+Last updated: 2026-06-30
 
 ---
 
@@ -19,7 +19,8 @@ Last updated: 2026-06-29
 
 | Capability | Status | Notes |
 |------------|--------|-------|
-| Install via Hermes CLI | ✅ Live | `hermes profile install github.com/owner/partenon` |
+| Install from source | ✅ Live | `git clone https://github.com/cuentadeservicio377-cell/partenon.git && ./install.sh` |
+| Hermes CLI profiles | ⚡ Optional | `hermes profile use partenon-scribe`; Hermes is distributed separately by Nous Research |
 | Seven hero profiles | ✅ Live | Scribe, Herald, Collector, Guardian, Strategist, Diplomat, Brain |
 | Dry-run mode | ✅ Live | No credentials required; works with local templates |
 | Hermes-native skills | ✅ Live | Routing, onboarding, eval hooks |
@@ -35,7 +36,7 @@ Last updated: 2026-06-29
 | Scribe | ✅ | ⚡ Google Workspace | Finance reports and expense classification |
 | Herald | ✅ | ⚡ Google Workspace + social tokens | Copy, content calendar, presentations |
 | Collector | ✅ | ⚡ Stripe | Payment links, invoices, subscriptions |
-| Guardian | ✅ | ⚡ Secret manager (optional) | Key audit, model recommendations |
+| Guardian | ✅ | ⚡ Secret manager (optional) | Key-strength audit, provider detection, policy logging (live); NVIDIA allocation / NemoClaw (roadmap) |
 | Strategist | ✅ | ⚡ Google Workspace + Slack | Projects, tasks, calendar |
 | Diplomat | ✅ | ⚡ Google Workspace + CRM | Contacts, follow-ups, proposals |
 | Brain | ✅ | ✅ SQLite / ⚡ Postgres | Memory, learnings, context |
@@ -93,8 +94,8 @@ Last updated: 2026-06-29
 
 | Capability | Status | Notes |
 |------------|--------|-------|
-| Multi-model routing via OpenRouter | ✅ | Configurable per hero |
-| NVIDIA model recommendations | ⚡ | Guardian can query NVIDIA/OpenRouter catalogs |
+| Multi-model routing via OpenRouter | ⚡ | `OPENROUTER_API_KEY` required; configurable per hero |
+| NVIDIA model recommendations / GPU allocation | 🗓️ | Guardian roadmap; not a core dependency |
 | NVIDIA NemoClaw / OpenShell sandbox | 🗓️ | Experimental; not a core dependency |
 
 ---
