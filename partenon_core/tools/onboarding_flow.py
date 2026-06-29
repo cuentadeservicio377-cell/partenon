@@ -10,7 +10,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
 
-
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PROFILE_EXAMPLES = REPO_ROOT / "hermes" / "profiles"
 PROFILE_FILES = {

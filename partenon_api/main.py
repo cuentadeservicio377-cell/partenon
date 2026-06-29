@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from partenon_api.config import get_dashboard_origin, get_data_dir, get_gbrain_database_url
 from partenon_api.mcp_client import AsyncMemoryClient
-from partenon_api.routers import auth, cron, events, heroes, integrations, missions, stream
+from partenon_api.routers import auth, cron, events, gateway, heroes, integrations, missions, stream
 from partenon_api.store import JsonStore, migrate_legacy_json_to_memory
 
 
@@ -67,6 +67,7 @@ app.include_router(heroes.router, prefix="/api/v1")
 app.include_router(events.router, prefix="/api/v1")
 app.include_router(integrations.router, prefix="/api/v1")
 app.include_router(stream.router, prefix="/api/v1")
+app.include_router(gateway.router, prefix="/api/v1")
 
 
 @app.get("/health", tags=["system"])

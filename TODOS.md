@@ -66,12 +66,25 @@ Goal: make the repository safe, clean, and globally distributable before any Her
 - [x] Add JWT auth with generated secret
 - [x] Add workspace/company isolation foundation
 
-### Phase 5 — Gateway Messaging (3 weeks)
-- [ ] Configure Hermes gateway for Telegram and Email
-- [ ] Define command namespace and intent routing fallback
-- [ ] Add file attachment routing
-- [ ] Add group-chat rules and allowlists
-- [ ] Build progressive onboarding conversation
+### Phase 5 — Gateway Messaging (3 weeks) ✅ CLOSED
+- [x] 5.1 Gateway skill scaffolding in all 7 profiles
+- [x] 5.2 Command namespace parser tool (`parse_command`)
+- [x] 5.3 Attachment routing tool (`route_attachment`)
+- [x] 5.4 Guard tool (allowlists + group-chat rules + rate limits)
+- [x] 5.5 Progressive onboarding conversation tool (`onboarding_reply`)
+- [x] 5.6 Refactor `partenon_core/tools/router.py` into reusable `intent_router.py`
+- [x] 5.7 Hermes gateway configuration template (`config/hermes_gateway.yaml`) and docs
+- [x] 5.8 Optional API smoke-test endpoint (`POST /api/v1/gateway/dry_run`)
+- [x] 5.9 Profile behavior docs (`docs/GATEWAY_SETUP.md`)
+- [x] 5.10 Tests and verification (158 passed, target ≥130)
+- [x] 5.11 Documentation and closure commit
+
+Verification:
+- `pytest tests/` PASS (158 passed)
+- `ruff check partenon_api tests partenon_core/tools/intent_router.py partenon_core/tools/router.py` PASS
+- `cd dashboard && npm run build` PASS
+- `bash -n install.sh` PASS
+- `python3 .github/scripts/secret_scan.py` PASS
 
 ### Phase 6 — Deployment World (4 weeks)
 - [ ] Rewrite `docker-compose.yml` with all services

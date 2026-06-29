@@ -1,0 +1,63 @@
+# Partenon Hermes Gateway configuration template.
+# Copy this file and fill in the env var references with real values in your .env file.
+# NEVER commit real tokens to Git.
+
+gateway:
+  name: partenon-gateway
+  version: 1.0.0
+  default_profile: partenon-scribe
+
+  # Request validation
+  allowed_users: "${GATEWAY_ALLOWED_USERS}"
+  rate_limit_per_minute: "${GATEWAY_RATE_LIMIT_PER_MINUTE:-30}"
+
+  adapters:
+    telegram:
+      enabled: true
+      bot_token: "${TELEGRAM_BOT_TOKEN}"
+      bot_username: "${TELEGRAM_BOT_USERNAME}"
+      # Comma-separated list of Telegram user IDs allowed to use the bot.
+      allowed_users: "${TELEGRAM_ALLOWED_USERS}"
+      # Reply to messages without a prefix using the intent router.
+      intent_fallback: true
+      # Process file attachments using route_attachment.
+      process_attachments: true
+      # Mention requirement for group chats.
+      require_mention_in_groups: true
+
+    email:
+      enabled: true
+      # IMAP/SMTP or simple mailbox credentials.
+      account: "${EMAIL_ACCOUNT}"
+      password: "${EMAIL_PASSWORD}"
+      imap_host: "${EMAIL_IMAP_HOST:-imap.gmail.com}"
+      imap_port: "${EMAIL_IMAP_PORT:-993}"
+      smtp_host: "${EMAIL_SMTP_HOST:-smtp.gmail.com}"
+      smtp_port: "${EMAIL_SMTP_PORT:-587}"
+      # Only process messages from these sender addresses/domains when set.
+      allowed_senders: "${EMAIL_ALLOWED_SENDERS}"
+      # Subject-line prefix that triggers gateway processing.
+      subject_prefix: "${EMAIL_SUBJECT_PREFIX:-[Partenon]}"
+
+  routing:
+    # Map prefixed commands and aliases to Partenon profiles.
+    aliases:
+      s: partenon-scribe
+      scribe: partenon-scribe
+      h: partenon-herald
+      herald: partenon-herald
+      c: partenon-collector
+      collector: partenon-collector
+      g: partenon-guardian
+      guardian: partenon-guardian
+      st: partenon-strategist
+      strategist: partenon-strategist
+      d: partenon-diplomat
+      diplomat: partenon-diplomat
+      b: partenon-brain
+      brain: partenon-brain
+
+  memory:
+    # Where onboarding state and gateway context are persisted.
+    store: partenon-memory
+    database_url: "${GBRAIN_DATABASE_URL:-sqlite:///data/gbrain.db}"

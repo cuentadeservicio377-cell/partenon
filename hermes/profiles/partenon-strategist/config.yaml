@@ -10,6 +10,7 @@ model:
 
 skills:
   auto_load:
+    - gateway
     - partenon-core
     - partenon-judge
     - partenon-workflows
