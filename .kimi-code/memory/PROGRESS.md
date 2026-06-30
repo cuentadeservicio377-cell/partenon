@@ -2,6 +2,17 @@
 
 ## Session History
 
+### 2026-06-30 — README update after Phase 7 website reality
+- Updated `README.md` to reflect the four-page static site (`index.html`, `heroes.html`, `developers.html`, `workshop.html`).
+- Added workshop badge and public mission statement: install 1 million Hermes profiles.
+- Added new "Website" and "Installation Workshop" sections with links to `web/workshop.html` and the live workshop landing.
+- Clarified honest capability framing: local install and SQLite memory are `live`; Google Workspace and Stripe require credentials; NVIDIA/OpenRouter items remain roadmap.
+- Updated Roadmap: Phase 7 website reality marked done; Phase 7b (capabilities page + screenshots) remains pending.
+- Updated `TODOS.md` to mark README update complete and keep `web/capabilities.html` and screenshots as remaining Phase 7 tasks.
+- Verified:
+  - `README.md` renders without broken Mermaid or markdown issues.
+  - Internal links to `DESIGN.md`, `docs/CAPABILITIES.md`, `workshop/README.md`, and `web/*.html` are consistent.
+
 ### 2026-06-30 — Phase 7 Website Reality: workshop landing page
 - Created `web/workshop.html` as the third main page of the site.
 - Wrote and committed the design spec (`docs/superpowers/specs/2026-06-30-workshop-landing-design.md`) and implementation plan (`docs/superpowers/plans/2026-06-30-workshop-landing-phase1.md`).

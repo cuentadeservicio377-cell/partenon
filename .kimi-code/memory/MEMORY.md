@@ -1,17 +1,18 @@
 # Project Memory: Partenon
 
-> Last session: 2026-06-29T04:20Z
+> Last session: 2026-06-30
 
 ## Current Context
 
 - **Project**: Partenon
 - **Started**: 2026-06-23
-- **Status**: Repair sprint completed. Migrated workflow engine and API integration routes to the Hermes MCP runtime. `partenon_core/tools/workflow_engine.py` now writes follow-up missions and nudges to `partenon-memory` via `sync_call`, and calls the Slack notification server via MCP. `partenon_api/routers/integrations.py` no longer imports `mcp_servers.*` directly; it routes `google_workspace`, `payments`, `slack`, and `memory` actions through `AsyncDomainClient` with dry-run short-circuit. `partenon_api/mcp_client.py` gained `AsyncDomainClient` and an extended `sync_call` with `server_module`. Test suite expanded with `tests/test_api_integrations.py`. Total test suite: 117 tests.
+- **Status**: Phase 7 — Website Reality is complete for the public site. Marketing claims audited, copy rewritten with honest `live`/`connect`/`roadmap` labels, four-page static site deployed, and workshop landing page live. README updated to match.
 - **Live site**: `https://hermespartenon.online/`
+- **Workshop page**: `https://hermespartenon.online/workshop.html`
 - **Repo**: `https://github.com/cuentadeservicio377-cell/partenon`
 - **Profiles**: Scribe/Treasurer, Herald/Messenger, Collector, Guardian, Strategist, Diplomat, Brain.
-- **Verified**: `pytest tests/` PASS (117 tests), `ruff check partenon_api tests partenon_core/tools/workflow_engine.py` PASS, `cd dashboard && npm run build` PASS.
-- **Next**: Phase 5 Gateway Messaging (Telegram/Email gateway, command namespace, file routing, group-chat rules, progressive onboarding conversation).
+- **Verified**: `pytest tests/` PASS (184 tests), `bash -n install.sh` PASS, `cd dashboard && npm run build` PASS, HTML parse check PASS for all four public pages.
+- **Next**: Phase 7b — create `web/capabilities.html` from `docs/CAPABILITIES.md` and refresh README screenshots. Then return to the functional eval loop and publishing/dispatch integrations.
 
 ## Braindump
 

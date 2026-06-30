@@ -5,12 +5,15 @@
 <h1 align="center">Partenon</h1>
 
 <p align="center">
-  <strong>An AI agent operating system for small businesses, organized as a pantheon of heroes serving Hermes.</strong>
+  <strong>The home for Hermes profiles: an AI agent operating system for small businesses, organized as a pantheon of heroes.</strong>
 </p>
 
 <p align="center">
   <a href="https://hermespartenon.online/">
     <img src="https://img.shields.io/badge/live-hermespartenon.online-00D4FF" alt="Live site">
+  </a>
+  <a href="https://hermespartenon.online/workshop.html">
+    <img src="https://img.shields.io/badge/workshop-install%20now-FFB800" alt="Workshop">
   </a>
   <a href="https://github.com/cuentadeservicio377-cell/partenon">
     <img src="https://img.shields.io/badge/repo-github-181717?logo=github" alt="GitHub repo">
@@ -21,9 +24,11 @@
   <img src="https://img.shields.io/badge/license-TBD-lightgrey" alt="License TBD">
 </p>
 
-Partenon turns your company into a shared workspace where specialized AI agents handle finance, marketing, payments, security, operations, relationships, and memory. It is built on real Python skills, Hermes Agent profiles, Google Workspace, Stripe, and G-Brain.
+Partenon turns your company into a shared workspace where specialized AI agents handle finance, marketing, payments, security, operations, relationships, and memory. It is built on real Python skills, Hermes Agent profiles, Google Workspace, Stripe, and G-Brain — with honest labels about what runs out-of-the-box, what needs your credentials, and what is still on the roadmap.
 
 The agents do not replace you; they keep the business organized in the tools you already use.
+
+The current public mission: **install 1 million Hermes profiles**. The first step is a free 90-minute installation workshop where a small business owner installs their own Partenon and meets their first heroes.
 
 ---
 
@@ -53,7 +58,7 @@ graph LR
 - **The heroes** = seven specialized agents that take missions.
 - **partenon-core** = the router, onboarding engine, workflow engine, and eval loop.
 - **G-Brain** = shared memory across heroes.
-- **Google Workspace / Stripe** = the delivery surface.
+- **Google Workspace / Stripe** = the delivery surface. Google and Stripe integrations require your own credentials; local install and SQLite memory work without them.
 
 ---
 
@@ -190,11 +195,39 @@ Then configure Stripe to send `checkout.session.completed` and `invoice.paid` ev
 
 ---
 
+## Website
+
+The public site is a static four-page build hosted at [hermespartenon.online](https://hermespartenon.online/):
+
+- [`web/index.html`](web/index.html) — the mission: install 1 million Hermes profiles.
+- [`web/heroes.html`](web/heroes.html) — the seven heroes, each tagged as `live`, `connect`, or `roadmap`.
+- [`web/developers.html`](web/developers.html) — technical brief for judges, contributors, and integrators.
+- [`web/workshop.html`](web/workshop.html) — the 90-minute installation workshop landing page.
+
+The site uses Tailwind CSS CDN, vanilla JavaScript, and the Partenon design system (marble/parchment, Cinzel + Inter, no banned fonts, no emojis, only `transform`/`opacity` animations). See [`DESIGN.md`](DESIGN.md) for the full spec.
+
+---
+
+## Installation Workshop
+
+The fastest way to get a working Partenon is the free 90-minute workshop. It walks a small business owner through:
+
+1. Installing Partenon locally (or on a VPS).
+2. Meeting the first three heroes: Scribe, Strategist, and Guardian.
+3. Connecting Google Workspace or Stripe when ready (optional).
+4. Leaving with a live dashboard and a next-30-day plan.
+
+- Public landing: https://hermespartenon.online/workshop.html
+- Reusable kit: [`workshop/README.md`](workshop/README.md)
+- Next-session registration: linked from the workshop page
+
+---
+
 ## Repository structure
 
 ```text
 partenon/
-├── web/                          # Static site (index, heroes, developers)
+├── web/                          # Static site (index, heroes, developers, workshop)
 ├── dashboard/                    # Next.js 15 + React 19 operations dashboard
 ├── partenon_api/                 # FastAPI backend: missions, cron, heroes, events, SSE
 │   ├── main.py
@@ -257,7 +290,8 @@ partenon/
 - [x] Repair Sprint — MCP runtime unification: API store, workflow engine, and integrations now use the Hermes `partenon-memory` and domain MCP servers instead of parallel JSON files.
 - [x] Phase 5 — Gateway messaging: Telegram/Email gateway skill, command namespace, file routing, group-chat guard, API dry-run endpoint.
 - [x] Phase 6 — Deployment world: Docker Compose, CI/CD, structured logging, metrics, release process.
-- [ ] Phase 7 — Website reality: audit marketing claims, capabilities page, screenshots.
+- [x] Phase 7 — Website reality: marketing claims audited, four-page site deployed, workshop landing live.
+- [ ] Phase 7b — Capabilities page + refreshed screenshots in README.
 - [ ] Functional eval loop wired into the router and hero runtime.
 - [ ] Publishing and dispatch integrations for Herald, Collector, and Diplomat.
 
@@ -284,6 +318,7 @@ See [`MISSING_IMPLEMENTATION.md`](MISSING_IMPLEMENTATION.md) for the full audit.
 ## Status
 
 - Live site: https://hermespartenon.online/
+- Workshop page: https://hermespartenon.online/workshop.html
 - Repository: https://github.com/cuentadeservicio377-cell/partenon
 - Verified locally (2026-06-29):
   - `python3 scripts/demo_scribe.py` PASS.

@@ -110,8 +110,9 @@ Verification:
 - [x] Audit every claim on marketing pages
 - [x] Rewrite copy to distinguish live/credentials/roadmap
 - [x] Create `web/workshop.html` landing for the installation workshop
+- [x] Update README with website, workshop, and honest capability framing
 - [ ] Create `web/capabilities.html` from `docs/CAPABILITIES.md`
-- [ ] Update screenshots and README
+- [ ] Update screenshots in README and repository
 
 Verification:
 - `pytest tests/` PASS (184 passed)

@@ -12,6 +12,7 @@ dist/
 .DS_Store
 Thumbs.db
 web-deploy.zip
+partenon-web-deploy.zip
 screenshots/deploy/
 .vscode/
 .idea/
