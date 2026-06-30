@@ -1,24 +1,37 @@
-# Partenon Hackathon Video v2 — Storyboard with AI-Generated Video Clips
+# Partenon Hackathon Video v2 — Storyboard with Gemini Omni Video Clips
 
 > Goal: 2:00–2:20 cinematic explainer. No narrated article. Short phrases, strong visuals, mixed film styles.
 > Aspect ratio: **16:9** (1920×1080 preferred; 1280×720 accepted).
-> Source: Gemini Omni / Veo text-to-video or image-to-video.
+> Source: **Gemini Omni** video generation templates.
 > Audio: ElevenLabs narration + Epidemic Sound ambient BGM.
 
 ---
 
-## Visual style mix
+## How to generate each clip in Gemini Omni
 
-| Scene | Style | Why |
-|-------|-------|-----|
-| 1 | Split screen: clean cyan UI vs. grainy black-and-white film | Contrast between oracles and real work |
-| 2 | Black-and-white paper-craft / origami stop-motion | Founder overwhelmed by operations |
-| 3 | Neon wireframe architecture rising in a dark void | Hermes gets a home |
-| 4 | Scribble / chalk-sketch animation on blackboard | Seven heroes as hand-drawn forces |
-| 5 | Clean glass UI motion graphics | Honest tags as product labels |
-| 6 | Rapid montage: terminal glow, workshop silhouettes, dashboard | Install + workshop |
-| 7 | Cinematic neon landscape + origami light network | One-million mission |
-| 8 | Minimal symbolic close-up | Open source must win |
+1. Open **Gemini Omni** video generation.
+2. Pick the **Template** listed for the scene.
+3. Paste the **Prompt** exactly as written.
+4. Generate. Target duration per clip: **5–8 seconds**. We will trim/loop in post.
+5. Download and save with the exact filename in `video-v2/assets/`.
+
+> If Omni allows adding a **reference image**, use the existing `web/` screenshots, the Partenon logo, or a simple black/cyan sketch. If not, the text prompt alone should drive the style through the template.
+
+---
+
+## Visual style map
+
+| Scene | Gemini Omni Template | Why it fits |
+|-------|----------------------|-------------|
+| 1 | **Cine negro** | Contrast between clean AI oracles and gritty real work |
+| 2 | **Origami** | Founder overwhelmed by paper operations |
+| 3 | **Concepto científico** | Architectural blueprint of the Partenon rising |
+| 4 | **Efectos de garabato** | Seven heroes as hand-drawn forces |
+| 5 | **Luna** or **Indie pastel** | Clean, soft-glow glass UI cards |
+| 6 | **Videojuego** | Neon data-flow diagram, tech-noir |
+| 7 | **Montaje** | Fast install + workshop sequence |
+| 8 | **Papel recortado** | Epic network of light nodes |
+| 9 | **Cine negro** | Minimal symbolic close-up |
 
 ---
 
@@ -41,77 +54,77 @@
 
 ## Video clip prompts
 
-> For each clip, generate **5–8 seconds** of video. We will loop/trim in post. Be specific about camera movement, lighting, and transition.
+> For each clip, generate **5–8 seconds** of video. We will loop/trim in post. Prompts are tuned for the specific Omni template.
 
 ### Clip 01 — Hook: Oracle vs Agent
-**Style:** Split screen. Left side clean, right side grainy black-and-white film.
+**Template:** `Cine negro`
 **Duration:** 8–10 s
 **Prompt:**
-> Split-screen cinematic shot. Left half: a clean, glowing cyan chat bubble on a pure black background, UI-like, soft pulse. Right half: grainy black-and-white 16mm film look, a tired founder silhouette at a desk buried in paper receipts and invoice envelopes, phone notifications floating around. Slow handheld camera on the right side. High contrast. No text, no logos. 16:9.
+> Split-screen cinematic noir shot. Left half: a clean glowing cyan chat bubble on pure black, pulsing softly like a futuristic oracle. Right half: grainy black-and-white 16mm film look, a tired founder silhouette at a messy desk buried in paper receipts, invoices, and glowing phone notifications. Slow handheld camera on the right. Stark shadows, high contrast. No text, no logos. 16:9.
 
 ---
 
 ### Clip 02 — The Problem: Origami Paper Storm
-**Style:** Black-and-white origami / paper-craft stop-motion.
+**Template:** `Origami`
 **Duration:** 8–10 s
 **Prompt:**
-> Black-and-white origami paper-craft stop-motion animation. A small paper-cutout founder figure is overwhelmed as paper receipts, invoices, and calendar pages fold themselves out of the air and pile around them. One hand reaches up toward a single cyan beam of light from above. Dramatic shadows, paper texture, handcrafted look. No text. 16:9.
+> Origami stop-motion animation in black and white. A small paper-cutout founder figure sits at a paper desk as receipts, invoices, and calendar pages fold themselves out of the air and pile around them until they are almost buried. One paper hand reaches up toward a single cyan beam of light from above. Dramatic paper texture, handcrafted shadows. No text. 16:9.
 
 ---
 
-### Clip 03 — Hermes Needs a Home: Neon Temple Rising
-**Style:** Neon wireframe architecture in dark void.
+### Clip 03 — Hermes Needs a Home: Temple Rising
+**Template:** `Concepto científico`
 **Duration:** 8–10 s
 **Prompt:**
-> A glowing cyan ring pulses in the center of a dark infinite void. Faint wireframe columns of a Greek temple rise upward from the ring like a blueprint becoming real. Camera slowly dollies back. Subtle particles of marble dust and cyan light. Minimal, architectural, cinematic. No text, no logos. 16:9.
+> A glowing cyan ring pulses in the center of a dark infinite void. Faint scientific-architectural blueprints of Greek temple columns rise upward from the ring like a structure being computed into reality. Camera slowly dollies back. Subtle particles of marble dust and cyan light. Minimal, cinematic, scientific visualization. No text, no logos. 16:9.
 
 ---
 
-### Clip 04 — The Seven Heroes: Scribble Animation
-**Style:** Scribble / chalk sketch on blackboard, animated strokes.
+### Clip 04 — The Seven Heroes: Scribble Forces
+**Template:** `Efectos de garabato`
 **Duration:** 10–12 s
 **Prompt:**
-> Hand-drawn scribble animation on a black background, like chalk or white ink being sketched in real time. Seven abstract humanoid figures appear one by one in a semicircle around a central glowing cyan orb. Each figure gets a quick colored stroke aura: blue, purple, indigo, green, amber, red, gold. Thin sketchy lines connect them to the center. Sketch style, energetic, no text. 16:9.
+> Hand-drawn scribble animation on a black background, like white chalk or ink being sketched in real time. Seven abstract humanoid figures appear one by one in a semicircle around a central glowing cyan orb. Each figure gets a quick colored stroke aura: blue, purple, indigo, green, amber, red, gold. Thin sketchy lines connect them to the center. Energetic, raw, no text. 16:9.
 
 ---
 
-### Clip 05 — Honest Tags: Glass UI Cards
-**Style:** Clean glass motion-graphics UI.
+### Clip 05 — Honest Tags: Soft Glow Cards
+**Template:** `Luna`
 **Duration:** 8–10 s
 **Prompt:**
-> Three floating glass-like rectangular cards rotate gently in a dark void. First card glows warm amber, second glows cyan, third glows soft parchment white. Clean reflections, minimal UI aesthetic, subtle depth of field. No text, no icons, abstract labels. 16:9.
+> Three floating frosted-glass rectangular cards drift and rotate gently in a calm dark void with soft moonlight-like glow. First card glows warm amber, second glows cyan, third glows soft parchment white. Clean reflections, minimal UI aesthetic, subtle depth of field. No text, no icons. 16:9.
 
 ---
 
 ### Clip 06 — Architecture Flow: Neon Data Diagram
-**Style:** Minimalist dark data-flow diagram with moving light.
+**Template:** `Videojuego`
 **Duration:** 8–10 s
 **Prompt:**
-> Minimalist dark data-flow diagram on black background. A small human figure icon on the left sends a glowing cyan pulse along a neon line to a central core, which branches into seven colored nodes. The pulse of light travels the path. Neon lines, subtle grid, tech-noir look. No text, no logos. 16:9.
+> Minimalist dark tech-noir data-flow diagram on black background. A small human figure icon on the left sends a glowing cyan pulse along a neon line to a central core, which branches into seven colored nodes. The pulse of light travels the path. Neon lines, subtle grid, video-game HUD feel. No text, no logos. 16:9.
 
 ---
 
 ### Clip 07 — Install & Workshop: Montage
-**Style:** Rapid montage, B&W with cyan accent.
+**Template:** `Montaje`
 **Duration:** 10–12 s
 **Prompt:**
-> Rapid cinematic montage. Shot 1: close-up of a laptop screen glowing cyan with terminal code scrolling. Shot 2: silhouettes of three people around a table in a dark workshop, a holographic dashboard projected on the wall. Shot 3: quick push-in on a hand typing. Mostly black and white with cyan light accents. Gritty, energetic, no text. 16:9.
+> Fast cinematic montage. Shot 1: close-up of a laptop screen glowing cyan with terminal code scrolling. Shot 2: silhouettes of three people around a table in a dark workshop, a holographic dashboard projected on the wall. Shot 3: quick push-in on hands typing. Mostly black and white with cyan and amber light accents. Gritty, energetic, no text. 16:9.
 
 ---
 
-### Clip 08 — Mission: Origami Light Network
-**Style:** Cinematic neon landscape + paper origami network.
+### Clip 08 — Mission: Cut-Paper Light Network
+**Template:** `Papel recortado`
 **Duration:** 10–12 s
 **Prompt:**
-> Cinematic wide shot of a vast dark landscape. A glowing cyan path of light starts as a single line in the foreground and splits into thousands of branching lines toward the horizon, like a growing network. Origami-paper light nodes fold open along the path. A large amber pulse glows in the distance. Epic, hopeful, no text. 16:9.
+> Cinematic wide shot in cut-paper style. A vast dark landscape. A glowing cyan path of light starts as a single line in the foreground and splits into thousands of branching lines toward the horizon, like a growing network. Paper-cut light nodes open along the path. A large amber pulse glows in the distance. Epic, hopeful, layered paper texture. No text. 16:9.
 
 ---
 
 ### Clip 09 — Closing: Symbolic Release
-**Style:** Minimal symbolic close-up.
+**Template:** `Cine negro`
 **Duration:** 6–8 s
 **Prompt:**
-> Extreme close-up of an open hand in a dark void. A small glowing cyan particle lifts from the palm and drifts upward, leaving a faint trail of light. Minimal, symbolic, hopeful. No text, no logos. 16:9.
+> Extreme close-up of an open hand in a dark noir void. A small glowing cyan particle lifts from the palm and drifts upward, leaving a faint trail of light. Minimal, symbolic, hopeful. No text, no logos. 16:9.
 
 ---
 
@@ -149,5 +162,11 @@ video-v2/assets/clip-09-closing.mp4
 
 If you generate more than 9, these are nice-to-have:
 
-- **clip-00-countdown.mp4** — abstract cyan countdown or pulse for the first 2 seconds before the hook.
-- **clip-10-logo.mp4** — clean reveal of "THE PARTENON" wordmark at the end.
+- **clip-00-countdown.mp4** — use template `Videojuego` or `Cómic` for an abstract cyan countdown or pulse before the hook.
+- **clip-10-logo.mp4** — use template `Luna` or `Cine negro` for a clean reveal of "THE PARTENON" wordmark at the end.
+
+---
+
+## Note on templates
+
+These prompts assume each Omni template has a default style and the text prompt controls the subject. If a template behaves better with an **image prompt** or **negative prompt**, let me know and I will rewrite the prompts for that input format.
