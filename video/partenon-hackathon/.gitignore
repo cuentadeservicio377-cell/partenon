@@ -1,0 +1,7 @@
+media/
+*.aiff
+*.mp3
+!voiceover.mp3
+partial_movie_files/
+__pycache__/
+*.pyc

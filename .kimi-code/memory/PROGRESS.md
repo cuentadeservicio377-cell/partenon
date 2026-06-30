@@ -2,6 +2,14 @@
 
 ## Session History
 
+### 2026-06-30 — Hackathon explainer video (2:28, English)
+- Discovered Hermes Agent local install (`~/.local/bin/hermes`) and video-related skills from the official skills catalog and optional skills catalog.
+- Installed/activated Hermes skills: `hyperframes` (motion-graphics/HTML-to-video), `kanban-video-orchestrator` (multi-agent pipeline planning), `manim-video` (3Blue1Brown-style animations).
+- Used `manim-video` via `hermes chat` to generate `video/partenon-hackathon/plan.md` and `script.py` from `ARTICLE.md`, `README.md`, `CAPABILITIES.md`, and `DESIGN.md`.
+- Rendered seven Manim scenes at 720p30, stitched with ffmpeg, and added English voiceover generated with macOS `say`.
+- Final output: `partenon-hackathon-video.mp4` (148.2 s, 1280x720, 30 fps, AAC audio). Preview frames extracted at 5s, 50s, and 120s.
+- Created `video/partenon-hackathon/.gitignore` to exclude Manim media cache and temp audio.
+
 ### 2026-06-30 — Save finalized article `THE PARTENON`
 - Saved the user's finalized article verbatim as `ARTICLE.md` at the repository root for use in the next phase.
 - Committed as `743d19e`.

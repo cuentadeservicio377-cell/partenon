@@ -1,0 +1,13 @@
+Most AI tools today are oracles. You ask. They answer. Then you go back to your spreadsheet, your inbox, and do the work yourself.
+
+Hermes is different. Hermes is an agent: it can act. But an agent without structure is just a clever assistant that wanders off. So I built a home for it. I called it The Partenon.
+
+The Partenon is a system of seven Hermes profiles that share one business context. The Scribe handles finance. The Herald handles communications. The Collector handles payments. The Guardian handles security. The Strategist handles operations. The Diplomat handles relationships. And the Brain holds the memory they all share.
+
+Every capability is tagged. LIVE runs the moment you install. CONNECT works after you add your own Stripe or Google credentials. ROADMAP is not built yet, and we say so on every card. No credentials are required to explore.
+
+A founder asks. Hermes routes the intent through partenon-core. The core dispatches the right hero. The hero calls the tool it needs: Google Workspace, Stripe, or G-Brain memory.
+
+You download the Partenon, configure the heroes you need, and run missions. The installer is idempotent. One hundred eighty-four tests pass. And if you want help, there is a free ninety-minute workshop where you leave with a live dashboard and a thirty-day plan.
+
+The goal is one million installations. Because every install means one more business spending less time on busywork and more time on product, customers, and growth. The repo is open. Hermes is the agent. The Partenon is the home. Open source must win.

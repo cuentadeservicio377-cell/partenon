@@ -126,6 +126,10 @@ Verification:
 ## Completed
 
 - [x] Synthesize final master plan from 8-way architecture swarm
+- [x] Create hackathon explainer video (2:28, English, Manim + Hermes `manim-video` skill)
+  - Files: `video/partenon-hackathon/plan.md`, `script.py`, `voiceover.txt`
+  - Output: `partenon-hackathon-video.mp4` (1280x720, 30 fps, AAC narration)
+  - Skills used: `manim-video` (plan + code), `kanban-video-orchestrator` (discovery), `hyperframes` (evaluated for motion-graphics pipeline)
 - [x] Write `docs/superpowers/plans/2026-06-28-partenon-final-master-plan.md`
 - [x] Write `docs/CAPABILITIES.md` as single source of truth
 
