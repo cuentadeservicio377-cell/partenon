@@ -130,25 +130,27 @@ Verification:
   - Files: `video/partenon-hackathon/plan.md`, `script.py`, `voiceover.txt`
   - Output: `partenon-hackathon-video.mp4` (1280x720, 30 fps, AAC narration)
   - Skills used: `manim-video` (plan + code), `kanban-video-orchestrator` (discovery), `hyperframes` (evaluated for motion-graphics pipeline)
+  - Removed from repo root in favor of `video-v2/` final
 - [x] Write `docs/superpowers/plans/2026-06-28-partenon-final-master-plan.md`
 - [x] Write `docs/CAPABILITIES.md` as single source of truth
 
 ---
 
-## Video v2 — AI-Generated Clips (post-hackathon promo)
+## Video v2 — AI-Generated Clips (post-hackathon promo) ✅ CLOSED
 
 - [x] Evaluate Pixelle-Video as alternative video pipeline
 - [x] Design non-literal script and visual concept for video v2
 - [x] Write `video-v2/STORYBOARD_VIDEOS.md` with Gemini Omni templates + prompts
   - Maps each scene to real Omni templates: Cine negro, Origami, Concepto científico, Efectos de garabato, Luna, Videojuego, Montaje, Papel recortado
 - [x] Write `video-v2/OMNI_CLIP_CHEATSHEET.md` for copy-paste generation
-- [x] Write `video-v2/ELEVENLABS_SCRIPT.md` (SSML narration)
+- [x] Write `video-v2/ELEVENLABS_SETTINGS.md` (ElevenLabs voice/model/script)
 - [x] Write `video-v2/EPIDEMIC_SOUND_PROMPT.md` (music brief)
-- [ ] Generate video clips with Gemini Omni from the template+prompt pairs
-- [ ] Generate narration with ElevenLabs from `ELEVENLABS_SCRIPT.md`
-- [ ] Select and download Epidemic Sound track matching the prompt
-- [ ] Assemble final video with ffmpeg: clip trim/loop, text overlays, sync narration, mix music
-- [ ] Export `partenon-hackathon-video-v2.mp4` in 1920×1080 24–30 fps
+- [x] Generate video clips with Gemini Omni from the template+prompt pairs
+- [x] Generate narration with ElevenLabs from `ELEVENLABS_SETTINGS.md`
+- [x] Assemble final video with ffmpeg: clip trim/loop, sync narration, mix user-exported sound
+- [x] Add Partenon logo intro/outro
+- [x] Export `video-v2/assets/final/partenon-hackathon-video-v2-final.mp4` (720×1280, 24 fps, ~85 s)
+- [x] Push video v2 assets and updated README to GitHub (`git push origin main`)
 
 ## Parking Lot
 

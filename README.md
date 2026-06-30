@@ -223,6 +223,18 @@ The fastest way to get a working Partenon is the free 90-minute workshop. It wal
 
 ---
 
+## Hackathon video v2
+
+A vertical 9:16 explainer built from AI-generated clips (Gemini Omni), ElevenLabs voiceover, and the Partenon cover as intro/outro.
+
+- **Final video:** [`video-v2/assets/final/partenon-hackathon-video-v2-final.mp4`](video-v2/assets/final/partenon-hackathon-video-v2-final.mp4) (720×1280, 24 fps, stereo AAC, ~85 s)
+- **Storyboard + prompts:** [`video-v2/STORYBOARD_VIDEOS.md`](video-v2/STORYBOARD_VIDEOS.md)
+- **Omni copy-paste prompts:** [`video-v2/OMNI_PROMPTS.txt`](video-v2/OMNI_PROMPTS.txt)
+- **ElevenLabs settings:** [`video-v2/ELEVENLABS_SETTINGS.md`](video-v2/ELEVENLABS_SETTINGS.md)
+- **Assembly script:** [`video-v2/assemble.py`](video-v2/assemble.py)
+
+---
+
 ## Repository structure
 
 ```text
