@@ -12,6 +12,7 @@
 - **Repo**: `https://github.com/cuentadeservicio377-cell/partenon`
 - **Profiles**: Scribe/Treasurer, Herald/Messenger, Collector, Guardian, Strategist, Diplomat, Brain.
 - **Verified**: `pytest tests/` PASS (184 tests), `bash -n install.sh` PASS, `cd dashboard && npm run build` PASS, HTML parse check PASS for all four public pages.
+- **Saved article**: `ARTICLE.md` — finalized article for the next phase, committed at `743d19e`.
 - **Next**: Phase 7b — create `web/capabilities.html` from `docs/CAPABILITIES.md` and refresh README screenshots. Then return to the functional eval loop and publishing/dispatch integrations.
 
 ## Braindump

@@ -2,6 +2,10 @@
 
 ## Session History
 
+### 2026-06-30 — Save finalized article `THE PARTENON`
+- Saved the user's finalized article verbatim as `ARTICLE.md` at the repository root for use in the next phase.
+- Committed as `743d19e`.
+
 ### 2026-06-30 — README update after Phase 7 website reality
 - Updated `README.md` to reflect the four-page static site (`index.html`, `heroes.html`, `developers.html`, `workshop.html`).
 - Added workshop badge and public mission statement: install 1 million Hermes profiles.
