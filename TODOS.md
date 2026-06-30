@@ -135,6 +135,19 @@ Verification:
 
 ---
 
+## Video v2 — AI-Generated Clips (post-hackathon promo)
+
+- [x] Evaluate Pixelle-Video as alternative video pipeline
+- [x] Design non-literal script and visual concept for video v2
+- [x] Write `video-v2/STORYBOARD_VIDEOS.md` with Gemini Omni clip prompts
+- [x] Write `video-v2/ELEVENLABS_SCRIPT.md` (SSML narration)
+- [x] Write `video-v2/EPIDEMIC_SOUND_PROMPT.md` (music brief)
+- [ ] Generate video clips with Gemini Omni / Veo from the provided prompts
+- [ ] Generate narration with ElevenLabs from `ELEVENLABS_SCRIPT.md`
+- [ ] Select and download Epidemic Sound track matching the prompt
+- [ ] Assemble final video with ffmpeg: clip trim/loop, text overlays, sync narration, mix music
+- [ ] Export `partenon-hackathon-video-v2.mp4` in 1920×1080 24–30 fps
+
 ## Parking Lot
 
 _Discoveries made during planning that are NOT in the current phase_
