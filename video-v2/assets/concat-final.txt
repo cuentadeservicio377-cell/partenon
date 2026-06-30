@@ -1,3 +1,0 @@
-file '/Users/pablomeneses/Documents/Kimi Code/Partenon/video-v2/assets/clips/logo-intro.mp4'
-file '/Users/pablomeneses/Documents/Kimi Code/Partenon/video-v2/assets/final/export.mp4'
-file '/Users/pablomeneses/Documents/Kimi Code/Partenon/video-v2/assets/clips/logo-outro.mp4'
