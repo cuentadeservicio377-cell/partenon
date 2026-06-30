@@ -1,0 +1,195 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <!-- Background gradient: subtle OLED vertical fade -->
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#08080C"/>
+      <stop offset="0.5" stop-color="#050505"/>
+      <stop offset="1" stop-color="#020203"/>
+    </linearGradient>
+
+    <!-- Radial accent orb (subtle, per DESIGN.md) -->
+    <radialGradient id="orb-cyan" cx="0.5" cy="0.4" r="0.6">
+      <stop offset="0" stop-color="#00D4FF" stop-opacity="0.10"/>
+      <stop offset="0.5" stop-color="#00D4FF" stop-opacity="0.04"/>
+      <stop offset="1" stop-color="#00D4FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orb-amber" cx="0.5" cy="0.65" r="0.5">
+      <stop offset="0" stop-color="#FFB800" stop-opacity="0.05"/>
+      <stop offset="1" stop-color="#FFB800" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Noise overlay (fixed, per anti-slop rules) -->
+    <filter id="noise" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="3"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.035 0"/>
+    </filter>
+
+    <!-- Column gradient: cyan with subtle metallic feel -->
+    <linearGradient id="col-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#00D4FF"/>
+      <stop offset="0.5" stop-color="#00B8E6"/>
+      <stop offset="1" stop-color="#0091B0"/>
+    </linearGradient>
+
+    <!-- Pediment gradient: amber accent -->
+    <linearGradient id="ped-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFB800"/>
+      <stop offset="1" stop-color="#CC9200"/>
+    </linearGradient>
+
+    <!-- Inner panel -->
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0E0E14"/>
+      <stop offset="1" stop-color="#08080C"/>
+    </linearGradient>
+
+    <!-- Glow filter for the central star -->
+    <filter id="star-glow" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+
+  <!-- Background layers -->
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#orb-cyan)"/>
+  <rect width="1600" height="900" fill="url(#orb-amber)"/>
+  <rect width="1600" height="900" filter="url(#noise)" opacity="1"/>
+
+  <!-- Subtle grid: 1px hairlines, very low opacity (Nous-style) -->
+  <g stroke="rgba(255,255,255,0.025)" stroke-width="1">
+    <line x1="0" y1="225" x2="1600" y2="225"/>
+    <line x1="0" y1="450" x2="1600" y2="450"/>
+    <line x1="0" y1="675" x2="1600" y2="675"/>
+    <line x1="400" y1="0" x2="400" y2="900"/>
+    <line x1="800" y1="0" x2="800" y2="900"/>
+    <line x1="1200" y1="0" x2="1200" y2="900"/>
+  </g>
+
+  <!-- Central composition: temple -->
+  <g transform="translate(800, 480)">
+
+    <!-- Outer base: 3 stepped levels (stylobate) -->
+    <rect x="-360" y="160" width="720" height="22" rx="3" fill="#0E0E14" stroke="rgba(255,255,255,0.10)" stroke-width="1"/>
+    <rect x="-330" y="138" width="660" height="22" rx="3" fill="#111118" stroke="rgba(255,255,255,0.10)" stroke-width="1"/>
+    <rect x="-300" y="116" width="600" height="22" rx="3" fill="url(#panel)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+
+    <!-- 7 columns: each with capital and fluting detail -->
+    <!-- Each column is 36 wide, spaced 76 apart, total 6 gaps = 456 wide, centered at 0 -->
+    <!-- Column 1 -->
+    <g>
+      <rect x="-228" y="-90" width="36" height="206" rx="3" fill="url(#col-grad)"/>
+      <rect x="-234" y="-100" width="48" height="10" rx="2" fill="#E8E8ED"/>
+      <rect x="-234" y="116" width="48" height="10" rx="2" fill="#E8E8ED"/>
+      <!-- subtle fluting lines -->
+      <line x1="-220" y1="-90" x2="-220" y2="116" stroke="rgba(255,255,255,0.20)" stroke-width="0.5"/>
+      <line x1="-210" y1="-90" x2="-210" y2="116" stroke="rgba(0,0,0,0.20)" stroke-width="0.5"/>
+      <line x1="-200" y1="-90" x2="-200" y2="116" stroke="rgba(255,255,255,0.20)" stroke-width="0.5"/>
+    </g>
+    <!-- Column 2 -->
+    <g>
+      <rect x="-152" y="-90" width="36" height="206" rx="3" fill="url(#col-grad)"/>
+      <rect x="-158" y="-100" width="48" height="10" rx="2" fill="#E8E8ED"/>
+      <rect x="-158" y="116" width="48" height="10" rx="2" fill="#E8E8ED"/>
+      <line x1="-144" y1="-90" x2="-144" y2="116" stroke="rgba(255,255,255,0.20)" stroke-width="0.5"/>
+      <line x1="-134" y1="-90" x2="-134" y2="116" stroke="rgba(0,0,0,0.20)" stroke-width="0.5"/>
+      <line x1="-124" y1="-90" x2="-124" y2="116" stroke="rgba(255,255,255,0.20)" stroke-width="0.5"/>
+    </g>
+    <!-- Column 3 -->
+    <g>
+      <rect x="-76" y="-90" width="36" height="206" rx="3" fill="url(#col-grad)"/>
+      <rect x="-82" y="-100" width="48" height="10" rx="2" fill="#E8E8ED"/>
+      <rect x="-82" y="116" width="48" height="10" rx="2" fill="#E8E8ED"/>
+      <line x1="-68" y1="-90" x2="-68" y2="116" stroke="rgba(255,255,255,0.20)" stroke-width="0.5"/>
+      <line x1="-58" y1="-90" x2="-58" y2="116" stroke="rgba(0,0,0,0.20)" stroke-width="0.5"/>
+      <line x1="-48" y1="-90" x2="-48" y2="116" stroke="rgba(255,255,255,0.20)" stroke-width="0.5"/>
+    </g>
+    <!-- Column 4 (central, slightly taller) -->
+    <g>
+      <rect x="0" y="-100" width="36" height="216" rx="3" fill="url(#col-grad)"/>
+      <rect x="-6" y="-110" width="48" height="10" rx="2" fill="#E8E8ED"/>
+      <rect x="-6" y="116" width="48" height="10" rx="2" fill="#E8E8ED"/>
+      <line x1="8" y1="-100" x2="8" y2="116" stroke="rgba(255,255,255,0.20)" stroke-width="0.5"/>
+      <line x1="18" y1="-100" x2="18" y2="116" stroke="rgba(0,0,0,0.20)" stroke-width="0.5"/>
+      <line x1="28" y1="-100" x2="28" y2="116" stroke="rgba(255,255,255,0.20)" stroke-width="0.5"/>
+    </g>
+    <!-- Column 5 -->
+    <g>
+      <rect x="76" y="-90" width="36" height="206" rx="3" fill="url(#col-grad)"/>
+      <rect x="70" y="-100" width="48" height="10" rx="2" fill="#E8E8ED"/>
+      <rect x="70" y="116" width="48" height="10" rx="2" fill="#E8E8ED"/>
+      <line x1="84" y1="-90" x2="84" y2="116" stroke="rgba(255,255,255,0.20)" stroke-width="0.5"/>
+      <line x1="94" y1="-90" x2="94" y2="116" stroke="rgba(0,0,0,0.20)" stroke-width="0.5"/>
+      <line x1="104" y1="-90" x2="104" y2="116" stroke="rgba(255,255,255,0.20)" stroke-width="0.5"/>
+    </g>
+    <!-- Column 6 -->
+    <g>
+      <rect x="152" y="-90" width="36" height="206" rx="3" fill="url(#col-grad)"/>
+      <rect x="146" y="-100" width="48" height="10" rx="2" fill="#E8E8ED"/>
+      <rect x="146" y="116" width="48" height="10" rx="2" fill="#E8E8ED"/>
+      <line x1="160" y1="-90" x2="160" y2="116" stroke="rgba(255,255,255,0.20)" stroke-width="0.5"/>
+      <line x1="170" y1="-90" x2="170" y2="116" stroke="rgba(0,0,0,0.20)" stroke-width="0.5"/>
+      <line x1="180" y1="-90" x2="180" y2="116" stroke="rgba(255,255,255,0.20)" stroke-width="0.5"/>
+    </g>
+    <!-- Column 7 -->
+    <g>
+      <rect x="228" y="-90" width="36" height="206" rx="3" fill="url(#col-grad)"/>
+      <rect x="222" y="-100" width="48" height="10" rx="2" fill="#E8E8ED"/>
+      <rect x="222" y="116" width="48" height="10" rx="2" fill="#E8E8ED"/>
+      <line x1="236" y1="-90" x2="236" y2="116" stroke="rgba(255,255,255,0.20)" stroke-width="0.5"/>
+      <line x1="246" y1="-90" x2="246" y2="116" stroke="rgba(0,0,0,0.20)" stroke-width="0.5"/>
+      <line x1="256" y1="-90" x2="256" y2="116" stroke="rgba(255,255,255,0.20)" stroke-width="0.5"/>
+    </g>
+
+    <!-- Architrave: above the columns -->
+    <rect x="-300" y="-110" width="600" height="20" rx="3" fill="url(#panel)" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+
+    <!-- Pediment: triangle on top, amber outline -->
+    <path d="M-340 -110 L0 -210 L340 -110 Z" fill="url(#panel)" stroke="url(#ped-grad)" stroke-width="10" stroke-linejoin="round"/>
+
+    <!-- Pediment inner detail: subtle line indicating tympanum -->
+    <path d="M-240 -110 L0 -180 L240 -110" fill="none" stroke="rgba(255,184,0,0.30)" stroke-width="2"/>
+
+    <!-- Central star: amber, with subtle glow -->
+    <circle cx="0" cy="-148" r="16" fill="#FFB800" filter="url(#star-glow)" opacity="0.6"/>
+    <circle cx="0" cy="-148" r="11" fill="#FFB800"/>
+    <circle cx="0" cy="-148" r="5" fill="#FFE699"/>
+
+    <!-- Subtle "P" monogram inside the pediment, very faint -->
+    <text x="0" y="-128" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, JetBrains Mono, monospace" font-size="20" font-weight="500" fill="rgba(255,184,0,0.40)" letter-spacing="0.15em">P</text>
+
+  </g>
+
+  <!-- Top-left meta tag: HACKATHON context -->
+  <g transform="translate(80, 80)">
+    <line x1="0" y1="0" x2="40" y2="0" stroke="#00D4FF" stroke-width="2"/>
+    <text x="56" y="6" font-family="ui-monospace, SFMono-Regular, JetBrains Mono, monospace" font-size="14" font-weight="500" fill="#E8E8ED" letter-spacing="0.18em">THE PARTENON</text>
+    <text x="56" y="28" font-family="ui-monospace, SFMono-Regular, JetBrains Mono, monospace" font-size="11" font-weight="400" fill="rgba(232,232,237,0.50)" letter-spacing="0.14em">NOUS × NVIDIA × STRIPE</text>
+  </g>
+
+  <!-- Top-right meta tag: status -->
+  <g transform="translate(1520, 80)" text-anchor="end">
+    <text x="0" y="6" font-family="ui-monospace, SFMono-Regular, JetBrains Mono, monospace" font-size="14" font-weight="500" fill="#FFB800" letter-spacing="0.18em">v1.0.0</text>
+    <text x="0" y="28" font-family="ui-monospace, SFMono-Regular, JetBrains Mono, monospace" font-size="11" font-weight="400" fill="rgba(232,232,237,0.50)" letter-spacing="0.14em">OPEN SOURCE · LIVE</text>
+  </g>
+
+  <!-- Bottom-left URL: prominent -->
+  <g transform="translate(80, 820)">
+    <line x1="0" y1="-20" x2="40" y2="-20" stroke="#FFB800" stroke-width="2"/>
+    <text x="0" y="6" font-family="ui-monospace, SFMono-Regular, JetBrains Mono, monospace" font-size="22" font-weight="500" fill="#E8E8ED" letter-spacing="0.04em">hermespartenon.online</text>
+    <text x="0" y="32" font-family="ui-monospace, SFMono-Regular, JetBrains Mono, monospace" font-size="12" font-weight="400" fill="rgba(232,232,237,0.45)" letter-spacing="0.10em">A WORKING HEADQUARTERS FOR HERMES</text>
+  </g>
+
+  <!-- Bottom-right: small mark -->
+  <g transform="translate(1520, 820)" text-anchor="end">
+    <text x="0" y="6" font-family="ui-monospace, SFMono-Regular, JetBrains Mono, monospace" font-size="12" font-weight="400" fill="rgba(232,232,237,0.45)" letter-spacing="0.10em">github.com/cuentadeservicio377-cell/partenon</text>
+  </g>
+
+  <!-- Corner hairlines (Nous-style technical drawing) -->
+  <g stroke="rgba(232,232,237,0.20)" stroke-width="1" fill="none">
+    <path d="M 40 40 L 40 80 M 40 40 L 80 40"/>
+    <path d="M 1560 40 L 1560 80 M 1560 40 L 1520 40"/>
+    <path d="M 40 860 L 40 820 M 40 860 L 80 860"/>
+    <path d="M 1560 860 L 1560 820 M 1560 860 L 1520 860"/>
+  </g>
+
+</svg>
