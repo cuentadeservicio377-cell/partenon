@@ -152,14 +152,6 @@ Verification:
 - [x] Export `video-v2/assets/final/partenon-hackathon-video-v2-final.mp4` (720×1280, 24 fps, ~85 s)
 - [x] Push video v2 assets and updated README to GitHub (`git push origin main`)
 
-## Outreach
-
-- [in_progress] Write Nous Research letter of intent for Implementation Researcher, Hermes Agent Ecosystem
-  - Draft: `docs/nous-research-letter-of-intent.md`
-  - Spec: `docs/superpowers/specs/2026-06-30-nous-letter-design.md`
-  - Tone: direct, conversational, anti-slop; English for Nous audience
-  - Links: Partenon site, workshop page, GitHub repo, LinkedIn
-
 ## Parking Lot
 
 _Discoveries made during planning that are NOT in the current phase_
