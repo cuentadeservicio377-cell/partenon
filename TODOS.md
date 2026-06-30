@@ -141,6 +141,7 @@ Verification:
 - [x] Design non-literal script and visual concept for video v2
 - [x] Write `video-v2/STORYBOARD_VIDEOS.md` with Gemini Omni templates + prompts
   - Maps each scene to real Omni templates: Cine negro, Origami, Concepto científico, Efectos de garabato, Luna, Videojuego, Montaje, Papel recortado
+- [x] Write `video-v2/OMNI_CLIP_CHEATSHEET.md` for copy-paste generation
 - [x] Write `video-v2/ELEVENLABS_SCRIPT.md` (SSML narration)
 - [x] Write `video-v2/EPIDEMIC_SOUND_PROMPT.md` (music brief)
 - [ ] Generate video clips with Gemini Omni from the template+prompt pairs
