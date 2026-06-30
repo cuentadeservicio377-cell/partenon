@@ -1,0 +1,11 @@
+[
+  {"id": "01", "name": "Hook", "clip": "clip-01-hook.mp4", "duration": 4.33},
+  {"id": "02", "name": "Problem", "clip": "clip-02-problem.mp4", "duration": 11.26},
+  {"id": "03", "name": "Home", "clip": "clip-03-home.mp4", "duration": 7.37},
+  {"id": "04", "name": "Heroes", "clip": "clip-04-heroes.mp4", "duration": 18.19},
+  {"id": "05", "name": "Tags", "clip": "clip-05-tags.mp4", "duration": 9.10},
+  {"id": "06", "name": "HowTo", "clip": "clip-06-flow.mp4", "duration": 12.13},
+  {"id": "07", "name": "Workshop", "clip": "clip-07-workshop.mp4", "duration": 9.10},
+  {"id": "08", "name": "Mission", "clip": "clip-08-mission.mp4", "duration": 9.10},
+  {"id": "09", "name": "Closing", "clip": "clip-09-closing.mp4", "duration": 5.20}
+]
